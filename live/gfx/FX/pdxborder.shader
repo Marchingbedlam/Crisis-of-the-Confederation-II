@@ -101,7 +101,7 @@ PixelShader =
 				// Diffuse.rgb = ApplyFogOfWar( Diffuse.rgb, Input.WorldSpacePos, FogOfWarAlpha );
 				// Diffuse.rgb = ApplyDistanceFog( Diffuse.rgb, Input.WorldSpacePos );
 				// ENDMOD
-				Diffuse.a *= _Alpha;
+				Diffuse.a *= _Alpha * smoothstep(10, 100, CameraPosition.y);
 
 				// Apply shadows, only if we're fully in flat-map mode
  				if ( HasFlatMapLightingEnabled == 1 && FlatMapLerp > 0.0 )

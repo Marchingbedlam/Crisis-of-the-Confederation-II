@@ -187,7 +187,7 @@ PixelShader =
 			PDX_MAIN
 			{
 				float2 ColorMapCoords =  Input.WorldSpacePos.xz *  WorldSpaceToTerrain0To1;
-				float ProvinceStrength = smoothstep( 50, 100, CameraPosition.y );
+				float ProvinceStrength = smoothstep( 10, 75, CameraPosition.y );
 
 				float3 ProvinceOverlayColor;
 				float PreLightingBlend;
@@ -250,7 +250,7 @@ PixelShader =
 				SMaterialProperties MaterialProps = GetMaterialProperties( Diffuse.rgb, Normal, Properties.a, Properties.g, Properties.b );
 				SLightingProperties LightingProps = GetSunLightingProperties( Input.WorldSpacePos, ShadowTexture );
 				
-				float ProvinceStrength = smoothstep(50, 100, CameraPosition.y);
+				float ProvinceStrength = smoothstep(10, 75, CameraPosition.y);
 				float3 Color = cotc_CalculateSunLighting( MaterialProps, LightingProps, EnvironmentMap, ProvinceStrength );
 				float Alpha = Diffuse.a;
 
@@ -259,6 +259,10 @@ PixelShader =
 				float PostLightingBlend;
 				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend );
 				float3 ToCameraDir = normalize( Input.WorldSpacePos.xyz - CameraPosition );
+
+				#if defined( COTC_HEX )
+					Alpha = Alpha * ProvinceStrength;
+				#endif
 
 				#if defined( COTC_OUTER_FRESNEL ) || defined( COTC_FAR_OUTER_FRESNEL ) || defined( COTC_INNER_FRESNEL )
 					float4 AtmoColor = PdxTex2D( AtmosphereMap, DIFFUSE_UV_SET );
@@ -369,6 +373,33 @@ Effect cotc_standard_selection_mapobject
 	PixelShader = "COTC_PS_standard"
 	BlendState = "alpha_to_coverage"
 	Defines = { "COTC_NO_SHADOW" }
+	DepthStencilState = DepthStencilState
+}
+
+Effect cotc_hex
+{
+	VertexShader = "COTC_VS_standard"
+	PixelShader = "COTC_PS_standard"
+	BlendState = "alpha_to_coverage"
+	Defines = { "COTC_NO_SHADOW" "COTC_HEX" }
+	DepthStencilState = DepthStencilState
+}
+
+Effect cotc_hex_mapobject
+{
+	VertexShader = "COTC_VS_mapobject"
+	PixelShader = "COTC_PS_standard"
+	BlendState = "alpha_to_coverage"
+	Defines = { "COTC_NO_SHADOW" "COTC_HEX" }
+	DepthStencilState = DepthStencilState
+}
+
+Effect cotc_hex_selection_mapobject
+{
+	VertexShader = "COTC_VS_mapobject"
+	PixelShader = "COTC_PS_standard"
+	BlendState = "alpha_to_coverage"
+	Defines = { "COTC_NO_SHADOW" "COTC_HEX" }
 	DepthStencilState = DepthStencilState
 }
 
