@@ -200,6 +200,7 @@ PixelShader =
 				if( ProvinceOverlayColor.r > 0.0 )
 				{
 					Color = ProvinceOverlayColor;
+					cotc_ApplyHighlightColor(Color, ColorMapCoords);
 				}
 				else
 				{
