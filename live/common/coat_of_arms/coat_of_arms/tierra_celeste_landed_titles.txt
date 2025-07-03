@@ -36,12 +36,13 @@ d_bolivar = {
 }
 
 d_calima = {
-	pattern="pattern_solid.dds"
+	pattern="pattern_circle.dds"
 	color1=yellow
+	color2=white
 	colored_emblem={
 		color1=red
 		texture="tierra_celeste/tierran_star.dds"
-		instance = { position = { 0.5 0.5 } scale = { 1.0 1.0 }  }
+		instance = { position = { 0.5 0.52 } scale = { 1.0 1.0 }  }
 	}
 }
 
@@ -57,5 +58,50 @@ d_sexto_sol = {
 		color1=orange
 		texture="tierra_celeste/sexto_sol.dds"
 		instance = { position = { 0.5 0.5 } scale = { 0.75 0.75 }  }
+	}
+}
+
+d_encrucijada = {
+	pattern="pattern_cross.dds"
+	color1=red
+	color2=yellow
+	colored_emblem={
+		color1=white
+		texture="tierra_celeste/sexto_sol.dds"
+		instance = { position = { 0.5 0.4 } scale = { 0.4 0.4 }  }
+	}
+	colored_emblem={
+		color1=yellow
+		texture="tierra_celeste/tierran_star.dds"
+		instance = { position = { 0.5 0.41 } scale = { 0.6 0.6 }  }
+	}
+}
+
+d_frontera = {
+	pattern="pattern_planet.dds"
+	color1=yellow_dark
+	color2=yellow
+	color3=pale_blue
+	colored_emblem={
+		color1=yellow_dark
+		texture="tierra_celeste/sexto_sol.dds"
+		instance = { position = { 0.45 0.35 } scale = { 0.2 0.2 }  }
+	}
+	colored_emblem={
+		color1=grey
+		texture="tierra_celeste/sexto_sol.dds"
+		instance = { position = { 0.6 0.3 } scale = { 0.1 0.1 }  }
+	}
+}
+
+d_libertad = {
+	pattern="pattern_tricolor_bend_thick_cotc.dds"
+	color1=red
+	color2=yellow
+	color3=white
+	colored_emblem={
+		color1=black
+		texture="tierra_celeste/tierran_star.dds"
+		instance = { scale = { 0.7 0.7 }  rotation = 30 }
 	}
 }
