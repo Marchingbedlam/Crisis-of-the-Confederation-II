@@ -1,3 +1,74 @@
 ﻿NJominiMap = {
 	WATERLEVEL = 0.0
 }
+
+NGame = {
+	END_DATE = "3308.1.1"
+	GAME_SPEED_TICKS = {	# how many seconds should a day take in every game speed
+		2
+		1
+		0.5
+		0.2
+		0.0
+	}
+	LAG_DECREASE_SPEED_DAYS = 15	# how many days of client lag will cause a speed decrease
+	LAG_PAUSE_DAYS = 30				# how many days should pass will cause a pause
+
+	MULTIPLAYER_EVENT_TIME_OUT = 90 # how many days an event in multiplayer will be around before auto-selecting an option
+	COURT_EVENT_TIME_OUT = 180 # how many days a court event will be around before auto-selecting an option, applies to single and multi player
+
+	BENCHMARK_TEST_DURATION = 135					# How long, in seconds, should a benchmark test using "-benchmark" last?
+	BENCHMARK_INTERFACE_INTERVAL = 5.0				# How long, in seconds, should the benchmark wait before changing the open UI window?
+	BENCHMARK_OBSERVE_CHARACTER = k_england			# Which character should be observed?
+
+	# Where should we pan the camera?
+	BENCHMARK_WAYPOINTS = {
+		# First number is x
+		# Second is y
+		# Third is zoom level
+		# Fourth is how much time to spend traveling between the waypoint and the next
+		700 3000 2 5
+		1000 2500 7 5
+		1000 2300 2 5
+		700 2000 5 1
+		1200 2000 30 1
+		1500 1800 7 5
+		1900 2200 5 5
+		1500 2400 7 5
+		2200 2700 7 5
+		2500 3500 2 4
+		1850 3700 2 4
+		1650 3200 2 1
+	}
+}
+
+NSetup = {
+	# chance that a courtless character is sent to a court as a guest instead of a regular courtier on game start (0..1)
+	COURTLESS_CHARACTER_GUEST_CHANCE = 0
+	# Random range for number of characters per pool (duchy) generated at the start of the game
+	GENERATED_POOL_CHARACTERS = { 6 10 }
+	# Templates used for the pool character. The weights correspond to the template names at the same index.
+	# The scope of the template is a random ruler whose capital is in that pool.
+	GENERATED_POOL_CHARACTER_TEMPLATES = {
+		"pool_repopulate_spouse"
+		"pool_repopulate_prowess"
+		"pool_repopulate_diplomacy"
+		"pool_repopulate_martial"
+		"pool_repopulate_stewardship"
+		"pool_repopulate_intrigue"
+		"pool_repopulate_learning"
+		"pool_repopulate_local_flavor"
+	}
+	GENERATED_POOL_CHARACTER_TEMPLATE_WEIGHTS = {
+		2
+		5
+		1
+		1
+		1
+		1
+		1
+		5
+	}
+	DESIRED_NEIGHBOR_POOLS = 4		# How many pools should we try to consider bordering? Pools bordering the sea will consider pools further removed by sea neighboring until this number is hit, or MAX_POOL_NEIGHBOR_DISTANCE is hit
+	MAX_POOL_NEIGHBOR_DISTANCE = 3	# How many sea zones away can we search at most?
+}
