@@ -15,7 +15,7 @@
 		requires_dlc_flag = hybridize_culture
 	}
 	
-	name_list = name_list_castilian
+	name_list = name_list_castilian #Need to make a custom namelist eventually
 	name_list = name_list_portuguese
 	
 	coa_gfx = { castilian_coa_gfx iberian_group_coa_gfx western_coa_gfx }
@@ -43,5 +43,44 @@
 		3 = black_indigenous
 		15 = med_black_ind
 		3 = multiracial
+	}
+}
+
+sexto_solar = {
+	color = { 219 194 127 }
+
+	ethos = ethos_spiritual #Identical to Celestian, change later
+	heritage = heritage_core_worlder
+	language = language_sexto_solar
+	martial_custom = martial_custom_equal
+	head_determination = head_determination_domain
+	traditions = { #Identical to Celestian, change later
+		tradition_religious_patronage
+	}
+
+	dlc_tradition = {
+		trait = tradition_culture_blending
+		requires_dlc_flag = hybridize_culture
+	}
+	
+	name_list = name_list_castilian #Need to make a custom namelist eventually
+	
+	coa_gfx = { castilian_coa_gfx iberian_group_coa_gfx western_coa_gfx }
+	building_gfx = { iberian_building_gfx }
+	clothing_gfx = { iberian_christian_clothing_gfx western_clothing_gfx }
+	unit_gfx = { iberian_christian_unit_gfx }
+	
+	ethnicities = { #Could maybe be a bit more diverse?
+		
+		25 = mesoamerican_yuto_aztec
+		25 = mesoamerican_maya
+		25 = mesoamerican_mixe_zoque
+		1 = asian_southern_han
+		1 = asian_austronesian
+		5 = mediterranean
+		5 = black_indigenous
+		5 = med_black_ind
+		3 = multiracial
+		3 = african
 	}
 }
