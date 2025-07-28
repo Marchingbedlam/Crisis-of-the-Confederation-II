@@ -190,9 +190,6 @@ BlendState BlendState
 	BlendEnable = yes
 	SourceBlend = "SRC_ALPHA"
 	DestBlend = "INV_SRC_ALPHA"
-	# MOD(COTC)
-	AlphaToCoverage = yes
-	# ENDMOD
 	WriteMask = "RED|GREEN|BLUE"
 }
 
@@ -205,10 +202,7 @@ RasterizerState RasterizerState
 
 DepthStencilState DepthStencilState
 {
-	# MOD(COTC)
-	# DepthEnable = no
-	DepthEnable = yes
-	# ENDMOD
+	DepthEnable = no
 	StencilEnable = yes
 	FrontStencilFunc = not_equal
 	StencilRef = 1
