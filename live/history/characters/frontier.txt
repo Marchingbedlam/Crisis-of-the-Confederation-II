@@ -12,3 +12,61 @@
 		death = yes
 	}
 }
+frontier_0001 = {
+	# President of the Frontier
+	name = "Chaisika"
+	dynasty = dynn_Aizuars
+	female = yes
+	
+	culture = anglo_frontiersman
+	religion = terran_federalist
+	
+	trait = proud
+	
+	2948.1.1 = { birth = yes }
+	3007.4.12 = { death = yes }
+}
+
+frontier_0002 = {
+	# Commander of the Frontier Space Command
+	name = "Katharin"
+	dynasty = dynn_Aizuars
+	female = yes
+	
+	culture = anglo_frontiersman
+	religion = terran_federalist
+	
+	trait = skilled_tactician
+	trait = warship_captain
+	trait = ambitious
+	trait = proud
+	
+	mother = frontier_0001 # Chaisika Aizuars
+	
+	2978.1.1 = { birth = yes }
+	3008.1.1 = { 
+		effect = {
+			k_new_frontier = { add_claim = ROOT } 
+			k_terran_commonwealth = { add_claim = ROOT }
+			k_zeyne_nyota_angani = { add_claim = ROOT }
+			add_trait = warlord
+		}	
+	}	
+}
+
+frontier_0003 = {
+	# Commander of the Frontier Space Command
+	name = "Chaisika"
+	dynasty = dynn_Aizuars
+	female = yes
+	
+	culture = anglo_frontiersman
+	religion = terran_federalist
+	
+	trait = ambitious
+	trait = proud
+	
+	mother = frontier_0002 # Katharin Aizuars
+	
+	3007.11.11 = { birth = yes }
+}
