@@ -1,0 +1,54 @@
+xingjie_0001 = {
+	# President of Xingjie
+	name = "Qian"
+	dynasty = dynn_Chenn
+	female = yes
+	
+	culture = sino_xingjie
+	religion = terran_federalist
+	
+	2954.1.1 = { birth = yes }
+	3008.1.1 = { 
+		trait = warlord
+		religion = bio_directionist
+	}
+}
+xingjie_0002 = {
+	# Child of Qian Chen
+	name = "Bo"
+	dynasty = dynn_Chenn
+	
+	culture = sino_xingjie
+	religion = terran_republican
+	trait = agile
+	trait = ambitious
+	trait = close_minded
+	
+	mother = xingjie_0001 # Qian Chen
+	
+	2988.11.5 = { birth = yes }
+	3008.1.1 = { 
+		religion = bio_directionist
+		effect = {
+			add_pressed_claim = title:k_tierra_celeste
+			add_pressed_claim = title:k_terran_commonwealth
+			add_pressed_claim = title:k_xin_zizhiqu
+		}
+		trait = walord
+	}
+}
+
+11012722 = {
+	# Commander of the Xingjie Armed Forces
+	name = "Hao"
+	dynasty = dynn_Ma
+	
+	culture = sino_xingjie
+	religion = terran_federalist
+	
+	trait = homosexual
+	trait = education_martial_3
+	#trait = marine_captain COTC TODO
+	
+	2954.1.1 = { birth = yes }
+}
