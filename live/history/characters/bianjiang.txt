@@ -1,0 +1,68 @@
+bianjiang_0001 = {
+	# Formerly Admiral of the Bianjiang People's Militia
+	# Grand Admiral of Bianjiang, 2997.11.23-present
+	name = "Qian"
+	dynasty = dynn_Deng
+	female = yes
+	
+	religion = colonial_separatist
+	culture = sino_bianjiangese
+	
+	trait = education_martial_4
+	trait = brave
+	trait = ambitious
+
+	trait = frigate_pilot
+	trait = confident
+	trait = disciplined
+	
+	2959.1.1 = { birth = yes }
+}
+
+bianjiang_0002 = {
+	# Former governor of Bianjiang, now imprisoned
+	name = "Yong"
+	dynasty = dynn_Jia
+	
+	culture = sino_xingjie
+	religion = terran_federalist
+	
+	trait = neurotic
+	trait = disciplined
+	trait = close_minded
+	trait = pragmatic
+	
+	father = bianjiang_0003 # Tao Jia
+	mother = bianjiang_0004 # Shu Gu
+	
+	2947.1.1 = { birth = yes }
+	2997.11.23 = {
+		effect = {
+			k_bianjiang = {
+				add_pressed_claim = ROOT
+				holder_scope = { ROOT = { imprison = PREV } }
+			}
+		}
+	}
+}
+
+bianjiang_0003 = {
+	name = "Tao"
+	dynasty = dynn_Jia
+	
+	culture = sino_xingjie
+	religion = terran_federalist
+	
+	2927.1.1 = { birth = yes }
+}
+
+bianjiang_0004 = {
+	name = "Shu"
+	female = yes
+	dynasty = dynn_Gu
+	
+	culture = sino_xingjie
+	religion = terran_federalist
+	
+	2927.1.1 = { birth = yes }
+}
