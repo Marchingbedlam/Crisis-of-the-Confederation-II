@@ -1,0 +1,87 @@
+﻿angani_0001 = {
+	# President of Zenye Nyota Angani
+	name = "Simba"
+	dynasty = dynn_Taji # Taji
+	
+	culture = east_afro_angani
+	religion = terran_federalist
+	
+	2949.1.1 = {
+		birth = yes
+		effect = { set_dynasty_flag = flag_dynasty_processed }
+	}
+	3008.1.1 = {
+		trait = warlord 
+		effect = { 
+			add_pressed_claim = title:k_frontier
+			add_pressed_claim = title:k_al_samawat
+			add_pressed_claim = title:k_terran_commonwealth
+		}	
+	}	
+}
+
+angani_0002 = {
+	# Son of President Simba Taji
+	name = "Simba"
+	dynasty = dynn_Taji # Taji
+	
+	culture = east_afro_angani
+	religion = terran_republican
+	trait = ambitious
+	
+	father = angani_0001 # Simba Taji
+	
+	2992.1.1 = {
+		birth = yes
+		effect = { set_dynasty_flag = flag_dynasty_processed }
+	}
+	3008.1.1 = { 
+		effect = { add_trait = warlord } 
+	}	
+}
+
+angani_0003 = {
+	# Commander of the Angani Armed Forces
+	name = "Azize"
+	dynasty = dynn_Baraka # Baraka
+	
+	culture = east_afro_angani
+	religion = terran_federalist
+	
+	sexuality = homosexual
+	trait = education_martial_2
+	trait = warship_captain
+	
+	2960.1.1 = { birth = yes }
+}
+
+#Might be good to put him somewhere else when the map work is done
+angani_0004 = {
+	# AAR content prize for mw2xboxplayer
+	name = "Beowulf"
+	dynasty = dynn_Shaeffer # Shaeffer
+	
+	culture = outerrim
+	religion = terran_federalist
+	#dna="alkacnacgcp"
+	#properties="0e00d"
+	
+	trait = education_martial_4
+	trait = agile
+	trait = tall
+	trait = intellect_good_1
+	trait = physique_bad_1
+	trait = frigate_pilot
+	trait = close_minded
+	trait = carefree
+	trait = extraverted
+	trait = gregarious
+	trait = skeptical
+	trait = pragmatic
+	trait = brave
+	
+	2980.1.1 = {
+		birth = yes
+		effect = { set_dynasty_flag = flag_dynasty_processed }
+	}
+}
