@@ -1,0 +1,283 @@
+# Ryusei Sato and family
+# Any resemblance to a certain famous mecha anime TOTALLY coincidental.
+jion_0001 = {
+	# Dictator of Jion, 2997 - Present
+	name = "Ryusei"
+	dynasty = dynn_Sato # Sato
+	
+	culture = japanese_tengoku
+	#dna = "achdfofabbe"
+	#properties = "0m00g"
+	religion = astrist
+	
+	trait = education_intrigue_3
+	trait = friendly
+	trait = pragmatic
+	trait = confident
+	trait = disciplined
+	trait = arrogant
+	trait = ambitious
+	
+	2936.1.1 = { birth = yes }
+}
+
+jion_0002 = {
+	# Commander of the Jion Space Attack Force, 2997 - Present
+	# Minister of War for the Military State of Jion
+	name = "Jiro"
+	dynasty = dynn_Sato # Sato
+	
+	culture = japanese_tengoku
+	dna="bajbmwbbabo"
+	properties="0h00g"
+	religion = astrist
+	
+	trait = quick
+	trait = education_martial_4
+	trait = warship_captain
+	trait = inspiring_leader
+	trait = extraverted
+	trait = cold
+	trait = radical
+	trait = confident
+	trait = disciplined
+	trait = arrogant
+	trait = ambitious
+	
+	father = jion_0001 # Ryusei Sato
+	
+	2963.1.1 = { birth = yes }
+	2998.1.1 = { effect = { give_job_title = job_marshal } }
+}
+
+jion_0003 = {
+	# Defense Zone Commander, Sector Taikun
+	name = "Toshiko"
+	dynasty = dynn_Sato
+	female = yes
+	
+	culture = japanese_tengoku
+	#dna="deklkgbcaah"
+	#properties="0j00f"
+	religion = astrist
+	
+	trait = tough_soldier
+	trait = warship_captain
+	trait = friendly
+	trait = confident
+	trait = disciplined
+	trait = arrogant
+	trait = content
+	trait = brave
+	
+	father = jion_0001 # Ryusei Sato
+	
+	2970.1.1 = { birth = yes }
+	2997.6.24 = { effect = { add_trait = wounded_1 } }
+	2997.10.12 = {
+		effect = {
+			remove_trait = wounded_1
+			add_trait = scarred
+		}
+	}
+	
+}
+
+jion_0004 = {
+	# Defense Zone Commander, Sector Sumitomo
+	# Minister of Research for the Military State of Jion
+	name = "Kenichi"
+	dynasty = dynn_Sato # Sato
+	
+	culture = japanese_tengoku
+	dna="bkebmcbcabs"
+	properties="0g00g"
+	religion = astrist
+	
+	trait = education_learning_4
+	trait = introverted
+	trait = cold
+	trait = radical
+	trait = confident
+	trait = disciplined
+	trait = arrogant
+	trait = ambitious
+	
+	
+	father = jion_0001 # Ryusei Sato
+	
+	2974.1.1 = { birth = yes }
+	2998.1.1 = { effect = { give_job_title = job_spiritual } }
+}
+
+jion_0005 = {
+	# Commander, Star System Moegara
+	name = "Kaoru"
+	dynasty = dynn_Sato # Sato
+	female = yes
+	
+	culture = japanese_tengoku
+	dna="blfiermbaac"
+	properties="0d00a"
+	religion = astrist
+	
+	trait = physique_good_3
+	trait = education_diplomacy_1
+	trait = friendly
+	trait = radical
+	trait = carefree
+	trait = confident
+	trait = arrogant
+	
+	
+	father = jion_0001 # Ryusei Sato
+	
+	2978.1.1 = { birth = yes }
+}
+
+jion_0006 = {
+	# Commander, Star System Rasen
+	# EXTREMELY TRUSTWORTHY
+	name = "Shiro"
+	dynasty = dynn_Hasegawa # Hasegawa
+	
+	#culture = outerrim # All Char clones are required to be blonde by science fiction law
+	#dna = "degbemidifm"
+	#properties = "td0d0d00000000000000000000000000000000"
+	#religion = astrist
+	
+	trait = quick
+	trait = brilliant_strategist
+	trait = frigate_pilot
+	trait = trickster
+	trait = extraverted
+	trait = cold
+	trait = pragmatic
+	trait = brave
+	trait = arrogant
+	trait = confident
+	trait = ambitious
+	
+	father = jion_0010 # Yukio Hasegawa
+	mother = jion_0011 # Akiko Avery
+	
+	2978.1.1 = { 
+		birth = yes
+		culture = japanese_tengoku
+	}
+	2997.6.5 = { effect = { opinion = { who = c_1107945 modifier = opinion_killed_my_father } } } # Should actually have a reason to seek revenge, hopefully
+	2998.1.1 = {
+		effect = { give_nickname = nick_the_scarlet_devil }
+	}
+}
+
+jion_0007 = {
+	# Daughter of Yukio Hasegawa, Confederate military officer under Vincent Martin
+	name = "Seiko"
+	dynasty = dynn_Hasegawa # Hasegawa
+	female = yes
+	
+	culture = japanese_tengoku
+	religion = terran_federalist
+	
+	trait = quick
+	trait = education_martial_3
+	trait = frigate_pilot
+	trait = friendly
+	trait = brave
+	trait = disciplined
+	
+	father = jion_0010
+	mother = jion_0011
+	
+	employer = 11065 # Vincent Martin
+	
+	2981.1.1 = { birth = yes }
+}
+
+jion_0008 = {
+	# Commander of Sen Eisei, 2992 - Present, Anti-Sato partisan
+	# Father of the Shibata Twins
+	name = "Jiro"
+	dynasty = dynn_Shibata # Shibata
+	female = no
+	
+	culture = japanese_tengoku
+	religion = terran_federalist
+	
+	
+	2945.1.1 = { birth = yes }
+	2964.1.1 = {
+		add_spouse = jion_0009
+		effect = { spouse = { add_lover = ROOT } }
+	}
+}
+
+jion_0009 = {
+	# Daughter of Shiro Hasegawa
+	# Wife of Jiro Shibata
+	# Mother of the Shibata Twins
+	#I think they're supposed to be somewhere else in the files
+	name = "Michiko"
+	dynasty = dynn_Hasegawa # Hasegawa
+	female = yes
+	
+	culture = japanese_tengoku
+	religion = terran_federalist
+	
+	father = jion_00112 # Shiro Hasegawa
+	
+	2942.1.1 = { birth = yes }
+}
+
+# Historical
+jion_0010 = {
+	# President of Jion, 2992 - 2997
+	name = "Yukio"
+	dynasty = dynn_Hasegawa # Hasegawa
+	female = no
+	
+	culture = japanese_tengoku
+	religion = terran_federalist
+	
+	father = jion_00112 # Shiro Hasegawa
+	
+	2945.1.1 = { birth = yes }
+	2977.1.1 = {
+		add_spouse = jion_0011
+		effect = { spouse = { add_lover = ROOT } }
+	}
+	2997.6.5 = { death = { death_reason = death_murder_unknown killer = jion_0001 } } # Assassinated on Ryusei Sato's orders
+}
+
+jion_0011 = {
+	# Yukio Hasegawa's wife
+	name = "Akiko"
+	dynasty = dynn_Avery # Avery
+	female = yes
+	
+	culture = anglo_frontiersman
+	religion = terran_federalist
+	
+	2945.1.1 = { 
+		birth = yes
+		culture = japanese_tengoku
+	}
+	2997.6.5 = { death = { death_reason = death_murder_unknown killer = jion_0001 } } # Died in the same assassination attempt as her husband
+}
+
+jion_0012 = {
+	# Tengoku military officer, loyalist
+	name = "Shiro"
+	dynasty = dynn_Hasegawa # Hasegawa
+	female = no
+	
+	culture = japanese_tengoku
+	religion = terran_republican
+	
+	add_trait = education_martial_2
+	add_trait = warship_captain
+	
+	2919.1.1 = { birth = yes }
+	2983.1.1 = { death = { death_reason = death_battle killer = jion_0001 } } # Killed in Jionic rebellion
+}
