@@ -70,7 +70,7 @@ avalon_0003 = {
 	2956.1.1 = { birth = yes }
 	2996.2.5 = {
 		death = {
-			death_reason = death_murder_unknown
+			death_reason = death_murder
 			killer = avalon_0097 # Joseph ? Blackburn
 		}
 	}
@@ -227,9 +227,15 @@ avalon_0010 = {
 	mother = avalon_0011 # Victoria VII Locksley
 
 	2750.1.1 = { birth = yes }
-	2777.1.1 = { effect = { d_nelson = { holder_scope = { add_lover = ROOT } } } }
+	2777.1.1 = { 
+		effect = {
+			title:d_nelson.holder = {
+				set_relation_lover = character:avalon_0010
+			}
+		}
+	}
 	2796.1.1 = {
-		effect = { add_trait = kinslayer }
+		effect = { add_trait = kinslayer_1 }
 		effect = { give_nickname = nick_the_serpent }
 	}
 	2815.1.1 = {
@@ -298,7 +304,7 @@ avalon_0013 = {
 	mother = avalon_0014 # Victoria IV Locksley
 
 	2662.1.1 = { birth = yes }
-	2699.1.1 = { death = { death_reason = death_murder_unknown } }
+	2699.1.1 = { death = { death_reason = death_murder } }
 }
 
 avalon_0014 = {
@@ -413,7 +419,6 @@ avalon_0019 = {
 	mother = avalon_0107 # Chloe Cloud
 
 	2980.1.1 = { birth = yes }
-	2996.2.19 = { effect = { k_avalon = { holder_scope = { reverse_opinion = { who = ROOT modifier = opinion_fought_for_claimant } } } } }
 }
 avalon_0020 = {
 	# Commander of Camelot, 2996 - Present
@@ -720,7 +725,7 @@ avalon_0034 = {
 	}
 	2753.1.1 = {
 		death = {
-			death_reason = death_murder_unknown
+			death_reason = death_murder
 			killer = avalon_0033 # Liam VIII Somani
 		}
 	}
@@ -894,7 +899,6 @@ avalon_0043 = {
 		birth = yes
 		culture = anglo_avalonian
 	}
-	2996.2.19 = { effect = { k_avalon = { holder_scope = { reverse_opinion = { who = ROOT modifier = opinion_fought_for_claimant } } } } }
 }
 avalon_0044 = {
 	# Admiral of Caliburn, 2947 - 2995
@@ -1155,14 +1159,7 @@ avalon_0056 = {
 	}
 	2977.1.1 = {
 		effect = {
-			c_garrison = {
-				holder_scope = {
-					random_dynasty_member = {
-						limit = { character = avalon_0069 } # Henry ? Rao
-						add_lover = ROOT
-					}
-				}
-			}
+			set_relation_lover = character:avalon_0069
 		}
 	}
 }
@@ -1173,7 +1170,7 @@ avalon_0057 = {
 	dynasty = dynn_Okafor # Okafor
 	
 
-	culture = west_afro_angani
+	culture = anglo_avalonian
 	religion = bio_directionist
 
 	trait = bastard
@@ -1189,11 +1186,10 @@ avalon_0057 = {
 	mother = avalon_0056 # Elizabeth X Okafor
 	father = avalon_0069 # Henry ? Rao
 
-	employer = avalon_0056 # Just to make sure he lives with his mother
-
 	2979.1.1 = {
 		birth = yes
 		culture = anglo_avalonian
+		employer = avalon_0056 # Just to make sure he lives with his mother
 	}
 }
 
@@ -1512,7 +1508,6 @@ avalon_0073 = {
 	mother = avalon_0074 # Katherine VII Bywater
 
 	2970.1.1 = { birth = yes }
-	2996.2.19 = { effect = { k_avalon = { holder_scope = { reverse_opinion = { who = ROOT modifier = opinion_fought_for_claimant } } } } }
 }
 avalon_0074 = {
 	# Admiral of Alfred, 2921 - 2989
@@ -1739,7 +1734,13 @@ avalon_0084 = {
 
 	2605.1.1 = { birth = yes }
 	2627.1.1 = { religion = space_pirate }
-	2632.1.1 = { effect = { d_alfred = { holder_scope = { add_lover = ROOT } } } }
+	2632.1.1 = {
+		effect = {
+			title:d_alfred.holder = {
+				set_relation_lover = character:avalon_0084
+			}
+		}
+	}
 	2638.1.1 = { religion = bio_directionist }
 	2643.1.1 = { trait = depressed_1 }
 	2683.1.1 = { death = yes }
@@ -1808,9 +1809,8 @@ avalon_0087 = {
 		birth = yes
 		culture = anglo_avalonian
 	}
-	2987.1.1 = { guardian = avalon_0097 } # Joseph VII Blackburn
+	2987.1.1 = { set_relation_guardian = character:avalon_0097 } # Joseph VII Blackburn
 	2989.1.1 = { religion = neo_feudal }
-	2996.2.19 = { effect = { k_avalon = { holder_scope = { reverse_opinion = { who = ROOT modifier = opinion_fought_for_claimant } } } } }
 }
 avalon_0088 = {
 	# Admiral of Lancelot, 2955 - 2990
@@ -1841,7 +1841,7 @@ avalon_0088 = {
 	}
 	2990.7.24 = {
 		death = {
-			death_reason = death_murder_unknown
+			death_reason = death_murder
 			killer = avalon_0097 # Joseph ? Blackburn
 		}
 	}
@@ -2259,7 +2259,7 @@ avalon_0107 = {
 avalon_0108 = {
 	# Commander of Shiverlight
 	name = "Eliza"
-	dynasty = random
+	#dynasty = random
 	female = yes
 
 	culture = anglo_avalonian

@@ -1,4 +1,4 @@
-orion_0001 = {
+﻿orion_0001 = {
 	# The man responsible for this mess
 	# President of the Orion Reach, 2998 - Present
 	name = "Juan"
@@ -64,7 +64,7 @@ orion_0004 = {
 	
 	culture = hispanic_orion
 	religion = colonial_separatist
-	secret_religion = adoptionist_cultist
+	#secret_religion = adoptionist_cultist
 	
 	father = orion_0001 # Juan Lebedev
 	mother = orion_0014 # Ximena Ramirez
@@ -96,7 +96,7 @@ orion_0005 = {
 	2943.1.1 = { birth = yes }
 	2965.1.1 = {
 		add_matrilineal_spouse = orion_0016 # Lucas Ramirez
-		effect = { spouse = { add_lover = ROOT } }
+		effect = { set_relation_lover = character:orion_0016  }
 	}
 	3007.12.6 = {
 		death = { death_reason = death_battle killer = 11112833 } # Tao Luo	
@@ -143,9 +143,9 @@ orion_0008 = {
 	2912.1.1 = { birth = yes }
 	2936.1.1 = {
 		add_spouse = orion_0010 # Navya Vaghela
-		effect = { spouse = { add_lover = ROOT } }
+		effect = { set_relation_lover = character:orion_0010 }
 	}
-	2994.1.1 = { death = { death_reason = death_natural } }
+	2994.1.1 = { death = { death_reason = death_natural_causes } }
 }
 orion_0009 = {
 	# Older sister of Navya Vasquez, mother of Leonardo Vasquez
@@ -171,7 +171,7 @@ orion_0010 = {
 	religion = terran_federalist
 	
 	2918.1.1 = { birth = yes }
-	2997.1.1 = { death = { death_reason = death_natural } }
+	2997.1.1 = { death = { death_reason = death_natural_causes } }
 }
 
 # Megacorp CEOs
@@ -211,7 +211,7 @@ orion_0013 = {
 	religion = terran_federalist
 	
 	2916.1.1 = { birth = yes }
-	2993.1.1 = { death = { death_reason = death_natural } }
+	2993.1.1 = { death = { death_reason = death_natural_causes } }
 }
 orion_0014 = {
 	# Sister of Tomas Ramirez, wife of Juan Lebedev
@@ -274,7 +274,7 @@ orion_0018 = {
 	2932.1.1 = { birth = yes }
 	2955.1.1 = {
 		add_spouse = orion_0019 # Camila Cruz
-		effect = { spouse = { add_lover = ROOT } }
+		effect = { set_relation_lover = character:orion_0019 }
 	}
 	2995.1.1 = { trait = ill }
 	2996.1.1 = { death = yes }

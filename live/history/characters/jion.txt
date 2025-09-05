@@ -1,4 +1,4 @@
-# Ryusei Sato and family
+﻿# Ryusei Sato and family
 # Any resemblance to a certain famous mecha anime TOTALLY coincidental.
 jion_0001 = {
 	# Dictator of Jion, 2997 - Present
@@ -6,9 +6,7 @@ jion_0001 = {
 	dynasty = dynn_Sato # Sato
 	
 	culture = japanese_tengoku
-	#dna = "achdfofabbe"
-	#properties = "0m00g"
-	religion = astrist
+	faith = astrist
 	
 	trait = education_intrigue_3
 	trait = gregarious
@@ -28,14 +26,11 @@ jion_0002 = {
 	dynasty = dynn_Sato # Sato
 	
 	culture = japanese_tengoku
-	dna="bajbmwbbabo"
-	properties="0h00g"
-	religion = astrist
+	faith = astrist
 	
 	trait = intellect_good_1
 	trait = education_martial_4
 	trait = warship_captain
-	#trait = inspiring_leader
 	trait = extraverted
 	trait = callous
 	trait = radical
@@ -47,7 +42,6 @@ jion_0002 = {
 	father = jion_0001 # Ryusei Sato
 	
 	2963.1.1 = { birth = yes }
-	#2998.1.1 = { effect = { give_job_title = job_marshal } }
 }
 
 jion_0003 = {
@@ -57,9 +51,7 @@ jion_0003 = {
 	female = yes
 	
 	culture = japanese_tengoku
-	#dna="deklkgbcaah"
-	#properties="0j00f"
-	religion = astrist
+	faith = astrist
 	
 	trait = education_martial_2
 	trait = warship_captain
@@ -90,9 +82,7 @@ jion_0004 = {
 	dynasty = dynn_Sato # Sato
 	
 	culture = japanese_tengoku
-	dna="bkebmcbcabs"
-	properties="0g00g"
-	religion = astrist
+	faith = astrist
 	
 	trait = education_learning_4
 	trait = reclusive
@@ -107,7 +97,6 @@ jion_0004 = {
 	father = jion_0001 # Ryusei Sato
 	
 	2974.1.1 = { birth = yes }
-	#2998.1.1 = { effect = { give_job_title = job_spiritual } }
 }
 
 jion_0005 = {
@@ -117,9 +106,7 @@ jion_0005 = {
 	female = yes
 	
 	culture = japanese_tengoku
-	dna="blfiermbaac"
-	properties="0d00a"
-	religion = astrist
+	faith = astrist
 	
 	trait = physique_good_3
 	trait = education_diplomacy_1
@@ -141,10 +128,8 @@ jion_0006 = {
 	name = "Shiro"
 	dynasty = dynn_Hasegawa # Hasegawa
 	
-	#culture = outerrim # All Char clones are required to be blonde by science fiction law
-	#dna = "degbemidifm"
-	#properties = "td0d0d00000000000000000000000000000000"
-	#religion = astrist
+	culture = outerrim # All Char clones are required to be blonde by science fiction law
+	faith = astrist
 	
 	trait = intellect_good_1
 	trait = education_martial_4
@@ -165,9 +150,8 @@ jion_0006 = {
 		birth = yes
 		culture = japanese_tengoku
 	}
-	2997.6.5 = { effect = { opinion = { who = c_1107945 modifier = opinion_killed_my_father } } } # Should actually have a reason to seek revenge, hopefully
 	2998.1.1 = {
-		effect = { give_nickname = nick_the_scarlet_devil }
+		give_nickname = nick_the_scarlet_devil
 	}
 }
 
@@ -178,7 +162,7 @@ jion_0007 = {
 	female = yes
 	
 	culture = japanese_tengoku
-	religion = terran_federalist
+	faith = terran_federalist
 	
 	trait = intellect_good_1
 	trait = education_martial_3
@@ -189,10 +173,12 @@ jion_0007 = {
 	
 	father = jion_0010
 	mother = jion_0011
+
 	
-	employer = 11065 # Vincent Martin
-	
-	2981.1.1 = { birth = yes }
+	2981.1.1 = {
+		birth = yes
+		#employer = 11065 # Vincent Martin
+	}
 }
 
 jion_0008 = {
@@ -203,13 +189,13 @@ jion_0008 = {
 	female = no
 	
 	culture = japanese_tengoku
-	religion = terran_federalist
+	faith = terran_federalist
 	
 	
 	2945.1.1 = { birth = yes }
 	2964.1.1 = {
 		add_spouse = jion_0009
-		effect = { spouse = { add_lover = ROOT } }
+		effect = { set_relation_lover = character:jion_0009 }
 	}
 }
 
@@ -223,7 +209,7 @@ jion_0009 = {
 	female = yes
 	
 	culture = japanese_tengoku
-	religion = terran_federalist
+	faith = terran_federalist
 	
 	father = jion_00112 # Shiro Hasegawa
 	
@@ -238,16 +224,16 @@ jion_0010 = {
 	female = no
 	
 	culture = japanese_tengoku
-	religion = terran_federalist
+	faith = terran_federalist
 	
 	father = jion_00112 # Shiro Hasegawa
 	
 	2945.1.1 = { birth = yes }
 	2977.1.1 = {
 		add_spouse = jion_0011
-		effect = { spouse = { add_lover = ROOT } }
+		effect = { set_relation_lover = character:jion_011 }
 	}
-	2997.6.5 = { death = { death_reason = death_murder_unknown killer = jion_0001 } } # Assassinated on Ryusei Sato's orders
+	2997.6.5 = { death = { death_reason = death_murder killer = jion_0001 } } # Assassinated on Ryusei Sato's orders
 }
 
 jion_0011 = {
@@ -257,13 +243,13 @@ jion_0011 = {
 	female = yes
 	
 	culture = anglo_frontiersman
-	religion = terran_federalist
+	faith = terran_federalist
 	
 	2945.1.1 = { 
 		birth = yes
 		culture = japanese_tengoku
 	}
-	2997.6.5 = { death = { death_reason = death_murder_unknown killer = jion_0001 } } # Died in the same assassination attempt as her husband
+	2997.6.5 = { death = { death_reason = death_murder killer = jion_0001 } } # Died in the same assassination attempt as her husband
 }
 
 jion_0012 = {
@@ -273,10 +259,10 @@ jion_0012 = {
 	female = no
 	
 	culture = japanese_tengoku
-	religion = terran_republican
+	faith = terran_republican
 	
-	add_trait = education_martial_2
-	add_trait = warship_captain
+	trait = education_martial_2
+	trait = warship_captain
 	
 	2919.1.1 = { birth = yes }
 	2983.1.1 = { death = { death_reason = death_battle killer = jion_0001 } } # Killed in Jionic rebellion

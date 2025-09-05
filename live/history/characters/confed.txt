@@ -24,7 +24,7 @@ confed_0001 = {
 		#effect = { set_dynasty_flag = flag_dynasty_processed }
 	}
 	2971.1.1 = { add_spouse = confed_0002 } # Ellen Dixon
-	2971.1.1 = { effect = { spouse = { add_lover = ROOT } add_dynasty_modifier = patrician_family }  }
+	2971.1.1 = { effect = { set_relation_lover = character:confed_0002 } }
 	2998.1.1 = {
 		# The Crisis begins
 		effect = {
@@ -271,7 +271,6 @@ confed_0012 = {
 	father = confed_0015 # Gabriel Madrigal
 
 	2965.1.1 = { birth = yes }
-	2987.1.1 = { effect = { spouse = { add_lover = ROOT } } }
 	2990.1.1 = { religion = solar_cultist }
 }
 
@@ -319,8 +318,8 @@ confed_0014 = {
 
 	2932.1.1 = { birth = yes }
 	2955.1.1 = { add_matrilineal_spouse = confed_0015 } # Gabriel Madrigal
-	2955.1.1 = { effect = { spouse = { add_lover = ROOT } } }
-	2997.1.1 = { death = "2997.1.1" }
+	2955.1.1 = { effect = { set_relation_lover = character:confed_0015 } }
+	2997.1.1 = { death = yes }
 }
 
 confed_0015 = {
@@ -447,7 +446,7 @@ confed_0020 = {
 
 	religion = terran_republican
 	culture = japanese_terran
-	secret_religion = cyberneticist
+	#secret_religion = cyberneticist
 
 	trait = callous
 	trait = disciplined
@@ -478,7 +477,7 @@ confed_0021 = {
 		birth = yes
 	}
 	2956.1.1 = { add_spouse = confed_0022 } # Hiroko Ishii
-	2956.1.1 = { effect = { spouse = { add_lover = ROOT } } }
+	2956.1.1 = { effect = { set_relation_lover = character:confed_0022 } }
 	2988.1.1 = { death = yes }
 }
 confed_0022 = {
@@ -549,20 +548,17 @@ confed_0024 = {
 	}
 	2980.1.1 = {
 		add_matrilineal_spouse = confed_0025 # Iskinder Desta
-		effect = { spouse = { add_lover = ROOT } }
+		effect = { set_relation_lover = character:confed_0025 }
 	}
 	3007.1.18 = {
 		effect = {
-			religion_authority = { modifier = allowed_major_rebellion years = 60 }
-			religion_authority = { modifier = allowed_major_rebellion years = 60 }
 			# Imprisoned by Tao Luo after the Confederate Civil War
-			e_terran_confederation = {
-				add_pressed_claim = ROOT
-				holder_scope = { ROOT = { imprison = PREV } }
-			}
+			# add_pressed_claim = title:e_terran_confederation
+			# title:e_terran_confederation.holder = {
+			# 	imprison = character:confed_0024
+			# }
 		}
 	}
-	3008.1.1 = { effect = { k_zenye_nyota_angani = { add_claim = ROOT } } }
 }
 confed_0025 = {
 	# Afolayan Marshal
@@ -611,7 +607,7 @@ confed_0026 = {
 			add_pressed_claim = title:k_frontier
 			add_pressed_claim = title:k_al_samawat
 			add_pressed_claim = title:k_terran_commonwealth
-			add_pressed_claim = title:k_zenye_nyota_angani
+			#add_pressed_claim = title:k_zenye_nyota_angani
 		}
 	}
 }
@@ -675,7 +671,7 @@ confed_0029 = {
 		#effect = { set_dynasty_flag = flag_dynasty_processed }
 	}
 	2952.1.1 = { add_spouse = confed_0027 } # Maghan Afolayan
-	2952.1.1 = { effect = { spouse = { add_lover = ROOT } } }
+	#2952.1.1 = { effect = { set_relation_lover = character:confed_0027 }  } target character is dead during effect execution
 
 }
 
@@ -687,9 +683,6 @@ confed_0030 = {
 
 	religion = terran_republican
 	culture = sino_terran
-
-	dna = "xifgimfkhvz"
-	properties = "0g00d"
 
 	trait = education_martial_4
 	trait = warship_captain
@@ -705,7 +698,7 @@ confed_0030 = {
 		#effect = { set_dynasty_flag = flag_dynasty_processed }
 	}
 	2962.1.1 = { add_spouse = confed_0031 } # Fang Tian
-	2962.1.1 = { effect = { spouse = { add_lover = ROOT } } }
+	2962.1.1 = { effect = { set_relation_lover = character:confed_0031 } }
 	2992.1.1 = { give_nickname = nick_the_old_man }
 	3003.10.5 = {
 		# Battle of Ahora la Luz
@@ -769,12 +762,10 @@ confed_0032 = {
 
 	2967.1.1 = { birth = yes }
 	2994.1.1 = { add_spouse = confed_0033 } # Shan Yuan
-	2994.1.1 = { effect = { spouse = { add_lover = ROOT } } }
+	2994.1.1 = { effect = { set_relation_lover = character:confed_0033 } }
 	3007.1.1 = {
-		effect = {
-			religion = terran_imperial
-			trait = scarred
-		}
+		religion = terran_imperial
+		trait = scarred
 	}
 }
 
@@ -845,7 +836,7 @@ confed_0035 = {
 
 	2976.1.1 = {
 		add_spouse = confed_0039 # Jennifer James
-		effect = { spouse = { add_lover = ROOT } }
+		effect = { set_relation_lover = character:confed_0039 }
 	}
 }
 
@@ -931,7 +922,7 @@ confed_0040 = {
 		#effect = { set_dynasty_flag = flag_dynasty_processed }
 	}
 	2971.1.1 = { add_matrilineal_spouse = confed_0042 } # Yousouf Maqableh
-	2971.1.1 = { effect = { spouse = { add_lover = ROOT } } }
+	2971.1.1 = { effect = { set_relation_lover = character:confed_0042 } }
 }
 
 confed_0041 = {
@@ -980,7 +971,7 @@ confed_0043 = {
 		#effect = { set_dynasty_flag = flag_dynasty_processed }
 	}
 	2969.1.1 = { add_matrilineal_spouse = confed_0046 } # John Reed
-	2969.1.1 = { effect = { spouse = { add_lover = ROOT } } }
+	2969.1.1 = { effect = { set_relation_lover = character:confed_0046 } }
 }
 
 confed_0044 = {
@@ -1043,7 +1034,7 @@ confed_0047 = {
 		#effect = { set_dynasty_flag = flag_dynasty_processed }
 	}
 	2972.1.1 = { add_spouse = confed_0051 } # Farida al-Saadi
-	2972.1.1 = { effect = { spouse = { add_lover = ROOT } } }
+	2972.1.1 = { effect = { set_relation_lover = character:confed_0051 } }
 }
 
 confed_0048 = {
@@ -1122,7 +1113,7 @@ confed_0052 = {
 		#effect = { set_dynasty_flag = flag_dynasty_processed }
 	}
 	2973.1.1 = { add_spouse = confed_0054 } # Selamawit Daniachew
-	2973.1.1 = { effect = { spouse = { add_lover = ROOT } } }
+	2973.1.1 = { effect = { set_relation_lover = character:confed_0054 } }
 }
 
 confed_0053 = {
