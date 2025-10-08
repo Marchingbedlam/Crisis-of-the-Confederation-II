@@ -12,3 +12,61 @@
 		death = yes
 	}
 }
+frontier_0001 = {
+	# President of the Frontier
+	name = "Chaisika"
+	dynasty = dynn_Aizuars
+	female = yes
+
+	religion = atlantite
+	culture = atlantean
+
+	trait = arrogant
+
+	2948.1.1 = { birth = yes }
+	3007.4.12 = { death = yes }
+}
+
+frontier_0002 = {
+	# Commander of the Frontier Space Command
+	name = "Katharin"
+	dynasty = dynn_Aizuars
+	female = yes
+
+	religion = atlantite
+	culture = atlantean
+
+	trait = education_martial_3
+	#trait = warship_captain
+	trait = ambitious
+	trait = arrogant
+
+	mother = frontier_0001 # Chaisika Aizuars
+
+	2978.1.1 = { birth = yes }
+	3008.1.1 = {
+		effect = {
+			#add_pressed_claim = title:k_new_frontier
+			add_pressed_claim = title:k_terran_commonwealth
+			#add_pressed_claim = title:k_zeyne_nyota_angani
+			add_#trait = warlord
+		}
+	}
+}
+
+frontier_0003 = {
+	# Commander of the Frontier Space Command
+	name = "Chaisika"
+	dynasty = dynn_Aizuars
+	female = yes
+
+	religion = atlantite
+	culture = atlantean
+
+	trait = ambitious
+	trait = arrogant
+
+	mother = frontier_0002 # Katharin Aizuars
+
+	3007.11.11 = { birth = yes }
+}

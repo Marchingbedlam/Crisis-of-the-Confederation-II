@@ -1,0 +1,300 @@
+﻿orion_0001 = {
+	# The man responsible for this mess
+	# President of the Orion Reach, 2998 - Present
+	name = "Juan"
+	dynasty = dynn_Lebedev # Lebedev
+	
+	culture = atlantean
+	religion = atlantite
+	
+	trait = education_diplomacy_4
+	#trait = open_minded
+	#trait = extraverted
+	trait = gregarious
+	#trait = confident
+	#trait = radical
+	trait = ambitious
+	trait = arrogant
+	
+	2949.1.1 = {
+		birth = yes
+	}
+	2981.1.1 = { add_spouse = orion_0014 } # Ximena Ramirez
+	2997.5.5 = {
+		trait = maimed
+	}
+	2997.10.23 = {
+		trait = maimed
+		#trait = cybernetic_limb
+	}
+}
+orion_0002 = {
+	# Daughter of Juan Lebedev
+	name = "Gabriela"
+	dynasty = dynn_Lebedev
+	female = yes
+	
+	culture = atlantean
+	religion = atlantite
+	
+	father = orion_0001 # Juan Lebedev
+	mother = orion_0014 # Ximena Ramirez
+	
+	2984.1.1 = { birth = yes }
+}
+orion_0003 = {
+	# First son of Juan Lebedev
+	name = "Matias"
+	dynasty = dynn_Lebedev
+	female = no
+	
+	culture = atlantean
+	religion = atlantite
+	
+	father = orion_0001 # Juan Lebedev
+	mother = orion_0014 # Ximena Ramirez
+	
+	2988.1.1 = { birth = yes }
+}
+orion_0004 = {
+	# Second son of Juan Lebedev
+	name = "Juan"
+	dynasty = dynn_Lebedev
+	female = no
+	
+	culture = atlantean
+	religion = atlantite
+	
+	father = orion_0001 # Juan Lebedev
+	mother = orion_0014 # Ximena Ramirez
+	
+	2990.1.1 = { birth = yes }
+}
+
+orion_0005 = {
+	# Fleet Admiral, Orion Armada, 2992 - Present
+	name = "Navya"
+	dynasty = dynn_Vasquez # Vasquez
+	female = yes
+	
+	culture = atlantean
+	religion = atlantite
+	
+	trait = education_martial_1
+	#trait = marine_captain
+	#trait = confident
+	#trait = radical
+	trait = humble
+	trait = brave
+	
+	father = orion_0008 # Alejandro Vasquez
+	mother = orion_0010 # Navya Vaghela
+	
+	2943.1.1 = { birth = yes }
+	2965.1.1 = {
+		add_matrilineal_spouse = orion_0016 # Lucas Ramirez
+		effect = { set_relation_lover = character:orion_0016  }
+	}
+	3007.12.6 = {
+		death = { death_reason = death_battle killer = 11112833 } # Tao Luo	
+	}
+}
+orion_0006 = {
+	# Son of Navya Vasquez
+	name = "Leonardo"
+	dynasty = dynn_Vasquez # Vasquez
+	female = no
+	
+	culture = atlantean
+	religion = atlantite
+	#secret_religion = atlantite
+	trait = ambitious
+	
+	father = orion_0016 # Lucas Ramirez
+	mother = orion_0005 # Navya Vasquez
+	
+	2969.1.1 = { birth = yes }
+}
+orion_0007 = {
+	# Daughter of Navya Vasquez
+	name = "Isabella"
+	dynasty = dynn_Vasquez # Vasquez
+	female = yes
+	
+	culture = atlantean
+	religion = atlantite
+	
+	father = orion_0016 # Lucas Ramirez
+	mother = orion_0005 # Navya Vasquez
+	
+	2974.1.1 = { birth = yes }
+}
+orion_0008 = {
+	# Father of Juan-Pablo and Navya Vasquez
+	name = "Alejandro"
+	dynasty = dynn_Vasquez # Vasquez
+	
+	culture = atlantean
+	religion = atlantite
+	
+	2912.1.1 = { birth = yes }
+	2936.1.1 = {
+		add_spouse = orion_0010 # Navya Vaghela
+		effect = { set_relation_lover = character:orion_0010 }
+	}
+	2994.1.1 = { death = { death_reason = death_natural_causes } }
+}
+orion_0009 = {
+	# Older sister of Navya Vasquez, mother of Leonardo Vasquez
+	name = "Lucia"
+	dynasty = dynn_Vasquez # Vasquez
+	female = yes
+	
+	culture = atlantean
+	religion = atlantite
+	
+	father = orion_0008 # Alejandro Vasquez
+	mother = orion_0010 # Navya Vaghela
+	
+	2939.1.1 = { birth = yes }
+}
+orion_0010 = {
+	# Mother and namesake of Navya Vasquez
+	name = "Navya"
+	dynasty = dynn_Vaghela # Vaghela
+	female = yes
+	
+	culture = atlantean
+	religion = atlantite
+	
+	2918.1.1 = { birth = yes }
+	2997.1.1 = { death = { death_reason = death_natural_causes } }
+}
+
+# Megacorp CEOs
+orion_0011 = {
+	# Ceo of Calderon, Governor of Paulet
+	name = "Emmanuel"
+	dynasty = dynn_Calderon # Calderon
+	female = no
+	
+	culture = atlantean
+	religion = atlantite
+	
+	sexuality = homosexual
+	
+	2950.1.1 = { birth = yes }
+}
+orion_0012 = {
+	# CEO of Ramirez, Governor of Nueva Galicia
+	name = "Tomas"
+	dynasty = dynn_Ramirez # Ramirez
+	female = no
+	
+	culture = atlantean
+	religion = atlantite
+	
+	mother = orion_0013 # Gabriela Ramirez
+	
+	2946.1.1 = { birth = yes }
+}
+orion_0013 = {
+	# Former Governor-General of Nueva Galicia
+	name = "Gabriela"
+	dynasty = dynn_Ramirez # Ramirez
+	female = yes
+	
+	culture = atlantean
+	religion = atlantite
+	
+	2916.1.1 = { birth = yes }
+	2993.1.1 = { death = { death_reason = death_natural_causes } }
+}
+orion_0014 = {
+	# Sister of Tomas Ramirez, wife of Juan Lebedev
+	name = "Ximena"
+	dynasty = dynn_Ramirez # Ramirez
+	female = yes
+	
+	culture = atlantean
+	religion = atlantite
+	
+	mother = orion_0013 # Gabriela Ramirez
+	
+	2949.1.1 = { birth = yes }
+}
+orion_0015 = {
+	# Brother of Tomas Ramirez, Husband of Emma Joshi
+	name = "David"
+	dynasty = dynn_Ramirez # Ramirez
+	
+	culture = atlantean
+	religion = atlantite
+	
+	mother = orion_0013 # Gabriela Ramirez
+	
+	2952.1.1 = { birth = yes }
+}
+orion_0016 = {
+	# Brother of Tomas Ramirez, Husband of Navya Vasquez
+	name = "Lucas"
+	dynasty = dynn_Ramirez # Ramirez
+	
+	culture = atlantean
+	religion = atlantite
+	
+	mother = orion_0013 # Gabriela Ramirez
+	
+	2947.1.1 = { birth = yes }
+}
+orion_0017 = {
+	# CEO of Ortiz, Governor of Betelgeuse
+	name = "Miguel"
+	dynasty = dynn_Ortiz # Ortiz
+	
+	culture = atlantean
+	religion = atlantite
+	
+	father = orion_0018 # Lucas Ortiz
+	mother = orion_0019 # Camila Cruz
+	
+	2957.1.1 = { birth = yes }
+}
+orion_0018 = {
+	# Father of Miguel and Samuel Ortiz
+	name = "Lucas"
+	dynasty = dynn_Ortiz # Ortiz
+	
+	culture = atlantean
+	religion = atlantite
+	
+	2932.1.1 = { birth = yes }
+	2955.1.1 = {
+		add_spouse = orion_0019 # Camila Cruz
+		effect = { set_relation_lover = character:orion_0019 }
+	}
+	2995.1.1 = { trait = ill }
+	2996.1.1 = { death = yes }
+}
+orion_0019 = {
+	# Mother of Miguel and Samuel Ortiz
+	name = "Camila"
+	dynasty = dynn_Cruz_Orion # Cruz
+	female = yes
+	
+	culture = atlantean
+	religion = atlantite
+	
+	2934.1.1 = { birth = yes }
+}
+orion_0020 = {
+	# CEO of Abu Abed, Governor of Santiago
+	name = "Nafisa"
+	dynasty = dynn_Abu_Abed # Abu Abed
+	female = yes
+	
+	culture = atlantean
+	religion = atlantite
+	
+	2959.1.1 = { birth = yes }
+}

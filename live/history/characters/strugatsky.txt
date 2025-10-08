@@ -1,0 +1,82 @@
+﻿strugatsky_0001 = {
+	# Director-General of Strugatsky
+	name = "Kirill"
+	dynasty = dynn_Pozharsky # Pozharsky
+	
+	religion = atlantite
+	culture = atlantean
+	
+	2957.1.1 = { birth = yes }
+}
+
+strugatsky_0002 = {
+	# Commander of the Strugatsky Armed Forces
+	name = "Viktor"
+	dynasty = dynn_Loban # Loban
+	
+	religion = atlantite
+	culture = atlantean
+	
+	trait = education_martial_4
+	#trait = frigate_pilot
+	#trait = radical
+	trait = arrogant
+	
+	father = strugatsky_0004 # Nikolai Yefimov
+	mother = strugatsky_0003 # Galina Loban
+	
+	2947.1.1 = { birth = yes }
+}
+
+strugatsky_0003 = {
+	# Mother of Viktor and Dominika Loban
+	# Secretary of State for Strugatsky
+	name = "Galina"
+	dynasty = dynn_Loban # Loban
+	female = yes
+	
+	religion = atlantite
+	culture = atlantean
+	
+	trait = education_diplomacy_4
+	#trait = extraverted
+	#trait = spiritual
+	#trait = radical
+	
+	2927.1.1 = { birth = yes }
+	2946.1.1 = {
+		employer = strugatsky_0001 # Kirill Pozharsky
+		add_matrilineal_spouse = strugatsky_0004 # Nikolai Yefimov
+		#effect = { set_relation_lover = character:strugatsky_0004 } target character is dead during effect execution
+	}
+}
+
+strugatsky_0004 = {
+	# Husband of Galina Loban
+	name = "Nikolai"
+	dynasty = dynn_Yefimov # Yefimov
+	
+	religion = atlantite
+	culture = atlantean
+	
+	2928.1.1 = { birth = yes }
+	2996.1.1 = { death = { death_reason = death_accident } }
+}
+
+strugatsky_0005 = {
+	# Commander, Katerin Vselennaya, sister of Viktor Loban
+	name = "Dominika"
+	dynasty = dynn_Loban # Loban
+	female = yes
+	
+	religion = atlantite
+	culture = atlantean
+	
+	trait = education_martial_2
+	#trait = marine_captain
+	
+	father = strugatsky_0004 # Nikolai Yefimov
+	mother = strugatsky_0003 # Galina Loban
+	
+	2952.1.1 = { birth = yes }
+}
