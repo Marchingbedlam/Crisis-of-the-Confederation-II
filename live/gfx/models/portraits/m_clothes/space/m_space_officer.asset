@@ -1,0 +1,34 @@
+pdxmesh = {
+	name = "m_space_officer_mesh"
+	file = "m_space_officer.mesh"
+
+	blend_shape = { id = "m_space_officer_bs_infant"		type = "m_space_officer_bs_infant.mesh" }
+	blend_shape = { id = "m_space_officer_bs_fat"		type = "m_space_officer_bs_fat.mesh" }
+	blend_shape = { id = "m_space_officer_bs_gaunt"		type = "m_space_officer_bs_gaunt.mesh" }
+	blend_shape = { id = "m_space_officer_bs_muscular"		type = "m_space_officer_bs_muscular.mesh" }	
+	blend_shape = { id = "m_space_officer_bs_old"		type = "m_space_officer_bs_old.mesh" }
+	blend_shape = { id = "m_space_officer_bs_dwarf"		type = "m_space_officer_bs_dwarf.mesh" }
+
+	meshsettings = {
+		name = "m_space_officerShape"
+		index = 0
+		texture_diffuse = "m_space_officer_diffuse.dds"
+		texture_normal = "m_space_officer_normal.dds"
+		texture_specular = "m_space_officer_properties.dds"
+		shader = "portrait_attachment"
+		shader_file = "gfx/FX/jomini/portrait.shader"
+	}
+}
+
+entity = {
+	name = "male_clothes_secular_opb_suit_entity"
+	pdxmesh = "m_space_officer_mesh"
+
+	attribute = { name = "bs_body_infant_1"					blend_shape = "m_space_officer_bs_infant" }
+	attribute = { name = "bs_body_fat_1"					blend_shape = "m_space_officer_bs_fat" }
+	attribute = { name = "bs_body_gaunt_1"					blend_shape = "m_space_officer_bs_gaunt" }
+	attribute = { name = "bs_body_muscular_1"					blend_shape = "m_space_officer_bs_muscular" }	
+	attribute = { name = "bs_body_old_1"					blend_shape = "m_space_officer_bs_old" }
+	attribute = { name = "bs_body_dwarf_1"					blend_shape = "m_space_officer_bs_dwarf" }
+}
+
