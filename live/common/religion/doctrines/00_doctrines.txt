@@ -830,10 +830,16 @@ doctrine_theocracy = {
 			}
 		}
 		
+		is_shown = { has_doctrine = religious_hostility_doctrine }
+		
 		can_pick = {
 			custom_description = {
 				text = incompatible_doctrine_theocracy_temporal_trigger
 				NOT = { doctrine:doctrine_temporal_head = { is_in_list = selected_doctrines } }
+			}
+			custom_description = {
+				text = incompatible_doctrine_theocracy_no_head_trigger
+				NOT = { doctrine:doctrine_no_head = { is_in_list = selected_doctrines } }
 			}
 		}
 
@@ -874,6 +880,19 @@ doctrine_head_of_faith = {
 				multiply = faith_unchanged_doctrine_cost_mult
 			}
 		}
+		can_pick = {
+			custom_description = {
+				text = incompatible_doctrine_theocracy_temporal_trigger
+				NOT = { doctrine:doctrine_theocracy_temporal = { is_in_list = selected_doctrines } }
+			}
+			custom_description = {
+				text = incompatible_doctrine_spiritual_appointment_temporal_trigger
+				NOR = {
+					doctrine:doctrine_clerical_succession_spiritual_appointment = { is_in_list = selected_doctrines }
+					doctrine:doctrine_clerical_succession_spiritual_fixed_appointment = { is_in_list = selected_doctrines }
+				}
+			}
+		}
 		parameters = {
 			no_head_of_faith = yes
 			minimum_fervor = 25
@@ -888,6 +907,7 @@ doctrine_head_of_faith = {
 				multiply = faith_unchanged_doctrine_cost_mult
 			}
 		}
+		is_shown = { has_doctrine = religious_hostility_doctrine }
 		parameters = {
 			spiritual_head_of_faith = yes
 			spiritual_head_of_faith_claims = yes
