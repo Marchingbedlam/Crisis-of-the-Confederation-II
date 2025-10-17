@@ -152,13 +152,170 @@
 		can_pick = { always = yes }
 		
 		character_modifier = {
-			ignore_opinion_of_different_faith = yes
-			ignore_opinion_of_different_culture = yes
+			direct_vassal_opinion = 10
+			opinion_of_different_culture = 10
+			opinion_of_different_faith = 10
 			tyranny_gain_mult = 0.5
 		}
 		
 		parameters = {
-			# Enables forming federation government types
+			can_form_federations = yes
+		}
+	}
+	
+	tenet_spacer_values = {
+		icon = core_tenet_astrology
+		piety_cost = {
+			if = {
+				limit = { religion_tag = astrist_ideology }
+				value = faith_tenet_cost_low
+			}
+			else = { value = faith_tenet_cost_high }
+			
+			# Multiplier for keeping same tenet
+			if = {
+				limit = { has_doctrine = tenet_spacer_values }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		
+		is_shown = { }
+		can_pick = {
+			custom_description = {
+				text = incompatible_doctrine_spacer_values_parliamentarianism_trigger
+				NOT = { doctrine:doctrine_parliamentarianism = { is_in_list = selected_doctrines } }
+			}
+			custom_description = {
+				text = incompatible_doctrine_spacer_values_consensus_trigger
+				NOT = { doctrine:doctrine_consensus = { is_in_list = selected_doctrines } }
+			}
+		}
+		
+		traits = {
+			virtues = { veteran_adventurer follower honest loyal }
+			sins = { craven deceitful disloyal }
+		}
+		
+		parameters = {
+			unlock_voluntary_laampdom_faith = yes
+		}
+	}
+	
+	tenet_cyberneticism = {
+		icon = core_tenet_pursuit_of_power
+		piety_cost = {
+			if = {
+				limit = { religion_tag = transhumanism_ideology }
+				value = faith_tenet_cost_mid
+			}
+			else_if = {
+				limit = { has_doctrine = religious_hostility_doctrine }
+				value = faith_tenet_cost_massive
+			}
+			else = { value = faith_tenet_cost_high }
+			
+			# Multiplier for keeping same tenet
+			if = {
+				limit = { has_doctrine = tenet_cyberneticism }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		
+		is_shown = { }
+
+		can_pick = {
+			custom_description = {
+				text = incompatible_doctrine_human_purity_trigger
+				NOT = { doctrine:tenet_human_purity = { is_in_list = selected_doctrines } }
+			}
+		}
+		
+		traits = { virtues = { scholar } }
+		
+		parameters = {
+			positive_opinion_of_cybernetics = yes
+			full_cybernetic_conversions = yes
+		}
+	}
+	
+	tenet_bio_directionism = {
+		icon = core_tenet_adaptive
+		piety_cost = {
+			if = {
+				limit = { religion_tag = transhumanism_ideology }
+				value = faith_tenet_cost_mid
+			}
+			else_if = {
+				limit = { has_doctrine = religious_hostility_doctrine }
+				value = faith_tenet_cost_massive
+			}
+			else = { value = faith_tenet_cost_high }
+			
+			# Multiplier for keeping same tenet
+			if = {
+				limit = { has_doctrine = tenet_bio_directionism }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		
+		is_shown = { }
+
+		can_pick = {
+			custom_description = {
+				text = incompatible_doctrine_human_purity_trigger
+				NOT = { doctrine:tenet_human_purity = { is_in_list = selected_doctrines } }
+			}
+		}
+		
+		traits = {
+			virtues = { chaste }
+			sins = { lustful }
+		}
+		
+		parameters = {
+			genetic_engineering = yes
+		}
+	}
+	
+	tenet_human_purity = {
+		icon = core_tenet_natural_primitivism
+		piety_cost = {
+			if = {
+				limit = { religion_tag = transhumanism_ideology }
+				value = faith_tenet_cost_massive
+			}
+			else_if = {
+				limit = { has_doctrine = religious_hostility_doctrine }
+				value = faith_tenet_cost_mid
+			}
+			else = { value = faith_tenet_cost_high }
+			
+			# Multiplier for keeping same tenet
+			if = {
+				limit = { has_doctrine = tenet_human_purity }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		
+		is_shown = { }
+
+		can_pick = {
+			custom_description = {
+				text = incompatible_doctrine_cyberneticism_trigger
+				NOT = { doctrine:tenet_cyberneticism = { is_in_list = selected_doctrines } }
+			}
+			custom_description = {
+				text = incompatible_doctrine_bio_directionism_trigger
+				NOT = { doctrine:tenet_bio_directionism = { is_in_list = selected_doctrines } }
+			}
+		}
+		
+		traits = { virtues = { whole_of_body } }
+		
+		parameters = {
+			hates_cyborgs = yes
+			hates_clones = yes
+			hates_mutants = yes
 		}
 	}
 
