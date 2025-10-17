@@ -1,7 +1,2296 @@
-﻿1 = { 
+﻿# Victoria Lockley's Clone Line
+avalon_0001 = {
+	# Grand Admiral in Exile, 2996 - Present
+	name = "Victoria"
+	dynasty = dynn_Locksley
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = intellect_good_3
+	trait = physique_good_3
+	trait = brave
+	trait = arrogant
+	trait = ambitious
+	trait = callous
+	#trait = radical
+
+	mother = avalon_0003 # Victoria XIII Locksley
+
+	2987.1.1 = { birth = yes }
+	2996.2.19 = {
+		# Blackburn's coup succeeds
+		employer = avalon_0023 # Edward Firestone
+		effect = {
+			add_pressed_claim = title:k_avalon
+			add_pressed_claim = title:d_avalon
+			add_pressed_claim = title:c_avalon
+		}
+	}
+}
+avalon_0002 = {
+	# Victoria XV
+	name = "Victoria"
+	dynasty = dynn_Locksley
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+
+	#trait = clone
+	trait = intellect_good_3
+	trait = physique_good_3
+
+	mother = avalon_0001 # Victoria XIV Locksley
+
+	3006.11.11 = {
+		birth = yes
+	}
+}
+
+avalon_0003 = {
+	# Grand Admiral of Avalon, 2975 - 2996
+	name = "Victoria"
+	dynasty = dynn_Locksley
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+
+	#trait = clone
+	trait = intellect_good_3
+	trait = physique_good_3
+
+	mother = avalon_0004 # Victoria XII Locksley
+
+	2956.1.1 = { birth = yes }
+	2996.2.5 = {
+		death = {
+			death_reason = death_murder
+			killer = avalon_0097 # Joseph ? Blackburn
+		}
+	}
+}
+
+avalon_0004 = {
+	# Grand Admiral of Avalon, 2949 - 2975
+	name = "Victoria"
+	dynasty = dynn_Locksley
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+
+	#trait = clone
+	trait = intellect_good_3
+	trait = physique_good_3
+
+	mother = avalon_0006 # Victoria XI Locksley
+
+	2894.1.1 = { birth = 2894.1.1 }
+	2975.1.1 = { death = 2975.1.1 }
+}
+
+avalon_0005 = {
+	# Former Heir to Avalon
+	name = "Victoria"
+	dynasty = dynn_Locksley
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+
+	#trait = clone
+	trait = intellect_good_3
+	trait = physique_good_3
+	trait = inbred
+
+	mother = avalon_0004 # Victoria XII Locksley
+
+	2920.1.1 = { birth = yes }
+	2954.1.1 = { death = yes }
+}
+
+avalon_0006 = {
+	# Grand Admiral of Avalon, 2915 - 2949
+	name = "Victoria"
+	dynasty = dynn_Locksley
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+
+	#trait = clone
+	trait = intellect_good_3
+	trait = physique_good_3
+
+	mother = avalon_0007 # Victoria X Locksley
+
+	2870.1.1 = { birth = yes }
+	2949.1.1 = { death = yes }
+}
+
+avalon_0007 = {
+	# Grand Admiral of Avalon, 2874 - 2915
+	name = "Victoria"
+	dynasty = dynn_Locksley
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+
+	#trait = clone
+	trait = intellect_good_3
+	trait = physique_good_3
+
+	mother = avalon_0008 # Victoria IX Locksley
+
+	2830.1.1 = { birth = yes }
+	2915.1.1 = { death = yes }
+}
+
+avalon_0008 = {
+	# Grand Admiral of Avalon, 2796 - 2874
+	name = "Victoria"
+	dynasty = dynn_Locksley
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+
+	#trait = clone
+	trait = intellect_good_3
+	trait = beauty_good_3
+
+	mother = avalon_0009 # Victoria VIII Locksley
+
+	2791.1.1 = { birth = yes }
+	2874.1.1 = { death = yes }
+}
+
+avalon_0009 = {
+	# Grand Admiral of Avalon, 2764 - 2796
+	name = "Victoria"
+	dynasty = dynn_Locksley
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+
+	#trait = clone
+	trait = intellect_good_3
+	trait = beauty_good_3
+	#trait = gmo
+
+	mother = avalon_0011 # Victoria VII Locksley
+
+	2758.1.1 = { birth = yes }
+	2796.1.1 = {
+		death = {
+			death_reason = death_murder
+			killer = avalon_0010 # Victoria the Serpent
+		}
+	}
+}
+
+avalon_0010 = {
+	# Victoria the Serpent, pretender to the throne of Avalon
+	name = "Victoria"
+	dynasty = dynn_Locksley
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+
+	#trait = clone
+	trait = intellect_good_3
+	#trait = gmo
+	trait = callous
+	#trait = pragmatic
+	#trait = introverted
+	trait = ambitious
+	trait = arrogant
+	#trait = neurotic
+	trait = education_intrigue_3
+
+	mother = avalon_0011 # Victoria VII Locksley
+
+	2750.1.1 = { birth = yes }
+	2777.1.1 = { 
+		effect = {
+			title:d_nelson.holder = {
+				set_relation_lover = character:avalon_0010
+			}
+		}
+	}
+	2796.1.1 = {
+		effect = { add_trait = kinslayer_1 }
+		effect = { give_nickname = nick_the_serpent }
+	}
+	2815.1.1 = {
+		death = {
+			death_reason = death_execution
+			killer = avalon_0008 # Victoria IX Locksley
+		}
+	}
+}
+
+avalon_0011 = {
+	# Grand Admiral of Avalon, 2705 - 2764
+	name = "Victoria"
+	dynasty = dynn_Locksley
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+
+	#trait = clone
+	trait = intellect_good_3
+
+	mother = avalon_0013 # Victoria V Locksley
+
+	2680.1.1 = { birth = yes }
+	2764.1.1 = { death = yes }
+}
+
+avalon_0012 = {
+	# Grand Admiral of Avalon, 2699 - 2705
+	name = "Victoria"
+	dynasty = dynn_Locksley
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+
+	#trait = clone
+	trait = intellect_good_1
+
+	mother = avalon_0013 # Victoria V Locksley
+	2678.1.1 = { birth = yes }
+	2705.1.1 = {
+		death = {
+			death_reason = death_battle
+			killer = avalon_0011 # Victoria VII Locksley
+		}
+	}
+}
+
+avalon_0013 = {
+	# Grand Admiral of Avalon, 2680 - 2699
+	name = "Victoria"
+	dynasty = dynn_Locksley
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+
+	#trait = clone
+	trait = intellect_good_1
+
+	mother = avalon_0014 # Victoria IV Locksley
+
+	2662.1.1 = { birth = yes }
+	2699.1.1 = { death = { death_reason = death_murder } }
+}
+
+avalon_0014 = {
+	# Grand Admiral of Avalon, 2644 - 2680
+	name = "Victoria"
+	dynasty = dynn_Locksley
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+
+	#trait = clone
+	trait = intellect_good_1
+
+	mother = avalon_0016 # Victoria II Locksley
+
+	2602.1.1 = { birth = yes }
+	2680.1.1 = { death = yes }
+}
+
+avalon_0015 = {
+	# Grand Admiral of Avalon, 2603 - 2644
+	name = "Victoria"
+	dynasty = dynn_Locksley
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+
+	#trait = clone
+	trait = intellect_good_1
+
+	mother = avalon_0016 # Victoria II Locksley
+
+	2572.1.1 = { birth = yes }
+	2644.1.1 = { death = yes }
+}
+
+avalon_0016 = {
+	# Grand Admiral of Avalon, 2541 - 2603
+	name = "Victoria"
+	dynasty = dynn_Locksley
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+
+	#trait = clone
+	trait = intellect_good_1
+
+	mother = avalon_0017 # Victoria I Locksley
+
+
+	2510.1.1 = { birth = yes }
+	2603.1.1 = { death = yes }
+}
+
+avalon_0017 = {
+	# Grand Admiral of Avalon, 2509 - 2541
+	name = "Victoria"
+	dynasty = dynn_Locksley
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+
+	trait = intellect_good_1
+
+
+	2453.1.1 = {
+		birth = yes
+	}
+	2541.1.1 = { death = yes }
+}
+
+avalon_0018 = {
+	# "Grand Admiral of Avalon," 2996 - Present
+	# King of Avalon, 2998 - Present
 	name = "Arthur"
-	dynasty = 1
-	dna = 1
+	dynasty = dynn_Pendragon # Pendragon
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = physique_good_3
+	trait = strong
+	2992.1.1 = {
+		birth = yes
+	}
+}
+
+# SECTOR AVALON
+avalon_0019 = {
+	# Commander of Merlin, 2996 - Present
+	# Blackburn's bastard daughter
+	# Original Merlin clone line deceased, or is it?
+	name = "Elizabeth"
+	dynasty = dynn_Cloud # Cloud
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	trait = bastard
+
+	father = avalon_0097 # Joseph VII Blackburn
+	mother = avalon_0107 # Chloe Cloud
+
+	2980.1.1 = { birth = yes }
+}
+avalon_0020 = {
+	# Commander of Camelot, 2996 - Present
+	name = "Grace"
+	dynasty = dynn_Bailey # Bailey
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+
+	mother = avalon_0021 # Grace ?? Bailey
+
+	2981.1.1 = { birth = yes }
+}
+avalon_0021 = {
+	# Commander of Camelot, 2982 - 2996
+	name = "Grace"
+	dynasty = dynn_Bailey # Bailey
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+
+	2959.1.1 = { birth = yes }
+	2996.2.15 = {
+		death = {
+			death_reason = death_battle
+			killer = avalon_0097 # Joseph Blackburn
+		}
+	}
+}
+avalon_0022 = {
+	# Commander of Paladin, 2983 - Present
+	name = "Margaret"
+	dynasty = dynn_Okon # Okon
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+
+	2955.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+}
+
+# NELSON SECTOR
+avalon_0023 = {
+	# Admiral of Nelson
+	name = "Edward"
+	dynasty = dynn_Firestone # Firestone
+	
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	#trait = radical
+	trait = education_martial_2
+	#trait = frigate_pilot
+	#trait = agile
+	trait = intellect_good_1
+	trait = humble
+	trait = brave
+	trait = gregarious
+	#trait = extraverted
+
+	father = avalon_0027 # Edward IV Firestone
+
+	2977.1.1 = { birth = yes }
+}
+avalon_0024 = {
+	# Edward Firestone VI
+	name = "Edward"
+	dynasty = dynn_Firestone # Firestone
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = intellect_good_1
+	#trait = cloning_defects
+
+	father = avalon_0023 # Edward IV Firestone
+
+	2998.12.12 = { birth = yes }
+}
+avalon_0025 = {
+	# Edward Firestone VI
+	name = "Mordred"
+	dynasty = dynn_Firestone # Firestone
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	#trait = heavy_worlder
+	#trait = cloning_defects
+	#trait = agile
+	#trait = gmo
+
+	father = avalon_0023 # Edward IV Firestone
+
+	3006.12.9 = { birth = yes }
+}
+
+avalon_0026 = {
+	# Early, defective clone
+	name = "Edward"
+	dynasty = dynn_Firestone # Firestone
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	#trait = agile
+	#trait = pragmatic
+	trait = education_intrigue_4
+	trait = humble
+	#trait = neurotic
+	#trait = extraverted
+
+	father = avalon_0027 # Edward IV Firestone
+	2972.1.1 = { birth = yes }
+}
+
+avalon_0027 = {
+	# Admiral of Nelson, 2982 - 2996
+	name = "Edward"
+	dynasty = dynn_Firestone # Firestone
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	#trait = agile
+	trait = intellect_good_1
+
+	father = avalon_0028 # Edward III Firestone
+
+	2953.1.1 = { birth = yes }
+	2996.2.19 = {
+		death = {
+			death_reason = death_battle
+			killer = avalon_0097 # Joseph Blackburn
+		}
+	}
+}
+
+avalon_0028 = {
+	# Admiral of Nelson, 2937 - 2982
+	name = "Edward"
+	dynasty = dynn_Firestone # Firestone
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	#trait = agile
+	trait = intellect_good_1
+
+	father = avalon_0029 # Edward II Firestone
+
+	2911.1.1 = { birth = yes }
+	2982.1.1 = { death = yes }
+}
+
+avalon_0029 = {
+	# Admiral of Nelson, 2876 - 2937
+	name = "Edward"
+	dynasty = dynn_Firestone # Firestone
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	#trait = agile
+	trait = intellect_good_1
+
+	father = avalon_0030 # Edward I Firestone
+	2852.1.1 = { birth = yes }
+	2937.1.1 = { death = yes }
+}
+
+avalon_0030 = {
+	# Admiral of Nelson, 2816 - 2876
+	# Replaced eradicated Somani clone line
+	# Bastard son of Victoria VIII
+
+	name = "Edward"
+	dynasty = dynn_Firestone # Firestone
+
+	culture = atlantean
+	religion = atlantite
+
+	trait = bastard
+	#trait = agile
+	trait = intellect_good_1
+
+	mother = avalon_0009 # Victoria VIII Locksley
+
+	2793.1.1 = { birth = yes }
+	2876.1.1 = { death = yes }
+}
+
+avalon_0031 = {
+	# Admiral of Nelson, 2773 - 2815
+	# Lover of Victoria the Serpent, participated in assassination of Victoria VIII
+	# Entire clone line eradicated as punishment, sector given to Edward Firestone
+
+	name = "Liam"
+	dynasty = dynn_Somani # Somani
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = intellect_good_3
+
+	father = avalon_0033 # Liam VIII Somani
+
+	2754.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2815.1.1 = {
+		death = {
+			death_reason = death_execution
+			killer = avalon_0008 # Victoria IX Locksley
+		}
+	}
+}
+
+avalon_0032 = {
+	# Liam IX Somani's clone heir
+	# Executed as part of eradication of this line
+	name = "Liam"
+	dynasty = dynn_Somani # Somani
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = intellect_good_3
+
+	father = avalon_0031 # Liam IX Somani
+
+	2775.1.1 = {
+		birth = 2775.1.1
+		culture = atlantean
+	}
+	2815.1.1 = {
+		death = {
+			death_reason = death_execution
+			killer = avalon_0008 # Victoria IX Locksley
+		}
+	}
+}
+
+avalon_0033 = {
+	# Admiral of Nelson, 2753 - 2773
+	# Son of Liam VI, overthrew uncle and briefly restored Liam VI's line
+	name = "Liam"
+	dynasty = dynn_Somani # Somani
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = intellect_good_3
+
+	father = avalon_0035 # Liam VI Somani
+
+	2701.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2773.1.1 = { death = yes }
+}
+
+avalon_0034 = {
+	# Admiral of Nelson, 2709 - 2753
+	# Younger clone of Liam V, overthrew and executed older brother, eventually assassinated by nephew
+	name = "Liam"
+	dynasty = dynn_Somani # Somani
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = intellect_good_3
+
+	father = avalon_0036 # Liam V Somani
+
+	2685.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2753.1.1 = {
+		death = {
+			death_reason = death_murder
+			killer = avalon_0033 # Liam VIII Somani
+		}
+	}
+}
+
+avalon_0035 = {
+	# Admiral of Nelson, 2702 - 2709
+	# Older clone of Liam V, usurped and executed by his brother
+	name = "Liam"
+	dynasty = dynn_Somani # Somani
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = intellect_good_3
+
+	father = avalon_0036 # Liam V Somani
+
+	2678.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2709.1.1 = {
+		death = {
+			death_reason = death_execution
+			killer = avalon_0034 # Liam VII Somani
+		}
+	}
+}
+
+avalon_0036 = {
+	# Admiral of Nelson, 2687 - 2702
+	name = "Liam"
+	dynasty = dynn_Somani # Somani
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = intellect_good_3
+
+	father = avalon_0037 # Liam IV Somani
+	2642.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2702.1.1 = { death = yes }
+}
+
+avalon_0037 = {
+	# Admiral of Nelson, 2660 - 2687
+	name = "Liam"
+	dynasty = dynn_Somani # Somani
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = intellect_good_3
+
+	father = avalon_0038 # Liam III Somani
+
+	2613.1.1 = {
+		birth = 2613.1.1
+		culture = atlantean
+	}
+	2687.1.1 = { death = 2687.1.1 }
+}
+
+avalon_0038 = {
+	# Admiral of Nelson, 2638 - 2660
+	name = "Liam"
+	dynasty = dynn_Somani # Somani
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = intellect_good_3
+
+	father = avalon_0039 # Liam II Somani
+
+	2592.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2660.1.1 = { death = yes }
+}
+
+avalon_0039 = {
+	# Admiral of Nelson, 2594 - 2638
+	name = "Liam"
+	dynasty = dynn_Somani # Somani
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = intellect_good_3
+
+	father = avalon_0040 # Liam I Somani
+
+	2573.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2638.1.1 = { death = yes }
+}
+
+avalon_0040 = {
+	# First Admiral of Nelson, 2557 - 2594
+	name = "Liam"
+	dynasty = dynn_Somani # Somani
+
+	culture = atlantean
+	religion = atlantite
+
+	trait = intellect_good_3
+
+	2521.1.1 = { birth = yes }
+	2594.1.1 = { death = yes }
+}
+
+avalon_0041 = {
+	# Commander of Sherwood
+	name = "Richard"
+	dynasty = dynn_O_Brien # O'Brien
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+
+	2962.1.1 = { birth = yes }
+}
+
+avalon_0042 = {
+	# Commander of Chalice
+	name = "Jessica"
+	dynasty = dynn_Fasilidas # Fasilidas
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+
+	2959.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	3006.1.1 = { death = yes}
+}
+
+# SECTOR CALIBURN
+avalon_0043 = {
+	# Admiral of Caliburn, 2995 - Present
+	name = "Malcolm"
+	dynasty = dynn_Bekele # Bekele
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+
+	father = avalon_0044 # Malcolm X Bekele
+
+	2960.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+}
+avalon_0044 = {
+	# Admiral of Caliburn, 2947 - 2995
+	name = "Malcolm"
+	dynasty = dynn_Bekele # Bekele
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+
+	father = avalon_0045 # Malcolm IX Bekele
+
+	2925.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2995.1.1 = { death = yes }
+}
+avalon_0045 = {
+	# Admiral of Caliburn, 2879 - 2947
+	name = "Malcolm"
+	dynasty = dynn_Bekele # Bekele
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+
+	father = avalon_0046 # Malcolm VIII Bekele
+
+	2854.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2947.1.1 = { death = yes }
+}
+avalon_0046 = {
+	# Admiral of Caliburn, 2834 - 2879
+	name = "Malcolm"
+	dynasty = dynn_Bekele # Bekele
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+
+	father = avalon_0048 # Malcolm VI Bekele
+
+	2788.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2879.1.1 = { death = yes }
+}
+avalon_0047 = {
+	# Admiral of Caliburn, 2816 - 2834
+	name = "Malcolm"
+	dynasty = dynn_Bekele # Bekele
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = physique_good_3
+	trait = intellect_good_1
+
+	father = avalon_0048 # Malcolm VI Bekele
+
+	2806.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2834.1.1 = { death = { death_reason = death_accident } }
+}
+avalon_0048 = {
+	# Admiral of Caliburn, 2749 - 2816
+	name = "Malcolm"
+	dynasty = dynn_Bekele # Bekele
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = physique_good_3
+	trait = intellect_good_1
+
+	father = avalon_0049 # Malcolm V Bekele
+
+	2731.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2816.1.1 = { death = yes }
+}
+avalon_0049 = {
+	# Admiral of Caliburn, 2685 - 2749
+	name = "Malcolm"
+	dynasty = dynn_Bekele # Bekele
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = physique_good_3
+	trait = intellect_good_1
+
+	father = avalon_0050 # Malcolm IV Bekele
+	2663.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2749.1.1 = { death = yes }
+}
+avalon_0050 = {
+	# Admiral of Caliburn, 2647 - 2685
+	name = "Malcolm"
+	dynasty = dynn_Bekele # Bekele
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = physique_good_3
+	trait = intellect_good_1
+
+	father = avalon_0053 # Malcolm I Bekele
+
+	2608.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2685.1.1 = { death = yes }
+}
+avalon_0051 = {
+	# Admiral of Caliburn, 2642 - 2647
+	name = "Malcolm"
+	dynasty = dynn_Bekele # Bekele
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = physique_good_3
+	trait = intellect_good_1
+
+	father = avalon_0052 # Malcolm II Bekele
+
+	2635.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2704.1.1 = { death = yes }
+}
+avalon_0052 = {
+	# Admiral of Caliburn, 2632 - 2642
+	name = "Malcolm"
+	dynasty = dynn_Bekele # Bekele
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = physique_good_3
+	trait = intellect_good_1
+
+	father = avalon_0053 # Malcolm I Bekele
+
+	2601.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2642.1.1 = {
+		death = {
+			death_reason = death_battle
+			killer = avalon_0085 # Kolonkan Akinwale
+		}
+	}
+}
+avalon_0053 = {
+	# First Admiral of Caliburn, 2599 - 2632
+	name = "Malcolm"
+	dynasty = dynn_Bekele # Bekele
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	trait = physique_good_3
+	trait = intellect_good_1
+
+	2548.1.1 = { birth = yes }
+	2632.1.1 = { death = yes }
+}
+avalon_0054 = {
+	# Commander of Greywood
+	name = "Luke"
+	dynasty = dynn_Nwosu # Nwosu
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+
+	2970.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+}
+avalon_0055 = {
+	# Commander of Mary's Star
+	name = "Ruby"
+	dynasty = dynn_Tamura # Tamura
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+
+	2958.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+}
+
+# SECTOR VICTORIA
+avalon_0056 = {
+	# Admiral of Victoria, 2993 - Present
+	name = "Elizabeth"
+	dynasty = dynn_Okafor # Okafor
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = strong
+	#trait = pragmatic
+	trait = gregarious
+	#trait = open_minded
+
+	mother = avalon_0059 # Elizabeth IX Okafor
+
+	2950.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2977.1.1 = {
+		effect = {
+			set_relation_lover = character:avalon_0069
+		}
+	}
+}
+
+avalon_0057 = {
+	# Bastard biological son of Elizabeth X Okafor
+	name = "Jacob"
+	dynasty = dynn_Okafor # Okafor
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	trait = bastard
+	trait = education_martial_3
+	#trait = frigate_pilot
+	#trait = neurotic
+	#trait = introverted
+	trait = gregarious
+	#trait = pragmatic
+	#trait = open_minded
+	trait = brave
+
+	mother = avalon_0056 # Elizabeth X Okafor
+	father = avalon_0069 # Henry ? Rao
+
+	2979.1.1 = {
+		birth = yes
+		culture = atlantean
+		employer = avalon_0056 # Just to make sure he lives with his mother
+	}
+}
+
+avalon_0058 = {
+	# Clone heir of Elizabeth Okafor
+	name = "Elizabeth"
+	dynasty = dynn_Okafor # Okafor
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+
+	mother = avalon_0056 # Elizabeth Okafor
+
+	2985.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+}
+
+avalon_0059 = {
+	# Admiral of Victoria, 2953 - 2993
+	name = "Elizabeth"
+	dynasty = dynn_Okafor # Okafor
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = strong
+
+	mother = avalon_0060 # Elizabeth VIII Okafor
+
+	2919.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2993.1.1 = { death = yes }
+}
+avalon_0060 = {
+	# Admiral of Victoria, 2897 - 2953
+	name = "Elizabeth"
+	dynasty = dynn_Okafor # Okafor
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = strong
+
+	mother = avalon_0061 # Elizabeth VII Okafor
+
+	2871.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2953.1.1 = { death = yes }
+}
+avalon_0061 = {
+	# Admiral of Victoria, 2872 - 2897
+	name = "Elizabeth"
+	dynasty = dynn_Okafor # Okafor
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = strong
+
+	mother = avalon_0063 # Elizabeth V Okafor
+
+	2815.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2897.1.1 = { death = yes }
+}
+avalon_0062 = {
+	# Admiral of Victoria, 2845 - 2872
+	name = "Elizabeth"
+	dynasty = dynn_Okafor # Okafor
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = intellect_good_1
+	trait = strong
+
+	mother = avalon_0063 # Elizabeth V Okafor
+
+	2823.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2897.1.1 = { death = yes } # Died of some horrible space disease
+}
+avalon_0063 = {
+	# Admiral of Victoria, 2787 - 2845
+	name = "Elizabeth"
+	dynasty = dynn_Okafor # Okafor
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = intellect_good_1
+	trait = strong
+
+	mother = avalon_0064 # Elizabeth IV Okafor
+
+	2751.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2845.1.1 = { death = yes }
+}
+avalon_0064 = {
+	# Admiral of Victoria, 2703 - 2787
+	name = "Elizabeth"
+	dynasty = dynn_Okafor # Okafor
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = intellect_good_1
+	trait = strong
+
+	mother = avalon_0066 # Elizabeth III Okafor
+
+	2701.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2787.1.1 = { death = yes }
+}
+avalon_0065 = {
+	# Deceased clone of Elizabeth IV Okafor
+	name = "Elizabeth"
+	dynasty = dynn_Okafor # Okafor
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = intellect_good_1
+	trait = strong
+
+	mother = avalon_0064 # Elizabeth IV Okafor
+
+	2720.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2743.1.1 = { death = { death_reason = death_accident } }
+}
+avalon_0066 = {
+	# Admiral of Victoria, 2662 - 2703
+	name = "Elizabeth"
+	dynasty = dynn_Okafor # Okafor
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = intellect_good_1
+	trait = strong
+
+	mother = avalon_0067 # Elizabeth II Okafor
+
+	2644.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2703.1.1 = { death = { death_reason = death_battle } }
+}
+avalon_0067 = {
+	# Admiral of Victoria, 2593 - 2662
+	name = "Elizabeth"
+	dynasty = dynn_Okafor # Okafor
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = intellect_good_1
+	trait = strong
+
+	mother = avalon_0068 # Elizabeth I Okafor
+
+	2585.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2662.1.1 = { death = yes }
+}
+avalon_0068 = {
+	# First Admiral of Victoria, 2532 - 2593
+	name = "Elizabeth"
+	dynasty = dynn_Okafor # Okafor
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	trait = intellect_good_1
+	trait = strong
+
+	2513.1.1 = { birth = yes }
+	2593.1.1 = { death = yes }
+}
+
+avalon_0069 = {
+	# Commander of Garrison, 2986 - Present
+	name = "Henry"
+	dynasty = dynn_Rao # Rao
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = physique_good_3
+	#trait = agile
+
+	father = avalon_0070 # Henry ?? Rao
+
+	2958.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+}
+
+avalon_0070 = {
+	# Commander of Garrison, 2953 - 2986
+	name = "Henry"
+	dynasty = dynn_Rao # Rao
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = physique_good_3
+	#trait = agile
+
+	2937.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2986.1.1 = { death = { death_reason = death_accident } } # Yes, a genuine accident. Weird, I know.
+}
+
+avalon_0071 = {
+	# Commander of Hawkwood
+	name = "Allen"
+	dynasty = dynn_Iskander # Iskander
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	sexuality = homosexual
+
+	2977.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+}
+
+avalon_0072 = {
+	# Commander of Endeavour
+	name = "Duncan"
+	dynasty = dynn_Gupta # Gupta
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+
+	2968.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+}
+
+# SECTOR ALFRED
+avalon_0073 = {
+	# Admiral of Alfred
+	name = "Katherine"
+	dynasty = dynn_Bywater # Bywater
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	sexuality = homosexual
+	trait = physique_good_3
+	#trait = agile
+
+	mother = avalon_0074 # Katherine VII Bywater
+
+	2970.1.1 = { birth = yes }
+}
+avalon_0074 = {
+	# Admiral of Alfred, 2921 - 2989
+	name = "Katherine"
+	dynasty = dynn_Bywater # Bywater
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	sexuality = homosexual
+	trait = physique_good_3
+	#trait = agile
+
+	mother = avalon_0077 # Katherine VI Bywater
+
+	2903.1.1 = { birth = yes }
+	2989.1.1 = { death = yes }
+}
+avalon_0075 = {
+	# Deceased first clone of Katherine VII Bywater
+	name = "Katherine"
+	dynasty = dynn_Bywater # Bywater
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	sexuality = homosexual
+	trait = physique_good_3
+	#trait = agile
+
+	mother = avalon_0074 # Katherine VII Bywater
+
+	2920.1.1 = { birth = yes }
+	2943.1.1 = { death = { death_reason = death_accident } }
+}
+avalon_0076 = {
+	# Second clone of Katherine VII Bywater
+	# Fled to the Witchhead Nebual to become a space pirate in 2969
+	name = "Katherine"
+	dynasty = dynn_Bywater # Bywater
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	sexuality = homosexual
+	trait = physique_good_3
+	#trait = agile
+	trait = education_martial_3
+	#trait = frigate_pilot
+	trait = brave
+	trait = callous
+	#trait = carefree
+	#trait = open_minded
+
+	mother = avalon_0074 # Katherine VII Bywater
+
+	2948.1.1 = { birth = yes }
+}
+avalon_0077 = {
+	# Admiral of Alfred, 2869 - 2921
+	name = "Katherine"
+	dynasty = dynn_Bywater # Bywater
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	sexuality = homosexual
+	trait = physique_good_3
+	#trait = agile
+
+	mother = avalon_0078 # Katherine V Bywater
+
+	2844.1.1 = { birth = yes }
+	2921.1.1 = { death = yes }
+}
+avalon_0078 = {
+	# Admiral of Alfred, 2815 - 2869
+	name = "Katherine"
+	dynasty = dynn_Bywater # Bywater
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	sexuality = homosexual
+	trait = physique_good_3
+	#trait = agile
+
+	mother = avalon_0083 # Daughter of Katherine II's first clone
+
+	2793.1.1 = { birth = yes }
+	2869.1.1 = { death = yes }
+}
+avalon_0079 = {
+	# Admiral of Alfred, 2794 - 2815
+	name = "Katherine"
+	dynasty = dynn_Bywater # Bywater
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	sexuality = homosexual
+	trait = physique_good_3
+	#trait = agile
+
+	mother = avalon_0080 # Katherine III Bywater
+
+	2773.1.1 = { birth = yes }
+	2815.1.1 = {
+		# Executed as a participant in the plot to kill Victoria VIII
+		death = {
+			death_reason = death_execution
+			killer = avalon_0008 # Victoria IX Locksley
+		}
+	}
+}
+avalon_0080 = {
+	# Admiral of Alfred, 2732 - 2794
+	name = "Katherine"
+	dynasty = dynn_Bywater # Bywater
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	sexuality = homosexual
+	trait = physique_good_3
+	#trait = agile
+
+	mother = avalon_0081 # Katherine II Bywater
+
+	2713.1.1 = { birth = yes }
+	2794.1.1 = { death = yes }
+}
+avalon_0081 = {
+	# Admiral of Alfred, 2683 - 2732
+	name = "Katherine"
+	dynasty = dynn_Bywater # Bywater
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	sexuality = homosexual
+	trait = physique_good_3
+	#trait = agile
+
+	mother = avalon_0084 # Katherine I Bywater
+
+	2659.1.1 = { birth = yes }
+	2732.1.1 = { death = yes }
+}
+avalon_0082 = {
+	# Older clone of Katherine II
+	name = "Katherine"
+	dynasty = dynn_Bywater # Bywater
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	sexuality = homosexual
+	trait = physique_good_3
+	#trait = agile
+
+	mother = avalon_0081
+
+	2685.1.1 = { birth = yes }
+	2763.1.1 = { death = yes }
+}
+avalon_0083 = {
+	# Daughter of Katherine II's first clone
+	# Mother of Katherine V
+	name = "Katherine"
+	dynasty = dynn_Bywater # Bywater
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	sexuality = homosexual
+	trait = physique_good_3
+	#trait = agile
+
+	mother = avalon_0082 # Katherine II's first clone
+	2748.1.1 = { birth = yes }
+	2812.1.1 = { death = yes }
+}
+avalon_0084 = {
+	# First Admiral of Alfred, 2643 - 2683
+	# Commander of Etherland, 2632 - 2643
+	# Lover and betrayer of Kolonkan Akinwale
+	name = "Katherine"
+	dynasty = dynn_Bywater # Bywater
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	sexuality = homosexual
+	trait = physique_good_3
+	#trait = agile
+	trait = callous
+	#trait = open_minded
+	#trait = radical
+	#trait = carefree
+	trait = brave
+	trait = ambitious
+
+	2605.1.1 = { birth = yes }
+	2627.1.1 = { religion = atlantite }
+	2632.1.1 = {
+		effect = {
+			title:d_alfred.holder = {
+				set_relation_lover = character:avalon_0084
+			}
+		}
+	}
+	2638.1.1 = { religion = atlantite }
+	2643.1.1 = { trait = depressed_1 }
+	2683.1.1 = { death = yes }
+}
+
+avalon_0085 = {
+	# The Pirate Queen of Alfred, 2632 - 2643
+	name = "Kolonkan"
+	dynasty = dynn_Akinwale # Akinwale
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	trait = education_martial_4
+	#trait = warship_captain
+	sexuality = homosexual
+	trait = intellect_good_3
+	trait = callous
+	#trait = open_minded
+	#trait = pragmatic
+	#trait = carefree
+	trait = arrogant
+	trait = ambitious
+
+	2602.1.1 = { birth = yes }
+	2643.1.1 = {
+		death = {
+			death_reason = death_battle
+			killer = avalon_0084 # Katherine Bywater
+		}
+	}
+}
+
+avalon_0086 = {
+	# Commander of Etherland
+	name = "Jane"
+	dynasty = dynn_Watson # Watson
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+
+	2961.1.1 = { birth = yes }
+}
+
+# SECTOR LANCELOT
+avalon_0087 = {
+	# Admiral of Lancelot, 2990 - Present
+	name = "Victor"
+	dynasty = dynn_Miyamoto # Miyamoto
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = beauty_good_3
+	trait = strong
+
+	father = avalon_0088 # Victor V Miyamoto
+
+	2977.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2987.1.1 = { set_relation_guardian = character:avalon_0097 } # Joseph VII Blackburn
+	2989.1.1 = { religion = atlantite }
+}
+avalon_0088 = {
+	# Admiral of Lancelot, 2955 - 2990
+	# Commander of the Order of Avalon, 2956 - 2990
+	name = "Victor"
+	dynasty = dynn_Miyamoto # Miyamoto
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = beauty_good_3
+	trait = strong
+	trait = education_martial_4
+	#trait = frigate_pilot
+	#trait = radical
+	trait = content
+	#trait = close_minded
+	#trait = disciplined
+	#trait = skeptical
+
+	father = avalon_0090 # Victor IV Miyamoto
+
+	2925.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2990.7.24 = {
+		death = {
+			death_reason = death_murder
+			killer = avalon_0097 # Joseph ? Blackburn
+		}
+	}
+}
+
+avalon_0089 = {
+	# Illegitimate daughter of Victor V Miyamoto
+	name = "Dorothy"
+	dynasty = dynn_Miyamoto # Miyamoto
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	trait = bastard
+	trait = beauty_good_3
+	trait = strong
+	#trait = radical
+	trait = ambitious
+	#trait = disciplined
+	#trait = confident
+
+	father = avalon_0088 # Victor V Miyamoto
+
+	2969.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+}
+
+avalon_0090 = {
+	# Admiral of Lancelot, 2894 - 2955
+	name = "Victor"
+	dynasty = dynn_Miyamoto # Miyamoto
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = beauty_good_3
+	trait = strong
+
+	father = avalon_0091 # Victor III Miyamoto
+	2870.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2955.1.1 = { death = yes }
+}
+
+avalon_0091 = {
+	# Admiral of Lancelot, 2835 - 2894
+	name = "Victor"
+	dynasty = dynn_Miyamoto # Miyamoto
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = beauty_good_3
+	trait = strong
+
+	father = avalon_0092 # Victor II Miyamoto
+
+	2816.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2894.1.1 = { death = yes }
+}
+
+avalon_0092 = {
+	# Admiral of Lancelot, 2774 - 2835
+	name = "Victor"
+	dynasty = dynn_Miyamoto # Miyamoto
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = beauty_good_3
+	trait = strong
+
+	father = avalon_0093 # Victor I Miyamoto
+
+	2743.1.1 = {
+		birth = yes
+		culture = atlantean
+	}
+	2835.1.1 = { death = yes }
+}
+
+avalon_0093 = {
+	# First Admiral of Lancelot, 2723 - 2774
+	name = "Victor"
+	dynasty = dynn_Miyamoto # Miyamoto
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	trait = beauty_good_3
+	trait = strong
+
+	2701.1.1 = {
+		birth = yes
+	}
+	2774.1.1 = { death = yes }
+}
+
+avalon_0094 = {
+	# Count of Numenor
+	name = "John"
+	#dynasty = 20021 COTC TODO
+	
+	culture = atlantean
+
+	religion = atlantite
+	#secret_religion = atlantite
+
+	learning = 10
+
+	trait = education_martial_4
+	trait = scholar
+	#trait = spiritual
+	#trait = knight
+	trait = brave
+	#trait = tall
+	trait = maimed
+
+	2976.1.1 = {
+		birth = yes
+		give_nickname = nick_staples
+	}
+}
+
+avalon_0095 = {
+	# Count of Henry's Star
+	name = "Stephen"
+	dynasty = dynn_Evans # Evans
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = knight
+
+	2958.1.1 = { birth = yes }
+}
+
+avalon_0096 = {
+	# Commander of Robinson
+	name = "Patricia"
+	dynasty = dynn_Saito # Saito
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+
+	2982.1.1 = {
+		birth = yes
+	}
+}
+
+# SECTOR GALAHAD
+avalon_0097 = {
+	# Admiral of Galahad, 2986 - 2998
+	# Duke of Galahad, 2998 - Present
+	# Commander of the Order of Avalon, 2990 - Present
+	# Prime Minister of Avalon, 2996 - Present
+	# Regent of Avalon, 2996 - Present
+	# This guy's been busy
+
+	name = "Joseph"
+	dynasty = dynn_Blackburn # Blackburn
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = education_martial_4
+	#trait = army_captain
+	#trait = cloning_defects
+	trait = strong
+	#trait = agile
+	trait = brave
+	trait = ambitious
+	#trait = extraverted
+	#trait = radical
+	#trait = close_minded
+	#trait = disciplined
+
+	father = avalon_0099 # Joseph VI Blackburn
+
+	2962.1.1 = { birth = yes }
+}
+avalon_0098 = {
+	# Natural-born son of Joseph VII Blackburn
+	name = "Joseph"
+	dynasty = dynn_Blackburn # Blackburn
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	trait = strong
+	#trait = agile
+
+	father = avalon_0097 # Joseph VII Blackburn
+
+	2997.1.1 = { birth = yes }
+}
+avalon_0099 = {
+	# Admiral of Galahad, 2956 - 2986
+
+	name = "Joseph"
+	dynasty = dynn_Blackburn # Blackburn
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = strong
+	#trait = agile
+
+	father = avalon_0100 # Joseph V Blackburn
+
+	2906.1.1 = { birth = yes }
+	2986.1.1 = { death = yes }
+}
+avalon_0100 = {
+	# Admiral of Galahad, 2902 - 2956
+	# Commander of the Order of Avalon, 2923 - 2956
+	name = "Joseph"
+	dynasty = dynn_Blackburn # Blackburn
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = strong
+	#trait = agile
+	trait = education_martial_4
+	#trait = warship_captain
+	#trait = inspiring_leader
+	trait = brave
+	#trait = spiritual
+
+	father = avalon_0101 # Joseph IV Blackburn
+
+	2885.1.1 = { birth = yes }
+	2956.1.1 = { death = yes }
+}
+avalon_0101 = {
+	# Admiral of Galahad, 2847 - 2902
+	name = "Joseph"
+	dynasty = dynn_Blackburn # Blackburn
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = strong
+	#trait = agile
+	#trait = spiritual
+	#trait = open_minded
+
+	father = avalon_0102 # Joseph III Blackburn
+
+	2822.1.1 = { birth = yes }
+	2839.1.1 = { religion = atlantite }
+	2902.1.1 = { death = yes }
+}
+avalon_0102 = {
+	# Admiral of Galahad, 2766 - 2847
+	name = "Joseph"
+	dynasty = dynn_Blackburn # Blackburn
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = strong
+	#trait = agile
+
+	father = avalon_0106 # Joseph I Blackburn's first clone
+
+	2753.1.1 = { birth = yes }
+	2847.1.1 = { death = yes }
+}
+
+avalon_0103 = {
+	# Admiral of Galahad, 2715 - 2766
+	name = "Joseph"
+	dynasty = dynn_Blackburn # Blackburn
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = strong
+	#trait = agile
+
+	father = avalon_0105 # Joseph I Blackburn
+
+	2689.1.1 = { birth = yes }
+	2766.1.1 = { death = yes } # Dies of some space disease contracted years earlier
+}
+
+avalon_0104 = {
+	# Deceased clone of Joseph II Blackburn
+	name = "Joseph"
+	dynasty = dynn_Blackburn # Blackburn
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = strong
+	#trait = agile
+
+	father = avalon_0103 # Joseph II Blackburn
+
+	2709.1.1 = { birth = yes }
+	2762.1.1 = {
+		death = {
+			death_reason = death_murder
+			killer = avalon_0106 # First clone of Joseph I
+		}
+	}
+}
+
+avalon_0105 = {
+	# First Admiral of Galahad, 2671 - 2715
+	name = "Joseph"
+	dynasty = dynn_Blackburn # Blackburn
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	trait = strong
+	#trait = agile
+	trait = ambitious
+	trait = brave
+	#trait = open_minded
+	#trait = carefree
+	2628.1.1 = { birth = yes }
+	2715.1.1 = { death = yes }
+}
+
+avalon_0106 = {
+	# First clone of Joseph Blackburn
+	# Never inherited, but clone line eventually took over
+	name = "Joseph"
+	dynasty = dynn_Blackburn # Blackburn
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	#trait = clone
+	trait = strong
+	#trait = agile
+	trait = ambitious
+	#trait = neurotic
+	#trait = pragmatic
+
+	father = avalon_0105
+
+	2675.1.1 = { birth = yes }
+	2763.1.1 = {
+		death = {
+			# Executed for the murder of his nephew
+			death_reason = death_execution
+			killer = avalon_0103 # Joseph II Blackburn
+		}
+	}
+}
+
+avalon_0107 = {
+	# Chief scientist of Galahad
+	# Joseph VII's lover
+	name = "Chloe"
+	dynasty = dynn_Cloud # Cloud
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	trait = education_learning_4
+	#trait = open_minded
+	#trait = introverted
+	trait = gregarious
+	#trait = spiritual
+	#trait = disciplined
+
+	2961.1.1 = { birth = yes }
+	2977.1.1 = { employer = avalon_0099 } # Joseph VI Blackburn
+	2996.3.1 = { employer = avalon_0097 } # Joseph VII Blackburn
+}
+
+avalon_0108 = {
+	# Commander of Shiverlight
+	name = "Eliza"
+	#dynasty = random
+	female = yes
+
+	culture = atlantean
+	religion = atlantite
+
+	2953.1.1 = { birth = yes }
+}
+
+avalon_0109 = {
+	# Count of Virtue
+	name = "Sagramore"
+	#dynasty = 20022 #COTC TODO
+	
+
+	culture = atlantean
+	religion = atlantite
+
+	trait = education_martial_4
+	#trait = knight
+
+	2964.1.1 = {
+		birth = yes
+	}
+}
+
+1 = { # Placeholder since this character id is referenced in a large amount of script locations.
+	# Count of Virtue
+	name = "Arthur"
+
+	trait = education_martial_4
+	#trait = knight
 	religion = "atlantite"
 	culture = "atlantean"
 	3000.3.1 = {
