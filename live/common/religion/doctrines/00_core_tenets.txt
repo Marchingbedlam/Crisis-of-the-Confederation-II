@@ -9,7 +9,11 @@
 	tenet_capitalism = {
 		icon = core_tenet_tax_nonbelievers # Placeholder
 		piety_cost = {
-			value = faith_tenet_cost_mid
+			if = {
+				limit = { religion_tag = neo_socialism_ideology }
+				value = faith_tenet_cost_massive
+			}
+			else = { value = faith_tenet_cost_mid }
 
 			# Multiplier for keeping same tenet
 			if = {
@@ -17,8 +21,6 @@
 				multiply = faith_unchanged_doctrine_cost_mult
 			}
 		}
-		
-		is_shown = { }
 
 		can_pick = {
 			custom_description = {
@@ -45,7 +47,6 @@
 			}
 			sins = {
 				lazy = 2
-				peasant_leader
 			}
 		}
 	}
@@ -62,12 +63,14 @@
 
 		piety_cost = {
 			if = {
+				limit = { religion_tag = socialism_ideology }
+				value = faith_tenet_cost_low
+			}
+			else_if = {
 				limit = {
 					OR = {
 						has_doctrine = tenet_mendicant_preachers
-						has_doctrine = tenet_gnosticism 
-						religion_tag = christianity_religion 
-						religion_tag = zoroastrianism_religion
+						has_doctrine = tenet_gnosticism
 					}
 				}
 				value = faith_tenet_cost_mid
@@ -125,14 +128,8 @@
 		}
 		
 		traits = {
-			virtues = {
-				temperate
-				inspector
-			}
-			sins = {
-				profligate
-				peasant_leader
-			}
+			virtues = { temperate lifestyle_surveyor }
+			sins = { profligate }
 		}
 	}
 	
@@ -167,7 +164,7 @@
 		icon = core_tenet_astrology
 		piety_cost = {
 			if = {
-				limit = { religion_tag = astrist_ideology }
+				limit = { religion_tag = astrism_ideology }
 				value = faith_tenet_cost_low
 			}
 			else = { value = faith_tenet_cost_high }
@@ -182,6 +179,10 @@
 		is_shown = { }
 		can_pick = {
 			custom_description = {
+				text = incompatible_doctrine_spacer_values_anarchy_trigger
+				NOT = { doctrine:doctrine_anarchy = { is_in_list = selected_doctrines } }
+			}
+			custom_description = {
 				text = incompatible_doctrine_spacer_values_parliamentarianism_trigger
 				NOT = { doctrine:doctrine_parliamentarianism = { is_in_list = selected_doctrines } }
 			}
@@ -192,7 +193,7 @@
 		}
 		
 		traits = {
-			virtues = { veteran_adventurer follower honest loyal }
+			virtues = { adventurer adventurer_follower honest loyal }
 			sins = { craven deceitful disloyal }
 		}
 		
@@ -225,16 +226,16 @@
 
 		can_pick = {
 			custom_description = {
-				text = incompatible_doctrine_human_purity_trigger
+				text = incompatible_doctrine_cyberneticism_human_purity_trigger
 				NOT = { doctrine:tenet_human_purity = { is_in_list = selected_doctrines } }
 			}
 		}
 		
-		traits = { virtues = { scholar } }
+		traits = { virtues = { scholar cyborg } }
 		
 		parameters = {
-			positive_opinion_of_cybernetics = yes
-			full_cybernetic_conversions = yes
+			supports_cybernetics = yes
+			full_cybernetic_conversion = yes
 		}
 	}
 	
@@ -262,18 +263,59 @@
 
 		can_pick = {
 			custom_description = {
-				text = incompatible_doctrine_human_purity_trigger
+				text = incompatible_doctrine_bio_directionism_human_purity_trigger
 				NOT = { doctrine:tenet_human_purity = { is_in_list = selected_doctrines } }
 			}
 		}
 		
-		traits = {
-			virtues = { chaste }
-			sins = { lustful }
-		}
+		traits = { virtues = { gene_modded } }
 		
 		parameters = {
-			genetic_engineering = yes
+			supports_gene_modding = yes
+			supports_cloning = yes
+			gene_modding = yes
+		}
+	}
+	
+	tenet_genetic_dynasties = {
+		icon = core_tenet_ancestor_worship
+		piety_cost = {
+			if = {
+				limit = { religion_tag = transhumanism_ideology }
+				value = faith_tenet_cost_mid
+			}
+			else_if = {
+				limit = { has_doctrine = religious_hostility_doctrine }
+				value = faith_tenet_cost_massive
+			}
+			else = { value = faith_tenet_cost_high }
+			
+			# Multiplier for keeping same tenet
+			if = {
+				limit = { has_doctrine = tenet_genetic_dynasties }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		is_shown = { }
+		can_pick {
+			# Must favor hereditary rulers.
+			custom_description = {
+				text = doctrine_requires_aristocracy_trigger
+				doctrine:doctrine_aristocracy = { is_in_list = selected_doctrines }
+			}
+			custom_description = {
+				text = incompatible_doctrine_genetic_dynasties_human_purity_trigger
+				NOT = { doctrine:tenet_human_purity = { is_in_list = selected_doctrines } }
+			}
+		}
+		parameters = {
+			supports_cloning = yes
+			clone_succession_enabled = yes
+		}
+		
+		traits = {
+			virtues = { chaste clone }
+			sins = { lustful }
 		}
 	}
 	
@@ -301,21 +343,118 @@
 
 		can_pick = {
 			custom_description = {
-				text = incompatible_doctrine_cyberneticism_trigger
+				text = incompatible_doctrine_human_purity_cyberneticism_trigger
 				NOT = { doctrine:tenet_cyberneticism = { is_in_list = selected_doctrines } }
 			}
 			custom_description = {
-				text = incompatible_doctrine_bio_directionism_trigger
+				text = incompatible_doctrine_human_purity_bio_directionism_trigger
 				NOT = { doctrine:tenet_bio_directionism = { is_in_list = selected_doctrines } }
+			}
+			custom_description = {
+				text = incompatible_doctrine_human_purity_genetic_dynasties_trigger
+				NOT = { doctrine:tenet_genetic_dynasties = { is_in_list = selected_doctrines } }
 			}
 		}
 		
-		traits = { virtues = { whole_of_body } }
+		traits = {
+			virtues = { whole_of_body }
+			sins = { cyborg clone gene_modded }
+		}
 		
 		parameters = {
-			hates_cyborgs = yes
-			hates_clones = yes
-			hates_mutants = yes
+			hates_cybernetics = yes
+			hates_cloning = yes
+			hates_gene_modding = yes
+			hostility_override_tenet_cyberneticism = 3
+			hostility_override_tenet_bio_directionism = 3
+			hostility_override_tenet_genetic_dynasties = 3
+		}
+	}
+	
+	tenet_chivalry = {
+		icon = core_tenet_armed_pilgrimages # Placeholder
+		piety_cost = {
+			if = {
+				limit = { has_doctrine = doctrine_aristocracy }
+				value = faith_tenet_cost_high
+			}
+			else = { value = faith_tenet_cost_massive }
+
+			# Multiplier for keeping same tenet
+			if = {
+				limit = { has_doctrine = tenet_chivalry }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		is_shown = { }
+		can_pick = {
+			always = yes
+		}
+		parameters = {
+			knighthood = yes
+			courtly_romance = yes
+			unlock_voluntary_laampdom_faith = yes
+		}
+		traits = {
+			virtues = { brave chaste honest compassionate gallant knight_errant }
+			sins = { craven lustful deceitful }
+		}
+	}
+	
+	tenet_philanthropy = {
+		icon = core_vows_of_poverty # Placeholder
+		piety_cost = {
+			value = faith_tenet_cost_medium
+
+			# Multiplier for keeping same tenet
+			if = {
+				limit = { has_doctrine = tenet_philanthropy }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+
+		name = {
+			first_valid = {
+				triggered_desc = {
+					trigger = { has_doctrine = doctrine_religious }
+					desc = tenet_alms_for_the_poor_name
+				}
+				triggered_desc = {
+					trigger = { has_doctrine = doctrine_criminal }
+					desc = tenet_chivalrous_thieves_name
+				}
+				desc = tenet_philanthropy_name
+			}
+		}
+
+		desc = {
+			first_valid = {
+				triggered_desc = {
+					trigger = { has_doctrine = doctrine_religious }
+					desc = tenet_alms_for_the_poor_desc
+				}
+				triggered_desc = {
+					trigger = { has_doctrine = doctrine_criminal }
+					desc = tenet_chivalrous_thieves_desc
+				}
+				desc = tenet_philanthropy_desc
+			}
+		}
+		
+		is_shown = { }
+		can_pick = {
+			always = yes
+		}
+		parameters = {
+			can_give_alms = yes
+		}
+		character_modifier = {
+			county_opinion_add = 10
+			
+		}
+		traits = {
+			virtues = { compassionate generous }
+			sins = { callous sadistic greedy }
 		}
 	}
 
@@ -383,37 +522,6 @@
 			}
 		}
 
-		name = {
-			first_valid = {
-				triggered_desc = {
-					trigger = {
-						religion_tag = christianity_religion
-					}
-					desc = tenet_alexandrian_catechism_name
-				}
-				desc = tenet_islamic_rationalism_name
-			}
-		}
-
-		desc = {
-			first_valid = {
-				triggered_desc = {
-					trigger = {
-						religion_tag = christianity_religion
-					}
-					desc = tenet_alexandrian_catechism_desc
-				}
-				desc = tenet_islamic_rationalism_desc
-			}
-		}
-
-		is_shown = {
-			OR = {
-				religion_tag = christianity_religion
-				religion_tag = islam_religion 
-			}
-		}
-
 		can_pick = {
 			custom_description = {
 				text = doctrine_pluralism_fundamentalist_trigger
@@ -427,7 +535,8 @@
 		}
 
 		traits = {
-			virtues = { scholar }
+			virtues = { scholar honest }
+			sins = { deceitful }
 		}
 	}
 

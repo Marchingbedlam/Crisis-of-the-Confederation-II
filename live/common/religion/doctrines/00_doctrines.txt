@@ -740,9 +740,6 @@ doctrine_consanguinity = {
 
 doctrine_pluralism = {
 	group = "main_group"
-	is_available_on_create = {
-		has_doctrine = religious_hostility_doctrine # Doesn't really make sense for secular ideologies
-	}
 
 	doctrine_pluralism_fundamentalist = {
 		piety_cost = {
@@ -907,7 +904,8 @@ doctrine_head_of_faith = {
 				multiply = faith_unchanged_doctrine_cost_mult
 			}
 		}
-		is_shown = { has_doctrine = religious_hostility_doctrine }
+		is_shown = { has_doctrine = doctrine_religious }
+		can_pick = { has_doctrine = doctrine_religious }
 		parameters = {
 			spiritual_head_of_faith = yes
 			spiritual_head_of_faith_claims = yes
