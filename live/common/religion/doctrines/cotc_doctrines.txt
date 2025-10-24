@@ -24,6 +24,8 @@ doctrine_ideology_type = {
 		can_pick = { has_doctrine = criminal_hostility_doctrine } # Unchangeable
 		parameters = {
 			secular_administrators = yes
+			doctrine_parameter_sanctioned_assassinations = yes
+			unlock_voluntary_laampdom_faith = yes
 			can_form_crime_syndicates = yes
 		}
 		character_modifier = {
@@ -445,29 +447,11 @@ doctrine_extortion = {
 				limit = { has_doctrine = doctrine_extortion_allowed }
 				multiply = faith_unchanged_doctrine_cost_mult
 			}
-			else_if = {
-				limit = { has_doctrine = doctrine_extortion_forbidden }
-				multiply = faith_changed_doctrine_cost_mult_two_step
-			}
 		}
 		parameters = {
 			can_extort_provinces = yes
 			can_extort_rulers = yes
-			can_issue_criminal_loans = yes
-		}
-	}
-	doctrine_extortion_rulers_only = {
-		piety_cost = {
-			value = faith_doctrine_cost_medium
-			if = {
-				limit = { has_doctrine = doctrine_extortion_rulers_only }
-				multiply = faith_unchanged_doctrine_cost_mult
-			}
-		}
-		parameters = {
-			can_extort_provinces = no
-			can_extort_rulers = yes
-			can_issue_criminal_loans = yes
+			can_offer_loans = yes
 		}
 	}
 	doctrine_extortion_forbidden = {
@@ -477,25 +461,18 @@ doctrine_extortion = {
 				limit = { has_doctrine = doctrine_extortion_forbidden }
 				multiply = faith_unchanged_doctrine_cost_mult
 			}
-			else_if = {
-				limit = { has_doctrine = doctrine_extortion_allowed }
-				multiply = faith_changed_doctrine_cost_mult_two_step
-			}
 		}
 		can_pick = {
 			custom_description = {
 				text = incompatible_doctrine_must_do_some_crime_trigger
 				OR = {
+					doctrine:doctrine_piracy_encouraged = { is_in_list = selected_doctrines }
 					doctrine:doctrine_piracy_allowed = { is_in_list = selected_doctrines }
 					doctrine:doctrine_smuggling_allowed = { is_in_list = selected_doctrines }
+					doctrine:doctrine_smuggling_restricted = { is_in_list = selected_doctrines }
 					doctrine:doctrine_illegal_technology_allowed = { is_in_list = selected_doctrines }
 				}
 			}
-		}
-		parameters = {
-			can_extort_provinces = no
-			can_extort_rulers = no
-			can_issue_criminal_loans = no
 		}
 	}
 }
@@ -503,6 +480,35 @@ doctrine_piracy = {
 	group = "crimes"
 	is_available_on_create = { has_doctrine = doctrine_criminal }
 	
+	doctrine_piracy_encouraged = {
+		piety_cost = {
+			value = faith_doctrine_cost_medium
+			if = {
+				limit = { has_doctrine = doctrine_piracy_encouraged }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+			else_if = {
+				limit = { has_doctrine = doctrine_piracy_forbidden }
+				multiply = faith_changed_doctrine_cost_mult_two_step
+			}
+		}
+		can_pick = {
+			custom_description = {
+				text = incompatible_doctrine_piracy_upstanding_citizens_trigger
+				NOT = { doctrine:tenet_upstanding_citizens = { is_in_list = selected_doctrines } }
+			}
+		}
+		parameters = {
+			can_raid = yes
+			conquest_cb_enabled = yes
+			warmonger = yes
+			clergy_can_fight = yes
+		}
+		character_modifier = {
+			nebula_supply_limit_mult = 0.5
+			nebula_travel_danger = -25
+		}
+	}
 	doctrine_piracy_allowed = {
 		piety_cost = {
 			value = faith_doctrine_cost_medium
@@ -511,9 +517,18 @@ doctrine_piracy = {
 				multiply = faith_unchanged_doctrine_cost_mult
 			}
 		}
+		can_pick = {
+			custom_description = {
+				text = incompatible_doctrine_piracy_upstanding_citizens_trigger
+				NOT = { doctrine:tenet_upstanding_citizens = { is_in_list = selected_doctrines } }
+			}
+		}
 		parameters = {
 			can_raid = yes
-			unlock_voluntary_laampdom_faith = yes
+		}
+		character_modifier = {
+			nebula_supply_limit_mult = 0.5
+			nebula_travel_danger = -25
 		}
 	}
 	doctrine_piracy_forbidden = {
@@ -523,20 +538,21 @@ doctrine_piracy = {
 				limit = { has_doctrine = doctrine_piracy_forbidden }
 				multiply = faith_unchanged_doctrine_cost_mult
 			}
+			else_if = {
+				limit = { has_doctrine = doctrine_piracy_encouraged }
+				multiply = faith_changed_doctrine_cost_mult_two_step
+			}
 		}
 		can_pick = {
 			custom_description = {
 				text = incompatible_doctrine_must_do_some_crime_trigger
 				OR = {
 					doctrine:doctrine_extortion_allowed = { is_in_list = selected_doctrines }
-					doctrine:doctrine_extortion_rulers_only = { is_in_list = selected_doctrines }
 					doctrine:doctrine_smuggling_allowed = { is_in_list = selected_doctrines }
+					doctrine:doctrine_smuggling_restricted = { is_in_list = selected_doctrines }
 					doctrine:doctrine_illegal_technology_allowed = { is_in_list = selected_doctrines }
 				}
 			}
-		}
-		parameters = {
-			can_raid = no
 		}
 	}
 }
@@ -551,12 +567,30 @@ doctrine_smuggling = {
 				limit = { has_doctrine = doctrine_smuggling_allowed }
 				multiply = faith_unchanged_doctrine_cost_mult
 			}
+			else_if = {
+				limit = { has_doctrine = doctrine_smuggling_forbidden }
+				multiply = faith_changed_doctrine_cost_mult_two_step
+			}
 		}
 		parameters = {
-			can_grow_drugs = yes
-			can_deal_drugs = yes
+			can_trade_drugs = yes
+			can_smuggle = yes
 		}
 	}
+	
+	doctrine_smuggling_restricted = {
+		piety_cost = {
+			value = faith_doctrine_cost_medium
+			if = {
+				limit = { has_doctrine = doctrine_smuggling_restricted }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		parameters = {
+			can_smuggle = yes
+		}
+	}
+	
 	doctrine_smuggling_forbidden = {
 		piety_cost = {
 			value = faith_doctrine_cost_medium
@@ -564,21 +598,21 @@ doctrine_smuggling = {
 				limit = { has_doctrine = doctrine_smuggling_forbidden }
 				multiply = faith_unchanged_doctrine_cost_mult
 			}
+			else_if = {
+				limit = { has_doctrine = doctrine_smuggling_allowed }
+				multiply = faith_changed_doctrine_cost_mult_two_step
+			}
 		}
 		can_pick = {
 			custom_description = {
 				text = incompatible_doctrine_must_do_some_crime_trigger
 				OR = {
 					doctrine:doctrine_extortion_allowed = { is_in_list = selected_doctrines }
-					doctrine:doctrine_extortion_rulers_only = { is_in_list = selected_doctrines }
+					doctrine:doctrine_piracy_encouraged = { is_in_list = selected_doctrines }
 					doctrine:doctrine_piracy_allowed = { is_in_list = selected_doctrines }
 					doctrine:doctrine_illegal_technology_allowed = { is_in_list = selected_doctrines }
 				}
 			}
-		}
-		parameters = {
-			can_grow_drugs = no
-			can_deal_drugs = no
 		}
 	}
 }
@@ -602,15 +636,23 @@ doctrine_illegal_technology = {
 		}
 		parameters = {
 			can_perform_illegal_cybersurgery = yes
-			can_perform_illegal_genetic_engineering = yes
+			can_perform_illegal_gene_modding = yes
 			can_perform_illegal_cloning = yes
 		}
 	}
 	doctrine_illegal_technology_forbidden = {
+		desc = {
+			use_first_valid = yes
+			triggered_desc = {
+				trigger = { doctrine:tenet_human_purity = { is_in_list = selected_doctrines } }
+				desc = doctrine_illegal_technology_evil_desc
+			}
+			desc = doctrine_illegal_technology_forbidden_desc
+		}
 		piety_cost = {
 			value = faith_doctrine_cost_medium
 			if = {
-				limit = { has_doctrine = doctrine_smuggling_forbidden }
+				limit = { has_doctrine = doctrine_illegal_technology_forbidden }
 				multiply = faith_unchanged_doctrine_cost_mult
 			}
 		}
@@ -619,16 +661,12 @@ doctrine_illegal_technology = {
 				text = incompatible_doctrine_must_do_some_crime_trigger
 				OR = {
 					doctrine:doctrine_extortion_allowed = { is_in_list = selected_doctrines }
-					doctrine:doctrine_extortion_rulers_only = { is_in_list = selected_doctrines }
+					doctrine:doctrine_piracy_encouraged = { is_in_list = selected_doctrines }
 					doctrine:doctrine_piracy_allowed = { is_in_list = selected_doctrines }
 					doctrine:doctrine_smuggling_allowed = { is_in_list = selected_doctrines }
+					doctrine:doctrine_smuggling_restricted = { is_in_list = selected_doctrines }
 				}
 			}
-		}
-		parameters = {
-			can_perform_illegal_cybersurgery = no
-			can_perform_illegal_genetic_engineering = no
-			can_perform_illegal_cloning = no
 		}
 	}
 }

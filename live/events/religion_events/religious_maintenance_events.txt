@@ -34,8 +34,8 @@ religious_maintenance.001 = {
 				is_ruler = yes
 				faith = { has_doctrine_parameter = doctrine_commercial_power }
 				NOT = { has_opinion_modifier = { target = liege modifier = opinion_not_commercial } }
-				has_commercial_government = yes
-				liege = { has_commercial_government = no }
+				government_has_flag = government_is_commercial
+				liege = { NOT = { government_has_flag = government_is_commercial } }
 			}
 			opinion = { modifier = opinion_not_commercial target = liege }
 			add_to_variable_list = { name = wrong_power_base_liege target = liege }
@@ -45,8 +45,8 @@ religious_maintenance.001 = {
 				is_ruler = yes
 				faith = { has_doctrine_parameter = doctrine_military_power }
 				NOT = { has_opinion_modifier = { target = liege modifier = opinion_not_military } }
-				has_military_government = yes
-				liege = { has_military_government = no }
+				government_has_flag = government_is_military
+				liege = { NOT = { government_has_flag = government_is_military } }
 			}
 			opinion = { modifier = opinion_not_military target = liege }
 			add_to_variable_list = { name = wrong_power_base_liege target = liege }
@@ -56,8 +56,8 @@ religious_maintenance.001 = {
 				is_ruler = yes
 				faith = { has_doctrine_parameter = doctrine_administrative_power }
 				NOT = { has_opinion_modifier = { target = liege modifier = opinion_not_administrative } }
-				has_administrative_government = yes
-				liege = { has_administrative_government = no }
+				government_has_flag = government_is_bureaucratic
+				liege = { NOT = { government_has_flag = government_is_bureaucratic } }
 			}
 			opinion = { modifier = opinion_not_administrative target = liege }
 			add_to_variable_list = { name = wrong_power_base_liege target = liege }
@@ -117,7 +117,7 @@ religious_maintenance.001 = {
 			limit = {
 				faith = { has_doctrine_parameter = doctrine_democracy }
 				NOT = { has_opinion_modifier = { target = top_liege modifier = opinion_not_democratic } }
-				top_liege = { has_democratic_government = no }
+				top_liege = { NOT = has_government_tag = government_is_democratic }
 			}
 			opinion = { modifier = opinion_not_democratic target = top_liege }
 			add_to_variable_list = { name = wrong_power_base_liege target = top_liege }
@@ -126,7 +126,7 @@ religious_maintenance.001 = {
 			limit = {
 				faith = { has_doctrine_parameter = doctrine_aristocracy }
 				NOT = { has_opinion_modifier = { target = top_liege modifier = opinion_not_aristocratic } }
-				top_liege = { has_aristocratic_government = no }
+				top_liege = { NOT = has_government_tag = government_is_aristocratic }
 			}
 			opinion = { modifier = opinion_not_aristocratic target = top_liege }
 			add_to_variable_list = { name = wrong_power_base_liege target = top_liege }
@@ -135,7 +135,7 @@ religious_maintenance.001 = {
 			limit = {
 				faith = { has_doctrine_parameter = doctrine_meritocracy }
 				NOT = { has_opinion_modifier = { target = top_liege modifier = opinion_not_meritocratic } }
-				top_liege = { has_meritocratic_government = no }
+				top_liege = { NOT = has_government_tag = government_is_meritocratic }
 			}
 			opinion = { modifier = opinion_not_meritocratic target = top_liege }
 			add_to_variable_list = { name = wrong_power_base_liege target = top_liege }
@@ -165,5 +165,22 @@ religious_maintenance.004 = {
 			limit = { is_ruler = no }
 			trigger_event = religious_maintenance.004
 		}
+	}
+}
+
+# Add/remove prison piety gain for criminals with thieves-in-law
+# Triggers on imprisoned, released from prison, and faith change
+religious_maintenance.005 = {
+	hidden = yes
+	
+	immediate = {
+		if = {
+			limit = {
+				is_imprisoned = yes
+				faith = { has_doctrine_parameter = tenet_thieves_in_law }
+			}
+			add_character_modifier = modifier_thieves_in_law_imprisoned
+		}
+		else = { remove_character_modifier = modifier_thieves_in_law_imprisoned }
 	}
 }

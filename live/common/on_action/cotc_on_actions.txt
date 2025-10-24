@@ -1,25 +1,32 @@
-### Maintain opinions based on ideology and the overall political situation
+### Maintain opinions based on ideology
 random_yearly_everyone_pulse = {
 	events = {
-		religious_maintenance.001
-		religious_maintenance.003
+		religious_maintenance.001 # Opinion of liege based on power base
+		religious_maintenance.003 # Opinion of top liege based on legitimacy
 	}
 }
 on_character_faith_change = {
 	events = {
-		religious_maintenance.002
-		religious_maintenance.004
+		religious_maintenance.002 # Opinion of liege based on power base, recursive
+		religious_maintenance.004 # Opinion of top liege based on legitimacy, recursive
+		religious_maintenance.005 # Monthly piety gain for Vory prisoners
 	}
 }
 on_title_gain = {
 	events = {
-		religious_maintenance.002
-		religious_maintenance.004
+		religious_maintenance.002 # Opinion of liege based on power base, recursive
+		religious_maintenance.004 # Opinion of top liege based on legitimacy, recursive
 	}
 }
 on_title_loss = {
 	events = {
-		religious_maintenance.002
-		religious_maintenance.004
+		religious_maintenance.002 # Opinion of liege based on power base, recursive
+		religious_maintenance.004 # Opinion of top liege based on legitimacy, recursive
 	}
+}
+on_imprison = {
+	religious_maintenance.005 # Monthly piety gain for Vory prisoners
+}
+on_release_from_prison = {
+	religious_maintenance.005 # Monthly piety gain for Vory prisoners
 }

@@ -179,16 +179,16 @@
 		is_shown = { }
 		can_pick = {
 			custom_description = {
-				text = incompatible_doctrine_spacer_values_anarchy_trigger
-				NOT = { doctrine:doctrine_anarchy = { is_in_list = selected_doctrines } }
+				text = incompatible_doctrine_spacer_values_no_legitimacy_trigger
+				NOT = { doctrine:doctrine_no_legitimacy = { is_in_list = selected_doctrines } }
 			}
 			custom_description = {
 				text = incompatible_doctrine_spacer_values_parliamentarianism_trigger
 				NOT = { doctrine:doctrine_parliamentarianism = { is_in_list = selected_doctrines } }
 			}
 			custom_description = {
-				text = incompatible_doctrine_spacer_values_consensus_trigger
-				NOT = { doctrine:doctrine_consensus = { is_in_list = selected_doctrines } }
+				text = incompatible_doctrine_spacer_values_anarchism_trigger
+				NOT = { doctrine:doctrine_anarchism = { is_in_list = selected_doctrines } }
 			}
 		}
 		
@@ -402,9 +402,9 @@
 	}
 	
 	tenet_philanthropy = {
-		icon = core_vows_of_poverty # Placeholder
+		icon = core_tenet_vows_of_poverty # Placeholder
 		piety_cost = {
-			value = faith_tenet_cost_medium
+			value = faith_tenet_cost_mid
 
 			# Multiplier for keeping same tenet
 			if = {
@@ -446,7 +446,8 @@
 			always = yes
 		}
 		parameters = {
-			can_give_alms = yes
+			piety_from_gifts_active = yes
+			can_distribute_wealth = yes
 		}
 		character_modifier = {
 			county_opinion_add = 10
@@ -455,6 +456,171 @@
 		traits = {
 			virtues = { compassionate generous }
 			sins = { callous sadistic greedy }
+		}
+	}
+	
+	tenet_united_front = {
+		icon = core_tenet_communal_identity # Placeholder
+
+		name = {
+			first_valid = {
+				triggered_desc = {
+					trigger = { has_doctrine = doctrine_religious }
+					desc = tenet_peace_of_god_name
+				}
+				triggered_desc = {
+					trigger = { has_doctrine = doctrine_criminal }
+					desc = tenet_honor_among_thieves_name
+				}
+				desc = tenet_united_front_name
+			}
+		}
+
+		desc = {
+			first_valid = {
+				triggered_desc = {
+					trigger = { has_doctrine = doctrine_religious }
+					desc = tenet_peace_of_god_desc
+				}
+				triggered_desc = {
+					trigger = { has_doctrine = doctrine_criminal }
+					desc = tenet_honor_among_thieves_desc
+				}
+				desc = tenet_united_front_desc
+			}
+		}
+		
+		piety_cost = {
+			value = faith_tenet_cost_mid
+
+			# Multiplier for keeping same tenet
+			if = {
+				limit = { has_doctrine = tenet_united_front }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		
+		parameters = {
+			attacking_coreligionists_costs_piety = yes
+			cannot_use_conquest_cb_against_coreligionists = yes
+			cannot_use_invasion_cb_against_coreligionists = yes
+		}
+		character_modifier = {
+			opinion_of_same_faith = 10
+		}
+	}
+
+	tenet_upstanding_citizens = {
+		icon = core_tenet_rite # Placeholder
+		piety_cost = {
+			value = faith_tenet_cost_mid
+
+			# Multiplier for keeping same tenet
+			if = {
+				limit = { has_doctrine = tenet_upstanding_citizens }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+
+		is_shown = { has_doctrine = criminal_hostility_doctrine }
+		can_pick = {
+			has_doctrine = criminal_hostility_doctrine
+			custom_description = {
+				text = incompatible_tenet_upstanding_citizens_piracy_trigger
+				NOT = { doctrine:doctrine_piracy_encouraged = { is_in_list = selected_doctrines } }
+				NOT = { doctrine:doctrine_piracy_allowed = { is_in_list = selected_doctrines } }
+			}
+		}
+		parameters = {
+			political_hostility_to_us = 1
+			religious_hostility_to_us = 1
+		}
+	}
+	
+	tenet_thieves_in_law = {
+		icon = core_tenet_legal_pronouncements # Placeholder
+		piety_cost = {
+			value = faith_tenet_cost_high
+
+			# Multiplier for keeping same tenet
+			if = {
+				limit = { has_doctrine = tenet_thieves_in_law }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+
+		is_shown = { has_doctrine = criminal_hostility_doctrine }
+		can_pick = { has_doctrine = criminal_hostility_doctrine }
+		parameters = {
+			monthly_piety_gain_in_prison = 0.1
+			non_criminal_contracts_cost_piety = yes
+			master_thieves = yes
+		}
+		traits = {
+			virtues = {
+				master_thief = 2
+				greedy honest
+			}
+			sins = { diligent deceitful }
+		}
+	}
+	
+	tenet_ritual_tattoos = {
+		icon = core_tenet_human_sacrifice # Placeholder
+		piety_cost = {
+			value = faith_tenet_cost_mid
+
+			# Multiplier for keeping same tenet
+			if = {
+				limit = { has_doctrine = tenet_ritual_tattoos }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+
+		is_shown = { NOT = { has_doctrine = political_hostility_doctrine } }
+		can_pick = { NOT = { has_doctrine = political_hostility_doctrine } }
+		parameters = {
+			can_apply_ritual_tattoos = yes
+		}
+	}
+	
+	tenet_atonement_through_sacrifice = {
+		icon = core_tenet_consolamentum # Placeholder
+		piety_cost = {
+			if = {
+				limit = { has_doctrine = tenet_consolamentum }
+				value = faith_tenet_cost_low
+			}
+			else_if = {
+				limit = { has_doctrine = criminal_hostility_doctrine }
+				value = faith_tenet_cost_high
+			}
+			else = { value = faith_tenet_cost_mid }
+
+			# Multiplier for keeping same tenet
+			if = {
+				limit = { has_doctrine = tenet_atonement_through_sacrifice }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+
+		is_shown = { NOT = { has_doctrine = political_hostility_doctrine } }
+		can_pick = {
+			NOT = { has_doctrine = political_hostility_doctrine }
+			custom_description = {
+				text = incompatible_tenet_consolamentum_trigger
+				NOT = { doctrine:tenet_consolamentum = { is_in_list = selected_doctrines } }
+			}
+		}
+		traits = {
+			virtues = { brave flagellant }
+			sins = { craven }
+		}
+		parameters = {
+			consolamentum_active = yes
+			self_mutilation_active = yes
+			can_mutilate_as_punishment = yes
+			can_apologize_through_self_mutilation = yes
 		}
 	}
 
@@ -526,6 +692,12 @@
 			custom_description = {
 				text = doctrine_pluralism_fundamentalist_trigger
 				NOT = { doctrine:doctrine_pluralism_fundamentalist = { is_in_list = selected_doctrines } }
+			}
+			custom_description = {
+				text = incompatible_tenet_quest_for_knowledge_sacred_shadows_trigger
+				NOT = {
+					doctrine:tenet_sacred_shadows = { is_in_list = selected_doctrines }
+				}
 			}
 		}
 
@@ -771,23 +943,18 @@
 		piety_cost = {
 			if = {
 				limit = {
-					has_doctrine = tenet_sacrificial_ceremonies
+					OR = {
+						has_doctrine = tenet_sacrificial_ceremonies
+						has_doctrine = tenet_atonement_through_sacrifice
+					}
 				}
 				value = faith_tenet_cost_low
 			}
 			else_if = {
-				limit = {
-					OR = {
-						religion_tag = dualism_religion
-						religion_tag = hinduism_religion
-						religion_tag = jainism_religion
-					}
-				}
+				limit = { has_doctrine = criminal_hostility_doctrine }
 				value = faith_tenet_cost_high
 			}
-			else = {
-				value = faith_tenet_cost_mid
-			}
+			else = { value = faith_tenet_cost_mid }
 
 			# Multiplier for keeping same tenet
 			if = {
@@ -796,19 +963,14 @@
 			}
 		}
 
-		is_shown = {
-			NOR = {
-				religion_tag = islam_religion
-				religion_tag = judaism_religion
-				religion_tag = zoroastrianism_religion
-				AND = {
-					has_doctrine = pagan_hostility_doctrine
-					NOT = { religion_tag = kushitism_religion }
-				}
-			}
-		}
+		is_shown = { NOT = { has_doctrine = political_hostility_doctrine } }
 		
 		can_pick = {
+			NOT = { has_doctrine = political_hostility_doctrine }
+			custom_description = {
+				text = incompatible_tenet_atonement_through_sacrifice_trigger
+				NOT = { doctrine:tenet_atonement_through_sacrifice = { is_in_list = selected_doctrines } }
+			}
 			custom_description = {
 				text = incompatible_tenet_sacrificial_ceremonies_trigger
 				NOT = { doctrine:tenet_sacrificial_ceremonies = { is_in_list = selected_doctrines } }
@@ -3532,27 +3694,40 @@
 	tenet_sacred_shadows = {
 		icon = core_tenet_sacred_shadows
 
+		name = {
+			first_valid = {
+				triggered_desc = {
+					trigger = { has_doctrine = criminal_hostility_doctrine }
+					desc = tenet_code_of_silence_name
+				}
+				triggered_desc = {
+					trigger = { has_doctrine = political_hostility_doctrine }
+					desc = tenet_doublespeak_name
+				}
+				desc = tenet_sacred_shadows_name
+			}
+		}
+
+		desc = {
+			first_valid = {
+				triggered_desc = {
+					trigger = { has_doctrine = criminal_hostility_doctrine }
+					desc = tenet_code_of_silence_desc
+				}
+				triggered_desc = {
+					trigger = { has_doctrine = political_hostility_doctrine }
+					desc = tenet_doublespeak_desc
+				}
+				desc = tenet_sacred_shadows_name
+			}
+		}
+
 		piety_cost = {
 			if = {
-				limit = {
-					OR = {
-						has_doctrine = pagan_hostility_doctrine
-					}
-				}
+				limit = { has_doctrine = criminal_hostility_doctrine }
 				value = faith_tenet_cost_mid
 			}
-			else_if = {
-				limit = {
-					OR = {
-						religion_tag = islam_religion
-						religion_tag = judaism_religion
-					}
-				}
-				value = faith_tenet_cost_high
-			}
-			else = {
-				value = faith_tenet_cost_massive
-			}
+			else = { value = faith_tenet_cost_massive }
 
 			# Multiplier for keeping same tenet
 			if = {
@@ -3562,6 +3737,12 @@
 		}
 		
 		can_pick = {
+			custom_description = {
+				text = incompatible_tenet_sacred_shadows_quest_for_knowledge_trigger
+				NOT = {
+					doctrine:tenet_alexandrian_catechism = { is_in_list = selected_doctrines }
+				}
+			}
 			custom_description = {
 				text = incompatible_tenet_communion_trigger
 				NOT = {
@@ -3693,6 +3874,10 @@
 				text = incompatible_tenet_consolamentum_trigger
 				NOT = { doctrine:tenet_consolamentum = { is_in_list = selected_doctrines } }
 			}
+			custom_description = {
+				text = incompatible_tenet_atonement_through_sacrifice_trigger
+				NOT = { doctrine:tenet_atonement_through_sacrifice = { is_in_list = selected_doctrines } }
+			}
 		}
 
 		parameters = {
@@ -3770,16 +3955,14 @@
 		name = {
 			first_valid = {
 				triggered_desc = {
-					trigger = {
-						religion_tag = islam_religion
-					}
-					desc = tenet_fp3_fedayeen_name
+					trigger = { has_doctrine = religious_hostility_doctrine }
+					desc = tenet_fp3_sacred_murder_name
 				}
-				desc = tenet_fp3_sacred_murder_name
+				desc = tenet_fp3_murder_inc_name
 			}
 		}
 
-		is_shown = { }
+		is_shown = { NOT = { has_doctrine = political_hostility_doctrine } }
 
 		can_pick = {
 			custom_description = {
@@ -3793,6 +3976,7 @@
 			custom_description = {
 				text = fedayeen_required_doctrines_trigger
 				OR = {
+					doctrine:criminal_hostility_doctrine = { is_in_list = selected_doctrines }
 					doctrine:tenet_warmonger = { is_in_list = selected_doctrines }
 					doctrine:tenet_unrelenting_faith = { is_in_list = selected_doctrines }
 					doctrine:tenet_consolamentum = { is_in_list = selected_doctrines }
@@ -3808,10 +3992,6 @@
 				limit = {
 					AND = {
 						OR = {
-							has_doctrine = muhammad_succession_shia_doctrine
-							has_doctrine = muhammad_succession_muhakkima_doctrine
-						}
-						OR = {
 							has_doctrine = tenet_warmonger
 							has_doctrine = tenet_unrelenting_faith
 							has_doctrine = tenet_consolamentum
@@ -3820,6 +4000,10 @@
 
 				}
 				value = faith_tenet_cost_low
+			}
+			else_if = {
+				limit = { has_doctrine = criminal_hostility_doctrine }
+				value = faith_tenet_cost_mid
 			}
 			else = {
 				value = faith_tenet_cost_massive
