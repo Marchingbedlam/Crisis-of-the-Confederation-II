@@ -65,30 +65,55 @@ is_jewish_faith = {
 	}
 }
 
-is_eastern_faith = {
+is_hindu_faith = {
 	group = "special"
 	
 	is_available_on_create = {
-		has_doctrine = special_doctrine_is_eastern_faith
+		has_doctrine = special_doctrine_is_hindu_faith
 	}
 
-	special_doctrine_is_eastern_faith = {
+	special_doctrine_is_hindu_faith = {
 	
 		traits = {
 			virtues = {
 				temperate
 				content
 				honest
-				generous
-				calm
-				compassionate
 			}
 			sins = {
 				greedy
 				wrathful
 				ambitious
+			}
+		}
+		parameters = {
+			# Since doctrines cannot modify other faith's views of us, only our view of others, all Eastern faiths are given this special doctrine which makes them friendlier to Faiths with the Eastern Syncretism tenet.
+			hostility_override_tenet_eastern_syncretism = 1
+			eastern_syncretic_recipient_opinion_active = yes
+			opinion_of_eastern_syncretic_actor_opinion_active = 30
+		}
+	}
+}
+is_buddhist_faith = {
+	group = "special"
+	
+	is_available_on_create = {
+		has_doctrine = special_doctrine_is_buddhist_faith
+	}
+
+	special_doctrine_is_buddhist_faith = {
+	
+		traits = {
+			virtues = {
+				generous
+				honest
+				calm
+				compassionate
+			}
+			sins = {
 				deceitful
 				impatient
+				wrathful
 			}
 		}
 		parameters = {
@@ -123,6 +148,44 @@ is_gnostic_faith = {
 			learning = 2
 			stewardship = -2
 		}
+	}
+}
+
+is_mechanic_faith = {
+	group = "special"
+	
+	is_available_on_create = { has_doctrine = special_doctrine_is_mechanic_faith }
+	
+	special_doctrine_is_mechanic_faith = {	
+		parameters = {
+			hostility_override_tenet_mechanic_syncretism = 0
+			mechanic_syncretic_recipient_opinion_active = yes
+			opinion_of_mechanic_syncretic_actor_opinion_active = 30
+		}
+		traits = {
+			virtues = { calm humble patient }
+			sins = { wrathful arbitrary }
+		}
+		character_modifier = { development_growth_factor = 0.1 }
+	}
+}
+
+is_nahua_faith = {
+	group = "special"
+	
+	is_available_on_create = { has_doctrine = special_doctrine_is_nahua_faith }
+	
+	special_doctrine_is_nahua_faith = {	
+		parameters = {
+			hostility_override_tenet_nahua_syncretism = 0
+			nahua_syncretic_recipient_opinion_active = yes
+			opinion_of_nahua_syncretic_actor_opinion_active = 30
+		}
+		traits = {
+			virtues = { brave generous scarred flagellant }
+			sins = { craven greedy }
+		}
+		character_modifier = { development_growth_factor = 0.1 }
 	}
 }
 

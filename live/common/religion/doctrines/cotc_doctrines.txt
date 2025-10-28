@@ -87,7 +87,7 @@ doctrine_legitimacy = {
 		}
 		can_pick = {
 			custom_description = {
-				text = incompatible_doctrine_spacer_values_no_legitimacy_trigger
+				text = incompatible_doctrine_spacer_values_trigger
 				NOT = { doctrine:tenet_spacer_values = { is_in_list = selected_doctrines } }
 			}
 		}
@@ -219,6 +219,12 @@ doctrine_authority = {
 				multiply = faith_changed_doctrine_cost_mult_two_step
 			}
 		}
+		can_pick = {
+			custom_description = {
+				text = incompatible_doctrine_spacer_values_trigger
+				NOT = { doctrine:tenet_spacer_values = { is_in_list = selected_doctrines } }
+			}
+		}
 		parameters = {
 			prefers_presidential_system = yes
 			presidential_revolutions = yes
@@ -239,6 +245,12 @@ doctrine_authority = {
 			else_if = {
 				limit = { has_doctrine = doctrine_dictatorship }
 				multiply = faith_changed_doctrine_cost_mult_two_step
+			}
+		}
+		can_pick = {
+			custom_description = {
+				text = incompatible_doctrine_spacer_values_trigger
+				NOT = { doctrine:tenet_spacer_values = { is_in_list = selected_doctrines } }
 			}
 		}
 		parameters = {
@@ -271,6 +283,16 @@ doctrine_authority = {
 			else_if = {
 				limit = { has_doctrine = doctrine_separation_of_powers }
 				multiply = faith_changed_doctrine_cost_mult_two_step
+			}
+		}
+		can_pick = {
+			custom_description = {
+				text = incompatible_doctrine_spacer_values_trigger
+				NOT = { doctrine:tenet_spacer_values = { is_in_list = selected_doctrines } }
+			}
+			custom_description = {
+				text = incompatible_doctrine_planned_economy_trigger
+				NOT = { doctrine:tenet_planned_economy = { is_in_list = selected_doctrines } }
 			}
 		}
 		parameters = {
@@ -494,7 +516,7 @@ doctrine_piracy = {
 		}
 		can_pick = {
 			custom_description = {
-				text = incompatible_doctrine_piracy_upstanding_citizens_trigger
+				text = incompatible_doctrine_upstanding_citizens_trigger
 				NOT = { doctrine:tenet_upstanding_citizens = { is_in_list = selected_doctrines } }
 			}
 		}
@@ -519,7 +541,7 @@ doctrine_piracy = {
 		}
 		can_pick = {
 			custom_description = {
-				text = incompatible_doctrine_piracy_upstanding_citizens_trigger
+				text = incompatible_doctrine_upstanding_citizens_trigger
 				NOT = { doctrine:tenet_upstanding_citizens = { is_in_list = selected_doctrines } }
 			}
 		}
