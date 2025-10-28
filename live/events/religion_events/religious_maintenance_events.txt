@@ -1,0 +1,186 @@
+namespace = religious_maintenance
+
+# These are under-the-hood events that handle things like assigning religious opinion modifiers
+
+# Opinion of liege with the wrong power base
+# Fires on yearly pulse to clear stray bad opinion targets
+religious_maintenance.001 = {
+	hidden = yes
+	immediate = {
+		# Start by clearing out former lieges, we'll rebuild the list later if necessary
+		if = {
+			limit = {
+				has_variable_list = wrong_power_base_liege
+				any_in_list = {
+					variable = wrong_power_base_liege
+					NOT = { ROOT = { liege = PREV } }
+				}
+			}
+			every_in_list = {
+				variable = wrong_power_base_liege
+				ROOT = {
+					remove_opinion = { modifier = opinion_not_commercial target = PREV }
+					remove_opinion = { modifier = opinion_not_military target = PREV }
+					remove_opinion = { modifier = opinion_not_administrative target = PREV }
+				}
+			}
+			clear_variable_list = wrong_power_base_liege
+		}
+		
+		# If we are a ruler of the relevant power base, and our liege isn't, we dislike them
+		# Otherwise, we have no problem with them
+		if = {
+			limit = {
+				is_ruler = yes
+				faith = { has_doctrine_parameter = doctrine_commercial_power }
+				NOT = { has_opinion_modifier = { target = liege modifier = opinion_not_commercial } }
+				government_has_flag = government_is_commercial
+				liege = { NOT = { government_has_flag = government_is_commercial } }
+			}
+			opinion = { modifier = opinion_not_commercial target = liege }
+			add_to_variable_list = { name = wrong_power_base_liege target = liege }
+		}
+		else_if = {
+			limit = {
+				is_ruler = yes
+				faith = { has_doctrine_parameter = doctrine_military_power }
+				NOT = { has_opinion_modifier = { target = liege modifier = opinion_not_military } }
+				government_has_flag = government_is_military
+				liege = { NOT = { government_has_flag = government_is_military } }
+			}
+			opinion = { modifier = opinion_not_military target = liege }
+			add_to_variable_list = { name = wrong_power_base_liege target = liege }
+		}
+		else_if = {
+			limit = {
+				is_ruler = yes
+				faith = { has_doctrine_parameter = doctrine_administrative_power }
+				NOT = { has_opinion_modifier = { target = liege modifier = opinion_not_administrative } }
+				government_has_flag = government_is_bureaucratic
+				liege = { NOT = { government_has_flag = government_is_bureaucratic } }
+			}
+			opinion = { modifier = opinion_not_administrative target = liege }
+			add_to_variable_list = { name = wrong_power_base_liege target = liege }
+		}
+		else = {
+			every_in_list = {
+				variable = wrong_power_base_liege
+				ROOT = {
+					remove_opinion = { modifier = opinion_not_commercial target = PREV }
+					remove_opinion = { modifier = opinion_not_military target = PREV }
+					remove_opinion = { modifier = opinion_not_administrative target = PREV }
+				}
+			}
+			clear_variable_list = wrong_power_base_liege
+		}
+	}
+}
+
+# Fires on title gain, title loss, and faith change; recurses to get the full chain of vassals affected
+religious_maintenance.002 = {
+	hidden = yes
+	
+	immediate = {
+		trigger_event = religious_maintenance.001
+		any_vassal = { trigger_event = religious_maintenance.002 }
+	}
+}
+
+# Opinion of top liege with the wrong legitimacy type
+# Fires on yearly pulse to clear stray bad opinion targets
+religious_maintenance.001 = {
+	hidden = yes
+	immediate = {
+		# Start by clearing out former lieges, we'll rebuild the list later if necessary
+		if = {
+			limit = {
+				has_variable_list = wrong_legitimacy_liege
+				any_in_list = {
+					variable = wrong_legitimacy_liege
+					NOT = { ROOT = { liege = PREV } }
+				}
+			}
+			every_in_list = {
+				variable = wrong_legitimacy_liege
+				ROOT = {
+					remove_opinion = { modifier = opinion_not_democratic target = PREV }
+					remove_opinion = { modifier = opinion_not_aristocratic target = PREV }
+					remove_opinion = { modifier = opinion_not_meritocratic target = PREV }
+				}
+			}
+			clear_variable_list = wrong_power_base_liege
+		}
+		
+		# If our top liege is the wrong legitimacy type, we dislike them
+		# Otherwise, we have no problem with them
+		if = {
+			limit = {
+				faith = { has_doctrine_parameter = doctrine_democracy }
+				NOT = { has_opinion_modifier = { target = top_liege modifier = opinion_not_democratic } }
+				top_liege = { NOT = has_government_tag = government_is_democratic }
+			}
+			opinion = { modifier = opinion_not_democratic target = top_liege }
+			add_to_variable_list = { name = wrong_power_base_liege target = top_liege }
+		}
+		else_if = {
+			limit = {
+				faith = { has_doctrine_parameter = doctrine_aristocracy }
+				NOT = { has_opinion_modifier = { target = top_liege modifier = opinion_not_aristocratic } }
+				top_liege = { NOT = has_government_tag = government_is_aristocratic }
+			}
+			opinion = { modifier = opinion_not_aristocratic target = top_liege }
+			add_to_variable_list = { name = wrong_power_base_liege target = top_liege }
+		}
+		else_if = {
+			limit = {
+				faith = { has_doctrine_parameter = doctrine_meritocracy }
+				NOT = { has_opinion_modifier = { target = top_liege modifier = opinion_not_meritocratic } }
+				top_liege = { NOT = has_government_tag = government_is_meritocratic }
+			}
+			opinion = { modifier = opinion_not_meritocratic target = top_liege }
+			add_to_variable_list = { name = wrong_power_base_liege target = top_liege }
+		}
+		else = {
+			every_in_list = {
+				variable = wrong_power_base_liege
+				ROOT = {
+					remove_opinion = { modifier = opinion_not_democratic target = PREV }
+					remove_opinion = { modifier = opinion_not_aristocratic target = PREV }
+					remove_opinion = { modifier = opinion_not_meritocratic target = PREV }
+				}
+			}
+			clear_variable_list = wrong_power_base_liege
+		}
+	}
+}
+
+# Fires on title gain, title loss, and faith change; recurses to get the full chain of vassals affected
+religious_maintenance.004 = {
+	hidden = yes
+	
+	immediate = {
+		trigger_event = religious_maintenance.003
+		any_vassal = { trigger_event = religious_maintenance.004 }
+		any_courtier = {
+			limit = { is_ruler = no }
+			trigger_event = religious_maintenance.004
+		}
+	}
+}
+
+# Add/remove prison piety gain for criminals with thieves-in-law
+# Triggers on imprisoned, released from prison, and faith change
+religious_maintenance.005 = {
+	hidden = yes
+	
+	immediate = {
+		if = {
+			limit = {
+				is_imprisoned = yes
+				faith = { has_doctrine_parameter = tenet_thieves_in_law }
+			}
+			add_character_modifier = modifier_thieves_in_law_imprisoned
+		}
+		else = { remove_character_modifier = modifier_thieves_in_law_imprisoned }
+	}
+}
