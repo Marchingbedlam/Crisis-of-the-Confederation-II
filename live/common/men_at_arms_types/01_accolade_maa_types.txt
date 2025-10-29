@@ -22,7 +22,6 @@
 
 accolade_maa_archers = {
 	type = archers
-	icon = bowmen
 
 	can_recruit = {
 		any_active_accolade = { 
@@ -60,11 +59,22 @@ accolade_maa_archers = {
 		value = culture_ai_weight_archers
 		add = 50
 	}
+
+	illustration = {
+		trigger = {
+			should_use_asian_maa_graphics = yes
+		}
+
+		reference = bowmen_asia
+	}
+
+	illustration = {
+		reference = bowmen
+	}
 }
 
 accolade_maa_skirmishers = {
 	type = skirmishers
-	icon = skirmishers
 
 	can_recruit = {
 		any_active_accolade = {
@@ -103,11 +113,22 @@ accolade_maa_skirmishers = {
 		value = culture_ai_weight_skirmishers
 		add = 50
 	}
+
+	illustration = {
+		trigger = {
+			should_use_asian_maa_graphics = yes
+		}
+
+		reference = skirmishers_asia
+	}
+
+	illustration = {
+		reference = skirmishers
+	}
 }
 
 accolade_maa_pikes = {
 	type = pikemen
-	icon = pikemen
 
 	can_recruit = {
 		any_active_accolade = {
@@ -148,11 +169,22 @@ accolade_maa_pikes = {
 		value = culture_ai_weight_pikemen
 		add = 50
 	}
+
+	illustration = {
+		trigger = {
+			should_use_asian_maa_graphics = yes
+		}
+
+		reference = pikemen_asia
+	}
+
+	illustration = {
+		reference = pikemen
+	}
 }
 
 accolade_maa_outriders = {
 	type = light_cavalry
-	icon = light_cavalry
 
 	can_recruit = {
 		any_active_accolade = {
@@ -197,11 +229,22 @@ accolade_maa_outriders = {
 		value = culture_ai_weight_light_cavalry
 		add = 50
 	}
+
+	illustration = {
+		trigger = {
+			should_use_asian_maa_graphics = yes
+		}
+
+		reference = light_cavalry_asia
+	}
+
+	illustration = {
+		reference = light_cavalry
+	}
 }
 
 accolade_maa_vanguards = {
 	type = heavy_infantry
-	icon = heavy_infantry
 
 	can_recruit = {
 		any_active_accolade = {
@@ -222,6 +265,7 @@ accolade_maa_vanguards = {
 	
 	counters = {
 		pikemen = 2
+		peasant_militia = 4
 	}
 	
 	buy_cost = { gold = accolade_heavy_infantry_recruitment_cost }
@@ -236,12 +280,23 @@ accolade_maa_vanguards = {
 		value = culture_ai_weight_heavy_infantry
 		add = 75
 	}
+
+	illustration = {
+		trigger = {
+			should_use_asian_maa_graphics = yes
+		}
+
+		reference = heavy_infantry_asia
+	}
+
+	illustration = {
+		reference = heavy_infantry
+	}
 }
 
 accolade_maa_lancers = {
 	type = heavy_cavalry
-	icon = heavy_cavalry
-
+	
 	can_recruit = {
 		any_active_accolade = {
 			primary_type = {
@@ -286,11 +341,22 @@ accolade_maa_lancers = {
 		value = culture_ai_weight_heavy_cavalry
 		add = 100
 	}
+
+	illustration = {
+		trigger = {
+			should_use_asian_maa_graphics = yes
+		}
+
+		reference = heavy_cavalry_asia
+	}
+
+	illustration = {
+		reference = heavy_cavalry
+	}
 }
 
 accolade_maa_crossbowers = {
 	type = archers
-	icon = crossbowmen
 
 	can_recruit = {
 		any_active_accolade = {
@@ -330,6 +396,18 @@ accolade_maa_crossbowers = {
 	ai_quality = {
 		value = culture_ai_weight_archers
 		add = 100
+	}
+
+	illustration = {
+		trigger = {
+			should_use_asian_maa_graphics = yes
+		}
+
+		reference = crossbowmen_asia
+	}
+
+	illustration = {
+		reference = crossbowmen
 	}
 }
 
@@ -407,6 +485,7 @@ accolade_maa_elephantiers = {
 	
 	terrain_bonus = {
 		jungle = { damage = 100 }
+		terraced_hills = { damage = 25 }
 		mountains = { damage = -100 }
 		desert_mountains = { damage = -100 }
 		wetlands = { damage = -150 toughness = -20 }
@@ -482,4 +561,45 @@ accolade_maa_horse_archers = {
 		value = @cultural_maa_extra_ai_score
 		add = 100
 	}
+}
+
+accolade_maa_handgunners = {
+	type = gunpowder
+	
+	damage = 56
+	toughness = 20 # ARMOR
+	pursuit = 0
+	screen = 5
+
+	can_recruit = {
+		any_active_accolade = {
+			primary_type = {
+				this = accolade_type:gunpowder_attribute
+			}
+			accolade_rank >= 3
+		}
+		# no powder magazine requirements for Accolade Handgunners
+		culture = { has_innovation = innovation_gunpowder }
+	}
+	
+	terrain_bonus = {
+	}
+
+	counters = {
+		heavy_infantry = 1
+	}
+
+	buy_cost = { gold = handgunner_recruitment_cost }
+	low_maintenance_cost = { gold = handgunner_low_maint_cost }
+	high_maintenance_cost = { gold = handgunner_high_maint_cost }
+	provision_cost = @provisions_cost_infantry_moderate
+
+	max_sub_regiments = 8
+	
+	stack = 100
+	ai_quality = {
+		value = counter_synergy_ai_weight_gunpowder
+	}
+
+	icon = gunpowder
 }

@@ -46,12 +46,27 @@ become_greatest_of_khans_decision = {
 		is_landed = yes
 		is_adult = yes
 		is_available = yes
-		is_independent_ruler = yes
+		top_liege = this
 	}
 
 	cost = {
 		gold = {
-			value = massive_gold_value
+			value = 0
+			if = {
+				limit = {
+					has_treasury = no
+				}
+				add = massive_gold_value
+			}
+		}
+		treasury = {
+			value = 0
+			if = {
+				limit = {
+					has_treasury = yes
+				}
+				add = massive_gold_value
+			}
 		}
 		prestige = {
 			value = major_prestige_value
@@ -115,7 +130,14 @@ establish_bactrian_supremacy_decision = {
 	decision_group_type = major
 	desc = establish_bactrian_supremacy_decision_desc
 
-	ai_check_interval = 120
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 0
+		kingdom = 120
+		empire = 120
+		hegemony = 120
+	}
 
 	is_shown = {
 		highest_held_title_tier >= tier_county
@@ -166,12 +188,27 @@ establish_bactrian_supremacy_decision = {
 		is_landed = yes
 		is_adult = yes
 		is_available = yes
-		is_independent_ruler = yes
+		top_liege = this
 	}
 
 	cost = {
 		gold = {
-			value = massive_gold_value
+			value = 0
+			if = {
+				limit = {
+					has_treasury = no
+				}
+				add = massive_gold_value
+			}
+		}
+		treasury = {
+			value = 0
+			if = {
+				limit = {
+					has_treasury = yes
+				}
+				add = massive_gold_value
+			}
 		}
 		prestige = {
 			value = major_prestige_value
@@ -212,7 +249,14 @@ establish_yamagate_in_samarkand_decision = {
 	selection_tooltip = establish_yamagate_in_samarkand_decision_tooltip
 	decision_group_type = major
 
-	ai_check_interval = 120
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 0
+		kingdom = 120
+		empire = 120
+		hegemony = 120
+	}
 
 	is_shown = {
 		is_ruler = yes
@@ -252,7 +296,7 @@ establish_yamagate_in_samarkand_decision = {
 		is_landed = yes
 		is_capable_adult = yes
 		is_imprisoned = no
-		is_independent_ruler = yes
+		top_liege = this
 		highest_held_title_tier > 3 #Only Kings and Emperors
 		custom_tooltip = {
 			text = hof_exists_tt
@@ -342,7 +386,14 @@ break_with_the_old_ways_decision = {
 	selection_tooltip = break_with_the_old_ways_decision_tooltip
 	decision_group_type = major
 
-	ai_check_interval = 120
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 0
+		kingdom = 120
+		empire = 120
+		hegemony = 120
+	}
 
 	is_shown = {
 		is_ruler = yes
@@ -358,7 +409,7 @@ break_with_the_old_ways_decision = {
 	is_valid_showing_failures_only = {
 		is_capable_adult = yes
 		is_imprisoned = no
-		is_independent_ruler = yes
+		top_liege = this
 		highest_held_title_tier > 3 #Only Kings and Emperors
 		custom_tooltip = {
 			text = hof_exists_tt

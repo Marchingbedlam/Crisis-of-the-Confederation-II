@@ -3,7 +3,14 @@
 		reference = "gfx/interface/illustrations/decisions/decision_found_kingdom.dds"
 	}
 	decision_group_type = major
-	ai_check_interval = 60
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 60
+		kingdom = 0
+		empire = 0
+		hegemony = 0
+	}
 	desc = form_portugal_decision_desc
 
 	is_shown = {
@@ -36,12 +43,12 @@
 						is_struggle_phase = struggle_iberia_phase_opportunity
 					}
 				}
-				is_independent_ruler = yes
+				top_liege = this
 			}
 
 		}
 		trigger_else = {
-			is_independent_ruler = yes
+			top_liege = this
 		}
 
 		highest_held_title_tier < tier_kingdom
@@ -65,7 +72,7 @@
 		trigger_event = iberia_north_africa.0001
 		every_player = {
 			limit = {
-				NOT = { this = scope:portugal_former }
+				this != scope:portugal_former
 				is_within_diplo_range = { CHARACTER = scope:portugal_former }
 			}
 			trigger_event = iberia_north_africa.0002
@@ -73,8 +80,7 @@
 		every_vassal_or_below = {
 			limit = {
 				is_ai = yes
-				exists = capital_province
-				capital_province = {
+				capital_province ?= {
 					county = {
 						any_this_title_or_de_jure_above = {
 							this = title:k_portugal
@@ -96,11 +102,30 @@
 		}
 	}
 
-	cost = { gold = { value = 300 } }
+	cost = {
+		gold = {
+			value = 0
+			if = {
+				limit = {
+					has_treasury = no
+				}
+				add = 300
+			}
+		}
+		treasury = {
+			value = 0
+			if = {
+				limit = {
+					has_treasury = yes
+				}
+				add = 300
+			}
+		}
+	}
 
 	ai_potential = {
 		# Only for the AI if independent ruler
-		is_independent_ruler = yes
+		top_liege = this
 	}
 
 	ai_will_do = {
@@ -113,7 +138,14 @@ unite_the_spanish_thrones_decision = {
 		reference = "gfx/interface/illustrations/decisions/decision_found_kingdom.dds"
 	}
 	decision_group_type = major
-	ai_check_interval = 60
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 0
+		kingdom = 60
+		empire = 0
+		hegemony = 0
+	}
 	desc = unite_the_spanish_thrones_decision_desc
 
 	is_shown = {
@@ -190,7 +222,7 @@ unite_the_spanish_thrones_decision = {
 		trigger_event = iberia_north_africa.0005
 		every_player = {
 			limit = {
-				NOT = { this = scope:spain_uniter }
+				this != scope:spain_uniter
 				is_within_diplo_range = { CHARACTER = scope:spain_uniter }
 			}
 			trigger_event = iberia_north_africa.0006
@@ -225,7 +257,14 @@ unite_africa_decision = {
 		reference = "gfx/interface/illustrations/decisions/decision_realm.dds"
 	}
 	decision_group_type = major
-	ai_check_interval = 120
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 0
+		kingdom = 120
+		empire = 120
+		hegemony = 120
+	}
 	desc = {
 		first_valid = {
 			triggered_desc = {
@@ -278,8 +317,7 @@ unite_africa_decision = {
 				}
 			}
 		}
-		exists = capital_province
-		capital_province = { geographical_region = world_africa }
+		capital_province ?= { geographical_region = world_africa }
 		NOT = {
 			is_target_in_global_variable_list = {
 				name = unavailable_unique_decisions
@@ -307,7 +345,7 @@ unite_africa_decision = {
 		trigger_event = iberia_north_africa.0010
 		every_player = {
 			limit = {
-				NOT = { this = scope:africa_uniter }
+				this != scope:africa_uniter
 				is_within_diplo_range = { CHARACTER = scope:africa_uniter }
 			}
 			trigger_event = iberia_north_africa.0011
@@ -338,13 +376,19 @@ avenge_the_battle_of_tours_decision = {
 		reference = "gfx/interface/illustrations/decisions/decision_destiny_goal.dds"
 	}
 	decision_group_type = major
-	ai_check_interval = 60
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 0
+		kingdom = 60
+		empire = 60
+		hegemony = 60
+	}
 	desc = avenge_the_battle_of_tours_decision_desc
 
 	is_shown = {
 		faith = { religion_tag = islam_religion }
-		exists = capital_province
-		capital_province = {
+		capital_province ?= {
 			OR = {
 				geographical_region = world_europe_west_francia
 				geographical_region = world_europe_west_iberia
@@ -403,7 +447,7 @@ avenge_the_battle_of_tours_decision = {
 		trigger_event = iberia_north_africa.0015
 		every_player = {
 			limit = {
-				NOT = { this = scope:avenger }
+				this != scope:avenger
 				is_within_diplo_range = { CHARACTER = scope:avenger }
 			}
 			trigger_event = iberia_north_africa.0016
@@ -427,7 +471,14 @@ declare_canarias_decision = {
 		reference = "gfx/interface/illustrations/decisions/decision_found_kingdom.dds"
 	}
 	decision_group_type = major
-	ai_check_interval = 600
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 600
+		kingdom = 0
+		empire = 0
+		hegemony = 0
+	}
 	desc = declare_canarias_decision_desc
 
 	is_shown = {
@@ -450,9 +501,9 @@ declare_canarias_decision = {
 	is_valid = {
 
 		OR = {
-			is_independent_ruler = yes
+			top_liege = this
 			top_liege = {
-				highest_held_title_tier = tier_empire
+				highest_held_title_tier >= tier_empire
 			}
 		}
 
@@ -526,7 +577,26 @@ declare_canarias_decision = {
 		}
 	}
 
-	cost = { gold = { value = 300 } }
+	cost = {
+		gold = {
+			value = 0
+			if = {
+				limit = {
+					has_treasury = no
+				}
+				add = 300
+			}
+		}
+		treasury = {
+			value = 0
+			if = {
+				limit = {
+					has_treasury = yes
+				}
+				add = 300
+			}
+		}
+	}
 
 	ai_potential = {
 		always = yes
@@ -547,7 +617,14 @@ form_the_kingdom_of_aragon_decision = {
 	}
 	decision_group_type = major
 
-	ai_check_interval = 60
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 60
+		duchy = 60
+		kingdom = 0
+		empire = 0
+		hegemony = 0
+	}
 
 	desc = form_the_kingdom_of_aragon_decision_desc
 	selection_tooltip = form_the_kingdom_of_aragon_decision_tooltip
@@ -570,7 +647,7 @@ form_the_kingdom_of_aragon_decision = {
 	}
 
 	is_valid = {
-		is_independent_ruler = yes
+		top_liege = this
 		completely_controls = title:d_aragon
 		OR = {
 			completely_controls = title:d_barcelona
@@ -666,9 +743,22 @@ form_the_kingdom_of_aragon_decision = {
 		gold = {
 			# Since we want this to happen, it free for the AI...
 			value = 0
-			# ... but costs for players.
+			# ... but costs for players
 			if = {
-				limit = { is_ai = no }
+				limit = {
+					has_treasury = no
+					is_ai = no
+				}
+				add = 200
+			}
+		}
+		treasury = {
+			value = 0
+			if = {
+				limit = {
+					has_treasury = yes
+					is_ai = no
+				}
 				add = 200
 			}
 		}
@@ -699,9 +789,14 @@ mozarabic_bind_the_faith_to_rome_decision = {
 				top_liege ?= {
 					OR = {
 						culture = { has_cultural_pillar = heritage_byzantine }
+<<<<<<< HEAD
 						capital_barony ?= title:b_avalon_iii
 						primary_title ?= title:e_byzantium
 						primary_title ?= title:e_roman_empire
+=======
+						capital_barony ?= title:b_constantinople
+						is_roman_emperor_primary_title_trigger = yes
+>>>>>>> 1.18
 					}
 				}
 			}
@@ -713,7 +808,14 @@ mozarabic_bind_the_faith_to_rome_decision = {
 	}
 	decision_group_type = major
 
-	ai_check_interval = 120
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 120
+		duchy = 120
+		kingdom = 120
+		empire = 120
+		hegemony = 120
+	}
 
 	desc = mozarabic_bind_the_faith_to_rome_decision_desc
 	selection_tooltip = mozarabic_bind_the_faith_to_rome_decision_tooltip
@@ -785,24 +887,22 @@ mozarabic_bind_the_faith_to_rome_decision = {
 
 		if = {
 			limit = {
-				NOT = {
-					AND = { # Explicit, necessary
-						# Requires a solid piety level.
-						piety_level >= high_piety_level
-						# Needs a solid chunk of Mozarabic counties.
-						custom_description = {
-							text = mozarabic_fate_county_count.need_at_least_twenty_same_faith_counties
-							any_sub_realm_county = {
-								count >= mozarabic_fate_county_count
-								faith = root.faith
-							}
+				NAND = { # Explicit, necessary
+					# Requires a solid piety level.
+					piety_level >= high_piety_level
+					# Needs a solid chunk of Mozarabic counties.
+					custom_description = {
+						text = mozarabic_fate_county_count.need_at_least_twenty_same_faith_counties
+						any_sub_realm_county = {
+							count >= mozarabic_fate_county_count
+							faith = root.faith
 						}
-						# The Pope's gotta be a big fan of yours.
-						faith.religious_head = {
-							opinion = {
-								target = root
-								value >= very_high_positive_opinion
-							}
+					}
+					# The Pope's gotta be a big fan of yours.
+					faith.religious_head = {
+						opinion = {
+							target = root
+							value >= very_high_positive_opinion
 						}
 					}
 				}
@@ -934,7 +1034,14 @@ mozarabic_break_with_rome_decision = {
 	}
 	decision_group_type = major
 
-	ai_check_interval = 120
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 120
+		duchy = 120
+		kingdom = 120
+		empire = 120
+		hegemony = 120
+	}
 
 	desc = mozarabic_break_with_rome_decision_desc
 	selection_tooltip = mozarabic_break_with_rome_decision_tooltip
@@ -1093,9 +1200,14 @@ favour_the_countryside_basques_decision = {
 				top_liege ?= {
 					OR = {
 						culture = { has_cultural_pillar = heritage_byzantine }
+<<<<<<< HEAD
 						capital_barony ?= title:b_avalon_iii
 						primary_title ?= title:e_byzantium
 						primary_title ?= title:e_roman_empire
+=======
+						capital_barony ?= title:b_constantinople
+						is_roman_emperor_primary_title_trigger = yes
+>>>>>>> 1.18
 					}
 				}
 			}
@@ -1107,7 +1219,14 @@ favour_the_countryside_basques_decision = {
 	}
 	decision_group_type = major
 
-	ai_check_interval = 120
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 120
+		duchy = 120
+		kingdom = 120
+		empire = 120
+		hegemony = 120
+	}
 
 	desc = favour_the_countryside_basques_decision_desc
 	selection_tooltip = favour_the_countryside_basques_decision_tooltip
@@ -1120,7 +1239,7 @@ favour_the_countryside_basques_decision = {
 		OR = {
 			favour_the_countryside_basques_counts_as_basque_trigger = yes
 			any_held_title = {
-				tier = tier_county
+				title_tier = county
 				favour_the_countryside_basques_counts_as_basque_trigger = yes
 			}
 		}
@@ -1138,7 +1257,7 @@ favour_the_countryside_basques_decision = {
 		# Filter out anyone who's their own HoF, since they can't convert.
 		trigger_if = {
 			limit = { exists = faith.religious_head }
-			NOT = { this = faith.religious_head }
+			this != faith.religious_head
 		}
 		# The decision cannot have been taken yet.
 		NOT = {
@@ -1183,7 +1302,7 @@ favour_the_countryside_basques_decision = {
 			current_date <= 1200.1.1
 		}
 		# For the sake of feasibility, we require independence. Lieges of any kind really complicate likely outcomes.
-		is_independent_ruler = yes
+		top_liege = this
 	}
 
 	is_valid_showing_failures_only = {
@@ -1332,7 +1451,14 @@ restore_old_vasconia_decision = {
 	}
 	decision_group_type = major
 
-	ai_check_interval = 120
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 120
+		duchy = 120
+		kingdom = 0
+		empire = 0
+		hegemony = 0
+	}
 
 	desc = restore_old_vasconia_decision_desc
 	selection_tooltip = restore_old_vasconia_decision_tooltip
@@ -1363,7 +1489,7 @@ restore_old_vasconia_decision = {
 	}
 
 	is_valid = {
-		is_independent_ruler = yes
+		top_liege = this
 		prestige_level >= very_high_prestige_level
 		custom_tooltip = {
 			text = restore_old_vasconia_decision_culture_tt
@@ -1442,7 +1568,24 @@ restore_old_vasconia_decision = {
 	}
 
 	cost = {
-		gold = 300
+		gold = {
+			value = 0
+			if = {
+				limit = {
+					has_treasury = no
+				}
+				add = 300
+			}
+		}
+		treasury = {
+			value = 0
+			if = {
+				limit = {
+					has_treasury = yes
+				}
+				add = 300
+			}
+		}
 	}
 
 	ai_potential = {

@@ -182,14 +182,14 @@ mpo_greatest_of_khans.0100 = {
 			}
 		}
 		else = {
-			#add submitters as tributaries since root is getting no event 
+			#add submitters as tributaries since root is getting no event
 			every_in_list = {
 				list = gok_submitters
 				start_tributary_interaction_effect = {
 					TRIBUTARY = this
 					SUZERAIN = root
 				}
-			} 
+			}
 			save_scope_as = gurkhan_to_gok
 			#Player notification and offer to join/submit event
 			every_player = {
@@ -234,7 +234,7 @@ mpo_greatest_of_khans.0101 = {
 	desc = {
 		desc = mpo_greatest_of_khans.0101.desc_intro
 		first_valid = {
-			triggered_desc = {	
+			triggered_desc = {
 				trigger = {
 					exists = scope:gok_opponent
 					NOT = {
@@ -247,7 +247,7 @@ mpo_greatest_of_khans.0101 = {
 			}
 			desc = mpo_greatest_of_khans.0101.desc_primary_attacker
 		}
-		triggered_desc = {	
+		triggered_desc = {
 			trigger = {
 				exists = scope:big_sub
 			}
@@ -272,7 +272,7 @@ mpo_greatest_of_khans.0101 = {
 	lower_right_portrait = scope:potential_joiner_3
 	override_background = { reference = wilderness }
 	override_effect_2d = {
-		reference = rain	
+		reference = rain
 	}
 
 	trigger = {
@@ -289,7 +289,7 @@ mpo_greatest_of_khans.0101 = {
 			}
 		}
 	}
-	
+
 	immediate = {
 		#add submitters as tributaries
 		if = {
@@ -334,7 +334,7 @@ mpo_greatest_of_khans.0101 = {
 				}
 			}
 		}
-		
+
 		if = {
 			limit = {
 				any_in_list = {
@@ -506,7 +506,7 @@ mpo_greatest_of_khans.0101 = {
 				add_dynasty_prestige = medium_dynasty_prestige_loss
 			}
 		}
-		
+
 		scope:gok_war = {
 			every_in_list = {
 				list = potential_joiners
@@ -668,9 +668,9 @@ mpo_greatest_of_khans.0102 = {
 		reference = mpo_steppe_evening
 	}
 	override_effect_2d = {
-		reference = smoke	
+		reference = smoke
 	}
-	
+
 	immediate = {
 		scope:gurkhan_to_gok = {
 			add_character_flag = need_military_outfit
@@ -773,7 +773,7 @@ mpo_greatest_of_khans.0102 = {
 				opinion = -100
 			}
 			break_alliance = scope:gurkhan_to_gok
-			
+
 		}
 		else = {
 			reverse_add_opinion = {
@@ -837,7 +837,7 @@ mpo_greatest_of_khans.0102 = {
 					}
 				}
 			}
-			
+
 		}
 		name = mpo_greatest_of_khans.0102.d
 		create_title_and_vassal_change = {
@@ -940,9 +940,9 @@ mpo_greatest_of_khans.0103 = {
 		reference = wilderness_scope
 	}
 	override_effect_2d = {
-		reference = flies	
+		reference = flies
 	}
-	
+
 	immediate = {
 		scope:attacker = {
 			capital_province = { save_scope_as = background_wilderness_scope }
@@ -998,10 +998,10 @@ mpo_greatest_of_khans.0001 = {
 		animation = personality_vengeful
 	}
 	override_background = { reference = mpo_fullscreen_greatest_of_khans }
-	
+
 	immediate = {
 		save_scope_as = genghis_khan
-		
+
 		play_music_cue = mx_cue_conquest_of_the_golden_horde
 
 		add_trait = greatest_of_khans
@@ -1074,7 +1074,7 @@ mpo_greatest_of_khans.0002 = {
 							OR = {
 								geographical_region = special_mongol_empire_start_region
 								geographical_region = special_mongol_empire_conquest_region_prio_1
-								geographical_region = special_mongol_empire_conquest_region_prio_2
+								geographical_region = special_mongol_empire_conquest_region_prio_1_alpha
 							}
 						}
 						NOT = {
@@ -1129,7 +1129,7 @@ mpo_greatest_of_khans.0002 = {
 		animation = personality_vengeful
 	}
 	override_background = { reference = mpo_fullscreen_greatest_of_khans }
-	
+
 	immediate = {
 		play_music_cue = mx_cue_conquest_of_the_golden_horde
 		show_as_tooltip = {
@@ -1401,7 +1401,7 @@ mpo_greatest_of_khans.0003 = {
 		reference = mpo_temple_steppe
 	}
 	override_effect_2d = {
-		reference = legend_glow	
+		reference = legend_glow
 	}
 	option = {
 		trigger = {
@@ -1639,11 +1639,11 @@ mpo_greatest_of_khans.0003 = {
 									save_temporary_scope_as = maybe_confederate
 								}
 								valid_confederation_member_trigger = { CHARACTER = scope:maybe_confederate }
-								
+
 							}
 						}
 					}
-					
+
 				}
 			}
 			trigger_event = {
@@ -1692,16 +1692,16 @@ mpo_greatest_of_khans.0021 = {
 			desc = mpo_greatest_of_khans.0021.desc
 		}
 	}
-		
+
 	sender = scope:recipient
 
 	immediate = {
-		
+
 	}
 
 	option = {
 		name = mpo_greatest_of_khans.0021.a
-		show_as_tooltip = { 
+		show_as_tooltip = {
 			mpo_gok_offer_submission_effect = yes
 		}
 	}
@@ -1729,7 +1729,7 @@ mpo_greatest_of_khans.0022 = {
 			desc = mpo_greatest_of_khans.0022.desc
 		}
 	}
-		
+
 	sender = scope:recipient
 
 	option = {
@@ -1787,7 +1787,7 @@ mpo_greatest_of_khans.0030 = {
 		reference = throne_room
 	}
 	override_effect_2d = {
-		reference = legend_glow	
+		reference = legend_glow
 	}
 	immediate = {
 		ordered_knight = {
@@ -1915,7 +1915,7 @@ mpo_greatest_of_khans.0030 = {
 				}
 			}
 		}
-		
+
 		custom_tooltip = gok_non_nomads_become_nomad_tt
 		#Willing vassals convert to nomad
 		hidden_effect = {
@@ -2019,22 +2019,19 @@ mpo_greatest_of_khans.0030 = {
 
 			}
 		}
-		
+
 		ai_chance = {
 			base = 100
 			modifier = {
-				OR = {
-					primary_title = title:e_byzantium
-					primary_title = title:e_roman_empire
-				}
+				is_roman_emperor_trigger = yes
 				add = 100
 			}
 			modifier = {
 				culture = {
 					OR = {
-						has_cultural_pillar = ethos_bureaucratic 
-						has_cultural_pillar = ethos_courtly 
-						has_cultural_pillar = ethos_egalitarian 
+						has_cultural_pillar = ethos_bureaucratic
+						has_cultural_pillar = ethos_courtly
+						has_cultural_pillar = ethos_egalitarian
 					}
 				}
 				add = 50
@@ -2048,8 +2045,8 @@ mpo_greatest_of_khans.0030 = {
 			modifier = {
 				culture = {
 					OR = {
-						has_cultural_tradition = tradition_fp3_enlightened_magnates 
-						has_cultural_tradition = tradition_loyal_soldiers 
+						has_cultural_tradition = tradition_fp3_enlightened_magnates
+						has_cultural_tradition = tradition_loyal_soldiers
 					}
 				}
 				add = 20
@@ -2098,8 +2095,8 @@ mpo_greatest_of_khans.0030 = {
 				culture = {
 					OR = {
 						has_cultural_pillar = ethos_stoic
-						has_cultural_pillar = ethos_bellicose 
-						has_cultural_pillar = ethos_communal 
+						has_cultural_pillar = ethos_bellicose
+						has_cultural_pillar = ethos_communal
 					}
 				}
 				add = -50
@@ -2236,7 +2233,7 @@ mpo_greatest_of_khans.0040 = {
 			}
 			remove_character_modifier = the_great_khan_modifier
 		}
-		
+
 		every_owned_story = {
 			limit = { story_type = story_greatest_of_khans }
 			end_story = yes
@@ -2261,6 +2258,160 @@ mpo_greatest_of_khans.0040 = {
 	}
 }
 
+#Switched government type on purpose... sort of GoK, but not really now
+mpo_greatest_of_khans.0041 = {
+	type = character_event
+	title = mpo_greatest_of_khans.0041.t
+	desc = mpo_greatest_of_khans.0041.desc
+	theme = nomads
+	left_portrait = {
+		character = root
+		triggered_animation = {
+			trigger = {
+				faith.religion = religion:christianity_religion
+			}
+			animation = acknowledging
+		}
+		triggered_animation = {
+			trigger = {
+				primary_title = title:h_china
+			}
+			animation = emperor
+		}
+		triggered_animation = {
+			trigger = {
+				OR = {
+					government_has_flag = government_is_tribal
+					government_has_flag = government_is_wanua
+				}
+			}
+			animation = personality_honorable
+		}
+		animation = chancellor
+	}
+	right_portrait = {
+		character = scope:bower
+		animation = throne_room_bow_3
+	}
+	override_background = {
+		reference = throne_room
+	}
+	immediate = {
+		ordered_vassal = {
+			order_by = current_military_strength
+			limit = {
+				basic_is_available_ai = yes
+				is_adult = yes
+				NOR = {
+					is_at_war_with = root
+					is_a_faction_member = yes
+					government_has_flag = government_is_nomadic
+				}
+			}
+			save_scope_as = bower
+		}
+		if = {
+			limit = {
+				NOT = {
+					exists = scope:bower
+				}
+			}
+			random_courtier = {
+				limit = {
+					basic_is_available_ai = yes
+					is_adult = yes
+				}
+				save_scope_as = bower
+			}
+		}
+		if = {
+			limit = {
+				NOT = {
+					exists = scope:bower
+				}
+			}
+			random_pool_character = {
+				province = root.capital_province
+				limit = {
+					basic_is_available_ai = yes
+					is_adult = yes
+				}
+				save_scope_as = bower
+			}
+		}
+		save_scope_as = root_scope
+		custom_tooltip = gok_forsaken_nomadism_tt
+		custom_tooltip = gok_no_more_reform_decision
+		custom_tooltip = gok_no_more_special_powers
+	}
+	option = {
+		name = mpo_greatest_of_khans.0041.a
+	}
+}
+
+#GoK threatens new vassal
+mpo_greatest_of_khans.0050 = {
+	type = letter_event
+	opening = {
+		desc = mpo_greatest_of_khans.0050.opening
+	}
+	desc = {
+		desc = mpo_greatest_of_khans.0050.desc
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					exists = scope:liege
+				}
+				desc = mpo_greatest_of_khans.0050.desc_reorganized
+			}
+			desc = mpo_greatest_of_khans.0050.desc_end
+		}
+	}
+
+	sender = scope:attacker
+
+	immediate = {
+		if = {
+			limit = {
+				liege ?= {
+					NOT = {
+						this = scope:attacker
+					}
+				}
+			}
+			liege = {
+				save_scope_as = liege
+			}
+		}
+	}
+
+	option = {
+		name = mpo_greatest_of_khans.0050.a
+	}
+}
+
+#GoK mocks unlanded former vassal of enemy
+mpo_greatest_of_khans.0051 = {
+	type = letter_event
+	opening = {
+		desc = mpo_greatest_of_khans.0051.opening
+	}
+	desc = mpo_greatest_of_khans.0051.desc
+
+	sender = scope:attacker
+
+	trigger = {
+		is_landed = no
+	}
+	immediate = {
+
+	}
+
+	option = {
+		name = mpo_greatest_of_khans.0051.a
+	}
+}
+
 #
 # END Become Greatest of Khans events
 #################
@@ -2282,7 +2433,7 @@ mpo_greatest_of_khans.1001 = {
 							OR = {
 								geographical_region = special_mongol_empire_start_region
 								geographical_region = special_mongol_empire_conquest_region_prio_1
-								geographical_region = special_mongol_empire_conquest_region_prio_2
+								geographical_region = special_mongol_empire_conquest_region_prio_1_alpha
 							}
 						}
 						government_has_flag = government_is_nomadic
@@ -2342,7 +2493,7 @@ mpo_greatest_of_khans.1001 = {
 
 	immediate = {
 		play_music_cue = mx_cue_conquest_of_the_golden_horde
-		
+
 		scope:temujin = {
 			save_scope_as = genghis_khan
 			primary_title = {
@@ -2351,7 +2502,7 @@ mpo_greatest_of_khans.1001 = {
 			show_as_tooltip = {
 				add_trait_force_tooltip = greatest_of_khans
 			}
-			
+
 			custom_tooltip = genghis_khan_mongol_empire_tt
 			custom_tooltip = genghis_khan_mongol_troops_tt
 			custom_tooltip = gok_threatening_powers_tt
@@ -2575,7 +2726,7 @@ mpo_greatest_of_khans.1001 = {
 			}
 		}
 	}
-	
+
 	option = { # Option for close characters
 		name = {
 			trigger = { has_trait = craven }
@@ -2598,7 +2749,7 @@ mpo_greatest_of_khans.1001 = {
 			base = 100
 		}
 	}
-	
+
 	option = { # Options for distant characters
 		name = {
 			text = mongol_invasion.1002.craven
@@ -2620,6 +2771,6 @@ mpo_greatest_of_khans.1001 = {
 		ai_chance = {
 			base = 100
 		}
-			
+
 	}
 }

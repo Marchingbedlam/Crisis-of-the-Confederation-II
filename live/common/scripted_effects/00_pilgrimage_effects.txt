@@ -164,7 +164,7 @@ pilgrimage_additional_reward_effect = {
 				has_trait = lifestyle_mystic
 				has_trait_xp = {
 					trait = lifestyle_mystic
-					value >= 100 #TODO_CD_EP2_FGK standardize THIRD LEVEL
+					value >= 100
 				}
 			}
 		}
@@ -207,9 +207,7 @@ pilgrimage_additional_reward_effect = {
 #Grants you Pilgrimage trait as appropriate; if you already have the trait it either gives xp or piety. Also logs arrival in activity log for host
 give_pilgrim_trait_or_xp_effect = {
 	if = {
-		limit = {
-			NOT = { has_hajj_pilgrimage_type_trigger = yes }
-		}
+		limit = { has_hajj_pilgrimage_type_trigger = no }
 		if = { # Host
 			limit = { this = involved_activity.activity_host }
 			involved_activity = {
@@ -231,12 +229,12 @@ give_pilgrim_trait_or_xp_effect = {
 							limit = {
 								has_trait_xp = { 
 									trait = pilgrim 
-									value < 100 #TODO_CD_EP2 standardize less than MAX
+									value < 100
 								}
 							}
 							add_trait_xp = { 
 								trait = pilgrim 
-								value = 20 #TODO_CD_EP2 standardize MAJOR
+								value = 20
 							}
 						}
 						else_if = {
@@ -259,12 +257,12 @@ give_pilgrim_trait_or_xp_effect = {
 				limit = {
 					has_trait_xp = { 
 						trait = pilgrim 
-						value < 100  #TODO_CD_EP2 standardize less than MAX
+						value < 100 
 					}
 				}
 				add_trait_xp = { 
 					trait = pilgrim 
-					value = 10 #TODO_CD_EP2 standardize MEDIUM
+					value = 10
 				}
 			}
 			else_if = {
@@ -297,7 +295,7 @@ give_pilgrim_trait_or_xp_effect = {
 							limit = { has_trait = pilgrim }
 							add_trait_xp = {
 								trait = pilgrim
-								value = 10 #TODO_CD_EP2 standardize MEDIUM
+								value = 10
 							}
 						}			
 					}
@@ -330,12 +328,12 @@ give_pilgrim_xp_effect = {
 			has_trait = pilgrim
 			has_trait_xp = {
 				trait = pilgrim
-				value < 100 #TODO_CD_EP2 standardize, less than 3rd level
+				value < 100
 			}
 		}
 		add_trait_xp = {
 			trait = pilgrim
-			value = 5 #TODO_CD_EP2 standardize, medium amount
+			value = 5
 		}
 	}
 	else_if = {
@@ -433,6 +431,13 @@ give_piety_reward_effect = {
 			}
 			add = medium_piety_gain
 		}
+		# Final mutlipliers
+		if = {
+			limit = {
+				root.confederation ?= { has_cohesion_level_parameter = any_member_increased_pilgrimage_rewards }
+			}
+			multiply = 1.1
+		}
 	}
 }
 
@@ -443,35 +448,35 @@ give_pious_type_reward_effect = {
 			has_trait = pilgrim #This should be awarded upon arrival from your first pilgrimage
 			has_trait_xp = {
 				trait = pilgrim
-				value < 100 #TODO_CD_EP2 replace with standardized value less than MAX
+				value < 100
 			}
 		}
 		if = {
 			limit = { has_character_flag = perfect_pious_reward }
 			add_trait_xp = {
 				trait = pilgrim
-				value = 40 #TODO_CD_EP2 replace with standardized value MASSIVEx2 (omega?)
+				value = 40
 			}
 		}
 		if = {
 			limit = { has_character_flag = high_pious_reward }
 			add_trait_xp = {
 				trait = pilgrim
-				value = 20 #TODO_CD_EP2 replace with standardized value MASSIVE
+				value = 20
 			}
 		}
 		if = {
 			limit = { has_character_flag = mid_pious_reward }
 			add_trait_xp = {
 				trait = pilgrim
-				value = 10 #TODO_CD_EP2 replace with standardized value MAJOR
+				value = 10
 			}
 		}
 		if = {
 			limit = { has_character_flag = low_pious_reward }
 			add_trait_xp = {
 				trait = pilgrim
-				value = 5 #TODO_CD_EP2 replace with standardized value MEDIUM
+				value = 5
 			}
 		}
 	}
@@ -848,7 +853,6 @@ christian_saint_bone_creation_effect = {
 			}
 		}
 		hidden_effect = {
-			#TODO_CD_EP2 This will most likely need updating if we want to keep it -- does this still work?
 			random = {
 				chance = 10 # 10% base chance
 				modifier = {
@@ -895,7 +899,6 @@ christian_saint_bone_creation_effect = {
 					modifier = artifact_monthly_piety_1_modifier
 					save_scope_as = christian_saint_bone_scope
 				}
-				#TODO_CD_EP2_FGK Add activity log entry here that sets the owner to ROOT
 				scope:christian_saint_bone_scope = {
 					set_variable = { # required to track usability for template
 						name = saint_bone_faith
@@ -975,8 +978,25 @@ give_pilgrimage_reward_effect = {
 	christian_saint_bone_tooltip_effect = yes
 	pilgrimage_additional_reward_effect = yes
 	remove_character_flag = should_get_trait_piety
-	# LEGITIMACY GAIN FOR STANDARD ACTIVITY PARTICIPATION - PILGRIMAGE
-	standard_activity_participation_legitimacy_effect = yes
+	# LEGITIMACY GAIN FOR ACTIVITY PARTICIPATION - PILGRIMAGE
+	pilgrimage_activity_participation_legitimacy_effect = yes
+	# Sacred Mountains tenet
+	if = {
+		limit = {
+			faith = { has_doctrine_parameter = piety_from_hills_and_mountains_pilgrimages }
+			location = {
+				OR = {
+					terrain = hills
+					terrain = mountains
+					terrain = desert_mountains
+				}
+			}
+		}
+		custom_tooltip = {
+			text = piety_from_hills_and_mountains_pilgrimages_tt
+			add_piety = medium_piety_gain
+		}
+	}
 }
 
 #Stress loss when arriving at the holy site
@@ -1146,9 +1166,11 @@ resolve_pilgrimage_type_reward_effect = {
 					trait = pilgrim
 					value >= 50
 				}
-				NOT = { has_character_flag = pilgrim_legend }
+				NOR = { 
+					has_character_flag = pilgrim_legend
+					has_game_rule = historical_legends_only
+				}
 				has_dlc_feature = legends
-				NOT = { has_game_rule = historical_legends_only }
 			}
 		}
 		scope:host = {
@@ -1211,7 +1233,7 @@ pilgrimage_turn_back_and_bury_effect = {
 		years = 5
 	}
 	every_vassal_or_below = {
-		limit = { has_vassal_stance = zealot }
+		vassal_stance = zealot
 		custom = every_zealot_vassal
 		add_opinion = {
 			modifier = disapproving_opinion
@@ -1220,7 +1242,7 @@ pilgrimage_turn_back_and_bury_effect = {
 		}
 	}
 	every_vassal_or_below = {
-		limit = { has_vassal_stance = glory_hound }
+		vassal_stance = glory_hound
 		custom = every_glory_hound_vassal
 		add_opinion = {
 			modifier = approving_opinion
@@ -1244,7 +1266,7 @@ pilgrimage_bury_at_destination_effect = {
 		years = 10
 	}
 	every_vassal_or_below = {
-		limit = { has_vassal_stance = zealot }
+		vassal_stance = zealot
 		custom = every_zealot_vassal
 		add_opinion = {
 			modifier = approving_opinion
@@ -1253,7 +1275,7 @@ pilgrimage_bury_at_destination_effect = {
 		}
 	}
 	every_vassal_or_below = {
-		limit = { has_vassal_stance = glory_hound }
+		vassal_stance = glory_hound
 		custom = every_glory_hound_vassal
 		add_opinion = {
 			modifier = disapproving_opinion
@@ -1278,7 +1300,7 @@ pilgrimage_bury_at_home_effect = {
 		years = 15
 	}
 	every_vassal_or_below = {
-		limit = { has_vassal_stance = zealot }
+		vassal_stance = zealot
 		custom = every_zealot_vassal
 		add_opinion = {
 			modifier = approving_opinion
@@ -1287,7 +1309,7 @@ pilgrimage_bury_at_home_effect = {
 		}
 	}
 	every_vassal_or_below = {
-		limit = { has_vassal_stance = glory_hound }
+		vassal_stance = glory_hound
 		custom = every_glory_hound_vassal
 		add_opinion = {
 			modifier = approving_opinion
@@ -1301,6 +1323,7 @@ pilgrimage_bury_at_home_effect = {
 		cynical = medium_stress_impact_gain
 	}
 }
+<<<<<<< HEAD
 
 #####################################################################
 
@@ -1793,3 +1816,5 @@ pilgrimage_bury_at_home_effect = {
 #		save_scope_as = destination_title
 #	}
 #}
+=======
+>>>>>>> 1.18

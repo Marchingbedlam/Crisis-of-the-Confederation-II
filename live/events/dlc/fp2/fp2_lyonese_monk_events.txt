@@ -63,7 +63,7 @@ scripted_trigger fp2_suitable_base_convert_trigger = {
 	NOR = {
 		has_trait = cynical
 		ai_zeal <= high_negative_ai_value
-		any_secret = { secret_type = secret_non_believer }
+		any_secret = { type = secret_non_believer }
 	}
 	# Exclude characters that might turn up as scope:irate_theocrat.
 	NOR = {
@@ -120,7 +120,7 @@ scripted_trigger fp2_lyonese_monk_suitable_annoyed_theocrat_landless_monk_trigge
 	has_trait = devoted
 	faith = scope:story.var:base_faith
 	is_available_ai_adult = yes
-	NOT = { this = scope:acolyte }
+	this != scope:acolyte
 }
 
 scripted_trigger fp2_lyonese_monk_has_suitable_annoyed_theocrat_trigger = {
@@ -238,7 +238,7 @@ scripted_effect fp2_lyonese_monk_grab_and_update_pope_effect = {
 	# Otherwise, check to see if the current Pope is the same as the last Pope.
 	else_if = {
 		limit = {
-			NOT = { scope:story.var:base_faith.religious_head = scope:pope }
+			scope:story.var:base_faith.religious_head != scope:pope
 		}
 		scope:pope = { save_scope_as = old_pope }
 		scope:story.var:base_faith.religious_head = { save_scope_as = pope }
@@ -746,7 +746,7 @@ fp2_lyonese_monk.0031 = {
 	option = {
 		name = fp2_lyonese_monk.0031.a
 		trigger = {
-			NOT = { faith = scope:story.var:base_faith }
+			faith != scope:story.var:base_faith
 		}
 
 		# Clean house.
@@ -766,7 +766,7 @@ fp2_lyonese_monk.0031 = {
 	option = {
 		name = fp2_lyonese_monk.0031.b
 		trigger = {
-			NOT = { scope:acolyte.faith = scope:story.var:base_faith }
+			scope:acolyte.faith != scope:story.var:base_faith
 		}
 
 		# Clean house.
@@ -1907,7 +1907,7 @@ fp2_lyonese_monk.0431 = {
 			triggered_desc = {
 				trigger = {
 					exists = scope:old_pope
-					NOT = { scope:old_pope = scope:pope }
+					scope:old_pope != scope:pope
 				}
 				desc = fp2_lyonese_monk.0431.desc.pope.different
 			}
@@ -2433,7 +2433,7 @@ fp2_lyonese_monk.0611 = {
 	trigger = {
 		fp2_lyonese_monk_0000_valid_for_events_trigger = yes
 		any_held_title = {
-			tier = tier_county
+			title_tier = county
 			faith = scope:story.var:base_faith
 		}
 	}
@@ -2460,8 +2460,8 @@ fp2_lyonese_monk.0611 = {
 		}
 		else = {
 			random_held_title = {
+				title_tier = county
 				limit = {
-					tier = tier_county
 					faith = scope:story.var:base_faith
 				}
 				save_scope_as = rioting_county
@@ -2722,7 +2722,7 @@ scripted_trigger fp2_lyonese_monk_0621_suitable_vassal_trigger = {
 	# Available for narrative purposes.
 	is_available_ai_adult = yes
 	# And uhhh... make sure they don't nab themselves.
-	NOT = { this = scope:acolyte }
+	this != scope:acolyte
 }
 
 #	Zealous vassals protest your heresy.
@@ -3475,9 +3475,6 @@ fp2_lyonese_monk.0811 = {
 				limit = { scope:conclave_engagement = flag:piety }
 				piety >= fp2_lyonese_monk_conclave_cost_value
 			}
-			# Can't take a stance on something that scope:acolyte is already pushing for.
-			#TODO_CD_FP2_POLISH; fix this.
-			#NOT = { scope:acolyte_stance = flag:school_elipandic }
 		}
 		show_as_unavailable = {
 			# Piety path costing.
@@ -3566,9 +3563,6 @@ fp2_lyonese_monk.0811 = {
 				limit = { scope:conclave_engagement = flag:piety }
 				piety >= fp2_lyonese_monk_conclave_cost_value
 			}
-			# Can't take a stance on something that scope:acolyte is already pushing for.
-			#TODO_CD_FP2_POLISH; fix this.
-			#NOT = { scope:acolyte_stance = flag:school_felicitous }
 		}
 		show_as_unavailable = {
 			# Piety path costing.
@@ -3657,9 +3651,6 @@ fp2_lyonese_monk.0811 = {
 				limit = { scope:conclave_engagement = flag:piety }
 				piety >= fp2_lyonese_monk_conclave_cost_value
 			}
-			# Can't take a stance on something that scope:acolyte is already pushing for.
-			#TODO_CD_FP2_POLISH; fix this.
-			#NOT = { scope:acolyte_stance = flag:school_radical }
 		}
 		show_as_unavailable = {
 			# Piety path costing.
@@ -3863,9 +3854,6 @@ fp2_lyonese_monk.0821 = {
 				limit = { scope:conclave_engagement = flag:piety }
 				piety >= fp2_lyonese_monk_conclave_cost_value
 			}
-			# Can't take a stance on something that scope:acolyte is already pushing for.
-			#TODO_CD_FP2_POLISH; fix this.
-			#NOT = { scope:acolyte_stance = flag:school_elipandic }
 		}
 		show_as_unavailable = {
 			# Piety path costing.
@@ -3954,9 +3942,6 @@ fp2_lyonese_monk.0821 = {
 				limit = { scope:conclave_engagement = flag:piety }
 				piety >= fp2_lyonese_monk_conclave_cost_value
 			}
-			# Can't take a stance on something that scope:acolyte is already pushing for.
-			#TODO_CD_FP2_POLISH; fix this.
-			#NOT = { scope:acolyte_stance = flag:school_felicitous }
 		}
 		show_as_unavailable = {
 			# Piety path costing.
@@ -4045,9 +4030,6 @@ fp2_lyonese_monk.0821 = {
 				limit = { scope:conclave_engagement = flag:piety }
 				piety >= fp2_lyonese_monk_conclave_cost_value
 			}
-			# Can't take a stance on something that scope:acolyte is already pushing for.
-			#TODO_CD_FP2_POLISH; fix this.
-			#NOT = { scope:acolyte_stance = flag:school_radical }
 		}
 		show_as_unavailable = {
 			# Piety path costing.
@@ -4243,9 +4225,6 @@ fp2_lyonese_monk.0831 = {
 				limit = { scope:conclave_engagement = flag:piety }
 				piety >= fp2_lyonese_monk_conclave_cost_value
 			}
-			# Can't take a stance on something that scope:acolyte is already pushing for.
-			#TODO_CD_FP2_POLISH; fix this.
-			#NOT = { scope:acolyte_stance = flag:school_elipandic }
 		}
 		show_as_unavailable = {
 			# Piety path costing.
@@ -4334,9 +4313,6 @@ fp2_lyonese_monk.0831 = {
 				limit = { scope:conclave_engagement = flag:piety }
 				piety >= fp2_lyonese_monk_conclave_cost_value
 			}
-			# Can't take a stance on something that scope:acolyte is already pushing for.
-			#TODO_CD_FP2_POLISH; fix this.
-			#NOT = { scope:acolyte_stance = flag:school_felicitous }
 		}
 		show_as_unavailable = {
 			# Piety path costing.
@@ -4425,9 +4401,6 @@ fp2_lyonese_monk.0831 = {
 				limit = { scope:conclave_engagement = flag:piety }
 				piety >= fp2_lyonese_monk_conclave_cost_value
 			}
-			# Can't take a stance on something that scope:acolyte is already pushing for.
-			#TODO_CD_FP2_POLISH; fix this.
-			#NOT = { scope:acolyte_stance = flag:school_radical }
 		}
 		show_as_unavailable = {
 			# Piety path costing.

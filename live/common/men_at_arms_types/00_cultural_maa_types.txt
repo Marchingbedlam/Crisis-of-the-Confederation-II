@@ -35,6 +35,7 @@ huscarl = {
 	
 	counters = {
 		pikemen = 1
+		peasant_militia = 2
 		archers = 1
 	}
 
@@ -76,6 +77,7 @@ landsknecht = {
 
 	counters = {
 		pikemen = 0.5
+		peasant_militia = 1
 		light_cavalry = 2
 		heavy_cavalry = 2
 	}
@@ -257,6 +259,7 @@ praetorian = {
 	
 	counters = {
 		pikemen = 1
+		peasant_militia = 2
 	}
 	
 	buy_cost = { gold = praetorian_recruitment_cost }
@@ -546,6 +549,7 @@ ayyar = {
 	
 	counters = {
 		pikemen = 1
+		peasant_militia = 2
 	}
 
 	can_recruit = {
@@ -575,6 +579,7 @@ mubarizun = {
 
 	counters = {
 		pikemen = 1
+		peasant_militia = 2
 		heavy_infantry = 1
 	}
 	
@@ -695,7 +700,8 @@ paiks = { #Indian Footmen - carrying bows but also swords and spears.
 	
 	stack = 100
 	ai_quality = { value = @[cultural_maa_extra_ai_score - 40] }
-	icon = bowmen
+
+	icon = paiks
 }
 
 druzhina = {
@@ -708,6 +714,7 @@ druzhina = {
 	
 	counters = {
 		pikemen = 1
+		peasant_militia = 2
 	}
 
 	can_recruit = {
@@ -871,6 +878,7 @@ garudas = {
 	
 	counters = {
 		pikemen = 1
+		peasant_militia = 2
 		archers = 1
 	}
 	
@@ -891,7 +899,8 @@ garudas = {
 	
 	stack = 100
 	ai_quality = { value = @cultural_maa_extra_ai_score }
-	icon = heavy_infantry
+
+	icon = garudas
 }
 
 khandayat = {
@@ -909,6 +918,7 @@ khandayat = {
 	counters = {
 		light_cavalry = 1
 		pikemen = 1
+		peasant_militia = 2
 	}
 	
 	can_recruit = {
@@ -925,7 +935,8 @@ khandayat = {
 	
 	stack = 100
 	ai_quality = { value = @cultural_maa_extra_ai_score }
-	icon = heavy_infantry
+
+	icon = khandayat
 }
 
 mountaineer = {
@@ -943,6 +954,7 @@ mountaineer = {
 	
 	counters = {
 		pikemen = 1
+		peasant_militia = 2
 	}
 
 	winter_bonus = {
@@ -964,7 +976,8 @@ mountaineer = {
 	
 	stack = 100
 	ai_quality = { value = @cultural_maa_extra_ai_score }
-	icon = heavy_infantry
+
+	icon = mountaineer
 }
 
 sahel_horsemen = {
@@ -1118,6 +1131,7 @@ zbrojnosh = {
 
 	counters = {
 		pikemen = 1
+		peasant_militia = 2
 		archers = 1
 	}
 	
@@ -1153,6 +1167,7 @@ palace_guards = {
 	
 	counters = {
 		pikemen = 2
+		peasant_militia = 4
 	}
 
 	can_recruit = {
@@ -1169,13 +1184,14 @@ palace_guards = {
 	
 	stack = 100
 	ai_quality = { value = @cultural_maa_extra_ai_score }
-	icon = heavy_infantry
+
+	icon = palace_guards
 }
 
-chu_ko_nu = {
+shenbigong = {
 	type = archers
 	
-	damage = 30
+	damage = 44
 	toughness = 20
 	pursuit = 0
 	screen = 0
@@ -1187,18 +1203,24 @@ chu_ko_nu = {
 	}
 	
 	counters = {
-		skirmishers = 1
-		archer_cavalry = 0.5
+		heavy_infantry = 1.5
+		heavy_cavalry = 1.5
+		pikemen = 1
+		peasant_militia = 2
 	}
 	
-	buy_cost = { gold = chu_ko_nu_recruitment_cost }
-	low_maintenance_cost = { gold = chu_ko_nu_low_maint_cost }
-	high_maintenance_cost = { gold = chu_ko_nu_high_maint_cost }
+	buy_cost = { gold = shenbigong_recruitment_cost }
+	low_maintenance_cost = { gold = shenbigong_low_maint_cost }
+	high_maintenance_cost = { gold = shenbigong_high_maint_cost }
 	provision_cost = @provisions_cost_infantry_expensive
 	
 	stack = 100
-	ai_quality = { value = @cultural_maa_extra_ai_score }
-	icon = crossbowmen
+	ai_quality = {
+		value = counter_synergy_ai_weight_crossbowmen
+		add = @cultural_maa_extra_ai_score
+	}
+
+	icon = shenbigong
 }
 
 guanch_vaulter = {

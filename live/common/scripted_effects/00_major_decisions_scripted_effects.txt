@@ -1,4 +1,5 @@
 ﻿create_roman_empire_scripted_effect = {
+	primary_title = { save_scope_as = old_primary_title }
 	add_trait = augustus
 	if = {
 		limit = { has_dlc_feature = legends }
@@ -7,7 +8,7 @@
 			quality = illustrious
 			chronicle = new_title
 			properties = {
-				title = title:e_roman_empire
+				title = title:h_roman_empire
 				founder = root
 			}
 		}
@@ -15,40 +16,47 @@
 	#Create Roman Empire, shift dejure/history/laws, destroy e_byzantium.
 
 	if = {
+<<<<<<< HEAD
 		limit = { capital_county = { this = title:c_avalon } }
 		title:e_roman_empire = { 
 			set_capital_county = title:c_avalon
+=======
+		limit = { capital_county = { this = title:c_byzantion } }
+		title:h_roman_empire = {
+			set_capital_county = title:c_byzantion
+>>>>>>> 1.18
 		}
 	}
 
 	hidden_effect = {
 		every_held_title = { #Should shift all dejure of all Empires owned at the time.
-			limit = {
-				tier = tier_empire
-			}
-			every_in_de_jure_hierarchy = {
-				limit = {
-					tier = tier_kingdom
-				}
-				set_de_jure_liege_title = title:e_roman_empire
-				
-			}
+			title_tier = empire
+
+			set_de_jure_liege_title = title:h_roman_empire
 		}
-		every_held_title = { #Completely Controlled Kingdoms as well.
+		every_empire = {
 			limit = {
-				tier = tier_kingdom
-				root = { completely_controls = prev }
+				NOT = { exists = hegemony }
+				any_de_jure_county = {
+					percent >= 0.6
+					holder = {
+						OR = {
+							this = root
+							any_liege_or_above = { this = root }
+						}
+					}
+				}
 			}
-			set_de_jure_liege_title = title:e_roman_empire
+			set_de_jure_liege_title = title:h_roman_empire
 		}
 	}
-	
+	split_byzantine_empire_effect = yes
 	create_title_and_vassal_change = {
 		type = created
 		save_scope_as = change
 		add_claim_on_loss = no
 	}
-	title:e_roman_empire = {
+	title:h_roman_empire = {
 		change_title_holder = {
 			holder = root
 			change = scope:change
@@ -60,29 +68,28 @@
 		limit = {
 			government_allows = administrative
 			primary_title = {
-				any_title_maa_regiment = { count >= 1 }
+				any_title_maa_regiment = { }
 			}
 		}
 		hidden_effect = {
-			primary_title = { transfer_title_maa_ownership = title:e_roman_empire }
+			primary_title = { transfer_title_maa_ownership = title:h_roman_empire }
 		}
 	}
 	if = { # If you have founded the Varangian Guard, you get to keep the benefits
 		limit = {
-			primary_title = { has_variable = founded_varangian_guard }
+			scope:old_primary_title = { has_variable = founded_varangian_guard }
 		}
 		hidden_effect = {
-			title:e_roman_empire = { set_variable = founded_varangian_guard }
+			title:h_roman_empire = { set_variable = founded_varangian_guard }
 		}
 	}
-	hidden_effect = { set_primary_title_to = title:e_roman_empire }
+	hidden_effect = { set_primary_title_to = title:h_roman_empire }
 	every_held_title = { #Should destroy all other Empires owned at the time.
-		limit = {
-				tier = tier_empire
-			NOT = { this = title:e_roman_empire }
-		}
+		title_tier = empire
+
 		root = { destroy_title = prev }
 	}
+	
 	if = { #Automatically move capital to Constantinople, unless it's been set to Rome.
 		limit = {
 			NOT = { capital_county = { this = title:c_avalon } }
@@ -115,7 +122,7 @@
 			NOT = { capital_county = { this = title:c_avalon } }
 			NOT = { capital_county = { this = title:c_avalon } }
 			NOT = { culture = { has_cultural_pillar = heritage_byzantine } }
-			exists = title:e_roman_empire.holder
+			exists = title:h_roman_empire.holder
 		}
 		hidden_effect = {
 			if = { #Usurp if not held personally.
@@ -140,7 +147,7 @@
 	}
 	hidden_effect = {
 		add_character_flag = flag_restorer_of_rome #used for Eulogy.
-		title:e_roman_empire = {
+		title:h_roman_empire = {
 			set_variable = rome_was_restored_by_byzantium
 		}
 	}
@@ -151,24 +158,66 @@ create_roman_empire_holy_scripted_effect = {
 	#Create Roman Empire, shift dejure/history/laws, destroy e_hre.
 	hidden_effect = {
 		every_held_title = { #Should shift all dejure of all Empires owned at the time.
-			limit = {
-				tier = tier_empire
+			title_tier = empire
+
+			set_de_jure_liege_title = title:h_roman_empire
+		}
+		primary_title = {
+			if = {
+				limit = {
+					any_in_de_jure_hierarchy = {
+						tier = tier_kingdom
+						OR = {
+							title:k_france ?= this
+							title:k_aquitaine ?= this
+							title:k_brittany ?= this
+						}
+					}
+				}
+				every_in_de_jure_hierarchy = {
+					limit = {
+						tier = tier_kingdom
+						OR = {
+							title:k_france ?= this
+							title:k_aquitaine ?= this
+							title:k_brittany ?= this
+						}
+					}
+					set_de_jure_liege_title = title:e_france
+					title:e_france = { set_de_jure_liege_title = title:h_roman_empire }
+				}
 			}
 			every_in_de_jure_hierarchy = {
 				limit = {
 					tier = tier_kingdom
 				}
-				set_de_jure_liege_title = title:e_roman_empire
-				
+				set_de_jure_liege_title = title:e_germany
+				title:e_germany = { set_de_jure_liege_title = title:h_roman_empire }
 			}
 		}
+		every_empire = {
+			limit = {
+				NOT = { exists = hegemony }
+				any_de_jure_county = {
+					percent >= 0.6
+					holder = {
+						OR = {
+							this = root
+							any_liege_or_above = { this = root }
+						}
+					}
+				}
+			}
+			set_de_jure_liege_title = title:h_roman_empire
+		}
 	}
+	split_byzantine_empire_effect = yes
 	create_title_and_vassal_change = {
 		type = created
 		save_scope_as = change
 		add_claim_on_loss = no
 	}
-	title:e_roman_empire = {
+	title:h_roman_empire = {
 		change_title_holder = {
 			holder = root
 			change = scope:change
@@ -176,7 +225,7 @@ create_roman_empire_holy_scripted_effect = {
 		set_variable = {
 			name = variable_restored_hre #Used for flavor later.
 			value = yes
-		}	
+		}
 		copy_title_history = title:e_hre
 	}
 	resolve_title_and_vassal_change = scope:change
@@ -184,11 +233,11 @@ create_roman_empire_holy_scripted_effect = {
 		limit = {
 			government_allows = administrative
 			primary_title = {
-				any_title_maa_regiment = { count >= 1 }
+				any_title_maa_regiment = { }
 			}
 		}
 		hidden_effect = {
-			primary_title = { transfer_title_maa_ownership = title:e_roman_empire }
+			primary_title = { transfer_title_maa_ownership = title:h_roman_empire }
 		}
 	}
 	if = { # If you have founded the Varangian Guard, you get to keep the benefits (you are not likely to have done it here, but better safe than sorry)
@@ -196,28 +245,31 @@ create_roman_empire_holy_scripted_effect = {
 			primary_title = { has_variable = founded_varangian_guard }
 		}
 		hidden_effect = {
-			title:e_roman_empire = { set_variable = founded_varangian_guard }
+			title:h_roman_empire = { set_variable = founded_varangian_guard }
 		}
 	}
-	hidden_effect = { set_primary_title_to = title:e_roman_empire }
+	hidden_effect = { set_primary_title_to = title:h_roman_empire }
 	every_held_title = { #Should destroy all other Empires owned at the time.
-		limit = {
-			tier = tier_empire
-			NOT = { this = title:e_roman_empire }
-		}
+		title_tier = empire
+
 		root = { destroy_title = prev }
 	}
 	hidden_effect = {
-		title:e_roman_empire = {
+		title:h_roman_empire = {
 			set_coa = e_hre_roman
-			set_color_from_title = title:e_hre
+			set_title_color = { 255 255 255 }
 		}
 	}
 
 	if = { #Automatically move capital to Rome.
 		limit = {
+<<<<<<< HEAD
 			NOT = { capital_county = { this = title:c_avalon } }
 			exists = title:e_roman_empire.holder
+=======
+			NOT = { capital_county = { this = title:c_roma } }
+			exists = title:h_roman_empire.holder
+>>>>>>> 1.18
 		}
 		hidden_effect = {
 			if = { #Usurp if not held personally.
@@ -238,36 +290,50 @@ create_roman_empire_holy_scripted_effect = {
 				resolve_title_and_vassal_change = scope:change
 			}
 		}
+<<<<<<< HEAD
 		title:e_roman_empire.holder = { set_realm_capital = title:c_avalon }
+=======
+		title:h_roman_empire.holder = { set_realm_capital = title:c_roma }
+>>>>>>> 1.18
 	}
 	hidden_effect = {
 		create_story = restoring_roman_provinces_story
 		add_character_flag = flag_restorer_of_rome #used for Eulogy.
 	}
 }
+
 create_roman_empire_italy_scripted_effect = {
 	add_trait = augustus
 	#Create Roman Empire, shift dejure/history/laws, destroy e_italy.
 	hidden_effect = {
 		every_held_title = { #Should shift all dejure of all Empires owned at the time.
+			title_tier = empire
+
+			set_de_jure_liege_title = title:h_roman_empire
+		}
+		every_empire = {
 			limit = {
-				tier = tier_empire
-			}
-			every_in_de_jure_hierarchy = {
-				limit = {
-					tier = tier_kingdom
+				NOT = { exists = hegemony }
+				any_de_jure_county = {
+					percent >= 0.6
+					holder = {
+						OR = {
+							this = root
+							any_liege_or_above = { this = root }
+						}
+					}
 				}
-				set_de_jure_liege_title = title:e_roman_empire
-				
 			}
+			set_de_jure_liege_title = title:h_roman_empire
 		}
 	}
+	split_byzantine_empire_effect = yes
 	create_title_and_vassal_change = {
 		type = created
 		save_scope_as = change
 		add_claim_on_loss = no
 	}
-	title:e_roman_empire = {
+	title:h_roman_empire = {
 		change_title_holder = {
 			holder = root
 			change = scope:change
@@ -275,7 +341,7 @@ create_roman_empire_italy_scripted_effect = {
 		set_variable = {
 			name = variable_restored_italy #Used for flavor later.
 			value = yes
-		}	
+		}
 		copy_title_history = title:e_italy
 	}
 	resolve_title_and_vassal_change = scope:change
@@ -283,11 +349,11 @@ create_roman_empire_italy_scripted_effect = {
 		limit = {
 			government_allows = administrative
 			primary_title = {
-				any_title_maa_regiment = { count >= 1 }
+				any_title_maa_regiment = { }
 			}
 		}
 		hidden_effect = {
-			primary_title = { transfer_title_maa_ownership = title:e_roman_empire }
+			primary_title = { transfer_title_maa_ownership = title:h_roman_empire }
 		}
 	}
 	if = { # If you have founded the Varangian Guard, you get to keep the benefits (you are not likely to have done it here, but better safe than sorry)
@@ -295,21 +361,24 @@ create_roman_empire_italy_scripted_effect = {
 			primary_title = { has_variable = founded_varangian_guard }
 		}
 		hidden_effect = {
-			title:e_roman_empire = { set_variable = founded_varangian_guard }
+			title:h_roman_empire = { set_variable = founded_varangian_guard }
 		}
 	}
-	hidden_effect = { set_primary_title_to = title:e_roman_empire }
+	hidden_effect = { set_primary_title_to = title:h_roman_empire }
 	every_held_title = { #Should destroy all other Empires owned at the time.
-		limit = {
-			tier = tier_empire
-			NOT = { this = title:e_roman_empire }
-		}
+		title_tier = empire
+
 		root = { destroy_title = prev }
 	}
 	if = { #Automatically move capital to Rome.
 		limit = {
+<<<<<<< HEAD
 			NOT = { capital_county = { this = title:c_avalon } }
 			exists = title:e_roman_empire.holder
+=======
+			NOT = { capital_county = { this = title:c_roma } }
+			exists = title:h_roman_empire.holder
+>>>>>>> 1.18
 		}
 		hidden_effect = {
 			if = { #Usurp if not held personally.
@@ -330,7 +399,11 @@ create_roman_empire_italy_scripted_effect = {
 				resolve_title_and_vassal_change = scope:change
 			}
 		}
+<<<<<<< HEAD
 		title:e_roman_empire.holder = { set_realm_capital = title:c_avalon }
+=======
+		title:h_roman_empire.holder = { set_realm_capital = title:c_roma }
+>>>>>>> 1.18
 	}
 	hidden_effect = {
 		create_story = restoring_roman_provinces_story
@@ -338,80 +411,165 @@ create_roman_empire_italy_scripted_effect = {
 	}
 }
 
-create_eastern_roman_empire_scripted_effect = {
-	#Create Eastern Roman Empire, shift dejure/history/laws, destroy e_byzantium.
+split_byzantine_empire_effect = {
 	hidden_effect = {
-		every_held_title = { #Should shift all dejure of all Empires owned at the time.
-			limit = {
-				tier = tier_empire
-			}
-			every_in_de_jure_hierarchy = {
+		title:e_byzantium = {
+			if = {
 				limit = {
-					tier = tier_kingdom
-					save_temporary_scope_as = kingdom_to_check
-					any_county_in_region = {
-						region = custom_ep3_restore_rome_eastern_empire
-						any_this_title_or_de_jure_above = {
-							this = scope:kingdom_to_check
+					OR = {
+						NOT = { exists = holder }
+						holder ?= root
+					}
+				}
+				every_in_de_jure_hierarchy = {
+					limit = {
+						title:e_italy ?= { is_titular = no }
+						tier = tier_kingdom
+						OR = {
+							title:k_trinacria ?= this
+							title:k_sicily ?= this
+							title:k_naples ?= this
+							title:k_venice ?= this
 						}
 					}
+					set_de_jure_liege_title = title:e_italy
+					title:e_italy = { set_de_jure_liege_title = title:h_roman_empire }
 				}
-				add_to_list = target_titles
-			}
-		}
-		every_held_title = { #Completely Controlled Kingdoms as well.
-			limit = {
-				root = { completely_controls = prev }
-				tier = tier_kingdom
-				save_temporary_scope_as = kingdom_to_check
-				any_county_in_region = {
-					region = custom_ep3_restore_rome_eastern_empire
-					any_this_title_or_de_jure_above = {
-						this = scope:kingdom_to_check
+				every_in_de_jure_hierarchy = {
+					limit = {
+						tier = tier_kingdom	
+						OR = {
+							title:k_trinacria ?= this
+							title:k_epirus ?= this
+							title:k_croatia ?= this
+							title:k_serbia ?= this
+							title:k_bosnia ?= this
+							title:k_sicily ?= this
+							title:k_venice ?= this
+							title:k_naples ?= this
+						}
+					}
+					set_de_jure_liege_title = title:e_illyria
+					title:e_illyria = { set_de_jure_liege_title = title:h_roman_empire }
+				}
+				every_in_de_jure_hierarchy = {
+					limit = {
+						tier = tier_kingdom	
+						OR = {
+							title:k_thessalonika ?= this
+							title:k_hellas ?= this
+							title:k_krete ?= this
+							title:k_bulgaria ?= this
+						}
+					}
+					set_de_jure_liege_title = title:e_macedonia
+					title:e_macedonia = { set_de_jure_liege_title = title:h_roman_empire }
+				}
+				every_in_de_jure_hierarchy = {
+					limit = {
+						tier = tier_kingdom
+						OR = {
+							title:k_saruhan ?= this
+							title:k_tekke ?= this
+							title:k_trebizond ?= this
+							title:k_ottoman ?= this
+							title:k_rum ?= this
+							title:k_mentese ?= this
+							title:k_karaman ?= this
+							title:k_germiyan ?= this
+							title:k_cyprus ?= this
+							title:k_eretnid ?= this
+							title:k_candar ?= this
+							title:k_nikaea ?= this
+							title:k_pontus ?= this
+							title:k_armenia ?= this
+							title:k_georgia ?= this
+							title:k_armenian_principality ?= this
+							title:k_old_armenia ?= this
+							title:k_anatolia ?= this
+							title:k_aydin ?= this
+						}
+					}
+					set_de_jure_liege_title = title:e_anatolia
+					title:e_anatolia = { set_de_jure_liege_title = title:h_roman_empire }
+				}
+				every_in_de_jure_hierarchy = {
+					limit = {
+						tier = tier_kingdom
+					}
+					if = {
+						limit = {
+							any_title_to_title_neighboring_and_across_water_empire = {
+								count >= 1
+							}
+						}
+						random_title_to_title_neighboring_and_across_water_empire = {
+							save_scope_as = new_empire_de_jure
+						}
+						set_de_jure_liege_title = scope:new_empire_de_jure
 					}
 				}
 			}
-			add_to_list = target_titles
-		}
-		every_in_list = {
-			list = target_titles
-			set_de_jure_liege_title = title:e_byzantium
 		}
 	}
-	scope:new_holder = {
+}
+
+create_eastern_roman_empire_scripted_effect = {
+	if = { # First we move the domicile of root, if necessary
+		limit = {
+			exists = domicile
+			domicile.domicile_location = {
+				geographical_region = custom_ep3_restore_rome_eastern_empire
+			}
+		}
+		domicile = {
+			move_domicile = root.capital_province
+		}
+	}
+	scope:new_holder = { # Secondly, we handle the new liege
+		add_trait = augustus
 		create_title_and_vassal_change = {
 			type = created
 			save_scope_as = change
 			add_claim_on_loss = no
 		}
-		title:e_byzantium = {
-			set_title_name = e_eastern_roman_empire
+		if = { # We ensure they get Byzantion
+			limit = {
+				scope:new_holder != title:c_byzantion.holder
+			}
+			title:c_byzantion = {
+				change_title_holder = {
+					holder = scope:new_holder
+					change = scope:change
+				}
+			}
+		}
+		# We move over the De Jure for all the basic titles
+		title:e_byzantium ?= { set_de_jure_liege_title = title:h_eastern_roman_empire }
+		title:e_illyria ?= { set_de_jure_liege_title = title:h_eastern_roman_empire }
+		title:e_macedonia ?= { set_de_jure_liege_title = title:h_eastern_roman_empire }
+		title:e_anatolia ?= { set_de_jure_liege_title = title:h_eastern_roman_empire }
+		title:h_eastern_roman_empire = { # They get the new Roman Empire title
 			change_title_holder = {
 				holder = scope:new_holder
 				change = scope:change
 			}
-			every_in_de_jure_hierarchy = {
-				if = {
-					limit = {
-						holder ?= root
-						tier >= tier_county
-					}
-					change_title_holder = {
-						holder = scope:new_holder
-						change = scope:change
-					}
+		}
+		root = { # They get every held title from current root in the greater region
+			every_held_title = {
+				limit = {
+					tier = tier_county
+					is_landless_type_title = no
+					title_province = { geographical_region = custom_ep3_restore_rome_eastern_empire }
 				}
-				else = {
-					holder ?= {
-						change_liege = {
-							liege = scope:new_holder
-							change = scope:change
-						}
-					}
+				change_title_holder = {
+					holder = scope:new_holder
+					change = scope:change
 				}
 			}
 		}
 		resolve_title_and_vassal_change = scope:change
+<<<<<<< HEAD
 		hidden_effect = { set_primary_title_to = title:e_byzantium }
 		if = { # Ensure new holder has Constantinople and the Theme of Thrace
 			limit = {
@@ -451,7 +609,116 @@ create_eastern_roman_empire_scripted_effect = {
 				resolve_title_and_vassal_change = scope:change
 			}
 			set_realm_capital = title:c_avalon
+=======
+		set_primary_title_to = title:h_eastern_roman_empire 
+		set_realm_capital = title:c_byzantion
+	}
+		
+	create_title_and_vassal_change = {
+		type = created
+		save_scope_as = change
+		add_claim_on_loss = no
+	}
+	# Then all the direct vassals who should move over
+	every_vassal = {
+		limit = {
+			highest_held_title_tier >= tier_county
+			capital_province = { geographical_region = custom_ep3_restore_rome_eastern_empire }
+>>>>>>> 1.18
 		}
+		change_liege = {
+			liege = scope:new_holder
+			change = scope:change
+		}
+	}
+	resolve_title_and_vassal_change = scope:change
+	create_title_and_vassal_change = {
+		type = created
+		save_scope_as = change
+		add_claim_on_loss = no
+	}
+	# Then vassals who are not directly in line
+	every_vassal_or_below = {
+		limit = {
+			highest_held_title_tier >= tier_county
+			capital_province = { geographical_region = custom_ep3_restore_rome_eastern_empire }
+		}
+		change_liege = {
+			liege = scope:new_holder
+			change = scope:change
+		}
+	}
+	resolve_title_and_vassal_change = scope:change
+
+	# Then change the de_jure for empires that are de jure part of the Roman Empire, but who has mostly broken free
+	every_empire = {
+		limit = {
+			hegemony ?= title:h_roman_empire
+			any_de_jure_county = {
+				percent >= 0.51
+				title_province = {
+					geographical_region = custom_ep3_restore_rome_eastern_empire
+				}
+			}
+		}
+		set_de_jure_liege_title = title:h_eastern_roman_empire
+	}
+
+	create_title_and_vassal_change = {
+		type = created
+		save_scope_as = change
+		add_claim_on_loss = no
+	}
+	# Then every title that aren't county title held by root, but they have a majority of the titles under their rule
+	every_held_title = {
+		limit = {
+			NOR = { 
+				tier = tier_county 
+				tier = tier_hegemony
+				this = root.primary_title
+			}
+			is_landless_type_title = no
+			any_de_jure_county = {
+				percent >= 0.51
+				title_province = {
+					geographical_region = custom_ep3_restore_rome_eastern_empire
+				}
+			}
+		}
+		change_title_holder = {
+			holder = scope:new_holder
+			change = scope:change
+		}
+	}
+	resolve_title_and_vassal_change = scope:change
+	
+	every_empire = {
+		limit = {
+			OR = {
+				any_de_jure_county = {
+					percent >= 0.75
+					holder = {
+						OR = {
+							this = scope:new_holder
+							any_liege_or_above = { this = scope:new_holder }
+						}
+					}
+				}
+				AND = {
+					de_jure_liege = title:h_eastern_roman_empire
+					any_de_jure_county = {
+						percent >= 0.51
+						holder = {
+							OR = {
+								this = scope:new_holder
+								any_liege_or_above = { this = scope:new_holder }
+							}
+						}
+					}
+				}
+			}
+		}
+		set_de_jure_liege_title = title:h_eastern_roman_empire
 	}
 }
 
@@ -471,7 +738,7 @@ mend_great_schism_scripted_effect = {
 			religion = {
 				every_faith = {
 					limit = {
-						NOT = { this = religious_head.faith }
+						this != religious_head.faith
 					}
 					remove_religious_head_title = yes
 				}
@@ -480,7 +747,7 @@ mend_great_schism_scripted_effect = {
 	}
 	every_player = { #Notify all players of the same Faith.
 		limit = {
-			NOT = { this = root }
+			this != root
 			faith = root.faith
 		}
 		trigger_event = roman_restoration.0103
@@ -488,9 +755,9 @@ mend_great_schism_scripted_effect = {
 	every_ruler = { #Notify rulers of other Christian branches that they are no longer valid and offer chance at conversion.
 		limit = {
 			faith.religion = root.faith.religion
-			NOT = { faith = root.faith }
+			faith != root.faith
 			NOT = { government_has_flag = government_is_theocracy }
-			NOT = { this = this.faith.religious_head }
+			this != this.faith.religious_head
 			faith = {
 				has_doctrine = special_doctrine_ecumenical_christian
 			}
@@ -504,7 +771,7 @@ mend_great_schism_scripted_effect = {
 					faith.religion = root.faith.religion
 					faith = { NOT = { has_doctrine = special_doctrine_ecumenical_christian } }
 				}
-				NOT = { faith.religion = root.faith.religion } #...Or Heathens.
+				faith.religion != root.faith.religion #...Or Heathens.
 			}
 		}
 		trigger_event = roman_restoration.0102
@@ -515,7 +782,7 @@ mend_great_schism_scripted_effect = {
 			limit = {
 				this.religion = root.faith.religion
 				has_doctrine = special_doctrine_ecumenical_christian
-				NOT = { this = root.faith }
+				this != root.faith
 			}
 			remove_doctrine = special_doctrine_ecumenical_christian
 			change_fervor = {
@@ -659,7 +926,7 @@ destroy_papacy_scripted_effect = {
 				}
 			}
 		}
-		else_if = { 
+		else_if = {
 			limit = {
 				faith.religion = faith:hellenic_pagan.religion
 			}
@@ -1120,7 +1387,7 @@ form_outremer_scripted_effect = {
 	# If the player's capital is Arabic and the player is not, hybridize with the capital culture
 	if = {
 		limit = {
-			NOT = { scope:capital_culture = scope:former_culture }
+			scope:capital_culture != scope:former_culture
 			NOT = { scope:former_culture = { has_cultural_pillar = heritage_arabic } }
 			scope:capital_culture = { has_cultural_pillar = heritage_arabic }
 			culture = {
@@ -1286,7 +1553,7 @@ create_rum_scripted_effect = {
 	#If under a liege, make independent.
 	if = {
 		limit = {
-			is_independent_ruler = no
+			top_liege != this
 		}
 		if = {
 			limit = {
@@ -1390,23 +1657,23 @@ declare_bloodline_holy_decision_effect = {
 	every_child = {
 		even_if_dead = yes
 		trigger_event = major_decisions.0101
-	
+
 		every_child = {
 			even_if_dead = yes
-			limit = { 
+			limit = {
 				OR = {
-					is_grandchild_of = scope:progenitor_holy_blood 
-					is_great_grandchild_of = scope:progenitor_holy_blood  
+					is_grandchild_of = scope:progenitor_holy_blood
+					is_great_grandchild_of = scope:progenitor_holy_blood
 				}
 			}
 			trigger_event = major_decisions.0101
 
 			every_child = {
 				even_if_dead = yes
-				limit = { 
+				limit = {
 					OR = {
-						is_grandchild_of = scope:progenitor_holy_blood 
-						is_great_grandchild_of = scope:progenitor_holy_blood  
+						is_grandchild_of = scope:progenitor_holy_blood
+						is_great_grandchild_of = scope:progenitor_holy_blood
 					}
 				}
 				trigger_event = major_decisions.0101
@@ -1424,7 +1691,7 @@ sicilian_parliament_building_scripted_effect = {
 		}
 		if = {
 			limit = {
-				has_special_building_slot = no 
+				has_special_building_slot = no
 			}
 			add_special_building_slot = special_sicilian_parliament_01
 		}
@@ -1644,7 +1911,7 @@ promote_hungarian_settlement_decision_scripted_effect = {
 			get_all_innovations_from = culture:mogyer
 		}
 
-		# Convert my courtiers to Hungarian 
+		# Convert my courtiers to Hungarian
 		hidden_effect = {
 			every_courtier = {
 				limit = {
@@ -2102,6 +2369,251 @@ revive_armenian_empire_decision_scripted_effect = {
 	custom_tooltip = create_armenian_empire_decision_effects_de_jure_tt_b
 }
 
+form_dai_viet_empire_decision_scripted_effect = {
+	save_scope_as = founder
+	create_title_and_vassal_change = {
+		type = created
+		save_scope_as = title_change
+		add_claim_on_loss = no
+	}
+	title:e_viet = {
+		change_title_holder = {
+			holder = root
+			change = scope:title_change
+		}
+	}
+	resolve_title_and_vassal_change = scope:title_change
+	root.dynasty = {
+		add_dynasty_prestige = major_dynasty_prestige_gain
+	}
+
+	if = {
+		limit = {
+			title:k_viet = {
+				is_title_created = yes 
+				NOT = {
+					holder = ROOT
+				}
+			}
+		}
+		create_title_and_vassal_change = {
+			type = usurped
+			save_scope_as = title_change_2
+			add_claim_on_loss = no
+		}
+		title:k_viet = {
+			change_title_holder = {
+				holder = root
+				change = scope:title_change_2
+			}
+		}
+		resolve_title_and_vassal_change = scope:title_change_2
+	}
+	else_if = {
+		limit = {
+			title:k_viet = { is_title_created = no }
+		}
+		create_title_and_vassal_change = {
+			type = created
+			save_scope_as = title_change_2
+			add_claim_on_loss = no
+		}
+		title:k_viet = {
+			change_title_holder = {
+				holder = root
+				change = scope:title_change_2
+			}
+		}
+		resolve_title_and_vassal_change = scope:title_change_2
+	}
+	#Viet controls
+	if = {	#If owned, annex Dai Viet.
+		limit = {
+			title:k_viet = { holder = root  }
+		}
+		title:k_viet = { set_de_jure_liege_title = title:e_viet }
+	}
+	if = {	#If owned, annex Champa.
+		limit = {
+			title:k_champa = { holder = root  }
+		}
+		title:k_champa = { set_de_jure_liege_title = title:e_viet }
+	}
+	if = {	#If any have drifted out, then k_viet's constituent duchies are flipped back.
+		limit = {
+			title:d_hai_dong = {
+				NOT = { target_is_de_jure_liege_or_above = title:k_viet }
+			}
+		}
+		title:d_hai_dong = { set_de_jure_liege_title = title:k_viet }
+	}
+	if = {	#If any have drifted out, then k_viet's constituent duchies are flipped back.
+		limit = {
+			title:d_lam_tay = {
+				NOT = { target_is_de_jure_liege_or_above = title:k_viet }
+			}
+		}
+		title:d_lam_tay = { set_de_jure_liege_title = title:k_viet }
+	}
+	if = {	#If any have drifted out, then k_viet's constituent duchies are flipped back.
+		limit = {
+			title:d_nghe_an = {
+				NOT = { target_is_de_jure_liege_or_above = title:k_viet }
+			}
+		}
+		title:d_nghe_an = { set_de_jure_liege_title = title:k_viet }
+	}
+	if = {	#If any have drifted out, then k_viet's constituent duchies are flipped back.
+		limit = {
+			title:d_hai_dong = {
+				NOT = { target_is_de_jure_liege_or_above = title:k_viet }
+			}
+		}
+		title:d_thang_long = { set_de_jure_liege_title = title:k_viet }
+	}
+	#Champa controls
+	if = {	#If any have drifted out, then k_champa's constituent duchies are flipped back.
+		limit = {
+			title:d_indrapura = {
+				NOT = { target_is_de_jure_liege_or_above = title:k_champa }
+			}
+		}
+		title:d_indrapura = { set_de_jure_liege_title = title:k_champa }
+	}
+	if = {	#If any have drifted out, then k_champa's constituent duchies are flipped back.
+		limit = {
+			title:d_vijaya = {
+				NOT = { target_is_de_jure_liege_or_above = title:k_champa }
+			}
+		}
+		title:d_vijaya = { set_de_jure_liege_title = title:k_champa }
+	}
+	if = {	#If any have drifted out, then k_champa's constituent duchies are flipped back.
+		limit = {
+			title:d_baigaur = {
+				NOT = { target_is_de_jure_liege_or_above = title:k_champa }
+			}
+		}
+		title:d_baigaur = { set_de_jure_liege_title = title:k_champa }
+	}
+
+	if = {
+		limit = {
+			government_has_flag = government_is_meritocratic
+		}
+		add_realm_law = single_heir_succession_law
+	}
+}
+
+form_majapahit_empire_decision_scripted_effect = {
+	save_scope_as = founder
+	create_title_and_vassal_change = {
+		type = created
+		save_scope_as = title_change
+		add_claim_on_loss = no
+	}
+	title:e_majapahit = {
+		change_title_holder = {
+			holder = root
+			change = scope:title_change
+		}
+	}
+	resolve_title_and_vassal_change = scope:title_change
+	root.dynasty = {
+		add_dynasty_modifier = majapahit_empire_founding_modifier
+	}
+
+	hidden_effect = {
+		title:k_yavakadvipa = { save_scope_as = javanese_yavakadvipa }
+		title:d_SUM_palembang = { save_scope_as = javanese_palembang }
+		title:d_JAV_taruma = { save_scope_as = javanese_taruma }
+		title:d_JAV_mataram = { save_scope_as = javanese_mataram }
+		title:c_JAV_madura = { save_scope_as = javanese_madura }
+		title:e_majapahit = { save_scope_as = javanese_majapahit_empire }
+		title:k_yavakadvipa = { set_de_jure_liege_title = title:e_majapahit }
+		if = {
+			limit = {
+				title:k_yavakadvipa = {
+					is_title_created = yes 
+					NOT = {
+						holder = ROOT
+					}
+				}
+			}
+			create_title_and_vassal_change = {
+				type = usurped
+				save_scope_as = title_change_2
+				add_claim_on_loss = no
+			}
+			title:k_yavakadvipa = {
+				change_title_holder = {
+					holder = root
+					change = scope:title_change_2
+				}
+			}
+			resolve_title_and_vassal_change = scope:title_change_2
+		}
+		else_if = {
+			limit = {
+				title:k_yavakadvipa = { is_title_created = no }
+			}
+			create_title_and_vassal_change = {
+				type = created
+				save_scope_as = title_change_2
+				add_claim_on_loss = no
+			}
+			title:k_yavakadvipa = {
+				change_title_holder = {
+					holder = root
+					change = scope:title_change_2
+				}
+			}
+			resolve_title_and_vassal_change = scope:title_change_2
+		}
+		if = {
+			limit = {
+				title:d_SUM_palembang = {
+					NOT = { target_is_de_jure_liege_or_above = title:k_yavakadvipa }
+				}
+			}
+			title:d_SUM_palembang = { set_de_jure_liege_title = title:k_yavakadvipa }
+		}
+		if = {
+			limit = {
+				title:d_JAV_taruma = {
+					NOT = { target_is_de_jure_liege_or_above = title:k_yavakadvipa }
+				}
+			}
+			title:d_JAV_taruma = { set_de_jure_liege_title = title:k_yavakadvipa }
+		}
+		if = {
+			limit = {
+				title:d_JAV_mataram = {
+					NOT = { target_is_de_jure_liege_or_above = title:k_yavakadvipa }
+				}
+			}
+			title:d_JAV_mataram = { set_de_jure_liege_title = title:k_yavakadvipa }
+		}
+		if = {
+			limit = {
+				title:c_JAV_madura = {
+					NOT = { target_is_de_jure_liege_or_above = title:d_JAV_mataram }
+				}
+			}
+			title:c_JAV_madura = { set_de_jure_liege_title = title:d_JAV_mataram }
+		}
+		if = {	#If owned, annex Champa.
+			limit = {
+				title:k_yavakadvipa = { holder = root  }
+			}
+			title:k_yavakadvipa = { set_de_jure_liege_title = title:e_majapahit }
+		}
+	}
+	custom_tooltip = form_majapahit_empire_decision_effects_de_jure_tt_a
+	custom_tooltip = form_majapahit_empire_decision_effects_de_jure_tt_b
+	custom_tooltip = form_majapahit_empire_decision_effects_de_jure_tt_c
+}
+
 restore_holy_roman_empire_decision_scripted_effect = {
 	save_scope_as = founder
 	create_title_and_vassal_change = {
@@ -2212,8 +2724,8 @@ restore_holy_roman_empire_decision_scripted_effect = {
 			}
 		}
 		every_held_title = {
+			title_tier = kingdom
 			limit = {
-				tier = tier_kingdom
 				NOT = {	#The Pope retains vague dibs on Italy.
 					any_this_title_or_de_jure_above = { this = title:e_italy }
 				}
@@ -2224,8 +2736,8 @@ restore_holy_roman_empire_decision_scripted_effect = {
 		}
 		every_vassal = {
 			every_held_title = {
+				title_tier = kingdom
 				limit = {
-					tier = tier_kingdom
 					NOT = {	#The Pope retains vague dibs on Italy.
 						any_this_title_or_de_jure_above = { this = title:e_italy }
 					}
@@ -2271,17 +2783,15 @@ restore_holy_roman_empire_decision_scripted_effect = {
 				is_ai = yes
 			}
 			every_held_title = {
-				limit = {
-					tier = tier_kingdom
-				}
+				title_tier = kingdom
 				root = {
 					destroy_title = prev
 				}
 			}
 		}
 		every_held_title = {
+			title_tier >= kingdom
 			limit = {
-				tier >= tier_kingdom
 				NOT = {
 					this = title:e_hre
 				}
@@ -2380,8 +2890,8 @@ unite_bene_israel_effect = {
 		title:d_nasikya = { set_de_jure_liege_title = title:k_bene_israel }
 	}
 	random_held_title = {
+		title_tier = barony
 		limit = {
-			tier = tier_barony
 			is_holy_site_of = faith:malabarism
 		}
 		county = { set_county_culture = culture:kochinim }
@@ -2398,31 +2908,31 @@ hre_elector_list_save_effect = {
 		save_temporary_scope_as = hre_elector_title
 		title:e_hre = {
 			if = {
-				limit = { NOT = { has_variable = hre_elector_1 } } 
+				limit = { NOT = { has_variable = hre_elector_1 } }
 				set_variable = { name = hre_elector_1 value = scope:hre_elector_title }
 			}
 			else_if = {
-				limit = { NOT = { has_variable = hre_elector_2 } } 
+				limit = { NOT = { has_variable = hre_elector_2 } }
 				set_variable = { name = hre_elector_2 value = scope:hre_elector_title }
 			}
 			else_if = {
-				limit = { NOT = { has_variable = hre_elector_3 } } 
+				limit = { NOT = { has_variable = hre_elector_3 } }
 				set_variable = { name = hre_elector_3 value = scope:hre_elector_title }
 			}
 			else_if = {
-				limit = { NOT = { has_variable = hre_elector_4 } } 
+				limit = { NOT = { has_variable = hre_elector_4 } }
 				set_variable = { name = hre_elector_4 value = scope:hre_elector_title }
 			}
 			else_if = {
-				limit = { NOT = { has_variable = hre_elector_5 } } 
+				limit = { NOT = { has_variable = hre_elector_5 } }
 				set_variable = { name = hre_elector_5 value = scope:hre_elector_title }
 			}
 			else_if = {
-				limit = { NOT = { has_variable = hre_elector_6 } } 
+				limit = { NOT = { has_variable = hre_elector_6 } }
 				set_variable = { name = hre_elector_6 value = scope:hre_elector_title }
 			}
 			else_if = {
-				limit = { NOT = { has_variable = hre_elector_7 } } 
+				limit = { NOT = { has_variable = hre_elector_7 } }
 				set_variable = { name = hre_elector_7 value = scope:hre_elector_title }
 			}
 		}
@@ -2890,7 +3400,7 @@ create_kingdom_of_saxony_effect = {
 		$CHARACTER$ = { save_scope_as = new_saxon_king }
 		every_player = {
 			limit = {
-				NOT = { this = prev }
+				this != prev
 				or = {
 					is_vassal_or_below_of = title:e_hre.holder
 					AND = {
@@ -2973,7 +3483,7 @@ restore_old_vasconia_decision_tooltip_scripted_effect = {
 create_beth_nahrain_scripted_effect = {
 	#Create Beth Nahrain
 	hidden_effect = {
-		every_held_title = { 
+		every_held_title = {
 			limit = {
 				tier = tier_empire
 			}
@@ -3023,7 +3533,7 @@ promote_culture_beth_nahrain_scripted_effect = {
 }
 
 learning_beth_nahrain_scripted_effect = {
-	house ?= { 
+	house ?= {
 		add_house_modifier = {
 			modifier = learning_beth_nahrain_house_modifier
 			years = 100
@@ -3033,7 +3543,7 @@ learning_beth_nahrain_scripted_effect = {
 }
 
 martial_beth_nahrain_scripted_effect = {
-	house ?= { 
+	house ?= {
 		add_house_modifier = {
 			modifier = martial_beth_nahrain_house_modifier
 			years = 100

@@ -4,10 +4,42 @@
 # Implementation by Hugo Cortell
 ###################################
 
+<<<<<<< HEAD
 fp3_rich_in_diversity_achievement = {
 	possible = { 
 		always = no
 		has_fp3_dlc_trigger = yes
+=======
+# fp3_00_achievement = {
+# 	possible = {
+#
+# 	}
+# 	happened = {
+# 		custom_description = {
+# 			text = fp3_00_achievement_trigger
+# 			#
+# 		}
+# 	}
+# }
+
+fp3_rich_in_diversity_achievement = {
+	possible = {  }
+	happened = {
+		custom_description = {
+			text = fp3_rich_in_diversity_achievement_trigger
+			is_ai = no
+			faith = {
+				OR = {
+					has_doctrine = tenet_tax_nonbelievers
+					has_doctrine = special_doctrine_jizya
+				}
+			}
+			any_vassal = {
+				faith != root.faith
+				count >= 10
+			}
+		}
+>>>>>>> 1.18
 	}
 	happened = { always = no }
 }
@@ -29,9 +61,28 @@ fp3_mulct_them_dry_achievement = {
 }
 
 fp3_the_umma_strikes_back_achievement = {
+<<<<<<< HEAD
 	possible = { 
 		always = no
 		has_fp3_dlc_trigger = yes
+=======
+	possible = {
+
+		exists = global_var:fp3_the_umma_strikes_back_achievement_tracker
+	}
+	happened = {
+		custom_description = {
+			text = fp3_the_umma_strikes_back_achievement_trigger
+			is_ai = no
+			exists = global_var:fp3_the_umma_strikes_back_achievement_tracker
+			has_title = title:e_arabia
+			has_title = title:d_sunni
+			faith = {
+				has_doctrine = muhammad_succession_sunni_doctrine
+				prev = religious_head
+			}
+		}
+>>>>>>> 1.18
 	}
 	happened = { always = no }
 }
@@ -45,41 +96,105 @@ fp3_royal_flush_achievement = {
 }
 
 fp3_fiscal_res_achievement = {
+<<<<<<< HEAD
 	possible = { 
 		always = no
 		has_fp3_dlc_trigger = yes
+=======
+	possible = {  }
+	happened = {
+		custom_description = {
+			text = fp3_fiscal_res_achievement_trigger
+			is_ai = no
+			any_tax_collector = {
+				count = 5 # Use "all" for dynamic, 5 is max and makes achi harder
+				tax_collector_aptitude = {
+					target = clan_tax_slot
+					value >= 4
+				}
+			}
+		}
+>>>>>>> 1.18
 	}
 	happened = { always = no }
 }
 
 fp3_abassid_strong_achievement = {
+<<<<<<< HEAD
 	possible = { 
 		always = no
 		has_fp3_dlc_trigger = yes
+=======
+	possible = {
+
+		exists = struggle:persian_struggle
+	}
+	happened = {
+		custom_description = {
+			text = fp3_abassid_strong_achievement_trigger
+			has_character_flag = fp3_abassid_strong_achievement_unlocked
+		}
+>>>>>>> 1.18
 	}
 	happened = { always = no }
 }
 
 fp3_challenger_caliphate_achievement = {
+<<<<<<< HEAD
 	possible = { 
 		always = no
 		has_fp3_dlc_trigger = yes
+=======
+	possible = {
+
+		exists = struggle:persian_struggle
+	}
+	happened = {
+		custom_description = {
+			text = fp3_challenger_caliphate_achievement_trigger
+			has_character_flag = fp3_challenger_caliphate_achievement_unlocked
+		}
+>>>>>>> 1.18
 	}
 	happened = { always = no }
 }
 
 fp3_vassalize_the_caliph_achievement = {
+<<<<<<< HEAD
 	possible = { 
 		always = no
 		has_fp3_dlc_trigger = yes
+=======
+	possible = {
+
+		exists = struggle:persian_struggle
+	}
+	happened = {
+		custom_description = {
+			text = fp3_vassalize_the_caliph_achievement_trigger
+			has_character_flag = fp3_vassalize_the_caliph_achievement_unlocked
+		}
+>>>>>>> 1.18
 	}
 	happened = { always = no }
 }
 
 fp3_rekindle_iran_achievement = {
+<<<<<<< HEAD
 	possible = { 
 		always = no
 		has_fp3_dlc_trigger = yes
+=======
+	possible = {
+
+		exists = struggle:persian_struggle
+	}
+	happened = {
+		custom_description = {
+			text = fp3_rekindle_iran_achievement_trigger
+			has_character_flag = fp3_rekindle_iran_achievement_unlocked
+		}
+>>>>>>> 1.18
 	}
 	happened = { always = no }
 }

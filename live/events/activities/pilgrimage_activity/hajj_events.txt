@@ -67,7 +67,7 @@ hajj.0011 = {
 			trigger = {
 				OR = {
 					has_trait = cynical
-					any_secret = { secret_type = secret_non_believer }
+					any_secret = { type = secret_non_believer }
 				}
 			}
 			animation = boredom
@@ -99,7 +99,7 @@ hajj.0011 = {
 			trigger = {
 				OR = {
 					has_trait = cynical
-					any_secret = { secret_type = secret_non_believer }
+					any_secret = { type = secret_non_believer }
 				}
 			}
 			text = hajj.0011.a_cynical
@@ -147,7 +147,7 @@ hajj.0500 = {
 				AND = {
 					has_trait = zealous
 					NOT = {
-						any_secret = { secret_type = secret_non_believer }
+						any_secret = { type = secret_non_believer }
 					}
 				}
 				ai_zeal >= 50
@@ -975,7 +975,7 @@ hajj.3040 = {
 			trigger = {
 				OR = { 
 					has_trait = cynical
-					any_secret = { secret_type = secret_non_believer }
+					any_secret = { type = secret_non_believer }
 				}
 			}
 			animation = personality_callous
@@ -1070,7 +1070,7 @@ hajj.3040 = {
 					if = {
 						limit = { has_character_modifier = hajj_camel_knowledge_modifier }
 						every_vassal_or_below = {
-							limit = { has_vassal_stance = zealot }
+							vassal_stance = zealot
 							custom = every_zealot_vassal
 							add_opinion = {
 								modifier = humored_opinion

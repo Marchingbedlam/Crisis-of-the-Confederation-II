@@ -9,18 +9,49 @@ ce1_not_today_achievement = {
 
 #02. Divine Right
 ce1_divine_right_achievement = {
+<<<<<<< HEAD
 	possible = { 
 		always = no 
 		has_ce1_dlc_trigger = yes
+=======
+	possible = {
+	
+	}
+	happened = {
+		custom_description = {
+			text = ce1_divine_right_achievement_trigger
+			legitimacy_level >= max_legitimacy_level_value
+		}
+>>>>>>> 1.18
 	}
 	happened = { always = no }
 }
 
 #03. You'll Never Take Me Alive
 ce1_youll_never_take_me_alive_achievement = {
+<<<<<<< HEAD
 	possible = { 
 		always = no 
 		has_ce1_dlc_trigger = yes
+=======
+	possible = {
+	
+	}
+	happened = {
+		custom_description = {
+			text = ce1_youll_never_take_me_alive_achievement_trigger
+			exists = root.capital_province
+			location = {
+				this != root.capital_province
+				NOT = {
+					any_province_epidemic = { }
+				}
+			}
+			root.capital_province = {
+				any_province_epidemic = { }
+			}
+		}
+>>>>>>> 1.18
 	}
 	happened = { always = no }
 }

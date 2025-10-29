@@ -7,10 +7,17 @@ form_switzerland_kingdom_decision = {
 	selection_tooltip = form_switzerland_kingdom_decision_tooltip
 	decision_group_type = major
 
-	ai_check_interval = 120
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 120
+		kingdom = 0
+		empire = 0
+		hegemony = 0
+	}
 
 	is_shown = {
-		is_independent_ruler = no
+		top_liege != this
 		NOT = { exists = title:k_switzerland.holder }
 		NOT = {  #Can only do it once.
 			is_target_in_global_variable_list = {
@@ -48,12 +55,29 @@ form_switzerland_kingdom_decision = {
 		is_landed = yes
 		is_capable_adult = yes
 		is_imprisoned = no
-		is_independent_ruler = no
+		top_liege != this
 		is_at_war = no
 	}
 
 	cost = {
-		gold = 250
+		gold = {
+			value = 0
+			if = {
+				limit = {
+					has_treasury = no
+				}
+				add = 250
+			}
+		}
+		treasury = {
+			value = 0
+			if = {
+				limit = {
+					has_treasury = yes
+				}
+				add = 250
+			}
+		}
 	}
 
 	effect = {
@@ -105,12 +129,12 @@ form_austria_kingdom_decision = {
 		}
 		#No kings or emperors...
 		highest_held_title_tier <= tier_duchy
-		is_independent_ruler = no
+		top_liege != this
 		#Must be within the HRE, else the bid & flavour make no sense.
 		top_liege ?= { has_title = title:e_hre }
 		#Must hold land within the relevant areas directly.
 		any_held_title = {
-			tier = tier_county
+			title_tier = county
 			OR = {
 				title_province = { geographical_region = custom_core_austria }
 				title_province = { geographical_region = custom_stretch_austria }
@@ -148,7 +172,24 @@ form_austria_kingdom_decision = {
 	}
 
 	cost = {
-		gold = 1000
+		gold = {
+			value = 0
+			if = {
+				limit = {
+					has_treasury = no
+				}
+				add = 1000
+			}
+		}
+		treasury = {
+			value = 0
+			if = {
+				limit = {
+					has_treasury = yes
+				}
+				add = 1000
+			}
+		}
 	}
 
 	effect = {
@@ -201,7 +242,14 @@ reform_carolingian_empire_decision = {
 	selection_tooltip = reform_carolingian_empire_decision_tooltip
 	decision_group_type = major
 
-	ai_check_interval = 120
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 0
+		kingdom = 120
+		empire = 120
+		hegemony = 0
+	}
 
 	is_shown = {
 		faith.religion = faith:catholic.religion #Christian
@@ -213,7 +261,7 @@ reform_carolingian_empire_decision = {
 				target = flag:flag_reformed_carolingian_empire
 			}
 		}
-		is_independent_ruler = yes
+		top_liege = this
 		culture = { has_cultural_pillar = heritage_frankish }
 		capital_province = { geographical_region = world_europe_west }
 		NOT = { has_title = title:e_hre } #HRE title holders can't Restore Carolingian Borders as the decision requires the HRE to serve as an "antagonist"
@@ -241,7 +289,7 @@ reform_carolingian_empire_decision = {
 	is_valid_showing_failures_only = {
 		is_capable_adult = yes
 		is_imprisoned = no
-		is_independent_ruler = yes
+		top_liege = this
 		is_at_war = no
 	}
 
@@ -317,12 +365,29 @@ unify_burgundy_kingdom_decision = {
 	is_valid_showing_failures_only = {
 		is_capable_adult = yes
 		is_imprisoned = no
-		is_independent_ruler = no
+		top_liege != this
 		is_at_war = no
 	}
 
 	cost = {
-		gold = 1000
+		gold = {
+			value = 0
+			if = {
+				limit = {
+					has_treasury = no
+				}
+				add = 1000
+			}
+		}
+		treasury = {
+			value = 0
+			if = {
+				limit = {
+					has_treasury = yes
+				}
+				add = 1000
+			}
+		}
 	}
 
 	effect = {
@@ -384,7 +449,7 @@ empower_sicilian_parliament_decision = {
 			}
 		}
 		highest_held_title_tier >= 4 #Kings and Emperors only.
-		is_independent_ruler = yes
+		top_liege = this
 		capital_province = { geographical_region = custom_sicily }
 		NOT = { government_has_flag = government_is_tribal }
 	}
@@ -418,12 +483,29 @@ empower_sicilian_parliament_decision = {
 		is_landed = yes
 		is_capable_adult = yes
 		is_imprisoned = no
-		is_independent_ruler = yes
+		top_liege = this
 		is_at_war = no
 	}
 
 	cost = {
-		gold = 1500
+		gold = {
+			value = 0
+			if = {
+				limit = {
+					has_treasury = no
+				}
+				add = 1500
+			}
+		}
+		treasury = {
+			value = 0
+			if = {
+				limit = {
+					has_treasury = yes
+				}
+				add = 1500
+			}
+		}
 		prestige = 3000
 	}
 
@@ -537,7 +619,24 @@ promote_gothic_innovations_decision = { #12th century Renaissance
 	}
 
 	cost = {
-		gold = 500
+		gold = {
+			value = 0
+			if = {
+				limit = {
+					has_treasury = no
+				}
+				add = 500
+			}
+		}
+		treasury = {
+			value = 0
+			if = {
+				limit = {
+					has_treasury = yes
+				}
+				add = 500
+			}
+		}
 		prestige = 3000
 	}
 
@@ -578,7 +677,14 @@ restore_holy_roman_empire_decision = {
 	}
 	decision_group_type = major
 
-	ai_check_interval = 12
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 0
+		kingdom = 12
+		empire = 12
+		hegemony = 0
+	}
 
 	desc = restore_holy_roman_empire_decision_desc
 	selection_tooltip = restore_holy_roman_empire_decision_tooltip
@@ -592,12 +698,11 @@ restore_holy_roman_empire_decision = {
 			#highest_held_title_tier = tier_empire	#Existing emperors likewise should not be giving up their empire.
 		}
 		NOR = { #It doesn't make sense for these competing empires.
-			has_title = title:e_byzantium
-			has_title = title:e_roman_empire
+			is_roman_emperor_trigger = yes
 			mpo_has_gok_mongol_empire_trigger = yes
 		}
 		AND = {	#Faith conditions.
-			NOT = { this = faith.religious_head }	#Nice try, Mr. Pope.
+			this != faith.religious_head	#Nice try, Mr. Pope.
 			faith = {
 				religion_tag = christianity_religion
 				has_doctrine_parameter = spiritual_head_of_faith	#Gotta be invested with the authority by someone other than yourself.
@@ -617,7 +722,7 @@ restore_holy_roman_empire_decision = {
 
 	is_valid = {
 		#Standard requirements.
-		is_independent_ruler = yes
+		top_liege = this
 		trigger_if = {
 			limit = {
 				is_ai = no
@@ -648,7 +753,7 @@ restore_holy_roman_empire_decision = {
 			custom_description = {	#And have some additional royal dignity for good measure.
 				text = decision_refound_hre_own_three_kingdoms.tt
 				any_held_title = {
-					tier = tier_kingdom
+					title_tier = kingdom
 					count >= 3
 				}
 			}
@@ -703,7 +808,7 @@ restore_holy_roman_empire_decision = {
 		#Notify other players.
 		every_player = {
 			limit = {
-				NOT = { this = root }
+				this != root
 				is_within_diplo_range = { CHARACTER = root }
 			}
 			trigger_event = middle_europe_decisions.0016
@@ -797,8 +902,20 @@ restore_holy_roman_empire_decision = {
 
 	cost = {
 		gold = {
+			value = 0
 			if = {
 				limit = {
+					has_treasury = no
+					is_ai = no
+				}
+				add = 500
+			}
+		}
+		treasury = {
+			value = 0
+			if = {
+				limit = {
+					has_treasury = yes
 					is_ai = no
 				}
 				add = 500
@@ -808,7 +925,7 @@ restore_holy_roman_empire_decision = {
 	}
 
 	ai_potential = {
-		is_independent_ruler = yes
+		top_liege = this
 		highest_held_title_tier >= tier_kingdom
 	}
 
@@ -846,7 +963,14 @@ establish_norman_culture_decision = {
 	}
 	decision_group_type = major
 
-	ai_check_interval = 120
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 120
+		kingdom = 120
+		empire = 120
+		hegemony = 120
+	}
 
 	desc = establish_norman_culture_decision_desc
 	selection_tooltip = establish_norman_culture_decision_tooltip
@@ -924,13 +1048,12 @@ establish_norman_culture_decision = {
 			every_player = {
 				if = {
 					limit = {
-						NOT = { this = root }
+						this != root
 						OR = {
 							culture = culture:french
 							culture = culture:norse
 						}
-						exists = capital_province
-						capital_province = { geographical_region = custom_normandy_and_adjacent }
+						capital_province ?= { geographical_region = custom_normandy_and_adjacent }
 					}
 					trigger_event = global_culture.3002
 				}
@@ -940,8 +1063,7 @@ establish_norman_culture_decision = {
 				}
 				else_if = {
 					limit = {
-						exists = capital_province
-						capital_province = { geographical_region = world_europe }
+						capital_province ?= { geographical_region = world_europe }
 					}
 					trigger_event = global_culture.3005
 				}
@@ -1029,7 +1151,7 @@ establish_the_electorate_of_saxony_decision = {
 	}
 	decision_group_type = major
 
-	ai_check_interval = 120
+	ai_check_interval = 0
 
 	desc = establish_the_electorate_of_saxony_decision_desc
 	selection_tooltip = establish_the_electorate_of_saxony_decision_tooltip
@@ -1105,7 +1227,26 @@ establish_the_electorate_of_saxony_decision = {
 		}
 	}
 
-	cost = { gold = 200 }
+	cost = {
+		gold = {
+			value = 0
+			if = {
+				limit = {
+					has_treasury = no
+				}
+				add = 200
+			}
+		}
+		treasury = {
+			value = 0
+			if = {
+				limit = {
+					has_treasury = yes
+				}
+				add = 200
+			}
+		}
+	}
 
 	ai_potential = {
 		always = yes

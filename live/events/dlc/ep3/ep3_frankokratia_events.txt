@@ -324,9 +324,7 @@ ep3_frankokratia_events.0001 = {
 		custom_tooltip = crusaders_may_be_paid_tooltip
 		create_story = frankokratia_story
 		random_owned_story = {
-			limit = {
-				story_type = frankokratia_story
-			}
+			type = frankokratia_story
 			ep3_frankokratia_story_setup_save_vars_effect = yes
 		}
 		if = {
@@ -337,7 +335,7 @@ ep3_frankokratia_events.0001 = {
 						is_ruler = yes
 						any_spouse = {
 							is_ai = no
-							NOT = { this = root }
+							this != root
 						}
 					}
 				}
@@ -436,7 +434,7 @@ ep3_frankokratia_events.0001 = {
 						is_ruler = yes
 						any_spouse = {
 							is_ai = no
-							NOT = { this = root }
+							this != root
 						}
 					}
 				}
@@ -758,9 +756,7 @@ ep3_frankokratia_events.0002 = {
 			}
 			create_story = frankokratia_story
 			random_owned_story = {
-				limit = {
-					story_type = frankokratia_story
-				}
+				type = frankokratia_story
 				ep3_frankokratia_story_setup_save_vars_effect = yes
 			}
 			#Financier gets on board
@@ -953,9 +949,7 @@ ep3_frankokratia_events.0003 = {
 		
 		scope:financier = { add_character_flag = joining_frankokratia }
 		random_owned_story = {
-			limit = {
-				story_type = frankokratia_story
-			}
+			type = frankokratia_story
 			add_to_variable_list = {
  				name = frankokratia_leaders
  				target = scope:financier
@@ -1015,7 +1009,7 @@ ep3_frankokratia_events.0004 = {
 		exists = global_var:byz_claimant_champion
 		global_var:byz_claimant_champion = {
 			any_owned_story = {
-				story_type = frankokratia_story
+				type = frankokratia_story
 			}
 		}
 	}
@@ -1026,7 +1020,7 @@ ep3_frankokratia_events.0004 = {
 				exists = global_var:byz_claimant_champion
 				global_var:byz_claimant_champion = {
 					any_owned_story = {
-						story_type = frankokratia_story
+						type = frankokratia_story
 					}
 				}
 			}
@@ -1101,9 +1095,7 @@ ep3_frankokratia_events.0005 = {
 		}
 		global_var:byz_claimant_champion = {
 			random_owned_story = {
-				limit = {
-					story_type = frankokratia_story
-				}
+				type = frankokratia_story
 				var:byz_claimant = {
 					save_scope_as = claimant
 				}
@@ -1118,7 +1110,7 @@ ep3_frankokratia_events.0005 = {
 		if = {
 			limit = {
 				any_owned_story = {
-					story_type = frankokratia_story
+					type = frankokratia_story
 				}
 			}
 			ep3_frankokratia_end_story_effect = yes
@@ -1187,14 +1179,12 @@ ep3_frankokratia_events.0020 = {
 			random_faith_ruler = {
 				limit = {
 					any_owned_story = {
-						story_type = frankokratia_story
+						type = frankokratia_story
 					}
 				}
 				save_scope_as = redirecter
 				random_owned_story = {
-					limit = {
-						story_type = frankokratia_story
-					}
+					type = frankokratia_story
 					var:byz_claimant = { save_scope_as = byz_claimant }
 					var:financier_title.holder = { save_scope_as = financier }
 				}
@@ -1234,9 +1224,7 @@ ep3_frankokratia_events.0020 = {
 		scope:redirecter = {
 			add_character_flag = joining_frankokratia
 			random_owned_story = {
-				limit = {
-					story_type = frankokratia_story
-				}
+				type = frankokratia_story
 				make_story_owner = root
 				set_variable = {
 					name = byz_claimant_champion
@@ -1276,7 +1264,7 @@ ep3_frankokratia_events.0020 = {
 						is_ruler = yes
 						any_spouse = {
 							is_ai = no
-							NOT = { this = root }
+							this != root
 						}
 					}
 				}
@@ -1357,9 +1345,7 @@ ep3_frankokratia_events.0020 = {
 		custom_tooltip = crusaders_may_be_paid_tooltip
 		scope:redirecter = {
 			random_owned_story = {
-				limit = {
-					story_type = frankokratia_story
-				}
+				type = frankokratia_story
 				add_to_variable_list = {
  					name = frankokratia_leaders
  					target = root
@@ -1620,7 +1606,7 @@ ep3_frankokratia_events.0021 = {
 				is_alive = yes
 				is_ruler = yes
 				any_owned_story = {
-					story_type = frankokratia_story
+					type = frankokratia_story
 					is_target_in_variable_list = {
 						name = frankokratia_leaders
 						target = root
@@ -1661,7 +1647,7 @@ ep3_frankokratia_events.0021 = {
 					is_alive = yes
 					is_ruler = yes
 					any_owned_story = {
-						story_type = frankokratia_story
+						type = frankokratia_story
 						is_target_in_variable_list = {
 							name = frankokratia_leaders
 							target = root
@@ -1678,9 +1664,7 @@ ep3_frankokratia_events.0021 = {
 				}
 				global_var:byz_claimant_champion = {
 					random_owned_story = {
-						limit = {
-							story_type = frankokratia_story
-						}
+						type = frankokratia_story
 						add_to_variable_list = {
 							name = frankokratia_leaders
 							target = root.player_heir
@@ -1698,9 +1682,7 @@ ep3_frankokratia_events.0021 = {
 				}
 				global_var:byz_claimant_champion = {
 					random_owned_story = {
-						limit = {
-							story_type = frankokratia_story
-						}
+						type = frankokratia_story
 						add_to_variable_list = {
 							name = frankokratia_leaders
 							target = root.primary_heir
@@ -1729,7 +1711,7 @@ ep3_frankokratia_events.0030 = {
 					}
 				}
 				capital_county = {
-					any_county_province = { is_coastal = yes }
+					has_coastal_province = yes
 				}
 			}
 		}
@@ -1745,7 +1727,7 @@ ep3_frankokratia_events.0030 = {
 			}
 			NOT = {
 				capital_county = {
-					any_county_province = { is_coastal = yes }
+					has_coastal_province = yes
 				}
 			}
 		}
@@ -1780,9 +1762,7 @@ ep3_frankokratia_events.0030 = {
 		global_var:byz_claimant_champion = {
 			save_scope_as = byz_claimant_champion
 			random_owned_story = {
-				limit = {
-					story_type = frankokratia_story
-				}
+				type = frankokratia_story
 				var:financier_title.holder ?= { save_scope_as = financier }
 				save_scope_as = frankokratia_story
 			}
@@ -1806,9 +1786,7 @@ ep3_frankokratia_events.0030 = {
 		custom_tooltip = frankokratia_war_begins_tooltip
 		if = {
 			limit = {
-				NOT = {
-					this = scope:byz_claimant_champion
-				}
+				this != scope:byz_claimant_champion
 			}
 			custom_tooltip = frankokratia_war_join_tooltip
 		}
@@ -1894,9 +1872,7 @@ ep3_frankokratia_events.0031 = {
 		global_var:byz_claimant_champion = {
 			save_scope_as = byz_claimant_champion
 			random_owned_story = {
-				limit = {
-					story_type = frankokratia_story
-				}
+				type = frankokratia_story
 				var:financier_title.holder = {
 					save_scope_as = financier
 				}
@@ -1950,23 +1926,21 @@ ep3_frankokratia_events.0040 = {
 		random_ruler = {
 			limit = {
 				any_owned_story = {
-					story_type = frankokratia_story
+					type = frankokratia_story
 				}
 			}
 			save_scope_as = byz_claimant_champion
 			random_owned_story = {
-				limit = {
-					story_type = frankokratia_story
-				}
+				type = frankokratia_story
 				var:financier_title.holder ?= { save_scope_as = financier }
 				save_scope_as = frankokratia_story
 			}
 		}
 		#Previous emperor needs to take the treasury
 		scope:claimant = {
-			pay_short_term_gold = {
+			pay_treasury_or_gold = {
 				target = scope:defender
-				gold = 325
+				value = 325
 			}
 		}
 		title:e_byzantium.holder = { ep3_frankokratia_save_financier_sate_lands_effect = yes }
@@ -1994,14 +1968,14 @@ ep3_frankokratia_events.0040 = {
 			limit = {
 				any_maa_regiment = {
 					is_title_maa_regiment = yes
-					NOT = { this = scope:regiment_1 }
+					this != scope:regiment_1
 					NOT = { is_maa_type = varangian_guards }
 				}
 			}
 			random_maa_regiment = {
 				limit = {
 					is_title_maa_regiment = yes
-					NOT = { this = scope:regiment_1 }
+					this != scope:regiment_1
 					NOT = { is_maa_type = varangian_guards }
 				}
 				save_scope_as = regiment_2
@@ -2012,13 +1986,13 @@ ep3_frankokratia_events.0040 = {
 				any_maa_regiment = {
 					is_title_maa_regiment = yes
 					is_maa_type = cataphract
-					NOT = { this = scope:regiment_1 }
+					this != scope:regiment_1
 				}
 			}
 			random_maa_regiment = {
 				limit = {
 					is_title_maa_regiment = yes
-					NOT = { this = scope:regiment_1 }
+					this != scope:regiment_1
 					is_maa_type = cataphract
 				}
 				save_scope_as = regiment_2
@@ -2028,14 +2002,14 @@ ep3_frankokratia_events.0040 = {
 			limit = {
 				any_maa_regiment = {
 					is_title_maa_regiment = yes
-					NOT = { this = scope:regiment_1 }
+					this != scope:regiment_1
 					NOT = { is_maa_type = varangian_guards }
 				}
 			}
 			random_maa_regiment = {
 				limit = {
 					is_title_maa_regiment = yes
-					NOT = { this = scope:regiment_1 }
+					this != scope:regiment_1
 					NOT = { is_maa_type = varangian_guards }
 				}
 				save_scope_as = regiment_2
@@ -2095,13 +2069,13 @@ ep3_frankokratia_events.0040 = {
 	#There simply ISN'T any money
 	option = {
 		show_as_tooltip = {
-			pay_short_term_gold = {
+			pay_treasury_or_gold = {
 				target = scope:attacker
-				gold = minor_gold_value
+				value = minor_treasury_or_gold_value
 			}
-			pay_short_term_gold = {
+			pay_treasury_or_gold = {
 				target = scope:financier
-				gold = minor_gold_value
+				value = minor_treasury_or_gold_value
 			}
 		}
 		scope:attacker = {
@@ -2533,7 +2507,7 @@ ep3_frankokratia_events.0041 = {
 					limit = {
 						global_var:byz_claimant_champion ?= {
 							any_owned_story = {
-								story_type = frankokratia_story
+								type = frankokratia_story
 							}
 						}
 					}
@@ -2683,7 +2657,7 @@ ep3_frankokratia_events.0041 = {
 			limit = {
 				global_var:byz_claimant_champion ?= {
 					any_owned_story = {
-						story_type = frankokratia_story
+						type = frankokratia_story
 					}
 				}
 			}
@@ -2862,7 +2836,7 @@ ep3_frankokratia_events.0042 = {
 			}
 			if = {
 				limit = {
-					is_independent_ruler = no
+					top_liege != this
 				}
 				set_variable = {
 					name = old_liege
@@ -2872,9 +2846,7 @@ ep3_frankokratia_events.0042 = {
 		}
 		
 		random_owned_story = {
-			limit = {
-				story_type = frankokratia_story
-			}
+			type = frankokratia_story
 			save_scope_as = frankokratia_story
 		}
 		
@@ -2885,7 +2857,7 @@ ep3_frankokratia_events.0042 = {
 					any_in_list = {
 						variable = frankokratia_leaders
 						is_ai = no
-						NOT = { this = root }
+						this != root
 						has_character_flag = frankokratia_sufficient_warscore
 					}
 				}
@@ -2896,7 +2868,7 @@ ep3_frankokratia_events.0042 = {
 					order_by = max_military_strength
 					limit = {
 						is_ai = no
-						NOT = { this = root }
+						this != root
 						has_character_flag = frankokratia_sufficient_warscore
 					}
 					save_scope_as = player_1
@@ -3247,9 +3219,7 @@ ep3_frankokratia_events.0043 = {
 				scope:latin_emperor = {
 					NOT = {
 						any_realm_county = {
-							NOT = {
-								this = scope:latin_emperor.capital_county
-							}
+							this != scope:latin_emperor.capital_county
 						}
 					}
 				}
@@ -3290,7 +3260,7 @@ ep3_frankokratia_events.0044 = {
 			triggered_desc = {
 				trigger = {
 					any_owned_story = {
-						story_type = frankokratia_story
+						type = frankokratia_story
 					}
 				}
 				desc = ep3_frankokratia_events.0044.desc_past_tense
@@ -3492,8 +3462,8 @@ ep3_frankokratia_events.0044 = {
 				add_to_list = root_old_titles
 			}
 			every_held_title = {
+				title_tier = empire
 				limit = {
-					tier = tier_empire
 					NOT = {
 						this = title:e_latin_empire
 					}
@@ -3522,7 +3492,7 @@ ep3_frankokratia_events.0044 = {
 			}
 			if = {
 				limit = {
-					is_independent_ruler = no
+					top_liege != this
 				}
 				set_variable = {
 					name = old_liege
@@ -3532,9 +3502,7 @@ ep3_frankokratia_events.0044 = {
 		}
 		if = {
 			limit = {
-				NOT = {
-					this = scope:attacker
-				}
+				this != scope:attacker
 			}
 			add_short_term_gold = ep3_sacking_byz_capital_payoff_value
 		}
@@ -3558,7 +3526,7 @@ ep3_frankokratia_events.0044 = {
 		}
 		name = {
 			trigger = {
-				NOT = { this = scope:latin_empire_receiver }
+				this != scope:latin_empire_receiver
 			}
 			text = ep3_frankokratia_events.0044.a
 		}
@@ -3644,7 +3612,7 @@ ep3_frankokratia_events.0044 = {
 		}
 		name = {
 			trigger = {
-				NOT = { this = scope:latin_empire_receiver }
+				this != scope:latin_empire_receiver
 			}
 			text = ep3_frankokratia_events.0044.b
 		}
@@ -3693,7 +3661,7 @@ ep3_frankokratia_events.0044 = {
 		}
 		name = {
 			trigger = {
-				NOT = { this = scope:latin_empire_receiver }
+				this != scope:latin_empire_receiver
 			}
 			text = ep3_frankokratia_events.0044.c
 		}
@@ -3735,7 +3703,7 @@ ep3_frankokratia_events.0044 = {
 		}
 		name = {
 			trigger = {
-				NOT = { this = scope:latin_empire_receiver }
+				this != scope:latin_empire_receiver
 			}
 			text = ep3_frankokratia_events.0044.d
 		}
@@ -3917,7 +3885,7 @@ ep3_frankokratia_events.0045 = {
 		#Show leaving unpaid effects to non-story owner players
 		if = {
 			limit = {
-				NOT = { this = scope:attacker }
+				this != scope:attacker
 				scope:claimant = {
 					NOT = {
 						has_character_modifier = bent_before_crusaders_modifier
@@ -3948,7 +3916,7 @@ ep3_frankokratia_events.0045 = {
 		#Show payoff effects to non-story owner players
 		else_if = {
 			limit = {
-				NOT = { this = scope:attacker }
+				this != scope:attacker
 				scope:claimant = {
 					has_character_modifier = bent_before_crusaders_modifier
 				}
@@ -4379,9 +4347,7 @@ ep3_frankokratia_events.0050 = {
 		}
 		#Bye bye Byzantium... and equivalents
 		every_held_title = {
-			limit = {
-				tier = tier_empire
-			}
+			title_tier = empire
 			root = {
 				destroy_title = prev
 			}
@@ -4525,7 +4491,7 @@ ep3_frankokratia_events.0050 = {
 			limit = {
 				global_var:byz_claimant_champion ?= {
 					any_owned_story = {
-						story_type = frankokratia_story
+						type = frankokratia_story
 					}
 				}
 			}
@@ -4863,7 +4829,7 @@ ep3_frankokratia_events.0060 = {
 		if = {
 			limit = {
 				any_owned_story = {
-					story_type = frankokratia_story
+					type = frankokratia_story
 				}
 			}
 			ep3_frankokratia_end_story_effect = yes
@@ -4878,7 +4844,7 @@ ep3_frankokratia_events.0061 = {
 		if = {
 			limit = {
 				any_owned_story = {
-					story_type = frankokratia_story
+					type = frankokratia_story
 				}
 			}
 			ep3_frankokratia_end_story_effect = yes
@@ -4896,9 +4862,7 @@ ep3_frankokratia_events.0070 = {
 		first_valid = {
 			triggered_desc = {
 				trigger = {
-					NOT = {
-						this = scope:byz_claimant_champion
-					}
+					this != scope:byz_claimant_champion
 				}
 				desc = ep3_frankokratia_events.0070.rando_emp
 			}
@@ -5231,9 +5195,7 @@ ep3_frankokratia_events.0070 = {
 		else_if = {
 			limit = {
 				any_realm_county = {
-					any_county_province = {
-						is_coastal = yes
-					}
+					has_coastal_province = yes
 					NOT = {
 						scope:financier = {
 							has_claim_on = prev
@@ -5243,9 +5205,7 @@ ep3_frankokratia_events.0070 = {
 			}
 			random_realm_county = {
 				limit = {
-					any_county_province = {
-						is_coastal = yes
-					}
+					has_coastal_province = yes
 					NOT = {
 						scope:financier = {
 							has_claim_on = prev
@@ -5490,17 +5450,13 @@ ep3_frankokratia_events.0080 = {
 				limit = {
 					any_in_de_jure_hierarchy = {
 						ep3_frankokratia_events_0080_kingdom_trigger = yes
-						NOT = {
-							this = scope:kingdom_1
-						}
+						this != scope:kingdom_1
 					}
 				}
 				random_in_de_jure_hierarchy = {
 					limit = {
 						ep3_frankokratia_events_0080_kingdom_trigger = yes
-						NOT = {
-							this = scope:kingdom_1
-						}
+						this != scope:kingdom_1
 					}
 					save_scope_as = kingdom_2
 				}
@@ -5663,9 +5619,7 @@ ep3_frankokratia_events.0080 = {
 		if = {
 			limit = {
 				scope:kingdom_1.holder = {
-					NOT = {
-						this = root
-					}
+					this != root
 				}
 			}
 			reverse_add_opinion = {
@@ -5735,9 +5689,7 @@ ep3_frankokratia_events.0080 = {
 		if = {
 			limit = {
 				scope:kingdom_2.holder = {
-					NOT = {
-						this = root
-					}
+					this != root
 				}
 			}
 			reverse_add_opinion = {
@@ -5808,9 +5760,7 @@ ep3_frankokratia_events.0080 = {
 		if = {
 			limit = {
 				scope:kingdom_3.holder = {
-					NOT = {
-						this = root
-					}
+					this != root
 				}
 			}
 			reverse_add_opinion = {
@@ -5881,9 +5831,7 @@ ep3_frankokratia_events.0080 = {
 		if = {
 			limit = {
 				scope:kingdom_4.holder = {
-					NOT = {
-						this = root
-					}
+					this != root
 				}
 			}
 			reverse_add_opinion = {
@@ -5954,9 +5902,7 @@ ep3_frankokratia_events.0080 = {
 		if = {
 			limit = {
 				scope:kingdom_5.holder = {
-					NOT = {
-						this = root
-					}
+					this != root
 				}
 			}
 			reverse_add_opinion = {
@@ -5994,9 +5940,7 @@ ep3_frankokratia_events.0080 = {
 					any_in_de_jure_hierarchy = {
 						holder ?= {
 							is_ai = no
-							NOT = {
-								this = root
-							}
+							this != root
 						}
 					}
 				}
@@ -6006,9 +5950,7 @@ ep3_frankokratia_events.0080 = {
 					limit = {
 						holder ?= {
 							is_ai = no
-							NOT = {
-								this = root
-							}
+							this != root
 						}
 					}
 					if = {
@@ -6030,9 +5972,7 @@ ep3_frankokratia_events.0080 = {
 					any_in_de_jure_hierarchy = {
 						holder ?= {
 							is_ai = no
-							NOT = {
-								this = root
-							}
+							this != root
 						}
 					}
 				}
@@ -6042,9 +5982,7 @@ ep3_frankokratia_events.0080 = {
 					limit = {
 						holder ?= {
 							is_ai = no
-							NOT = {
-								this = root
-							}
+							this != root
 						}
 					}
 					if = {
@@ -6101,8 +6039,7 @@ scripted_trigger ep3_frankokratia_events_0090_kingdom_trigger = {
 		}
 		#Controls half and has de jure title
 		AND = {
-			exists = holder
-			holder = {
+			holder ?= {
 				top_liege = root
 			}
 			OR = {
@@ -6359,17 +6296,13 @@ ep3_frankokratia_events.0090 = {
 				limit = {
 					any_in_de_jure_hierarchy = {
 						ep3_frankokratia_events_0090_kingdom_trigger = yes
-						NOT = {
-							this = scope:kingdom_1
-						}
+						this != scope:kingdom_1
 					}
 				}
 				random_in_de_jure_hierarchy = {
 					limit = {
 						ep3_frankokratia_events_0090_kingdom_trigger = yes
-						NOT = {
-							this = scope:kingdom_1
-						}
+						this != scope:kingdom_1
 					}
 					save_scope_as = kingdom_2
 				}
@@ -6687,9 +6620,7 @@ ep3_frankokratia_events.0090 = {
 					any_in_de_jure_hierarchy = {
 						holder ?= {
 							is_ai = no
-							NOT = {
-								this = root
-							}
+							this != root
 						}
 					}
 				}
@@ -6699,9 +6630,7 @@ ep3_frankokratia_events.0090 = {
 					limit = {
 						holder ?= {
 							is_ai = no
-							NOT = {
-								this = root
-							}
+							this != root
 						}
 					}
 					if = {
@@ -6723,9 +6652,7 @@ ep3_frankokratia_events.0090 = {
 					any_in_de_jure_hierarchy = {
 						holder ?= {
 							is_ai = no
-							NOT = {
-								this = root
-							}
+							this != root
 						}
 					}
 				}
@@ -6735,9 +6662,7 @@ ep3_frankokratia_events.0090 = {
 					limit = {
 						holder ?= {
 							is_ai = no
-							NOT = {
-								this = root
-							}
+							this != root
 						}
 					}
 					if = {
@@ -7137,9 +7062,7 @@ ep3_frankokratia_events.0110 = {
 	immediate = {
 		global_var:byz_claimant_champion = {
 			random_owned_story = {
-				limit = {
-					story_type = frankokratia_story	
-				}
+				type = frankokratia_story	
 				var:financier_title.holder = {
 					save_scope_as = financier
 				}
@@ -7156,9 +7079,7 @@ ep3_frankokratia_events.0110 = {
 			scope:emperor = {
 				every_vassal = {
 					limit = {
-						NOT = {
-							this = root
-						}
+						this != root
 						ep3_frankokratia_events_0110_daddy_neighbor_trigger = yes
 					}
 					add_to_list = potential_daddies
@@ -7199,9 +7120,7 @@ ep3_frankokratia_events.0110 = {
 					ordered_vassal = {
 						order_by = max_military_strength
 						limit = {
-							NOT = {
-								this = root
-							}
+							this != root
 							ep3_frankokratia_events_0110_potential_king_trigger = yes
 							NOT = {
 								government_has_flag = government_is_theocracy
@@ -7226,9 +7145,7 @@ ep3_frankokratia_events.0110 = {
 					ordered_vassal = {
 						order_by = max_military_strength
 						limit = {
-							NOT = {
-								this = root
-							}
+							this != root
 							ep3_frankokratia_events_0110_potential_king_trigger = yes
 							NOT = {
 								government_has_flag = government_is_theocracy
@@ -7252,9 +7169,7 @@ ep3_frankokratia_events.0110 = {
 					ordered_vassal = {
 						order_by = max_military_strength
 						limit = {
-							NOT = {
-								this = root
-							}
+							this != root
 							ep3_frankokratia_events_0110_potential_king_trigger = yes
 							NOT = {
 								government_has_flag = government_is_theocracy
@@ -7281,9 +7196,7 @@ ep3_frankokratia_events.0110 = {
 					ordered_vassal = {
 						order_by = max_military_strength
 						limit = {
-							NOT = {
-								this = root
-							}
+							this != root
 							ep3_frankokratia_events_0110_potential_king_trigger = yes
 							NOT = {
 								government_has_flag = government_is_theocracy
@@ -7313,9 +7226,7 @@ ep3_frankokratia_events.0110 = {
 					order_by = realm_size
 					limit = {
 						highest_held_title_tier >= tier_kingdom
-						NOT = {
-							this = scope:daddy
-						}
+						this != scope:daddy
 					}
 					save_scope_as = daddy_2
 				}
@@ -7325,9 +7236,7 @@ ep3_frankokratia_events.0110 = {
 					list = potential_daddies
 					order_by = realm_size
 					limit = {
-						NOT = {
-							this = scope:daddy
-						}
+						this != scope:daddy
 					}
 					save_scope_as = daddy_2
 				}
@@ -7459,9 +7368,7 @@ ep3_frankokratia_events.0110 = {
 			limit = {
 				liege.liege ?= {
 					highest_held_title_tier < tier_empire
-					NOT = {
-						this = root
-					}
+					this != root
 				}
 				is_landed = yes
 			}
@@ -7472,11 +7379,8 @@ ep3_frankokratia_events.0110 = {
 		else_if = {
 			limit = {
 				is_landed = yes
-				exists = liege
-				liege = {
-					NOT = {
-						this = root
-					}
+				liege ?= {
+					this != root
 					highest_held_title_tier <= tier_kingdom
 				}
 			}
@@ -7494,9 +7398,7 @@ ep3_frankokratia_events.0110 = {
 				limit = {
 					scope:emperor = {
 						any_vassal = {
-							NOT = {
-								this = root
-							}
+							this != root
 							ep3_frankokratia_events_0110_potential_king_trigger = yes
 							NOT = {
 								government_has_flag = government_is_theocracy
@@ -7512,9 +7414,7 @@ ep3_frankokratia_events.0110 = {
 					ordered_vassal = {
 						order_by = max_military_strength
 						limit = {
-							NOT = {
-								this = root
-							}
+							this != root
 							ep3_frankokratia_events_0110_potential_king_trigger = yes
 							NOT = {
 								government_has_flag = government_is_theocracy
@@ -7533,9 +7433,7 @@ ep3_frankokratia_events.0110 = {
 				limit = {
 					scope:emperor = {
 						any_vassal = {
-							NOT = {
-								this = root
-							}
+							this != root
 							ep3_frankokratia_events_0110_potential_king_trigger = yes
 							NOT = {
 								government_has_flag = government_is_theocracy
@@ -7551,9 +7449,7 @@ ep3_frankokratia_events.0110 = {
 					ordered_vassal = {
 						order_by = max_military_strength
 						limit = {
-							NOT = {
-								this = root
-							}
+							this != root
 							ep3_frankokratia_events_0110_potential_king_trigger = yes
 							NOT = {
 								government_has_flag = government_is_theocracy
@@ -7572,9 +7468,7 @@ ep3_frankokratia_events.0110 = {
 					ordered_vassal = {
 						order_by = max_military_strength
 						limit = {
-							NOT = {
-								this = root
-							}
+							this != root
 							ep3_frankokratia_events_0110_potential_king_trigger = yes
 							NOT = {
 								government_has_flag = government_is_theocracy
@@ -8053,7 +7947,7 @@ ep3_frankokratia_events.0120 = {
 		trigger = {
 			NOT = { capital_county = title:c_avalon }
 		}
-		reference = ep3_mediterranean_estate
+		reference = estate
 	}
 	left_portrait = {
 		character = root
@@ -8305,9 +8199,7 @@ ep3_frankokratia_events.0120 = {
 			every_close_family_member = {
 				custom = all_close_family_and_spouses
 				limit = {
-					NOT = {
-						this = root
-					}
+					this != root
 				}
 				add_opinion = {
 					target = root
@@ -8318,9 +8210,7 @@ ep3_frankokratia_events.0120 = {
 				scope:eunuch = {
 					every_spouse = {
 						limit = {
-							NOT = {
-								this = root
-							}
+							this != root
 						}
 						add_opinion = {
 							target = root
@@ -8552,8 +8442,7 @@ ep3_frankokratia_events.0130 = {
 		if = {
 			limit = {
 				title:e_latin_empire = {
-					exists = holder
-					holder = {
+					holder ?= {
 						NOT = {
 							any_held_title = {
 								this = title:e_byzantium

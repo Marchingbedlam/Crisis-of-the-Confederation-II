@@ -41,10 +41,11 @@ ep3_powerful_families.8000 = {
 			is_powerful_family = yes
 		}
 		# No Emperors
-		is_independent_ruler = no
+		top_liege != this
 		liege = { is_ai = yes }
 		house = {
 			any_house_member = {
+				this != root
 				any_court_position_employer = { this = root.liege }
 				ai_rationality > ai_honor
 			}
@@ -59,6 +60,7 @@ ep3_powerful_families.8000 = {
 		house = {
 			random_house_member = {
 				limit = {
+					this != root
 					any_court_position_employer = { this = root.liege }
 					ai_rationality > ai_honor
 				}
@@ -313,7 +315,7 @@ ep3_powerful_families.8010 = {
 			is_powerful_family = yes
 		}
 		# No Emperors
-		is_independent_ruler = no
+		top_liege != this
 		is_at_war_with_liege = no
 		liege = {
 			NOT = { has_character_flag = ep3_pf_8010 }
@@ -803,7 +805,7 @@ ep3_powerful_families.8030 = {
 			is_powerful_family = yes
 		}
 		# No Emperors
-		is_independent_ruler = no
+		top_liege != this
 		is_a_faction_member = yes
 		any_relation = {
 			type = friend
@@ -815,7 +817,7 @@ ep3_powerful_families.8030 = {
 			can_join_faction = root.joined_faction
 			OR = {
 				NOT = { exists = joined_faction }
-				NOT = { joined_faction = root.joined_faction }
+				joined_faction != root.joined_faction
 			}
 		}
 	}
@@ -832,7 +834,7 @@ ep3_powerful_families.8030 = {
 				can_join_faction = root.joined_faction
 				OR = {
 					NOT = { exists = joined_faction }
-					NOT = { joined_faction = root.joined_faction }
+					joined_faction != root.joined_faction
 				}
 			}
 			save_scope_as = friendly_family
@@ -949,14 +951,14 @@ ep3_powerful_families.8040 = {
 			is_domicile_type = estate
 			trigger_if = {
 				limit = {
-					root = { is_independent_ruler = no }
+					root = { top_liege != this }
 				}
-				NOT = { domicile_location.county.holder.liege = root }
+				domicile_location.county.holder.liege != root
 			}
 			domicile_location.county.holder.house.house_head = {
-				NOT = { this = root }
+				this != root
 				exists = house
-				NOT = { house = root.house }
+				house != root.house
 				house = {
 					is_powerful_family = yes
 				}
@@ -1144,7 +1146,7 @@ ep3_powerful_families.8060 = {
 			type = rival
 			top_liege = root.top_liege
 			exists = house
-			NOT = { house = root.house }
+			house != root.house
 			house = {
 				is_powerful_family = yes
 			}
@@ -1162,7 +1164,7 @@ ep3_powerful_families.8060 = {
 			limit = {
 				top_liege = root.top_liege
 				exists = house
-				NOT = { house = root.house }
+				house != root.house
 				house = {
 					is_powerful_family = yes
 				}
@@ -1351,7 +1353,7 @@ ep3_powerful_families.8070 = {
 		}
 		top_liege = {
 			any_powerful_family = {
-				NOT = { this = root.house }
+				this != root.house
 				house_head = {
 					is_available_ai_adult = yes
 					domicile ?= {
@@ -1361,7 +1363,7 @@ ep3_powerful_families.8070 = {
 					OR = {
 						has_relation_rival = root
 						root = {
-							existing_feud_against_target_trigger = { TARGET = prev }
+							house_has_feud_relation_with_trigger = { TARGET = prev }
 						}
 					}
 				}
@@ -1384,7 +1386,7 @@ ep3_powerful_families.8070 = {
 		top_liege = {
 			random_powerful_family = {
 				limit = {
-					NOT = { this = root.house }
+					this != root.house
 					house_head = {
 						is_available_ai_adult = yes
 						domicile ?= {
@@ -1394,7 +1396,7 @@ ep3_powerful_families.8070 = {
 						OR = {
 							has_relation_rival = root
 							root = {
-								existing_feud_against_target_trigger = { TARGET = prev }
+								house_has_feud_relation_with_trigger = { TARGET = prev }
 							}
 						}
 					}
@@ -1631,7 +1633,7 @@ ep3_powerful_families.8080 = {
 					liege = root.liege
 				}
 				house ?= {
-					NOT = { this = root.house }
+					this != root.house
 					is_powerful_family = yes
 					is_dominant_family = yes
 				}
@@ -1660,7 +1662,7 @@ ep3_powerful_families.8080 = {
 						liege = root.liege
 					}
 					house ?= {
-						NOT = { this = root.house }
+						this != root.house
 						is_powerful_family = yes
 						is_dominant_family = yes
 					}
@@ -1734,9 +1736,9 @@ scripted_trigger ep3_pf_rival_fam_trigger = {
 	house ?= {
 		is_powerful_family = yes
 	}
-	is_independent_ruler = no
+	top_liege != this
 	top_liege = root.top_liege
-	NOT = { house = root.house }
+	house != root.house
 	OR = {
 		house.house_head = {
 			has_relation_rival = root.house.house_head
@@ -1769,7 +1771,7 @@ ep3_powerful_families.8090 = {
 		house ?= {
 			is_powerful_family = yes
 		}
-		is_independent_ruler = no
+		top_liege != this
 		scope:activity = {
 			any_attending_character = {
 				this = root.liege
@@ -1928,7 +1930,7 @@ ep3_powerful_families.8100 = {
 		house ?= {
 			is_powerful_family = yes
 		}
-		is_independent_ruler = no
+		top_liege != this
 		house = {
 			any_house_member = {
 				ep3_relative_valid_for_court_position_trigger = yes
@@ -1949,7 +1951,7 @@ ep3_powerful_families.8100 = {
 					limit = {
 						ep3_relative_valid_for_court_position_trigger = yes
 					}
-					add_trait = poet
+					add_trait = lifestyle_poet
 					save_scope_as = cp_fam
 				}
 			}

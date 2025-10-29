@@ -179,7 +179,6 @@ easteregg_olof_bjork = {
 	trait = diligent
 	trait = honest
 	trait = shrewd
-	#	trait = blademaster_1 # TODO_CD_EP2: Remove?
 
 	1028.3.4 = {
 		birth = "1028.3.4"
@@ -845,7 +844,7 @@ easteregg_petter_vilberg = {
 		give_nickname = nick_troublemaker
 		effect = {
 			add_character_flag = easteregg
-			add_trait = poet
+			add_trait = lifestyle_poet
 		}
 	}
 	1066.9.16 = {
@@ -950,7 +949,7 @@ easteregg_jakub_potapczyk = {
 	trait = ambitious
 	trait = impatient
 	trait = gregarious
-	trait = poet
+	trait = lifestyle_poet
 	disallow_random_traits = yes
 	1040.9.3 = {
 		birth = yes
@@ -1094,12 +1093,6 @@ easteregg_joacim_carlberg = {
 	#Other
 	trait = legitimized_bastard
 	trait = shrewd
-	# TODO_CD_EP2 Remove completely?
-	#trait = calm
-	#trait = honest
-	#trait = ambitious
-	#trait = cynical
-	#trait = compassionate
 	trait = flexible_leader
 
 	sexuality = heterosexual
@@ -2317,7 +2310,6 @@ easteregg_katya_boestad = {
 
 	#Other Traits
 	trait = shrewd
-	#	trait = mystic_2 # TODO_CD_EP2: Remove?
 	trait = wheezing
 
 	sexuality = homosexual
@@ -2541,7 +2533,6 @@ easteregg_andreas_olsson = {
 	#Other Traits
 	trait = drunkard
 	trait = shrewd
-	#	trait = reveler_2 # TODO_CD_EP2: Remove?
 	trait = one_eyed
 
 	sexuality = heterosexual
@@ -3356,7 +3347,7 @@ easteregg_isabella_welch = {
 	trait = torturer
 	# trait = beauty_good_2 # To replace; commented for now
 	trait = rakish
-	trait = poet
+	trait = lifestyle_poet
 
 	disallow_random_traits = yes
 
@@ -4164,7 +4155,7 @@ easteregg_ola_jentzsch = { # Content Design
 	trait = comfort_eater
 	trait = journaller
 	trait = deviant
-	trait = poet
+	trait = lifestyle_poet
 	trait = pilgrim
 	trait = wild_oat
 
@@ -4213,8 +4204,7 @@ easteregg_ola_jentzsch = { # Content Design
 		effect = {
 			add_character_flag = easteregg
 		}
-	}
-	1066.9.16 = {
+		move_to_pool = yes
 		death = {
 			death_reason = death_literalist_debate
 		}
@@ -4456,7 +4446,7 @@ easteregg_sandra_runge_moller = { #QA
 	trait = stubborn
 
 	#Other Traits
-	trait = poet
+	trait = lifestyle_poet
 	trait = comfort_eater
 
 
@@ -4865,7 +4855,7 @@ easteregg_fei_berg_hulthen = { # Technical Animator
 easteregg_chad_uhl = {
 	name = "Chad"
 	dna = easteregg_chad_uhl
-	#dynasty = vanity_uhl
+	dynasty = vanity_uhl
 	religion = "catholic"
 	culture = "saxon"
 
@@ -5873,7 +5863,7 @@ easteregg_ernesto_lopez = {
 	
 	#Other
 	trait = gout_ridden
-	trait = poet
+	trait = lifestyle_poet
 	disallow_random_traits = yes
 	1031.10.09 = {
 		birth = yes
@@ -6718,6 +6708,53 @@ easteregg_louise_mutel = {
 	1066.9.15 = {
 		
 		move_to_pool = yes
+		effect = {
+			add_character_flag = easteregg
+			add_character_flag = has_scripted_appearance
+			add_character_flag = has_scripted_weight
+			add_character_flag = no_headgear
+		}
+	}
+	1066.9.16 = {
+		death = yes
+	}
+}
+
+# Programmer
+easteregg_jonathan_collinder = {
+	name = "Jonathan"
+	dynasty = vanity_collinder
+	dna = easteregg_jonathan_collinder_dna
+	religion = "catholic"
+	culture = "swedish"
+	female = no
+
+	#Skills
+	diplomacy = 8
+	martial = 4
+	stewardship = 5
+	intrigue = 2
+	learning = 3
+	prowess = 6
+	
+	#Education
+	trait = education_diplomacy_3
+	#Personality Traits
+	trait = gregarious
+	trait = trusting
+	trait = brave
+	#Other
+	trait = athletic
+	trait = physique_good_1
+	trait = reckless
+	sexuality = heterosexual
+	disallow_random_traits = yes
+
+	1035.3.24 = {
+		birth = yes
+	}
+	1066.9.15 = {
+		employer = 34156 #Skane
 		effect = {
 			add_character_flag = easteregg
 			add_character_flag = has_scripted_appearance

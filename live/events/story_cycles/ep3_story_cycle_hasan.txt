@@ -66,9 +66,7 @@ hasan_sabbah.1000 = {
 			text = unlock_evangelize_decision_tt
 			create_story = story_hasan
 			random_owned_story = {
-				limit = {
-					story_type = story_hasan
-				}
+				type = story_hasan
 				set_variable = {
 					name = story_phase
 					value = 1
@@ -95,9 +93,7 @@ hasan_sabbah.1000 = {
 			text = unlock_evangelize_decision_tt
 			create_story = story_hasan
 			random_owned_story = {
-				limit = {
-					story_type = story_hasan
-				}
+				type = story_hasan
 				set_variable = {
 					name = story_phase
 					value = 1
@@ -162,7 +158,7 @@ hasan_sabbah.1010 = {
 				}
 				modifier = {
 					factor = 0.75
-					NOT = { scope:location.county.religion = root.religion }
+					scope:location.county.religion != root.religion
 				}
 				modifier = {
 					factor = 10
@@ -190,7 +186,7 @@ hasan_sabbah.1010 = {
 				}
 				modifier = {
 					factor = 1.25
-					NOT = { scope:location.county.religion = root.religion }
+					scope:location.county.religion != root.religion
 				}
 				min = 10
 				send_interface_toast = {
@@ -217,7 +213,7 @@ hasan_sabbah.1010 = {
 			if = {
 				limit = {
 					any_owned_story = {
-						story_type = story_hasan
+						type = story_hasan
 						exists = var:radical_points
 						var:radical_points >= 5
 					}
@@ -239,7 +235,7 @@ hasan_sabbah.1010 = {
 			else_if = {
 				limit = {
 					any_owned_story = {
-						story_type = story_hasan
+						type = story_hasan
 						exists = var:radical_points
 						var:radical_points >= 15
 						NOT = { exists = var:ultimate_foe }
@@ -253,7 +249,7 @@ hasan_sabbah.1010 = {
 			else_if = {
 				limit = {
 					any_owned_story = {
-						story_type = story_hasan
+						type = story_hasan
 						exists = var:story_phase
 						var:story_phase >= 2
 						NOT = { exists = var:ultimate_foe }
@@ -504,9 +500,7 @@ hasan_sabbah.1030 = {
 			}
 		}
 		random_owned_story = {
-			limit = {
-				story_type = story_hasan
-			}
+			type = story_hasan
 			save_scope_as = story
 		}
 	}
@@ -642,14 +636,12 @@ hasan_sabbah.1031 = {
 
 	trigger = {
 		scope:location.county.holder.top_liege = {
-			NOT = {
-				faith = root.faith
-			}
+			faith != root.faith
 			realm_size >= 10
 			highest_held_title_tier >= tier_kingdom
 		}
 		any_owned_story = {
-			story_type = story_hasan
+			type = story_hasan
 			NOT = {
 				exists = var:ultimate_foe
 			}
@@ -659,7 +651,7 @@ hasan_sabbah.1031 = {
 	immediate = {
 		scope:location.county.holder.top_liege = { save_scope_as = seljuk_equivalent }
 		random_owned_story = {
-			limit = { story_type = story_hasan }
+			type = story_hasan
 			save_scope_as = story
 		}
 	}
@@ -727,7 +719,7 @@ hasan_sabbah.1040 = {
 
 	immediate = {
 		random_owned_story = {
-			limit = { story_type = story_hasan }
+			type = story_hasan
 			var:ultimate_foe = { save_scope_as = ultimate_foe }
 		}
 	}

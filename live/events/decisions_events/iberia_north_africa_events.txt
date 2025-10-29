@@ -129,7 +129,7 @@ iberia_north_africa.0002 = { #by Mathilda Bjarnehed
 			text = iberia_north_africa.0002.a1
 		}
 		name = {
-			trigger = { NOT = { faith = scope:portugal_former.faith } }
+			trigger = { faith != scope:portugal_former.faith }
 			text = name_i_see
 		}
 	}
@@ -354,7 +354,7 @@ iberia_north_africa.0011 = { #by Mathilda Bjarnehed
 			text = iberia_north_africa.0002.a1
 		}
 		name = {
-			trigger = { NOT = { faith = scope:africa_uniter.faith } }
+			trigger = { faith != scope:africa_uniter.faith }
 			text = name_alas
 		}
 	}
@@ -640,7 +640,7 @@ iberia_north_africa.0101 = {
 		# Now take care of notification events for players.
 		every_player = {
 			limit = {
-				NOT = { this = scope:religious_leader }
+				this != scope:religious_leader
 				OR = {
 					faith = faith:mozarabic_church
 					any_neighboring_and_across_water_top_liege_realm_owner = { this = root.top_liege }
@@ -907,7 +907,7 @@ iberia_north_africa.0111 = {
 		# Now take care of notification events for players.
 		every_player = {
 			limit = {
-				NOT = { this = scope:religious_leader }
+				this != scope:religious_leader
 				OR = {
 					faith = faith:mozarabic_church
 					any_neighboring_and_across_water_top_liege_realm_owner = { this = root.top_liege }
@@ -1324,7 +1324,7 @@ iberia_north_africa.0121 = {
 		# Now take care of notification events for players.
 		every_player = {
 			limit = {
-				NOT = { this = scope:religious_leader }
+				this != scope:religious_leader
 				OR = {
 					favour_the_countryside_basques_counts_as_basque_trigger = yes
 					any_neighboring_and_across_water_top_liege_realm_owner = { this = root.top_liege }
@@ -1818,8 +1818,13 @@ scripted_effect convert_aragonese_counties_to_aragonese_effect = {
 				# Otherwise, go for c_alto_aragon, but we want it to *look* random.
 				alternative_limit = {
 					convert_random_aragonese_counties_in_d_aragon_basic_reqs_trigger = yes
+<<<<<<< HEAD
 					this = title:c_avalon
 					NOT = { this = scope:founder.capital_county }
+=======
+					this = title:c_alto_aragon
+					this != scope:founder.capital_county
+>>>>>>> 1.18
 				}
 				# Then we grab any local county held by scope:founder.
 				alternative_limit = {
@@ -3021,7 +3026,7 @@ iberia_north_africa.2013 = { # Warmup check to ensure you meet the conditions fo
 			limit = {
 				faith = {
 					exists = religious_head
-					NOT = { religious_head = root }
+					religious_head != root
 				}
 			}
 			faith.religious_head = { save_scope_as = fp2_iberia_north_africa_2013_head_of_faith }
@@ -3208,7 +3213,7 @@ iberia_north_africa.2100 = {
 		#Notify other players.
 		every_player = {
 			limit = {
-				#NOT = { this = scope:founder }
+				#this != scope:founder
 				in_diplomatic_range = root
 			}
 			trigger_event = iberia_north_africa.2101

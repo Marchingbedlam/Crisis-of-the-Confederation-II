@@ -125,7 +125,7 @@ fp1_major_decisions.0003 = {
 	option = {
 		name = fp1_major_decisions.0003.b
 		trigger = {
-			NOT = { faith = scope:founder.faith }
+			faith != scope:founder.faith
 		}
 
 		ai_chance = {
@@ -181,8 +181,13 @@ fp1_major_decisions.0011 = {
 					is_ai = yes
 					any_held_title = {
 						count >= 1
+<<<<<<< HEAD
 						tier = tier_county
 						NOT = { this = title:c_avalon }
+=======
+						title_tier = county
+						NOT = { this = title:c_kiev }
+>>>>>>> 1.18
 					}
 					this = scope:founder
 				}
@@ -255,7 +260,7 @@ fp1_major_decisions.0011 = {
 					}
 				}
 				#Obviously, we exempt scope:founder themselves.
-				NOT = { this = scope:founder }
+				this != scope:founder
 			}
 			#Vassal players get a separate event.
 			if = {
@@ -550,7 +555,7 @@ fp1_major_decisions.0031 = {
 					}
 				}
 				#Obviously, we exempt scope:founder themselves.
-				NOT = { this = scope:founder }
+				this != scope:founder
 			}
 			#Vassal players get a separate event.
 			if = {
@@ -612,7 +617,7 @@ fp1_major_decisions.0032 = {
 		# Everyone else sees them as pirates.
 		triggered_animation = {
 			trigger = {
-				NOT = { faith = scope:leader.faith }
+				faith != scope:leader.faith
 			}
 			animation = schadenfreude
 		}
@@ -694,7 +699,7 @@ fp1_major_decisions.0033 = {
 		# Everyone else sees them as pirates.
 		triggered_animation = {
 			trigger = {
-				NOT = { faith = scope:leader.faith }
+				faith != scope:leader.faith
 			}
 			animation = schadenfreude
 		}

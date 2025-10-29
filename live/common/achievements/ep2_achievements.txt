@@ -125,9 +125,27 @@ ep2_14_sir_lance_a_lot_achievement = {
 
 # 15. I'm in my Element(s)
 ep2_15_im_in_my_elements_achievement = {
+<<<<<<< HEAD
 	possible = { 
 		always = no
 		has_ep2_dlc_trigger = yes
+=======
+	possible = {
+		exists = global_var:started_im_in_my_elements_achievement
+		
+	}
+	happened = {
+		custom_description = {
+			text = im_in_my_elements_achievement_trigger
+			has_variable_list = ep2_im_in_my_elements_achievement_terrain_list
+			variable_list_size = {
+				name = ep2_im_in_my_elements_achievement_terrain_list
+				# 16 terrains as of ~March 2023 — will need incrementing if we add more.
+				# 17 terrains as of ~October 2025 — will need incrementing if we add more.
+				value >= 17
+			}
+		}
+>>>>>>> 1.18
 	}
 	happened = { always = no }
 }

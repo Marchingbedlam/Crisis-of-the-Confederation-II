@@ -79,8 +79,34 @@ seven_holy_cities_achievement = {
 }
 
 frankokratia_achievement = {
+<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
+=======
+	possible = {
+		
+	}
+	happened = {
+		custom_description = {
+			text = frankokratia_achievement_trigger
+			completely_controls = title:k_thessalonika
+			culture = culture:french
+			faith = faith:catholic
+			NOR = {
+				is_roman_emperor_trigger = yes
+				any_liege_or_above = {
+					has_title = title:e_byzantium
+				}
+				any_liege_or_above = {
+					has_title = title:h_roman_empire
+				}
+				any_liege_or_above = {
+					has_title = title:h_eastern_roman_empire
+				}
+			}
+		}
+	}
+>>>>>>> 1.18
 }
 
 celebrity_achievement = {
@@ -114,6 +140,7 @@ followed_by_shadows_achievement = {
 }
 
 what_nepotism_achievement = {
+<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
 }
@@ -121,6 +148,35 @@ what_nepotism_achievement = {
 rise_from_the_ashes_achievement = {
 	possible = { always = no }
 	happened = { always = no }
+=======
+	possible = {
+
+	}
+	happened = {
+		custom_description = {
+			text = what_nepotism_achievement_trigger
+			dynasty = {
+				any_dynasty_member = {
+					count >= 10
+					highest_held_title_tier >= tier_kingdom
+					top_liege = this
+				}
+			}
+		}
+	}
+}
+
+rise_from_the_ashes_achievement = {
+	possible = {
+
+	}
+	happened = {
+		custom_description = {
+			text = rise_from_the_ashes_achievement_trigger
+			has_title = title:h_roman_empire
+		}
+	}
+>>>>>>> 1.18
 }
 
 the_emerald_isle_achievement = {
@@ -164,8 +220,47 @@ kings_to_the_seventh_generation_achievement = {
 }
 
 norman_yoke_achievement = {
+<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
+=======
+	possible = {
+		exists = global_var:started_norman_yoke_achievement
+	}
+	happened = {
+		custom_description = {
+			text = norman_yoke_achievement_trigger
+			exists = global_var:achievement_norman_yoke_war_flag
+			culture = culture:english
+			title:k_england = {
+				holder = {
+					this = root
+					save_temporary_scope_as = english_king
+				}
+
+				# All direct vassals who hold a county or duchy in De Jure England must be English.
+				any_in_de_jure_hierarchy = {
+					count = all
+
+					trigger_if = {
+						limit = {
+							OR = {
+								tier = tier_county
+								tier = tier_duchy
+							}
+							holder ?= {
+								is_vassal_of = scope:english_king
+							}
+						}
+						holder = {
+							culture = culture:english
+						}
+					}
+				}
+			}
+		}
+	}
+>>>>>>> 1.18
 }
 
 royal_dignity_achievement = {
@@ -259,8 +354,31 @@ a_perfect_circle_achievement = {
 }
 
 carolingian_consolidation_achievement = {
+<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
+=======
+	possible = {
+		root.dynasty = {
+			this = dynasty:25061
+		}
+	}
+	happened = {
+		custom_description = {
+			text = carolingian_consolidation_achievement_trigger
+			top_liege = this
+			NOT = {
+				root.dynasty = {
+					any_dynasty_member = {
+						is_playable_character = yes
+						top_liege = this
+						this != root
+					}
+				}
+			}
+		}
+	}
+>>>>>>> 1.18
 }
 
 moving_up_in_the_world_achievement = {

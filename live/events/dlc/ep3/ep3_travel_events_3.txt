@@ -391,7 +391,7 @@ ep3_travel_events.3001 = {
 			barony = title:b_avalon_iii
 			is_occupied = no
 		}
-		NOT = { location.county.holder = root } #If I own it then it does not make sense to visit it.
+		location.county.holder != root #If I own it then it does not make sense to visit it.
 		NOT = { has_character_flag = had_ep3_travel_events.3001 }
 	}
 	immediate = {
@@ -637,9 +637,7 @@ ep3_travel_events.3002 = {
 		location.county.holder = {
 			highest_held_title_tier >= tier_duchy
 			culture = {
-				NOT = {
-					this = root.culture
-				}
+				this != root.culture
 			}
 			faith = {
 				faith_hostility_level = {
@@ -726,7 +724,7 @@ ep3_travel_events.3002 = {
 		location.county = {
 			this = scope:location_holder.capital_county
 			culture = {
-				NOT = { this = root.culture }
+				this != root.culture
 			}
 		}
 		location = {
@@ -872,8 +870,7 @@ ep3_travel_events.3002 = {
 					if = {
 						limit = {
 							scope:local_lord = {
-								exists = liege
-								liege = root
+								liege ?= root
 							}
 						}
 						scope:local_lord = {
@@ -964,7 +961,7 @@ ep3_travel_events.3002 = {
 			limit = {
 				highest_held_title_tier >= tier_empire
 				scope:local_lord_capital.faith = {
-					NOT = { this = root.faith }
+					this != root.faith
 				}
 				faith = {
 					NOT = { has_doctrine = doctrine_pluralism_pluralistic }
@@ -1024,8 +1021,7 @@ ep3_travel_events.3002 = {
 		if = {
 			limit = {
 				scope:local_lord = {
-					exists = liege
-					liege = root
+					liege ?= root
 				}
 			}
 			scope:local_lord = {

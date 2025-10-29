@@ -45,7 +45,7 @@ scripted_effect create_el_cid_story = {
 		save_scope_as = new_story
 	}
 	random_owned_story = {
-		limit = { story_type = story_el_cid }
+		type = story_el_cid
 		save_scope_as = story_el_cid
 		story_owner = {
 			set_variable = {
@@ -352,7 +352,7 @@ cid.1000 = {
 	}
 
 	trigger = {
-		is_landless_adventurer = yes
+		has_government = landless_adventurer_government
 		NOT = { has_variable = had_cid_1000 }
 	}
 
@@ -461,7 +461,7 @@ cid.1010 = {
 	}
 
 	trigger = {
-		is_landless_adventurer = yes
+		has_government = landless_adventurer_government
 		any_courtier = {
 			cid_1010_courtier_trigger = yes
 			count >= 2
@@ -496,7 +496,7 @@ cid.1010 = {
 		random_courtier = {
 			limit = {
 				cid_1010_courtier_trigger = yes
-				NOT = { this = scope:friend }
+				this != scope:friend
 			}
 			weight = {
 				modifier = {
@@ -510,15 +510,15 @@ cid.1010 = {
 			limit = {
 				any_courtier = {
 					cid_1010_courtier_trigger = yes
-					NOT = { this = scope:friend }
-					NOT = { this = scope:courtier_1 }
+					this != scope:friend
+					this != scope:courtier_1
 				}
 			}
 			random_courtier = {
 				limit = {
 					cid_1010_courtier_trigger = yes
-					NOT = { this = scope:friend }
-					NOT = { this = scope:courtier_1 }
+					this != scope:friend
+					this != scope:courtier_1
 				}
 				weight = {
 					modifier = {
@@ -533,17 +533,17 @@ cid.1010 = {
 			limit = {
 				any_courtier = {
 					cid_1010_courtier_trigger = yes
-					NOT = { this = scope:friend }
-					NOT = { this = scope:courtier_1 }
-					NOT = { this = scope:courtier_2 }
+					this != scope:friend
+					this != scope:courtier_1
+					this != scope:courtier_2
 				}
 			}
 			random_courtier = {
 				limit = {
 					cid_1010_courtier_trigger = yes
-					NOT = { this = scope:friend }
-					NOT = { this = scope:courtier_1 }
-					NOT = { this = scope:courtier_2 }
+					this != scope:friend
+					this != scope:courtier_1
+					this != scope:courtier_2
 				}
 				weight = {
 					modifier = {
@@ -739,13 +739,13 @@ cid.1020 = {
 			limit = {
 				any_courtier = {
 					is_child_of = root
-					NOT = { this = scope:child_1 }
+					this != scope:child_1
 				}
 			}
 			random_courtier = {
 				limit = {
 					is_child_of = root
-					NOT = { this = scope:child_1 }
+					this != scope:child_1
 				}
 				save_scope_as = child_2
 			}
@@ -1159,7 +1159,7 @@ cid.2000 = {
 			add = 1
 		}
 		scope:liege = {
-			add_gold = medium_gold_value
+			add_treasury_or_gold = medium_treasury_or_gold_value
 			scope:newly_created_artifact = { set_owner = scope:liege }
 		}
 		
@@ -1303,7 +1303,7 @@ cid.2001 = {
 			add = 1
 		}
 		scope:liege = {
-			add_gold = medium_gold_value
+			add_treasury_or_gold = medium_treasury_or_gold_value
 			scope:newly_created_artifact = { set_owner = scope:liege }
 		}
 		
@@ -1692,9 +1692,7 @@ cid.2020 = {
 	
 	after = {
 		random_owned_story = {
-			limit = {
-				story_type = story_el_cid
-			}
+			type = story_el_cid
 			end_story = yes
 		}
 	}
@@ -1747,9 +1745,7 @@ cid.4000 = {
 	
 	after = {
 		random_owned_story = {
-			limit = {
-				story_type = story_el_cid
-			}
+			type = story_el_cid
 			end_story = yes
 		}
 	}
@@ -1901,9 +1897,7 @@ cid.4010 = {
 	
 	after = {
 		random_owned_story = {
-			limit = {
-				story_type = story_el_cid
-			}
+			type = story_el_cid
 			end_story = yes
 		}
 	}
@@ -1941,9 +1935,7 @@ cid.5000 = {
 	
 	after = {
 		random_owned_story = {
-			limit = {
-				story_type = story_el_cid
-			}
+			type = story_el_cid
 			end_story = yes
 		}
 	}

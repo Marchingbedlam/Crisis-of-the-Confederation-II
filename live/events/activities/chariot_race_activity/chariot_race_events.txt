@@ -48,7 +48,7 @@ chariot_race.0001 = {
 		}
 		triggered_animation = {
 			trigger = {
-				NOT = { root = scope:host }
+				root != scope:host
 			}
 			animation = happiness
 		}
@@ -125,7 +125,7 @@ chariot_race.0100 = {
 		}
 		triggered_animation = {
 			trigger = {
-				NOT = { root = scope:host }
+				root != scope:host
 			}
 			animation = reading
 		}
@@ -531,7 +531,7 @@ scripted_effect save_charioteer_scopes_by_faction_effect = {
 					name = charioteers
 					limit = {
 						has_trait = charioteer_blue
-						NOT = { this = scope:faction_1 }
+						this != scope:faction_1
 					}
 					save_scope_as = faction_2
 				}
@@ -559,7 +559,7 @@ scripted_effect save_charioteer_scopes_by_faction_effect = {
 					name = charioteers
 					limit = {
 						has_trait = charioteer_green
-						NOT = { this = scope:faction_1 }
+						this != scope:faction_1
 					}
 					save_scope_as = faction_2
 				}
@@ -587,7 +587,7 @@ scripted_effect save_charioteer_scopes_by_faction_effect = {
 					name = charioteers
 					limit = {
 						has_trait = charioteer_white
-						NOT = { this = scope:faction_1 }
+						this != scope:faction_1
 					}
 					save_scope_as = faction_2
 				}
@@ -615,7 +615,7 @@ scripted_effect save_charioteer_scopes_by_faction_effect = {
 					name = charioteers
 					limit = {
 						has_trait = charioteer_red
-						NOT = { this = scope:faction_1 }
+						this != scope:faction_1
 					}
 					save_scope_as = faction_2
 				}
@@ -1223,9 +1223,7 @@ chariot_race.0200 = {
 							}
 						}
 						OR = {
-							NOT = {
-								house = root.house
-							}
+							house != root.house
 							has_relation_potential_rival = root
 							has_relation_rival = root
 							has_relation_nemesis = root
@@ -1258,9 +1256,7 @@ chariot_race.0200 = {
 							}
 						}
 						OR = {
-							NOT = {
-								house = root.house
-							}
+							house != root.house
 							has_relation_potential_rival = root
 							has_relation_rival = root
 							has_relation_nemesis = root
@@ -1351,9 +1347,7 @@ chariot_race.0200 = {
 							}
 						}
 						OR = {
-							NOT = {
-								house = root.house
-							}
+							house != root.house
 							has_relation_rival = root
 							has_relation_nemesis = root
 						}
@@ -1380,9 +1374,7 @@ chariot_race.0200 = {
 							}
 						}
 						OR = {
-							NOT = {
-								house = root.house
-							}
+							house != root.house
 							has_relation_rival = root
 							has_relation_nemesis = root
 						}
@@ -1570,7 +1562,7 @@ chariot_race.0200 = {
 					this = root.intent_target
 				}
 				any_scheme = {
-					scheme_type = seduce
+					type = seduce
 					scheme_target_character = scope:honorary_guest
 				}
 			}
@@ -1599,13 +1591,13 @@ chariot_race.0200 = {
 			if = {
 				limit = {
 					any_scheme = {
-						scheme_type = seduce
+						type = seduce
 						scheme_target_character = scope:honorary_guest
 					}
 				}
 				random_scheme = {
+					type = seduce
 					limit = {
-						scheme_type = seduce
 						scheme_target_character = scope:honorary_guest
 					}
 					save_scope_as = scheme
@@ -1647,13 +1639,13 @@ chariot_race.0200 = {
 			if = {
 				limit = {
 					any_scheme = {
-						scheme_type = seduce
+						type = seduce
 						scheme_target_character = scope:honorary_guest
 					}
 				}
 				random_scheme = {
+					type = seduce
 					limit = {
-						scheme_type = seduce
 						scheme_target_character = scope:honorary_guest
 					}
 					save_scope_as = scheme
@@ -1677,13 +1669,13 @@ chariot_race.0200 = {
 			if = {
 				limit = {
 					any_scheme = {
-						scheme_type = seduce
+						type = seduce
 						scheme_target_character = scope:honorary_guest
 					}
 				}
 				random_scheme = {
+					type = seduce
 					limit = {
-						scheme_type = seduce
 						scheme_target_character = scope:honorary_guest
 					}
 					add_scheme_progress = scheme_progress_gain
@@ -1835,9 +1827,7 @@ chariot_race.0200 = {
 				add = -300
 				exists = root.house
 				scope:honorary_guest.house ?= {
-					NOT = {
-						this = root.house
-					}
+					this != root.house
 				}
 			}
 			modifier = {
@@ -1877,7 +1867,7 @@ chariot_race.0200 = {
 					}
 					primary_heir = {
 						AND = {
-							NOT = { this = scope:honorary_guest }
+							this != scope:honorary_guest
 							house = root.house
 						}
 					}
@@ -2249,7 +2239,7 @@ chariot_race.0200 = {
 					primary_heir = {
 						AND = {
 							this = scope:claimant
-							NOT = { house = root.house }
+							house != root.house
 						}
 					}
 					primary_title = {
@@ -2368,7 +2358,7 @@ chariot_race.0200 = {
 	after = {
 		scope:activity = {
 			every_attending_character = {
-				limit = { NOT = { this = scope:host } }
+				limit = { this != scope:host }
 				trigger_event = chariot_race.0201
 			}
 		}
@@ -2548,7 +2538,7 @@ chariot_race.0201 = {
 		character = scope:next_seat
 		triggered_animation = {
 			trigger = {
-				NOT = { this = scope:host }
+				this != scope:host
 			}
 			animation = throne_room_cheer_2
 		}
@@ -2666,9 +2656,7 @@ chariot_race.0201 = {
 				}
 				AND = {
 					scope:activity.var:emperor_speech_topic = flag:present_heir
-					NOT = {
-						this = scope:honorary_guest
-					}
+					this != scope:honorary_guest
 				}
 			}
 		}
@@ -2837,9 +2825,7 @@ chariot_race.0201 = {
 		trigger = {
 			highest_held_title_tier >= tier_county
 			scope:activity.var:emperor_speech_topic = flag:discredit_claimant_fail
-			NOT = {
-				this = scope:claimant
-			}
+			this != scope:claimant
 		}
 		scope:host.primary_title = {
 			change_appointment_investment = {
@@ -3463,7 +3449,7 @@ chariot_race.0201 = {
 					}
 					AND = {
 						scope:activity.var:emperor_speech_topic = flag:present_heir
-						NOT = { scope:honorary_guest = root }
+						scope:honorary_guest != root
 						OR = {
 							has_claim_on = scope:host.primary_title
 							scope:host.primary_title = {
@@ -3748,13 +3734,13 @@ chariot_race.0201 = {
 		else_if = {
 			limit = {
 				any_scheme = {
-					scheme_type = seduce
+					type = seduce
 					scheme_target_character = scope:host
 				}
 			}
 			random_scheme = {
+				type = seduce
 				limit = {
-					scheme_type = seduce
 					scheme_target_character = scope:host
 				}
 				add_scheme_progress = scheme_progress_gain
@@ -4553,7 +4539,7 @@ chariot_race.0600 = {
 				has_variable = gold_gained_emperor
 				has_variable = gold_gained_bookmaker
 			}
-			add_gold = var:gold_gained_emperor
+			add_treasury_or_gold = var:gold_gained_emperor
 			root.court_position:bookmaker_court_position = {
 				save_scope_as = bookmaker
 				add_gold = root.var:gold_gained_bookmaker

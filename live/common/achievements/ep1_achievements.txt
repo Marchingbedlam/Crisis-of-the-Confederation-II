@@ -39,8 +39,42 @@ ep1_08_achievement = {
 }
 
 ep1_09_achievement = {
+<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
+=======
+	possible = {
+		exists = global_var:started_true_tolerance_achievement
+	}
+	happened = {
+		custom_description = {
+			text = true_tolerance_achievement_trigger
+			trigger_if = { # For performance
+				limit = {
+					any_realm_county = {
+						count >= 10
+						culture = {
+							THIS != ROOT.culture
+							cultural_acceptance = {
+								target = ROOT.culture
+								value >= 95
+							}
+						}
+					}
+				}
+				any_culture_global = {
+					count >= 10
+					cultural_acceptance = {
+						target = ROOT.culture
+						value >= 95
+					}
+					any_culture_county = { holder.top_liege = ROOT }
+				}
+			}
+			trigger_else = { always = no }
+		}
+	}
+>>>>>>> 1.18
 }
 
 ep1_10_achievement = {
@@ -94,6 +128,23 @@ ep1_19_achievement = {
 }
 
 ep1_20_achievement = {
+<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
+=======
+	possible = {
+		exists = global_var:started_the_true_royal_court_achievement
+	}
+	happened = {
+		custom_description = {
+			text = the_true_royal_court_achievement_trigger
+			root.liege != root
+			highest_held_title_tier = tier_kingdom
+			root.liege = {
+				highest_held_title_tier = tier_empire
+			}
+			root.court_grandeur_current > root.liege.court_grandeur_current
+		}
+	}
+>>>>>>> 1.18
 }
