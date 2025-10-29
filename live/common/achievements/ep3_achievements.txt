@@ -4,31 +4,8 @@
 }
 
 ep3_02_band_of_brothers_achievement = {
-<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
-=======
-	possible = {
-		
-	}
-	happened = {
-		custom_description = {
-			text = band_of_brothers_trigger
-			has_government = landless_adventurer_government
-			any_courtier = {
-				count >= 10
-				is_alive = yes
-			}
-			any_courtier = {
-				count = all
-				opinion = {
-					target = root
-					value >= 40 # sync with define:NDomicile|TEMPERAMENT_THRESHOLD_HIGH
-				}
-			}
-		}
-	}
->>>>>>> 1.18
 }
 
 ep3_03_mio_cid_achievement = {
@@ -102,54 +79,13 @@ ep3_16_i_got_a_permit_achievement = {
 }
 
 ep3_17_despotic_achievement = {
-<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
-=======
-	possible = {
-		
-	}
-	happened = {
-		custom_description = {
-			text = despotic_achievement_trigger
-			top_liege != this
-			liege ?= {
-				may_appoint_co_emperors_trigger = yes
-				has_diarchy_type = co_emperorship
-				diarch ?= root
-			}
-			government_allows = administrative
-			highest_held_title_tier = tier_kingdom
-		}
-	}
->>>>>>> 1.18
 }
 
 ep3_18_byzywork_achievement = {
-<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
-=======
-	possible = {
-		
-	}
-	happened = {
-		custom_description = {
-			text = byzywork_achievement_trigger
-			highest_held_title_tier < tier_empire
-			house ?= {
-				any_house_member = {
-					count >= 5
-					top_liege != this
-					government_allows = administrative
-					highest_held_title_tier >= tier_duchy
-					top_liege = root.top_liege
-					this != root
-				}
-			}
-		}
-	}
->>>>>>> 1.18
 }
 
 ep3_19_not_content_to_serve_achievement = {
