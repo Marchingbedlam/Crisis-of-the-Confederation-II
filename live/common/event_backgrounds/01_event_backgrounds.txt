@@ -417,8 +417,6 @@ temple = {
 						religion = religion:tengrism_religion
 						religion = religion:magyar_religion
 						religion = religion:siberian_religion
-<<<<<<< HEAD
-=======
 						AND = {
 							religion = religion:buddhism_religion
 							location ?= {
@@ -443,7 +441,6 @@ temple = {
 								government_has_flag = government_is_nomadic
 							}
 						}
->>>>>>> 1.18
 					}
 				}
 			}
@@ -550,8 +547,6 @@ temple = {
 		environment = "environment_event_fp1_tribal_temple"
 		ambience = "event:/DLC/FP1/SFX/Events/event_temple"
 	}
-<<<<<<< HEAD
-=======
 	background = { #East Asian
 		trigger = {
 			trigger_if = {
@@ -642,7 +637,6 @@ temple = {
 		environment = "environment_event_garden"
 		ambience = "event:/DLC/FP1/SFX/Events/event_temple"
 	}
->>>>>>> 1.18
 	background = {
 		reference = "gfx/interface/illustrations/event_scenes/temple.dds"
 		environment = "environment_event_temple"
@@ -659,8 +653,6 @@ temple_scope = {
 					religion = religion:tengrism_religion
 					religion = religion:magyar_religion
 					religion = religion:siberian_religion
-<<<<<<< HEAD
-=======
 					AND = {
 						religion = religion:buddhism_religion
 						location ?= {
@@ -685,7 +677,6 @@ temple_scope = {
 							government_has_flag = government_is_nomadic
 						}
 					}
->>>>>>> 1.18
 				}
 			}
 		}
@@ -761,8 +752,6 @@ temple_scope = {
 		environment = "environment_tgp_temple_asia"
 		ambience = "event:/DLC/EP4/SFX/Events/Event_Backgrounds/tgp_temple_asia"
 	}
-<<<<<<< HEAD
-=======
 	background = { #Dharmic (Outdoors)
 		trigger = {
 			scope:background_temple_scope = {
@@ -785,7 +774,6 @@ temple_scope = {
 		environment = "environment_event_garden"
 		ambience = "event:/DLC/FP1/SFX/Events/event_temple"
 	}
->>>>>>> 1.18
 	background = {
 		reference = "gfx/interface/illustrations/event_scenes/temple.dds"
 		environment = "environment_event_temple"
@@ -883,8 +871,6 @@ corridor_night = {
 		environment = "environment_event_fp2_corridor_night"
 		ambience = "event:/DLC/FP2/SFX/Events/corridor_night"
 	}
-<<<<<<< HEAD
-=======
 	background = {	#Indian Corridor
 		trigger = {
 			trigger_if = {
@@ -913,7 +899,6 @@ corridor_night = {
 		environment = "environment_event_bp1_corridor_indian_night"
 		ambience = "event:/SFX/Events/Backgrounds/castle_corridor_night"
 	}
->>>>>>> 1.18
 	background = {	#FP1
 		trigger = {
 			trigger_if = {
@@ -944,27 +929,11 @@ corridor_night = {
 		environment = "environment_event_fp1_tribal_corridor"
 		ambience = "event:/DLC/FP1/SFX/Events/event_tribal_corridor"
 	}
-<<<<<<< HEAD
-	background = {	#Indian Corridor
-=======
 	background = {	#East Asian Corridor
->>>>>>> 1.18
 		trigger = {
 			trigger_if = {
 				limit = { exists = scope:bg_override_char }
 				scope:bg_override_char = {
-<<<<<<< HEAD
-					location.culture ?= { has_graphical_india_culture_group_trigger = yes }
-				}
-			}
-			trigger_else = {
-				location.culture ?= { has_graphical_india_culture_group_trigger = yes }
-			}
-		}
-		reference = "gfx/interface/illustrations/event_scenes/bp1_corridor_indian_night.dds"
-		environment = "environment_event_bp1_corridor_indian_night"
-		ambience = "event:/SFX/Events/Backgrounds/castle_corridor_night"
-=======
 					OR = {
 						location.culture ?= { has_graphical_east_asia_culture_group_trigger = yes }
 						location ?= {
@@ -985,7 +954,6 @@ corridor_night = {
 		reference = "gfx/interface/illustrations/event_scenes/tgp_chinese_corridor_night.dds"
 		environment = "environment_tgp_chinese_corridor_night"
 		ambience = "event:/DLC/EP4/SFX/Events/Event_Backgrounds/tgp_chinese_corridor_night"
->>>>>>> 1.18
 	}
 	background = {
 		reference = "gfx/interface/illustrations/event_scenes/corridor.dds"
@@ -1045,9 +1013,6 @@ corridor_day = {
 		environment = "environment_event_fp2_corridor_day"
 		ambience = "event:/DLC/FP2/SFX/Events/corridor_day"
 	}
-<<<<<<< HEAD
-	background = {	#FP1
-=======
 	background = {	#Indian Corridor
 		trigger = {
 			trigger_if = {
@@ -1077,7 +1042,6 @@ corridor_day = {
 		ambience = "event:/SFX/Events/Backgrounds/castle_corridor_day"
 	}
 	background = {	#Norse
->>>>>>> 1.18
 		trigger = {
 			trigger_if = {
 				limit = { exists = scope:bg_override_char }
@@ -1107,23 +1071,6 @@ corridor_day = {
 		environment = "environment_event_fp1_tribal_corridor"
 		ambience = "event:/DLC/FP1/SFX/Events/event_tribal_corridor"
 	}
-<<<<<<< HEAD
-	background = {	#Indian Corridor
-		trigger = {
-			trigger_if = {
-				limit = { exists = scope:bg_override_char }
-				scope:bg_override_char = {
-					location.culture ?= { has_graphical_india_culture_group_trigger = yes }
-				}
-			}
-			trigger_else = {
-				location.culture ?= { has_graphical_india_culture_group_trigger = yes }
-			}
-		}
-		reference = "gfx/interface/illustrations/event_scenes/bp1_corridor_indian_day.dds"
-		environment = "environment_event_bp1_corridor_indian_day" 
-		ambience = "event:/SFX/Events/Backgrounds/castle_corridor_day"
-=======
 	background = { #East Asia
 		trigger = {
 			trigger_if = {
@@ -1147,7 +1094,6 @@ corridor_day = {
 		reference = "gfx/interface/illustrations/event_scenes/tgp_chinese_corridor_day.dds"
 		environment = "environment_tgp_chinese_corridor_day" 
 		ambience = "event:/DLC/EP4/SFX/Events/Event_Backgrounds/tgp_chinese_corridor_day"
->>>>>>> 1.18
 	}
 	background = {
 		reference = "gfx/interface/illustrations/event_scenes/corridor_day.dds"
@@ -1283,13 +1229,6 @@ council_chamber = {
 			trigger_if = {
 				limit = { exists = scope:bg_override_char }
 				scope:bg_override_char = {
-<<<<<<< HEAD
-					location.culture ?= { has_building_gfx = indian_building_gfx }
-				}
-			}
-			trigger_else = {
-				location.culture ?= { has_building_gfx = indian_building_gfx }
-=======
 					OR = {
 						location.culture ?= { has_graphical_india_culture_group_trigger = yes }
 						location ?= { steppe_building_gfx_use_indian_trigger = yes }
@@ -1301,15 +1240,12 @@ council_chamber = {
 					location.culture ?= { has_graphical_india_culture_group_trigger = yes }
 					location ?= { steppe_building_gfx_use_indian_trigger = yes }
 				}
->>>>>>> 1.18
 			}
 		}
 		reference = "gfx/interface/illustrations/event_scenes/bp2_study_indian.dds"
 		environment = "environment_bp2_study_indian"
 		ambience = "event:/SFX/Events/Backgrounds/office_workplace"
 	}
-<<<<<<< HEAD
-=======
 	background = { #Japan Study
 		trigger = {
 			trigger_if = {
@@ -1374,7 +1310,6 @@ council_chamber = {
 		environment = "environment_tgp_study_asia"
 		ambience = "event:/DLC/EP4/SFX/Events/Event_Backgrounds/tgp_study_asia"
 	}
->>>>>>> 1.18
 	background = {
 		reference = "gfx/interface/illustrations/event_scenes/councilchamber.dds"
 		environment = "environment_event_councilchamber"
@@ -1548,9 +1483,6 @@ courtyard = {
 }
 
 courtyard_location = {
-<<<<<<< HEAD
-	background = {
-=======
 	background = { #Nomadic MENA
 		trigger = {
 			trigger_if = {
@@ -1818,7 +1750,6 @@ courtyard_location = {
 		ambience = "event:/DLC/FP1/SFX/Events/event_temple" 
 	}
 	background = { #Constantinople
->>>>>>> 1.18
 		trigger = {
 			trigger_if = {
 				limit = { exists = scope:bg_override_char }
@@ -2082,26 +2013,18 @@ dungeon = {
 				scope:bg_override_char = {
 					OR = {
 						location.culture ?= { has_building_gfx = iberian_building_gfx }
-<<<<<<< HEAD
-						location = { geographical_region = world_europe_west_iberia }
-=======
 						location ?= { geographical_region = world_europe_west_iberia }
 						location.culture ?= { has_graphical_mena_culture_group_trigger = yes }
 						location ?= { steppe_building_gfx_use_mena_trigger = yes }
->>>>>>> 1.18
 					}
 				}
 			}
 			trigger_else = {
 				OR = {
 					location.culture ?= { has_building_gfx = iberian_building_gfx }
-<<<<<<< HEAD
-					location = { geographical_region = world_europe_west_iberia }
-=======
 					location ?= { geographical_region = world_europe_west_iberia }
 					location.culture ?= { has_graphical_mena_culture_group_trigger = yes }
 					location ?= { steppe_building_gfx_use_mena_trigger = yes }
->>>>>>> 1.18
 				}
 			}
 
@@ -4830,9 +4753,6 @@ feast = {
 	}
 	background = { # Indian
 		trigger = {
-<<<<<<< HEAD
-			scope:activity.activity_location.culture ?= { has_building_gfx = indian_building_gfx }
-=======
 			trigger_if = {
 				limit = {
 					NOT = { exists = scope:activity }
@@ -4848,7 +4768,6 @@ feast = {
 					scope:activity.activity_location ?= { steppe_building_gfx_use_indian_trigger = yes }
 				}	
 			}
->>>>>>> 1.18
 		}
 		reference = "gfx/interface/illustrations/event_scenes/ep2_feast_indian.dds"
 		environment = "environment_indian_feast"
@@ -4918,8 +4837,6 @@ feast = {
 		environment = "environment_sub-saharan_feast"
 		ambience = "event:/DLC/EP2/SFX/Events/Backgrounds/evn_background_steppe"
 	}
-<<<<<<< HEAD
-=======
 	background = { #Mena
 		trigger = {
 			trigger_if = {
@@ -4988,7 +4905,6 @@ feast = {
 		environment = "environment_tgp_feast_asia"
 		ambience = "event:/DLC/EP4/SFX/Events/Event_Backgrounds/tgp_feast_asia"
 	}
->>>>>>> 1.18
 	background = {
 		reference = "gfx/interface/illustrations/event_scenes/feast.dds"
 		environment = "environment_activity_western_feast"
@@ -5109,8 +5025,6 @@ feast_event = {
 		environment = "environment_sub-saharan_feast"
 		ambience = "event:/DLC/EP2/SFX/Events/Backgrounds/evn_background_steppe"
 	}
-<<<<<<< HEAD
-=======
 	background = { #MENA
 		trigger = {
 			trigger_if = {
@@ -5171,7 +5085,6 @@ feast_event = {
 		environment = "environment_tgp_feast_asia"
 		ambience = "event:/DLC/EP4/SFX/Events/Event_Backgrounds/tgp_feast_asia"
 	}
->>>>>>> 1.18
 	background = {
 		reference = "gfx/interface/illustrations/event_scenes/feast.dds"
 		environment = "environment_activity_western_feast"
@@ -5226,9 +5139,6 @@ garden = {
 		environment = "environment_ep3_arid_camp"
 		ambience = "event:/DLC/EP2/SFX/Events/Grand_Activities/Hunts/ep2_event_grand_hunt_praire"
 	}
-<<<<<<< HEAD
-	background = {
-=======
 	background = { # Norse
 		trigger = {
 			location.culture ?= { has_building_gfx = norse_building_gfx }
@@ -5408,7 +5318,6 @@ garden = {
 		ambience = "event:/DLC/EP4/SFX/Events/Event_Backgrounds/tgp_hunt_generic_asia" 
 	}
 	background = { #Indian
->>>>>>> 1.18
 		trigger = {
 			trigger_if = {
 				limit = { exists = scope:bg_override_char }
@@ -5447,8 +5356,6 @@ garden = {
 		ambience = "event:/DLC/FP2/SFX/Events/garden"
 	}
 
-<<<<<<< HEAD
-=======
 	background = { #Asia Garden
 		trigger = {
 			trigger_if = {
@@ -5474,7 +5381,6 @@ garden = {
 		ambience = "event:/DLC/EP4/SFX/Events/Event_Backgrounds/tgp_garden_asia"
 	}
 
->>>>>>> 1.18
 	background = {
 		reference = "gfx/interface/illustrations/event_scenes/garden.dds"
 		environment = "environment_event_garden"
@@ -5483,9 +5389,6 @@ garden = {
 }
 
 garden_location = {
-<<<<<<< HEAD
-	background = {
-=======
 	background = { #Nomads
 		trigger = {
 			location.culture ?= { has_building_gfx = steppe_building_gfx }
@@ -5728,7 +5631,6 @@ garden_location = {
 		ambience = "event:/DLC/EP4/SFX/Events/Event_Backgrounds/tgp_hunt_generic_asia" 
 	}
 	background = { #india
->>>>>>> 1.18
 		trigger = {
 			location.culture ?= { has_graphical_india_culture_group_trigger = yes }
 		}
@@ -5842,10 +5744,6 @@ market = {
 				scope:bg_override_char = {
 					location ?= {
 						OR = {
-<<<<<<< HEAD
-							geographical_region = world_steppe_east
-							culture ?= { has_graphical_steppe_culture_group_trigger = yes }
-=======
 							culture ?= {
 								has_graphical_east_asia_culture_group_trigger = yes
 							}
@@ -5866,7 +5764,6 @@ market = {
 								}
 							}
 							development_level < 5
->>>>>>> 1.18
 						}
 					}
 				}
@@ -5874,10 +5771,6 @@ market = {
 			trigger_else = {
 				location ?= {
 					OR = {
-<<<<<<< HEAD
-						geographical_region = world_steppe_east
-						culture ?= { has_graphical_steppe_culture_group_trigger = yes }
-=======
 						culture ?= {
 							has_graphical_east_asia_culture_group_trigger = yes
 						}
@@ -5992,7 +5885,6 @@ market = {
 						culture ?= {
 							has_building_gfx = southeast_asian_building_gfx
 						}
->>>>>>> 1.18
 					}
 				}
 			}
@@ -6072,13 +5964,8 @@ market = {
 			trigger_if = {
 				limit = { exists = scope:bg_override_char }
 				scope:bg_override_char = {
-<<<<<<< HEAD
-					location = {
-						province_owner ?= {
-=======
 					location ?= {
 						county.holder ?= {
->>>>>>> 1.18
 							OR = {
 								government_has_flag = government_is_clan
 								government_has_flag = government_is_tribal
@@ -6091,13 +5978,8 @@ market = {
 				}
 			}
 			trigger_else = {
-<<<<<<< HEAD
-				location = {
-					province_owner ?= {
-=======
 				location ?= {
 					county.holder ?= {
->>>>>>> 1.18
 						OR = {
 							government_has_flag = government_is_clan
 							government_has_flag = government_is_tribal
@@ -6254,71 +6136,6 @@ market_scope = {
 					culture ?= { has_building_gfx = iranian_building_gfx }
 					culture ?= { has_building_gfx = indian_building_gfx }
 					AND = {
-<<<<<<< HEAD
-			 			geographical_region = world_europe_west_iberia
-			 			root = { faith = { religion = religion:islam_religion } }
-			 		}
-				}
-			}
-		}
-		reference = "gfx/interface/illustrations/event_scenes/market_east.dds"
-		environment = "environment_event_market_east"
-		ambience = "event:/SFX/Events/Backgrounds/town_market_middleeastern_day"
-	}
-
-	background = { #Tribal
-		trigger = {
-			OR = {
-				government_has_flag = government_is_clan
-				government_has_flag = government_is_tribal
-			}
-			scope:background_market_scope = {
-				NOT = {
-					geographical_region = graphical_mena
-				}
-			}
-		}
-		reference = "gfx/interface/illustrations/event_scenes/market_tribal.dds"
-		environment = "environment_event_market_tribal"
-		ambience = "event:/SFX/Events/Backgrounds/townmarket_day_tribal_pagan"
-	}
-
-	background = { #Western (standard/fallback)
-		reference = "gfx/interface/illustrations/event_scenes/market_west.dds"
-		environment = "environment_event_market_west"
-		ambience = "event:/SFX/Events/Backgrounds/townmarket_western_day"
-	}
-}
-
-market_activity = {
-	background = { # Byzantine/Greek
-		trigger = {
-			scope:activity.activity_location ?= {
-				OR = {
-					geographical_region = mediteranean_coast
-					geographical_region = world_asia_minor
-					culture ?= { has_graphical_mediterranean_culture_group_trigger = yes }
-				}
-			}
-		}
-		reference = "gfx/interface/illustrations/event_scenes/ep3_medi_market.dds"
-		environment = "environment_ep3_medi_market"
-		ambience = "event:/DLC/EP3/SFX/Events/Event_Images/ep3_evn_eventimage_medi_market"
-	}
-
-	background = { #Eastern
-		trigger = {
-			scope:activity.activity_location ?= {
-				OR = {
-					geographical_region = graphical_mena
-					geographical_region = graphical_india
-					culture ?= { has_building_gfx = iranian_building_gfx }
-					culture ?= { has_building_gfx = indian_building_gfx } 
-					AND = {
-			 			geographical_region = world_europe_west_iberia
-			 			scope:activity.activity_host.religion ?= religion:islam_religion
-			 		}
-=======
 				 		geographical_region = world_europe_west_iberia
 				 		faith ?= { religion = religion:islam_religion }
 				 	}
@@ -6330,7 +6147,6 @@ market_activity = {
 							geographical_region = world_steppe
 						}
 					}
->>>>>>> 1.18
 				}
 			}
 		}
@@ -6558,19 +6374,11 @@ burning_building = {
 		trigger = {
 			trigger_if = {
 				limit = { exists = scope:bg_override_char }
-<<<<<<< HEAD
-				scope:bg_override_char = {
-					location.culture ?= {
-						OR = {
-							culture_has_east_asian_heritage_pillar_trigger = yes
-							has_graphical_steppe_culture_group_trigger = yes
-=======
 				scope:bg_override_char.location ?= {
 					OR = {
 						culture ?= { has_graphical_east_asia_culture_group_trigger = yes }
 						culture ?= {
 							has_graphical_india_culture_group_trigger = yes
->>>>>>> 1.18
 						}
 				 		steppe_building_gfx_use_indian_trigger = yes
 				 		steppe_building_gfx_use_east_asian_trigger = yes
@@ -6578,12 +6386,6 @@ burning_building = {
 				}
 			}
 			trigger_else = {
-<<<<<<< HEAD
-				location.culture ?= {
-					OR = {
-						culture_has_east_asian_heritage_pillar_trigger = yes
-						has_graphical_steppe_culture_group_trigger = yes
-=======
 				location ?= {
 					OR = {
 						culture ?= { has_graphical_east_asia_culture_group_trigger = yes }
@@ -6592,7 +6394,6 @@ burning_building = {
 						}
 					 	steppe_building_gfx_use_indian_trigger = yes
 					 	steppe_building_gfx_use_east_asian_trigger = yes
->>>>>>> 1.18
 					}
 				}
 			}
@@ -6606,19 +6407,11 @@ burning_building = {
 			trigger_if = {
 				limit = { exists = scope:bg_override_char }
 				scope:bg_override_char = {
-<<<<<<< HEAD
-					location.county ?= title:c_avalon 
-				}
-			}
-			trigger_else = {
-				location.county ?= title:c_avalon 
-=======
 					location.county ?= title:c_byzantion
 				}
 			}
 			trigger_else = {
 				location.county ?= title:c_byzantion
->>>>>>> 1.18
 			}
 		}
 		reference = "gfx/interface/illustrations/event_scenes/ep3_constantinople_riot.dds"
@@ -6728,11 +6521,6 @@ sitting_room = {
 				limit = { exists = scope:bg_override_char }
 				scope:bg_override_char = {
 					OR = {
-<<<<<<< HEAD
-						location.culture ?= { has_building_gfx = iberian_building_gfx }
-						location = { geographical_region = world_europe_west_iberia }
-						location.culture ?= { has_building_gfx = iranian_building_gfx }
-=======
 						location.culture ?= { 
 							OR = {
 								has_building_gfx = iberian_building_gfx
@@ -6746,17 +6534,11 @@ sitting_room = {
 								steppe_building_gfx_use_mena_trigger = yes
 							}
 						}
->>>>>>> 1.18
 					}
 				}
 			}
 			trigger_else = {
 				OR = {
-<<<<<<< HEAD
-					location.culture ?= { has_building_gfx = iberian_building_gfx }
-					location = { geographical_region = world_europe_west_iberia }
-					location.culture ?= { has_building_gfx = iranian_building_gfx }
-=======
 					location.culture ?= { 
 						OR = {
 							has_building_gfx = iberian_building_gfx
@@ -6770,7 +6552,6 @@ sitting_room = {
 							steppe_building_gfx_use_mena_trigger = yes
 						}
 					}
->>>>>>> 1.18
 				}
 			}
 		}
@@ -6778,9 +6559,6 @@ sitting_room = {
 		environment = "environment_event_fp2_relaxing_room"
 		ambience = "event:/DLC/FP2/SFX/Events/relaxing_room"
 	}
-<<<<<<< HEAD
-
-=======
 	background = { #Indians use their Study
 		trigger = {
 			trigger_if = {
@@ -6887,7 +6665,6 @@ sitting_room = {
 		environment = "environment_event_fp1_steward_study"
 		ambience = "event:/SFX/Events/Backgrounds/office_workplace"
 	}
->>>>>>> 1.18
 	background = {
 		reference = "gfx/interface/illustrations/event_scenes/sittingroom.dds"
 		environment = "environment_event_sittingroom"
@@ -6959,25 +6736,15 @@ bedchamber = {
 				limit = { exists = scope:bg_override_char }
 				scope:bg_override_char = {
 					OR = {
-<<<<<<< HEAD
-						location.culture ?= { has_building_gfx = indian_building_gfx }
-						location.culture ?= { has_building_gfx = steppe_building_gfx }
-=======
 						location.culture ?= { has_graphical_india_culture_group_trigger = yes }
 						location ?= { steppe_building_gfx_use_indian_trigger = yes }
->>>>>>> 1.18
 					}
 				}
 			}
 			trigger_else = {
 				OR = {
-<<<<<<< HEAD
-					location.culture ?= { has_building_gfx = indian_building_gfx }
-					location.culture ?= { has_building_gfx = steppe_building_gfx }
-=======
 					location.culture ?= { has_graphical_india_culture_group_trigger = yes }
 					location ?= { steppe_building_gfx_use_indian_trigger = yes }
->>>>>>> 1.18
 				}
 			}
 		}
@@ -6985,8 +6752,6 @@ bedchamber = {
 		environment = "environment_event_indian_bedchamber"
 		ambience = "event:/DLC/EP2/SFX/Events/Backgrounds/evn_background_bedroom"
 	}
-<<<<<<< HEAD
-=======
 	background = { #East Asia
 		trigger = {
 			trigger_if = {
@@ -7045,7 +6810,6 @@ bedchamber = {
 		environment = "environment_event_fp1_steward_study"
 		ambience = "event:/SFX/Events/Backgrounds/office_workplace"
 	}
->>>>>>> 1.18
 	
 	background = {
 		reference = "gfx/interface/illustrations/event_scenes/bedchamber.dds"
@@ -7058,19 +6822,6 @@ bedchamber = {
 # Referenced in code, do not change the name
 study = {
 	background = { #Nomads
-<<<<<<< HEAD
-		trigger = {
-			trigger_if = {
-				limit = { exists = scope:bg_override_char }
-				scope:bg_override_char = { government_has_flag = government_is_nomadic }
-			}
-			trigger_else = { government_has_flag = government_is_nomadic }
-		}
-		reference = "gfx/interface/illustrations/event_scenes/mpo_tent_interior_mongol.dds"
-		environment = "environment_mpo_tent_interior_mongol"
-		ambience = "event:/DLC/CE2/Events/Event_Images/mpo_tent_interior_mongol"
-	}
-=======
         trigger = {
             trigger_if = {
                 limit = { exists = scope:bg_override_char }
@@ -7106,7 +6857,6 @@ study = {
         environment = "environment_mpo_tent_interior_mongol"
         ambience = "event:/DLC/CE2/Events/Event_Images/mpo_tent_interior_mongol"
     }
->>>>>>> 1.18
 	background = { #LAAMPs
 		trigger = {
 			trigger_if = {
@@ -7179,11 +6929,7 @@ study = {
 		environment = "environment_event_fp1_steward_study"
 		ambience = "event:/SFX/Events/Backgrounds/office_workplace"
 	}
-<<<<<<< HEAD
-	background = { # Byzantium/Greek
-=======
 	background = { # Byzantium/Greek Everyone else
->>>>>>> 1.18
 		trigger = {
 			trigger_if = {
 				limit = { exists = scope:bg_override_char }
@@ -7193,11 +6939,7 @@ study = {
 							has_cultural_pillar = heritage_byzantine
 							has_cultural_pillar = heritage_caucasian
 							has_cultural_pillar = heritage_latin
-<<<<<<< HEAD
-							has_graphical_mediterranean_culture_group_trigger = yes 
-=======
 							has_graphical_mediterranean_culture_group_trigger = yes
->>>>>>> 1.18
 						}
 					}
 				}
@@ -7236,11 +6978,7 @@ study = {
 					location.culture ?= { has_graphical_mena_culture_group_trigger = yes }
 					location.culture ?= { has_building_gfx = iranian_building_gfx }
 					location.culture ?= { has_graphical_african_culture_group_trigger = yes }
-<<<<<<< HEAD
-					location.culture ?= { has_graphical_steppe_culture_group_trigger = yes }
-=======
 					location ?= { exists = culture steppe_building_gfx_use_mena_trigger = yes }
->>>>>>> 1.18
 					location.culture ?= { has_building_gfx = berber_group_building_gfx }
 				}
 			}
@@ -7254,13 +6992,6 @@ study = {
 			trigger_if = {
 				limit = { exists = scope:bg_override_char }
 				scope:bg_override_char = {
-<<<<<<< HEAD
-					location.culture ?= { has_building_gfx = indian_building_gfx }
-				}
-			}
-			trigger_else = {
-				location.culture ?= { has_building_gfx = indian_building_gfx }
-=======
 					OR = {
 						location.culture ?= { has_graphical_india_culture_group_trigger = yes }
 						location ?= { steppe_building_gfx_use_indian_trigger = yes }
@@ -7272,7 +7003,6 @@ study = {
 					location.culture ?= { has_graphical_india_culture_group_trigger = yes }
 					location ?= { steppe_building_gfx_use_indian_trigger = yes }
 				}
->>>>>>> 1.18
 			}
 		}
 		reference = "gfx/interface/illustrations/event_scenes/bp2_study_indian.dds"
@@ -7336,22 +7066,6 @@ study = {
 
 #When a LAAMP is visiting someone else's study
 location_study = {
-<<<<<<< HEAD
-	background = { # Byzantium/Greek Everyone else
-		trigger = {
-			location.culture ?= {
-				OR = {
-					has_cultural_pillar = heritage_byzantine
-					has_cultural_pillar = heritage_caucasian
-					has_cultural_pillar = heritage_latin
-					has_graphical_mediterranean_culture_group_trigger = yes 
-				}
-			}
-		}
-		reference = "gfx/interface/illustrations/event_scenes/ep3_medi_study.dds"
-		environment = "environment_ep3_relaxing_room"
-		ambience = "event:/DLC/EP3/SFX/Events/Event_Images/ep3_evn_eventimage_byzantine_relaxing_room"
-=======
 	background = { #Nomads
 		trigger = {
 			location.county.title_province ?= {
@@ -7366,7 +7080,6 @@ location_study = {
 		reference = "gfx/interface/illustrations/event_scenes/mpo_tent_interior_mongol.dds"
 		environment = "environment_mpo_tent_interior_mongol"
 		ambience = "event:/DLC/CE2/Events/Event_Images/mpo_tent_interior_mongol"
->>>>>>> 1.18
 	}
 	background = {	#Tribal Study
 		trigger = {
@@ -7417,14 +7130,10 @@ location_study = {
 	}
 	background = {	#Indian Study
 		trigger = {
-<<<<<<< HEAD
-			location.culture ?= { has_building_gfx = indian_building_gfx }
-=======
 			OR = {
 				location.culture ?= { has_graphical_india_culture_group_trigger = yes }
 				location ?= { steppe_building_gfx_use_indian_trigger = yes }
 			}
->>>>>>> 1.18
 		}
 		reference = "gfx/interface/illustrations/event_scenes/bp2_study_indian.dds"
 		environment = "environment_bp2_study_indian"
@@ -7493,8 +7202,6 @@ relaxing_room = {
 				limit = { exists = scope:bg_override_char }
 				scope:bg_override_char = {
 					highest_held_title_tier >= tier_kingdom
-<<<<<<< HEAD
-=======
 					OR = {
 						location ?= { steppe_building_gfx_use_mediterranean_trigger = yes }
 						location.culture ?= {
@@ -7512,7 +7219,6 @@ relaxing_room = {
 				highest_held_title_tier >= tier_kingdom
 				OR = {
 					location ?= { exists = culture steppe_building_gfx_use_mediterranean_trigger = yes }
->>>>>>> 1.18
 					location.culture ?= {
 						OR = {
 							has_cultural_pillar = heritage_byzantine
@@ -7544,8 +7250,6 @@ relaxing_room = {
 			trigger_if = {
 				limit = { exists = scope:bg_override_char }
 				scope:bg_override_char = {
-<<<<<<< HEAD
-=======
 					OR = {
 						location ?= { steppe_building_gfx_use_mediterranean_trigger = yes }
 						location.culture ?= {
@@ -7562,7 +7266,6 @@ relaxing_room = {
 			trigger_else = {
 				OR = {
 					location ?= { exists = culture steppe_building_gfx_use_mediterranean_trigger = yes }
->>>>>>> 1.18
 					location.culture ?= {
 						OR = {
 							has_cultural_pillar = heritage_byzantine
@@ -7621,11 +7324,8 @@ relaxing_room = {
 						location.culture ?= { has_graphical_african_culture_group_trigger = yes }
 						location.culture ?= { has_graphical_steppe_culture_group_trigger = yes }
 						location.culture ?= { has_building_gfx = iranian_building_gfx }
-<<<<<<< HEAD
-=======
 						location ?= { exists = culture steppe_building_gfx_use_mena_trigger = yes }
 						location ?= { exists = culture steppe_building_gfx_use_indian_trigger = yes }
->>>>>>> 1.18
 					}
 				}
 			}
@@ -7636,11 +7336,8 @@ relaxing_room = {
 					location.culture ?= { has_graphical_african_culture_group_trigger = yes }
 					location.culture ?= { has_graphical_steppe_culture_group_trigger = yes }
 					location.culture ?= { has_building_gfx = iranian_building_gfx }
-<<<<<<< HEAD
-=======
 					location ?= { exists = culture steppe_building_gfx_use_mena_trigger = yes }
 					location ?= { exists = culture steppe_building_gfx_use_indian_trigger = yes }
->>>>>>> 1.18
 				}
 			}
 		}
@@ -7648,8 +7345,6 @@ relaxing_room = {
 		environment = "environment_event_bp1_relaxing_room_mena"
 		ambience = "event:/SFX/Events/Backgrounds/office_workplace"
 	}
-<<<<<<< HEAD
-=======
 	background = { #East Asia
 		trigger = {
 			trigger_if = {
@@ -7706,7 +7401,6 @@ relaxing_room = {
 		environment = "environment_event_fp1_steward_study"
 		ambience = "event:/SFX/Events/Backgrounds/office_workplace"
 	}
->>>>>>> 1.18
 
 	background = {	#Western Relaxing Room - Also Fallback
 		reference = "gfx/interface/illustrations/event_scenes/bp1_relaxing_room_western.dds"
@@ -7953,14 +7647,7 @@ tavern = {
 				scope:bg_override_char = {
 					OR = {
 						location.culture ?= { has_graphical_india_culture_group_trigger = yes }
-<<<<<<< HEAD
-						location.culture ?= { has_graphical_mena_culture_group_trigger = yes }
-						location.culture ?= { has_building_gfx = iranian_building_gfx }
-						location.culture ?= { has_graphical_african_culture_group_trigger = yes }
-						location.culture ?= { has_graphical_steppe_culture_group_trigger = yes }
-=======
 						location ?= { steppe_building_gfx_use_indian_trigger = yes }
->>>>>>> 1.18
 					}
 				}
 			}
@@ -7993,11 +7680,7 @@ tavern = {
 					location.culture ?= { has_graphical_mena_culture_group_trigger = yes }
 					location.culture ?= { has_building_gfx = iranian_building_gfx }
 					location.culture ?= { has_graphical_african_culture_group_trigger = yes }
-<<<<<<< HEAD
-					location.culture ?= { has_graphical_steppe_culture_group_trigger = yes }
-=======
 					location ?= { steppe_building_gfx_use_mena_trigger = yes }
->>>>>>> 1.18
 				}
 			}
 		}
@@ -8182,9 +7865,6 @@ throne_room = {
 		environment = "environment_ep3_military_tent_interior"
 		ambience = "event:/DLC/EP3/SFX/Events/Event_Images/ep3_evn_eventimage_living_tent_interior"
 	}
-<<<<<<< HEAD
-	background = { # EP3
-=======
 	background = { #FP1 Tribal
 		trigger = {
 			trigger_if = {
@@ -8238,7 +7918,6 @@ throne_room = {
 		ambience = "event:/SFX/Events/Backgrounds/throneroom_tribal_pagan"
 	}
 	background = { # Byzantium
->>>>>>> 1.18
 		trigger = {
 			trigger_if = {
 				limit = { exists = scope:bg_override_char }
@@ -8247,13 +7926,8 @@ throne_room = {
 						location = province:2
 						AND = {
 							primary_title = title:e_byzantium
-<<<<<<< HEAD
 							title:c_avalon = {
 								any_de_jure_top_liege = { this = root } 
-=======
-							title:c_byzantion = {
-								any_de_jure_top_liege = { this = root }
->>>>>>> 1.18
 							}
 						}
 					}
@@ -8264,13 +7938,8 @@ throne_room = {
 					location = province:2
 					AND = {
 						primary_title = title:e_byzantium
-<<<<<<< HEAD
 						title:c_avalon = {
 							any_de_jure_top_liege = { this = root } 
-=======
-						title:c_byzantion = {
-							any_de_jure_top_liege = { this = root }
->>>>>>> 1.18
 						}
 					}
 				}
@@ -8348,60 +8017,7 @@ throne_room = {
 		environment = "environment_event_fp2_throneroom"
 		ambience = "event:/DLC/FP2/SFX/Events/throneroom"
 	}
-<<<<<<< HEAD
-
-	background = { #FP1 Tribal
-		trigger = {
-			trigger_if = {
-				limit = { exists = scope:bg_override_char }
-				scope:bg_override_char = {
-					location.culture ?= { has_building_gfx = norse_building_gfx }
-					government_has_flag = government_is_tribal
-				}
-			}
-			trigger_else = {
-				location.culture ?= { has_building_gfx = norse_building_gfx }
-				government_has_flag = government_is_tribal
-			}
-		}
-		reference = "gfx/interface/illustrations/event_scenes/fp1_throneroom_tribal.dds"
-		environment = "environment_event_fp1_throneroom_tribal"
-		ambience = "event:/DLC/FP1/SFX/Events/event_throneroom"
-	}
-
-	background = { #Tribal
-		trigger = {
-			trigger_if = {
-				limit = { exists = scope:bg_override_char }
-				scope:bg_override_char = {
-					OR = {
-						should_use_tribal_realm_palace_graphics_trigger = yes
-						AND = {
-							government_has_flag = government_is_tribal
-							location.culture ?= { has_graphical_steppe_culture_group_trigger = yes }
-						}
-					}
-				}
-			}
-			trigger_else = {
-				OR = {
-					should_use_tribal_realm_palace_graphics_trigger = yes
-					AND = {
-						government_has_flag = government_is_tribal
-						location.culture ?= { has_graphical_steppe_culture_group_trigger = yes }
-					}
-				}
-			}
-		}
-		reference = "gfx/interface/illustrations/event_scenes/throneroom_tribal.dds"
-		environment = "environment_frontend_tribal_main"
-		ambience = "event:/SFX/Events/Backgrounds/throneroom_tribal_pagan"
-	}
-
-	background = {	#FP1 Non-Tribal
-=======
 	background = {	#Norse Non-Tribal
->>>>>>> 1.18
 		trigger = {
 			trigger_if = {
 				limit = { exists = scope:bg_override_char }
@@ -8440,13 +8056,6 @@ throne_room = {
 			trigger_if = {
 				limit = { exists = scope:bg_override_char }
 				scope:bg_override_char = {
-<<<<<<< HEAD
-					location.culture ?= { has_graphical_india_culture_group_trigger = yes }
-				}
-			}
-			trigger_else = {
-				location.culture ?= { has_graphical_india_culture_group_trigger = yes }
-=======
 					OR = {
 						location.culture ?= { has_building_gfx = indian_building_gfx }
 						location ?= { steppe_building_gfx_use_indian_trigger = yes }
@@ -8458,7 +8067,6 @@ throne_room = {
 					location.culture ?= { has_building_gfx = indian_building_gfx }
 					location ?= { steppe_building_gfx_use_indian_trigger = yes }
 				}
->>>>>>> 1.18
 			}
 		}
 		reference = "gfx/interface/illustrations/event_scenes/throneroom_india.dds"
@@ -8629,9 +8237,6 @@ throne_room_scope = {
 		environment = "environment_ep3_military_tent_interior"
 		ambience = "event:/DLC/EP3/SFX/Events/Event_Images/ep3_evn_eventimage_living_tent_interior"
 	}
-<<<<<<< HEAD
-	background = { # EP3
-=======
 	background = { #FP1 Tribal
 		trigger = {
 			scope:background_throne_room_scope = {
@@ -8655,20 +8260,14 @@ throne_room_scope = {
 		ambience = "event:/SFX/Events/Backgrounds/throneroom_tribal_pagan"
 	}
 	background = { # Byzantium
->>>>>>> 1.18
 		trigger = {
 			scope:background_throne_room_scope = {
 				OR = {
 					capital_province ?= province:2
 					AND = {
 						primary_title = title:e_byzantium
-<<<<<<< HEAD
 						title:c_avalon = {
 							any_de_jure_top_liege = { this = root } 
-=======
-						title:c_byzantion = {
-							any_de_jure_top_liege = { this = root }
->>>>>>> 1.18
 						}
 					}
 				}
@@ -10260,17 +9859,12 @@ ep2_tournament = {
 	}
 	background = { #Indian
 		trigger = {
-<<<<<<< HEAD
-			location = {
-				geographical_region = graphical_india
-=======
 			location ?= {
 				OR = {
 					culture ?= { has_graphical_india_culture_group_trigger = yes }
 					steppe_building_gfx_use_indian_trigger = yes
 					geographical_region = graphical_india
 				}
->>>>>>> 1.18
 			}
 		}
 		reference = "gfx/interface/illustrations/event_scenes/ep2_tournament_india.dds"
@@ -10308,27 +9902,6 @@ ep2_tournament = {
 		environment = "environment_event_bp1_desert"
 		ambience = "event:/DLC/EP2/SFX/Events/Backgrounds/evn_background_feast_mena"
 	}
-<<<<<<< HEAD
-
-	background = { #Tribal
-		trigger = {
-			OR = {
-				government_has_flag = government_is_clan
-				government_has_flag = government_is_tribal
-			}
-			capital_province = {
-				NOT = {
-					geographical_region = graphical_mena
-				}
-			}
-		}
-		reference = "gfx/interface/illustrations/event_scenes/ep2_tournament_tribal.dds"
-		environment = "environment_village_festival"
-		ambience = "event:/DLC/EP2/SFX/Events/Backgrounds/evn_background_festival_western"
-	}
-
-=======
->>>>>>> 1.18
 	background = {
 		reference = "gfx/interface/illustrations/event_scenes/ep2_tournament_western.dds"
 		environment = "environment_village_festival"
@@ -10574,46 +10147,6 @@ tournament_contest = {
 		environment = "environment_event_bp1_desert"
 		ambience = "event:/DLC/EP2/SFX/Events/Backgrounds/evn_background_feast_mena"
 	}
-<<<<<<< HEAD
-	background = { #Tribal
-		trigger = {
-			trigger_if = {
-				limit = { exists = scope:bg_override_char }
-				scope:bg_override_char = {
-					##
-				}
-			}
-			trigger_else = {
-				##
-			}
-			scope:activity = {
-				trigger_if = {
-					limit = { exists = scope:contest_complete }
-					scope:contest_complete = flag:recital
-				}
-				trigger_else = {
-					OR = {
-						has_current_phase = tournament_phase_recital
-						has_current_phase = tournament_phase_ceremony
-					}
-				}
-				activity_host = {
-					OR = {
-						government_has_flag = government_is_clan
-						government_has_flag = government_is_tribal
-					}
-				}
-				NOT = {
-					activity_location = { geographical_region = graphical_mena }
-				}
-			}
-		}
-		reference = "gfx/interface/illustrations/event_scenes/ep2_tournament_tribal.dds"
-		environment = "environment_village_festival"
-		ambience = "event:/DLC/EP2/SFX/Events/Backgrounds/evn_background_festival_western"
-	}
-=======
->>>>>>> 1.18
 	background = {
 		reference = "gfx/interface/illustrations/event_scenes/ep2_village_festival_western.dds"
 		environment = "environment_village_festival"
@@ -10656,13 +10189,6 @@ holy_site_generic = {
 			trigger_if = {
 				limit = { exists = scope:bg_override_char }
 				scope:bg_override_char = {
-<<<<<<< HEAD
-					OR = {
-						government_has_flag = government_is_nomadic
-						religion = religion:tengrism_religion
-						religion = religion:magyar_religion
-						religion = religion:siberian_religion
-=======
 					location ?= {
 						OR = {
 							religion = {
@@ -10696,18 +10222,10 @@ holy_site_generic = {
 								}
 							}
 						}
->>>>>>> 1.18
 					}
 				}
 			}
 			trigger_else = {
-<<<<<<< HEAD
-				OR = {
-					government_has_flag = government_is_nomadic
-					religion = religion:tengrism_religion
-					religion = religion:magyar_religion
-					religion = religion:siberian_religion
-=======
 				location ?= {
 					OR = {
 						religion = {
@@ -10741,7 +10259,6 @@ holy_site_generic = {
 							}
 						}
 					}
->>>>>>> 1.18
 				}
 			}
 		}
@@ -10909,17 +10426,11 @@ holy_site_generic = {
 							exists = scope:activity
 							scope:activity.activity_location.county.holder ?= {
 								OR = {
-<<<<<<< HEAD
-									government_has_flag = government_is_clan
-									government_has_flag = government_is_tribal
-								} 
-=======
 									government_has_flag = government_is_tribal
 									government_has_flag = government_is_nomadic
 									government_has_flag = government_is_herder
 								}
 								religion = { is_in_family = rf_pagan }
->>>>>>> 1.18
 							}
 						}
 						AND = {
@@ -10937,17 +10448,11 @@ holy_site_generic = {
 						exists = scope:activity
 						scope:activity.activity_location.county.holder ?= {
 							OR = {
-<<<<<<< HEAD
-								government_has_flag = government_is_clan
-								government_has_flag = government_is_tribal
-							} 
-=======
 								government_has_flag = government_is_tribal
 								government_has_flag = government_is_nomadic
 								government_has_flag = government_is_herder
 							}
 							religion = { is_in_family = rf_pagan }
->>>>>>> 1.18
 						}
 					}
 					AND = {
@@ -11075,8 +10580,6 @@ holy_site_generic_scope = {
 		environment = "environment_event_fp3_temple"
 		ambience = "event:/DLC/FP1/SFX/Events/event_temple"
 	}
-<<<<<<< HEAD
-=======
 	background = { # MPO - Tengri
 		trigger = {
 			OR = {
@@ -11157,7 +10660,6 @@ holy_site_generic_scope = {
 		environment = "environment_mpo_temple_steppe"
 		ambience = "event:/DLC/CE2/Events/Event_Images/mpo_temple_steppe"
 	}
->>>>>>> 1.18
 
 	background = { # Orthodox generic holy site
 		trigger = {
@@ -11237,14 +10739,10 @@ holy_site_generic_scope = {
 					scope:activity.activity_location.county.holder ?= {
 						OR = {
 							government_has_flag = government_is_tribal
-<<<<<<< HEAD
-						} 
-=======
 							government_has_flag = government_is_nomadic
 							government_has_flag = government_is_herder
 						}
 						religion = { is_in_family = rf_pagan } 
->>>>>>> 1.18
 					}
 				}
 				AND = {
@@ -11291,8 +10789,6 @@ holy_site_generic_scope = {
 		ambience = "event:/DLC/FP2/SFX/Events/temple"
 	}
 
-<<<<<<< HEAD
-=======
 	background = { #Western generic holy site fallback
 		reference = "gfx/interface/illustrations/event_scenes/ep2_holysite_western.dds"
 		environment = "environment_western_holy_site"
@@ -11649,7 +11145,6 @@ holy_site_unique = {
 		ambience = "event:/SFX/Events/Backgrounds/temple_christian"
 	}
 
->>>>>>> 1.18
 	background = { #Norse generic holy site
 		trigger = {
 			OR = {
@@ -11664,8 +11159,6 @@ holy_site_unique = {
 		environment = "environment_event_fp1_tribal_temple"
 		ambience = "event:/DLC/FP1/SFX/Events/event_temple"
 	}
-<<<<<<< HEAD
-=======
 	background = { #Pagan generic holy site
 		trigger = {
 			trigger_if = {
@@ -11786,7 +11279,6 @@ holy_site_unique = {
 		environment = "environment_event_fp2_temple"
 		ambience = "event:/DLC/FP2/SFX/Events/temple" 
 	}
->>>>>>> 1.18
 
 	background = { #Western generic holy site fallback
 		reference = "gfx/interface/illustrations/event_scenes/ep2_holysite_western.dds"
@@ -11857,9 +11349,6 @@ holy_site_scope = {
 		environment = "environment_event_fp3_temple"
 		ambience = "event:/DLC/FP1/SFX/Events/event_temple"
 	}
-
-<<<<<<< HEAD
-=======
 	background = { # MPO - Tengri
 		trigger = {
 			scope:background_terrain_scope = {
@@ -11901,8 +11390,6 @@ holy_site_scope = {
 		environment = "environment_mpo_temple_steppe"
 		ambience = "event:/DLC/CE2/Events/Event_Images/mpo_temple_steppe"
 	}
-
->>>>>>> 1.18
 	background = { # Orthodox generic holy site
 		trigger = {
 			scope:background_terrain_scope.faith ?= faith:orthodox
@@ -12731,8 +12218,6 @@ ep2_involved_activity = {
 		environment = "environment_event_fp3_temple"
 		ambience = "event:/DLC/FP1/SFX/Events/event_temple"
 	}
-<<<<<<< HEAD
-=======
 	background = { # MPO - Tengri
 		trigger = {
 			trigger_if = {
@@ -12821,7 +12306,6 @@ ep2_involved_activity = {
 		environment = "environment_mpo_temple_steppe"
 		ambience = "event:/DLC/CE2/Events/Event_Images/mpo_temple_steppe"
 	}
->>>>>>> 1.18
 	background = {
 		trigger = {
 			#Orthodox and Oriental Christians
@@ -12894,30 +12378,22 @@ ep2_involved_activity = {
 				limit = { exists = scope:bg_override_char }
 				scope:bg_override_char = {
 					involved_activity ?= { has_activity_type = activity_pilgrimage }
-<<<<<<< HEAD
-					involved_activity.activity_location.culture = { has_graphical_mena_culture_group_trigger = yes }
-=======
 					involved_activity.activity_location = {
 						OR = {
 							steppe_building_gfx_use_mena_trigger = yes
 							culture = { has_graphical_mena_culture_group_trigger = yes }
 						}
 					}
->>>>>>> 1.18
 				}
 			}
 			trigger_else = {
 				involved_activity ?= { has_activity_type = activity_pilgrimage }
-<<<<<<< HEAD
-				involved_activity.activity_location.culture = { has_graphical_mena_culture_group_trigger = yes }
-=======
 				involved_activity.activity_location = { 
 					OR = {
 						steppe_building_gfx_use_mena_trigger = yes
 						culture = { has_graphical_mena_culture_group_trigger = yes }
 					}
 				}
->>>>>>> 1.18
 			}
 		}
 		reference = "gfx/interface/illustrations/event_scenes/ep2_holysite_mena.dds"
@@ -12985,15 +12461,6 @@ ep2_involved_activity = {
 				scope:bg_override_char = {
 					involved_activity ?= { has_activity_type = activity_pilgrimage }
 					OR = {
-<<<<<<< HEAD
-						involved_activity.activity_location.province_owner ?= { 
-							OR = {
-								government_has_flag = government_is_clan
-								government_has_flag = government_is_tribal
-							} 
-						}
-						involved_activity.activity_location.culture = { has_graphical_steppe_culture_group_trigger = yes }	
-=======
 						involved_activity.activity_location.county.holder ?= {
 							OR = {
 								government_has_flag = government_is_tribal
@@ -13002,22 +12469,12 @@ ep2_involved_activity = {
 							}
 						}
 						involved_activity.activity_location.culture = { has_graphical_steppe_culture_group_trigger = yes }
->>>>>>> 1.18
 					}
 				}
 			}
 			trigger_else = {
 				involved_activity ?= { has_activity_type = activity_pilgrimage }
 				OR = {
-<<<<<<< HEAD
-					involved_activity.activity_location.province_owner ?= { 
-						OR = {
-							government_has_flag = government_is_clan
-							government_has_flag = government_is_tribal
-						} 
-					}
-					involved_activity.activity_location.culture = { has_graphical_steppe_culture_group_trigger = yes }	
-=======
 					involved_activity.activity_location.county.holder ?= {
 						OR = {
 							government_has_flag = government_is_tribal
@@ -13026,7 +12483,6 @@ ep2_involved_activity = {
 						}
 					}
 					involved_activity.activity_location.culture = { has_graphical_steppe_culture_group_trigger = yes }
->>>>>>> 1.18
 				}
 			}
 		}
@@ -13058,8 +12514,6 @@ ep2_involved_activity = {
 				limit = { exists = scope:bg_override_char }
 				scope:bg_override_char = {
 					involved_activity ?= { has_activity_type = activity_pilgrimage }
-<<<<<<< HEAD
-=======
 					involved_activity.activity_location.county.holder ?= { 
 						OR = {
 							government_has_flag = government_is_tribal
@@ -13090,7 +12544,6 @@ ep2_involved_activity = {
 				limit = { exists = scope:bg_override_char }
 				scope:bg_override_char = {
 					involved_activity ?= { has_activity_type = activity_pilgrimage }
->>>>>>> 1.18
 				}
 			}
 			trigger_else = {
@@ -13292,11 +12745,7 @@ ep2_activity = {
 	background = {	#FP2 (uses MENA)
 		trigger = {
 			scope:activity ?= { has_activity_type = activity_wedding }
-<<<<<<< HEAD
-			capital_province.culture = { has_building_gfx = iberian_building_gfx }
-=======
 			location.culture ?= { has_building_gfx = iberian_building_gfx }
->>>>>>> 1.18
 		}
 		reference = "gfx/interface/illustrations/event_scenes/ep2_wedding_ceremony_mena.dds"
 		environment = "environment_mena_wedding"
@@ -13423,8 +12872,6 @@ ep2_activity = {
 		ambience = "event:/DLC/EP2/SFX/Events/Backgrounds/evn_background_dark_forest"
 	}
 	### PILGRIMAGE 
-<<<<<<< HEAD
-=======
 	background = { # MPO - Tengri
 		trigger = {
 			trigger_if = {
@@ -13479,7 +12926,6 @@ ep2_activity = {
 		environment = "environment_mpo_temple_steppe"
 		ambience = "event:/DLC/CE2/Events/Event_Images/mpo_temple_steppe"
 	}
->>>>>>> 1.18
 	background = { #MENA generic holy site
 		trigger = {
 			trigger_if = {
@@ -13580,44 +13026,6 @@ ep2_activity = {
 	}
 	background = {
 		trigger = {
-<<<<<<< HEAD
-			trigger_if = {
-				limit = { exists = scope:bg_override_char }
-				scope:bg_override_char = {
-					##
-				}
-			}
-			trigger_else = {
-				##
-			}
-			scope:activity ?= { has_activity_type = activity_pilgrimage }
-			OR = {
-				scope:activity.activity_location.province_owner ?= { 
-					OR = {
-						government_has_flag = government_is_clan
-						government_has_flag = government_is_tribal
-					} 
-				}
-				scope:activity.activity_location.culture = { has_graphical_steppe_culture_group_trigger = yes }	
-			}
-		}
-		reference = "gfx/interface/illustrations/event_scenes/ep2_holysite_tribal.dds"
-		environment = "environment_event_garden"
-		ambience = "event:/DLC/FP1/SFX/Events/event_temple"
-	}
-	background = {
-		trigger = {
-			trigger_if = {
-				limit = { exists = scope:bg_override_char }
-				scope:bg_override_char = {
-					##
-				}
-			}
-			trigger_else = {
-				##
-			} 
-=======
->>>>>>> 1.18
 			scope:activity ?= { has_activity_type = activity_pilgrimage }
 			scope:activity.activity_location.culture = { has_graphical_norse_culture_group_trigger = yes }
 		}
@@ -13628,8 +13036,6 @@ ep2_activity = {
 	background = {
 		trigger = {
 			scope:activity ?= { has_activity_type = activity_pilgrimage }
-<<<<<<< HEAD
-=======
 			OR = {
 				scope:activity.activity_location.county.holder ?= { 
 					OR = {
@@ -13647,7 +13053,6 @@ ep2_activity = {
 	background = {
 		trigger = {
 			scope:activity ?= { has_activity_type = activity_pilgrimage }
->>>>>>> 1.18
 		}
 		reference = "gfx/interface/illustrations/event_scenes/temple.dds"
 		environment = "environment_event_temple"
@@ -13988,15 +13393,12 @@ ep2_holy_site_indian = {
 
 ep2_travel_farms = {
 	background = { # Farmland, settled
-<<<<<<< HEAD
 		trigger = {
 			location = {
 				terrain = farmlands
 				exists = province_owner
 			}
 		}
-=======
->>>>>>> 1.18
 		reference = "gfx/interface/illustrations/event_scenes/ep2_travel_farm.dds"
 		environment = "environment_travel_farmlands"
 		ambience = "event:/SFX/Events/Backgrounds/fields_farms_day"
@@ -14753,9 +14155,6 @@ journey_activity_background = {
 				activity_location.county.holder = { #Local Host
 					OR = {
 						should_use_tribal_realm_palace_graphics_trigger = yes
-<<<<<<< HEAD
-						culture = { has_graphical_steppe_culture_group_trigger = yes }
-=======
 						AND = {
 							culture ?= { has_graphical_steppe_culture_group_trigger = yes }
 							NOR = {
@@ -14764,7 +14163,6 @@ journey_activity_background = {
 								government_has_flag = government_is_herder
 							}
 						}
->>>>>>> 1.18
 					}
 				}
 			}
@@ -15163,8 +14561,6 @@ terrain_settlement = {
 		environment = "environment_travel_hills_settlement"
 		ambience = "event:/SFX/Events/Backgrounds/fields_farms_day"
 	}
-<<<<<<< HEAD
-=======
 	background = { #forest, settled - East Asia
 		trigger = {
 			trigger_if = {
@@ -15223,7 +14619,6 @@ terrain_settlement = {
 		environment = "environment_generic_hunt" 
 		ambience = "event:/DLC/EP2/SFX/Events/Backgrounds/evn_background_dark_forest" 
 	}
->>>>>>> 1.18
 	background = { #Fallback, settled
 		reference = "gfx/interface/illustrations/event_scenes/ep2_travel_hills.dds"
 		environment = "environment_travel_hills_settlement"
@@ -15338,8 +14733,6 @@ terrain_settlement_no_owner = {
 		environment = "environment_travel_hills_settlement"
 		ambience = "event:/SFX/Events/Backgrounds/fields_farms_day"
 	}
-<<<<<<< HEAD
-=======
 	background = { #forest, settled - East Asia
 		trigger = {
 			trigger_if = {
@@ -15400,7 +14793,6 @@ terrain_settlement_no_owner = {
 		environment = "environment_travel_hills_settlement"
 		ambience = "event:/SFX/Events/Backgrounds/fields_farms_day"
 	}
->>>>>>> 1.18
 }
 
 ep3_campfire = {
@@ -15416,19 +14808,12 @@ relaxing_room_location = {
 	background = {
 		trigger = {
 			OR = {
-<<<<<<< HEAD
-				location.culture = { has_building_gfx = arabic_group_building_gfx }
-				location.culture = { has_building_gfx = berber_group_building_gfx }
-				location.culture = { has_building_gfx = iberian_building_gfx }
-				location.culture = { has_building_gfx = iranian_building_gfx }
-=======
 				location.culture ?= { has_building_gfx = arabic_group_building_gfx }
 				location.culture ?= { has_building_gfx = berber_group_building_gfx }
 				location.culture ?= { has_building_gfx = iberian_building_gfx }
 				location.culture ?= { has_building_gfx = iranian_building_gfx }
 				location.culture ?= { has_graphical_mena_culture_group_trigger = yes }
 				location ?= { steppe_building_gfx_use_mena_trigger = yes }
->>>>>>> 1.18
 			}
 		}
 		reference = "gfx/interface/illustrations/event_scenes/bp1_relaxing_room_mena.dds"
@@ -15574,10 +14959,6 @@ village_festival = {
 
 	background = { #Indian
 		trigger = {
-<<<<<<< HEAD
-			location = {
-				geographical_region = graphical_india
-=======
 			location ?= {
 				OR = {
 					culture ?= {
@@ -15585,7 +14966,6 @@ village_festival = {
 					}
 					steppe_building_gfx_use_indian_trigger = yes
 				}
->>>>>>> 1.18
 			}
 		}
 		reference = "gfx/interface/illustrations/event_scenes/ep2_feast_indian.dds"
@@ -15815,8 +15195,6 @@ mpo_fullscreen_greatest_of_khans = {
 		ambience = "event:/DLC/CE2/Events/Event_Images/mpo_greatest_of_khans"
 	}
 }
-<<<<<<< HEAD
-=======
 
 ### TGP ###
 tgp_examination_room = {
@@ -16968,4 +16346,3 @@ tgp_fullscreen_japanese_shogunate = {
 		ambience = "event:/DLC/EP4/SFX/Events/Story_Events/tgp_dynastic_cycle_shogunate"
 	}
 }
->>>>>>> 1.18
