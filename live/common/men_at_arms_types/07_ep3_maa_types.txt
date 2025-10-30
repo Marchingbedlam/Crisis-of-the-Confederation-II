@@ -88,9 +88,18 @@
 # 		light_cavalry = 1
 # 	}
 
+<<<<<<< HEAD
 # 	can_recruit = {
 # 		valid_for_maa_trigger = { PARAMETER = unlock_maa_conrois }
 # 	}
+=======
+	can_recruit = {
+		valid_for_maa_trigger = { PARAMETER = unlock_maa_conrois }
+		NOT = {
+			culture = { has_cultural_parameter = strength_in_numbers_heavy_maa_ban }
+		}
+	}
+>>>>>>> 1.18
 
 # 	winter_bonus = {
 # 		normal_winter = { damage = -15 toughness = -5 }
@@ -157,10 +166,18 @@
 # 		hills = { damage = 8 }
 # 	}
 
+<<<<<<< HEAD
 # 	counters = {
 # 		pikemen = 0.5
 # 		heavy_infantry = 0.5
 # 	}
+=======
+	counters = {
+		pikemen = 0.5
+		peasant_militia = 1
+		heavy_infantry = 0.5
+	}
+>>>>>>> 1.18
 
 # 	can_recruit = {
 # 		valid_for_maa_trigger = { PARAMETER = unlock_maa_ballistrai }
@@ -223,6 +240,7 @@
 # 	pursuit = 10
 # 	screen = 5
 
+<<<<<<< HEAD
 # 	can_recruit = {
 # 		exists = scope:title
 # 		scope:title = {
@@ -240,6 +258,29 @@
 # 		pikemen = 1
 # 		heavy_cavalry = 1
 # 	}
+=======
+	can_recruit = {
+		exists = scope:title
+		scope:title = {
+			has_variable = founded_varangian_guard
+		}
+		NOT = {
+			culture = { has_cultural_parameter = strength_in_numbers_heavy_maa_ban }
+		}
+	}
+
+	terrain_bonus = {
+		farmlands = { damage = 12 toughness = 8 }
+		plains = { damage = 6 toughness = 4 }
+		hills = { damage = 6 toughness = 4 }
+	}
+	
+	counters = {
+		pikemen = 1
+		peasant_militia = 2
+		heavy_cavalry = 1
+	}
+>>>>>>> 1.18
 
 # 	winter_bonus = {
 # 		normal_winter = { toughness = 6 screen = 6 }
@@ -267,9 +308,18 @@
 # 	pursuit = 5
 # 	screen = 5
 
+<<<<<<< HEAD
 # 	can_recruit = {
 # 		domicile ?= { has_domicile_parameter = camp_unlocks_handpicked_faithful_maa_type }
 # 	}
+=======
+	can_recruit = {
+		domicile ?= { has_domicile_parameter = camp_unlocks_handpicked_faithful_maa_type }
+		NOT = {
+			culture = { has_cultural_parameter = strength_in_numbers_heavy_maa_ban }
+		}
+	}
+>>>>>>> 1.18
 
 # 	terrain_bonus = {
 # 		hills = { damage = 6 toughness = 4 }
@@ -277,10 +327,18 @@
 # 		jungle = { damage = 6 toughness = 4 }
 # 	}
 
+<<<<<<< HEAD
 # 	counters = {
 # 		pikemen = 1
 # 		heavy_cavalry = 1
 # 	}
+=======
+	counters = {
+		pikemen = 1
+		peasant_militia = 2
+		heavy_cavalry = 1
+	}
+>>>>>>> 1.18
 
 # 	buy_cost = { gold = handpicked_faithful_recruitment_cost }
 # 	low_maintenance_cost = { gold = handpicked_faithful_low_maint_cost }
@@ -295,10 +353,17 @@
 # 	icon = heavy_infantry
 # }
 
+<<<<<<< HEAD
 # maa_bandits = {
 # 	type = skirmishers
 	
 # 	can_recruit = { always = no }
+=======
+maa_bandits = {
+	type = skirmishers
+
+	special_recruit_only = yes
+>>>>>>> 1.18
 
 # 	damage = 15
 # 	toughness = 20
@@ -329,12 +394,21 @@
 # maa_poachers = {
 # 	type = archers
 
+<<<<<<< HEAD
 # 	can_recruit = { always = no }
 	
 # 	damage = 30
 # 	toughness = 15
 # 	pursuit = 10
 # 	screen = 10
+=======
+	special_recruit_only = yes
+
+	damage = 30
+	toughness = 15
+	pursuit = 10
+	screen = 10
+>>>>>>> 1.18
 	
 # 	terrain_bonus = {
 # 		hills = { damage = 10 toughness = 6 }
@@ -359,12 +433,21 @@
 # maa_marauders = {
 # 	type = light_cavalry
 
+<<<<<<< HEAD
 # 	can_recruit = { always = no }
 	
 # 	damage = 30
 # 	toughness = 15
 # 	pursuit = 40
 # 	screen = 30
+=======
+	special_recruit_only = yes
+
+	damage = 30
+	toughness = 15
+	pursuit = 40
+	screen = 30
+>>>>>>> 1.18
 	
 # 	terrain_bonus = {
 # 		plains = { damage = 15 }
@@ -389,12 +472,21 @@
 # maa_thieves = {
 # 	type = pikemen
 
+<<<<<<< HEAD
 # 	can_recruit = { always = no }
 	
 # 	damage = 30
 # 	toughness = 20
 # 	pursuit = 10
 # 	screen = 10
+=======
+	special_recruit_only = yes
+
+	damage = 30
+	toughness = 20
+	pursuit = 10
+	screen = 10
+>>>>>>> 1.18
 	
 # 	terrain_bonus = {
 # 		mountains = { toughness = 15 }
