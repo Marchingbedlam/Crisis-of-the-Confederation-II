@@ -169,11 +169,6 @@ scripted_trigger 1000_appropriate_visiting_partner_basic_trigger = {
 
 #Are we not in a city?
 scripted_trigger 1000_is_a_nomadic_holding_trigger = {
-<<<<<<< HEAD
-	scope:visiting_location = { 
-		has_holding_type = tribal_holding
-		is_nomadic_location_trigger = yes
-=======
 	scope:visiting_location = {
 		is_nomadic_location_trigger = yes
 		OR = {
@@ -181,7 +176,6 @@ scripted_trigger 1000_is_a_nomadic_holding_trigger = {
 			has_holding_type = nomad_holding
 			has_holding_type = herder_holding
 		}
->>>>>>> 1.18
 	}
 }
 

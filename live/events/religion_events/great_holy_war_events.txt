@@ -866,28 +866,18 @@ great_holy_war.0005 = {
 #Hidden check event, fired on_faith pulse.
 
 scripted_trigger great_holy_war_0010_jerusalem_reason_trigger = {
-<<<<<<< HEAD
 	title:c_avalon.holder.top_liege = {
 		NOT = {
 			faith.religion = scope:awakening_faith.religion
 		}
-=======
-	title:c_jerusalem.holder.top_liege = {
-		faith.religion != scope:awakening_faith.religion
->>>>>>> 1.18
 	}
 }
 
 scripted_trigger great_holy_war_0010_rome_reason_trigger = {
-<<<<<<< HEAD
 	title:c_avalon.holder.top_liege = {
 		NOT = {
 			faith.religion = scope:awakening_faith.religion
 		}
-=======
-	title:c_roma.holder.top_liege = {
-		faith.religion != scope:awakening_faith.religion
->>>>>>> 1.18
 	}
 }
 
@@ -955,15 +945,10 @@ scripted_trigger great_holy_war_0010_europe_reason_trigger = {
 }
 
 scripted_trigger great_holy_war_0010_mecca_reason_trigger = {
-<<<<<<< HEAD
 	title:c_avalon.holder.top_liege = {
 		NOT = {
 			faith.religion = scope:awakening_faith.religion
 		}
-=======
-	title:c_mecca.holder.top_liege = {
-		faith.religion != scope:awakening_faith.religion
->>>>>>> 1.18
 	}
 }
 
@@ -1021,15 +1006,10 @@ great_holy_war.0010 = {
 		num_county_followers >= 35 # Faith must have at least SOME legitimacy.
 		OR = {
 			AND = { # Historical setup.
-<<<<<<< HEAD
 				title:c_avalon.holder = {
 					NOT = {
 						faith.religion = root.religion
 					}
-=======
-				title:c_jerusalem.holder = {
-					faith.religion != root.religion
->>>>>>> 1.18
 				}
 				current_date >= 1095.1.1
 				faith:catholic = root
@@ -1045,15 +1025,10 @@ great_holy_war.0010 = {
 				faith:catholic = root
 			}
 			AND = { # Historical setup.
-<<<<<<< HEAD
 				title:c_avalon.holder.top_liege = {
 					NOT = {
 						faith.religion = root.religion
 					}
-=======
-				title:c_roma.holder.top_liege = {
-					faith.religion != root.religion
->>>>>>> 1.18
 				}
 				faith:catholic = root
 			}
