@@ -7196,101 +7196,101 @@ relaxing_room = {
 		environment = "environment_ep3_living_tent_interior"
 		ambience = "event:/DLC/EP3/SFX/Events/Event_Images/ep3_evn_eventimage_living_tent_interior"
 	}
-	background = { # Byzantium/Greek Kings/Emperors
-		trigger = {
-			trigger_if = {
-				limit = { exists = scope:bg_override_char }
-				scope:bg_override_char = {
-					highest_held_title_tier >= tier_kingdom
-					OR = {
-						location ?= { steppe_building_gfx_use_mediterranean_trigger = yes }
-						location.culture ?= {
-							OR = {
-								has_cultural_pillar = heritage_byzantine
-								has_cultural_pillar = heritage_caucasian
-								has_cultural_pillar = heritage_latin
-								has_graphical_mediterranean_culture_group_trigger = yes 
-							}
-						}
-					}
-				}
-			}
-			trigger_else = {
-				highest_held_title_tier >= tier_kingdom
-				OR = {
-					location ?= { exists = culture steppe_building_gfx_use_mediterranean_trigger = yes }
-					location.culture ?= {
-						OR = {
-							has_cultural_pillar = heritage_byzantine
-							has_cultural_pillar = heritage_caucasian
-							has_cultural_pillar = heritage_latin
-							has_graphical_mediterranean_culture_group_trigger = yes
-						}
-					}
-				}
-			}
-			trigger_else = {
-				highest_held_title_tier >= tier_kingdom
-				location.culture ?= {
-					OR = {
-						has_cultural_pillar = heritage_byzantine
-						has_cultural_pillar = heritage_caucasian
-						has_cultural_pillar = heritage_latin
-						has_graphical_mediterranean_culture_group_trigger = yes
-					}
-				}
-			}
-		}
-		reference = "gfx/interface/illustrations/event_scenes/ep3_relaxing_room.dds"
-		environment = "environment_ep3_relaxing_room"
-		ambience = "event:/DLC/EP3/SFX/Events/Event_Images/ep3_evn_eventimage_byzantine_relaxing_room"
-	}
-	background = { # Byzantium/Greek Everyone else
-		trigger = {
-			trigger_if = {
-				limit = { exists = scope:bg_override_char }
-				scope:bg_override_char = {
-					OR = {
-						location ?= { steppe_building_gfx_use_mediterranean_trigger = yes }
-						location.culture ?= {
-							OR = {
-								has_cultural_pillar = heritage_byzantine
-								has_cultural_pillar = heritage_caucasian
-								has_cultural_pillar = heritage_latin
-								has_graphical_mediterranean_culture_group_trigger = yes 
-							}
-						}
-					}
-				}
-			}
-			trigger_else = {
-				OR = {
-					location ?= { exists = culture steppe_building_gfx_use_mediterranean_trigger = yes }
-					location.culture ?= {
-						OR = {
-							has_cultural_pillar = heritage_byzantine
-							has_cultural_pillar = heritage_caucasian
-							has_cultural_pillar = heritage_latin
-							has_graphical_mediterranean_culture_group_trigger = yes
-						}
-					}
-				}
-			}
-			trigger_else = {
-				location.culture ?= {
-					OR = {
-						has_cultural_pillar = heritage_byzantine
-						has_cultural_pillar = heritage_caucasian
-						has_cultural_pillar = heritage_latin
-						has_graphical_mediterranean_culture_group_trigger = yes 
-					}
-				}
-			}
-		}
-		reference = "gfx/interface/illustrations/event_scenes/ep3_medi_study.dds"
-		environment = "environment_ep3_byzantine_study"
-		ambience = "event:/SFX/Events/Backgrounds/office_workplace"
-	}
+	# background = { # Byzantium/Greek Kings/Emperors
+		# trigger = {
+			# trigger_if = {
+				# limit = { exists = scope:bg_override_char }
+				# scope:bg_override_char = {
+					# highest_held_title_tier >= tier_kingdom
+					# OR = {
+						# location ?= { steppe_building_gfx_use_mediterranean_trigger = yes }
+						# location.culture ?= {
+							# OR = {
+								# has_cultural_pillar = heritage_byzantine
+								# has_cultural_pillar = heritage_caucasian
+								# has_cultural_pillar = heritage_latin
+								# has_graphical_mediterranean_culture_group_trigger = yes 
+							# }
+						# }
+					# }
+				# }
+			# }
+			# trigger_else = {
+				# highest_held_title_tier >= tier_kingdom
+				# OR = {
+					# location ?= { exists = culture steppe_building_gfx_use_mediterranean_trigger = yes }
+					# location.culture ?= {
+						# OR = {
+							# has_cultural_pillar = heritage_byzantine
+							# has_cultural_pillar = heritage_caucasian
+							# has_cultural_pillar = heritage_latin
+							# has_graphical_mediterranean_culture_group_trigger = yes
+						# }
+					# }
+				# }
+			# }
+			# trigger_else = {
+				# highest_held_title_tier >= tier_kingdom
+				# location.culture ?= {
+					# OR = {
+						# has_cultural_pillar = heritage_byzantine
+						# has_cultural_pillar = heritage_caucasian
+						# has_cultural_pillar = heritage_latin
+						# has_graphical_mediterranean_culture_group_trigger = yes
+					# }
+				# }
+			# }
+		# }
+		# reference = "gfx/interface/illustrations/event_scenes/ep3_relaxing_room.dds"
+		# environment = "environment_ep3_relaxing_room"
+		# ambience = "event:/DLC/EP3/SFX/Events/Event_Images/ep3_evn_eventimage_byzantine_relaxing_room"
+	# }
+	# background = { # Byzantium/Greek Everyone else
+		# trigger = {
+			# trigger_if = {
+				# limit = { exists = scope:bg_override_char }
+				# scope:bg_override_char = {
+					# OR = {
+						# location ?= { steppe_building_gfx_use_mediterranean_trigger = yes }
+						# location.culture ?= {
+							# OR = {
+								# has_cultural_pillar = heritage_byzantine
+								# has_cultural_pillar = heritage_caucasian
+								# has_cultural_pillar = heritage_latin
+								# has_graphical_mediterranean_culture_group_trigger = yes 
+							# }
+						# }
+					# }
+				# }
+			# }
+			# trigger_else = {
+				# OR = {
+					# location ?= { exists = culture steppe_building_gfx_use_mediterranean_trigger = yes }
+					# location.culture ?= {
+						# OR = {
+							# has_cultural_pillar = heritage_byzantine
+							# has_cultural_pillar = heritage_caucasian
+							# has_cultural_pillar = heritage_latin
+							# has_graphical_mediterranean_culture_group_trigger = yes
+						# }
+					# }
+				# }
+			# }
+			# trigger_else = {
+				# location.culture ?= {
+					# OR = {
+						# has_cultural_pillar = heritage_byzantine
+						# has_cultural_pillar = heritage_caucasian
+						# has_cultural_pillar = heritage_latin
+						# has_graphical_mediterranean_culture_group_trigger = yes 
+					# }
+				# }
+			# }
+		# }
+		# reference = "gfx/interface/illustrations/event_scenes/ep3_medi_study.dds"
+		# environment = "environment_ep3_byzantine_study"
+		# ambience = "event:/SFX/Events/Backgrounds/office_workplace"
+	# }
 	background = { #Indian/Southeast Asian Relaxing Room (Uses Physician Study)
 		trigger = {
 			trigger_if = {
