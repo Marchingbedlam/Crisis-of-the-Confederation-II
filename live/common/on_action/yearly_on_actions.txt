@@ -2342,7 +2342,6 @@ five_year_everyone_pulse = {
 			move_budget_gold = { gold = long_term_gold from = budget_long_term to = budget_short_term }
 		}
 
-<<<<<<< HEAD
 			# FP2 - Checks to start El Cid's Travels
 			if = {
 				limit = { # Am I El Cid?
@@ -2357,21 +2356,6 @@ five_year_everyone_pulse = {
 							liege = character:1
 							employer = character:1
 						}
-=======
-		# FP2 - Checks to start El Cid's Travels
-		if = {
-			limit = { # Am I El Cid?
-				has_fp2_dlc_trigger = yes
-				has_ep3_dlc_trigger = no
-				this = character:107590
-				NOT = { has_character_flag = has_already_begun_travelling } # Separate first check, for performance
-
-				NOT = { # Start date employer is either dead or gone
-					OR = {
-						top_liege = character:107500
-						liege = character:107500
-						employer = character:107500
->>>>>>> 1.18
 					}
 				}
 				is_available_healthy_ai_adult = yes # Am I ready to go on an adventure?
@@ -3287,8 +3271,6 @@ on_yearly_events = {
 		
 		# MPO - Settled Rulers Events
 		500 = mpo_flavor_events_settled.0010 # Horse Lord at your door
-<<<<<<< HEAD
-=======
 		
 		# TGP - Movement Events
 		200 = tgp_movement_events.0001 # Marshal urges you to prepare for Expansion
@@ -3361,6 +3343,5 @@ on_yearly_tutorial_events = {
 	random_events = {
 		chance_to_happen = 100
 		1 = tutorial.1001
->>>>>>> 1.18
 	}
 }

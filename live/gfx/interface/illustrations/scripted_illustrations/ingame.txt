@@ -1821,9 +1821,6 @@ character_view_bg = {
 		reference = "event_scenes/ep2_hunt_poachers_camp.dds"
 
 		trigger = {
-<<<<<<< HEAD
-			involved_activity ?= { has_activity_type = activity_hunt }
-=======
 			involved_activity ?= {
 				has_activity_type = activity_hunt
 				hunt_is_nerge_type = no
@@ -1840,7 +1837,6 @@ character_view_bg = {
 				has_activity_type = activity_hunt
 				hunt_is_nerge_type = yes
 			}
->>>>>>> 1.18
 			location ?= involved_activity.activity_location
 		}
 	}
@@ -2115,17 +2111,12 @@ character_view_bg = {
 
 		trigger = {
 			involved_activity ?= { has_activity_type = activity_pilgrimage }
-<<<<<<< HEAD
-			involved_activity.activity_location.province_owner ?= { 
-				government_has_flag = government_is_tribal
-=======
 			involved_activity.activity_location.province_owner ?= {
 				OR = {
 					government_has_flag = government_is_tribal
 					government_has_flag = government_is_nomadic
 					government_has_flag = government_is_herder
 				}
->>>>>>> 1.18
 			}
 			location ?= involved_activity.activity_location
 		}
@@ -2140,17 +2131,12 @@ character_view_bg = {
 					exists = primary_spouse
 					primary_spouse = {
 						involved_activity ?= { has_activity_type = activity_pilgrimage }
-<<<<<<< HEAD
-						involved_activity.activity_location.province_owner ?= { 
-							government_has_flag = government_is_tribal
-=======
 						involved_activity.activity_location.province_owner ?= {
 							OR = {
 								government_has_flag = government_is_tribal
 								government_has_flag = government_is_nomadic
 								government_has_flag = government_is_herder
 							}
->>>>>>> 1.18
 						}
 						location ?= involved_activity.activity_location
 					}
@@ -2159,17 +2145,12 @@ character_view_bg = {
 					exists = betrothed
 					betrothed = {
 						involved_activity ?= { has_activity_type = activity_pilgrimage }
-<<<<<<< HEAD
-						involved_activity.activity_location.province_owner ?= { 
-							government_has_flag = government_is_tribal
-=======
 						involved_activity.activity_location.province_owner ?= {
 							OR = {
 								government_has_flag = government_is_tribal
 								government_has_flag = government_is_nomadic
 								government_has_flag = government_is_herder
 							}
->>>>>>> 1.18
 						}
 						location ?= involved_activity.activity_location
 					}
@@ -2178,17 +2159,12 @@ character_view_bg = {
 					liege.diarch ?= this
 					liege ?= {
 						involved_activity ?= { has_activity_type = activity_pilgrimage }
-<<<<<<< HEAD
-						involved_activity.activity_location.province_owner ?= { 
-							government_has_flag = government_is_tribal
-=======
 						involved_activity.activity_location.province_owner ?= {
 							OR = {
 								government_has_flag = government_is_tribal
 								government_has_flag = government_is_nomadic
 								government_has_flag = government_is_herder
 							}
->>>>>>> 1.18
 						}
 						location ?= involved_activity.activity_location
 					}
@@ -2313,8 +2289,6 @@ character_view_bg = {
 	}
 
 	####
-<<<<<<< HEAD
-=======
 	# pilgrimage, East Asian generic holy site
 	####
 	texture = {
@@ -2389,7 +2363,6 @@ character_view_bg = {
 	}
 
 	####
->>>>>>> 1.18
 	# pilgrimage, Orthodox generic holy site
 	####
 	texture = {
@@ -2517,8 +2490,6 @@ character_view_bg = {
 	##########################################
 
 	####
-<<<<<<< HEAD
-=======
 	# Herder background
 	####
 	texture = {
@@ -2554,7 +2525,6 @@ character_view_bg = {
 	##########################################
 
 	####
->>>>>>> 1.18
 	# chrysotriklinios
 	####
 	texture = { # Chrysotriklinios
@@ -6134,8 +6104,6 @@ character_view_bg = {
 	}
 
 	#####
-<<<<<<< HEAD
-=======
 	#Landless Adventurers from the steppe
 	texture = {
 		reference = "event_scenes/mpo_camp_steppe.dds"
@@ -6588,7 +6556,6 @@ character_view_bg = {
 	}
 
 	#####
->>>>>>> 1.18
 	# Landless Adventurer Camp
 	#####
 	texture = {
@@ -9221,9 +9188,6 @@ character_view_bg = {
 	}
 
 	##########################################
-<<<<<<< HEAD
-	
-=======
 
 	# Nomad - Greatest of Khans
 	texture = {
@@ -9399,7 +9363,6 @@ character_view_bg = {
 		}
 	}
 
->>>>>>> 1.18
 	# Tribal Norse
 	texture = { # FP1 Norse
 		reference = "character_view/fp1_throneroom_tribal.dds"

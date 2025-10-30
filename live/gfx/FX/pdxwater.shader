@@ -166,26 +166,10 @@ PixelShader =
 		[[
 			PDX_MAIN
 			{
-<<<<<<< HEAD
 				// MOD(CL)
 				discard;
 				// END MOD
 				float4 Water = CalcWater( Input )._Color;
-=======
-				float4 ShadowProj = mul( ShadowMapTextureMatrix, float4( Input.WorldSpacePos, 1.0f ) );
-				float ShadowTerm = CalculateShadow( ShadowProj, ShadowMap );
-				float4 Water = CalcWater( Input, ShadowTerm )._Color;
-				
-				// Calculate enhanced approaching waves effects
-				float Height = GetHeightMultisample( Input.WorldSpacePos.xz, 0.65 );
-				float Depth = Input.WorldSpacePos.y - Height;
-				
-				// Calculate approaching waves
-				float ApproachingWaves = CalcApproachingWaves( Input.UV01, Input.WorldSpacePos, Depth );
-				
-				// Blend approaching waves with water color
-				Water.rgb = lerp( Water.rgb, float3( 1.0f, 1.0f, 1.0f ), ApproachingWaves );
->>>>>>> 1.18
 
 				#ifdef WATER_COLOR_OVERLAY
 					// Not enough texture slots, so use only secondary colors on water.

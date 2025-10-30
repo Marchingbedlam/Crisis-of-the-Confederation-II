@@ -125,7 +125,6 @@ PixelShader =
 				float3 CloudyColor = float3( 0.0f, 0.01f, 0.02f );
 				Diffuse.rgb = lerp( Diffuse.rgb, CloudyColor, CloudMask * 0.6f );
 
-<<<<<<< HEAD
 				// MOD(COTC)
 				// Diffuse.rgb = ApplyFogOfWar( Diffuse.rgb, Input.WorldSpacePos, FogOfWarAlpha );
 				// Diffuse.rgb = ApplyDistanceFog( Diffuse.rgb, Input.WorldSpacePos );
@@ -140,10 +139,6 @@ PixelShader =
 					SLightingProperties LightingProps = GetSunLightingProperties( Input.WorldSpacePos, ShadowTerm );
 					Diffuse.rgb = CalculateSunLighting( MaterialProps, LightingProps, EnvironmentMap );
 				}
-=======
-				Diffuse.rgb = ApplyFogOfWar( Diffuse.rgb, Input.WorldSpacePos, FogOfWarAlpha );
-				Diffuse.rgb = ApplyMapDistanceFogWithoutFoW( Diffuse.rgb, Input.WorldSpacePos );
->>>>>>> 1.18
 
 				return Diffuse;
 			}

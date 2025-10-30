@@ -431,14 +431,10 @@ PixelShader =
 		[[
 			PDX_MAIN
 			{
-<<<<<<< HEAD
 				// MOD(CL)
 				discard;
 				// END MOD
 				clip( vec2(1.0) - Input.WorldSpacePos.xz * WorldSpaceToTerrain0To1 );
-=======
-				clip( vec2( 1.0f ) - Input.WorldSpacePos.xz * WorldSpaceToTerrain0To1 );
->>>>>>> 1.18
 
 				float4 DetailDiffuse;
 				float3 DetailNormal;
@@ -600,14 +596,10 @@ PixelShader =
 		[[
 			PDX_MAIN
 			{
-<<<<<<< HEAD
 				// MOD(CL)
 				discard;
 				// END MOD
 				clip( vec2(1.0) - Input.WorldSpacePos.xz * WorldSpaceToTerrain0To1 );
-=======
-				clip( vec2( 1.0f ) - Input.WorldSpacePos.xz * WorldSpaceToTerrain0To1 );
->>>>>>> 1.18
 
 				float3 DetailDiffuse = Input.DetailDiffuse;
 				float4 DetailMaterial = Input.DetailMaterial;
