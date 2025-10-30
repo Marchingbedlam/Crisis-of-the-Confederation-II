@@ -16,15 +16,9 @@
 	#Create Roman Empire, shift dejure/history/laws, destroy e_byzantium.
 
 	if = {
-<<<<<<< HEAD
-		limit = { capital_county = { this = title:c_avalon } }
-		title:e_roman_empire = { 
-			set_capital_county = title:c_avalon
-=======
 		limit = { capital_county = { this = title:c_byzantion } }
 		title:h_roman_empire = {
 			set_capital_county = title:c_byzantion
->>>>>>> 1.18
 		}
 	}
 
@@ -263,13 +257,8 @@ create_roman_empire_holy_scripted_effect = {
 
 	if = { #Automatically move capital to Rome.
 		limit = {
-<<<<<<< HEAD
-			NOT = { capital_county = { this = title:c_avalon } }
-			exists = title:e_roman_empire.holder
-=======
 			NOT = { capital_county = { this = title:c_roma } }
 			exists = title:h_roman_empire.holder
->>>>>>> 1.18
 		}
 		hidden_effect = {
 			if = { #Usurp if not held personally.
@@ -290,11 +279,7 @@ create_roman_empire_holy_scripted_effect = {
 				resolve_title_and_vassal_change = scope:change
 			}
 		}
-<<<<<<< HEAD
-		title:e_roman_empire.holder = { set_realm_capital = title:c_avalon }
-=======
 		title:h_roman_empire.holder = { set_realm_capital = title:c_roma }
->>>>>>> 1.18
 	}
 	hidden_effect = {
 		create_story = restoring_roman_provinces_story
@@ -372,13 +357,8 @@ create_roman_empire_italy_scripted_effect = {
 	}
 	if = { #Automatically move capital to Rome.
 		limit = {
-<<<<<<< HEAD
-			NOT = { capital_county = { this = title:c_avalon } }
-			exists = title:e_roman_empire.holder
-=======
 			NOT = { capital_county = { this = title:c_roma } }
 			exists = title:h_roman_empire.holder
->>>>>>> 1.18
 		}
 		hidden_effect = {
 			if = { #Usurp if not held personally.
@@ -399,11 +379,7 @@ create_roman_empire_italy_scripted_effect = {
 				resolve_title_and_vassal_change = scope:change
 			}
 		}
-<<<<<<< HEAD
-		title:e_roman_empire.holder = { set_realm_capital = title:c_avalon }
-=======
 		title:h_roman_empire.holder = { set_realm_capital = title:c_roma }
->>>>>>> 1.18
 	}
 	hidden_effect = {
 		create_story = restoring_roman_provinces_story
@@ -569,47 +545,6 @@ create_eastern_roman_empire_scripted_effect = {
 			}
 		}
 		resolve_title_and_vassal_change = scope:change
-<<<<<<< HEAD
-		hidden_effect = { set_primary_title_to = title:e_byzantium }
-		if = { # Ensure new holder has Constantinople and the Theme of Thrace
-			limit = {
-				OR = {
-					scope:new_holder != title:d_thrace.holder
-					scope:new_holder != title:c_avalon.holder
-				}
-			}
-			hidden_effect = {
-				create_title_and_vassal_change = {
-					type = returned
-					save_scope_as = change
-					add_claim_on_loss = no
-				}
-				if = { #Usurp if not held personally.
-					limit = {
-						scope:new_holder != title:d_thrace.holder
-					}
-					title:d_thrace = {
-						change_title_holder = {
-							holder = scope:new_holder
-							change = scope:change
-						}
-					}
-				}
-				if = {
-					limit = { 
-						scope:new_holder != title:c_avalon.holder
-					}
-					title:c_avalon = {
-						change_title_holder = {
-							holder = scope:new_holder
-							change = scope:change
-						}
-					}
-				}
-				resolve_title_and_vassal_change = scope:change
-			}
-			set_realm_capital = title:c_avalon
-=======
 		set_primary_title_to = title:h_eastern_roman_empire 
 		set_realm_capital = title:c_byzantion
 	}
@@ -624,7 +559,6 @@ create_eastern_roman_empire_scripted_effect = {
 		limit = {
 			highest_held_title_tier >= tier_county
 			capital_province = { geographical_region = custom_ep3_restore_rome_eastern_empire }
->>>>>>> 1.18
 		}
 		change_liege = {
 			liege = scope:new_holder
