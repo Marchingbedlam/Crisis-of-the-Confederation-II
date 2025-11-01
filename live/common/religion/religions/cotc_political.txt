@@ -10,6 +10,7 @@ metroplanetism_ideology = {
 	doctrine = doctrine_pluralism_pluralistic
 	doctrine = doctrine_theocracy_lay_clergy
 	doctrine = doctrine_political
+	doctrine = doctrine_secular
 	
 	# Politics
 	doctrine = doctrine_democracy
@@ -336,6 +337,7 @@ separatism_ideology = {
 	doctrine = doctrine_pluralism_righteous
 	doctrine = doctrine_theocracy_lay_clergy
 	doctrine = doctrine_political
+	doctrine = doctrine_secular
 	
 	# Politics
 	doctrine = doctrine_democracy
@@ -649,6 +651,7 @@ astrism_ideology = {
 	doctrine = doctrine_pluralism_righteous
 	doctrine = doctrine_theocracy_lay_clergy
 	doctrine = doctrine_political
+	doctrine = doctrine_secular
 	
 	# Politics
 	doctrine = doctrine_democracy
@@ -907,6 +910,7 @@ socialism_ideology = {
 	doctrine = doctrine_pluralism_righteous
 	doctrine = doctrine_theocracy_lay_clergy
 	doctrine = doctrine_political
+	doctrine = doctrine_atheist
 	
 	# Politics
 	doctrine = doctrine_democracy
@@ -1165,7 +1169,11 @@ socialism_ideology = {
 			doctrine = doctrine_meritocracy
 
 			#Tenets
-			doctrine = tenet_legalism # Placeholder, will be replaced with Filial Piety once AUH is out
+			doctrine_selection_pair = {
+				requires_dlc_flag = all_under_heaven
+				doctrine = tenet_harmonious_society
+				fallback_doctrine = tenet_legalism
+			}
 			doctrine = tenet_planned_economy
 			doctrine = tenet_adaptive 
 		}
@@ -1189,7 +1197,11 @@ socialism_ideology = {
 			#Tenets
 			doctrine = tenet_communal_possessions
 			doctrine = tenet_literalism
-			doctrine = tenet_ancestor_worship
+			doctrine_selection_pair = {
+				requires_dlc_flag = all_under_heaven
+				doctrine = tenet_pursuit_of_knowledge
+				fallback_doctrine = tenet_ancestor_worship
+			}
 		}
 		frontier_anarchist = {
 			color = { 0.53 0.81 0.92 } # Sky blue
@@ -1233,6 +1245,7 @@ transhumanism_ideology = {
 	doctrine = doctrine_pluralism_pluralistic
 	doctrine = doctrine_theocracy_lay_clergy
 	doctrine = doctrine_political
+	doctrine = doctrine_secular
 	
 	# Politics
 	doctrine = doctrine_meritocracy
@@ -1497,7 +1510,11 @@ transhumanism_ideology = {
 
 			#Tenets
 			doctrine = tenet_bio_directionism
-			doctrine = tenet_ancestor_worship
+			doctrine_selection_pair = {
+				requires_dlc_flag = all_under_heaven
+				doctrine = tenet_filial_piety
+				fallback_doctrine = tenet_ancestor_worship
+			}
 			doctrine = tenet_sacred_childbirth
 		}
 		sterlingist = {
@@ -1523,7 +1540,11 @@ transhumanism_ideology = {
 
 			#Tenets
 			doctrine = tenet_bio_directionism
-			doctrine = tenet_ancestor_worship
+			doctrine_selection_pair = {
+				requires_dlc_flag = all_under_heaven
+				doctrine = tenet_filial_piety
+				fallback_doctrine = tenet_ancestor_worship
+			}
 			doctrine = tenet_genetic_dynasties
 		}
 	}

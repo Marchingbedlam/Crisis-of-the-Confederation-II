@@ -1281,6 +1281,21 @@ doctrine_pilgrimage = {
 		}
 	}
 
+	doctrine_pilgrimage_local_rites = {
+		piety_cost = {
+			value = faith_doctrine_cost_mid
+			if = {
+				limit = { has_doctrine = doctrine_pilgrimage_local_rites }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		parameters = {
+			local_shrine_offering = yes
+			can_go_on_pilgrimage = yes
+			basic_pilgrimage_rewards = yes
+		}
+	}
+
 	doctrine_pilgrimage_mandatory = {
 		piety_cost = {
 			value = faith_doctrine_cost_mid
@@ -1402,6 +1417,24 @@ doctrine_funeral = {
 			}
 		}
 	}
+	
+	doctrine_family_rites = { # Solemn veneration
+		piety_cost = {
+			value = faith_doctrine_cost_high
+			if = {
+				limit = { has_doctrine = doctrine_family_rites }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+			if = {
+				limit = { has_doctrine = tenet_filial_piety }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		parameters = {
+			burial_funeral = yes
+			family_rites = yes
+		}
+	}
 }
 
 doctrine_coronation = {
@@ -1458,6 +1491,107 @@ doctrine_coronation = {
 		}
 		is_shown = {
 			has_ach_dlc_trigger = yes
+		}
+	}
+}
+
+doctrine_theism = {
+	group = "main_group"
+	doctrine_atheist = {
+		piety_cost = {
+			value = faith_doctrine_cost_high
+			if = {
+				limit = { has_doctrine = doctrine_monotheist }
+				multiply = faith_changed_doctrine_cost_mult_three_step
+			}
+			if = {
+				limit = { has_doctrine = doctrine_polytheist }
+				multiply = faith_changed_doctrine_cost_mult_four_step
+			}
+			if = {
+				limit = { has_doctrine = doctrine_atheist }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		parameters = {
+			hostility_others = 2
+		}
+	}
+	doctrine_secular = {
+		piety_cost = {
+			value = faith_doctrine_cost_mid
+			if = {
+				limit = { has_doctrine = doctrine_secular }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		can_pick = {
+			custom_description = {
+				text = doctrine_religions_cannot_be_secular
+				NOT = { has_doctrine = religious_hostility_doctrine }
+			}
+		}
+		parameters = { hostility_others = 1 }
+	}
+	doctrine_monotheist = {
+		piety_cost = {
+			value = faith_doctrine_cost_high
+			if = {
+				limit = { has_doctrine = doctrine_atheist }
+				multiply = faith_changed_doctrine_cost_mult_three_step
+			}
+			if = {
+				limit = { 
+					OR = {
+						has_doctrine = special_doctrine_is_christian_faith
+						has_doctrine = special_doctrine_is_jewish_faith
+						has_doctrine = special_doctrine_is_islamic_faith
+						has_doctrine = doctrine_monotheist 
+					}
+				}
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		can_pick = {
+			custom_description = {
+				text = doctrine_requires_religion_trigger
+				has_doctrine = religious_hostility_doctrine
+			}
+		}
+		parameters = {
+			hostility_others = 3
+		}
+	}
+	doctrine_polytheist = {
+		piety_cost = {
+			value = faith_doctrine_cost_high
+			if = {
+				limit = {
+					OR = {
+						has_doctrine = special_doctrine_is_christian_faith
+						has_doctrine = special_doctrine_is_jewish_faith
+						has_doctrine = special_doctrine_is_islamic_faith
+					}
+				}
+				multiply = faith_changed_doctrine_cost_mult_three_step
+			}
+			if = {
+				limit = { has_doctrine = doctrine_atheist }
+				multiply = faith_changed_doctrine_cost_mult_four_step
+			}
+			else_if = {
+				limit = { has_doctrine = doctrine_polytheist }
+				multiply = faith_unchanged_doctrine_cost_mult
+			}
+		}
+		can_pick = {
+			custom_description = {
+				text = doctrine_requires_religion_trigger
+				has_doctrine = religious_hostility_doctrine
+			}
+		}
+		parameters = {
+			hostility_others = 2
 		}
 	}
 }
