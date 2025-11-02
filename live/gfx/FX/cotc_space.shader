@@ -1,20 +1,24 @@
 Includes = {
+	"cw/pdxterrain.fxh"
 	"cw/pdxmesh.fxh"
 	"cw/utility.fxh"
 	"cw/shadow.fxh"
 	"cw/camera.fxh"
 	"cw/heightmap.fxh"
-	"cw/pdxterrain.fxh"
 	"jomini/jomini_fog.fxh"
-	"jomini/jomini_lighting.fxh"
+	"jomini/map_lighting.fxh"
 	"jomini/jomini_fog_of_war.fxh"
 	"jomini/jomini_water.fxh"
 	"jomini/jomini_mapobject.fxh"
+	"jomini/translucency.fxh"
 	"constants.fxh"
 	"standardfuncsgfx.fxh"
+	"shadow_tint.fxh"
 	"lowspec.fxh"
 	"dynamic_masks.fxh"
 	"liquid.fxh"
+	"clouds.fxh"
+	"province_effects.fxh"
 	#MOD(CL)
 	"jomini/jomini_province_overlays.fxh"
 	"bordercolor.fxh"
@@ -51,7 +55,7 @@ PixelShader =
 		MipFilter = "Linear"
 		SampleModeU = "Wrap"
 		SampleModeV = "Wrap"
-	}	
+	}
 
 	TextureSampler AtmosphereMap
     {
@@ -111,6 +115,25 @@ PixelShader =
 		srgb = yes
 	}
 	# END MOD
+
+	TextureSampler FogOfWarAlpha
+	{
+		Ref = JominiFogOfWar
+		MagFilter = "Linear"
+		MinFilter = "Linear"
+		MipFilter = "Linear"
+		SampleModeU = "Wrap"
+		SampleModeV = "Wrap"
+	}
+	TextureSampler FlagTexture
+	{
+		Ref = PdxMeshCustomTexture0
+		MagFilter = "Linear"
+		MinFilter = "Linear"
+		MipFilter = "Linear"
+		SampleModeU = "Wrap"
+		SampleModeV = "Wrap"
+	}
 }
 
 VertexStruct VS_OUTPUT
@@ -132,7 +155,7 @@ VertexShader =
 		VS_OUTPUT ConvertOutput( VS_OUTPUT_PDXMESH In )
 		{
 			VS_OUTPUT Out;
-			
+
 			Out.Position = In.Position;
 			Out.Normal = In.Normal;
 			Out.Tangent = In.Tangent;
@@ -141,10 +164,22 @@ VertexShader =
 			Out.UV1 = In.UV1;
 			Out.WorldSpacePos = In.WorldSpacePos;
 
+			#if defined( SELECTION_MARKER )
+				float2 UV = Out.UV0;
+				float Rotation = GlobalTime * 1.0f;
+				float mid = 0.5f;
+
+				// rotation
+				Out.UV0 = float2(
+					cos( Rotation ) * ( UV.x - mid ) + sin( Rotation ) * ( UV.y - mid ) + mid,
+					cos( Rotation ) * ( UV.y - mid ) - sin( Rotation ) * ( UV.x - mid ) + mid
+				);
+			#endif
+
 			return Out;
 		}
 	]]
-	
+
 	MainCode COTC_VS_standard
 	{
 		Input = "VS_INPUT_PDXMESHSTANDARD"
@@ -187,17 +222,19 @@ PixelShader =
 			PDX_MAIN
 			{
 				float2 ColorMapCoords =  Input.WorldSpacePos.xz *  WorldSpaceToTerrain0To1;
-				float ProvinceStrength = smoothstep( 10, 75, CameraPosition.y );
+				float ProvinceStrength = smoothstep( 10.0f, 75.0f, CameraPosition.y );
 
 				float3 ProvinceOverlayColor;
 				float PreLightingBlend;
 				float PostLightingBlend;
 				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend );
-				float3 PlaneMask = PdxTex2DLod0( COTC_Plane_Mask, COTC_WorldSpacePosXZToMapUV( Input.WorldSpacePos.xz ) );
+				float2 DetailCoordinates = Input.WorldSpacePos.xz * WorldSpaceToDetail;
+				DetailCoordinates.y = 1.0f - DetailCoordinates.y;
+				float3 PlaneMask = PdxTex2DLod0( COTC_Plane_Mask, DetailCoordinates );
 
-				float Alpha = lerp(PlaneMask.r, 0.0, 1.0 - ProvinceStrength);
+				float Alpha = lerp(PlaneMask.r, 0.0f, 1.0f - ProvinceStrength);
 				float3 Color;
-				if( ProvinceOverlayColor.r > 0.0 )
+				if( ProvinceOverlayColor.r > 0.0f )
 				{
 					Color = ProvinceOverlayColor;
 					cotc_ApplyHighlightColor(Color, ColorMapCoords);
@@ -213,25 +250,61 @@ PixelShader =
 			}
 		]]
 	}
-	
+
 	MainCode COTC_PS_standard
 	{
 		Input = "VS_OUTPUT"
 		Output = "PDX_COLOR"
 		Code
 		[[
-			#ifndef DIFFUSE_UV_SET
-				#define DIFFUSE_UV_SET Input.UV0
+			void DebugReturn( inout float3 Out, SMaterialProperties MaterialProps, SLightingProperties LightingProps, PdxTextureSamplerCube EnvironmentMap, float3 ScatteringColor, float ScatteringMask, float3 DiffuseTranslucency )
+			{
+				#if defined( PDX_DEBUG_SCATTERING_MASK )
+					Out = ScatteringMask;
+				#elif defined( PDX_DEBUG_SCATTERING_COLOR )
+					Out = ScatteringColor;
+				#elif defined( PDX_DEBUG_TRANSLUCENCY )
+					Out = DiffuseTranslucency;
+				#else
+					// DebugReturn( Out, MaterialProps, LightingProps, EnvironmentMap );
+				#endif
+			}
+
+			#if defined( ATLAS )
+				#ifndef DIFFUSE_UV_SET
+					#define DIFFUSE_UV_SET Input.UV1
+				#endif
+
+				#ifndef NORMAL_UV_SET
+					#define NORMAL_UV_SET Input.UV1
+				#endif
+
+				#ifndef PROPERTIES_UV_SET
+					#define PROPERTIES_UV_SET Input.UV1
+				#endif
+
+				#ifndef UNIQUE_UV_SET
+					#define UNIQUE_UV_SET Input.UV0
+				#endif
+			#else
+				#ifndef DIFFUSE_UV_SET
+					#define DIFFUSE_UV_SET Input.UV0
+				#endif
+
+				#ifndef NORMAL_UV_SET
+					#define NORMAL_UV_SET Input.UV0
+				#endif
+
+				#ifndef PROPERTIES_UV_SET
+					#define PROPERTIES_UV_SET Input.UV0
+				#endif
 			#endif
-			
-			#ifndef NORMAL_UV_SET
-				#define NORMAL_UV_SET Input.UV0
+			#if defined( COA )
+				#ifndef UNIQUE_UV_SET
+					#define UNIQUE_UV_SET Input.UV1
+				#endif
 			#endif
-			
-			#ifndef PROPERTIES_UV_SET
-				#define PROPERTIES_UV_SET Input.UV0
-			#endif
-			
+
 			PDX_MAIN
 			{
 				float4 Diffuse = PdxTex2D( DiffuseMap, DIFFUSE_UV_SET );
@@ -251,7 +324,7 @@ PixelShader =
 				SMaterialProperties MaterialProps = GetMaterialProperties( Diffuse.rgb, Normal, Properties.a, Properties.g, Properties.b );
 				SLightingProperties LightingProps = GetSunLightingProperties( Input.WorldSpacePos, ShadowTexture );
 				
-				float ProvinceStrength = smoothstep(10, 75, CameraPosition.y);
+				float ProvinceStrength = smoothstep(10.0f, 75.0f, CameraPosition.y);
 				float3 Color = cotc_CalculateSunLighting( MaterialProps, LightingProps, EnvironmentMap, ProvinceStrength );
 				float Alpha = Diffuse.a;
 
@@ -268,18 +341,18 @@ PixelShader =
 				#if defined( COTC_OUTER_FRESNEL ) || defined( COTC_FAR_OUTER_FRESNEL ) || defined( COTC_INNER_FRESNEL )
 					float4 AtmoColor = PdxTex2D( AtmosphereMap, DIFFUSE_UV_SET );
 
-					// float InSun = lerp(saturate( dot( LightingProps._ToLightDir, Input.Normal ) ), 1.0, ProvinceStrength);
+					// float InSun = lerp(saturate( dot( LightingProps._ToLightDir, Input.Normal ) ), 1.0f, ProvinceStrength);
 
 					// Exterior
 					#if defined( COTC_OUTER_FRESNEL )
-						float FresnelFactor = saturate( Fresnel( abs( dot( ToCameraDir, Input.Normal ) ), 0.0, 0.8) );
+						float FresnelFactor = saturate( Fresnel( abs( dot( ToCameraDir, Input.Normal ) ), 0.0f, 0.8f) );
 						Alpha = Alpha - FresnelFactor;
 						Color = lerp( AtmoColor, ProvinceOverlayColor, ProvinceStrength );
 					#endif
 
 					// Interior
 					#if defined( COTC_INNER_FRESNEL )
-						float FresnelFactor = saturate( Fresnel( abs( dot( ToCameraDir, Input.Normal ) ), 0.1, 2.0 - (1.5 * ProvinceStrength) ) /** * InSun **/ );
+						float FresnelFactor = saturate( Fresnel( abs( dot( ToCameraDir, Input.Normal ) ), 0.1f, 2.0f - (1.5f * ProvinceStrength) ) /** * InSun **/ );
 						AtmoColor.rgb = lerp( AtmoColor, ProvinceOverlayColor, ProvinceStrength );
 						Color = lerp( Color, AtmoColor, FresnelFactor );
 					#endif

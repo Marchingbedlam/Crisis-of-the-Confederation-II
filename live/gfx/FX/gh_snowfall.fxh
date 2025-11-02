@@ -121,7 +121,7 @@ PixelShader = {
 			SnowAlpha *= CameraPitchAlphaMultiplier;
 
 			Color = lerp(Color, GH_SNOWFALL_SNOW_COLOR, saturate(SnowAlpha));
-			Alpha = lerp(Alpha, 1.0, saturate(SnowAlpha));
+			Alpha = lerp(Alpha, 1.0f, saturate(SnowAlpha));
 		}
 	]]
 }

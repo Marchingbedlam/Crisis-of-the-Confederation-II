@@ -434,7 +434,7 @@ PixelShader =
 				// MOD(CL)
 				discard;
 				// END MOD
-				clip( vec2(1.0) - Input.WorldSpacePos.xz * WorldSpaceToTerrain0To1 );
+				clip( vec2( 1.0f ) - Input.WorldSpacePos.xz * WorldSpaceToTerrain0To1 );
 
 				float4 DetailDiffuse;
 				float3 DetailNormal;
@@ -599,7 +599,7 @@ PixelShader =
 				// MOD(CL)
 				discard;
 				// END MOD
-				clip( vec2(1.0) - Input.WorldSpacePos.xz * WorldSpaceToTerrain0To1 );
+				clip( vec2( 1.0f ) - Input.WorldSpacePos.xz * WorldSpaceToTerrain0To1 );
 
 				float3 DetailDiffuse = Input.DetailDiffuse;
 				float4 DetailMaterial = Input.DetailMaterial;

@@ -124,22 +124,10 @@ PixelShader =
 				
 				float3 CloudyColor = float3( 0.0f, 0.01f, 0.02f );
 				Diffuse.rgb = lerp( Diffuse.rgb, CloudyColor, CloudMask * 0.6f );
-
 				// MOD(COTC)
 				// Diffuse.rgb = ApplyFogOfWar( Diffuse.rgb, Input.WorldSpacePos, FogOfWarAlpha );
-				// Diffuse.rgb = ApplyDistanceFog( Diffuse.rgb, Input.WorldSpacePos );
+				// Diffuse.rgb = ApplyMapDistanceFogWithoutFoW( Diffuse.rgb, Input.WorldSpacePos );
 				// ENDMOD
-				Diffuse.a *= _Alpha * smoothstep(10, 100, CameraPosition.y);
-
-				// Apply shadows, only if we're fully in flat-map mode
- 				if ( HasFlatMapLightingEnabled == 1 && FlatMapLerp > 0.0 )
-				{
-					float ShadowTerm = CalculateShadow( Input.ShadowProj, ShadowMap );
-					SMaterialProperties MaterialProps = GetMaterialProperties( Diffuse.rgb, float3( 0.0, 1.0, 0.0 ), 1.0, 0.0, 0.0 );
-					SLightingProperties LightingProps = GetSunLightingProperties( Input.WorldSpacePos, ShadowTerm );
-					Diffuse.rgb = CalculateSunLighting( MaterialProps, LightingProps, EnvironmentMap );
-				}
-
 				return Diffuse;
 			}
 		]]
