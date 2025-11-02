@@ -53,6 +53,10 @@
 
 	tenet_communal_possessions = {
 		icon = core_tenet_communism
+		
+		name = tenet_socialism_name
+		desc = tenet_socialism_desc
+		
 		is_shown = {}
 		can_pick = {
 			custom_description = {
@@ -713,6 +717,34 @@
 
 	tenet_alexandrian_catechism = {
 		icon = core_tenet_alexandrian_catechism
+		
+		name = {
+			first_valid = {
+				triggered_desc = {
+					trigger = { has_doctrine = special_doctrine_is_islamic_faith }
+					desc = tenet_islamic_rationalism_name
+				}
+				triggered_desc = {
+					trigger = { has_doctrine = special_doctrine_is_christian_faith }
+					desc = tenet_alexandrian_catechism_name
+				}
+				desc = tenet_science_and_reason_name
+			}
+		}
+		desc = {
+			first_valid = {
+				triggered_desc = {
+					trigger = { has_doctrine = special_doctrine_is_islamic_faith }
+					desc = tenet_islamic_rationalism_desc
+				}
+				triggered_desc = {
+					trigger = { has_doctrine = special_doctrine_is_christian_faith }
+					desc = tenet_alexandrian_catechism_desc
+				}
+				desc = tenet_science_and_reason_desc
+			}
+		}
+		
 		piety_cost = {
 			if = {
 				limit = {
@@ -757,8 +789,8 @@
 		}
 
 		traits = {
-			virtues = { honest calm }
-			sins = { deceitful }
+			virtues = { scholar honest calm }
+			sins = { deceitful zealous }
 		}
 	}
 
@@ -4033,7 +4065,7 @@
 	# TGP Tenets				#
 	############################
 
-	tenet_pure_land = { # Reflavor: Revolution!
+	tenet_pure_land = {
 		icon = core_tenet_pure_land
 		piety_cost = {
 			if = {
@@ -4253,8 +4285,8 @@
  	tenet_pursuit_of_knowledge = { # This represents a scholarly, backwards-looking approach, compared to Quest for Knowledge's forward-looking one
 		icon = core_tenet_pursuit_of_knowledge
 		
-		name = tenet_scholarship_name
-		desc = tenet_scholarship_desc
+		name = tenet_scholarship_and_lore_name
+		desc = tenet_scholarship_and_lore_desc
 
 		is_shown = {
 			has_tgp_dlc_trigger = yes
@@ -4268,6 +4300,10 @@
 
 		piety_cost = {
 			if = {
+				limit = { has_doctrine = special_doctrine_is_mechanic_faith }
+				value = faith_tenet_cost_low
+			}
+			else_if = {
 				limit = { has_doctrine = special_doctrine_is_buddhist_faith }
 				value = faith_tenet_cost_mid
 			}
@@ -4517,11 +4553,11 @@
 		}
 	}
 	
-	tenet_takamin = {
+	tenet_takamin = { # Should be reworked as a general "hunter of hunters" deal, with a focus on major alien predators
 		icon = core_tenet_bear
 
 		is_shown = {
-			always = no # Space bears?
+			always = no
 			has_tgp_dlc_trigger = yes
 			has_doctrine = pagan_hostility_doctrine
 		}
