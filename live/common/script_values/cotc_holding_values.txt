@@ -1,0 +1,67 @@
+# Returns a rough estimate of a holding's population; this is not an actual number, more a way to indicate
+# that some holdings have bigger populations than others and to get things accurate to a very rough order of
+# magnitude
+holding_population = {
+	value = 1
+	# Planets are much bigger than orbitals
+	modifier = {
+		is_terrestrial_planet_trigger = yes
+		multiply = 10
+	}
+	# Young colonies have very small populations
+	modifier = {
+		has_building_or_higher = tribe_02
+		multiply = 2
+	}
+	# Research stations/shrine worlds tend to have smallish caretaker populations
+	modifier = {
+		has_building_or_higher = temple_01
+		multiply = 4
+	}
+	modifier = {
+		has_building_or_higher = temple_02
+		multiply = 4
+	}
+	modifier = {
+		has_building_or_higher = temple_03
+		multiply = 4
+	}
+	modifier = {
+		has_building_or_higher = temple_04
+		multiply = 4
+	}
+	# Military bases need garrisons
+	modifier = {
+		has_building_or_higher = castle_01
+		multiply = 5
+	}
+	modifier = {
+		has_building_or_higher = castle_02
+		multiply = 5
+	}
+	modifier = {
+		has_building_or_higher = castle_03
+		multiply = 5
+	}
+	modifier = {
+		has_building_or_higher = castle_04
+		multiply = 5
+	}
+	# Commercial planets are where people actually live
+	modifier = {
+		has_building_or_higher = city_01
+		multiply = 6
+	}
+	modifier = {
+		has_building_or_higher = city_02
+		multiply = 6
+	}
+	modifier = {
+		has_building_or_higher = city_03
+		multiply = 6
+	}
+	modifier = {
+		has_building_or_higher = city_04
+		multiply = 6
+	}
+}

@@ -82,13 +82,13 @@ religious_maintenance.002 = {
 	
 	immediate = {
 		trigger_event = religious_maintenance.001
-		any_vassal = { trigger_event = religious_maintenance.002 }
+		every_vassal = { trigger_event = religious_maintenance.002 }
 	}
 }
 
 # Opinion of top liege with the wrong legitimacy type
 # Fires on yearly pulse to clear stray bad opinion targets
-religious_maintenance.001 = {
+religious_maintenance.003 = {
 	hidden = yes
 	immediate = {
 		# Start by clearing out former lieges, we'll rebuild the list later if necessary
@@ -160,8 +160,8 @@ religious_maintenance.004 = {
 	
 	immediate = {
 		trigger_event = religious_maintenance.003
-		any_vassal = { trigger_event = religious_maintenance.004 }
-		any_courtier = {
+		every_vassal = { trigger_event = religious_maintenance.004 }
+		every_courtier = {
 			limit = { is_ruler = no }
 			trigger_event = religious_maintenance.004
 		}
