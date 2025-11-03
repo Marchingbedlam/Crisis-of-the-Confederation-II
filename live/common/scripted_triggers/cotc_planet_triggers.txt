@@ -24,3 +24,10 @@ is_terrestrial_planet_trigger = {
 		}
 	}
 }
+# Returns planets with water (not necessarily surface water!)
+has_water_trigger = {
+	OR = {
+		terrain = atmospheric
+		terrain = frozen
+	}
+}

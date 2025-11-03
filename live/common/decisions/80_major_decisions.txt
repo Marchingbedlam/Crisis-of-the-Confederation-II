@@ -417,13 +417,12 @@ convert_whole_realm_to_feudalism_decision = {
 			limit = { government_has_flag = government_is_wanua }
 			faith = { has_doctrine = doctrine_monotheist }
 		}
-	}
-
 		custom_description = {
 			text = permafrost_feudal_ban
 			NOT = { culture = { has_cultural_parameter = permafrost_cannot_become_feudal } }
 		}
 	}
+
 
 	cost = {
 		prestige = 200
@@ -2162,84 +2161,84 @@ lunatic_building_decision = {
 # by
 ##################################################
 
-found_witch_coven_decision = {
-	picture = {
-		reference = "gfx/interface/illustrations/decisions/decision_personal_religious.dds"
-	}
-	decision_group_type = major
-	ai_check_interval = 0
-	desc = found_witch_coven_decision_desc
+# found_witch_coven_decision = {
+	# picture = {
+		# reference = "gfx/interface/illustrations/decisions/decision_personal_religious.dds"
+	# }
+	# decision_group_type = major
+	# ai_check_interval = 0
+	# desc = found_witch_coven_decision_desc
 
-	is_shown = {
-		OR = {
-			has_trait = witch
-			any_secret = { type = secret_witch }
-		}
-		exists = house
-		NOT = { house = { has_house_modifier = witch_coven } }
-	}
+	# is_shown = {
+		# OR = {
+			# has_trait = witch
+			# any_secret = { type = secret_witch }
+		# }
+		# exists = house
+		# NOT = { house = { has_house_modifier = witch_coven } }
+	# }
 
-	is_valid = {
-		is_house_head = yes
-		trigger_if = {
-			limit = {
-				player_heir ?= {
-					is_child_of = root
-					house = root.house
-				}
-			}
-			player_heir = {
-				is_witch_known_by_trigger = { CHARACTER = root }
-			}
-		}
-		#We want a certain % to be witches but also a minimum amount. So if the house is small, we use a minimum number, and if the house is larger we use %
-		trigger_if = {
-			limit = {
-				house = {
-					any_adult_house_member = {
-						always = yes
-						count <= 6
-					}
-				}
-			}
-			house = {
-				custom_tooltip = {
-					text = found_witch_coven_house_member_count_tt
-					any_adult_house_member = {
-						count >= found_witch_coven_member_count_value
-						is_witch_known_by_trigger = { CHARACTER = root }
-					}
-				}
-				any_adult_house_member = {
-					count >= found_witch_coven_member_count_value
-					is_witch_known_by_trigger = { CHARACTER = root }
-				}
-			}
-		}
-		trigger_else = {
-			house = {
-				custom_tooltip = {
-					text = found_witch_coven_house_member_percent_tt
-					any_adult_house_member = {
-						percent >= found_witch_coven_member_percent_value
-						is_witch_known_by_trigger = { CHARACTER = root }
-					}
-				}
-				any_adult_house_member = {
-					percent >= found_witch_coven_member_percent_value
-					is_witch_known_by_trigger = { CHARACTER = root }
-				}
-			}
-		}
-	}
+	# is_valid = {
+		# is_house_head = yes
+		# trigger_if = {
+			# limit = {
+				# player_heir ?= {
+					# is_child_of = root
+					# house = root.house
+				# }
+			# }
+			# player_heir = {
+				# is_witch_known_by_trigger = { CHARACTER = root }
+			# }
+		# }
+		# #We want a certain % to be witches but also a minimum amount. So if the house is small, we use a minimum number, and if the house is larger we use %
+		# trigger_if = {
+			# limit = {
+				# house = {
+					# any_adult_house_member = {
+						# always = yes
+						# count <= 6
+					# }
+				# }
+			# }
+			# house = {
+				# custom_tooltip = {
+					# text = found_witch_coven_house_member_count_tt
+					# any_adult_house_member = {
+						# count >= found_witch_coven_member_count_value
+						# is_witch_known_by_trigger = { CHARACTER = root }
+					# }
+				# }
+				# any_adult_house_member = {
+					# count >= found_witch_coven_member_count_value
+					# is_witch_known_by_trigger = { CHARACTER = root }
+				# }
+			# }
+		# }
+		# trigger_else = {
+			# house = {
+				# custom_tooltip = {
+					# text = found_witch_coven_house_member_percent_tt
+					# any_adult_house_member = {
+						# percent >= found_witch_coven_member_percent_value
+						# is_witch_known_by_trigger = { CHARACTER = root }
+					# }
+				# }
+				# any_adult_house_member = {
+					# percent >= found_witch_coven_member_percent_value
+					# is_witch_known_by_trigger = { CHARACTER = root }
+				# }
+			# }
+		# }
+	# }
 
-	is_valid_showing_failures_only = {
-	}
+	# is_valid_showing_failures_only = {
+	# }
 
-	effect = {
-		found_witch_coven_decision_effects = yes
-	}
-}
+	# effect = {
+		# found_witch_coven_decision_effects = yes
+	# }
+# }
 
 ##################################################
 # Repay Loan
