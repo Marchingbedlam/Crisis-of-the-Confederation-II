@@ -581,7 +581,6 @@ on_title_gain = {
 					scope:title.title_province = {
 						geographical_region = geographical_region:mpo_region_permafrost
 					}
-					tier = tier_county
 				}
 				if = {
 					limit = {
@@ -1028,13 +1027,6 @@ on_title_gain = {
 							modifier = courtly_title_creation_opinion
 							opinion = 30
 						}
-					}
-				}
-				fp3_character_uninvolved_in_struggle_trigger = yes
-				scope:previous_holder ?= {
-					fp3_character_involved_in_struggle_trigger = yes
-					any_character_struggle = {
-						phase_has_catalyst = catalyst_interloper_uninvolved_gain_struggle_titles
 					}
 				}
 			}
@@ -1846,16 +1838,15 @@ on_title_gain = {
 					primary_title.tier <= scope:title.tier
 				}
 				every_vassal = {
-					if = {
-						limit = {
-							culture = { has_cultural_parameter = must_pledge_loyalty_to_liege }
-							NOT = { var:pledge_loyalty_to_liege_grace ?= liege }
-							NOT = { owns_story_of_type = story_cycle_pledge_loyalty_to_liege_overdue }
-						}
-						create_story = story_cycle_pledge_loyalty_to_liege_overdue
-						story:story_cycle_pledge_loyalty_to_liege_overdue = {
-							set_variable = new_liege_variant
-						}
+					limit = {
+						culture = { has_cultural_parameter = must_pledge_loyalty_to_liege }
+						NOT = { var:pledge_loyalty_to_liege_grace ?= liege }
+						NOT = { owns_story_of_type = story_cycle_pledge_loyalty_to_liege_overdue }
+					}
+					create_story = story_cycle_pledge_loyalty_to_liege_overdue
+					random_owned_story = {
+						type = story_cycle_pledge_loyalty_to_liege_overdue
+						set_variable = new_liege_variant
 					}
 				}
 			}
@@ -1866,7 +1857,8 @@ on_title_gain = {
 					NOT = { owns_story_of_type = story_cycle_pledge_loyalty_to_liege_overdue }
 				}
 				create_story = story_cycle_pledge_loyalty_to_liege_overdue
-				story:story_cycle_pledge_loyalty_to_liege_overdue = {
+				random_owned_story = {
+					type = story_cycle_pledge_loyalty_to_liege_overdue
 					set_variable = new_title_variant
 				}
 			}
@@ -2243,6 +2235,64 @@ on_title_gain = {
 				is_independent_ruler = yes
 			}
 			house = { set_house_head = root }
+		}
+		
+		if = { # If courtiers get lost between governorship assignments, move them home
+			limit = {
+				is_ai = no
+				government_allows = merit
+			}
+			if = {
+				limit = {
+					is_landed = yes
+				}
+				every_courtier = {
+					limit = {
+						location != root.capital_province
+						is_imprisoned = no
+						is_travelling = no
+						is_commanding_army = no
+						NOR = {
+							exists = involved_activity
+							exists = knight_army
+						}
+					}
+					set_location_to_default = yes
+				}
+			}
+			else_if = {
+				limit = {
+					exists = domicile.domicile_location
+				}
+				every_courtier = {
+					limit = {
+						location != root.domicile.domicile_location
+						is_imprisoned = no
+						is_travelling = no
+						is_commanding_army = no
+						NOR = {
+							exists = involved_activity
+							exists = knight_army
+						}
+					}
+					set_location_to_default = yes
+				}
+			}
+		}
+		# If you take another realm's dynasty-named title, reset its name
+		if = {
+			limit = {
+				is_independent_ruler = yes
+				government_has_flag = government_is_celestial
+				scope:title ?= {
+					tier >= tier_kingdom
+					has_custom_title_name = yes
+					this != root.primary_title
+				}
+			}
+			scope:title = {
+				reset_title_name = yes
+			}
 		}
 	}
 	events = {
@@ -2974,10 +3024,72 @@ on_title_lost = {
 					limit = { story_type = story_greatest_of_khans }
 					end_story = yes
 				}
-				global_var:first_gok.dynasty ?= {
-					remove_dynasty_modifier = gok_house_modifier
-				}
 				remove_character_modifier = the_great_khan_modifier
+			}
+		}
+		#Coronation loyalty modifier
+		if = {
+			limit = {
+				scope:title = {
+					has_variable = coronation_loyal_to_title
+					var:coronation_loyal_to_title = {
+						NOT = {
+							this = scope:new_holder.primary_title
+						}
+					}
+				}
+			}
+			scope:title = {
+				remove_county_modifier = coronation_loyal_to_the_crown_modifier
+				remove_variable = coronation_loyal_to_title
+				add_county_modifier = {
+					modifier = coronation_still_loyal_modifier
+					years = 5
+				}
+			}
+		}
+		
+		if = { # If courtiers get lost between governorship assignments, move them home
+			limit = {
+				is_ai = no
+				government_allows = merit
+			}
+			if = {
+				limit = {
+					is_landed = yes
+				}
+				every_courtier = {
+					limit = {
+						location != root.capital_province
+						is_imprisoned = no
+						is_travelling = no
+						is_commanding_army = no
+						NOR = {
+							exists = involved_activity
+							exists = knight_army
+						}
+					}
+					set_location_to_default = yes
+				}
+			}
+			else_if = {
+				limit = {
+					is_landed = no
+					exists = domicile.domicile_location
+				}
+				every_courtier = {
+					limit = {
+						location != root.domicile.domicile_location
+						is_imprisoned = no
+						is_travelling = no
+						is_commanding_army = no
+						NOR = {
+							exists = involved_activity
+							exists = knight_army
+						}
+					}
+					set_location_to_default = yes
+				}
 			}
 		}
 	}
