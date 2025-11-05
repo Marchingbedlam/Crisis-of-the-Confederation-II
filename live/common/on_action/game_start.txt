@@ -497,6 +497,19 @@ on_game_start_after_lobby = {
 			}
 			add_legitimacy = base_legitimacy_value
 		}
+		
+		# Reinitialize every courtier that failed initialization
+		every_in_global_list = {
+			variable = uninitialized_characters
+			debug_log = "Reinitializing character..."
+			initialize_character_effect = yes
+			# Aaaand clean the list.
+			save_temporary_scope_as = char_temp
+			remove_list_global_variable = {
+				name = uninitialized_characters
+				target = scope:char_temp
+			}
+		}
 	}
 	events = {
 		game_rule.1000	#Autopopulate families.

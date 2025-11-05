@@ -61,6 +61,7 @@ pool_repopulate_prowess = {
 	}
 	dynasty = none
 	after_creation = {
+		initialize_character_effect = yes
 		random_list = {
 			200 = {
 				# Character is of average weight, nothing happens	
@@ -232,6 +233,7 @@ pool_repopulate_diplomacy = {
 	}
 	dynasty = none
 	after_creation = {
+		initialize_character_effect = yes
 		random_list = {
 			200 = {
 				# Character is of average weight, nothing happens	
@@ -321,6 +323,7 @@ pool_repopulate_martial = {
 	}
 	dynasty = none
 	after_creation = {
+		initialize_character_effect = yes
 		random_list = {
 			200 = {
 				# Character is of average weight, nothing happens	
@@ -494,6 +497,7 @@ pool_repopulate_stewardship = {
 	}
 	dynasty = none
 	after_creation = {
+		initialize_character_effect = yes
 		random_list = {
 			200 = {
 				# Character is of average weight, nothing happens	
@@ -570,6 +574,7 @@ pool_repopulate_intrigue = {
 	}
 	dynasty = none
 	after_creation = {
+		initialize_character_effect = yes
 		random_list = {
 			200 = {
 				# Character is of average weight, nothing happens	
@@ -649,6 +654,7 @@ pool_repopulate_learning = {
 	dynasty = none
 	after_creation = {
 		random_list = {
+		initialize_character_effect = yes
 			200 = {
 				# Character is of average weight, nothing happens	
 			}
@@ -815,6 +821,7 @@ pool_repopulate_spouse = {
 	}
 	dynasty = none
 	after_creation = {
+		initialize_character_effect = yes
 		random_list = {
 			200 = {
 				# Character is of average weight, nothing happens	
@@ -862,281 +869,8 @@ pool_repopulate_spouse = {
 pool_repopulate_local_flavor = {
 	age = { 25 45 }
 	gender_female_chance = root_faith_dominant_gender_adjusted_female_chance #because council gender is doctrine dependent
-	random_traits = yes
 	faith = root.faith
 	culture = root.culture
-	
-	# random_culture = {
-		# culture:ashkenazi = {
-			# trigger = {
-				# NOT = {
-					# root.faith = { religion = { is_in_family = rf_pagan } }
-				# }
-				# root.capital_province = {
-					# OR = {
-						# geographical_region = world_europe
-						# geographical_region = world_asia_minor
-					# }
-					# NOT = {
-						# geographical_region = world_europe_west_iberia
-					# }
-				# }
-			# }
-		# }
-		# root.culture = {
-			# trigger = {
-				# root.faith = { religion = { is_in_family = rf_pagan } }
-			# }
-		# }
-		# culture:sephardi = {
-			# trigger = {
-				# root.capital_province = {
-					# geographical_region = world_europe_west_iberia
-				# }
-			# }
-		# }
-		# culture:radhanite = {
-			# trigger = {
-				# root.capital_province = {
-					# OR = {
-						# geographical_region = world_steppe
-						# geographical_region = world_india
-					# }
-				# }
-			# }
-		# }
-		# culture:kochinim = {
-			# trigger = {
-				# root.capital_province = {
-					# geographical_region = world_india
-				# }
-			# }
-		# }
-		# culture:bavlim = {
-			# trigger = {
-				# root.capital_province = {
-					# OR = {
-						# geographical_region = world_middle_east
-						# geographical_region = world_middle_east_persia
-						# geographical_region = world_africa_north
-					# }
-				# }
-			# }
-		# }
-		# culture:kurdish = {
-			# trigger = {
-				# root.capital_province = {
-					# geographical_region = world_middle_east_persia
-				# }
-			# }
-		# }
-		# culture:rajput = {
-			# trigger = {
-				# root.capital_province = {
-					# geographical_region = world_india
-				# }
-			# }
-		# }
-		# culture:hindustani = {
-			# trigger = {
-				# root.capital_province = {
-					# geographical_region = world_india_rajastan
-				# }
-			# }
-		# }
-		# culture:gujarati = {
-			# trigger = {
-				# root.capital_province = {
-					# geographical_region = world_india_rajastan
-				# }
-			# }
-		# }
-		# culture:marathi = {
-			# trigger = {
-				# root.capital_province = {
-					# OR = {
-						# geographical_region = world_india_rajastan
-						# geographical_region = world_india_deccan
-					# }
-				# }
-			# }
-		# }
-		# culture:tamil = {
-			# trigger = {
-				# root.capital_province = {
-					# OR = {
-						# geographical_region = world_india_deccan
-						# geographical_region = world_asia_southeast_islands
-					# }
-				# }
-			# }
-		# }
-		# culture:telugu = {
-			# trigger = {
-				# root.capital_province = {
-					# geographical_region = world_india_deccan
-				# }
-			# }
-		# }
-		# culture:kannada = {
-			# trigger = {
-				# root.capital_province = {
-					# geographical_region = world_india_deccan
-				# }
-			# }
-		# }
-		# culture:bengali = {
-			# trigger = {
-				# root.capital_province = {
-					# OR = {
-						# geographical_region = world_india_bengal
-						# geographical_region = world_burma
-					# }
-				# }
-			# }
-		# }
-		# culture:burmese = {
-			# trigger = {
-				# root.capital_province = {
-					# OR = {
-						# geographical_region = world_india_bengal
-						# geographical_region = world_burma
-					# }
-				# }
-			# }
-		# }
-		# culture:butr = {
-			# trigger = {
-				# root.capital_province = {
-					# geographical_region = world_africa
-				# }
-			# }
-		# }
-		# culture:zaghawa = {
-			# trigger = {
-				# root.capital_province = {
-					# geographical_region = world_africa
-				# }
-			# }
-		# }
-		# culture:bolghar = {
-			# trigger = {
-				# root.capital_province = {
-					# geographical_region = world_steppe_west
-				# }
-			# }
-		# }
-		# culture:assyrian = {
-			# trigger = {
-				# root.capital_province = {
-					# OR = {
-						# geographical_region = world_steppe_east
-						# geographical_region = world_steppe_tarim
-					# }
-				# }
-			# }
-		# }
-		# culture:khitan = {
-			# trigger = {
-				# root.capital_province = {
-					# OR = {
-						# geographical_region = world_steppe_east
-						# geographical_region = world_steppe_tarim
-						# geographical_region = world_tibet
-						# geographical_region = world_asia_north_east
-					# }
-				# }
-			# }
-		# }
-		# culture:han = {
-			# trigger = {
-				# root.capital_province = {
-					# OR = {
-						# geographical_region = world_steppe_east
-						# geographical_region = world_steppe_tarim
-						# geographical_region = world_tibet
-						# geographical_region = world_burma
-						# geographical_region = world_asia_north_east
-						# geographical_region = world_asia_china
-						# geographical_region = world_asia_korea
-						# geographical_region = world_asia_southeast_mainland
-					# }
-				# }
-			# }
-		# }
-		# culture:cuman = {
-			# trigger = {
-				# root.capital_province = {
-					# geographical_region = world_steppe_west
-				# }
-			# }
-		# }
-		# culture:bodpa = {
-			# trigger = {
-				# root.capital_province = {
-					# geographical_region = world_tibet
-				# }
-			# }
-		# }
-		# culture:somali = {
-			# trigger = {
-				# root.capital_province = {
-					# OR = {
-						# geographical_region = world_middle_east
-						# geographical_region = world_middle_east_persia
-						# geographical_region = world_africa_north_east
-						# AND = {
-							# geographical_region = world_india
-							# county.holder.faith = {
-								# religion_tag = islam_religion
-							# }
-						# }
-					# }
-				# }
-			# }
-		# }
-		# culture:swahili = {
-			# trigger = {
-				# root.capital_province = {
-					# geographical_region = dlc_tgp_swahili_coast_region
-				# }
-			# }
-		# }
-		# culture:yemeni = {
-			# trigger = {
-				# root.capital_province = {
-					# geographical_region = dlc_tgp_swahili_coast_region
-					# county.holder = {
-						# NOT = { government_has_flag = government_is_tribal }
-						# faith = { religion_tag = islam_religion }
-					# }
-				# }
-			# }
-		# }
-		# culture:persian = {
-			# trigger = {
-				# root.capital_province = {
-					# geographical_region = dlc_tgp_swahili_coast_region
-					# county.holder = {
-						# NOT = { government_has_flag = government_is_tribal }
-						# faith = { religion_tag = islam_religion }
-					# }
-				# }
-			# }
-		# }
-		# culture:japanese = {
-			# trigger = {
-				# root.capital_province = { geographical_region = world_asia_japan }
-			# }
-		# }
-		# culture:khanty = {
-			# trigger = {
-				# root.capital_province = {
-					# geographical_region = world_siberia
-				# }
-			# }
-		# }
-	# }
 	
 	learning = {
 		min_guest_template_skill max_guest_template_skill
@@ -1172,6 +906,7 @@ pool_repopulate_local_flavor = {
 	dynasty = none
 	
 	after_creation = {
+		initialize_character_effect = yes
 		random_list = {
 			200 = {
 				# Character is of average weight, nothing happens	
