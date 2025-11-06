@@ -5,9 +5,11 @@
 # and probably not ideal but there doesn't seem to be a simpler way to do it.
 # ONLY USE ON NEWLY CREATED CHARACTERS
 initialize_character_effect = {
+	save_scope_as = initialized_character
 	liege_or_court_owner = { save_scope_as = host }
 	scope:host = {
 		# Grab some random provinces the new character might be from
+		# A neighboring province
 		county = {
 			random_neighboring_county = {
 				title_province = {
@@ -15,6 +17,7 @@ initialize_character_effect = {
 				}
 			}
 		}
+		# Another province in the same realm
 		random_realm_county = {
 			title_province = {
 				save_scope_as = potential_home_province_2
@@ -78,28 +81,76 @@ initialize_character_effect = {
 	clear_saved_scope = potential_home_province_2
 	clear_saved_scope = potential_home_province_3
 	clear_saved_scope = potential_home_province_4
-	
-	# Generate a dummy character from the home province to copy data from
-	# This character should not use a template, on pain of circularity
-	create_character = {
-		age = { 20 40 }
-		gender = male # Doesn't matter at all, just have to specify something
-		random_traits = yes
-		culture = scope:home_province.culture
-		faith = scope:home_province.faith
-		dynasty = generate
-		save_scope_as = dummy_character
+	if = {
+		limit = { scope:home_province.culture = culture:terran }
+		# Terrans are a special case - we should pick a particular Earth culture they're from
+		randomize_terran_culture_effect = yes
+		create_character = {
+			age = { 20 40 }
+			random_traits = yes
+			culture = scope:randomized_terran_culture
+			faith = scope:home_province.faith
+			gender = scope:initialized_character
+			dynasty = generate
+			save_scope_as = dummy_character
+		}
+		# Copy important data from dummy_character_1
+		copy_inheritable_appearance_from = scope:dummy_character
+		set_culture = culture:terran
+		set_faith = scope:dummy_character.faith
+		set_house = scope:dummy_character.house
+		change_first_name = { template_character = scope:dummy_character }
+		
+		# Get rid of the dummy
+		scope:dummy_character = { silent_disappearance_effect = yes }
+		clear_saved_scope = dummy_character
+		clear_saved_scope = randomized_terran_culture
+		
+		# Optionally, give this character a first name from a different culture
+		random = {
+			chance = 50
+			culture:terran = { save_scope_as = randomized_terran_culture }
+			#randomize_terran_culture_effect = yes
+			create_character = {
+				age = { 20 40 }
+				gender = scope:initialized_character
+				random_traits = yes
+				culture = scope:randomized_terran_culture
+				faith = scope:host.location.faith
+				dynasty = none
+				save_scope_as = dummy_character
+			}
+			change_first_name = { template_character = scope:dummy_character }
+		
+			# Get rid of the dummy
+			scope:dummy_character = { silent_disappearance_effect = yes }
+			clear_saved_scope = dummy_character
+			clear_saved_scope = randomized_terran_culture
+		}
 	}
-	# Copy important data from dummy_character_1
-	copy_inheritable_appearance_from = scope:dummy_character
-	set_culture = scope:dummy_character.culture
-	set_faith = scope:dummy_character.faith
-	set_house = scope:dummy_character.house
-	change_first_name = { template_character = scope:dummy_character }
-	
-	# Get rid of the dummy
-	scope:dummy_character = { silent_disappearance_effect = yes }
-	clear_saved_scope = dummy_character
+	else = {
+		# Generate a dummy character from the home province to copy data from
+		# This character should not use a template, on pain of circularity
+		create_character = {
+			age = { 20 40 }
+			gender = scope:initialized_character
+			random_traits = yes
+			culture = scope:home_province.culture
+			faith = scope:home_province.faith
+			dynasty = generate
+			save_scope_as = dummy_character
+		}
+		# Copy important data from dummy_character_1
+		copy_inheritable_appearance_from = scope:dummy_character
+		set_culture = scope:dummy_character.culture
+		set_faith = scope:dummy_character.faith
+		set_house = scope:dummy_character.house
+		change_first_name = { template_character = scope:dummy_character }
+		
+		# Get rid of the dummy
+		scope:dummy_character = { silent_disappearance_effect = yes }
+		clear_saved_scope = dummy_character
+	}
 	
 	# But wait! Even if our character is from a different system, there's
 	# a 50% chance that they're not a recent immigrant, but a long-term
@@ -113,7 +164,7 @@ initialize_character_effect = {
 			chance = 50
 			create_character = {
 				age = { 20 40 }
-				gender = male # Doesn't matter at all, just have to specify something
+				gender = scope:initialized_character
 				random_traits = yes
 				culture = scope:host.location.culture
 				faith = scope:host.location.faith
@@ -129,6 +180,126 @@ initialize_character_effect = {
 			clear_saved_scope = dummy_character
 		}
 	}
+	clear_saved_scope = initialized_character
 	clear_saved_scope = host
 	clear_saved_scope = home_province
+}
+# Selects a culture at random based on Terran demographics and saves it to
+# scope:randomized_terran_culture
+randomize_terran_culture_effect = {
+	random_list = {
+		322 = {
+			culture:mukta = { save_scope_as = randomized_terran_culture }
+		}
+		286 = {
+			culture:xingjie = { save_scope_as = randomized_terran_culture }
+		}
+		81 = {
+			culture:celestian = { save_scope_as = randomized_terran_culture }
+		}
+		70 = {
+			culture:arab_samawati = { save_scope_as = randomized_terran_culture }
+		}
+		68 = {
+			culture:american_frontierfolk = { save_scope_as = randomized_terran_culture }
+		}
+		64 = {
+			culture:badang = { save_scope_as = randomized_terran_culture }
+		}
+		45 = {
+			culture:yoruba_angani = { save_scope_as = randomized_terran_culture }
+		}
+		34 = {
+			culture:swahili_angani = { save_scope_as = randomized_terran_culture }
+		}
+		29 = {
+			culture:centauri = { save_scope_as = randomized_terran_culture }
+		}
+		28 = {
+			culture:british_frontierfolk = { save_scope_as = randomized_terran_culture }
+		}
+		25 = {
+			culture:tengoku = { save_scope_as = randomized_terran_culture }
+		}
+		23 = {
+			culture:tablayan = { save_scope_as = randomized_terran_culture }
+		}
+		22 = {
+			culture:ethiopian_angani = { save_scope_as = randomized_terran_culture }
+		}
+		20 = {
+			culture:son_tinh = { save_scope_as = randomized_terran_culture }
+		}
+		18 = {
+			culture:german_frontierfolk = { save_scope_as = randomized_terran_culture }
+		}
+		17 = {
+			culture:iranian_samawati = { save_scope_as = randomized_terran_culture }
+		}
+		14 = {
+			culture:french_frontierfolk = { save_scope_as = randomized_terran_culture }
+		}
+		13 = {
+			culture:priyayi = { save_scope_as = randomized_terran_culture }
+		}
+		12 = {
+			culture:italian_frontierfolk = { save_scope_as = randomized_terran_culture }
+		}
+		10 = {
+			culture:spanish_frontierfolk = { save_scope_as = randomized_terran_culture }
+		}
+		8 = {
+			culture:polish_frontierfolk = { save_scope_as = randomized_terran_culture }
+		}
+		4 = {
+			culture:romanian_frontierfolk = { save_scope_as = randomized_terran_culture }
+		}
+		4 = {
+			culture:dutch_frontierfolk = { save_scope_as = randomized_terran_culture }
+		}
+		2 = {
+			culture:belgian_frontierfolk = { save_scope_as = randomized_terran_culture }
+		}
+		2 = {
+			culture:czech_frontierfolk = { save_scope_as = randomized_terran_culture }
+		}
+		2 = {
+			culture:swedish_frontierfolk = { save_scope_as = randomized_terran_culture }
+		}
+		2 = {
+			culture:greek_frontierfolk = { save_scope_as = randomized_terran_culture }
+		}
+		2 = {
+			culture:hungarian_frontierfolk = { save_scope_as = randomized_terran_culture }
+		}
+		2 = {
+			culture:swiss_frontierfolk = { save_scope_as = randomized_terran_culture }
+		}
+		1 = {
+			culture:danish_frontierfolk = { save_scope_as = randomized_terran_culture }
+		}
+		1 = {
+			culture:norwegian_frontierfolk = { save_scope_as = randomized_terran_culture }
+		}
+	}
+}
+# Generate a new dynasty for a lowborn character
+generate_family_name_effect = {
+	save_scope_as = character_to_name
+	# Generate a dummy character to copy data from
+	create_character = {
+		age = { 20 40 }
+		gender = scope:character_to_name
+		random_traits = yes
+		culture = scope:character_to_name.culture
+		faith = scope:character_to_name.faith
+		dynasty = generate
+		save_scope_as = dummy_character
+	}
+	set_house = scope:dummy_character.house
+	
+	# Get rid of the dummy
+	scope:dummy_character = { silent_disappearance_effect = yes }
+	clear_saved_scope = dummy_character
+	clear_saved_scope = character_to_name
 }

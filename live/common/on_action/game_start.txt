@@ -510,6 +510,17 @@ on_game_start_after_lobby = {
 				target = scope:char_temp
 			}
 		}
+		# Everyone should have a family name
+		every_ruler = {
+			if = {
+				limit = { is_lowborn = yes }
+				generate_family_name_effect = yes
+			}
+			every_courtier_or_guest = {
+				limit = { is_lowborn = yes }
+				generate_family_name_effect = yes
+			}
+		}
 	}
 	events = {
 		game_rule.1000	#Autopopulate families.
