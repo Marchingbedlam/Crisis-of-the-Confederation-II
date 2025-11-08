@@ -26,10 +26,7 @@ castle_01 = {
 	}
 
 	can_construct = {
-		culture = {
-			has_innovation = innovation_motte
-		}
-		japan_castle_construction_trigger = yes
+		always = yes
 	}
 
 	can_construct_showing_failures_only = {
@@ -43,7 +40,9 @@ castle_01 = {
 	levy = normal_building_levy_tier_2
 	max_garrison = good_building_max_garrison_tier_1
 	garrison_reinforcement_factor = building_garrison_reinforcement_factor_tier_2
+	effect_desc = castle_01_effect_desc
 	province_modifier = {
+		building_slot_add = 1
 		monthly_income = poor_building_tax_tier_2
 		fort_level = great_building_fort_level_tier_1
 		stationed_maa_damage_mult = normal_maa_damage_tier_1
@@ -51,13 +50,6 @@ castle_01 = {
 		stationed_siege_weapon_siege_value_mult = normal_maa_siege_value_tier_1
 		travel_danger = -10
 	}
-
-	province_terrain_modifier = {
-		parameter = coastal_holding_bonuses
-		is_coastal = yes
-		build_speed = -0.1
-	}
-
 	province_culture_modifier = {
 		parameter = castle_fortifications_increase
 		defender_holding_advantage = 5
@@ -69,24 +61,6 @@ castle_01 = {
 		monthly_dynasty_prestige = 0.01
 	}
 
-	province_terrain_modifier = {
-		parameter = maritime_mercantilism_coastal_holdings
-		is_coastal = yes
-		tax_mult = maritime_mercantilism_coastal_holdings_value
-	}
-
-	province_terrain_modifier = {
-		parameter = castle_holding_fort_level_in_jungle_bonus
-		terrain = jungle
-		additional_fort_level = castle_holding_fort_level_in_jungle_bonus_value
-	}
-
-	province_terrain_modifier = {
-		parameter = coastal_holdings_give_defensive_bonus
-		is_coastal = yes
-		defender_holding_advantage = 2
-	}
-
 	flag = castle
 
 	type_icon = "icon_building_ramparts.dds"
@@ -95,19 +69,14 @@ castle_01 = {
 		county.holder = {
 			if = {
 				limit = {
-					any_vassal = {
-						vassal_stance = parochial
-					}
+					any_vassal = { vassal_stance = parochial }
 					save_temporary_scope_as = holder_scope
 				}
 				custom_tooltip = parochial_vassal_approves_holding_construction
 				hidden_effect = {
 					every_vassal = {
 						vassal_stance = parochial
-						add_opinion = {
-							target = prev
-							modifier = parochial_approves_holding_construction_opinion
-						}
+						add_opinion = { target = prev modifier = parochial_approves_holding_construction_opinion }
 					}
 				}
 			}
@@ -134,11 +103,7 @@ castle_01 = {
 		# Building Oath
 		hidden_effect = {
 			if = {
-				limit = {
-					county.holder = {
-						has_character_modifier = oath_of_buildings
-					}
-				}
+				limit = { county.holder = { has_character_modifier = oath_of_buildings } }
 				add_random_economic_building_effect = yes
 				add_random_military_building_effect = yes
 				add_random_fortification_building_effect = yes
@@ -150,16 +115,12 @@ castle_01 = {
 		base = 100
 		modifier = {
 			factor = 0
-			scope:holder = {
-				government_has_flag = government_is_theocracy
-			}
+			scope:holder = { government_has_flag = government_is_theocracy }
 		}
 
 		modifier = {
 			add = 50
-			scope:holder = {
-				NOT = { government_has_flag = government_is_mandala }
-			}
+			scope:holder = { NOT = { government_has_flag = government_is_mandala } }
 			county = {
 				NOT = {
 					any_county_province = {
@@ -194,7 +155,6 @@ castle_02 = {
 		culture = {
 			has_innovation = innovation_battlements
 		}
-		japan_castle_construction_trigger = yes
 	}
 	
 	cost_gold = main_building_tier_2_cost
@@ -203,7 +163,9 @@ castle_02 = {
 	levy = normal_building_levy_tier_4
 	max_garrison = good_building_max_garrison_tier_3
 	garrison_reinforcement_factor = building_garrison_reinforcement_factor_tier_4
+	effect_desc = castle_02_effect_desc
 	province_modifier = {
+		building_slot_add = 2
 		monthly_income = poor_building_tax_tier_4
 		fort_level = great_building_fort_level_tier_2
 		stationed_maa_damage_mult = normal_maa_damage_tier_2
@@ -211,13 +173,7 @@ castle_02 = {
 		stationed_siege_weapon_siege_value_mult = normal_maa_siege_value_tier_2
 		travel_danger = -12
 	}
-
-	province_terrain_modifier = {
-		parameter = coastal_holding_bonuses
-		is_coastal = yes
-		build_speed = -0.1
-	}
-
+	county_modifier = { monthly_county_control_decline_add = low_control_reduction_tier_2 }
 	province_culture_modifier = {
 		parameter = castle_fortifications_increase
 		defender_holding_advantage = 10
@@ -228,25 +184,7 @@ castle_02 = {
 		monthly_prestige = 0.03
 		monthly_dynasty_prestige = 0.02
 	}
-
-	province_terrain_modifier = {
-		parameter = maritime_mercantilism_coastal_holdings
-		is_coastal = yes
-		tax_mult = maritime_mercantilism_coastal_holdings_value
-	}
-
-	province_terrain_modifier = {
-		parameter = castle_holding_fort_level_in_jungle_bonus
-		terrain = jungle
-		additional_fort_level = castle_holding_fort_level_in_jungle_bonus_value
-	}
-
-	province_terrain_modifier = {
-		parameter = coastal_holdings_give_defensive_bonus
-		is_coastal = yes
-		defender_holding_advantage = 3
-	}
-
+	
 	flag = castle
 
 	on_complete = {
@@ -285,6 +223,7 @@ castle_02 = {
 			add = 10
 			scope:holder.culture = { has_cultural_era_or_later = culture_era_high_medieval }
 		}
+		modifier = { add = county_development_deficit }
 		modifier = {
 			factor = 3
 			scope:holder.capital_province = this
@@ -326,7 +265,6 @@ castle_03 = {
 		culture = {
 			has_innovation = innovation_hoardings
 		}
-		japan_castle_construction_trigger = yes
 	}
 
 	cost_gold = main_building_tier_3_cost
@@ -335,7 +273,9 @@ castle_03 = {
 	levy = normal_building_levy_tier_6
 	max_garrison = good_building_max_garrison_tier_5
 	garrison_reinforcement_factor = building_garrison_reinforcement_factor_tier_6
+	effect_desc = castle_03_effect_desc
 	province_modifier = {
+		building_slot_add = 3
 		monthly_income = poor_building_tax_tier_6
 		fort_level = great_building_fort_level_tier_3
 		stationed_maa_damage_mult = normal_maa_damage_tier_3
@@ -343,42 +283,14 @@ castle_03 = {
 		stationed_siege_weapon_siege_value_mult = normal_maa_siege_value_tier_3
 		travel_danger = -14
 	}
-
-	province_terrain_modifier = {
-		parameter = coastal_holding_bonuses
-		is_coastal = yes
-		build_speed = -0.1
-	}
-
-	province_culture_modifier = {
-		parameter = castle_fortifications_increase
-		defender_holding_advantage = 15
-	}
+	county_modifier = { monthly_county_control_decline_add = low_control_reduction_tier_3 }
 
 	character_culture_modifier = {
 		parameter = castle_grant_prestige
 		monthly_prestige = 0.04
 		monthly_dynasty_prestige = 0.03
 	}
-
-	province_terrain_modifier = {
-		parameter = maritime_mercantilism_coastal_holdings
-		is_coastal = yes
-		tax_mult = maritime_mercantilism_coastal_holdings_value
-	}
-
-	province_terrain_modifier = {
-		parameter = castle_holding_fort_level_in_jungle_bonus
-		terrain = jungle
-		additional_fort_level = castle_holding_fort_level_in_jungle_bonus_value
-	}
-
-	province_terrain_modifier = {
-		parameter = coastal_holdings_give_defensive_bonus
-		is_coastal = yes
-		defender_holding_advantage = 4
-	}
-
+	
 	flag = castle
 
 	on_complete = {
@@ -415,6 +327,7 @@ castle_03 = {
 			add = 1
 			scope:holder.culture = { has_cultural_parameter = ai_more_likely_to_castle }
 		}
+		modifier = { add = county_development_deficit }
 		modifier = {
 			add = 10
 			scope:holder.culture = { has_cultural_era_or_later = culture_era_late_medieval }
@@ -450,7 +363,6 @@ castle_04 = {
 		culture = {
 			has_innovation = innovation_machicolations
 		}
-		japan_castle_construction_trigger = yes
 	}
 
 	cost_gold = main_building_tier_4_cost
@@ -458,7 +370,9 @@ castle_04 = {
 	levy = normal_building_levy_tier_8
 	max_garrison = good_building_max_garrison_tier_7
 	garrison_reinforcement_factor = building_garrison_reinforcement_factor_tier_8
+	effect_desc = castle_04_effect_desc
 	province_modifier = {
+		building_slot_add = 4
 		monthly_income = poor_building_tax_tier_8
 		fort_level = great_building_fort_level_tier_4
 		stationed_maa_damage_mult = normal_maa_damage_tier_4
@@ -466,42 +380,11 @@ castle_04 = {
 		stationed_siege_weapon_siege_value_mult = normal_maa_siege_value_tier_4
 		travel_danger = -16
 	}
-
-	province_terrain_modifier = {
-		parameter = coastal_holding_bonuses
-		is_coastal = yes
-		build_speed = -0.1
-	}
-
+	county_modifier = { monthly_county_control_decline_add = low_control_reduction_tier_4 }
 	province_culture_modifier = {
 		parameter = castle_fortifications_increase
 		defender_holding_advantage = 20
 	}
-
-	character_culture_modifier = {
-		parameter = castle_grant_prestige
-		monthly_prestige = 0.05
-		monthly_dynasty_prestige = 0.04
-	}
-
-	province_terrain_modifier = {
-		parameter = maritime_mercantilism_coastal_holdings
-		is_coastal = yes
-		tax_mult = maritime_mercantilism_coastal_holdings_value
-	}
-
-	province_terrain_modifier = {
-		parameter = castle_holding_fort_level_in_jungle_bonus
-		terrain = jungle
-		additional_fort_level = castle_holding_fort_level_in_jungle_bonus_value
-	}
-
-	province_terrain_modifier = {
-		parameter = coastal_holdings_give_defensive_bonus
-		is_coastal = yes
-		defender_holding_advantage = 5
-	}
-
 	flag = castle
 
 	on_complete = {
@@ -534,6 +417,7 @@ castle_04 = {
 	ai_value = {
 		base = 17
 		ai_general_building_modifier = yes
+		modifier = { add = county_development_deficit }
 		modifier = {
 			add = 1
 			scope:holder.culture = { has_cultural_parameter = ai_more_likely_to_castle }

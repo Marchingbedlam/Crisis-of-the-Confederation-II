@@ -1,72 +1,77 @@
 # A rough measurement of the economic needs of this system's population
 county_demand = {
-	value = 0
+	county = {
+		every_county_province = {
+			add = base_holding_demand
+		}
+	}
+	min = 0
 }
-
-# Returns a rough estimate of a holding's population; this is not an actual number, more a way to indicate
-# that some holdings have bigger populations than others and to get things accurate to a very rough order of
-# magnitude
-holding_population = {
-	value = 1
-	# Planets are much bigger than orbitals
-	modifier = {
-		is_terrestrial_planet_trigger = yes
-		multiply = 10
+base_holding_demand = {
+	value = 0
+	if = {
+		limit = { has_building = temple_01 }
+		add = low_demand_tier_1
 	}
-	# Young colonies have very small populations
-	modifier = {
-		has_building_or_higher = tribe_02
-		multiply = 2
+	else_if = {
+		limit = { has_building = temple_02 }
+		add = low_demand_tier_2
 	}
-	# Research stations/shrine worlds tend to have smallish caretaker populations
-	modifier = {
-		has_building_or_higher = temple_01
-		multiply = 4
+	else_if = {
+		limit = { has_building = temple_03 }
+		add = low_demand_tier_3
 	}
-	modifier = {
-		has_building_or_higher = temple_02
-		multiply = 4
+	else_if = {
+		limit = { has_building = temple_04 }
+		add = low_demand_tier_4
 	}
-	modifier = {
-		has_building_or_higher = temple_03
-		multiply = 4
+	else_if = {
+		limit = { has_building = temple_05 }
+		add = low_demand_tier_5
 	}
-	modifier = {
-		has_building_or_higher = temple_04
-		multiply = 4
+	else_if = {
+		limit = { has_building = castle_01 }
+		add = mid_demand_tier_1
 	}
-	# Military bases need garrisons
-	modifier = {
-		has_building_or_higher = castle_01
-		multiply = 5
+	else_if = {
+		limit = { has_building = castle_02 }
+		add = mid_demand_tier_2
 	}
-	modifier = {
-		has_building_or_higher = castle_02
-		multiply = 5
+	else_if = {
+		limit = { has_building = castle_03 }
+		add = mid_demand_tier_3
 	}
-	modifier = {
-		has_building_or_higher = castle_03
-		multiply = 5
+	else_if = {
+		limit = { has_building = castle_04 }
+		add = mid_demand_tier_4
 	}
-	modifier = {
-		has_building_or_higher = castle_04
-		multiply = 5
+	else_if = {
+		limit = { has_building = castle_05 }
+		add = mid_demand_tier_5
 	}
-	# Commercial planets are where people actually live
-	modifier = {
-		has_building_or_higher = city_01
-		multiply = 6
+	else_if = {
+		limit = { has_building = city_01 }
+		add = high_demand_tier_1
 	}
-	modifier = {
-		has_building_or_higher = city_02
-		multiply = 6
+	else_if = {
+		limit = { has_building = city_02 }
+		add = high_demand_tier_2
 	}
-	modifier = {
-		has_building_or_higher = city_03
-		multiply = 6
+	else_if = {
+		limit = { has_building = city_03 }
+		add = high_demand_tier_3
 	}
-	modifier = {
-		has_building_or_higher = city_04
-		multiply = 6
+	else_if = {
+		limit = { has_building = city_04 }
+		add = high_demand_tier_4
 	}
+	else_if = {
+		limit = { has_building = city_05 }
+		add = high_demand_tier_5
+	}
+}
+# Returns the difference between the county's Demand and Development. Useful for AI consideration.
+county_development_deficit = {
+	add = county_demand
+	subtract = development
 }
