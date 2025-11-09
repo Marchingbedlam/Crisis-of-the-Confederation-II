@@ -1,0 +1,64 @@
+# Triggers that tell us various things about planets/celestial objects/holdings
+has_medium_pop_or_above_trigger = {
+	OR = {
+		has_building_or_higher = castle_02
+		has_building_or_higher = city_02
+		has_building_or_higher = temple_02
+	}
+}
+has_large_pop_or_below_trigger = {
+	NOR = {
+		has_building = castle_04
+		has_building = city_04
+		has_building = temple_04
+	}
+}
+is_planet_trigger = {
+	title_province = {
+		OR = {
+			terrain = atmospheric
+			terrain = barren
+			terrain = frozen
+			terrain = corrosive
+			terrain = gas_giant
+			terrain = frozen_giant
+		}
+	}
+}
+is_terrestrial_planet_trigger = {
+	title_province = {
+		OR = {
+			terrain = atmospheric
+			terrain = barren
+			terrain = frozen
+			terrain = corrosive
+		}
+	}
+}
+has_water_trigger = {
+	OR = {
+		terrain = atmospheric
+		terrain = frozen
+		terrain = frozen_giant
+		has_building_or_higher = underground_oceans_01
+	}
+	NOT = { has_building = desert_world_01 }
+}
+has_oceans_trigger = {
+	OR = {
+		terrain = atmospheric
+		has_building_or_higher = underground_oceans_01
+		has_building = no_atmosphere_03
+		has_building = toxic_atmosphere_03
+		has_building = corrosive_atmosphere_03
+	}
+	NOT = { has_building = desert_world_01 }
+}
+has_breathable_atmosphere_trigger = {
+	OR = {
+		terrain = atmospheric
+		has_building = no_atmosphere_03
+		has_building = toxic_atmosphere_03
+		has_building = corrosive_atmosphere_03
+	}
+}

@@ -1,0 +1,44 @@
+GetHabitatType = {
+	type = province
+	text = {
+		trigger = { geographical_region = moons_region }
+		localization_key = moon_custom_loc
+	}
+	text = {
+		trigger = { is_terrestrial_planet_trigger = yes }
+		localization_key = planet_custom_loc
+	}
+	text = {
+		trigger = {
+			terrain = asteroids
+		}
+		localization_key = asteroid_custom_loc
+	}
+	text = {
+		trigger = { has_holding = yes }
+		localization_key = station_custom_loc
+	}
+	text = {
+		fallback = yes
+		localization_key = sector_custom_loc
+	}
+}
+GetSpaceType = {
+	type = province
+	text = {
+		trigger = { is_planet = yes }
+		localization_key = orbit_custom_loc
+	}
+	text = {
+		trigger = { terrain = asteroids }
+		localization_key = asteroid_field_custom_loc
+	}
+	text = {
+		trigger = { terrain = nebula }
+		localization_key = nebula_custom_loc
+	}
+	text = {
+		fallback = yes
+		localization_key = sector_custom_loc
+	}
+}
