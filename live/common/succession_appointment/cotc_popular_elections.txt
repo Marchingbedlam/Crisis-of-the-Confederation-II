@@ -1,0 +1,46 @@
+popular_election = {
+	default_candidates = {
+		holder_house_member
+		landed_vassal_house_member
+		unlanded_noble_house_member
+		direct_subject
+	}
+	candidate_score = {
+		value = {
+			# Get general public opinion as a baseline
+			add = {
+				value = title_political_support
+				desc = ideological_support_desc
+			}
+			# Add bonus from political campaigning
+			add = {
+				value = title_campaign_support
+				desc = campaign_support_desc
+			}
+			# Diplomacy bonus
+			add = {
+				value = diplomacy
+				switch = {
+					trigger = scope:title.tier
+					county = { multiply = 2 }
+					duchy = { multiply = 3 }
+					kingdom = { multiply = 4 }
+					empire = { multiply = 5 }
+				}
+				desc = [diplomacy_skill|E]
+			}
+			# Level of prestige bonus
+			add = {
+				value = level_of_prestige
+				switch = {
+					trigger = scope:title.tier
+					county = { multiply = 2 }
+					duchy = { multiply = 3 }
+					kingdom = { multiply = 4 }
+					empire = { multiply = 5 }
+				}
+				desc = [level_of_prestige|E]
+			}
+		}
+	}
+}

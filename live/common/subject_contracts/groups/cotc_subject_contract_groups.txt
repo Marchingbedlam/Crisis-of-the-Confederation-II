@@ -1,0 +1,22 @@
+member_state = {
+	is_tributary = yes
+	contracts = {
+		member_state_government_taxes
+		member_state_government_levies
+		mandala_suzerain_war_participation_guarantee
+		tributary_war_participation_obligation
+	}
+	is_valid_tributary_contract = {
+		scope:suzerain = {
+			government_has_flag = government_is_federal # Only federations can have member-states
+			primary_title = { tier > ROOT.primary_title } # Must be a higher tier than the member-state
+		}
+	}
+	tributary_can_break_free = { always = no }
+	suzerain_line_type = line_suzerain
+	tributary_line_type = line_tributary
+	should_show_as_suzerain_realm_name = yes
+	should_show_as_suzerain_realm_color = yes
+	tributary_heir_succession = yes
+	suzerain_heir_succession = yes
+}

@@ -1,0 +1,78 @@
+# This calculates a basic level of political support for a character among the general
+# population of a particular title (both de jure and de facto). This can return a fairly
+# variable number so it's recommended that any modifications to this be multiplicative
+# rather than additive.
+# scope:title: The title being evaluated
+title_political_support = {
+	value = 0
+	save_temporary_scope_as = temp_candidate
+	scope:title = {
+		every_de_jure_county = {
+			every_county_province = {
+				limit = {
+					faith = scope:temp_candidate.faith
+					province_owner = { target_is_same_character_or_above = scope:title.holder }
+				}
+				add = holding_population
+			}
+		}
+	}
+	# Multiply by level of devotion
+	multiply = {
+		value = 1
+		add = level_of_piety
+	}
+	# Multiply by fervor
+	faith = { multiply = fervor }
+	# Divide by 10 to keep a reasonable total value
+	divide = 10
+	round = yes
+}
+# This calculates how much political support a character has gotten from campaigning in the
+# target title
+# scope:title: The title being evaluated
+title_campaign_support = {
+	value = 0
+	every_in_list = {
+		variable = low_campaign_support
+		if = {
+			limit = {
+				OR = {
+					barony = scope:title
+					barony = { target_is_de_jure_liege_or_above = scope:title }
+				}
+				province_owner = { target_is_same_character_or_above = scope:title.holder }
+			}
+			add = holding_population
+			multiply = 2
+		}
+	}
+	every_in_list = {
+		variable = mid_campaign_support
+		if = {
+			limit = {
+				OR = {
+					barony = scope:title
+					barony = { target_is_de_jure_liege_or_above = scope:title }
+				}
+				province_owner = { target_is_same_character_or_above = scope:title.holder }
+			}
+			add = holding_population
+			multiply = 4
+		}
+	}
+	every_in_list = {
+		variable = high_campaign_support
+		if = {
+			limit = {
+				OR = {
+					barony = scope:title
+					barony = { target_is_de_jure_liege_or_above = scope:title }
+				}
+				province_owner = { target_is_same_character_or_above = scope:title.holder }
+			}
+			add = holding_population
+			multiply = 8
+		}
+	}
+}

@@ -2,12 +2,15 @@
 county_demand = {
 	county = {
 		every_county_province = {
-			add = base_holding_demand
+			add = holding_demand
 		}
 	}
 	min = 0
 }
-base_holding_demand = {
+holding_demand = {
+	value = holding_population
+}
+holding_population = {
 	value = 0
 	if = {
 		limit = { has_building = temple_01 }

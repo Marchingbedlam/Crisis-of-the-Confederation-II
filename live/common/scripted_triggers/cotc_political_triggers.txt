@@ -1,0 +1,22 @@
+succession_law_allows_campaigning_trigger = {
+	OR = {
+		has_realm_law = popular_elective_succession_law
+	}
+}
+
+valid_political_campaign_province_trigger = {
+	province_owner = {
+		OR = {
+			AND = {
+				succession_law_allows_campaigning_trigger = yes
+				any_held_title = { any_title_heir = scope:host }
+			}
+			any_liege_or_above = {
+				AND = {
+					succession_law_allows_campaigning_trigger = yes
+					any_held_title = { any_title_heir = scope:host }
+				}
+			}
+		}
+	}
+}

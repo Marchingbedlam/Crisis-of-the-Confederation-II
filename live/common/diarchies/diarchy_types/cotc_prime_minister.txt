@@ -1,0 +1,167 @@
+premiership = {
+	# Handled via content - this is only for power sharing arrangements we want to start automatically.
+	start = {
+		liege = {
+			government_has_flag = government_is_parliamentary
+			primary_title = { tier >= tier_county }
+		}
+	}
+
+	end = {
+		liege = {
+			NOT = {
+				government_has_flag = government_is_parliamentary
+				primary_title = { tier >= tier_county }
+			}
+		}
+	}
+
+	# Mandates
+	## Just the standard suite
+	mandate = fill_coffers
+	mandate = swell_armies
+	mandate = promote_authority
+	## Aptitudes.
+	aptitude_score = {
+		add = mandate_type_qualification:fill_coffers
+		add = mandate_type_qualification:swell_armies
+		add = mandate_type_qualification:promote_authority
+	}
+	
+	# Scales of Power
+	## 000
+	power_level = {
+		swing = 0
+		parameter = unlock_shift_privileges_interaction
+		parameter = diarch_movement_power
+		parameter = diarch_disciple_limit
+	}
+	## 020
+	power_level = {
+		swing = 20
+		parameter = unlock_diarch_imprison_interaction
+	}
+	## 040
+	power_level = {
+		swing = 40
+		parameter = diarch_gets_a_free_change_on_vassal_contract
+		parameter = liege_pays_currency_surcharge_for_mundane_interactions_mild
+	}
+	## 70
+	power_level = {
+		swing = 60
+		parameter = unlock_diarch_set_own_mandate_interaction
+		parameter = liege_pays_currency_surcharge_for_mundane_interactions_medium
+	}
+	## 080
+	power_level = {
+		swing = 80
+		parameter = liege_pays_currency_surcharge_for_mundane_interactions_major
+		parameter = unlock_scapegoat_counterpart_interaction
+	}
+	## 90
+	power_level = {
+		swing = 90
+		parameter = liege_pays_currency_surcharge_for_mundane_interactions_massive
+		parameter = regents_can_try_to_overthrow_present_lieges
+		parameter = regents_can_try_to_overthrow_present_lieges_help
+	}
+
+	# Trend towards an even balance of power.
+	swing_balance = {
+		value = 40
+	}
+
+	succession = yes
+	# Candidate scoring for succession.
+	candidate_score = {
+		value = 0
+		# Copied from popular elective for now, later will be based on the legislature
+		liege = { primary_title = { save_temp_scope_as = title } }
+		# Get general public opinion as a baseline
+		add = {
+			value = title_political_support
+			desc = ideological_support_desc
+		}
+		# Add bonus from political campaigning
+		add = {
+			value = title_campaign_support
+			desc = campaign_support_desc
+		}
+		# Diplomacy bonus
+		add = {
+			value = diplomacy
+			switch = {
+				trigger = scope:title.tier
+				county = { multiply = 2 }
+				duchy = { multiply = 3 }
+				kingdom = { multiply = 4 }
+				empire = { multiply = 5 }
+			}
+			desc = [diplomacy_skill|E]
+		}
+		# Level of prestige bonus
+		add = {
+			value = level_of_prestige
+			switch = {
+				trigger = scope:title.tier
+				county = { multiply = 2 }
+				duchy = { multiply = 3 }
+				kingdom = { multiply = 4 }
+				empire = { multiply = 5 }
+			}
+			desc = [level_of_prestige|E]
+		}
+	}
+
+	end_interaction = liege_dismiss_entrenched_regency_interaction
+
+	# Container for hidden parameters.
+	power_level = {
+		swing = 0
+		hidden_parameter = vizier_sits_in_the_council_instead_of_spouse
+		# This one isn't hooked up to anything yet - just here to establish a parameter standard for mods & potential... _future_ diarchies.
+		hidden_parameter = diarchy_is_primeministership
+		hidden_parameter = mandate_tempo_slow
+	}
+
+	loyalty_score = {
+		value = 0
+		add = diarch_loyalty_score_type_grand_chancellor_value
+	}
+
+	liege_modifier = {
+		name = grand_secretariat_bonus
+		monthly_influence_mult = 0.05
+		scale = {
+			add = diarch.years_as_diarch
+			divide = co_emperor_scale_years_in_job_value
+			round = yes
+			# Add 1 so that we get incomplete 5 years rather than making you wait for the first 5.
+			add = 1
+		}
+	}
+	diarch_modifier = {
+		name = family_member_is_civil_servant
+		stress_gain_mult = 0.3
+		monthly_dynasty_prestige = -0.25
+	}
+	diarch_modifier = {
+		name = civil_servant_salary_and_corruption
+		monthly_income = 1
+		scale = {
+			add = liege.monthly_character_balance
+			multiply = {
+				add = stewardship
+				# Get nearest complete 5.
+				divide = 5
+				round = yes
+				min = 1
+				# And fractalise.
+				divide = 20
+				# So we should be getting something like 5% of our liege's income per 5 stewardship, with rounding errors.
+				## Plus, y'know, Paradox maths.
+			}
+		}
+	}
+}

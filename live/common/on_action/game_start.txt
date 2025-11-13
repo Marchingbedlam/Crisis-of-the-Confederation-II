@@ -521,6 +521,16 @@ on_game_start_after_lobby = {
 				generate_family_name_effect = yes
 			}
 		}
+		
+		# Assign a random prime minister to every parliamentary government that doesn't have one
+		every_ruler = {
+			limit = {
+				tier >= tier_county
+				government_has_flag = government_is_parliamentary
+				NOT = { has_diarchy_active_parameter = diarchy_is_primeministership }
+			}
+			appoint_random_prime_minister_effect = yes
+		}
 	}
 	events = {
 		game_rule.1000	#Autopopulate families.
