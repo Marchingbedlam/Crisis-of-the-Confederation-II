@@ -42,3 +42,53 @@ GetSpaceType = {
 		localization_key = sector_custom_loc
 	}
 }
+# Tells us this character is "on" a planet or station or "in" a system, contextually.
+# Returns a blank if they're not really anywhere.
+# Has a space at the start.
+GetInOnLocation = {
+	type = character
+	text = {
+		setup_scope = {
+			location ?= {
+				save_scope_as = custom_loc_location
+				county ?= { save_scope_as = custom_loc_system }
+			}
+		}
+		trigger = {
+			custom_loc_location = { exists = yes }
+			custom_loc_system = { exists = yes }
+			OR = {
+				is_commanding_army = yes
+				is_traveling = yes
+				is_landless_adventurer = yes
+			}
+		}
+		localization_key = in_system_custom_loc
+	}
+	text = {
+		setup_scope = {
+			location ?= {
+				save_scope_as = custom_loc_location
+				county ?= { save_scope_as = custom_loc_system }
+			}
+		}
+		trigger = {
+			custom_loc_location = { exists = yes }
+			OR = {
+				is_commanding_army = yes
+				is_traveling = yes
+				is_landless_adventurer = yes
+			}
+		}
+		localization_key = in_deep_space_custom_loc
+	}
+	text = {
+		setup_scope = {
+			save_scope_as = custom_loc_character
+			location ?= { save_scope_as = custom_loc_location }
+		}
+		trigger = { custom_loc_location = { exists = yes } }
+		localization_key = on_holding_custom_loc
+	}
+	text = { localization_key = blank_custom_loc }
+}

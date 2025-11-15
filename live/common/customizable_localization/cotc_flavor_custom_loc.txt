@@ -1,0 +1,360 @@
+# Gives us the character's given and family name, in an appropriate
+# order for their culture
+GetFullPersonalName = {
+	type = character
+	text = {
+		setup_scope = { save_scope_as = custom_loc_character }
+		trigger = {
+			NOT = { culture = terran } # Common uses western name order
+			OR = {
+				culture = { has_name_list = name_list_cotc_japanese }
+				culture = { has_name_list = name_list_cotc_chinese }
+				culture = { has_name_list = name_list_cotc_vietnamese }
+			}
+		}
+		localization_key = personal_name_eastern_custom_loc
+	}
+	text = {
+		setup_scope = { save_scope_as = custom_loc_character }
+		localization_key = personal_name_western_custom_loc
+	}
+}
+# Gives us the name of a character and also their highest political office,
+# so that we know why we should care.
+GetCharacterNameWithNewsContext = {
+	type = character
+	text = {
+		setup_scope = { save_scope_as = custom_loc_character }
+		trigger = { is_diarch = yes }
+		localization_key = title_diarch_of_state_custom_loc
+	}
+	text = {
+		setup_scope = { save_scope_as = custom_loc_character }
+		trigger = { is_landed = yes }
+		localization_key = title_ruler_of_state_custom_loc
+	}
+	text = {
+		setup_scope = { save_scope_as = custom_loc_character }
+		trigger = { is_councillor = yes }
+		localization_key = title_councillor_of_state_custom_loc
+	}
+	text = {
+		setup_scope = { save_scope_as = custom_loc_character }
+		localization_key = "[custom_loc_character.Custom('GetFullPersonalName')]"
+	}
+}
+# A brief description of this character's spouse or spouses
+GetSpousesDesc = {
+	type = character
+	# One Spouse
+	text = {
+		setup_scope = {
+			save_scope_as = custom_loc_character
+			primary_spouse ?= { save_scope_as = custom_loc_spouse }
+		}
+		trigger = {
+			any_spouse = {
+				limit = { is_alive = yes }
+				count = 1
+			}
+		}
+		localization_key = one_spouse_custom_loc
+	}
+	# Multiple spouses
+	text = {
+		setup_scope = { save_scope_as = custom_loc_character }
+		trigger = {
+			any_spouse = {
+				limit = { is_alive = yes }
+				count = 2
+			}
+		}
+		localization_key = two_spouses_custom_loc
+	}
+	text = {
+		setup_scope = { save_scope_as = custom_loc_character }
+		trigger = {
+			any_spouse = {
+				limit = { is_alive = yes }
+				count = 3
+			}
+		}
+		localization_key = three_spouses_custom_loc
+	}
+	text = {
+		setup_scope = { save_scope_as = custom_loc_character }
+		trigger = {
+			any_spouse = {
+				limit = { is_alive = yes }
+				count > 3
+			}
+		}
+		localization_key = many_spouses_custom_loc
+	}
+}
+# A brief description of this character's child or children
+GetChildrenDesc = {
+	type = character
+	# One child
+	text = {
+		setup_scope = {
+			save_scope_as = custom_loc_character
+			random_child ?= { save_scope_as = custom_loc_child }
+		}
+		trigger = {
+			any_child = {
+				limit = { is_alive = yes }
+				count = 1
+			}
+		}
+		localization_key = one_child_custom_loc
+	}
+	# Multiple children
+	text = {
+		setup_scope = { save_scope_as = custom_loc_character }
+		trigger = {
+			any_child = {
+				limit = { is_alive = yes }
+				count = 2
+			}
+		}
+		localization_key = two_children_custom_loc
+	}
+	text = {
+		setup_scope = { save_scope_as = custom_loc_character }
+		trigger = {
+			any_child = {
+				limit = { is_alive = yes }
+				count = 3
+			}
+		}
+		localization_key = three_children_custom_loc
+	}
+	text = {
+		setup_scope = { save_scope_as = custom_loc_character }
+		trigger = {
+			any_child = {
+				limit = { is_alive = yes }
+				count > 3
+			}
+		}
+		localization_key = many_children_custom_loc
+	}
+}
+# Randomized hour of the day
+GetRandomHour = {
+	type = character
+	random_valid = yes
+	
+	text = { localization_key = one_custom_loc }
+	text = { localization_key = two_custom_loc }
+	text = { localization_key = three_custom_loc }
+	text = { localization_key = four_custom_loc }
+	text = { localization_key = five_custom_loc }
+	text = { localization_key = six_custom_loc }
+	text = { localization_key = seven_custom_loc }
+	text = { localization_key = eight_custom_loc }
+	text = { localization_key = nine_custom_loc }
+	text = { localization_key = ten_custom_loc }
+	text = { localization_key = eleven_custom_loc }
+	text = { localization_key = twelve_custom_loc }
+}
+# Randomized news story lead-in, to make events framed this way a bit less monotonous.
+GetNewsIntro = {
+	type = character
+	random_valid = yes
+	
+	text = { localization_key = breaking_news_custom_loc }
+	text = { localization_key = recapping_our_top_story_custom_loc }
+	text = { localization_key = this_just_in_custom_loc }
+	text = { localization_key = we_interrupt_this_program_custom_loc }
+	text = { localization_key = our_top_story_tonight_custom_loc }
+}
+# Randomized news story source, for the same purpose
+GetNewsSource = {
+	type = character
+	random_valid = yes
+	
+	text = { localization_key = sources_say_custom_loc }
+	text = { localization_key = we_have_just_confirmed_custom_loc }
+	text = { localization_key = officially_confirmed_custom_loc }
+	text = {
+		setup_scope = { var:news_source_title = { save_scope_as = news_source_title } }
+		trigger = { exists = scope:news_source_title }
+		localization_key = source_title_officials_have_announced_custom_loc
+	}
+	text = {
+		setup_scope = { var:news_source_title = { save_scope_as = news_source_title } }
+		trigger = { exists = scope:news_source_title }
+		localization_key = according_to_sources_in_source_title_custom_loc
+	}
+	text = {
+		setup_scope = { var:news_source_character = { save_scope_as = news_source_character } }
+		trigger = { exists = scope:news_source_character }
+		localization_key = news_source_character_has_stated_custom_loc
+	}
+	text = {
+		setup_scope = { var:news_source_character = { save_scope_as = news_source_character } }
+		trigger = { exists = scope:news_source_character }
+		localization_key = news_source_character_press_conference_custom_loc
+	}
+	text = { localization_key = blank_custom_loc }
+}
+# Randomized news outro, again for the same purpose
+GetNewsOutro = {
+	type = character
+	random_valid = yes
+	
+	text = { localization_key = more_on_this_story_as_it_develops_custom_loc }
+	text = { localization_key = more_at_later_time_custom_loc }
+	text = { localization_key = we_now_return_custom_loc }
+}
+# Reconstructs a dead character's name from saved variables on ROOT
+GetDeadCharacterName = {
+	type = character
+	text = {
+		setup_scope = {
+			var:dead_character = { save_scope_as = custom_loc_character }
+			var:news_source_title ?= { save_scope_as = custom_loc_title }
+		}
+		trigger = { exists = scope:custom_loc_title }
+		localization_key = dead_character_with_title_custom_loc
+	}
+	text = {
+		setup_scope = { var:dead_character = { save_scope_as = custom_loc_character } }
+		localization_key = dead_character_without_title_custom_loc
+	}
+}
+# Where did the dead character die?
+GetDeadCharacterLocation = {
+	type = character
+	# In Deep Space
+	text = {
+		setup_scope = { var:death_location_deep_space = { save_scope_as = custom_loc_location } }
+		trigger = { exists = scope:custom_loc_location }
+		localization_key = in_deep_space_custom_loc
+	}
+	# In a system
+	text = {
+		setup_scope = { var:death_system = { save_scope_as = custom_loc_system } }
+		trigger = { exists = scope:custom_loc_system }
+		localization_key = in_system_custom_loc
+	}
+	# On a planet
+	text = {
+		setup_scope = { var:death_location = { save_scope_as = custom_loc_location } }
+		trigger = { exists = scope:custom_loc_location }
+		localization_key = on_holding_custom_loc
+	}
+	# Nowhere?
+	text = { localization_key = blank_custom_loc }
+}
+# What happens to this character's family?
+GetDeadCharacterConsequences = {
+	type = character
+	
+	# Who inherits the throne of a monarchy?
+	# Did this character have any surviving family?
+	text = {
+		setup_scope = { var:dead_character = { save_scope_as = custom_loc_character } }
+		trigger = {
+			scope:custom_loc_character = {
+				OR = {
+					any_spouse = { is_alive = yes }
+					any_child = { is_alive = yes }
+				}
+			}
+		}
+		localization_key = "[custom_loc_character.Custom('GetDeadCharacterFamily')]"
+	}
+}
+GetDeadCharacterFamily = {
+	type = character
+	text = {
+		setup_scope = {
+			var:dead_character = { save_scope_as = custom_loc_character }
+			var:death_title_heir ?= { save_scope_as = custom_loc_heir }
+		}
+		trigger = {
+			exists = scope:custom_loc_heir
+			scope:custom_loc_character = { government_has_flag = government_is_aristocratic }
+		}
+		localization_key = throne_will_pass_to_custom_loc
+	}
+	# Had both spouses and children
+	text = {
+		setup_scope = { var:dead_character = { save_scope_as = custom_loc_character } }
+		trigger = {
+			scope:custom_loc_character = {
+				any_spouse = { is_alive = yes }
+				any_child = { is_alive = yes }
+			}
+		}
+		localization_key = survived_by_spouses_and_children_custom_loc
+	}
+	# Had only spouses
+	text = {
+		setup_scope = { var:dead_character = { save_scope_as = custom_loc_character } }
+		trigger = { scope:custom_loc_character = { any_spouse = { is_alive = yes } } }
+		localization_key = survived_by_spouses_custom_loc
+	}
+	# Had only children
+	text = {
+		setup_scope = { var:dead_character = { save_scope_as = custom_loc_character } }
+		trigger = { scope:custom_loc_character = { any_child = { is_alive = yes } } }
+		localization_key = survived_by_children_custom_loc
+	}
+	# Had no-one
+	text = { localization_key = blank_custom_loc }
+}
+# How will people react to this character's death?
+GetDeadCharacterConsequences = {
+	type = character
+	# Legendary
+	text = {
+		setup_scope = { var:dead_character = { save_scope_as = custom_loc_character } }
+		trigger = { var:dead_character_prestige = 5 }
+		localization_key = legendary_death_custom_loc
+	}
+	# Empire or Hegemony
+	text = {
+		setup_scope = {
+			var:dead_character = { save_scope_as = custom_loc_character }
+			var:news_source_title = { save_scope_as = custom_loc_title }
+		}
+		trigger = { scope:custom_loc_title ?= { tier >= tier_empire } }
+		localization_key = ruler_death_custom_loc
+	}
+	# Exalted
+	text = {
+		setup_scope = { var:dead_character = { save_scope_as = custom_loc_character } }
+		trigger = { var:dead_character_prestige = 4 }
+		text = { localization_key = exalted_death_custom_loc }
+	}
+	# Kingdom or Duchy
+	text = {
+		setup_scope = {
+			var:dead_character = { save_scope_as = custom_loc_character }
+			var:news_source_title = { save_scope_as = custom_loc_title }
+		}
+		trigger = { scope:custom_loc_title ?= { tier >= tier_duchy } }
+		localization_key = ruler_death_custom_loc
+	}
+	# Illustrious
+	text = {
+		setup_scope = { var:dead_character = { save_scope_as = custom_loc_character } }
+		trigger = { var:dead_character_prestige = 3 }
+		text = { localization_key = illustrious_death_custom_loc }
+	}
+	# Barony
+	text = {
+		setup_scope = {
+			var:dead_character = { save_scope_as = custom_loc_character }
+			var:news_source_title ?= { save_scope_as = custom_loc_title }
+		}
+		trigger = { exists = custom_loc_title }
+		localization_key = ruler_death_custom_loc
+	}
+	# Character was a nobody (why are we reporting on this?)
+	text = { localization_key = blank_custom_loc }
+}

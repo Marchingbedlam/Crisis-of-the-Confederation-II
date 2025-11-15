@@ -1,0 +1,166 @@
+# These are events intended to report major world events to the player, usually flavored
+# as some sort of news broadcast. The goal is to keep the player relatively informed of
+# what's going on in the world around them.
+
+namespace = cotc_news
+
+# Triggers on character death; report the news of this death to people who should care
+cotc_news.0 = {
+	type = character_event
+	hidden = yes
+	
+	trigger = {
+		# Is this character important enough for anyone to care about their death?
+		OR = {
+			is_ruler = yes
+			is_diarch = yes
+			is_councillor = yes
+			level_of_prestige >= 5
+			is_head_of_faith = yes
+			any_heir_title = { tier >= tier_county }
+		}
+	}
+	
+	immediate = {
+		ROOT = { save_scope_as = dead_character }
+		every_player = { # The AI does not care about news
+			limit = {
+				in_diplomatic_range = ROOT
+				# Why should the player care about this character?
+				OR = {
+					# We care about them personally
+					has_relation_rival = ROOT
+					has_relation_friend = ROOT
+					has_relation_lover = ROOT
+					has_relation_soulmate = ROOT
+					is_close_family_of = ROOT
+					is_spouse_of_even_if_dead = ROOT
+					# They're our head of faith
+					faith = { head_of_faith = ROOT }
+					# They're our liege or suzerain
+					target_is_liege_or_above = ROOT
+					is_tributary_of = ROOT
+					# They're on our council
+					is_councillor_of = ROOT
+					is_diarch_of_target = ROOT
+					# We're they're direct liege or suzerain
+					ROOT = { is_vassal_of = PREV }
+					ROOT = { is_tributary_of = PREV }
+					# They're an independent ruler we should care about...
+					AND = {
+						ROOT = {
+							is_independent_ruler = yes
+							OR = {
+								# ...because they're just important in general
+								primary_title = { tier >= tier_kingdom }
+								# ...because they're a neighbor
+								character_is_realm_neighbor = PREV
+								# ...because we're at war with them
+								war_with = PREV
+								PREV = { any_liege_or_above = { war_with = ROOT } }
+								# ...because we're allied with them
+								is_allied_to = PREV
+								PREV = { any_liege_or_above = { is_allied_to = ROOT } }
+								# ...because we're on the same side in a war
+								is_allied_in_war = PREV
+								PREV = { any_liege_or_above = { is_allied_in_war = PREV } }
+							}
+						}
+					}
+				}
+			}
+			# Okay, this player should be informed, fire away!
+			trigger_event = { id = cotc_news.1 }
+		}
+	}
+}
+# Inform a player that someone you should care about died
+cotc_news.1 = {
+	type = character_event
+	desc = cotc_news.1.desc
+	theme = death # Should probably make a theme specific for news broadcasts
+	
+	right_portrait = {
+		character = scope:dead_character
+		animation = dead
+	}
+	
+	immediate = {
+		# Save information about the dead character so we can use it in localization
+		set_variable = { name = dead_character value = scope:dead_character }
+		scope:dead_character = {
+			if = {
+				limit = { location ?= { is_sea_province = yes } }
+				location = { ROOT = { set_variable = { name = death_location_deep_space value = PREV } } }
+			}
+			else_if = {
+				limit = {
+					OR = {
+						is_commanding_army = yes
+						is_traveling = yes
+						is_landless_adventurer = yes
+					}
+				}
+				location ?= { county ?= { ROOT = { set_variable = { name = death_system value = PREV } } } }
+			}
+			else = { location ?= { ROOT = { set_variable = { name = death_location value = PREV } } } }
+			primary_title ?= {
+				ROOT = { set_variable = { name = news_source_title value = PREV } }
+				current_heir ?= { ROOT = { set_variable = { name = death_title_heir value = PREV } } }
+			}
+			if = {
+				limit = {
+					OR = {
+						is_diarch = yes
+						is_councillor = yes
+						is_powerful_vassal = yes
+					}
+					liege ?= { primary_title ?= { ROOT = { set_variable = { name = news_source_title value = PREV } } } }
+				}
+			}
+			ROOT = { set_variable = { name = dead_character_prestige value = PREV.level_of_prestige } }
+		}
+	}
+	
+	# Make a comment based on your feelings about the dead character
+	option = {
+		trigger = { opinion = { target = scope:dead_character value >= 80 } }
+		name = cotc_news.1.a
+	}
+	option = {
+		trigger = {
+			opinion = { target = scope:dead_character value >= 20 }
+			opinion = { target = scope:dead_character value < 80 }
+		}
+		name = cotc_news.1.b
+	}
+	option = {
+		trigger = {
+			opinion = { target = scope:dead_character value >= -19 }
+			opinion = { target = scope:dead_character value < 20 }
+		}
+		name = cotc_news.1.c
+	}
+	option = {
+		trigger = {
+			opinion = { target = scope:dead_character value >= -79 }
+			opinion = { target = scope:dead_character value < -19 }
+		}
+		name = cotc_news.1.d
+	}
+	option = {
+		trigger = { opinion = { target = scope:dead_character value < -79 } }
+		name = cotc_news.1.e
+	}
+	after = {
+		# Get rid of all the extra variables
+		remove_variable = dead_character
+		remove_variable = death_location_deep_space
+		remove_variable = death_system
+		remove_variable = death_location
+		remove_variable = death_title_heir
+		remove_variable = death_liege_title
+		remove_variable = dead_character_prestige
+		remove_variable = news_source_title
+	}
+}
