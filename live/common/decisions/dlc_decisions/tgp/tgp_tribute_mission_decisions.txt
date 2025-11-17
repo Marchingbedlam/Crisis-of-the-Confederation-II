@@ -1,6 +1,5 @@
 ﻿#Decisions for and to Tributaries
 
-<<<<<<< HEAD
 #Pay Tribute Decision - triggers different hidden Character Interactions to determine your tribute
 tribute_mission_decision = {
 	# picture = {
@@ -18,9 +17,6 @@ tribute_mission_decision = {
 		# }
 		# reference = "gfx/interface/illustrations/event_story/tgp_japanese_shogunate.dds"
 	# }
-=======
-tribute_mission_decision_mandala = {
->>>>>>> 1.18.1
 	picture = {
 		reference = "gfx/interface/illustrations/decisions/tgp_projects_mandala_capital.dds"
 	}
@@ -28,7 +24,6 @@ tribute_mission_decision_mandala = {
 
 	should_create_alert = { always = yes }
 
-<<<<<<< HEAD
 	desc = tribute_mission_decision_desc
 
 	is_shown = {
@@ -41,13 +36,6 @@ tribute_mission_decision_mandala = {
 			# NOT = { government_has_flag = government_is_mandala }
 		# }
 		is_tributary = yes
-=======
-	desc = tribute_mission_decision_desc_mandala
-
-	is_shown = {
-		is_tributary = yes
-		suzerain = { government_has_flag = government_is_mandala }
->>>>>>> 1.18.1
 	}
 
 	is_valid_showing_failures_only = {
@@ -59,7 +47,6 @@ tribute_mission_decision_mandala = {
 			tribute_mission_decision_eunuch_trigger = { OVERLORD = suzerain }
 			has_bunga_mas_tribute_trigger = yes
 		}
-<<<<<<< HEAD
 
 		#And we're not already either doing a Tribute Mission or are on cooldown
 		custom_tooltip = {
@@ -111,8 +98,6 @@ tribute_mission_decision_mandala = {
 			# }
 		# }
 		
-=======
->>>>>>> 1.18.1
 	}
 
 	widget = {
@@ -171,7 +156,6 @@ tribute_mission_decision_mandala = {
 			value = tribute_mission_concubine
 			is_valid = { 
 				has_concubine_tribute_trigger = yes
-<<<<<<< HEAD
 				# trigger_if = {
 					# limit = {
 						# is_ai = yes
@@ -188,9 +172,6 @@ tribute_mission_decision_mandala = {
 					# can_have_concubines_trigger = { CHAR = title:h_china.holder }
 				# }
 				trigger_else = { always = no } # We should never get here, the above is a sanity check
-=======
-				can_have_concubines_trigger = { CHAR = suzerain }
->>>>>>> 1.18.1
 			}
 			localization = tribute_mission_decision_option_concubine
 			icon = "gfx/interface/icons/concubine_icon.dds"
@@ -282,66 +263,11 @@ tribute_mission_decision_china = {
 					limit = { short_term_gold >= excessive_gold_tribute_value }
 					add = 20 
 				}
-<<<<<<< HEAD
 				# trigger_else_if = {
 					# limit = { is_tributary_or_independent_neighbor_of_china_trigger = yes }
 					# can_employ_court_eunuchs_trigger = { CHAR = title:h_china.holder }
 				# }
 				trigger_else = { always = no } # We should never get here, the above is a sanity check
-=======
-				if = {
-					limit = { short_term_gold >= adequate_gold_tribute_value }
-					add = 20 
-				}
-			}
-		}
-		item = { # Herd
-			value = tribute_mission_herd
-			is_valid = { has_herd_tribute_trigger = yes }
-			localization = tribute_mission_decision_option_herd
-			icon = "gfx/interface/icons/icon_herd.dds"
-			ai_chance = {
-				value = 20 
-				if = {
-					limit = { 
-						domicile ?= { herd >= excessive_herd_tribute_value }
-					}
-					add = 20 
-				}
-				if = {
-					limit = { 
-						domicile ?= { herd >= adequate_herd_tribute_value }
-					}
-					add = 20 
-				}
-			}
-		}
-
-		item = { # Artifact
-			value = tribute_mission_artifact
-			is_valid = { has_artifact_tribute_trigger = yes }
-			localization = tribute_mission_decision_option_artifact
-			icon = "gfx/interface/icons/message_feed/artifact.dds"
-			ai_chance = { value = 20 }
-		}
-
-		item = { # Concubine 
-			value = tribute_mission_concubine
-			is_valid = { 
-				has_concubine_tribute_trigger = yes
-				can_have_concubines_trigger = { CHAR = title:h_china.holder }
-			}
-			localization = tribute_mission_decision_option_concubine
-			icon = "gfx/interface/icons/concubine_icon.dds"
-			ai_chance = { value = 50 } #The AI can do it? Do it!
-		}
-
-		item = { # Eunuch
-			value = tribute_mission_eunuch
-			is_valid = { 
-				has_eunuch_tribute_trigger = yes
-				can_employ_court_eunuchs_trigger = { CHAR = title:h_china.holder }
->>>>>>> 1.18.1
 			}
 			localization = tribute_mission_decision_option_eunuch
 			icon = "gfx/interface/icons/character_interactions/eunuch.dds"
@@ -350,7 +276,6 @@ tribute_mission_decision_china = {
 	}
 
 	effect = {
-<<<<<<< HEAD
 		hidden_effect = { 
 			tribute_mission_clean_up_variables_effect = yes
 			save_tribute_mission_target_scope_effect = yes
@@ -720,23 +645,9 @@ tribute_mission_decision_china = {
 				# }
 			# }
 		# }
-=======
-		custom_tooltip = tribute_mission_decision_effects_china_tt
-		tribute_mission_decision_effect = { TARGET = title:h_china.holder }
-	}
-
-	ai_check_interval_by_tier = {
-		barony = 0
-		county = 36
-		duchy = 36
-		kingdom = 36
-		empire = 36
-		hegemony = 0
->>>>>>> 1.18.1
 	}
 
 	ai_potential = {
-<<<<<<< HEAD
 		is_at_war = no
 		is_tributary = yes
 
@@ -761,9 +672,6 @@ tribute_mission_decision_china = {
 			has_trait = greatest_of_khans
 			is_gurkhan = yes
 		}
-=======
-		tribute_mission_decision_ai_potential_trigger = { TARGET = title:h_china.holder }
->>>>>>> 1.18.1
 	}
 
 	ai_will_do = {

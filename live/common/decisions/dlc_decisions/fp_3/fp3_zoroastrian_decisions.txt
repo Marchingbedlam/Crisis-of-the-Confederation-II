@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ﻿# restore_badd_fortress_decision = { #This allows a ruler with a Zandik or Chthonic Redoubts faith to restore the Badd fortress (it's in the barony Ahar, which you'll need to capture) and make it his capital.
 	# title = restore_badd_fortress_decision
 	# picture = {
@@ -8,18 +7,6 @@
 	# selection_tooltip = restore_badd_fortress_decision_tooltip
 	# decision_group_type = major
 	# sort_order = 20
-=======
-﻿### Establish [ROOT.Char.GetFaith.GetAdherentNameNoTooltip] Stronghold ###
-restore_badd_fortress_decision = { #This allows a ruler with a Zandik or Chthonic Redoubts faith to restore the Badd fortress (it's in the barony Ahar, which you'll need to capture) and make it his capital.
-	title = restore_badd_fortress_decision
-	picture = {
-		reference = "gfx/interface/illustrations/decisions/fp3/fp3_decision_sunder.dds"
-	}
-	desc = restore_badd_fortress_decision_desc
-	selection_tooltip = restore_badd_fortress_decision_tooltip
-	decision_group_type = major
-	sort_order = 20
->>>>>>> 1.18.1
 	
 	# ai_check_interval_by_tier = {
 		# barony = 0
@@ -139,7 +126,6 @@ restore_badd_fortress_decision = { #This allows a ruler with a Zandik or Chthoni
 	# }
 # }
 
-<<<<<<< HEAD
 # destroy_the_magi_decision = { #This allows a ruler with sufficient piety and control of holy sites to reform the Zoroastrian priesthood's hierarchy. 
 	# picture = {
 		# reference = "gfx/interface/illustrations/decisions/fp3/fp3_decision_strength.dds"
@@ -178,47 +164,6 @@ restore_badd_fortress_decision = { #This allows a ruler with a Zandik or Chthoni
 			# desc = destroy_the_magi_decision_desc
 		# }
 	# }
-=======
-### Reform the [ROOT.Char.GetFaith.random_AltPriestTermPlural] ###
-destroy_the_magi_decision = { #This allows a ruler with sufficient piety and control of holy sites to reform the Zoroastrian priesthood's hierarchy. 
-	picture = {
-		reference = "gfx/interface/illustrations/decisions/fp3/fp3_decision_strength.dds"
-	}
-	title = {
-		first_valid = {
-			triggered_desc = {
-				trigger = {
-					AND = {
-						religion = religion:zoroastrianism_religion
-						OR = {
-							has_faith = faith:mazdakism
-							has_faith = faith:zurvanism 
-						}
-					}
-				}
-				desc = destroy_the_magi_decision_alternate 
-			}
-			desc = destroy_the_magi_decision
-		}
-	}
-	desc = {
-		first_valid = {
-			triggered_desc = {
-				trigger = {
-					AND = {
-						religion = religion:zoroastrianism_religion
-						OR = {
-							has_faith = faith:mazdakism
-							has_faith = faith:zurvanism 
-						}
-					}
-				}
-				desc = destroy_the_magi_decision_alternate_desc
-			}
-			desc = destroy_the_magi_decision_desc
-		}
-	}
->>>>>>> 1.18.1
 	
 	# selection_tooltip = destroy_the_magi_decision_tooltip
 	# decision_group_type = major
@@ -299,7 +244,6 @@ destroy_the_magi_decision = { #This allows a ruler with sufficient piety and con
 	# }
 # }
 
-<<<<<<< HEAD
 # kindle_royal_fire_decision = {
 	# title = kindle_royal_fire_decision
 	# picture = {
@@ -308,17 +252,6 @@ destroy_the_magi_decision = { #This allows a ruler with sufficient piety and con
 	# desc = kindle_royal_fire_decision_desc
 	# selection_tooltip = kindle_royal_fire_decision_tooltip
 	# sort_order = 90
-=======
-### Kindle Royal Fire ###
-kindle_royal_fire_decision = {
-	title = kindle_royal_fire_decision
-	picture = {
-		reference = "gfx/interface/illustrations/decisions/fp3/fp3_decision_foundation.dds"
-	}
-	desc = kindle_royal_fire_decision_desc
-	selection_tooltip = kindle_royal_fire_decision_tooltip
-	sort_order = 90
->>>>>>> 1.18.1
 
 	# is_shown = {
 		# is_playable_character = yes 
@@ -380,7 +313,6 @@ kindle_royal_fire_decision = {
 	# }
 # }
 
-<<<<<<< HEAD
 # ###################################
 # # Embrace Zoroastrianism
 # # Adopt a Zoroastrian faith in secret, provided one of your counties follows the chosen faith
@@ -392,20 +324,6 @@ kindle_royal_fire_decision = {
 	# desc = fp3_embrace_zoroastrianism_decision_desc
 	# selection_tooltip = fp3_embrace_zoroastrianism_decision_tooltip
 	# sort_order = 120
-=======
-###################################
-# Embrace Zoroastrianism
-# Adopt a Zoroastrian faith in secret, provided one of your counties follows the chosen faith
-###################################
-### Embrace Zoroastrianism ###
-fp3_embrace_zoroastrianism_decision = {
-	picture = {
-		reference = "gfx/interface/illustrations/event_scenes/fp3_temple.dds"
-	}
-	desc = fp3_embrace_zoroastrianism_decision_desc
-	selection_tooltip = fp3_embrace_zoroastrianism_decision_tooltip
-	sort_order = 120
->>>>>>> 1.18.1
 	
 	# is_shown = {
 		# culture = { has_cultural_pillar = heritage_iranian }

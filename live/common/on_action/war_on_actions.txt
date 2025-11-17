@@ -266,8 +266,6 @@ on_join_war_as_secondary = {
 				}
 			}
 		}
-<<<<<<< HEAD
-=======
 		if = { #coronation_events_klank.1005 reward
 			limit = {
 				has_variable = coronation_event_1005_target
@@ -301,7 +299,6 @@ on_join_war_as_secondary = {
 			}
 			remove_variable = coronation_event_1005_target
 		}
->>>>>>> 1.18.1
 	}
 	events = {
 		war_event.3000 # Ally gets mad if you do not participate in their wars.
@@ -1287,33 +1284,6 @@ on_war_won_attacker = { # As in, won BY attacker. Only one of the two on_actions
 		}
 
 		# Struggle Catalysts
-<<<<<<< HEAD
-=======
-		## Special war checks for the caliph.
-		scope:defender = {
-			if = {
-				limit = {
-					fp3_struggle_scoped_is_the_arabian_caliph_trigger = yes
-					scope:war = {
-						NOT = { has_variable = used_for_struggle_catalyst_on_war_ended }
-						using_civil_war_cb_trigger = yes
-					}
-				}
-				# Direct scope because this is caliph-specific.
-				struggle:persian_struggle = {
-					if = {
-						limit = { phase_has_catalyst = catalyst_caliph_or_emperor_loses_revolt_war }
-						activate_struggle_catalyst = {
-							catalyst = catalyst_caliph_or_emperor_loses_revolt_war
-							character = scope:defender
-						}
-						scope:war = { set_variable = used_for_struggle_catalyst_on_war_ended }
-						log_debug_variable_for_persian_struggle_effect = { VAR = concession_catalyst_caliph_or_emperor_loses_revolt_war }
-					}
-				}
-			}
-		}
->>>>>>> 1.18.1
 		## (Mostly) general checks.
 		scope:attacker = {
 			# Win any war in the struggle region.
@@ -1541,35 +1511,6 @@ on_war_won_attacker = { # As in, won BY attacker. Only one of the two on_actions
 			}
 		}
 
-<<<<<<< HEAD
-=======
-		# EP3 - Echoes of Empire Story Cycle
-		if = {
-			limit = {
-				has_ep3_dlc_trigger = yes
-				any_in_list = {
-					list = target_titles
-					this = title:e_byzantium
-				}
-				scope:winner = {
-					has_title = title:e_byzantium
-					NOT = {
-						any_owned_story = {
-							type = grand_ambitions_story_cycle
-							var:method ?= flag:scheme
-						}
-					}
-				}
-			}
-			scope:winner = {
-				trigger_event = {
-					id = grand_ambitions.0002
-					days = 5
-				}
-			}
-		}
-
->>>>>>> 1.18.1
 		# EP3 - Become Adventurer - Conquest/Deposition
 		# Previous holders of any contested title, which lost all titles through this war, can become landless adventurers
 		scope:war.casus_belli = {
@@ -1625,13 +1566,8 @@ on_war_won_attacker = { # As in, won BY attacker. Only one of the two on_actions
 		if = {
 			limit = {
 				scope:attacker = {
-<<<<<<< HEAD
 					is_ai = no 
 					this = character:1
-=======
-					is_ai = no
-					this = character:223523
->>>>>>> 1.18.1
 				}
 				scope:defender = {
 					this = character:1
@@ -2001,13 +1937,8 @@ on_war_won_defender = {
 		if = {
 			limit = {
 				scope:defender = {
-<<<<<<< HEAD
 					is_ai = no 
 					this = character:1
-=======
-					is_ai = no
-					this = character:223523
->>>>>>> 1.18.1
 				}
 				scope:attacker = {
 					this = character:1

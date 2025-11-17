@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ﻿# # Attend Children's Examination
 # tgp_china_attend_child_exam_decision = {
 	# title = tgp_china_attend_child_exam_decision
@@ -7,17 +6,6 @@
 	# picture = {
 		# reference = "gfx/interface/illustrations/event_scenes/tgp_examination_room.dds"
 	# }
-=======
-﻿# Attend Children's Examination
-### Attend Children's Examination ###
-tgp_china_attend_child_exam_decision = {
-	title = tgp_china_attend_child_exam_decision
-	desc = tgp_china_attend_child_exam_decision_desc
-	selection_tooltip = tgp_china_attend_child_exam_decision_tooltip
-	picture = {
-		reference = "gfx/interface/illustrations/event_scenes/tgp_examination_room.dds"
-	}
->>>>>>> 1.18.1
 
 	# cooldown = { years = 3 }
 	# sort_order = 80
@@ -61,7 +49,6 @@ tgp_china_attend_child_exam_decision = {
 		# }
 	# }
 
-<<<<<<< HEAD
 	# is_valid_showing_failures_only = {
 		# custom_tooltip = {
 			# text = tgp_china_attend_child_exam_age_limit
@@ -71,17 +58,6 @@ tgp_china_attend_child_exam_decision = {
 		# is_incapable = no
 		# has_contagious_deadly_disease_trigger = no
 	# }
-=======
-	is_valid_showing_failures_only = {
-		custom_tooltip = {
-			text = tgp_china_attend_child_exam_age_limit
-			age >= child_exam_min_age
-		}
-		is_imprisoned = no
-		is_incapable = no
-		has_contagious_deadly_disease_trigger = no
-	}
->>>>>>> 1.18.1
 
 	# effect = {
 		# custom_tooltip = tgp_china_decision_effect_tt
@@ -142,7 +118,6 @@ tgp_china_attend_child_exam_decision = {
 	# }
 # }
 
-<<<<<<< HEAD
 # # Choose Career Path Decision
 # tgp_choose_career_path_decision = {
 	# decision_group_type = admin
@@ -153,106 +128,6 @@ tgp_china_attend_child_exam_decision = {
 		# reference = "gfx/interface/illustrations/decisions/tgp_career.dds"
 	# }
 	# sort_order = 90
-=======
-# Command Family to attend Exams
-tgp_command_family_to_take_exams_decision = {
-	decision_group_type = admin
-	title = tgp_command_family_to_take_exams_decision
-	desc = tgp_command_family_to_take_exams_decision_desc
-	selection_tooltip = tgp_command_family_to_take_exams_decision_tooltip
-	picture = {
-		reference = "gfx/interface/illustrations/event_scenes/tgp_examination_room.dds"
-	}
-	sort_order = 90
-
-	is_shown = {
-		is_ai = no
-		government_allows = merit
-		has_tgp_dlc_trigger = yes
-		this != top_liege
-		exists = house.house_head
-	}
-	
-	is_valid = {
-		is_house_head = yes
-	}
-
-	is_valid_showing_failures_only = {
-	}
-	
-	widget = {
-		gui = "decision_view_widget_generic_multichoice_with_effects"
-		controller = decision_option_list_controller
-		decision_to_second_step_button = "SELECT_ACTION"
-		show_from_start = yes
-
-		item = { # Command to attend
-			value = command_to_attend
-			is_valid = {
-				custom_tooltip = {
-					text = command_to_attend_requirements_desc
-					NOT = {
-						has_character_flag = command_to_attend_flag
-					}
-				}
-			}
-			current_description = command_to_attend_desc
-			localization = command_to_attend_name
-			icon = "gfx/interface/icons/activities/activity_imperial_examination.dds"
-			ai_chance = {
-				value = 0
-			}
-		}
-		item = { # Command to stop attending
-			value = command_to_stop_attending
-			is_valid = {
-				custom_tooltip = {
-					text = command_to_stop_attending_requirements_desc
-					has_character_flag = command_to_attend_flag
-				}
-			}
-			current_description = command_to_stop_attending_desc
-			localization = command_to_stop_attending_name
-			icon = "gfx/interface/icons/map_icons/map_icon_chinese_manor.dds"
-			ai_chance = {
-				value = 0
-			}
-		}
-	}
-
-	effect = {
-		if = {
-			limit = {
-				scope:command_to_attend = yes
-			}
-			custom_tooltip = {
-				text = command_to_attend_effect_desc
-				add_character_flag = command_to_attend_flag
-			}
-		}
-		else = {
-			custom_tooltip = {
-				text = command_to_stop_attending_effect_desc
-				remove_character_flag = command_to_attend_flag
-			}
-		}
-	}
-	
-	ai_check_interval = 0
-}
-
-# Choose Career Path Decision
-### Choose Career Path ###
-tgp_choose_career_path_decision = {
-	decision_group_type = admin
-	title = tgp_choose_career_path_decision
-	desc = tgp_choose_career_path_decision_desc
-	selection_tooltip = tgp_choose_career_path_decision_tooltip
-	picture = {
-		reference = "gfx/interface/illustrations/decisions/tgp_career.dds"
-	}
-	sort_order = 90
->>>>>>> 1.18.1
 
 	# is_shown = {
 		# is_ai = no
@@ -387,7 +262,6 @@ tgp_choose_career_path_decision = {
 	# ai_check_interval = 0
 # }
 
-<<<<<<< HEAD
 # # Refuse Appointments
 # tgp_refuse_appointments_decision = {
 	# decision_group_type = admin
@@ -399,20 +273,6 @@ tgp_choose_career_path_decision = {
 	# }
 	# confirm_text = tgp_refuse_appointments_decision_confirm
 	# sort_order = 75
-=======
-# Refuse Appointments
-### Refuse Further Appointments ###
-tgp_refuse_appointments_decision = {
-	decision_group_type = admin
-	title = tgp_refuse_appointments_decision
-	desc = tgp_refuse_appointments_decision_desc
-	selection_tooltip = tgp_refuse_appointments_decision_tooltip
-	picture = {
-		reference = "gfx/interface/illustrations/decisions/tgp_retire.dds"
-	}
-	confirm_text = tgp_refuse_appointments_decision_confirm
-	sort_order = 75
->>>>>>> 1.18.1
 
 	# is_shown = {
 		# government_has_flag = government_has_merit
@@ -450,7 +310,6 @@ tgp_refuse_appointments_decision = {
 	# ai_potential = { always = no }
 # }
 
-<<<<<<< HEAD
 # # Resume Appointments
 # tgp_resume_appointments_decision = {
 	# decision_group_type = admin
@@ -462,20 +321,6 @@ tgp_refuse_appointments_decision = {
 	# }
 	# confirm_text = tgp_resume_appointments_decision_confirm
 	# sort_order = 75
-=======
-# Resume Appointments
-### Resume New Appointments ###
-tgp_resume_appointments_decision = {
-	decision_group_type = admin
-	title = tgp_resume_appointments_decision
-	desc = tgp_resume_appointments_decision_desc
-	selection_tooltip = tgp_resume_appointments_decision_tooltip
-	picture = {
-		reference = "gfx/interface/illustrations/decisions/tgp_career.dds"
-	}
-	confirm_text = tgp_resume_appointments_decision_confirm
-	sort_order = 75
->>>>>>> 1.18.1
 
 	# is_shown = {
 		# government_has_flag = government_has_merit
@@ -504,7 +349,6 @@ tgp_resume_appointments_decision = {
 	# ai_potential = { always = no }
 # }
 
-<<<<<<< HEAD
 # # Recruit Courtiers from Celestial Capital
 # tgp_minister_recruit_courtiers_decision = {
 	# decision_group_type = courtier
@@ -515,19 +359,6 @@ tgp_resume_appointments_decision = {
 		# reference = "gfx/interface/illustrations/event_scenes/tgp_courtyard_asia.dds"
 	# }
 	# sort_order = 110
-=======
-# Recruit Courtiers from Celestial Capital
-### Summon Courtiers for the Celestial Bureau ###
-tgp_minister_recruit_courtiers_decision = {
-	decision_group_type = courtier
-	title = tgp_minister_recruit_courtiers_decision
-	desc = tgp_minister_recruit_courtiers_decision_desc
-	selection_tooltip = tgp_minister_recruit_courtiers_decision_tooltip
-	picture = {
-		reference = "gfx/interface/illustrations/event_scenes/tgp_courtyard_asia.dds"
-	}
-	sort_order = 110
->>>>>>> 1.18.1
 
 	# is_shown = {
 		# government_has_flag = government_is_celestial
@@ -745,7 +576,6 @@ tgp_minister_recruit_courtiers_decision = {
 	# ai_will_do = { base = 100 }
 # }
 
-<<<<<<< HEAD
 # # Study Confucian Classics
 # tgp_china_study_confucian_classics_decision = {
 	# decision_group_type = admin
@@ -756,19 +586,6 @@ tgp_minister_recruit_courtiers_decision = {
 		# reference = "gfx/interface/illustrations/decisions/tgp_debate.dds"
 	# }
 	# sort_order = 120
-=======
-# Study Confucian Classics
-### Study the Confucian Classics ###
-tgp_china_study_confucian_classics_decision = {
-	decision_group_type = admin
-	title = tgp_china_study_confucian_classics_decision
-	desc = tgp_china_study_confucian_classics_decision_desc
-	selection_tooltip = tgp_china_study_confucian_classics_decision_tooltip
-	picture = {
-		reference = "gfx/interface/illustrations/decisions/tgp_debate.dds"
-	}
-	sort_order = 120
->>>>>>> 1.18.1
 	
 	# cooldown = { years = 5 }
 
@@ -845,7 +662,6 @@ tgp_china_study_confucian_classics_decision = {
 	# }
 # }
 
-<<<<<<< HEAD
 # tgp_claim_the_mantle_of_maitreya_decision = {
 	# ai_check_interval = 0
 	# picture = {
@@ -853,16 +669,6 @@ tgp_china_study_confucian_classics_decision = {
 	# }
 	# desc = claim_the_mantle_of_maitreya_decision_desc
 	# decision_group_type = major
-=======
-### Claim the Mantle of Maitreya ###
-tgp_claim_the_mantle_of_maitreya_decision = {
-	ai_check_interval = 0
-	picture = {
-		reference = "gfx/interface/illustrations/event_scenes/tgp_holysite_asia.dds"
-	}
-	desc = claim_the_mantle_of_maitreya_decision_desc
-	decision_group_type = major
->>>>>>> 1.18.1
 
 	# selection_tooltip = claim_the_mantle_of_maitreya_decision_tooltip
 
@@ -947,7 +753,6 @@ tgp_claim_the_mantle_of_maitreya_decision = {
 	# }
 # }
 
-<<<<<<< HEAD
 # # Drink Tea/Perform Tea Ceremony - Unlocked from the Asian Estate
 # tgp_tea_ceremony_decision = {
 	# picture = {
@@ -966,27 +771,6 @@ tgp_claim_the_mantle_of_maitreya_decision = {
 	# }
 	# desc = tgp_tea_ceremony_decision_desc
 	# sort_order = 200
-=======
-# Drink Tea/Perform Tea Ceremony - Unlocked from the Asian Estate
-### Drink Tea ###
-tgp_tea_ceremony_decision = {
-	picture = {
-		reference = "gfx/interface/illustrations/event_scenes/tgp_relaxing_room_asia.dds"
-	}
-	title = {
-		first_valid = {
-			triggered_desc = {
-				trigger = {
-					culture = { has_cultural_pillar = heritage_chinese }
-				}
-				desc = tgp_tea_ceremony_decision
-			}
-			desc = tgp_tea_ceremony_decision_ceremony_name
-		}
-	}
-	desc = tgp_tea_ceremony_decision_desc
-	sort_order = 200
->>>>>>> 1.18.1
 
 	# selection_tooltip = tgp_tea_ceremony_decision_tooltip
 
@@ -1134,7 +918,6 @@ tgp_tea_ceremony_decision = {
 	# }
 # }
 
-<<<<<<< HEAD
 # # Suggest Treasury Audit
 # tgp_suggest_budget_change_decision = {
 	# decision_group_type = admin
@@ -1145,19 +928,6 @@ tgp_tea_ceremony_decision = {
 		# reference = "gfx/interface/illustrations/decisions/tgp_scholars.dds"
 	# }
 	# sort_order = 110
-=======
-# Suggest Treasury Audit
-### Suggest Treasury Audit ###
-tgp_suggest_budget_change_decision = {
-	decision_group_type = admin
-	title = tgp_suggest_budget_change_decision
-	desc = tgp_suggest_budget_change_decision_desc
-	selection_tooltip = tgp_suggest_budget_change_decision_tooltip
-	picture = {
-		reference = "gfx/interface/illustrations/decisions/tgp_scholars.dds"
-	}
-	sort_order = 110
->>>>>>> 1.18.1
 
 	# is_shown = {
 		# government_has_flag = government_is_celestial

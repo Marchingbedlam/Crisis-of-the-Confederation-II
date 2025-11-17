@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ﻿# # Admin to Feudal
 # tgp_japan_establish_house_fief_decision = {
 	# decision_group_type = major
@@ -7,17 +6,6 @@
 	# selection_tooltip = tgp_japan_establish_house_fief_decision_tooltip
 	# picture = { reference = "gfx/interface/illustrations/decisions/tgp_house_fief.dds" }
 	# sort_order = 80
-=======
-﻿# Admin to Feudal
-### Establish Sōryō Fief ###
-tgp_japan_establish_house_fief_decision = {
-	decision_group_type = major
-	title = tgp_japan_establish_house_fief_decision
-	desc = tgp_japan_establish_house_fief_decision_desc
-	selection_tooltip = tgp_japan_establish_house_fief_decision_tooltip
-	picture = { reference = "gfx/interface/illustrations/decisions/tgp_house_fief.dds" }
-	sort_order = 80
->>>>>>> 1.18.1
 
 	# cost = {
 		# prestige = {
@@ -216,7 +204,6 @@ tgp_japan_establish_house_fief_decision = {
 		# else = { trigger_event = tgp_japan_decision.9002 }
 	# }
 	
-<<<<<<< HEAD
 	# ai_check_interval_by_tier = {
 		# barony = 0
 		# county = 6
@@ -414,222 +401,6 @@ tgp_japan_establish_house_fief_decision = {
 		# reference = "gfx/interface/illustrations/decisions/tgp_house_fief.dds"
 	# }
 	# sort_order = 80
-=======
-	ai_check_interval_by_tier = {
-		barony = 0
-		county = 6
-		duchy = 6
-		kingdom = 0
-		empire = 0
-		hegemony = 0
-	}
-	ai_potential = {
-		is_landed = yes
-		has_government = japan_administrative_government
-		NOT = { # Reluctance to forgo potential to become Kampaku
-			top_liege = {
-				has_realm_law = japanese_regency_succession_law
-				primary_title = { "place_in_line_of_succession(root)" <= 3 }
-			}
-		}
-	}
-	ai_will_do = {
-		base = -25
-		ai_value_modifier = { # Personality
-			ai_boldness = 0.25
-			ai_energy = 0.25
-			ai_honor = -0.25
-		}
-		modifier = {
-			has_trait = ambitious
-			add = 10
-		}
-		modifier = {
-			has_trait = content
-			add = -10
-		}
-		modifier = {
-			has_trait = brave
-			add = 10
-		}
-		modifier = {
-			has_trait = craven
-			add = -10
-		}
-		modifier = {
-			has_trait = vengeful
-			add = 10
-		}
-		modifier = {
-			has_trait = forgiving
-			add = -10
-		}
-		modifier = {
-			has_trait = impatient
-			add = 10
-		}
-		modifier = {
-			has_trait = patient
-			add = -10
-		}
-		modifier = {
-			has_trait = greedy
-			add = 10
-		}
-		modifier = {
-			has_trait = generous
-			add = -10
-		}
-		modifier = {
-			has_trait = arrogant
-			add = 10
-		}
-		modifier = {
-			has_trait = humble
-			add = -10
-		}
-		modifier = { # Prosperity
-			house ?= { has_house_power_parameter = unlocks_japanese_manor_brewery }
-			add = 25
-		}
-		modifier = { # Determination
-			house ?= { has_house_power_parameter = determination_spymaster_task_find_secrets_efficiency }
-			add = 50
-		}
-		modifier = { # Strength
-			house ?= { has_house_power_parameter = unlocks_japanese_manor_armory }
-			add = 100
-		}
-		modifier = { # Reluctance to turn against successful bloc
-			house.house_confederation ?= {
-				leading_house.house_head ?= { has_same_government = root }
-				cohesion >= 50
-			}
-			add = -100
-		}
-		modifier = { # Reluctance to turn against house head
-			is_house_head = no
-			house.house_confederation.leading_house.house_head ?= {
-				house = root.house
-				has_same_government = root
-			}
-			add = -15
-		}
-		modifier = { # Encouraged by nearby
-			any_neighboring_realm_same_rank_owner = { government_has_flag = government_is_japan_feudal }
-			add = 25
-		}
-		modifier = {
-			NOT = { exists = house.house_confederation }
-			add = 25
-		}
-		modifier = {
-			add = {
-				value = "root.capital_province.squared_distance(root.top_liege.capital_province)"
-				divide = 100000
-			}
-		}
-		modifier = {
-			add = {
-				value = maa_regiments_count
-				multiply = 5
-			}
-		}
-		modifier = {
-			add = {
-				value = gold
-				divide = 100
-			}
-		}
-		modifier = {
-			add = {
-				value = military_power
-				divide = 1000
-			}
-		}
-		modifier = {
-			add = {
-				value = 0
-				every_ally = {
-					limit = {
-						is_landed = yes
-						top_liege = root.top_liege
-						NOT = { government_allows = administrative }
-					}
-					add = 30
-				}
-			}
-		}
-		modifier = {
-			current_date <= 900.1.1
-			add = -75
-		}
-		modifier = {
-			current_date <= 1000.1.1
-			add = -75
-		}
-		modifier = {
-			current_date >= 1100.1.1
-			add = 75
-		}
-		modifier = {
-			current_date >= 1200.1.1
-			add = 75
-		}
-		modifier = {
-			vassal_contract_has_flag = japan_administrative_province_military
-			add = 75
-		}
-		modifier = {
-			has_trait = education_martial
-			add = 20
-		}
-		modifier = {
-			has_realm_law = japanese_bureaucracy_1
-			add = 10
-		}
-		modifier = {
-			has_realm_law = japanese_bureaucracy_2
-			add = 20
-		}
-		modifier = {
-			has_realm_law = japanese_bureaucracy_3
-			add = 30
-		}
-		opinion_modifier = { # Opinion of liege
-			who = root
-			opinion_target = top_liege
-			multiplier = -0.5
-		}
-		opinion_modifier = { # Opinion of house head
-			trigger = { is_house_head = no }
-			who = root
-			opinion_target = house.house_head
-			multiplier = -0.5
-		}
-		opinion_modifier = { # Opinion of bloc leader
-			trigger = {
-				exists = house.house_confederation.leading_house.house_head
-				house.house_confederation.leading_house.house_head != root
-			}
-			who = root
-			opinion_target = house.house_confederation.leading_house.house_head
-			multiplier = -0.5
-		}
-	}
-}
-
-### Abandon the Bureaucracy ###
-tgp_japan_establish_soryo_manor_decision = {
-	decision_group_type = major
-	title = tgp_japan_establish_soryo_manor_decision
-	desc = tgp_japan_establish_soryo_manor_decision_desc
-	selection_tooltip = tgp_japan_establish_house_fief_decision_tooltip
-	picture = {
-		reference = "gfx/interface/illustrations/decisions/tgp_house_fief.dds"
-	}
-	sort_order = 80
->>>>>>> 1.18.1
 
 	# cost = {
 		# prestige = {
@@ -763,7 +534,6 @@ tgp_japan_establish_soryo_manor_decision = {
 	# }
 # }
 
-<<<<<<< HEAD
 # # Become Soryo as Kampaku
 # tgp_japan_establish_soryo_administration_decision = {
 	# decision_group_type = major
@@ -772,17 +542,6 @@ tgp_japan_establish_soryo_manor_decision = {
 	# selection_tooltip = tgp_japan_establish_soryo_administration_decision_tooltip
 	# picture = { reference = "gfx/interface/illustrations/event_story/tgp_japanese_shogunate.dds" }
 	# sort_order = 80
-=======
-# Become Soryo as Kampaku
-### Establish Sōryō Administration ###
-tgp_japan_establish_soryo_administration_decision = {
-	decision_group_type = major
-	title = tgp_japan_establish_soryo_administration_decision
-	desc = tgp_japan_establish_soryo_administration_decision_desc
-	selection_tooltip = tgp_japan_establish_soryo_administration_decision_tooltip
-	picture = { reference = "gfx/interface/illustrations/event_story/tgp_japanese_shogunate.dds" }
-	sort_order = 80
->>>>>>> 1.18.1
 
 	# cost = {
 		# prestige = {
@@ -807,7 +566,6 @@ tgp_japan_establish_soryo_administration_decision = {
 		# }
 	# }
 
-<<<<<<< HEAD
 	# is_valid = {
 		# # Is Regent
 		# has_title = title:e_japan
@@ -831,31 +589,6 @@ tgp_japan_establish_soryo_administration_decision = {
 		# }
 		# is_at_war = no
 	# }
-=======
-	is_valid = {
-		# Is Regent
-		has_title = title:e_japan
-		is_independent_ruler = yes
-		has_government = japan_administrative_government
-		has_realm_law = japanese_regency_succession_law
-		has_realm_law = japanese_bureaucracy_3
-		custom_tooltip = {
-			text = house_head_create_faction_cohesion_hard_tt
-			house.house_confederation ?= {
-				leading_house ?= root.house
-				has_cohesion_level_parameter = house_head_adopt_soryo_regency
-			}
-		}
-		custom_tooltip = {
-			text = house_head_adopt_soryo_regency_tt
-			house.house_confederation ?= {
-				leading_house ?= root.house
-				has_cohesion_level_parameter = house_head_adopt_soryo_regency
-			}
-		}
-		is_at_war = no
-	}
->>>>>>> 1.18.1
 
 	# is_valid_showing_failures_only = {
 		# is_available_adult = yes
@@ -887,7 +620,6 @@ tgp_japan_establish_soryo_administration_decision = {
 	# ai_will_do = { base = 100 }
 # }
 
-<<<<<<< HEAD
 # # Become Shogun
 # tgp_japan_become_shogun_decision = {
 	# decision_group_type = major
@@ -896,17 +628,6 @@ tgp_japan_establish_soryo_administration_decision = {
 	# selection_tooltip = tgp_japan_become_shogun_decision_tooltip
 	# picture = { reference = "gfx/interface/illustrations/event_story/tgp_japanese_shogunate.dds" }
 	# sort_order = 80
-=======
-# Become Shogun
-### Formalize [ROOT.Char.GetHouse.GetNameNoTooltip] Shōgunate ###
-tgp_japan_become_shogun_decision = {
-	decision_group_type = major
-	title = tgp_japan_become_shogun_decision
-	desc = tgp_japan_become_shogun_decision_desc
-	selection_tooltip = tgp_japan_become_shogun_decision_tooltip
-	picture = { reference = "gfx/interface/illustrations/event_story/tgp_japanese_shogunate.dds" }
-	sort_order = 80
->>>>>>> 1.18.1
 
 	# cost = {
 		# prestige = {
@@ -986,7 +707,6 @@ tgp_japan_become_shogun_decision = {
 	# ai_will_do = { base = 100 }
 # }
 
-<<<<<<< HEAD
 # # Emperor Restoration
 # tgp_japan_emperor_restoration_decision = {
 	# decision_group_type = major
@@ -995,17 +715,6 @@ tgp_japan_become_shogun_decision = {
 	# selection_tooltip = tgp_japan_emperor_restoration_decision_tooltip
 	# picture = { reference = "gfx/interface/illustrations/decisions/tgp_kowtow.dds" }
 	# sort_order = 80
-=======
-# Emperor Restoration
-### Restore Direct Imperial Rule ###
-tgp_japan_emperor_restoration_decision = {
-	decision_group_type = major
-	title = tgp_japan_emperor_restoration_decision
-	desc = tgp_japan_emperor_restoration_decision_desc
-	selection_tooltip = tgp_japan_emperor_restoration_decision_tooltip
-	picture = { reference = "gfx/interface/illustrations/decisions/tgp_kowtow.dds" }
-	sort_order = 80
->>>>>>> 1.18.1
 
 	# cost = {
 		# prestige = {
@@ -1091,7 +800,6 @@ tgp_japan_emperor_restoration_decision = {
 	# ai_will_do = { base = 100 }
 # }
 
-<<<<<<< HEAD
 # # Yamato into Minamoto/Taira
 # tgp_japan_imperial_branch_decision = {
 	# decision_group_type = major
@@ -1100,17 +808,6 @@ tgp_japan_emperor_restoration_decision = {
 	# selection_tooltip = tgp_japan_imperial_branch_decision_tooltip
 	# picture = { reference = "gfx/interface/illustrations/decisions/tgp_kowtow.dds" }
 	# sort_order = 80
-=======
-# Yamato into Minamoto/Taira
-### Request Royal Honsei ###
-tgp_japan_imperial_branch_decision = {
-	decision_group_type = major
-	title = tgp_japan_imperial_branch_decision
-	desc = tgp_japan_imperial_branch_decision_desc
-	selection_tooltip = tgp_japan_imperial_branch_decision_tooltip
-	picture = { reference = "gfx/interface/illustrations/decisions/tgp_kowtow.dds" }
-	sort_order = 80
->>>>>>> 1.18.1
 
 	# cost = {
 		# prestige = {
@@ -1272,7 +969,6 @@ tgp_japan_imperial_branch_decision = {
 		# trigger_event = tgp_japan_decision.9201
 	# }
 	
-<<<<<<< HEAD
 	# ai_check_interval_by_tier = {
 		# barony = 0
 		# county = 36
@@ -1350,102 +1046,6 @@ tgp_japan_imperial_branch_decision = {
 	# }
 	# cooldown = { years = 15 }
 	# sort_order = 110
-=======
-	ai_check_interval_by_tier = {
-		barony = 0
-		county = 36
-		duchy = 36
-		kingdom = 36
-		empire = 36
-		hegemony = 36
-	}
-	ai_potential = {
-		is_adult = yes
-		is_landed = yes
-		any_child = { count >= 1 }
-	}
-	ai_will_do = {
-		base = 150 #-25
-		modifier = {
-			has_trait = arrogant
-			add = -25
-		}
-		modifier = {
-			has_trait = humble
-			add = 25
-		}
-		modifier = {
-			has_trait = content
-			add = -25
-		}
-		modifier = {
-			has_trait = ambitious
-			add = 25
-		}
-		modifier = {
-			is_ruler = yes
-			add = 25
-		}
-		modifier = {
-			OR = {
-				has_trait = bastard
-				has_trait = wild_oat
-			}
-			add = 25
-		}
-		modifier = {
-			has_trait = disinherited
-			add = 25
-		}
-		modifier = {
-			top_liege.primary_title.var:administrative_ui_special_title = {
-				any_past_holder = { is_parent_of = root }
-			}
-			add = -50
-		}
-		modifier = {
-			top_liege.primary_title.var:administrative_ui_special_title = {
-				any_past_holder = { is_grandparent_of = root }
-			}
-			add = -25
-		}
-		modifier = {
-			house ?= {
-				any_house_member = { count < 25 }
-			}
-			add = -25
-		}
-		modifier = {
-			house ?= {
-				any_house_member = { count < 15 }
-			}
-			factor = 0
-		}
-	}
-}
-
-#Become a Poet - Ceremony - House Aspiration
-### Study Poetry ###
-tgp_japan_become_a_poet_decision = {
-	title = tgp_japan_become_a_poet_decision
-	desc = tgp_japan_become_a_poet_decision_desc
-	selection_tooltip = tgp_japan_become_a_poet_decision_tooltip
-	picture = {
-		trigger = {
-			OR = {
-				government_is_japanese_trigger = yes
-				government_has_flag = government_is_celestial
-				government_has_flag = government_is_meritocratic
-			}
-		}
-		reference = "gfx/interface/illustrations/decisions/tgp_poet.dds"
-	}
-	picture = {
-		reference = "gfx/interface/illustrations/decisions/decision_tale.dds"
-	}
-	cooldown = { years = 15 }
-	sort_order = 110
->>>>>>> 1.18.1
 
 	# is_shown = {
 		# has_tgp_dlc_trigger = yes
@@ -1499,7 +1099,6 @@ tgp_japan_become_a_poet_decision = {
 	# }
 # }
 
-<<<<<<< HEAD
 # #Inspire the Troops - Strength - House Aspiration
 # tgp_japan_train_with_troops_decision = {
 	# title = tgp_japan_train_with_troops_decision
@@ -1510,19 +1109,6 @@ tgp_japan_become_a_poet_decision = {
 	# }
 	# cooldown = { years = 20 }
 	# sort_order = 0
-=======
-#Inspire the Troops - Strength - House Aspiration
-### Inspire the Troops ###
-tgp_japan_train_with_troops_decision = {
-	title = tgp_japan_train_with_troops_decision
-	desc = tgp_japan_train_with_troops_decision_desc
-	selection_tooltip = tgp_japan_train_with_troops_decision_tooltip
-	picture = {
-		reference = "gfx/interface/illustrations/decisions/fp2_decision_struggle_hostility.dds"
-	}
-	cooldown = { years = 20 }
-	sort_order = 0
->>>>>>> 1.18.1
 
 	# cost = {
 		# prestige = {
@@ -1615,7 +1201,6 @@ tgp_japan_train_with_troops_decision = {
 	# }
 # }
 
-<<<<<<< HEAD
 # # Becoming a Buddhist monk near the end of your life (or when you become seriously ill)
 # tgp_japan_become_a_monk_decision = {
 	# title = tgp_japan_become_a_monk_decision
@@ -1625,18 +1210,6 @@ tgp_japan_train_with_troops_decision = {
 		# reference = "gfx/interface/illustrations/event_scenes/tgp_temple_asia.dds"
 	# }
 	# sort_order = 80
-=======
-# Becoming a Buddhist monk near the end of your life (or when you become seriously ill)
-### In Search of the Pure Land ###
-tgp_japan_become_a_monk_decision = {
-	title = tgp_japan_become_a_monk_decision
-	desc = tgp_japan_become_a_monk_decision_desc
-	selection_tooltip = tgp_japan_become_a_monk_decision_tooltip
-	picture = {
-		reference = "gfx/interface/illustrations/event_scenes/tgp_temple_asia.dds"
-	}
-	sort_order = 80
->>>>>>> 1.18.1
 
 	# ai_check_interval_by_tier = {
 		# barony = 0
@@ -1754,7 +1327,6 @@ tgp_japan_become_a_monk_decision = {
 	# }
 # }
 
-<<<<<<< HEAD
 # # Restore Chrysanthemum Throne
 # tgp_japan_restore_japanese_monarchy_decision = {
 	# decision_group_type = major
@@ -1763,17 +1335,6 @@ tgp_japan_become_a_monk_decision = {
 	# selection_tooltip = tgp_japan_restore_japanese_monarchy_decision_tooltip
 	# picture = { reference = "gfx/interface/illustrations/event_story/tgp_dynastic_cycle_stability.dds" }
 	# sort_order = 80
-=======
-# Restore Chrysanthemum Throne
-### Restore a Yamato Ten'nō ###
-tgp_japan_restore_japanese_monarchy_decision = {
-	decision_group_type = major
-	title = tgp_japan_restore_japanese_monarchy_decision
-	desc = tgp_japan_restore_japanese_monarchy_decision_desc
-	selection_tooltip = tgp_japan_restore_japanese_monarchy_decision_tooltip
-	picture = { reference = "gfx/interface/illustrations/event_story/tgp_dynastic_cycle_stability.dds" }
-	sort_order = 80
->>>>>>> 1.18.1
 
 	# is_shown = {
 		# has_tgp_dlc_trigger = yes
@@ -1827,7 +1388,6 @@ tgp_japan_restore_japanese_monarchy_decision = {
 	# ai_will_do = { base = 100 }
 # }
 
-<<<<<<< HEAD
 # # Restore Ritsuryo
 # tgp_japan_restore_japanese_government_decision = {
 	# decision_group_type = major
@@ -1836,17 +1396,6 @@ tgp_japan_restore_japanese_monarchy_decision = {
 	# selection_tooltip = tgp_japan_restore_japanese_government_decision_tooltip
 	# picture = { reference = "gfx/interface/illustrations/event_story/tgp_dynastic_cycle_stability.dds" }
 	# sort_order = 85
-=======
-# Restore Ritsuryo
-### Restore Ritsuryō Bureaucracy ###
-tgp_japan_restore_japanese_government_decision = {
-	decision_group_type = major
-	title = tgp_japan_restore_japanese_government_decision
-	desc = tgp_japan_restore_japanese_government_decision_desc
-	selection_tooltip = tgp_japan_restore_japanese_government_decision_tooltip
-	picture = { reference = "gfx/interface/illustrations/event_story/tgp_dynastic_cycle_stability.dds" }
-	sort_order = 85
->>>>>>> 1.18.1
 
 	# cost = {
 		# prestige = {
@@ -1910,18 +1459,10 @@ tgp_japan_restore_japanese_government_decision = {
 	# ai_will_do = { base = 100 }
 # }
 
-<<<<<<< HEAD
 # # Assert Regional Dominion (Become Soryo Duke i.e. SuperSoryoTM)
 # tgp_japan_assert_regional_dominion_government_decision = {
 	# decision_group_type = major
 	# title = tgp_japan_assert_regional_dominion_government_decision
-=======
-# Assert Regional Dominion (Become Soryo Duke i.e. SuperSoryoTM)
-### Assert Regional Dominion ###
-tgp_japan_assert_regional_dominion_government_decision = {
-	decision_group_type = major
-	title = tgp_japan_assert_regional_dominion_government_decision
->>>>>>> 1.18.1
 
 	# desc = {
 		# first_valid = {
@@ -2077,7 +1618,6 @@ tgp_japan_assert_regional_dominion_government_decision = {
 	# ai_will_do = { base = 25 }
 # }
 
-<<<<<<< HEAD
 # # Establish New Shogunate Court Decision
 # move_shogunate_court_decision = {
 	# decision_group_type = major
@@ -2085,16 +1625,6 @@ tgp_japan_assert_regional_dominion_government_decision = {
 	# desc = tgp_japan_move_shogunate_court_decision_desc
 	# selection_tooltip = tgp_japan_move_shogunate_court_decision_tooltip
 	# picture = { reference = "gfx/interface/illustrations/event_story/tgp_japanese_shogunate.dds" }
-=======
-# Establish New Shogunate Court Decision
-### Move Shogunate Court Decision ###
-move_shogunate_court_decision = {
-	decision_group_type = major
-	title = tgp_japan_move_shogunate_court_decision
-	desc = tgp_japan_move_shogunate_court_decision_desc
-	selection_tooltip = tgp_japan_move_shogunate_court_decision_tooltip
-	picture = { reference = "gfx/interface/illustrations/event_story/tgp_japanese_shogunate.dds" }
->>>>>>> 1.18.1
 
 	# cost = {
 		# gold = {
@@ -2167,22 +1697,12 @@ move_shogunate_court_decision = {
 	# }
 # }
 
-<<<<<<< HEAD
 # # Emperor Starting a Ceremonial Monarch War
 # tgp_japan_emperor_war_decision = {
 	# decision_group_type = major
 	# confirm_text = commit_suicide_decision_confirm
 	# picture = { reference = "gfx/interface/illustrations/decisions/tgp_kowtow.dds" }
 	# sort_order = 80
-=======
-# Emperor Starting a Ceremonial Monarch War
-### Begin the Restoration War ###
-tgp_japan_emperor_war_decision = {
-	decision_group_type = major
-	confirm_text = commit_suicide_decision_confirm
-	picture = { reference = "gfx/interface/illustrations/decisions/tgp_kowtow.dds" }
-	sort_order = 80
->>>>>>> 1.18.1
 
 	# cost = {
 		# prestige = {
