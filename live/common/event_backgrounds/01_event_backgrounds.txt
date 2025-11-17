@@ -399,24 +399,7 @@ temple = {
 		trigger = {
 			trigger_if = {
 				limit = { exists = scope:bg_override_char }
-				scope:bg_override_char = {
-					is_landless_adventurer = yes
-					NOR = {
-						religion = religion:tengrism_religion
-						religion = religion:magyar_religion
-						religion = religion:siberian_religion
-						religion = religion:kamuyism_religion
-					}
-				}
-			}
-			trigger_else = {
-				is_landless_adventurer = yes
-				NOR = {
-					religion = religion:tengrism_religion
-					religion = religion:magyar_religion
-					religion = religion:siberian_religion
-					religion = religion:kamuyism_religion
-				}
+				scope:bg_override_char = { is_landless_adventurer = yes }
 			}
 			trigger_else = { is_landless_adventurer = yes }
 		}
@@ -434,7 +417,6 @@ temple = {
 						religion = religion:tengrism_religion
 						religion = religion:magyar_religion
 						religion = religion:siberian_religion
-						religion = religion:kamuyism_religion
 						AND = {
 							religion = religion:buddhism_religion
 							location ?= {
@@ -468,30 +450,6 @@ temple = {
 					religion = religion:tengrism_religion
 					religion = religion:magyar_religion
 					religion = religion:siberian_religion
-					religion = religion:kamuyism_religion
-					AND = {
-						religion = religion:buddhism_religion
-						location ?= {
-							OR = {
-								geographical_region = world_steppe_east
-								geographical_region = world_steppe_central
-								geographical_region = world_steppe_west
-							}
-						}
-					}
-					AND = {
-						religion = religion:buddhism_religion
-						location ?= {
-							OR = {
-								geographical_region = world_tibet
-								geographical_region = world_steppe_tarim
-							}
-						}
-						OR = {
-							government_has_flag = government_is_tribal
-							government_has_flag = government_is_nomadic
-						}
-					}
 				}
 			}
 		}
@@ -635,32 +593,18 @@ temple = {
 		trigger = {
 			trigger_if = {
 				limit = { exists = scope:bg_override_char }
-				scope:bg_override_char.location = {
+				scope:bg_override_char.location.faith.religion = {
 					OR = {
-						faith.religion ?= { is_in_family = rf_eastern }
-						faith.religion ?= { is_in_family = rf_sinitic }
-						AND = {
-							NOT = { faith ?= { has_doctrine_parameter = unreformed } }
-							OR = {
-								culture ?= { has_graphical_india_culture_group_trigger = yes }
-								steppe_building_gfx_use_indian_trigger = yes
-							}
-						}
+						is_in_family = rf_eastern
+						is_in_family = rf_sinitic
 					}
 				}
 			}
 			trigger_else = {
-				location = {
+				location.faith.religion ?= {
 					OR = {
-						faith.religion ?= { is_in_family = rf_eastern }
-						faith.religion ?= { is_in_family = rf_sinitic }
-						AND = {
-							NOT = { faith ?= { has_doctrine_parameter = unreformed } }
-							OR = {
-								culture ?= { has_graphical_india_culture_group_trigger = yes }
-								steppe_building_gfx_use_indian_trigger = yes
-							}
-						}
+						is_in_family = rf_eastern
+						is_in_family = rf_sinitic
 					}
 				}
 			}
@@ -709,7 +653,6 @@ temple_scope = {
 					religion = religion:tengrism_religion
 					religion = religion:magyar_religion
 					religion = religion:siberian_religion
-					religion = religion:kamuyism_religion
 					AND = {
 						religion = religion:buddhism_religion
 						location ?= {
@@ -812,16 +755,8 @@ temple_scope = {
 	background = { #Dharmic (Outdoors)
 		trigger = {
 			scope:background_temple_scope = {
-				OR = {
-					faith.religion ?= { is_in_family = rf_eastern }
-					faith.religion ?= { is_in_family = rf_sinitic }
-					AND = {
-						NOT = { faith ?= { has_doctrine_parameter = unreformed } }
-						OR = {
-							culture ?= { has_graphical_india_culture_group_trigger = yes }
-							steppe_building_gfx_use_indian_trigger = yes
-						}
-					}
+				faith.religion = {
+					is_in_family = rf_eastern #Dharmic if not East Asian
 				}
 			}
 		}
@@ -8122,14 +8057,14 @@ throne_room = {
 				limit = { exists = scope:bg_override_char }
 				scope:bg_override_char = {
 					OR = {
-						location.culture ?= { has_graphical_india_culture_group_trigger = yes }
+						location.culture ?= { has_building_gfx = indian_building_gfx }
 						location ?= { steppe_building_gfx_use_indian_trigger = yes }
 					}
 				}
 			}
 			trigger_else = {
 				OR = {
-					location.culture ?= { has_graphical_india_culture_group_trigger = yes }
+					location.culture ?= { has_building_gfx = indian_building_gfx }
 					location ?= { steppe_building_gfx_use_indian_trigger = yes }
 				}
 			}
@@ -8137,6 +8072,22 @@ throne_room = {
 		reference = "gfx/interface/illustrations/event_scenes/throneroom_india.dds"
 		environment = "environment_frontend_india_main"
 		ambience = "event:/SFX/Events/Backgrounds/throneroom_middleeastern_african"
+	}
+	background = {	# Mandala
+		trigger = {
+			trigger_if = {
+				limit = { exists = scope:bg_override_char }
+				scope:bg_override_char = {
+					location.culture ?= { has_building_gfx = southeast_asian_building_gfx }
+				}
+			}
+			trigger_else = {
+				location.culture ?= { has_building_gfx = southeast_asian_building_gfx }
+			}
+		}
+		reference = "gfx/interface/illustrations/event_scenes/tgp_asia_throne_room.dds"
+		environment = "environment_frontend_india_main"
+		ambience = "event:/DLC/EP4/SFX/Events/Event_Backgrounds/tgp_study_asia"
 	}
 	background = {	# Mediterranean
 		trigger = {
@@ -12758,31 +12709,6 @@ ep2_involved_activity = {
 }
 
 ep2_activity = {
-	### EXAMINATIONS
-	background = {
-		trigger = {
-			scope:activity ?= {
-				OR = {
-					has_activity_type = activity_imperial_examination
-					has_activity_type = activity_local_examination
-				}
-			}
-		}
-		reference = "gfx/interface/illustrations/event_scenes/tgp_examination_room.dds"
-		environment = "environment_tgp_examination_room"
-		ambience = "event:/DLC/EP4/SFX/Events/Event_Backgrounds/tgp_examination_room"
-	}
-	### DEBATE
-	background = {
-		trigger = {
-			scope:activity ?= {
-				has_activity_type = activity_debate
-			}
-		}
-		reference = "gfx/interface/illustrations/event_scenes/tgp_study_asia.dds"
-		environment = "environment_tgp_study_asia"
-		ambience = "event:/DLC/EP4/SFX/Events/Event_Backgrounds/tgp_study_asia"
-	}
 	### TOURNAMENT
 	background = {
 		trigger = {
@@ -16106,7 +16032,6 @@ coronation_activity_background = {
 					religion = religion:tengrism_religion
 					religion = religion:magyar_religion
 					religion = religion:siberian_religion
-					religion = religion:kamuyism_religion
 				}
 			}
 		}
