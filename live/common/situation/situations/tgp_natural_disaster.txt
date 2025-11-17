@@ -79,11 +79,8 @@
 			auto_add_rulers = yes
 			map_color = rgb{ 250 200 0 }
 			is_character_valid = {
-				OR = { # permits vassals and landless adventurers to contribute, but doesn't give them their own project
-					is_independent_ruler = no
-					is_landed = no
-				}
-				highest_held_title_tier >= tier_county
+				# includes landless adventurers
+				tgp_natural_disaster_character_is_valid_vassal_participant = yes
 			}
 			on_join = {
 				trigger_event = { on_action = natural_disaster_join_events }
@@ -262,11 +259,8 @@ natural_disaster_flood = { # Flood (River)
 			auto_add_rulers = yes
 			map_color = rgb{ 150 200 250 }
 			is_character_valid = {
-				OR = { # permits vassals and landless adventurers to contribute, but doesn't give them their own project
-					is_independent_ruler = no
-					is_landed = no
-				}
-				highest_held_title_tier >= tier_county
+				# includes landless adventurers
+				tgp_natural_disaster_character_is_valid_vassal_participant = yes
 			}
 			on_join = {
 				trigger_event = { on_action = natural_disaster_join_events }

@@ -142,13 +142,13 @@ ep3_story_cycle_violet_poet.0002 = {
 		any_courtier = {
 			count > 1
 		}
-		any_artifact = {
+		any_character_artifact = {
 			has_artifact_modifier = double_moon_modifier
 		} 
 	}
 
 	immediate = {
-		random_artifact = {
+		random_character_artifact = {
 			limit = {
 				has_artifact_modifier = double_moon_modifier
 			}
@@ -276,13 +276,13 @@ ep3_story_cycle_violet_poet.0003 = {
 		any_courtier = {
 			count > 1
 		}
-		any_artifact = {
+		any_character_artifact = {
 			has_artifact_modifier = double_moon_modifier
 		}
 	}
 
 	immediate = {
-		random_artifact = {
+		random_character_artifact = {
 			limit = {
 				has_artifact_modifier = double_moon_modifier
 			}
@@ -493,7 +493,7 @@ ep3_story_cycle_violet_poet.0004 = {
 	}
 
 	immediate = {
-		random_artifact = {
+		random_character_artifact = {
 			limit = {
 				has_artifact_modifier = double_moon_modifier
 			}
@@ -587,11 +587,11 @@ ep3_story_cycle_violet_poet.0011 = {
 	immediate = {
 		if = {
 			limit = {
-				any_artifact = {
+				any_character_artifact = {
 					has_artifact_modifier = double_moon_modifier
 				}
 			}
-			random_artifact = {
+			random_character_artifact = {
 				limit = {
 					has_artifact_modifier = double_moon_modifier
 				}
@@ -661,15 +661,20 @@ ep3_story_cycle_violet_poet.1000 = {
 		is_landless_ruler = yes
 		is_available_travelling = yes
 		has_trait = violet_poet
-		any_artifact = {
+		any_character_artifact = {
 			has_artifact_modifier = double_moon_modifier
 		}
 	}
 
 	immediate = {
 		location = { save_scope_as = location }
+<<<<<<< HEAD
 		province:2 = { save_scope_as = cordoba } # b_cordoba
 		random_artifact = {
+=======
+		province:1995 = { save_scope_as = cordoba } # b_cordoba
+		random_character_artifact = {
+>>>>>>> 1.18.1
 			limit = {
 				has_artifact_modifier = double_moon_modifier
 			}
@@ -682,18 +687,11 @@ ep3_story_cycle_violet_poet.1000 = {
 
 		add_learning_lifestyle_xp = minor_lifestyle_experience
 
-		if = {
-			limit = {
-				any_artifact = {
-					has_artifact_modifier = double_moon_modifier
-				}
-			}
-			scope:double_moon_book = {
-				set_artifact_description = ep3_story_cycle_violet_poet.1000.a.book
-				custom_tooltip = ep3_story_cycle_violet_poet.book.tt
-				hidden_effect = {
-					add_artifact_modifier = artifact_independent_ruler_opinion_2_modifier
-				}
+		scope:double_moon_book = {
+			set_artifact_description = ep3_story_cycle_violet_poet.1000.a.book
+			custom_tooltip = ep3_story_cycle_violet_poet.book.tt
+			hidden_effect = {
+				add_artifact_modifier = artifact_independent_ruler_opinion_2_modifier
 			}
 		}
 
@@ -762,14 +760,14 @@ ep3_story_cycle_violet_poet.1005 = {
 	trigger = {
 		has_ep3_dlc_trigger = yes
 		has_trait = violet_poet
-		any_artifact = {
+		any_character_artifact = {
 			has_artifact_modifier = double_moon_modifier
 		}
 	}
 
 	immediate = {
 		location = { save_scope_as = location }
-		random_artifact = {
+		random_character_artifact = {
 			limit = {
 				has_artifact_modifier = double_moon_modifier
 			}
@@ -818,18 +816,11 @@ ep3_story_cycle_violet_poet.1005 = {
 	option = { #Write a poem about it
 		name = ep3_story_cycle_violet_poet.1005.b
 
-		if = {
-			limit = {
-				any_artifact = {
-					has_artifact_modifier = double_moon_modifier
-				}
-			}
-			scope:double_moon_book = {
-				set_artifact_description = ep3_story_cycle_violet_poet.1005.b.book
-				custom_tooltip = ep3_story_cycle_violet_poet.book.tt
-				hidden_effect = {
-					add_artifact_modifier = artifact_child_opinion_2_modifier
-				}
+		scope:double_moon_book = {
+			set_artifact_description = ep3_story_cycle_violet_poet.1005.b.book
+			custom_tooltip = ep3_story_cycle_violet_poet.book.tt
+			hidden_effect = {
+				add_artifact_modifier = artifact_child_opinion_2_modifier
 			}
 		}
 
@@ -917,7 +908,7 @@ ep3_story_cycle_violet_poet.1010 = {
 				is_attracted_to_gender_of = root
 			}
 		}
-		any_artifact = {
+		any_character_artifact = {
 			has_artifact_modifier = double_moon_modifier
 		}
 	}
@@ -933,7 +924,7 @@ ep3_story_cycle_violet_poet.1010 = {
 			}
 			save_scope_as = ruler
 		}
-		random_artifact = {
+		random_character_artifact = {
 			limit = {
 				has_artifact_modifier = double_moon_modifier
 			}
@@ -1021,18 +1012,11 @@ ep3_story_cycle_violet_poet.1010 = {
 	option = { #Write about it
 		name = ep3_story_cycle_violet_poet.1010.b
 
-		if = {
-			limit = {
-				any_artifact = {
-					has_artifact_modifier = double_moon_modifier
-				}
-			}
-			scope:double_moon_book = {
-				set_artifact_description = ep3_story_cycle_violet_poet.1010.b.book
-				custom_tooltip = ep3_story_cycle_violet_poet.book.tt
-				hidden_effect = {
-					add_artifact_modifier = artifact_seduce_scheme_phase_duration_add_2_modifier
-				}
+		scope:double_moon_book = {
+			set_artifact_description = ep3_story_cycle_violet_poet.1010.b.book
+			custom_tooltip = ep3_story_cycle_violet_poet.book.tt
+			hidden_effect = {
+				add_artifact_modifier = artifact_seduce_scheme_phase_duration_add_2_modifier
 			}
 		}
 
@@ -1310,14 +1294,14 @@ ep3_story_cycle_violet_poet.1020 = {
 	trigger = {
 		has_ep3_dlc_trigger = yes
 		has_trait = violet_poet
-		any_artifact = {
+		any_character_artifact = {
 			has_artifact_modifier = double_moon_modifier
 		}
 	}
 
 	immediate = {
 		location = { save_scope_as = location }
-		random_artifact = {
+		random_character_artifact = {
 			limit = {
 				has_artifact_modifier = double_moon_modifier
 			}
@@ -1361,18 +1345,11 @@ ep3_story_cycle_violet_poet.1020 = {
 			}
 		}
 
-		if = {
-			limit = {
-				any_artifact = {
-					has_artifact_modifier = double_moon_modifier
-				}
-			}
-			scope:double_moon_book = {
-				set_artifact_description = ep3_story_cycle_violet_poet.1020.a.book
-				custom_tooltip = ep3_story_cycle_violet_poet.book.tt
-				hidden_effect = {
-					add_artifact_modifier = artifact_personal_scheme_phase_duration_add_2_modifier
-				}
+		scope:double_moon_book = {
+			set_artifact_description = ep3_story_cycle_violet_poet.1020.a.book
+			custom_tooltip = ep3_story_cycle_violet_poet.book.tt
+			hidden_effect = {
+				add_artifact_modifier = artifact_personal_scheme_phase_duration_add_2_modifier
 			}
 		}
 
@@ -2064,7 +2041,7 @@ ep3_story_cycle_violet_poet.2000 = {
 			is_alive = yes
 			is_available_ai_adult = yes
 		}
-		any_artifact = {
+		any_character_artifact = {
 			has_artifact_modifier = double_moon_modifier
 		} 
 	}
@@ -2074,7 +2051,7 @@ ep3_story_cycle_violet_poet.2000 = {
 		character:1 = {
 			save_scope_as = zaydun
 		}
-		random_artifact = {
+		random_character_artifact = {
 			limit = {
 				has_artifact_modifier = double_moon_modifier
 			}
@@ -2113,18 +2090,11 @@ ep3_story_cycle_violet_poet.2000 = {
 	option = { #Write a poem in memory of a lost love
 		name = ep3_story_cycle_violet_poet.2000.b
 
-		if = {
-			limit = {
-				any_artifact = {
-					has_artifact_modifier = double_moon_modifier
-				}
-			}
-			scope:double_moon_book = {
-				set_artifact_description = ep3_story_cycle_violet_poet.2000.a.book
-				custom_tooltip = ep3_story_cycle_violet_poet.book.tt
-				hidden_effect = {
-					add_artifact_modifier = artifact_courting_scheme_phase_duration_add_3_modifier
-				}
+		scope:double_moon_book = {
+			set_artifact_description = ep3_story_cycle_violet_poet.2000.a.book
+			custom_tooltip = ep3_story_cycle_violet_poet.book.tt
+			hidden_effect = {
+				add_artifact_modifier = artifact_courting_scheme_phase_duration_add_3_modifier
 			}
 		}
 
@@ -2346,7 +2316,7 @@ ep3_story_cycle_violet_poet.2010 = {
 
 	trigger = {
 		has_ep3_dlc_trigger = yes
-		any_artifact = {
+		any_character_artifact = {
 			has_artifact_modifier = double_moon_modifier
 		}
 		character:1 = this
@@ -2358,7 +2328,7 @@ ep3_story_cycle_violet_poet.2010 = {
 
 	immediate = {
 		location = { save_scope_as = location }
-		random_artifact = {
+		random_character_artifact = {
 			limit = {
 				has_artifact_modifier = double_moon_modifier
 			}

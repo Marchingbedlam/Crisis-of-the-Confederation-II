@@ -5458,11 +5458,12 @@ ep3_governor_yearly.3060 = {
 			trigger = { religion = religion:christianity_religion }
 			animation = acknowledging # anim uses crucifix scepter
 		}
-		animation = war_over_tie
+		animation = war_over_win
 	}
 	right_portrait = {
 		character = scope:ceremonial_liege
 		animation = holding_hu
+		camera = camera_event_right_forward
 	}
 	lower_right_portrait = scope:previous_holder
 	trigger = {
@@ -5477,6 +5478,12 @@ ep3_governor_yearly.3060 = {
 	immediate = {
 		play_sound_effect = "event:/DLC/EP3/SFX/Stingers/Byzantine_Flavor/ep3_mx_sting_byzantineflavor_become_emperor"
 		tgp_save_realm_ceremonial_liege_effect = yes
+		if = {
+			limit = {
+				scope:ceremonial_liege = scope:emperor
+			}
+			clear_saved_scope = ceremonial_liege
+		}
 		scope:ceremonial_liege ?= { save_scope_as = background_throne_room_scope }
 		save_scope_as = root_scope
 		if = {

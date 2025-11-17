@@ -1,4 +1,5 @@
-﻿end_investments_minor_decision = {
+﻿### End Pious Investments ###
+end_investments_minor_decision = {
 	picture = {
 		reference = "gfx/interface/illustrations/decisions/decision_spend_money.dds"
 	}
@@ -20,6 +21,7 @@
 	ai_check_interval = 0
 }
 
+### Designated Terrain ###
 choose_designated_terrain_decision = {
 
 	ai_check_interval_by_tier = {
@@ -175,6 +177,7 @@ choose_designated_terrain_decision = {
 	ai_will_do = { base = 10 }
 }
 
+### Master Terrain ###
 choose_master_terrain_decision = {
 
 	ai_check_interval_by_tier = {
@@ -579,6 +582,7 @@ choose_master_terrain_decision = {
 	ai_will_do = { base = 10 }
 }
 
+<<<<<<< HEAD
 # # Form Bosporan Kingdom 
 # form_bosporan_kingdom_decision = {
 	# picture = {
@@ -586,6 +590,16 @@ choose_master_terrain_decision = {
 	# }
 	# decision_group_type = major
 	# sort_order = 50
+=======
+# Form Bosporan Kingdom 
+### Restore the Bosporan Kingdom ###
+form_bosporan_kingdom_decision = {
+	picture = {
+		reference = "gfx/interface/illustrations/event_scenes/ep3_medi_estate.dds"
+	}
+	decision_group_type = major
+	sort_order = 50
+>>>>>>> 1.18.1
 
 	# is_shown = {
 		# NOT = {
@@ -743,6 +757,7 @@ choose_master_terrain_decision = {
 	# }
 # }
 
+<<<<<<< HEAD
 # # Merging France and Aquitaine
 # merge_aquitaine_decision = {
 	# picture = {
@@ -773,6 +788,39 @@ choose_master_terrain_decision = {
 	# }
 	# decision_group_type = major
 	# sort_order = 50
+=======
+# Merging France and Aquitaine
+### France as One ###
+merge_aquitaine_decision = {
+	picture = {
+		reference = "gfx/interface/illustrations/decisions/decision_found_kingdom.dds"
+	}
+	title = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					primary_title = title:k_aquitaine
+				}
+				desc = merge_aquitaine_decision_alt
+			}
+			desc = merge_aquitaine_decision
+		}
+	}
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					primary_title = title:k_aquitaine
+				}
+				desc = merge_aquitaine_decision_desc_aquitaine
+			}
+			desc = merge_aquitaine_decision_desc
+		}
+		desc = merge_aquitaine_decision_desc_outro
+	}
+	decision_group_type = major
+	sort_order = 50
+>>>>>>> 1.18.1
 
 	# is_shown = {
 		# NOT = {
@@ -864,6 +912,7 @@ choose_master_terrain_decision = {
 
 # The Legacy of the Adventurer
 # By Ariana Tranumn
+### Legacy of [GetPlayer.GetHouse.GetBaseNameNoTooltip] ###
 enact_legacy_of_adventurer_decision = {
 	picture = { # pic
 		reference = "gfx/interface/illustrations/decisions/ep3_decision_laamp_neutral_mountain.dds"

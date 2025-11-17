@@ -2040,7 +2040,7 @@ celestial_ministers = {
 	scripted_animation = { 
 		triggered_animation = {
 			trigger = { always = yes }
-			animation = { gongshou_with_hu }
+			animation = { holding_hu }
 		}
 	}
 }
@@ -2070,6 +2070,7 @@ celestial_court_position_holders = {
 						is_councillor = no
 						is_faith_dominant_gender = yes	
 					}
+					add_to_list = characters
 				}
 			}
 		}
@@ -2077,7 +2078,7 @@ celestial_court_position_holders = {
 	scripted_animation = { 
 		triggered_animation = {
 			trigger = { always = yes }
-			animation = { gongshou_with_hu }
+			animation = { holding_hu }
 		}
 	}
 }
@@ -2107,14 +2108,23 @@ celestial_courtiers = {
 						has_any_court_position = no
 						is_faith_dominant_gender = yes
 					}
+					add_to_list = characters
 				}
 			}
 		}
 	}
 	scripted_animation = { 
 		triggered_animation = {
+	 		trigger = {
+	 			scope:character = {
+		 			has_trait = devoted
+		 		}
+	 		}
+	 		animation = { chaplain personality_zealous interested }
+	 	}
+		triggered_animation = {
 			trigger = { always = yes }
-			animation = { gongshou_with_hu }
+			animation = { holding_hu }
 		}
 	}
 	is_low_priority = yes
@@ -2150,19 +2160,3 @@ japanese_courtiers = {
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
