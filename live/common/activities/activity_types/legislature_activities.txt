@@ -1097,23 +1097,23 @@
 				if = {
 					limit = { has_variable = bill_passed }
 					scope:host = { trigger_event = { id = legislature_events.2100 } }
-					every_in_list = {
-						variable = bill_supporters
+					every_guest_subset = {
+						name = bill_supporters
 						trigger_event = { id = legislature_events.1201 }
 					}
-					every_in_list = {
-						variable = bill_opponents
+					every_guest_subset = {
+						name = bill_opponents
 						trigger_event = { id = legislature_events.1202 }
 					}
 				}
 				else = {
 					scope:host = { trigger_event = { id = legislature_events.2101 } }
-					every_in_list = {
-						variable = bill_supporters
+					every_guest_subset = {
+						name = bill_supporters
 						trigger_event = { id = legislature_events.1211 }
 					}
-					every_in_list = {
-						variable = bill_opponents
+					every_guest_subset = {
+						name = bill_opponents
 						trigger_event = { id = legislature_events.1212 }
 					}
 				}
@@ -1254,6 +1254,7 @@
 			1 = activity_invite_rule_legislators
 		}
 	}
+	guest_subsets = { bill_supporters bill_opponents bill_abstainers }
 	
 	host_intents = {
 		intents = { pass_bill_intent }
@@ -1297,6 +1298,7 @@
 	
 	### Plug in widgets
 	activity_window_widgets = {
+		bill_supporter_opponent_widget = "window_activity_contestants_right_bar_container"
 		bill_votes = "activity_plugin_widgets_summary"
 		bill_provisions = "activity_top_layer_idle_widgets"
 	}
@@ -1315,7 +1317,10 @@
 			
 			scripted_animation = {
 				triggered_animation = {
-					trigger = { NOT = { has_variable_list = bill_supporters } }
+					trigger = {
+						total_bill_supporters = 0
+						total_bill_opponents = 0
+					}
 					animation = idle
 				}
 				triggered_animation = {
@@ -1332,8 +1337,8 @@
 			camera = camera_body_right
 			
 			effect = {
-				ordered_in_list = {
-					variable = bill_supporters
+				every_guest_subset = {
+					name = bill_supporters
 					order_by = legislative_seniority
 					add_to_list = characters
 				}
@@ -1347,8 +1352,8 @@
 			camera = camera_body_left
 			
 			effect = {
-				ordered_in_list = {
-					variable = bill_opponents
+				ordered_guest_subset = {
+					name = bill_opponents
 					order_by = legislative_seniority
 					add_to_list = characters
 				}
@@ -1358,9 +1363,6 @@
 				animation = debate
 			}
 		}
-	}
-	activity_window_widgets = {
-		bill_votes = "activity_plugin_widgets_summary"
 	}
 	
 	# No hangers-on!

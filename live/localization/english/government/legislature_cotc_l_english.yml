@@ -4,6 +4,15 @@
  
  LEGISLATURE_FAITH_CHARACTER_NAME: "[Character.GetFaith.GetName]"
  LEGISLATURE_RIDING_CHARACTER_NAME: "[Character.MakeScope.Var('riding').Title.GetName]"
+ 
+ BILL_SUPPORTER_WINDOW_OTHER_LABEL: "Other Supporters: [Subtract_int32( GetDataModelSize( ActivityWindow.GetCurrentPhaseGuestSubset( 'bill_supporters' ) ), '(int32)3' )]"
+ BILL_SUPPORTER_WINDOW_OTHER_LABEL_HOVER: "#T Supporters#!\n$game_concept_bill_supporter_cotc_desc$\n\n"
+ BILL_SUPPORTER_WINDOW_LABEL: "Major Supporters"
+ BILL_SUPPORTER_WINDOW_LABEL_HOVER: "#T $BILL_SUPPORTER_WINDOW_LABEL$#!\nThese are the #V Bill's#! most senior [bill_supporters_cotc|E].\n\n$game_concept_bill_supporter_cotc_desc$"
+ BILL_OPPONENT_WINDOW_OTHER_LABEL: "Other Opponents: [Subtract_int32( GetDataModelSize( ActivityWindow.GetCurrentPhaseGuestSubset( 'bill_opponents' ) ), '(int32)3' )]"
+ BILL_OPPONENT_WINDOW_OTHER_LABEL_HOVER: "#T Opponents#!\n$game_concept_bill_opponent_cotc_desc$"
+ BILL_OPPONENT_WINDOW_LABEL: "Major Opponents"
+ BILL_OPPONENT_WINDOW_LABEL_HOVER: "#T $BILL_OPPONENT_WINDOW_LABEL$#!\nThese are the #V Bill's#! most senior [bill_opponents_cotc|E].\n\n$game_concept_bill_opponent_cotc_desc$"
  bill_supporter_count: "[Activity.MakeScope.ScriptValue('total_bill_supporters')] Supporters"
  bill_opponent_count: "[Activity.MakeScope.ScriptValue('total_bill_opponents')] Opponents"
  has_legislature_desc: "Has a [legislature_cotc|E]"

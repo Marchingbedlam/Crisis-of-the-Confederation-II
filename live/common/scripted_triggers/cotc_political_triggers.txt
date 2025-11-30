@@ -112,24 +112,6 @@ is_character_in_legislature_trigger = {
 		}
 	}
 }
-is_bill_supporter_trigger = {
-	save_temporary_scope_as = evaluated_legislator
-	involved_activity = {
-		any_in_list = {
-			variable = bill_supporters
-			this = scope:evaluated_legislator
-		}
-	}
-}
-is_bill_opponent_trigger = {
-	save_temporary_scope_as = evaluated_legislator
-	involved_activity = {
-		any_in_list = {
-			variable = bill_opponents
-			this = scope:evaluated_legislator
-		}
-	}
-}
 supports_budget_amendment_trigger = {
 	OR = {
 		AND = {

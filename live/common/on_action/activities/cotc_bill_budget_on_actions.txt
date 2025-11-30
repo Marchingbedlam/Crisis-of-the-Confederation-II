@@ -224,7 +224,7 @@ reduce_proposed_military_on_action = {
 			NOT = {
 				scope:activity = {
 					any_attending_character = {
-						is_bill_opponent_trigger = yes
+						is_in_guest_subset = { name = bill_opponents }
 						OR = {
 							has_activity_intent = balance_budget_intent
 							has_activity_intent = balance_budget_maintain_ministry_intent
@@ -279,7 +279,7 @@ reduce_proposed_ministry_on_action = {
 			NOT = {
 				scope:activity = {
 					any_attending_character = {
-						is_bill_opponent_trigger = yes
+						is_in_guest_subset = { name = bill_opponents }
 						OR = {
 							has_activity_intent = balance_budget_intent
 							has_activity_intent = balance_budget_maintain_military_intent
@@ -334,7 +334,7 @@ reduce_proposed_salary_on_action = {
 			NOT = {
 				scope:activity = {
 					any_attending_character = {
-						is_bill_opponent_trigger = yes
+						is_in_guest_subset = { name = bill_opponents }
 						OR = {
 							has_activity_intent = balance_budget_intent
 							has_activity_intent = balance_budget_maintain_military_intent
@@ -392,7 +392,7 @@ reduce_proposed_military_ministry_on_action = {
 			NOT = {
 				scope:activity = {
 					any_attending_character = {
-						is_bill_opponent_trigger = yes
+						is_in_guest_subset = { name = bill_opponents }
 						OR = {
 							has_activity_intent = balance_budget_intent
 							has_activity_intent = balance_budget_maintain_salary_intent
@@ -455,7 +455,7 @@ reduce_proposed_military_salary_on_action = {
 			NOT = {
 				scope:activity = {
 					any_attending_character = {
-						is_bill_opponent_trigger = yes
+						is_in_guest_subset = { name = bill_opponents }
 						OR = {
 							has_activity_intent = balance_budget_intent
 							has_activity_intent = balance_budget_maintain_ministry_intent
@@ -518,7 +518,7 @@ reduce_proposed_ministry_salary_on_action = {
 			NOT = {
 				scope:activity = {
 					any_attending_character = {
-						is_bill_opponent_trigger = yes
+						is_in_guest_subset = { name = bill_opponents }
 						OR = {
 							has_activity_intent = balance_budget_intent
 							has_activity_intent = balance_budget_maintain_military_intent
@@ -573,7 +573,7 @@ reduce_all_proposed_budgets_on_action = {
 			NOT = {
 				scope:activity = {
 					any_attending_character = {
-						is_bill_opponent_trigger = yes
+						is_in_guest_subset = { name = bill_opponents }
 						OR = {
 							has_activity_intent = balance_budget_intent
 							AND = {
@@ -641,7 +641,7 @@ propose_increased_military_spending = {
 			factor = 0
 			NOT = {
 				any_attending_character = {
-					is_bill_opponent_trigger = yes
+					is_in_guest_subset = { name = bill_opponents }
 					has_activity_intent = increase_military_budget_intent
 					OR = {
 						NOT = { has_variable = vote_bargained_for }
@@ -681,7 +681,7 @@ propose_increased_ministry_spending = {
 			factor = 0
 			NOT = {
 				any_attending_character = {
-					is_bill_opponent_trigger = yes
+					is_in_guest_subset = { name = bill_opponents }
 					has_activity_intent = increase_ministry_budget_intent
 					OR = {
 						NOT = { has_variable = vote_bargained_for }
@@ -721,7 +721,7 @@ propose_increased_salary_spending = {
 			factor = 0
 			NOT = {
 				any_attending_character = {
-					is_bill_opponent_trigger = yes
+					is_in_guest_subset = { name = bill_opponents }
 					has_activity_intent = increase_salary_budget_intent
 					OR = {
 						NOT = { has_variable = vote_bargained_for }

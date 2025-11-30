@@ -512,12 +512,12 @@ legislature_events.1101 = {
 		# Build lobbyist lists for all attending legislators
 		hidden_effect = {
 			scope:activity = {
-				every_in_list = {
-					variable = bill_supporters
+				every_guest_subset = {
+					name = bill_supporters
 					trigger_event = legislature_events.1110
 				}
-				every_in_list = {
-					variable = bill_opponents
+				every_guest_subset = {
+					name = bill_opponents
 					trigger_event = legislature_events.1110
 				}
 			}
@@ -531,35 +531,35 @@ legislature_events.1110 = {
 		# The ruler of your constituency, who may have had a hand in your election
 		if = {
 			limit = { exists = var:riding.holder }
-			add_to_variable_list = { name = possible_lobbyists target = var:riding.holder }
+			add_to_guest_subset = { name = possible_lobbyists target = var:riding.holder }
 		}
 		# Friends and lovers
 		every_relation = {
 			type = friend
 			if = {
 				limit = { NOT = { ROOT = { is_target_in_variable_list = { target = PREV name = possible_lobbyists } } } }
-				ROOT = { add_to_variable_list = { name = possible_lobbyists target = PREV } }
+				ROOT = { add_to_guest_subset = { name = possible_lobbyists target = PREV } }
 			}
 		}
 		every_relation = {
 			type = lover
 			if = {
 				limit = { NOT = { ROOT = { is_target_in_variable_list = { target = PREV name = possible_lobbyists } } } }
-				ROOT = { add_to_variable_list = { name = possible_lobbyists target = PREV } }
+				ROOT = { add_to_guest_subset = { name = possible_lobbyists target = PREV } }
 			}
 		}
 		every_relation = {
 			type = soulmate
 			if = {
 				limit = { NOT = { ROOT = { is_target_in_variable_list = { target = PREV name = possible_lobbyists } } } }
-				ROOT = { add_to_variable_list = { name = possible_lobbyists target = PREV } }
+				ROOT = { add_to_guest_subset = { name = possible_lobbyists target = PREV } }
 			}
 		}
 		every_relation = {
 			type = elder
 			if = {
 				limit = { NOT = { ROOT = { is_target_in_variable_list = { target = PREV name = possible_lobbyists } } } }
-				ROOT = { add_to_variable_list = { name = possible_lobbyists target = PREV } }
+				ROOT = { add_to_guest_subset = { name = possible_lobbyists target = PREV } }
 			}
 		}
 		# The leader of this legislator's ideology in the legislature
@@ -579,7 +579,7 @@ legislature_events.1110 = {
 								is_target_in_variable_list = { target = PREV name = possible_lobbyists }
 							}
 						}
-						add_to_variable_list = { name = possible_lobbyists target = PREV }
+						add_to_guest_subset = { name = possible_lobbyists target = PREV }
 					}
 				}
 			}
@@ -794,8 +794,8 @@ legislature_events.1300 = {
 	option = {
 		name = legislature_events.1300.a
 		scope:activity = {
-			remove_list_variable = { name = bill_opponents target = ROOT }
-			add_to_variable_list = { name = bill_supporters target = ROOT }
+			remove_from_guest_subset = { name = bill_opponents target = ROOT }
+			add_to_guest_subset = { name = bill_supporters target = ROOT }
 		}
 		vote_for_budget_strength_effect = yes
 		ai_chance = { base = 100 }
@@ -827,8 +827,8 @@ legislature_events.1310 = {
 	option = {
 		name = legislature_events.1310.a
 		scope:activity = {
-			remove_list_variable = { name = bill_supporters target = ROOT }
-			add_to_variable_list = { name = bill_opponents target = ROOT }
+			remove_from_guest_subset = { name = bill_supporters target = ROOT }
+			add_to_guest_subset = { name = bill_opponents target = ROOT }
 		}
 		vote_against_budget_strength_effect = yes
 		ai_chance = { base = 100 }
@@ -1110,8 +1110,8 @@ legislature_events.1510 = {
 		}
 		hidden_effect = {
 			scope:activity = {
-				remove_list_variable = { name = bill_opponents target = ROOT }
-				add_to_variable_list = { name = bill_supporters target = ROOT }
+				remove_from_guest_subset = { name = bill_opponents target = ROOT }
+				add_to_guest_subset = { name = bill_supporters target = ROOT }
 			}
 			set_variable = { name = vote_strength value = 100 }
 			change_variable = { name = vote_strength add = ai_honor }
@@ -1217,10 +1217,10 @@ legislature_events.1520 = {
 		}
 		hidden_effect = {
 			scope:activity = {
-				remove_list_variable = { name = bill_opponents target = ROOT }
-				add_to_variable_list = { name = bill_supporters target = ROOT }
+				remove_from_guest_subset = { name = bill_opponents target = ROOT }
+				add_to_guest_subset = { name = bill_supporters target = ROOT }
 				change_variable = { name = pork add = ROOT.var:riding.treasury_required_for_stimulus }
-				add_to_variable_list = { name = pork_recipients target = ROOT.var:riding }
+				add_to_guest_subset = { name = pork_recipients target = ROOT.var:riding }
 			}
 			set_variable = { name = vote_strength value = 300 }
 			change_variable = { name = vote_strength add = ai_honor }
@@ -1309,8 +1309,8 @@ legislature_events.1530 = {
 		name = legislature_events.1530.a
 		hidden_effect = {
 			scope:activity = {
-				remove_list_variable = { name = bill_opponents target = ROOT }
-				add_to_variable_list = { name = bill_supporters target = ROOT }
+				remove_from_guest_subset = { name = bill_opponents target = ROOT }
+				add_to_guest_subset = { name = bill_supporters target = ROOT }
 			}
 			set_variable = { name = vote_strength value = 10000 }
 			scope:actor = {
@@ -1344,8 +1344,8 @@ legislature_events.1535 = {
 		hidden_effect = {
 			change_variable = { name = trustworthiness add = 10 }
 			scope:activity = {
-				remove_list_variable = { name = bill_opponents target = ROOT }
-				add_to_variable_list = { name = bill_supporters target = ROOT }
+				remove_from_guest_subset = { name = bill_opponents target = ROOT }
+				add_to_guest_subset = { name = bill_supporters target = ROOT }
 			}
 			set_variable = { name = vote_strength value = 100 }
 			change_variable = { name = vote_strength add = ai_honor }
@@ -1424,8 +1424,8 @@ legislature_events.1540 = {
 		add_hook = { type = favor_hook target = scope:actor }
 		hidden_effect = {
 			scope:activity = {
-				remove_list_variable = { name = bill_opponents target = ROOT }
-				add_to_variable_list = { name = bill_supporters target = ROOT }
+				remove_from_guest_subset = { name = bill_opponents target = ROOT }
+				add_to_guest_subset = { name = bill_supporters target = ROOT }
 			}
 			set_variable = { name = vote_strength value = 100 }
 			change_variable = { name = vote_strength add = ai_honor }
@@ -1528,16 +1528,16 @@ legislature_events.1600 = {
 						}
 					}
 					scope:activity = {
-						every_in_list = {
-							variable = bill_supporters
+						every_guest_subset = {
+							name = bill_supporters
 							send_interface_message = {
 								type = msg_vote_speech_good
 								title = legislature_events.1600.successful_speech.tt
 								desc = legislature_events.1600.successful_speech.desc
 							}
 						}
-						every_in_list = {
-							variable = bill_opponents
+						every_guest_subset = {
+							name = bill_opponents
 							trigger_event = { id = legislature_events.1601 }
 						}
 					}
@@ -1567,16 +1567,16 @@ legislature_events.1600 = {
 						}
 					}
 					scope:activity = {
-						every_in_list = {
-							variable = bill_supporters
+						every_guest_subset = {
+							name = bill_supporters
 							send_interface_message = {
 								type = msg_vote_speech_bad
 								title = legislature_events.1600.unsuccessful_speech.tt
 								desc = legislature_events.1600.unsuccessful_speech.desc
 							}
 						}
-						every_in_list = {
-							variable = bill_opponents
+						every_guest_subset = {
+							name = bill_opponents
 							send_interface_message = {
 								type = msg_vote_speech_neutral
 								title = legislature_events.1600.unsuccessful_speech.tt
@@ -1636,8 +1636,8 @@ legislature_events.1601 = {
 		show_as_unavailable = { always = yes }
 		hidden_effect = {
 			scope:activity = {
-				remove_list_variable = { name = budget_opponents target = ROOT }
-				add_to_variable_list = { name = budget_supporters target = ROOT }
+				remove_from_guest_subset = { name = budget_opponents target = ROOT }
+				add_to_guest_subset = { name = budget_supporters target = ROOT }
 			}
 			scope:host = {
 				send_interface_message = {
@@ -1750,12 +1750,12 @@ legislature_events.1650 = {
 						}
 					}
 					scope:activity = {
-						every_in_list = {
-							variable = bill_supporters
+						every_guest_subset = {
+							name = bill_supporters
 							trigger_event = { id = legislature_events.1651 }
 						}
-						every_in_list = {
-							variable = bill_opponents
+						every_guest_subset = {
+							name = bill_opponents
 							send_interface_message = {
 								type = msg_vote_speech_good
 								title = legislature_events.1650.successful_speech.tt
@@ -1786,16 +1786,16 @@ legislature_events.1650 = {
 						}
 					}
 					scope:activity = {
-						every_in_list = {
-							variable = bill_supporters
+						every_guest_subset = {
+							name = bill_supporters
 							send_interface_message = {
 								type = msg_vote_speech_neutral
 								title = legislature_events.1650.unsuccessful_speech.tt
 								desc = legislature_events.1650.unsuccessful_speech.desc
 							}
 						}
-						every_in_list = {
-							variable = bill_opponents
+						every_guest_subset = {
+							name = bill_opponents
 							send_interface_message = {
 								type = msg_vote_speech_bad
 								title = legislature_events.1650.unsuccessful_speech.tt
@@ -1854,8 +1854,8 @@ legislature_events.1651 = {
 		show_as_unavailable = { always = yes }
 		hidden_effect = {
 			scope:activity = {
-				remove_list_variable = { name = budget_opponents target = ROOT }
-				add_to_variable_list = { name = budget_supporters target = ROOT }
+				remove_from_guest_subset = { name = budget_opponents target = ROOT }
+				add_to_guest_subset = { name = budget_supporters target = ROOT }
 			}
 			set_variable = { name = vote_strength value = 50 }
 			change_variable = { name = vote_strength add = scope:speaker.diplomacy }
@@ -1952,7 +1952,7 @@ legislature_events.1700 = {
 	# Appeal to their personal respect for you to vote for the bill
 	option = {
 		name = legislature_events.1700.a
-		trigger = { scope:legislator = { is_bill_opponent_trigger = yes } }
+		trigger = { scope:legislator = { is_in_guest_subset = { name = bill_opponents } } }
 		hidden_effect = { scope:legislator = { trigger_event = { id = legislature_events.1710 } } }
 		ai_chance = {
 			base = 100
@@ -1973,7 +1973,7 @@ legislature_events.1700 = {
 	option = {
 		name = legislature_events.1700.b
 		trigger = {
-			scope:legislator = { is_bill_supporter_trigger = yes }
+			scope:legislator = { is_in_guest_subset = { name = bill_supporters } }
 			NOT = { scope:host = ROOT }
 		}
 		hidden_effect = { scope:legislator = { trigger_event = { id = legislature_events.1715 } } }
@@ -1997,7 +1997,7 @@ legislature_events.1700 = {
 		name = legislature_events.1700.c
 		trigger = {
 			scope:legislator = {
-				is_bill_opponent_trigger = yes
+				is_in_guest_subset = { name = bill_opponents }
 				faith = { this = ROOT.faith }
 				NOT = { bill_is_ideologically_unacceptable = { BILL = scope:activity } }
 			}
@@ -2026,7 +2026,7 @@ legislature_events.1700 = {
 		name = legislature_events.1700.d
 		trigger = {
 			scope:legislator = {
-				is_bill_supporter_trigger = yes
+				is_in_guest_subset = { name = bill_supporters }
 				faith = { this = ROOT.faith }
 				NOT = { bill_is_ideologically_necessary = { BILL = scope:activity } }
 			}
@@ -2055,7 +2055,7 @@ legislature_events.1700 = {
 	option = {
 		name = legislature_events.1700.e
 		trigger = {
-			scope:legislator = { is_bill_opponent_trigger = yes }
+			scope:legislator = { is_in_guest_subset = { name = bill_opponents } }
 			has_strong_usable_hook = scope:legislator
 		}
 		use_hook = scope:legislator
@@ -2088,7 +2088,7 @@ legislature_events.1700 = {
 	option = {
 		name = legislature_events.1700.f
 		trigger = {
-			scope:legislator = { is_bill_supporter_trigger = yes }
+			scope:legislator = { is_in_guest_subset = { name = bill_supporters } }
 			NOT = { scope:host = ROOT }
 			has_strong_usable_hook = scope:legislator
 		}
@@ -2122,7 +2122,7 @@ legislature_events.1700 = {
 	option = {
 		name = legislature_events.1700.g
 		trigger = {
-			scope:legislator = { is_bill_opponent_trigger = yes }
+			scope:legislator = { is_in_guest_subset = { name = bill_opponents } }
 			has_weak_hook = scope:legislator
 		}
 		use_hook = scope:legislator
@@ -2139,7 +2139,7 @@ legislature_events.1700 = {
 	option = {
 		name = legislature_events.1700.h
 		trigger = {
-			scope:legislator = { is_bill_supporter_trigger = yes }
+			scope:legislator = { is_in_guest_subset = { name = bill_supporters } }
 			NOT = { scope:host = ROOT }
 			has_weak_hook = scope:legislator
 		}
@@ -2159,7 +2159,7 @@ legislature_events.1700 = {
 		trigger = {
 			scope:legislator = {
 				can_add_hook = { type = favor_hook target = ROOT }
-				is_bill_opponent_trigger = yes
+				is_in_guest_subset = { name = bill_opponents }
 			}
 		}
 		show_as_tooltip = { scope:legislator = { add_hook = { type = favor_hook target = ROOT } } }
@@ -2185,7 +2185,7 @@ legislature_events.1700 = {
 		trigger = {
 			scope:legislator = {
 				can_add_hook = { type = favor_hook target = ROOT }
-				is_bill_supporter_trigger = yes
+				is_in_guest_subset = { name = bill_supporters }
 			}
 			NOT = { scope:host = ROOT }
 		}
@@ -2210,7 +2210,7 @@ legislature_events.1700 = {
 	option = {
 		name = legislature_events.1700.k
 		trigger = {
-			scope:legislator = { is_bill_opponent_trigger = yes }
+			scope:legislator = { is_in_guest_subset = { name = bill_opponents } }
 			gold >= bribe_value
 		}
 		show_as_tooltip = {
@@ -2283,7 +2283,7 @@ legislature_events.1700 = {
 	option = {
 		name = legislature_events.1700.l
 		trigger = {
-			scope:legislator = { is_bill_supporter_trigger = yes }
+			scope:legislator = { is_in_guest_subset = { name = bill_supporters } }
 			gold >= bribe_value
 			NOT = { scope:host = ROOT }
 		}
@@ -2385,7 +2385,7 @@ legislature_events.1700 = {
 	
 	after = {
 		# Remove us from the list of possible lobbyists
-		hidden_effect = { scope:legislator = { remove_list_variable = { name = possible_lobbyists target = ROOT } } }
+		hidden_effect = { scope:legislator = { remove_from_guest_subset = { name = possible_lobbyists target = ROOT } } }
 	}
 }
 
@@ -2411,8 +2411,8 @@ legislature_events.1710 = {
 		reverse_add_opinion = { modifier = opinion_followed_pressure target = scope:lobbyist }
 		hidden_effect = {
 			scope:activity = {
-				remove_list_variable = { name = budget_opponents target = ROOT }
-				add_to_variable_list = { name = budget_supporters target = ROOT }
+				remove_from_guest_subset = { name = budget_opponents target = ROOT }
+				add_to_guest_subset = { name = budget_supporters target = ROOT }
 			}
 			set_variable = { name = vote_strength value = "opinion(scope:lobbyist)" }
 			scope:host = {
@@ -2496,8 +2496,8 @@ legislature_events.1715 = {
 		reverse_add_opinion = { modifier = opinion_followed_pressure target = scope:lobbyist }
 		hidden_effect = {
 			scope:activity = {
-				remove_list_variable = { name = budget_supporters target = ROOT }
-				add_to_variable_list = { name = budget_opponents target = ROOT }
+				remove_from_guest_subset = { name = budget_supporters target = ROOT }
+				add_to_guest_subset = { name = budget_opponents target = ROOT }
 			}
 			set_variable = { name = vote_strength value = "opinion(scope:lobbyist)" }
 			scope:host = {
@@ -2581,8 +2581,8 @@ legislature_events.1720 = {
 		reverse_add_opinion = { modifier = opinion_followed_pressure target = scope:lobbyist }
 		hidden_effect = {
 			scope:activity = {
-				remove_list_variable = { name = budget_opponents target = ROOT }
-				add_to_variable_list = { name = budget_supporters target = ROOT }
+				remove_from_guest_subset = { name = budget_opponents target = ROOT }
+				add_to_guest_subset = { name = budget_supporters target = ROOT }
 			}
 			set_variable = { name = vote_strength value = 100 }
 			change_variable = { name = vote_strength add = ai_zeal }
@@ -2669,8 +2669,8 @@ legislature_events.1725 = {
 		reverse_add_opinion = { modifier = opinion_followed_pressure target = scope:lobbyist }
 		hidden_effect = {
 			scope:activity = {
-				remove_list_variable = { name = budget_supporters target = ROOT }
-				add_to_variable_list = { name = budget_opponents target = ROOT }
+				remove_from_guest_subset = { name = budget_supporters target = ROOT }
+				add_to_guest_subset = { name = budget_opponents target = ROOT }
 			}
 			set_variable = { name = vote_strength value = 100 }
 			change_variable = { name = vote_strength add = ai_zeal }
@@ -2756,8 +2756,8 @@ legislature_events.1730 = {
 		name = legislature_events.1730.a
 		hidden_effect = {
 			scope:activity = {
-				remove_list_variable = { name = budget_opponents target = ROOT }
-				add_to_variable_list = { name = budget_supporters target = ROOT }
+				remove_from_guest_subset = { name = budget_opponents target = ROOT }
+				add_to_guest_subset = { name = budget_supporters target = ROOT }
 			}
 			set_variable = { name = vote_strength value = 100000 } # Should be functionally infinite
 			scope:host = {
@@ -2799,8 +2799,8 @@ legislature_events.1735 = {
 		name = legislature_events.1735.a
 		hidden_effect = {
 			scope:activity = {
-				remove_list_variable = { name = budget_supporters target = ROOT }
-				add_to_variable_list = { name = budget_opponents target = ROOT }
+				remove_from_guest_subset = { name = budget_supporters target = ROOT }
+				add_to_guest_subset = { name = budget_opponents target = ROOT }
 			}
 			set_variable = { name = vote_strength value = 100000 } # Should be functionally infinite
 			scope:host = {
@@ -2844,8 +2844,8 @@ legislature_events.1740 = {
 		hidden_effect = {
 			change_variable = { name = trustworthiness add = 10 }
 			scope:activity = {
-				remove_list_variable = { name = budget_opponents target = ROOT }
-				add_to_variable_list = { name = budget_supporters target = ROOT }
+				remove_from_guest_subset = { name = budget_opponents target = ROOT }
+				add_to_guest_subset = { name = budget_supporters target = ROOT }
 			}
 			set_variable = { name = vote_strength value = 100 }
 			change_variable = { name = vote_strength add = ai_honor }
@@ -2928,8 +2928,8 @@ legislature_events.1745 = {
 		hidden_effect = {
 			change_variable = { name = trustworthiness add = 10 }
 			scope:activity = {
-				remove_list_variable = { name = budget_supporters target = ROOT }
-				add_to_variable_list = { name = budget_opponents target = ROOT }
+				remove_from_guest_subset = { name = budget_supporters target = ROOT }
+				add_to_guest_subset = { name = budget_opponents target = ROOT }
 			}
 			set_variable = { name = vote_strength value = 100 }
 			change_variable = { name = vote_strength add = ai_honor }
@@ -3012,8 +3012,8 @@ legislature_events.1750 = {
 		add_hook = { type = favor_hook target = scope:lobbyist }
 		hidden_effect = {
 			scope:activity = {
-				remove_list_variable = { name = budget_opponents target = ROOT }
-				add_to_variable_list = { name = budget_supporters target = ROOT }
+				remove_from_guest_subset = { name = budget_opponents target = ROOT }
+				add_to_guest_subset = { name = budget_supporters target = ROOT }
 			}
 			set_variable = { name = vote_strength value = 100 }
 			change_variable = { name = vote_strength add = ai_honor }
@@ -3093,8 +3093,8 @@ legislature_events.1755 = {
 		add_hook = { type = favor_hook target = scope:lobbyist }
 		hidden_effect = {
 			scope:activity = {
-				remove_list_variable = { name = budget_supporters target = ROOT }
-				add_to_variable_list = { name = budget_opponents target = ROOT }
+				remove_from_guest_subset = { name = budget_supporters target = ROOT }
+				add_to_guest_subset = { name = budget_opponents target = ROOT }
 			}
 			set_variable = { name = vote_strength value = 100 }
 			change_variable = { name = vote_strength add = ai_honor }
@@ -3187,8 +3187,8 @@ legislature_events.1760 = {
 				}
 			}
 			scope:activity = {
-				remove_list_variable = { name = budget_opponents target = ROOT }
-				add_to_variable_list = { name = budget_supporters target = ROOT }
+				remove_from_guest_subset = { name = budget_opponents target = ROOT }
+				add_to_guest_subset = { name = budget_supporters target = ROOT }
 			}
 			set_variable = { name = vote_strength value = 200 }
 			if = {
@@ -3290,8 +3290,8 @@ legislature_events.1765 = {
 				}
 			}
 			scope:activity = {
-				remove_list_variable = { name = budget_supporters target = ROOT }
-				add_to_variable_list = { name = budget_opponents target = ROOT }
+				remove_from_guest_subset = { name = budget_supporters target = ROOT }
+				add_to_guest_subset = { name = budget_opponents target = ROOT }
 			}
 			set_variable = { name = vote_strength value = 200 }
 			if = {
@@ -3380,7 +3380,7 @@ legislature_events.2000 = {
 	option = {
 		name = legislature_events.2000.a
 		scope:activity = {
-			add_to_variable_list = {
+			add_to_guest_subset = {
 				name = bill_supporters
 				target = ROOT
 			}
@@ -3442,7 +3442,7 @@ legislature_events.2000 = {
 	option = {
 		name = legislature_events.2000.b
 		scope:activity = {
-			add_to_variable_list = {
+			add_to_guest_subset = {
 				name = bill_opponents
 				target = ROOT
 			}

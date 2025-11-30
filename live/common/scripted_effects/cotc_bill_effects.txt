@@ -1,7 +1,7 @@
 ﻿build_supporters_gained_list_effect = {
 	scope:activity = {
-		every_in_list = {
-			variable = bill_opponents
+		every_guest_subset = {
+			name = bill_opponents
 			limit = {
 				supports_budget_amendment_trigger = yes
 				OR = {
@@ -22,8 +22,8 @@
 }
 build_supporters_lost_list_effect = {
 	scope:activity = {
-		every_in_list = {
-			variable = bill_supporters
+		every_guest_subset = {
+			name = bill_supporters
 			limit = {
 				opposes_budget_amendment_trigger = yes
 				OR = {

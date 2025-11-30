@@ -21,8 +21,8 @@ bill_debate_pulse_speech_on_action = {
 				ordered_attending_character = {
 					limit = {
 						OR = {
-							is_bill_supporter_trigger = yes
-							is_bill_opponent_trigger = yes
+							is_in_guest_subset = { name = bill_supporters }
+							is_in_guest_subset = { name = bill_opponents }
 						}
 						NOR = {
 							this = scope_host
@@ -31,11 +31,11 @@ bill_debate_pulse_speech_on_action = {
 					}
 					order_by = legislative_seniority
 					if = {
-						limit = { is_bill_supporter_trigger = yes }
+						limit = { is_in_guest_subset = { name = bill_supporters } }
 						trigger_event = legislature_events.1600
 					}
 					else_if = {
-						limit = { is_bill_opponent_trigger = yes }
+						limit = { is_in_guest_subset = { name = bill_opponents } }
 						trigger_event = legislature_events.1650
 					}
 				}
@@ -53,7 +53,7 @@ bill_debate_pulse_legislator_on_action = {
 }
 # Negotiate with the sponsor for a better deal
 bill_debate_pulse_legislator_makes_deal_on_action = {
-	trigger = { is_bill_opponent_trigger = yes }
+	trigger = { is_in_guest_subset = { name = bill_opponents } }
 	weight_multiplier = {
 		base = 250
 		modifier = { add = scope:host.ai_energy }
