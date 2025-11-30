@@ -19,9 +19,8 @@ GetFullPersonalName = {
 		localization_key = personal_name_western_custom_loc
 	}
 }
-# Gives us the name of a character and also their highest political office,
-# so that we know why we should care.
-GetCharacterNameWithNewsContext = {
+# Gives us the name of a character and also their highest political office
+GetBestName = {
 	type = character
 	text = {
 		setup_scope = { save_scope_as = custom_loc_character }
@@ -37,6 +36,14 @@ GetCharacterNameWithNewsContext = {
 		setup_scope = { save_scope_as = custom_loc_character }
 		trigger = { is_councillor = yes }
 		localization_key = title_councillor_of_state_custom_loc
+	}
+	text = {
+		setup_scope = {
+			save_scope_as = custom_loc_character
+			var:legislature ?= { save_scope_as = custom_loc_legislature }
+			var:riding ?= { save_scope_as = custom_loc_riding }
+		}
+		localization_key = title_legislator_of_riding_custom_loc
 	}
 	text = {
 		setup_scope = { save_scope_as = custom_loc_character }

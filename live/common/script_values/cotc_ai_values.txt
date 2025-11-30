@@ -1,0 +1,517 @@
+﻿# How much does this character value a firm, strong hand, versus democracy?
+ai_authoritarianism = {
+	value = 0
+	add = ai_vengefulness
+	subtract = ai_compassion
+	subtract = var:faith_in_democracy
+	
+	if = {
+		limit = { faith = { has_doctrine = doctrine_despotism } }
+		add = {
+			value = ai_zeal
+			multiply = 10
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			min = 0
+		}
+	}
+	else_if = {
+		limit = { faith = { has_doctrine = doctrine_dictatorship } }
+		add = {
+			value = ai_zeal
+			multiply = 5
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			min = 0
+		}
+	}
+	else_if = {
+		limit = { faith = { has_doctrine = doctrine_separation_of_powers } }
+		subtract = {
+			value = ai_zeal
+			multiply = 5
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			min = 0
+		}
+	}
+	else_if = {
+		limit = { faith = { has_doctrine = doctrine_parliamentarianism } }
+		subtract = {
+			value = ai_zeal
+			multiply = 5
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			min = 0
+		}
+	}
+	else_if = {
+		limit = { faith = { has_doctrine = doctrine_anarchism } }
+		subtract = {
+			value = ai_zeal
+			multiply = 10
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			min = 0
+		}
+	}
+	if = {
+		limit = {
+			faith = {
+				OR = {
+					has_doctrine = doctrine_aristocracy
+					has_doctrine = doctrine_meritocracy
+				}
+			}
+		}
+		add = {
+			value = ai_zeal
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			min = 0
+		}
+	}
+	else_if = {
+		limit = {
+			faith = {
+				OR = {
+					has_doctrine = doctrine_democracy
+					has_doctrine = doctrine_no_legitimacy
+				}
+			}
+		}
+		subtract = {
+			value = ai_zeal
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			min = 0
+		}
+	}
+	if = {
+		limit = { faith = { has_doctrine = tenet_pursuit_of_power } }
+		subtract = {
+			value = ai_zeal
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			min = 0
+		}
+	}
+	if = {
+		limit = { faith = { has_doctrine = tenet_planned_economy } }
+		add = {
+			value = ai_zeal
+			divide = 3
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			min = 0
+		}
+	}
+	if = {
+		limit = { faith = { has_doctrine = tenet_harmonious_society } }
+		add = {
+			value = ai_zeal
+			divide = 3
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			min = 0
+		}
+	}
+	if = {
+		limit = { faith = { has_doctrine = tenet_federalism } }
+		subtract = {
+			value = ai_zeal
+			divide = 3
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			min = 0
+		}
+	}
+	if = {
+		limit = { faith = { has_doctrine = tenet_communal_possessions } }
+		subtract = {
+			value = ai_zeal
+			divide = 3
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			min = 0
+		}
+	}
+}
+
+# How much does this character value the rule of law?
+ai_lawfulness = {
+	value = 0
+	add = ai_honor
+	if = {
+		limit = { faith = { has_doctrine = criminal_hostility_doctrine } }
+		subtract = 100
+	}
+	else_if = {
+		limit = { faith = { has_doctrine = doctrine_despotism } }
+		subtract = 50
+	}
+	else = {
+		add = faith.fervor
+		add = {
+			value = ai_zeal
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			min = 0
+		}
+	}
+	if = {
+		limit = { faith = { has_doctrine = tenet_legalism } }
+		add = {
+			value = ai_zeal
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			min = 0
+		}
+	}
+	if = {
+		limit = { faith = { has_doctrine = tenet_religious_legal_pronouncements } }
+		add = {
+			value = ai_zeal
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			min = 0
+		}
+	}
+	if = {
+		limit = { faith = { has_doctrine = tenet_pursuit_of_power } }
+		subtract = {
+			value = ai_zeal
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			min = 0
+		}
+	}
+}
+# How much does this character feel about war?
+ai_hawkishness = {
+	value = 0
+	add = ai_vengefulness
+	subtract = ai_compassion
+	add = martial
+	subtract = diplomacy
+	if = {
+		limit = { faith = { has_doctrine = tenet_warmonger } }
+		add = {
+			value = ai_zeal
+			multiply = 5
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			min = 0
+		}
+	}
+	if = {
+		limit = { faith = { has_doctrine = tenet_armed_pilgrimages } }
+		add = {
+			value = ai_zeal
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			min = 0
+		}
+	}
+	if = {
+		limit = { faith = { has_doctrine = tenet_unrelenting_faith } }
+		add = {
+			value = ai_zeal
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			min = 0
+		}
+	}
+	if = {
+		limit = { faith = { has_doctrine = tenet_struggle_submission } }
+		add = {
+			value = ai_zeal
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			min = 0
+		}
+	}
+	if = {
+		limit = { faith = { has_doctrine = tenet_pursuit_of_power } }
+		add = {
+			value = ai_zeal
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			min = 0
+		}
+	}
+	if = {
+		limit = { faith = { has_doctrine = tenet_sacred_destruction } }
+		add = {
+			value = ai_zeal
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			min = 0
+		}
+	}
+	if = {
+		limit = { faith = { has_doctrine = tenet_pacifism } }
+		subtract = {
+			value = ai_zeal
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			multiply = 5
+			min = 0
+		}
+	}
+	if = {
+		limit = { faith = { has_doctrine = tenet_dharmic_pacifism } }
+		subtract = {
+			value = ai_zeal
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			multiply = 5
+			min = 0
+		}
+	}
+	if = {
+		limit = { faith = { has_doctrine = tenet_pastoral_isolation } }
+		subtract = {
+			value = ai_zeal
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			min = 0
+		}
+	}
+	if = {
+		limit = { faith = { has_doctrine = tenet_harmonious_society } }
+		subtract = {
+			value = ai_zeal
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			min = 0
+		}
+	}
+	if = {
+		limit = { faith = { has_doctrine = tenet_preservation } }
+		subtract = {
+			value = ai_zeal
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			min = 0
+		}
+	}
+}
+# How does this character feel about science and education?
+ai_intellectualism = {
+	value = 0
+	add = {
+		value = ai_rationality
+		multiply = 2
+	}
+	add = learning
+	if = {
+		limit = { faith = { has_doctrine = tenet_alexandrian_catechism } }
+		add = {
+			value = ai_zeal
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			min = 0
+		}
+	}
+	if = {
+		limit = { faith = { has_doctrine = tenet_pursuit_of_knowledge } }
+		add = {
+			value = ai_zeal
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			min = 0
+		}
+	}
+}
+# How does this character feel about government intervention in the economy?
+ai_interventionism = {
+	value = 0
+	if = {
+		limit = { is_landed = yes }
+		add = ai_greed
+	}
+	else = { subtract = ai_greed }
+	add = ai_compassion
+	subtract = ai_vengefulness
+	subtract = stewardship
+	if = {
+		limit = { faith = { has_doctrine = tenet_capitalism } }
+		subtract = {
+			value = ai_zeal
+			multiply = 2
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			min = 0
+		}
+	}
+	if = {
+		limit = { faith = { has_doctrine = tenet_planned_economy } }
+		add = {
+			value = ai_zeal
+			multiply = 2
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+			min = 0
+		}
+	}
+}
+# How scared is this character of another character, in a personal way?
+ai_personal_fear_of = {
+	value = 0
+	save_temporary_scope_as = temp_fearer
+	# We know they're currently trying to kill us
+	if = {
+		limit = {
+			scope:fearee = {
+				any_scheme = {
+					type = murder
+					target_character = scope:temp_fearer
+					is_scheme_exposed = yes
+				}
+			}
+			ai_boldness <= ai_rationality
+		}
+		add = {
+			value = ai_rationality
+			multiply = 5
+			min = 0
+		}
+		subtract = {
+			value = ai_boldness
+			multiply = 5
+			max = 0
+		}
+	}
+	# We know they have previously attempted to kill us
+	if = {
+		limit = {
+			any_known_secret = {
+				secret_type = secret_murder_attempt
+				secret_owner = scope:fearee
+				secret_target = scope:temp_fearer
+			}
+			ai_boldness <= ai_rationality
+		}
+		add = {
+			value = ai_rationality
+			multiply = 3
+			min = 0
+		}
+		subtract = {
+			value = ai_boldness
+			multiply = 3
+			max = 0
+		}
+	}
+	# They're a known tyrant
+	if = {
+		limit = { scope:fearee.tyranny >= ai_boldness }
+		add = scope:fearee.tyranny
+	}
+	# We were bullied by them
+	if = {
+		limit = {
+			has_relation_bully = scope:fearee
+			ai_boldness < 50
+		}
+		add = 10
+	}
+	# We have good reason to believe they're no threat to us
+	if = {
+		limit = {
+			OR = {
+				# They love us!
+				reverse_opinion = { target = scope:fearee value >= 50 }
+			}
+			# We think about this stuff rationally
+			ai_rationality >= ai_vengefulness
+			# Sanity check, we should absolutely be afraid of anyone we KNOW is out to get us
+			NOT = {
+				scope:fearee = {
+					any_scheme = {
+						is_hostile = yes
+						is_scheme_exposed = yes
+						target_character = scope:temp_fearer
+					}
+				}
+			}
+		}
+		multiply = 0
+	}
+	# They're harmless
+	if = {
+		limit = {
+			scope:fearee = {
+				OR = {
+					is_alive = no
+					is_incapable = yes
+					is_imprisoned = yes
+				}
+			}
+		}
+		multiply = 0
+	}
+}

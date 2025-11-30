@@ -1,0 +1,101 @@
+# Goes on the title attached to the legislature
+GetLegislatureName = {
+	type = landed_title
+	
+	text = {
+		localization_key = "senate_custom_loc"
+	}
+}
+GetLegislatureArticle = {
+	type = landed_title
+	
+	text = {
+		localization_key = "the_prefix_custom_loc"
+	}
+}
+GetLegislatorName = {
+	type = landed_title
+	
+	text = {
+		localization_key = "senator_custom_loc"
+	}
+}
+GetLegislatorNamePlural = {
+	type = landed_title
+	text = {
+		localization_key = "senator_plural_custom_loc"
+	}
+}
+GetBillType = {
+	type = activity
+	text = {
+		trigger = { has_activity_type = budget_bill_activity }
+		localization_key = "budget_bill_custom_loc"
+	}
+	text = {
+		localization_key = "bill_custom_loc"
+	}
+}
+GetBillProvisions = {
+	type = activity
+	text = {
+		setup_scope = {
+			this = { save_scope_as = bill }
+			var:title = { save_scope_as = bill_title }
+		}
+		trigger = { has_activity_type = budget_bill_activity }
+		localization_key = "budget_bill_provisions_custom_loc"
+	}
+}
+GetBillSellDifficulty = {
+	type = character
+	text = {
+		trigger = { scope:activity.bill_sell_difficulty = 10 }
+		localization_key = "very_easy_to_sell_bill_custom_loc"
+	}
+	text = {
+		trigger = { scope:activity.bill_sell_difficulty < 15 }
+		localization_key = "easy_to_sell_bill_custom_loc"
+	}
+	text = {
+		trigger = { scope:activity.bill_sell_difficulty < 20 }
+		localization_key = "moderate_difficulty_to_sell_bill_custom_loc"
+	}
+	text = {
+		trigger = { scope:activity.bill_sell_difficulty < 25 }
+		localization_key = "hard_to_sell_bill_custom_loc"
+	}
+	text = { localization_key = "very_hard_to_sell_bill_custom_loc" }
+}
+GetBillTargetDifficulty = {
+	type = character
+	text = {
+		trigger = { scope:activity.bill_target_difficulty = 10 }
+		localization_key = "very_hard_to_target_bill_custom_loc"
+	}
+	text = {
+		trigger = { scope:activity.bill_target_difficulty < 15 }
+		localization_key = "hard_to_target_bill_custom_loc"
+	}
+	text = {
+		trigger = { scope:activity.bill_target_difficulty < 20 }
+		localization_key = "moderate_difficulty_to_target_bill_custom_loc"
+	}
+	text = {
+		trigger = { scope:activity.bill_target_difficulty < 25 }
+		localization_key = "easy_to_sell_target_custom_loc"
+	}
+	text = { localization_key = "very_easy_to_target_bill_custom_loc" }
+}
+GetVoteOnBill = {
+	type = character
+	text = {
+		trigger = { is_bill_supporter_trigger = yes }
+		localization_key = "vote_for_bill_custom_loc"
+	}
+	text = {
+		trigger = { is_bill_opponent_trigger = yes }
+		localization_key = "vote_against_bill_custom_loc"
+	}
+	text = { localization_key = "bill_custom_loc" }
+}

@@ -1,4 +1,4 @@
-# This gives a character a randomly-selected culture, ethnicity, names, and
+﻿# This gives a character a randomly-selected culture, ethnicity, names, and
 # faith appropriate for ROOT's realm - that usually means a local, but sometimes
 # this character will have ancestry from a neighboring or even distant realm
 # This works by generating dummy characters and copying their attributes, which is wonky
@@ -6,8 +6,8 @@
 # ONLY USE ON NEWLY CREATED CHARACTERS
 initialize_character_effect = {
 	save_scope_as = initialized_character
-	liege_or_court_owner = { save_scope_as = host }
-	scope:host = {
+	liege_or_court_owner ?= { save_scope_as = host }
+	scope:host ?= {
 		# Grab some random provinces the new character might be from
 		# A neighboring province
 		county = {
@@ -311,4 +311,16 @@ generate_family_name_effect = {
 	scope:dummy_character = { silent_disappearance_effect = yes }
 	clear_saved_scope = dummy_character
 	clear_saved_scope = character_to_name
+}
+# Gets a character to visit a random court within a target ruler's capital sector
+visit_random_court_in_capital = {
+	save_temporary_scope_as = temp_visitor
+	$TARGET$ = {
+		capital_county ?= {
+			random_county_province ?= {
+				limit = { exists = province_owner }
+				province_owner = { add_visiting_courtier = scope:temp_visitor }
+			}
+		}
+	}
 }

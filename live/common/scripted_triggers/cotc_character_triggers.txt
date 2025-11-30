@@ -1,0 +1,127 @@
+# Use these instead of gender checks to accomodate non-standard gender identities
+is_female_cotc = {
+	is_female = yes
+}
+is_male_cotc = {
+	is_male = yes
+}
+lives_in_capital_trigger = {
+	court_owner ?= { capital_province ?= { county ?= { this = $TARGET$.capital_county } } }
+}
+court_is_federal_trigger = {
+	trigger_if = {
+		limit = { is_ruler = yes }
+		government_has_flag = government_is_federal
+	}
+	trigger_else = {
+		liege = { government_has_flag = government_is_federal }
+	}
+}
+court_is_democratic_trigger = {
+	trigger_if = {
+		limit = { is_ruler = yes }
+		government_has_flag = government_is_democratic
+	}
+	trigger_else = {
+		liege = { government_has_flag = government_is_democratic }
+	}
+}
+court_is_aristocratic_trigger = {
+	trigger_if = {
+		limit = { is_ruler = yes }
+		government_has_flag = government_is_aristocratic
+	}
+	trigger_else = {
+		liege = { government_has_flag = government_is_aristocratic }
+	}
+}
+court_is_meritocratic_trigger = {
+	trigger_if = {
+		limit = { is_ruler = yes }
+		government_has_flag = government_is_meritocratic
+	}
+	trigger_else = {
+		liege = { government_has_flag = government_is_meritocratic }
+	}
+}
+court_is_military_trigger = {
+	trigger_if = {
+		limit = { is_ruler = yes }
+		government_has_flag = government_is_military
+	}
+	trigger_else = {
+		liege = { government_has_flag = government_is_military }
+	}
+}
+court_is_commercial_trigger = {
+	trigger_if = {
+		limit = { is_ruler = yes }
+		government_has_flag = government_is_commercial
+	}
+	trigger_else = {
+		liege = { government_has_flag = government_is_commercial }
+	}
+}
+court_is_administrative_trigger = {
+	trigger_if = {
+		limit = { is_ruler = yes }
+		government_has_flag = government_is_administrative
+	}
+	trigger_else = {
+		liege = { government_has_flag = government_is_administrative }
+	}
+}
+court_is_despotic_trigger = {
+	trigger_if = {
+		limit = { is_ruler = yes }
+		government_has_flag = government_is_despotic
+	}
+	trigger_else = {
+		liege = { government_has_flag = government_is_despotic }
+	}
+}
+court_is_dictatorial_trigger = {
+	trigger_if = {
+		limit = { is_ruler = yes }
+		government_has_flag = government_is_dictatorial
+	}
+	trigger_else = {
+		liege = { government_has_flag = government_is_dictatorial }
+	}
+}
+court_is_presidential_trigger = {
+	trigger_if = {
+		limit = { is_ruler = yes }
+		government_has_flag = government_is_presidential
+	}
+	trigger_else = {
+		liege = { government_has_flag = government_is_presidential }
+	}
+}
+court_is_parliamentary_trigger = {
+	trigger_if = {
+		limit = { is_ruler = yes }
+		government_has_flag = government_is_parliamentary
+	}
+	trigger_else = {
+		liege = { government_has_flag = government_is_parliamentary }
+	}
+}
+court_has_legislature_trigger = {
+	trigger_if = {
+		limit = { is_ruler = yes }
+		government_has_flag = government_has_legislature
+	}
+	trigger_else = {
+		liege = { government_has_flag = government_has_legislature }
+	}
+}
+court_is_criminal_trigger = {
+	trigger_if = {
+		limit = { is_ruler = yes }
+		government_has_flag = government_is_criminal
+	}
+	trigger_else = {
+		liege = { government_has_flag = government_is_criminal }
+	}
+}

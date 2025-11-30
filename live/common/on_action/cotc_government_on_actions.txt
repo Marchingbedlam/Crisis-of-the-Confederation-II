@@ -1,0 +1,48 @@
+
+quarterly_playable_pulse = {
+	on_actions = {
+		legislature_quarterly_pulse
+	}
+}
+legislature_quarterly_pulse = {
+	effect = {
+		# Progress the terms of any legislatures
+		any_held_title = {
+			var:legislature ?= {
+				if = {
+					limit = { situation_current_phase = legislature_in_session }
+					change_variable = { name = months_in_session add = 3 }
+				}
+				# If the term is up, call an election
+				if = {
+					limit = {
+						situation_current_phase = legislature_in_session
+						OR = {
+							AND = {
+								ROOT = { has_realm_law = two_year_sessions }
+								var:months_in_session >= 24
+							}
+							AND = {
+								ROOT = { has_realm_law = four_year_sessions }
+								var:months_in_session >= 48
+							}
+							AND = {
+								ROOT = { has_realm_law = six_year_sessions }
+								var:months_in_session >= 72
+							}
+							AND = {
+								ROOT = { has_realm_law = eight_year_sessions }
+								var:months_in_session >= 96
+							}
+							AND = {
+								ROOT = { has_realm_law = ten_year_sessions }
+								var:months_in_session >= 120
+							}
+						}
+					}
+					activate_situation_catalyst = { catalyst = catalyst_term_expired character = ROOT }
+				}
+			}
+		}
+	}
+}

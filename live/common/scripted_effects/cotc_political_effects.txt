@@ -1,3 +1,157 @@
+﻿initialize_starting_legislature_effect = {
+	save_scope_as = ruler
+	start_situation = {
+		type = legislature
+		save_scope_as = situation
+		start_phase = legislature_in_session
+	}
+	every_held_title = {
+		limit = { tier = prev.primary_title.tier }
+		save_temporary_scope_as = temp_title
+		scope:situation.situation_sub_region:legislature_title_region = {
+			add_dejure_title_to_sub_region = scope:temp_title
+		}
+		clear_saved_scope = temp_title
+	}
+	primary_title = {
+		save_scope_as = target_title
+		set_variable = {
+			name = legislature
+			value = scope:situation
+		}
+	}
+	scope:situation ?= {
+		set_situation_center_province = scope:ruler.capital_province
+		set_variable = {
+			name = legislature_title
+			value = scope:target_title
+		}
+		set_variable = { name = months_in_session value = 0 }
+	}
+	# Elect starting legislators
+	every_sub_realm_county ?= { elect_new_legislator_effect = yes }
+	scope:situation ?= {
+		every_participant_group = {
+			every_situation_group_participant = {
+				recalculate_participant_group = scope:situation
+			}
+		}
+	}
+}
+elect_new_legislator_effect = {
+	save_scope_as = county
+	title_province = {
+		faith = { save_temporary_scope_as = temp_faith }
+		culture = { save_temporary_scope_as = temp_culture }
+	}
+	# Make a list of every possible candidate
+	scope:situation = {
+		every_in_list = {
+			list = incumbents
+			limit = { var:riding ?= { this = scope:county } }
+			scope:county = { add_to_variable_list = { name = candidates target = PREV } } # The incumbent is always an option
+		}
+	}
+	holder = {
+		every_courtier = {
+			limit = { eligible_legislator_candidate_trigger = yes }
+			scope:county = { add_to_variable_list = { name = candidates target = PREV } }
+		}
+		every_pool_guest = {
+			limit = { eligible_legislator_candidate_trigger = yes }
+			scope:county = { add_to_variable_list = { name = candidates target = PREV } }
+		}
+	}
+	every_county_province ?= {
+		province_owner ?= {
+			every_courtier = {
+				limit = { eligible_legislator_candidate_trigger = yes }
+				scope:county = { add_to_variable_list = { name = candidates target = PREV } }
+			}
+			every_pool_guest = {
+				limit = { eligible_legislator_candidate_trigger = yes }
+				scope:county = { add_to_variable_list = { name = candidates target = PREV } }
+			}
+		}
+		every_province_domicile ?= {
+			owner = {
+				every_courtier = {
+					limit = { eligible_legislator_candidate_trigger = yes }
+					scope:county = { add_to_variable_list = { name = candidates target = PREV } }
+				}
+				every_pool_guest = {
+					limit = { eligible_legislator_candidate_trigger = yes }
+					scope:county = { add_to_variable_list = { name = candidates target = PREV } }
+				}
+			}
+		}
+	}
+	# Elect the best candidate from the list
+	ordered_in_list = {
+		variable = candidates
+		order_by = legislator_score
+		# This is a re-election
+		if = {
+			limit = {
+				has_variable = riding
+				has_variable = legislature
+				var:riding = { this = scope:county }
+				var:legislature = { this = scope:situation }
+			}
+			reelect_legislator_effect = yes
+		}
+		# This is an election to a different legislature
+		else_if = {
+			limit = {
+				has_variable = riding
+				has_variable = legislature
+				NOT = { var:legislature = { this = scope:situation } }
+			}
+			remove_from_legislature_effect = yes
+			elect_legislator_effect = yes
+		}
+		else = { elect_legislator_effect = yes }
+	}
+	clear_variable_list = candidates
+}
+elect_legislator_effect = {
+	make_legislator_effect = { SITUATION = scope:situation RIDING = scope:county }
+	create_character_memory = { type = elected_legislator_memory }
+	scope:new_memory = {
+		set_variable = { name = legislature_title value = scope:situation.var:legislature_title }
+		set_variable = { name = riding value = scope:county }
+	}
+	trigger_event = { id = legislature_events.10 }
+}
+reelect_legislator_effect = {
+	make_legislator_effect = { SITUATION = scope:situation RIDING = scope:county }
+	create_character_memory = { type = reelected_legislator_memory }
+	scope:new_memory = {
+		set_variable = { name = legislature_title value = scope:situation.var:legislature_title }
+		set_variable = { name = riding value = scope:county }
+	}
+	trigger_event = { id = legislature_events.11 }
+}
+unelect_legislator_effect = {
+	create_character_memory = { type = not_reelected_legislator_memory }
+	scope:new_memory = { set_variable = { name = legislature_title value = scope:situation.var:legislature_title } }
+	trigger_event = { id = legislature_events.12 }
+}
+make_legislator_effect = {
+	$SITUATION$ = {
+		add_to_variable_list = {
+			name = legislators
+			target = PREV
+		}
+	}
+	set_variable = { name = legislature value = $SITUATION$ }
+	set_variable = { name = riding value = $RIDING$ }
+}
+remove_from_legislature_effect = {
+	var:legislature = { remove_list_variable = { name = legislators target = PREV } }
+	remove_variable = legislature
+	remove_variable = riding
+}
 appoint_random_prime_minister_effect = {
 	try_start_diarchy = premiership
 	random_vassal = {
@@ -5,7 +159,7 @@ appoint_random_prime_minister_effect = {
 			is_adult = yes
 			is_available = yes
 		}
-		save_temp_scope_as = temp_prime_minister
+		save_temporary_scope_as = temp_prime_minister
 	}
 	set_diarch = scope:temp_prime_minister
 }

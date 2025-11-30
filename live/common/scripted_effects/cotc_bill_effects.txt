@@ -1,0 +1,312 @@
+﻿build_supporters_gained_list_effect = {
+	scope:activity = {
+		every_in_list = {
+			variable = bill_opponents
+			limit = {
+				supports_budget_amendment_trigger = yes
+				OR = {
+					NOT = { has_variable = vote_bargained_for }
+					var:vote_bargained_for < ai_rationality
+				}
+			}
+			scope:host = { add_to_variable_list = { name = supporters_gained target = PREV } }
+		}
+	}
+	scope:host = {
+		ordered_in_list = {
+			variable = supporters_gained
+			order_by = diplomacy
+			save_scope_as = representative_opponent
+		}
+	}
+}
+build_supporters_lost_list_effect = {
+	scope:activity = {
+		every_in_list = {
+			variable = bill_supporters
+			limit = {
+				opposes_budget_amendment_trigger = yes
+				OR = {
+					NOT = { has_variable = vote_bargained_for }
+					var:vote_bargained_for < ai_rationality
+				}
+			}
+			scope:host = { add_to_variable_list = { name = supporters_lost target = PREV } }
+		}
+	}
+}
+
+pork_spending_effect = {
+	scope:activity = {
+		var:ruler = { remove_treasury = scope:activity.var:pork }
+		every_in_list = {
+			variable = pork_recipients
+			limit = { tier = tier_county }
+			save_temporary_scope_as = pork_target
+			scope:activity.var:legislature = {
+				random_in_list = {
+					variable = legislators
+					limit = {
+						has_variable = riding
+						var:riding ?= { this = scope:pork_target }
+					}
+					save_temporary_scope_as = pork_legislator
+				}
+			}
+			holder = {
+				send_interface_message = {
+					type = msg_vote_change_good
+					title = pork_spending_effect.tt
+					desc = pork_spending_effect.desc
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						has_county_modifier = reinvested_in_province_modifier
+						has_county_modifier = invested_in_province_modifier
+					}
+				}
+				add_county_modifier = {
+					modifier = reinvested_in_province_modifier
+					years = 5
+				}
+			}
+			else = {
+				add_county_modifier = {
+					modifier = invested_in_province_modifier
+					years = 5
+				}
+			}
+		}
+		every_in_list = {
+			variable = pork_recipients
+			limit = { tier >= tier_duchy }
+			save_temporary_scope_as = pork_target
+			scope:activity.var:legislature = {
+				random_in_list = {
+					variable = legislators
+					limit = {
+						has_variable = riding
+						var:riding ?= { this = scope:pork_target }
+					}
+					save_temporary_scope_as = pork_legislator
+				}
+			}
+			holder = {
+				send_interface_message = {
+					type = msg_vote_change_good
+					title = pork_spending_effect.tt
+					desc = pork_spending_effect.desc
+				}
+			}
+			every_de_jure_county = {
+				limit = { target_is_de_facto_liege_or_above = scope:pork_target }
+				if = {
+					limit = {
+						OR = {
+							has_county_modifier = reinvested_in_province_modifier
+							has_county_modifier = invested_in_province_modifier
+						}
+					}
+					add_county_modifier = {
+						modifier = reinvested_in_province_modifier
+						years = 5
+					}
+				}
+				else = {
+					add_county_modifier = {
+						modifier = invested_in_province_modifier
+						years = 5
+					}
+				}
+			}
+		}
+	}
+}
+pass_military_budget_effect = {
+	scope:activity.var:ruler = {
+		switch = {
+			trigger = scope:activity.var:proposed_military_budget
+			0 = { add_realm_law_skip_effects = budget_allocation_military_0 }
+			5 = { add_realm_law_skip_effects = budget_allocation_military_5 }
+			10 = { add_realm_law_skip_effects = budget_allocation_military_10 }
+			15 = { add_realm_law_skip_effects = budget_allocation_military_15 }
+			20 = { add_realm_law_skip_effects = budget_allocation_military_20 }
+			25 = { add_realm_law_skip_effects = budget_allocation_military_25 }
+			30 = { add_realm_law_skip_effects = budget_allocation_military_30 }
+			35 = { add_realm_law_skip_effects = budget_allocation_military_35 }
+			40 = { add_realm_law_skip_effects = budget_allocation_military_40 }
+			45 = { add_realm_law_skip_effects = budget_allocation_military_45 }
+			50 = { add_realm_law_skip_effects = budget_allocation_military_50 }
+			55 = { add_realm_law_skip_effects = budget_allocation_military_55 }
+			60 = { add_realm_law_skip_effects = budget_allocation_military_60 }
+			65 = { add_realm_law_skip_effects = budget_allocation_military_65 }
+			70 = { add_realm_law_skip_effects = budget_allocation_military_70 }
+			75 = { add_realm_law_skip_effects = budget_allocation_military_75 }
+			80 = { add_realm_law_skip_effects = budget_allocation_military_80 }
+			85 = { add_realm_law_skip_effects = budget_allocation_military_85 }
+			90 = { add_realm_law_skip_effects = budget_allocation_military_90 }
+			95 = { add_realm_law_skip_effects = budget_allocation_military_95 }
+			100 = { add_realm_law_skip_effects = budget_allocation_military_100 }
+		}
+	}
+}
+pass_ministry_budget_effect = {
+	scope:activity.var:ruler = {
+		switch = {
+			trigger = scope:activity.var:proposed_ministry_budget
+			0 = { add_realm_law_skip_effects = budget_allocation_ministry_0 }
+			5 = { add_realm_law_skip_effects = budget_allocation_ministry_5 }
+			10 = { add_realm_law_skip_effects = budget_allocation_ministry_10 }
+			15 = { add_realm_law_skip_effects = budget_allocation_ministry_15 }
+			20 = { add_realm_law_skip_effects = budget_allocation_ministry_20 }
+			25 = { add_realm_law_skip_effects = budget_allocation_ministry_25 }
+			30 = { add_realm_law_skip_effects = budget_allocation_ministry_30 }
+			35 = { add_realm_law_skip_effects = budget_allocation_ministry_35 }
+			40 = { add_realm_law_skip_effects = budget_allocation_ministry_40 }
+			45 = { add_realm_law_skip_effects = budget_allocation_ministry_45 }
+			50 = { add_realm_law_skip_effects = budget_allocation_ministry_50 }
+			55 = { add_realm_law_skip_effects = budget_allocation_ministry_55 }
+			60 = { add_realm_law_skip_effects = budget_allocation_ministry_60 }
+			65 = { add_realm_law_skip_effects = budget_allocation_ministry_65 }
+			70 = { add_realm_law_skip_effects = budget_allocation_ministry_70 }
+			75 = { add_realm_law_skip_effects = budget_allocation_ministry_75 }
+			80 = { add_realm_law_skip_effects = budget_allocation_ministry_80 }
+			85 = { add_realm_law_skip_effects = budget_allocation_ministry_85 }
+			90 = { add_realm_law_skip_effects = budget_allocation_ministry_90 }
+			95 = { add_realm_law_skip_effects = budget_allocation_ministry_95 }
+			100 = { add_realm_law_skip_effects = budget_allocation_ministry_100 }
+		}
+	}
+}
+pass_salary_budget_effect = {
+	scope:activity.var:ruler = {
+		switch = {
+			trigger = scope:activity.var:proposed_salary_budget
+			0 = { add_realm_law_skip_effects = budget_allocation_salary_0 }
+			5 = { add_realm_law_skip_effects = budget_allocation_salary_5 }
+			10 = { add_realm_law_skip_effects = budget_allocation_salary_10 }
+			15 = { add_realm_law_skip_effects = budget_allocation_salary_15 }
+			20 = { add_realm_law_skip_effects = budget_allocation_salary_20 }
+			25 = { add_realm_law_skip_effects = budget_allocation_salary_25 }
+			30 = { add_realm_law_skip_effects = budget_allocation_salary_30 }
+			35 = { add_realm_law_skip_effects = budget_allocation_salary_35 }
+			40 = { add_realm_law_skip_effects = budget_allocation_salary_40 }
+			45 = { add_realm_law_skip_effects = budget_allocation_salary_45 }
+			50 = { add_realm_law_skip_effects = budget_allocation_salary_50 }
+			55 = { add_realm_law_skip_effects = budget_allocation_salary_55 }
+			60 = { add_realm_law_skip_effects = budget_allocation_salary_60 }
+			65 = { add_realm_law_skip_effects = budget_allocation_salary_65 }
+			70 = { add_realm_law_skip_effects = budget_allocation_salary_70 }
+			75 = { add_realm_law_skip_effects = budget_allocation_salary_75 }
+			80 = { add_realm_law_skip_effects = budget_allocation_salary_80 }
+			85 = { add_realm_law_skip_effects = budget_allocation_salary_85 }
+			90 = { add_realm_law_skip_effects = budget_allocation_salary_90 }
+			95 = { add_realm_law_skip_effects = budget_allocation_salary_95 }
+			100 = { add_realm_law_skip_effects = budget_allocation_salary_100 }
+		}
+	}
+}
+vote_for_budget_strength_effect = {
+	hidden_effect = {
+		set_variable = { name = vote_strength value = 0 }
+		if = {
+			limit = { has_activity_intent = support_bill_intent }
+			change_variable = { name = vote_strength add = "opinion(scope:host)" }
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_activity_intent = increase_military_budget_intent
+					has_activity_intent = balance_budget_maintain_military_intent
+				}
+			}
+			change_variable = { name = vote_strength add = scope:host.current_military_budget }
+			change_variable = { name = vote_strength subtract = scope:activity.var:proposed_military_budget }
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_activity_intent = increase_ministry_budget_intent
+					has_activity_intent = balance_budget_maintain_ministry_intent
+				}
+			}
+			change_variable = { name = vote_strength add = scope:host.current_ministry_budget }
+			change_variable = { name = vote_strength subtract = scope:activity.var:proposed_ministry_budget }
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_activity_intent = increase_salary_budget_intent
+					has_activity_intent = balance_budget_maintain_salary_intent
+				}
+			}
+			change_variable = { name = vote_strength add = scope:host.current_salary_budget }
+			change_variable = { name = vote_strength subtract = scope:activity.var:proposed_salary_budget }
+		}
+		if = {
+			limit = {
+				OR = {
+					has_activity_intent = balance_budget_intent
+					has_activity_intent = balance_budget_maintain_military_intent
+					has_activity_intent = balance_budget_maintain_ministry_intent
+					has_activity_intent = balance_budget_maintain_salary_intent
+				}
+				change_variable = { name = vote_strength add = scope:host.current_total_budget }
+				change_variable = { name = vote_strength subtract = scope:activity.proposed_total_budget }
+			}
+		}
+	}
+}
+vote_against_budget_strength_effect = {
+	hidden_effect = {
+		set_variable = { name = vote_strength value = 0 }
+		if = {
+			limit = { has_activity_intent = block_bill_intent }
+			change_variable = { name = vote_strength subtract = "opinion(scope:host)" }
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_activity_intent = increase_military_budget_intent
+					has_activity_intent = balance_budget_maintain_military_intent
+				}
+			}
+			change_variable = { name = vote_strength subtract = scope:host.current_military_budget }
+			change_variable = { name = vote_strength add = scope:activity.var:proposed_military_budget }
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_activity_intent = increase_ministry_budget_intent
+					has_activity_intent = balance_budget_maintain_ministry_intent
+				}
+			}
+			change_variable = { name = vote_strength subtract = scope:host.current_ministry_budget }
+			change_variable = { name = vote_strength add = scope:activity.var:proposed_ministry_budget }
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_activity_intent = increase_salary_budget_intent
+					has_activity_intent = balance_budget_maintain_salary_intent
+				}
+			}
+			change_variable = { name = vote_strength subtract = scope:host.current_salary_budget }
+			change_variable = { name = vote_strength add = scope:activity.var:proposed_salary_budget }
+		}
+		if = {
+			limit = {
+				OR = {
+					has_activity_intent = balance_budget_intent
+					has_activity_intent = balance_budget_maintain_military_intent
+					has_activity_intent = balance_budget_maintain_ministry_intent
+					has_activity_intent = balance_budget_maintain_salary_intent
+				}
+				change_variable = { name = vote_strength subtract = scope:host.current_total_budget }
+				change_variable = { name = vote_strength add = scope:activity.proposed_total_budget }
+			}
+		}
+	}
+}

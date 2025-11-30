@@ -1,0 +1,747 @@
+﻿propose_random_budget_amendment_on_action = {
+	random_on_action = {
+		1 = propose_balanced_budget
+		1 = propose_increased_military_spending
+		1 = propose_increased_ministry_spending
+		1 = propose_increased_salary_spending
+	}
+}
+propose_balanced_budget = {
+	weight_multiplier = {
+		base = 1
+		# Don't bother doing these calculations if the budget doesn't need to be balanced
+		modifier = {
+			factor = 0
+			NOT = {
+				scope:activity = {
+					proposed_budget_deficit > 0
+					any_attending_character = {
+						OR = {
+							has_activity_intent = balance_budget_intent
+							has_activity_intent = balance_budget_maintain_military_intent
+							has_activity_intent = balance_budget_maintain_ministry_intent
+							has_activity_intent = balance_budget_maintain_salary_intent
+						}
+						OR = {
+							NOT = { has_variable = vote_bargained_for }
+							var:vote_bargained_for < ai_rationality
+						}
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		debug_log = "Assigning budget..."
+		# Let's calculate some ways the budget could be balanced!
+		# We can fix this by reducing just one budget
+		if = {
+			limit = { scope:activity.var:proposed_military_budget >= scope:activity.proposed_budget_deficit }
+			set_variable = { name = amended_military_budget value = scope:activity.var:proposed_military_budget }
+			change_variable = { name = amended_military_budget subtract = scope:activity.proposed_budget_deficit }
+		}
+		if = {
+			limit = { scope:activity.var:proposed_ministry_budget >= scope:activity.proposed_budget_deficit }
+			set_variable = { name = amended_ministry_budget value = scope:activity.var:proposed_military_budget }
+			change_variable = { name = amended_ministry_budget subtract = scope:activity.proposed_budget_deficit }
+		}
+		if = {
+			limit = { scope:activity.var:proposed_salary_budget >= scope:activity.proposed_budget_deficit }
+			set_variable = { name = amended_salary_budget value = scope:activity.var:proposed_military_budget }
+			change_variable = { name = amended_salary_budget subtract = scope:activity.proposed_budget_deficit }
+		}
+		# We need to reduce two different budgets
+		if = {
+			limit = { scope:activity.combined_military_ministry_proposal >= scope:activity.proposed_budget_deficit }
+			set_variable = { name = amended_total_budget value = scope:activity.proposed_total_budget }
+			set_variable = { name = amended_military_budget_milmin value = scope:activity.var:proposed_military_budget }
+			set_variable = { name = amended_ministry_budget_milmin value = scope:activity.var:proposed_ministry_budget }
+			while = {
+				limit = { var:amended_total_budget > 100 }
+				if = {
+					limit = {
+						var:amended_ministry_budget_milmin > 0
+						var:amended_total_budget > 100
+					}
+					change_variable = { name = amended_ministry_budget_milmin subtract = 5 }
+					change_variable = { name = amended_total_budget subtract = 5 }
+				}
+				if = {
+					limit = {
+						var:amended_military_budget_milmin > 0
+						var:amended_total_budget > 100
+					}
+					change_variable = { name = amended_military_budget_milmin subtract = 5 }
+					change_variable = { name = amended_total_budget subtract = 5 }
+				}
+				# Escape clause to prevent an infinite loop
+				if = {
+					limit = {
+						var:amended_ministry_budget_milmin <= 0
+						var:amended_military_budget_milmin <= 0
+						var:amended_total_budget > 100
+					}
+					set_variable = { name = amended_total_budget value = 100 }
+				}
+			}
+		}
+		if = {
+			limit = { scope:activity.combined_military_salary_proposal >= scope:activity.proposed_budget_deficit }
+			set_variable = { name = amended_total_budget value = scope:activity.proposed_total_budget }
+			set_variable = { name = amended_military_budget_milsal value = scope:activity.var:proposed_military_budget }
+			set_variable = { name = amended_salary_budget_milsal value = scope:activity.var:proposed_salary_budget }
+			while = {
+				limit = { var:amended_total_budget > 100 }
+				if = {
+					limit = {
+						var:amended_salary_budget_milsal > 0
+						var:amended_total_budget > 100
+					}
+					change_variable = { name = amended_salary_budget_milsal subtract = 5 }
+					change_variable = { name = amended_total_budget subtract = 5 }
+				}
+				if = {
+					limit = {
+						var:amended_military_budget_milsal > 0
+						var:amended_total_budget > 100
+					}
+					change_variable = { name = amended_military_budget_milsal subtract = 5 }
+					change_variable = { name = amended_total_budget subtract = 5 }
+				}
+				# Escape clause to prevent an infinite loop
+				if = {
+					limit = {
+						var:amended_salary_budget_milsal <= 0
+						var:amended_military_budget_milsal <= 0
+						var:amended_total_budget > 100
+					}
+					set_variable = { name = amended_total_budget value = 100 }
+				}
+			}
+		}
+		if = {
+			limit = { scope:activity.combined_ministry_salary_proposal >= scope:activity.proposed_budget_deficit }
+			set_variable = { name = amended_total_budget value = scope:activity.proposed_total_budget }
+			set_variable = { name = amended_ministry_budget_minsal value = scope:activity.var:proposed_ministry_budget }
+			set_variable = { name = amended_salary_budget_minsal value = scope:activity.var:proposed_salary_budget }
+			while = {
+				limit = { var:amended_total_budget > 100 }
+				if = {
+					limit = {
+						var:amended_salary_budget_minsal > 0
+						var:amended_total_budget > 100
+					}
+					change_variable = { name = amended_salary_budget_minsal subtract = 5 }
+					change_variable = { name = amended_total_budget subtract = 5 }
+				}
+				if = {
+					limit = {
+						var:amended_ministry_budget_minsal > 0
+						var:amended_total_budget > 100
+					}
+					change_variable = { name = amended_ministry_budget_minsal subtract = 5 }
+					change_variable = { name = amended_total_budget subtract = 5 }
+				}
+				# Escape clause to prevent an infinite loop
+				if = {
+					limit = {
+						var:amended_salary_budget_minsal <= 0
+						var:amended_ministry_budget_minsal <= 0
+						var:amended_total_budget > 100
+					}
+					set_variable = { name = amended_total_budget value = 100 }
+				}
+			}
+		}
+		# Wow, you REALLY set those budgets too high...
+		set_variable = { name = amended_total_budget value = scope:activity.proposed_total_budget }
+		set_variable = { name = amended_military_budget_triple value = scope:activity.var:proposed_military_budget }
+		set_variable = { name = amended_ministry_budget_triple value = scope:activity.var:proposed_ministry_budget }
+		set_variable = { name = amended_salary_budget_triple value = scope:activity.var:proposed_salary_budget }
+		while = {
+			limit = { var:amended_total_budget > 100 }
+			if = {
+				limit = {
+					var:amended_total_budget > 100
+					var:amended_ministry_budget_triple > 0
+				}
+				change_variable = { name = amended_ministry_budget_triple subtract = 5 }
+				change_variable = { name = amended_total_budget subtract = 5 }
+			}
+			if = {
+				limit = {
+					var:amended_total_budget > 100
+					var:amended_salary_budget_triple > 0
+				}
+				change_variable = { name = amended_salary_budget_triple subtract = 5 }
+				change_variable = { name = amended_total_budget subtract = 5 }
+			}
+			if = {
+				limit = {
+					var:amended_total_budget > 100
+					var:amended_military_budget_triple > 0
+				}
+				change_variable = { name = amended_military_budget_triple subtract = 5 }
+				change_variable = { name = amended_total_budget subtract = 5 }
+			}
+			# Escape clause to prevent an infinite loop
+			if = {
+				limit = {
+					var:amended_military_budget_triple <= 0
+					var:amended_ministry_budget_triple <= 0
+					var:amended_salary_budget_triple <= 0
+					var:amended_total_budget > 100
+				}
+				set_variable = { name = amended_total_budget value = 100 }
+			}
+		}
+		remove_variable = amended_total_budget
+		trigger_event = { on_action = propose_random_balanced_budget }
+	}
+}
+propose_random_balanced_budget = {
+	random_on_action = {
+		300 = reduce_proposed_military_on_action
+		300 = reduce_proposed_ministry_on_action
+		300 = reduce_proposed_salary_on_action
+		200 = reduce_proposed_military_ministry_on_action
+		200 = reduce_proposed_military_salary_on_action
+		200 = reduce_proposed_ministry_salary_on_action
+		100 = reduce_all_proposed_budgets_on_action
+	}
+}
+reduce_proposed_military_on_action = {
+	weight_multiplier = {
+		base = 1
+		# This would not balance the budget
+		modifier = {
+			factor = 0
+			NOT = { has_variable = amended_military_budget }
+		}
+		# There is no one who wants this
+		modifier = {
+			factor = 0
+			NOT = {
+				scope:activity = {
+					any_attending_character = {
+						is_bill_opponent_trigger = yes
+						OR = {
+							has_activity_intent = balance_budget_intent
+							has_activity_intent = balance_budget_maintain_ministry_intent
+							has_activity_intent = balance_budget_maintain_salary_intent
+							AND = {
+								has_activity_intent = balance_budget_maintain_military_intent
+								scope:host.var:amended_military_budget >= scope:activity.var:ruler.current_military_budget
+							}
+						}
+						NOT = { has_variable = vote_bargained_for }
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		debug_log = "Reducing military budget..."
+		# Set all variables for the proposed budget modification
+		remove_variable = amended_ministry_budget
+		remove_variable = amended_salary_budget
+		set_variable = { name = amended_ministry_budget value = scope:activity.var:proposed_ministry_budget }
+		set_variable = { name = amended_salary_budget value = scope:activity.var:proposed_salary_budget }
+		# Get rid of all unnecessary variables
+		remove_variable = amended_military_budget_milmin
+		remove_variable = amended_military_budget_milsal
+		remove_variable = amended_ministry_budget_milmin
+		remove_variable = amended_ministry_budget_minsal
+		remove_variable = amended_salary_budget_milsal
+		remove_variable = amended_salary_budget_minsal
+		remove_variable = amended_military_budget_triple
+		remove_variable = amended_ministry_budget_triple
+		remove_variable = amended_salary_budget_triple
+		
+		# Build lists of how senators will react to this
+		build_supporters_gained_list_effect = yes
+		build_supporters_lost_list_effect = yes
+		
+		trigger_event = legislature_events.2200 # Consider a modified budget
+	}
+}
+reduce_proposed_ministry_on_action = {
+	weight_multiplier = {
+		base = 1
+		# This would not balance the budget
+		modifier = {
+			factor = 0
+			NOT = { has_variable = amended_ministry_budget }
+		}
+		# There is no one who wants this
+		modifier = {
+			factor = 0
+			NOT = {
+				scope:activity = {
+					any_attending_character = {
+						is_bill_opponent_trigger = yes
+						OR = {
+							has_activity_intent = balance_budget_intent
+							has_activity_intent = balance_budget_maintain_military_intent
+							has_activity_intent = balance_budget_maintain_salary_intent
+							AND = {
+								has_activity_intent = balance_budget_maintain_ministry_intent
+								scope:host.var:amended_ministry_budget >= scope:activity.var:ruler.current_ministry_budget
+							}
+						}
+						NOT = { has_variable = vote_bargained_for }
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		debug_log = "Reducing ministry budget..."
+		# Set all variables for the proposed budget modification
+		remove_variable = amended_military_budget
+		remove_variable = amended_salary_budget
+		set_variable = { name = amended_military_budget value = scope:activity.var:proposed_military_budget }
+		set_variable = { name = amended_salary_budget value = scope:activity.var:proposed_salary_budget }
+		# Get rid of all unnecessary variables
+		remove_variable = amended_military_budget_milmin
+		remove_variable = amended_military_budget_milsal
+		remove_variable = amended_ministry_budget_milmin
+		remove_variable = amended_ministry_budget_minsal
+		remove_variable = amended_salary_budget_milsal
+		remove_variable = amended_salary_budget_minsal
+		remove_variable = amended_military_budget_triple
+		remove_variable = amended_ministry_budget_triple
+		remove_variable = amended_salary_budget_triple
+		
+		# Build lists of how senators will react to this
+		build_supporters_gained_list_effect = yes
+		build_supporters_lost_list_effect = yes
+		
+		trigger_event = legislature_events.2200 # Consider a modified budget
+	}
+}
+reduce_proposed_salary_on_action = {
+	weight_multiplier = {
+		base = 1
+		# This would not balance the budget
+		modifier = {
+			factor = 0
+			NOT = { has_variable = amended_salary_budget }
+		}
+		# There is no one who wants this
+		modifier = {
+			factor = 0
+			NOT = {
+				scope:activity = {
+					any_attending_character = {
+						is_bill_opponent_trigger = yes
+						OR = {
+							has_activity_intent = balance_budget_intent
+							has_activity_intent = balance_budget_maintain_military_intent
+							has_activity_intent = balance_budget_maintain_ministry_intent
+							AND = {
+								has_activity_intent = balance_budget_maintain_salary_intent
+								scope:host.var:amended_salary_budget >= scope:activity.var:ruler.current_salary_budget
+							}
+						}
+						NOT = { has_variable = vote_bargained_for }
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		debug_log = "Reducing salary budget..."
+		# Set all variables for the proposed budget modification
+		remove_variable = amended_military_budget
+		remove_variable = amended_ministry_budget
+		set_variable = { name = amended_military_budget value = scope:activity.var:proposed_military_budget }
+		set_variable = { name = amended_ministry_budget value = scope:activity.var:proposed_ministry_budget }
+		# Get rid of all unnecessary variables
+		remove_variable = amended_military_budget_milmin
+		remove_variable = amended_military_budget_milsal
+		remove_variable = amended_ministry_budget_milmin
+		remove_variable = amended_ministry_budget_minsal
+		remove_variable = amended_salary_budget_milsal
+		remove_variable = amended_salary_budget_minsal
+		remove_variable = amended_military_budget_triple
+		remove_variable = amended_ministry_budget_triple
+		remove_variable = amended_salary_budget_triple
+		
+		# Build lists of how senators will react to this
+		build_supporters_gained_list_effect = yes
+		build_supporters_lost_list_effect = yes
+		
+		trigger_event = legislature_events.2200 # Consider a modified budget
+	}
+}
+reduce_proposed_military_ministry_on_action = {
+	weight_multiplier = {
+		base = 1
+		# This would not balance the budget
+		modifier = {
+			factor = 0
+			NOR = {
+				has_variable = amended_military_budget_milmin
+				has_variable = amended_ministry_budget_milmin
+			}
+		}
+		# There is no one who wants this
+		modifier = {
+			factor = 0
+			NOT = {
+				scope:activity = {
+					any_attending_character = {
+						is_bill_opponent_trigger = yes
+						OR = {
+							has_activity_intent = balance_budget_intent
+							has_activity_intent = balance_budget_maintain_salary_intent
+							AND = {
+								has_activity_intent = balance_budget_maintain_military_intent
+								scope:host.var:amended_military_budget_milmin >= scope:activity.var:ruler.current_military_budget
+							}
+							AND = {
+								has_activity_intent = balance_budget_maintain_ministry_intent
+								scope:host.var:amended_ministry_budget_milmin >= scope:activity.var:ruler.current_ministry_budget
+							}
+						}
+						NOT = { has_variable = vote_bargained_for }
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		debug_log = "Reducing milmin budget..."
+		# Set all variables for the proposed budget modification
+		remove_variable = amended_military_budget
+		remove_variable = amended_ministry_budget
+		remove_variable = amended_salary_budget
+		set_variable = { name = amended_military_budget value = var:amended_military_budget_milmin }
+		set_variable = { name = amended_ministry_budget value = var:amended_ministry_budget_milmin }
+		set_variable = { name = amended_salary_budget value = scope:activity.var:proposed_salary_budget }
+		# Get rid of all unnecessary variables
+		remove_variable = amended_military_budget_milmin
+		remove_variable = amended_military_budget_milsal
+		remove_variable = amended_ministry_budget_milmin
+		remove_variable = amended_ministry_budget_minsal
+		remove_variable = amended_salary_budget_milsal
+		remove_variable = amended_salary_budget_minsal
+		remove_variable = amended_military_budget_triple
+		remove_variable = amended_ministry_budget_triple
+		remove_variable = amended_salary_budget_triple
+		
+		# Build lists of how senators will react to this
+		build_supporters_gained_list_effect = yes
+		build_supporters_lost_list_effect = yes
+		
+		trigger_event = legislature_events.2200 # Consider a modified budget
+	}
+}
+reduce_proposed_military_salary_on_action = {
+	weight_multiplier = {
+		base = 1
+		# This would not balance the budget
+		modifier = {
+			factor = 0
+			NOR = {
+				has_variable = amended_military_budget_milsal
+				has_variable = amended_salary_budget_milsal
+			}
+		}
+		# There is no one who wants this
+		modifier = {
+			factor = 0
+			NOT = {
+				scope:activity = {
+					any_attending_character = {
+						is_bill_opponent_trigger = yes
+						OR = {
+							has_activity_intent = balance_budget_intent
+							has_activity_intent = balance_budget_maintain_ministry_intent
+							AND = {
+								has_activity_intent = balance_budget_maintain_military_intent
+								scope:host.var:amended_military_budget_milsal >= scope:activity.var:ruler.current_military_budget
+							}
+							AND = {
+								has_activity_intent = balance_budget_maintain_salary_intent
+								scope:host.var:amended_salary_budget_milsal >= scope:activity.var:ruler.current_salary_budget
+							}
+						}
+						NOT = { has_variable = vote_bargained_for }
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		debug_log = "Reducing milsal budget..."
+		# Set all variables for the proposed budget modification
+		remove_variable = amended_military_budget
+		remove_variable = amended_ministry_budget
+		remove_variable = amended_salary_budget
+		set_variable = { name = amended_military_budget value = var:amended_military_budget_milsal }
+		set_variable = { name = amended_salary_budget value = var:amended_salary_budget_milsal }
+		set_variable = { name = amended_ministry_budget value = scope:activity.var:proposed_ministry_budget }
+		# Get rid of all unnecessary variables
+		remove_variable = amended_military_budget_milmin
+		remove_variable = amended_military_budget_milsal
+		remove_variable = amended_salary_budget_milmin
+		remove_variable = amended_salary_budget_minsal
+		remove_variable = amended_ministry_budget_milsal
+		remove_variable = amended_ministry_budget_minsal
+		remove_variable = amended_military_budget_triple
+		remove_variable = amended_salary_budget_triple
+		remove_variable = amended_ministry_budget_triple
+		
+		# Build lists of how senators will react to this
+		build_supporters_gained_list_effect = yes
+		build_supporters_lost_list_effect = yes
+		
+		trigger_event = legislature_events.2200 # Consider a modified budget
+	}
+}
+reduce_proposed_ministry_salary_on_action = {
+	weight_multiplier = {
+		base = 1
+		# This would not balance the budget
+		modifier = {
+			factor = 0
+			NOR = {
+				has_variable = amended_ministry_budget_minsal
+				has_variable = amended_salary_budget_minsal
+			}
+		}
+		# There is no one who wants this
+		modifier = {
+			factor = 0
+			NOT = {
+				scope:activity = {
+					any_attending_character = {
+						is_bill_opponent_trigger = yes
+						OR = {
+							has_activity_intent = balance_budget_intent
+							has_activity_intent = balance_budget_maintain_military_intent
+							AND = {
+								has_activity_intent = balance_budget_maintain_ministry_intent
+								scope:host.var:amended_ministry_budget_minsal >= scope:activity.var:ruler.current_ministry_budget
+							}
+							AND = {
+								has_activity_intent = balance_budget_maintain_salary_intent
+								scope:host.var:amended_salary_budget_minsal >= scope:activity.var:ruler.current_salary_budget
+							}
+						}
+						NOT = { has_variable = vote_bargained_for }
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		debug_log = "Reducing minsal budget..."
+		# Set all variables for the proposed budget modification
+		remove_variable = amended_military_budget
+		remove_variable = amended_ministry_budget
+		remove_variable = amended_salary_budget
+		set_variable = { name = amended_ministry_budget value = var:amended_ministry_budget_minsal }
+		set_variable = { name = amended_salary_budget value = var:amended_salary_budget_minsal }
+		set_variable = { name = amended_military_budget value = scope:activity.var:proposed_military_budget }
+		# Get rid of all unnecessary variables
+		remove_variable = amended_ministry_budget_milmin
+		remove_variable = amended_ministry_budget_milsal
+		remove_variable = amended_salary_budget_milmin
+		remove_variable = amended_salary_budget_minsal
+		remove_variable = amended_military_budget_milsal
+		remove_variable = amended_military_budget_minsal
+		remove_variable = amended_ministry_budget_triple
+		remove_variable = amended_salary_budget_triple
+		remove_variable = amended_military_budget_triple
+		
+		# Build lists of how senators will react to this
+		build_supporters_gained_list_effect = yes
+		build_supporters_lost_list_effect = yes
+		
+		trigger_event = legislature_events.2200 # Consider a modified budget
+	}
+}
+reduce_all_proposed_budgets_on_action = {
+	weight_multiplier = {
+		base = 1
+		# There is no one who wants this
+		modifier = {
+			factor = 0
+			NOT = {
+				scope:activity = {
+					any_attending_character = {
+						is_bill_opponent_trigger = yes
+						OR = {
+							has_activity_intent = balance_budget_intent
+							AND = {
+								has_activity_intent = balance_budget_maintain_military_intent
+								scope:host.var:amended_military_budget_triple >= scope:activity.var:ruler.current_military_budget
+							}
+							AND = {
+								has_activity_intent = balance_budget_maintain_ministry_intent
+								scope:host.var:amended_ministry_budget_triple >= scope:activity.var:ruler.current_ministry_budget
+							}
+							AND = {
+								has_activity_intent = balance_budget_maintain_salary_intent
+								scope:host.var:amended_salary_budget_triple >= scope:activity.var:ruler.current_salary_budget
+							}
+						}
+						OR = {
+							NOT = { has_variable = vote_bargained_for }
+							var:vote_bargained_for < ai_rationality
+						}
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		debug_log = "Reducing all budgets..."
+		# Set all variables for the proposed budget modification
+		remove_variable = amended_military_budget
+		remove_variable = amended_ministry_budget
+		remove_variable = amended_salary_budget
+		set_variable = { name = amended_military_budget value = var:amended_military_budget_triple }
+		set_variable = { name = amended_ministry_budget value = var:amended_ministry_budget_triple }
+		set_variable = { name = amended_salary_budget value = var:amended_salary_budget_triple }
+		# Get rid of all unnecessary variables
+		remove_variable = amended_military_budget_milmin
+		remove_variable = amended_military_budget_milsal
+		remove_variable = amended_ministry_budget_milmin
+		remove_variable = amended_ministry_budget_minsal
+		remove_variable = amended_salary_budget_milsal
+		remove_variable = amended_salary_budget_minsal
+		remove_variable = amended_military_budget_triple
+		remove_variable = amended_ministry_budget_triple
+		remove_variable = amended_salary_budget_triple
+		
+		# Build lists of how senators will react to this
+		build_supporters_gained_list_effect = yes
+		build_supporters_lost_list_effect = yes
+		
+		trigger_event = legislature_events.2200 # Consider a modified budget
+	}
+}
+propose_increased_military_spending = {
+	# Don't do this if there's no point
+	weight_multiplier = {
+		base = 1
+		modifier = {
+			factor = 0
+			scope:activity.var:proposed_military_budget >= 100
+		}
+		modifier = {
+			factor = 0
+			scope:activity.var:proposed_military_budget > scope:ruler.current_military_budget
+		}
+		modifier = {
+			factor = 0
+			NOT = {
+				any_attending_character = {
+					is_bill_opponent_trigger = yes
+					has_activity_intent = increase_military_budget_intent
+					OR = {
+						NOT = { has_variable = vote_bargained_for }
+						var:vote_bargained_for < ai_rationality
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		# Set all variables for the proposed budget modification
+		set_variable = { name = amended_military_budget value = scope:ruler.current_military_budget }
+		change_variable = { name = amended_military_budget add = 5 }
+		set_variable = { name = amended_ministry_budget value = scope:activity.var:proposed_ministry_budget }
+		set_variable = { name = amended_salary_budget value = scope:activity.var:proposed_salary_budget }
+		
+		# Build lists of how senators will react to this
+		build_supporters_gained_list_effect = yes
+		build_supporters_lost_list_effect = yes
+		
+		trigger_event = legislature_events.2200 # Consider a modified budget
+	}
+}
+propose_increased_ministry_spending = {
+	# Don't do this if there's no point
+	weight_multiplier = {
+		base = 1
+		modifier = {
+			factor = 0
+			scope:activity.var:proposed_ministry_budget >= 100
+		}
+		modifier = {
+			factor = 0
+			scope:activity.var:proposed_ministry_budget > scope:ruler.current_ministry_budget
+		}
+		modifier = {
+			factor = 0
+			NOT = {
+				any_attending_character = {
+					is_bill_opponent_trigger = yes
+					has_activity_intent = increase_ministry_budget_intent
+					OR = {
+						NOT = { has_variable = vote_bargained_for }
+						var:vote_bargained_for < ai_rationality
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		# Set all variables for the proposed budget modification
+		set_variable = { name = amended_military_budget value = scope:activity.var:proposed_military_budget }
+		set_variable = { name = amended_ministry_budget value = scope:ruler.current_ministry }
+		change_variable = { name = amended_ministry_budget add = 5 }
+		set_variable = { name = amended_salary_budget value = scope:activity.var:proposed_salary_budget }
+		
+		# Build lists of how senators will react to this
+		build_supporters_gained_list_effect = yes
+		build_supporters_lost_list_effect = yes
+		
+		trigger_event = legislature_events.2200 # Consider a modified budget
+	}
+}
+propose_increased_salary_spending = {
+	# Don't do this if there's no point
+	weight_multiplier = {
+		base = 1
+		modifier = {
+			factor = 0
+			scope:activity.var:proposed_salary_budget >= 100
+		}
+		modifier = {
+			factor = 0
+			scope:activity.var:proposed_salary_budget > scope:ruler.current_salary_budget
+		}
+		modifier = {
+			factor = 0
+			NOT = {
+				any_attending_character = {
+					is_bill_opponent_trigger = yes
+					has_activity_intent = increase_salary_budget_intent
+					OR = {
+						NOT = { has_variable = vote_bargained_for }
+						var:vote_bargained_for < ai_rationality
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		# Set all variables for the proposed budget modification
+		set_variable = { name = amended_military_budget value = scope:activity.var:proposed_military_budget }
+		set_variable = { name = amended_ministry_budget value = scope:activity.var:proposed_ministry_budget }
+		set_variable = { name = amended_salary_budget value = scope:ruler.current_salary_budget }
+		change_variable = { name = amended_salary_budget add = 5 }
+		
+		# Build lists of how senators will react to this
+		build_supporters_gained_list_effect = yes
+		build_supporters_lost_list_effect = yes
+		
+		trigger_event = legislature_events.2200 # Consider a modified budget
+	}
+}

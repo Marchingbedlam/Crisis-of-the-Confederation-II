@@ -1,0 +1,196 @@
+pass_bill_intent = {
+}
+support_bill_intent = {
+	ai_will_do = {
+		value = 1
+		if = {
+			limit = { exists = involved_activity.activity_host }
+			save_temporary_opinion_value = { name = opinion_of_ruler target = involved_activity.activity_host }
+			if = {
+				limit = { scope:opinion_of_ruler >= ai_rationality }
+				multiply = scope:opinion_of_ruler
+				
+				if = {
+					limit = { scope:opinion_of_ruler > 0 }
+					add = ai_sociability
+				}
+			}
+		}
+	}
+}
+block_bill_intent = {
+	ai_will_do = {
+		value = 1
+		if = {
+			limit = {
+				exists = involved_activity.var:ruler
+				ai_vengefulness >= ai_rationality
+			}
+			save_temporary_opinion_value = { name = opinion_of_ruler target = involved_activity.var:ruler }
+			multiply = {
+				value = 0
+				subtract = scope:opinion_of_ruler
+			}
+			if = {
+				limit = { scope:opinion_of_ruler < 0 }
+				add = ai_vengefulness
+			}
+		}
+	}
+}
+balance_budget_intent = {
+	ai_will_do = {
+		value = 0
+		subtract = ai_interventionism
+		if = {
+			limit = { involved_activity.var:proposed_total_budget > 0 }
+			add = {
+				value = ai_rationality
+				min = 0
+			}
+			subtract = {
+				value = ai_boldness
+				max = 0
+			}
+		}
+		if = {
+			limit = { involved_activity.var:ruler ?= { debt_level >= 0 } }
+			add = {
+				value = ai_rationality
+				min = 1
+				multiply = involved_activity.var:ruler.debt_level
+			}
+		}
+	}
+}
+balance_budget_maintain_military_intent = {
+	ai_will_do = {
+		value = 0
+		subtract = ai_interventionism
+		if = {
+			limit = { involved_activity.var:proposed_total_budget > 0 }
+			add = {
+				value = ai_rationality
+				min = 0
+			}
+			subtract = {
+				value = ai_boldness
+				max = 0
+			}
+		}
+		if = {
+			limit = { involved_activity.var:ruler ?= { debt_level >= 0 } }
+			add = {
+				value = ai_rationality
+				min = 1
+				multiply = involved_activity.var:ruler.debt_level
+			}
+		}
+		subtract = involved_activity.var:ruler.current_military_budget
+		if = {
+			limit = { involved_activity.var:ruler = { is_at_war = yes } }
+			add = {
+				value = ai_rationality
+				min = 0
+			}
+		}
+		add = ai_hawkishness
+	}
+}
+balance_budget_maintain_ministry_intent = {
+	ai_will_do = {
+		value = 0
+		if = {
+			limit = { involved_activity.var:proposed_total_budget > 0 }
+			add = {
+				value = ai_rationality
+				min = 0
+			}
+			subtract = {
+				value = ai_boldness
+				max = 0
+			}
+		}
+		if = {
+			limit = { involved_activity.var:ruler ?= { debt_level >= 0 } }
+			add = {
+				value = ai_rationality
+				min = 1
+				multiply = involved_activity.var:ruler.debt_level
+			}
+		}
+		subtract = involved_activity.var:ruler.current_ministry_budget
+	}
+}
+balance_budget_maintain_salary_intent = {
+	ai_will_do = {
+		value = 0
+		subtract = ai_interventionism
+		if = {
+			limit = { involved_activity.var:proposed_total_budget > 0 }
+			add = {
+				value = ai_rationality
+				min = 0
+			}
+			subtract = {
+				value = ai_boldness
+				max = 0
+			}
+		}
+		if = {
+			limit = { involved_activity.var:ruler ?= { debt_level >= 0 } }
+			add = {
+				value = ai_rationality
+				min = 1
+				multiply = involved_activity.var:ruler.debt_level
+			}
+		}
+		subtract = involved_activity.var:ruler.current_salary_budget
+		add = ai_intellectualism
+		add = ai_zeal
+	}
+}
+increase_military_budget_intent = {
+	# It does not make sense to increase a maxed-out military budget
+	is_shown = { involved_activity.var:ruler.current_military_budget < 100 }
+	is_valid = {
+		involved_activity.var:ruler.current_military_budget < 100
+	}
+	ai_will_do = {
+		value = 50
+		subtract = involved_activity.var:ruler.current_military_budget
+		add = ai_hawkishness
+		if = {
+			limit = { involved_activity.var:ruler = { is_at_war = yes } }
+			add = {
+				value = ai_rationality
+				min = 0
+			}
+		}
+	}
+}
+increase_ministry_budget_intent = {
+	# It does not make sense to increase a maxed-out ministry budget
+	is_shown = { involved_activity.var:ruler.current_ministry_budget < 100 }
+	is_valid = {
+		involved_activity.var:ruler.current_ministry_budget < 100
+	}
+	ai_will_do = {
+		value = 50
+		subtract = involved_activity.var:ruler.current_ministry_budget
+		add = ai_interventionism
+	}
+}
+increase_salary_budget_intent = {
+	# It does not make sense to increase a maxed-out salary budget
+	is_shown = { involved_activity.var:ruler.current_salary_budget < 100 }
+	is_valid = {
+		involved_activity.var:ruler.current_salary_budget < 100
+	}
+	ai_will_do = {
+		value = 50
+		subtract = involved_activity.var:ruler.current_salary_budget
+		add = ai_intellectualism
+		add = ai_zeal
+	}
+}

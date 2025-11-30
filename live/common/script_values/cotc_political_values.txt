@@ -1,4 +1,4 @@
-# This calculates a basic level of political support for a character among the general
+﻿# This calculates a basic level of political support for a character among the general
 # population of a particular title (both de jure and de facto). This can return a fairly
 # variable number so it's recommended that any modifications to this be multiplicative
 # rather than additive.
@@ -20,7 +20,7 @@ title_political_support = {
 	# Multiply by level of devotion
 	multiply = {
 		value = 1
-		add = level_of_piety
+		add = piety_level
 	}
 	# Multiply by fervor
 	faith = { multiply = fervor }
@@ -28,51 +28,1081 @@ title_political_support = {
 	divide = 10
 	round = yes
 }
-# This calculates how much political support a character has gotten from campaigning in the
-# target title
-# scope:title: The title being evaluated
-title_campaign_support = {
+# Score calculation for legislative elections
+legislator_score = {
+	value = 0
+	save_temporary_scope_as = temp_candidate
+	# Opinion of incumbent
+	if = {
+		limit = { is_in_list = incumbents }
+		add = scope:county.county_opinion
+	}
+	# Opinion of candidate's ideology and credibility
+	add = {
+		value = 0
+		if = {
+			limit = { scope:temp_faith = { faith_hostility_level = { target = scope:temp_candidate.faith value = 3 } } }
+			subtract = 30
+		}
+		else_if = {
+			limit = { scope:temp_faith = { faith_hostility_level = { target = scope:temp_candidate.faith value = 2 } } }
+			subtract = 20
+		}
+		else = {
+			add = {
+				value = piety_level
+				multiply = 5
+			}
+		}
+		multiply = scope:temp_faith.fervor
+		divide = 100
+	}
+	# Opinion of candidate's prestige
+	add = {
+		value = prestige_level
+		multiply = 3
+	}
+	# Opinion of candidate's personality
+	if = {
+		limit = { num_virtuous_traits = { value >= 5 target = scope:temp_faith } }
+		add = 25
+	}
+	else_if = {
+		limit = { num_virtuous_traits = { value >= 4 target = scope:temp_faith } }
+		add = 20
+	}
+	else_if = {
+		limit = { num_virtuous_traits = { value >= 3 target = scope:temp_faith } }
+		add = 15
+	}
+	else_if = {
+		limit = { num_virtuous_traits = { value >= 2 target = scope:temp_faith } }
+		add = 10
+	}
+	else_if = {
+		limit = { num_virtuous_traits = { value >= 1 target = scope:temp_faith } }
+		add = 5
+	}
+	if = {
+		limit = { num_sinful_traits = { value >= 5 target = scope:temp_faith } }
+		subtract = 25
+	}
+	else_if = {
+		limit = { num_sinful_traits = { value >= 4 target = scope:temp_faith } }
+		subtract = 20
+	}
+	else_if = {
+		limit = { num_sinful_traits = { value >= 3 target = scope:temp_faith } }
+		subtract = 15
+	}
+	else_if = {
+		limit = { num_sinful_traits = { value >= 2 target = scope:temp_faith } }
+		subtract = 10
+	}
+	else_if = {
+		limit = { num_sinful_traits = { value >= 1 target = scope:temp_faith } }
+		subtract = 5
+	}
+	# Skill effects
+	add = {
+		value = diplomacy
+		subtract = 10
+		multiply = 3
+	}
+	if = {
+		limit = { scope:temp_faith = { has_doctrine = doctrine_military_power } }
+		add = {
+			value = martial
+			subtract = 10
+			multiply = 3
+		}
+	}
+	if = {
+		limit = { scope:temp_faith = { has_doctrine = doctrine_commercial_power } }
+		add = {
+			value = stewardship
+			subtract = 10
+			multiply = 3
+		}
+	}
+	if = {
+		limit = { scope:temp_faith = { has_doctrine = doctrine_administrative_power } }
+		add = {
+			value = learning
+			subtract = 10
+			multiply = 3
+		}
+	}
+	# Hook so characters can manipulate elections
+	if = {
+		limit = { exists = var:legislative_external_value }
+		add = var:legislative_external_value
+	}
+	# Cultural bias
+	if = {
+		limit = { NOT = { culture = scope:temp_culture } }
+		divide = {
+			value = 2
+			if = {
+				limit = { scope:temp_faith = { has_doctrine = doctrine_particularism } }
+				multiply = 5
+			}
+		}
+	}
+	# Sexism
+	if = {
+		limit = {
+			OR = {
+				AND = {
+					is_female_cotc = yes
+					scope:temp_faith = { has_doctrine = doctrine_gender_male_dominated }
+				}
+				AND = {
+					is_male_cotc = yes
+					scope:temp_faith = { has_doctrine = doctrine_gender_female_dominated }
+				}
+			}
+		}
+		divide = 10
+	}
+}
+# Score calculation for how early a legislator gets to speak
+legislative_seniority = {
+	value = 0
+	add = {
+		value = influence_level
+		multiply = 5
+	}
+	add = {
+		value = prestige_level
+		multiply = 3
+	}
+	add = piety_level
+	add = var:years_in_legislature
+}
+# General information about legislation
+total_legislators_present = {
+	value = 0
+	every_attending_character = {
+		limit = { NOT = { this = scope:host } }
+		add = 1
+	}
+}
+total_bill_supporters = {
 	value = 0
 	every_in_list = {
-		variable = low_campaign_support
-		if = {
-			limit = {
-				OR = {
-					barony = scope:title
-					barony = { target_is_de_jure_liege_or_above = scope:title }
-				}
-				province_owner = { target_is_same_character_or_above = scope:title.holder }
-			}
-			add = holding_population
-			multiply = 2
-		}
+		variable = bill_supporters
+		add = 1
 	}
+}
+total_bill_opponents = {
+	value = 0
 	every_in_list = {
-		variable = mid_campaign_support
-		if = {
-			limit = {
-				OR = {
-					barony = scope:title
-					barony = { target_is_de_jure_liege_or_above = scope:title }
-				}
-				province_owner = { target_is_same_character_or_above = scope:title.holder }
-			}
-			add = holding_population
-			multiply = 4
-		}
+		variable = bill_opponents
+		add = 1
 	}
+}
+simple_majority = {
+	value = 0
 	every_in_list = {
-		variable = high_campaign_support
-		if = {
-			limit = {
-				OR = {
-					barony = scope:title
-					barony = { target_is_de_jure_liege_or_above = scope:title }
-				}
-				province_owner = { target_is_same_character_or_above = scope:title.holder }
+		variable = legislators
+		add = 1
+	}
+	divide = 2
+	floor = yes
+	add = 1
+}
+supermajority = {
+	value = 0
+	every_in_list = {
+		variable = legislators
+		add = 1
+	}
+	divide = 3
+	multiply = 2
+	ceiling = yes
+}
+total_supporters_gained = {
+	value = 1
+	every_in_list = {
+		variable = supporters_gained
+		add = 1
+	}
+}
+total_supporters_lost = {
+	value = 2
+	every_in_list = {
+		variable = supporters_lost
+		add = 1
+	}
+}
+
+# How much do you approve of the bill being debated? (used for characters who aren't part of the debate directly)
+opinion_of_bill = {
+	value = 0
+	# BUDGET OPINIONS
+	# Total Budget
+	if = {
+		limit = {
+			scope:activity.proposed_total_budget > 100
+			scope:activity.proposed_total_budget > scope:activity.var:ruler.current_total_budget
+			OR = {
+				ai_interventionism < 0
+				ai_rationality > 0
 			}
-			add = holding_population
-			multiply = 8
+		}
+		subtract = {
+			value = scope:activity.proposed_budget_deficit
+			if = {
+				limit = { scope:activity.var:ruler.debt_level >= 0 }
+				multiply = {
+					value = scope:activity.var:ruler.debt_level
+					add = 2
+				}
+			}
 		}
 	}
+	if = {
+		limit = {
+			scope:activity.var:ruler.current_total_budget > 100
+			scope:activity.proposed_total_budget < scope:activity.var:ruler.current_total_budget
+			OR = {
+				ai_interventionism < 0
+				ai_rationality > 0
+			}
+		}
+		subtract = {
+			value = activity.proposed_budget_deficit
+			if = {
+				limit = { scope:activity.var:ruler.debt_level >= 0 }
+				multiply = {
+					value = scope:activity.var:ruler.debt_level
+					add = 2
+				}
+			}
+		}
+	}
+	# Specific Budgets - Personality
+	if = {
+		limit = {
+			scope:activity = {
+				has_variable = proposed_military_budget
+				var:proposed_military_budget < var:ruler.current_military_budget
+			}
+		}
+		subtract = ai_hawkishness
+	}
+	else_if = {
+		limit = {
+			scope:activity = {
+				has_variable = proposed_military_budget
+				var:proposed_military_budget > var:ruler.current_military_budget
+			}
+		}
+		add = ai_hawkishness
+	}
+	if = {
+		limit = {
+			scope:activity = {
+				has_variable = proposed_salary_budget
+				var:proposed_salary_budget < var:ruler.current_salary_budget
+			}
+		}
+		subtract = ai_intellectualism
+	}
+	else_if = {
+		limit = {
+			scope:activity = {
+				has_variable = proposed_salary_budget
+				var:proposed_salary_budget > var:ruler.current_salary_budget
+			}
+		}
+		add = ai_intellectualism
+	}
+	# Specific Budgets - Self-Interest
+	if = {
+		limit = {
+			scope:activity = {
+				has_variable = proposed_military_budget
+				var:proposed_military_budget < var:ruler.current_military_budget
+			}
+			court_is_military_trigger = yes
+		}
+		subtract = {
+			value = ai_greed
+			min = 0
+		}
+	}
+	else_if = {
+		limit = {
+			scope:activity = {
+				has_variable = proposed_military_budget
+				var:proposed_military_budget > var:ruler.current_military_budget
+			}
+			court_is_military_trigger = yes
+		}
+		add = {
+			value = ai_greed
+			min = 0
+		}
+	}
+	else_if = {
+		limit = {
+			scope:activity = {
+				has_variable = proposed_ministry_budget
+				var:proposed_ministry_budget < var:ruler.current_ministry_budget
+			}
+			court_is_commercial_trigger = yes
+		}
+		subtract = {
+			value = ai_greed
+			min = 0
+		}
+	}
+	else_if = {
+		limit = {
+			scope:activity = {
+				has_variable = proposed_ministry_budget
+				var:proposed_ministry_budget > var:ruler.current_ministry_budget
+			}
+			court_is_commercial_trigger = yes
+		}
+		add = {
+			value = ai_greed
+			min = 0
+		}
+	}
+	else_if = {
+		limit = {
+			scope:activity = {
+				has_variable = proposed_salary_budget
+				var:proposed_salary_budget < var:ruler.current_salary_budget
+			}
+			court_is_administrative_trigger = yes
+		}
+		subtract = {
+			value = ai_greed
+			min = 0
+		}
+	}
+	else_if = {
+		limit = {
+			scope:activity = {
+				has_variable = proposed_salary_budget
+				var:proposed_salary_budget > var:ruler.current_salary_budget
+			}
+			court_is_administrative_trigger = yes
+		}
+		add = {
+			value = ai_greed
+			min = 0
+		}
+	}
+}
+# How hard a "sell" is this bill? (for diplomacy challenge purposes)
+bill_sell_difficulty = {
+	value = 20
+	add = bill_unreasonableness
+	subtract = bill_necessity
+	min = 10
+}
+# How hard a "target" is this bill?
+bill_target_difficulty = {
+	value = 20
+	add = bill_necessity
+	subtract = bill_unreasonableness
+	min = 10
+}
+bill_necessity = {
+	value = 0
+	if = {
+		limit = { has_activity_type = budget_bill_activity }
+		if = {
+			limit = {
+				proposed_budget_deficit < 0
+				scope:ruler.current_total_budget > 100
+			}
+			add = {
+				value = scope:ruler.current_total_budget
+				subtract = proposed_total_budget
+				divide = 5
+			}
+		}
+		if = {
+			limit = {
+				scope:ruler = { is_at_war = yes }
+				var:proposed_military_budget > scope:ruler.current_military_budget
+			}
+			add = {
+				value = scope:ruler.current_military_budget
+				subtract = var:proposed_military_budget
+				divide = 5
+			}
+		}
+		if = {
+			limit = {
+				proposed_total_budget < scope:ruler.current_total_budget
+				proposed_budget_deficit < 0
+				scope:ruler.debt_level >= 0
+			}
+			add = {
+				value = scope:ruler.debt_level
+				add = 1
+				multiply = 3
+			}
+		}
+	}
+}
+bill_unreasonableness = {
+	value = 0
+	if = {
+		limit = { has_activity_type = budget_bill_activity }
+		if = {
+			limit = { proposed_budget_deficit > 0 }
+			add = {
+				value = proposed_budget_deficit
+				divide = 2
+				ceiling = yes
+			}
+		}
+		if = {
+			limit = {
+				proposed_total_budget >= scope:ruler.current_total_budget
+				scope:ruler.debt_level >= 0
+			}
+			add = {
+				value = scope:ruler.debt_level
+				add = 1
+				multiply = 3
+			}
+		}
+		if = {
+			limit = { var:proposed_military_budget <= 10 }
+			add = {
+				value = 15
+				subtract = var:proposed_military_budget
+				if = {
+					limit = { scope:ruler = { is_at_war = yes } }
+					multiply = 2
+				}
+			}
+		}
+		if = {
+			limit = { var:proposed_ministry_budget <= 10 }
+			add = {
+				value = 15
+				subtract = var:proposed_military_budget
+				divide = 3
+				ceiling = yes
+			}
+		}
+		if = {
+			limit = { var:proposed_salary_budget <= 10 }
+			add = {
+				value = 15
+				subtract = var:proposed_salary_budget
+				divide = 2
+				ceiling = yes
+			}
+		}
+	}
+}
+
+treasury_required_for_stimulus = {
+	if = {
+		limit = { tier = tier_county }
+		every_county_province = { add = holding_demand }
+	}
+	else = {
+		every_de_jure_county = {
+			limit = { target_is_de_facto_liege_or_above = scope:activity.var:title }
+			add = holding_demand
+		}
+	}
+}
+
+# Tells us the current budget, so we know what we're balancing against
+current_total_budget = {
+	value = 0
+	add = current_military_budget
+	add = current_ministry_budget
+	add = current_salary_budget
+}
+current_military_budget = {
+	value = 0
+	if = {
+		limit = { has_realm_law = budget_allocation_military_5 }
+		add = 5
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_military_10 }
+		add = 10
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_military_15 }
+		add = 15
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_military_20 }
+		add = 20
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_military_25 }
+		add = 25
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_military_30 }
+		add = 30
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_military_35 }
+		add = 35
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_military_40 }
+		add = 40
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_military_45 }
+		add = 45
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_military_50 }
+		add = 50
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_military_55 }
+		add = 55
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_military_60 }
+		add = 60
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_military_65 }
+		add = 65
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_military_70 }
+		add = 70
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_military_75 }
+		add = 75
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_military_80 }
+		add = 80
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_military_85 }
+		add = 85
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_military_90 }
+		add = 90
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_military_95 }
+		add = 95
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_military_100 }
+		add = 100
+	}
+}
+current_ministry_budget = {
+	value = 0
+	if = {
+		limit = { has_realm_law = budget_allocation_ministry_5 }
+		add = 5
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_ministry_10 }
+		add = 10
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_ministry_15 }
+		add = 15
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_ministry_20 }
+		add = 20
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_ministry_25 }
+		add = 25
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_ministry_30 }
+		add = 30
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_ministry_35 }
+		add = 35
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_ministry_40 }
+		add = 40
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_ministry_45 }
+		add = 45
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_ministry_50 }
+		add = 50
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_ministry_55 }
+		add = 55
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_ministry_60 }
+		add = 60
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_ministry_65 }
+		add = 65
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_ministry_70 }
+		add = 70
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_ministry_75 }
+		add = 75
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_ministry_80 }
+		add = 80
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_ministry_85 }
+		add = 85
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_ministry_90 }
+		add = 90
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_ministry_95 }
+		add = 95
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_ministry_100 }
+		add = 100
+	}
+}
+current_salary_budget = {
+	value = 0
+	if = {
+		limit = { has_realm_law = budget_allocation_salary_5 }
+		add = 5
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_salary_10 }
+		add = 10
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_salary_15 }
+		add = 15
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_salary_20 }
+		add = 20
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_salary_25 }
+		add = 25
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_salary_30 }
+		add = 30
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_salary_35 }
+		add = 35
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_salary_40 }
+		add = 40
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_salary_45 }
+		add = 45
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_salary_50 }
+		add = 50
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_salary_55 }
+		add = 55
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_salary_60 }
+		add = 60
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_salary_65 }
+		add = 65
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_salary_70 }
+		add = 70
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_salary_75 }
+		add = 75
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_salary_80 }
+		add = 80
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_salary_85 }
+		add = 85
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_salary_90 }
+		add = 90
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_salary_95 }
+		add = 95
+	}
+	else_if = {
+		limit = { has_realm_law = budget_allocation_salary_100 }
+		add = 100
+	}
+}
+# Tells us the total proposed budget for this bill
+proposed_total_budget = {
+	value = 0
+	add = var:proposed_military_budget
+	add = var:proposed_ministry_budget
+	add = var:proposed_salary_budget
+}
+proposed_budget_deficit = {
+	value = proposed_total_budget
+	subtract = 100
+	min = 0
+}
+combined_military_ministry_proposal = {
+	value = var:proposed_military_budget
+	add = var:proposed_ministry_budget
+}
+combined_military_salary_proposal = {
+	value = var:proposed_military_budget
+	add = var:proposed_salary_budget
+}
+combined_ministry_salary_proposal = {
+	value = var:proposed_ministry_budget
+	add = var:proposed_salary_budget
+}
+
+
+# These are used to evaluate a legislator's initial stance on a budget
+military_spending_score = {
+	value = 0
+	if = {
+		limit = { current_military_budget = scope:proposed_budget }
+		add = 200
+	}
+	else_if = {
+		limit = { current_military_budget > scope:proposed_budget }
+		add = lower_military_spending_score
+	}
+	else_if = {
+		limit = { current_military_budget < scope:proposed_budget }
+		add = raise_military_spending_score
+	}
+}
+lower_military_spending_score = {
+	value = 0
+	# Personality
+	add = ai_greed
+	subtract = ai_hawkishness
+	# Military spending is urgently needed
+	if = {
+		limit = { scope:budget_ruler = { is_at_war = yes } }
+		subtract = 20
+		subtract = {
+			value = ai_rationality
+			min = 0
+		}
+	}
+	# We are in debt!
+	if = {
+		limit = { scope:budget_ruler.debt_level >= 0 }
+		add = {
+			value = ai_rationality
+			min = 0
+			multiply = {
+				value = scope:budget_ruler.debt_level
+				add = 1
+			}
+		}
+	}
+	# How dramatic of a change is this?
+	multiply = {
+		value = 100
+		divide = {
+			value = current_military_budget
+			subtract = scope:proposed_budget
+			subtract = {
+				value = ai_boldness
+				max = 30
+			}
+			add = {
+				value = ai_rationality
+				min = -30
+			}
+			min = 1
+		}
+	}
+}
+raise_military_spending_score = {
+	value = 0
+	# Personality
+	subtract = ai_greed
+	add = ai_hawkishness
+	# Military spending is urgently needed
+	if = {
+		limit = { scope:budget_ruler = { is_at_war = yes } }
+		add = 20
+		add = {
+			value = ai_rationality
+			min = 0
+		}
+	}
+	# We are in debt!
+	if = {
+		limit = { scope:budget_ruler.debt_level >= 0 }
+		subtract = {
+			value = ai_rationality
+			min = 0
+			multiply = {
+				value = scope:budget_ruler.debt_level
+				add = 1
+			}
+		}
+	}
+	# How dramatic of a change is this?
+	multiply = {
+		value = 100
+		divide = {
+			value = scope:proposed_budget
+			subtract = current_military_budget
+			subtract = {
+				value = ai_boldness
+				max = 30
+			}
+			add = {
+				value = ai_rationality
+				min = -30
+			}
+			min = 1
+		}
+	}
+}
+ministry_spending_score = {
+	value = 0
+	if = {
+		limit = { current_ministry_budget = scope:proposed_budget }
+		add = 200
+	}
+	else_if = {
+		limit = { current_ministry_budget > scope:proposed_budget }
+		add = lower_ministry_spending_score
+	}
+	else_if = {
+		limit = { current_ministry_budget < scope:proposed_budget }
+		add = raise_ministry_spending_score
+	}
+}
+lower_ministry_spending_score = {
+	value = 0
+	# Personality
+	add = ai_greed
+	subtract = ai_interventionism
+	# We are on thin ice with the general populace
+	every_sub_realm_county = {
+		limit = {
+			county_opinion < {
+				value = 0
+				subtract = ai_vengefulness
+			}
+		}
+		subtract = 5
+	}
+	# We are in debt!
+	if = {
+		limit = { scope:budget_ruler.debt_level >= 0 }
+		add = {
+			value = ai_rationality
+			min = 0
+			multiply = {
+				value = scope:budget_ruler.debt_level
+				add = 1
+			}
+		}
+	}
+	# How dramatic of a change is this?
+	multiply = {
+		value = 100
+		divide = {
+			value = current_salary_budget
+			subtract = scope:proposed_budget
+			subtract = {
+				value = ai_boldness
+				max = 30
+			}
+			add = {
+				value = ai_rationality
+				min = -30
+			}
+			min = 1
+		}
+	}
+}
+raise_ministry_spending_score = {
+	value = 0
+	# Personality
+	subtract = ai_greed
+	add = ai_interventionism
+	# We are on thin ice with the general populace
+	every_sub_realm_county = {
+		limit = {
+			county_opinion < {
+				value = 0
+				subtract = ai_vengefulness
+			}
+		}
+		add = 5
+	}
+	# We are in debt!
+	if = {
+		limit = { scope:budget_ruler.debt_level >= 0 }
+		subtract = {
+			value = ai_rationality
+			min = 0
+			multiply = {
+				value = scope:budget_ruler.debt_level
+				add = 1
+			}
+		}
+	}
+	# How dramatic of a change is this?
+	multiply = {
+		value = 100
+		divide = {
+			value = scope:proposed_budget
+			subtract = current_ministry_budget
+			subtract = {
+				value = ai_boldness
+				max = 30
+			}
+			add = {
+				value = ai_rationality
+				min = -30
+			}
+			min = 1
+		}
+	}
+}
+salary_spending_score = {
+	value = 0
+	if = {
+		limit = { current_salary_budget = scope:proposed_budget }
+		add = 200
+	}
+	else_if = {
+		limit = { current_salary_budget > scope:proposed_budget }
+		add = lower_salary_spending_score
+	}
+	else_if = {
+		limit = { current_salary_budget < scope:proposed_budget }
+		add = raise_salary_spending_score
+	}
+}
+lower_salary_spending_score = {
+	value = 0
+	# Personality
+	add = ai_greed
+	subtract = ai_intellectualism
+	subtract = ai_zeal
+	# We are in debt!
+	if = {
+		limit = { scope:budget_ruler.debt_level >= 0 }
+		add = {
+			value = ai_rationality
+			min = 0
+			multiply = {
+				value = scope:budget_ruler.debt_level
+				add = 1
+			}
+		}
+	}
+	# How dramatic of a change is this?
+	multiply = {
+		value = 100
+		divide = {
+			value = current_salary_budget
+			subtract = scope:proposed_budget
+			subtract = {
+				value = ai_boldness
+				max = 30
+			}
+			add = {
+				value = ai_rationality
+				min = -30
+			}
+			min = 1
+		}
+	}
+}
+raise_salary_spending_score = {
+	value = 0
+	# Personality
+	subtract = ai_greed
+	add = ai_intellectualism
+	add = ai_zeal
+	# We are in debt!
+	if = {
+		limit = { scope:budget_ruler.debt_level >= 0 }
+		subtract = {
+			value = ai_rationality
+			min = 0
+			multiply = {
+				value = scope:budget_ruler.debt_level
+				add = 1
+			}
+		}
+	}
+	# How dramatic of a change is this?
+	multiply = {
+		value = 100
+		divide = {
+			value = scope:proposed_budget
+			subtract = current_salary_budget
+			subtract = {
+				value = ai_boldness
+				max = 30
+			}
+			add = {
+				value = ai_rationality
+				min = -30
+			}
+			min = 1
+		}
+	}
+}
+
+# These are used to evaluate a proposed budget amendment
+amended_total_budget = {
+	value = var:amended_military_budget
+	add = var:amended_ministry_budget
+	add = var:amended_salary_budget
 }

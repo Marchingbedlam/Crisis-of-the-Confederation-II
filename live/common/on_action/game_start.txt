@@ -522,10 +522,19 @@ on_game_start_after_lobby = {
 			}
 		}
 		
+		# Create a legislature for all governments with legislatures that don't have one
+		every_ruler = {
+			limit = {
+				should_have_legislature_trigger = yes
+				has_legislature_trigger = no
+			}
+			initialize_starting_legislature_effect = yes
+		}
+		
 		# Assign a random prime minister to every parliamentary government that doesn't have one
 		every_ruler = {
 			limit = {
-				tier >= tier_county
+				highest_held_title_tier >= tier_county
 				government_has_flag = government_is_parliamentary
 				NOT = { has_diarchy_active_parameter = diarchy_is_primeministership }
 			}

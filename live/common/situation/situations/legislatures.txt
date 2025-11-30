@@ -1,0 +1,124 @@
+﻿legislature = {
+	situation_group_type = legislatures
+	gui_window_name = window_legislature
+	
+	sub_regions = {
+		legislature_title_region = { map_color = rgb{255 0 0} }
+	}
+	participant_groups = {
+		ruler = {
+			icon = "gfx/interface/icons/flat_icons/prestige.dds"
+			require_realm_in_sub_region = yes
+			auto_add_rulers = yes
+			map_color = rgb{ 250 100 0 }
+			is_character_valid = { scope:situation.var:legislature_title.holder ?= { this = ROOT } }
+			on_join = {
+				# Handle government transitions and the like
+				# Uh-oh, our new government type is a dictatorship!
+				if = {
+					limit = { NOT = { government_has_flag = government_has_legislature } }
+					# Dissolve the legislature
+					trigger_event = { id = legislature_events.100 }
+				}
+				# This is not the primary title, and the primary title has no legislature
+				else_if = {
+					limit = { primary_title = { NOT = { has_variable = legislature } } }
+					# Reattach the legislature to the new primary title
+					trigger_event = { id = legislature_events.200 }
+				}
+				# More than one title has a legislature, including the primary title
+				if = {
+					limit = {
+						primary_title = { has_variable = legislature }
+						any_held_title = {
+							has_variable = legislature
+							count >= 2
+						}
+					}
+					# Merge all other legislatures into the primary title's
+					trigger_event = { id = legislature_events.300 }
+				}
+			}
+		}
+		vassals = {
+			icon = "gfx/interface/icons/flat_icons/prestige.dds"
+			require_realm_in_sub_region = yes
+			auto_add_rulers = yes
+			auto_add_landless_rulers = yes
+			map_color = rgb{ 150 200 250 }
+			is_character_valid = { scope:situation.var:legislature_title.holder ?= { is_liege_or_above_of = ROOT } }
+		}
+	}
+	start_phase = legislature_election
+	phases = {
+		legislature_election = {
+			future_phases = {
+				legislature_in_session = {
+					takeover_type = duration
+					takeover_duration = { days = 30 }
+				}
+			}
+			
+			on_start = {
+				# Set the timer for the next election
+				set_variable = { name = months_in_session value = 0 }
+				# Announce election
+			}
+			on_end = {
+				scope:situation = {
+					# Remember incumbents
+					every_in_list = {
+						variable = legislators
+						add_to_list = incumbents
+					}
+					# Elect new senators
+					clear_variable_list = legislators
+					var:legislature_title.holder ?= { every_sub_realm_county = { elect_new_legislator_effect = yes } }
+					every_participant_group = {
+						every_situation_group_participant = {
+							recalculate_participant_group = scope:situation
+						}
+					}
+				}
+			}
+		}
+		legislature_in_session = {
+			future_phases = {
+				legislature_election = {
+					takeover_type = points
+					takeover_points = 1
+					catalysts = {
+						catalyst_term_expired = 1
+						catalyst_no_confidence = 1
+					}
+				}
+				legislature_suspended = {
+					takeover_type = points
+					takeover_points = 1
+					catalysts = {
+						catalyst_coup = 1
+						catalyst_civil_war = 1
+					}
+				}
+			}
+		}
+		legislature_suspended = {
+			future_phases = {
+				legislature_election = {
+					takeover_type = points
+					takeover_points = 1
+					catalysts = {
+						catalyst_elections_forced = 1
+					}
+				}
+				legislature_in_session = {
+					takeover_type = points
+					takeover_points = 1
+					catalysts = {
+						catalyst_legislature_restored = 1
+					}
+				}
+			}
+		}
+	}
+}

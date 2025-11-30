@@ -1,0 +1,116 @@
+﻿# Removes all errant variables from legislators, should be fired whenever a bill is resolved
+bill_clean_legislators_on_action = {
+	effect = {
+		remove_variable = bargained_for_vote
+		remove_variable = had_speech_opportunity
+		clear_variable_list = possible_lobbyists
+	}
+}
+
+bill_debate_pulse_speech_on_action = {
+	effect = {
+		# If the bill's sponsor hasn't had a chance to speak yet, give it to them
+		if = {
+			limit = { NOT = { has_variable = had_speech_opportunity } }
+			trigger_event = legislature_events.1600
+		}
+		else = {
+			scope:activity = {
+				# Otherwise, find the most senior guest who hasn't had a chance to speak
+				# yet and give them a shot
+				ordered_attending_character = {
+					limit = {
+						OR = {
+							is_bill_supporter_trigger = yes
+							is_bill_opponent_trigger = yes
+						}
+						NOR = {
+							this = scope_host
+							has_variable = had_speech_opportunity
+						}
+					}
+					order_by = legislative_seniority
+					if = {
+						limit = { is_bill_supporter_trigger = yes }
+						trigger_event = legislature_events.1600
+					}
+					else_if = {
+						limit = { is_bill_opponent_trigger = yes }
+						trigger_event = legislature_events.1650
+					}
+				}
+			}
+		}
+	}
+}
+# Legislators do things each week!
+bill_debate_pulse_legislator_on_action = {
+	random_on_action = {
+		1 = bill_debate_pulse_legislator_makes_deal_on_action
+		1 = bill_debate_pulse_legislator_is_lobbied_on_action
+		1 = bill_debate_pulse_social_on_action
+	}
+}
+# Negotiate with the sponsor for a better deal
+bill_debate_pulse_legislator_makes_deal_on_action = {
+	trigger = { is_bill_opponent_trigger = yes }
+	weight_multiplier = {
+		base = 250
+		modifier = { add = scope:host.ai_energy }
+		modifier = {
+			factor = 0
+			is_bill_opponent_trigger = no
+		}
+	}
+	effect = {
+		save_scope_as = target_opponent
+		scope:host = { trigger_event = legislature_events.1500 }
+	}
+}
+# Get lobbied by someone
+bill_debate_pulse_legislator_is_lobbied_on_action = {
+	trigger = {
+		has_variable_list = possible_lobbyists
+		any_in_list = {
+			variable = possible_lobbyists
+			count >= 1
+		}
+	}
+	weight_multiplier = {
+		base = 250
+		modifier = {
+			factor = 0
+			OR = {
+				NOT = { has_variable_list = possible_lobbyists }
+				any_in_list = {
+					variable = possible_lobbyists
+					count <= 0
+				}
+			}
+		}
+	}
+	effect = {
+		if = {
+			limit = { has_variable_list = possible_lobbyists }
+			save_scope_as = legislator
+			ordered_in_list = {
+				variable = possible_lobbyists
+				order_by = intrigue
+				trigger_event = legislature_events.1700
+			}
+		}
+	}
+}
+# Interactions with other government officials that don't affect the bill
+bill_debate_pulse_social_on_action = {
+	weight_multiplier = {
+		base = 100
+		modifier = {
+			add = {
+				value = scope:activity.total_legislators_present
+				multiply = 5
+			}
+		}
+	}
+	# Currently does nothing, but will fire events later!
+}

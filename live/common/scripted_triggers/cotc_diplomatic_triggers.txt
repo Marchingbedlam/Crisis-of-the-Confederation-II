@@ -1,0 +1,15 @@
+# Are scope and target diplomatic allies?
+is_diplomatic_ally_of = {
+	OR = {
+		is_allied_to = $TARGET$
+		AND = {
+			exists = confederation
+			$TARGET$ = { is_member_of = PREV.confederation }
+		}
+	}
+}
+# Do any of our neighbors threaten us?
+is_threatened_trigger = {
+	save_temporary_scope_as = threat_target
+	any_neighboring_top_liege_realm_owner = { threat_to >= 20 }
+}
