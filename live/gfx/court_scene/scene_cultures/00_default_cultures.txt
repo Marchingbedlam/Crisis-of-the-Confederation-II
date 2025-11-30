@@ -270,11 +270,7 @@ chinese = {
 			capital_county ?= {
 				OR = {
 					culture = { has_graphical_chinese_culture_group_trigger = yes }
-					# Also used for East Asian throne rooms
-					title_province = { 
-						geographical_region = world_asia
-						NOT = { geographical_region = world_asia_southeast }
-					}
+					culture = { has_graphical_japanese_culture_group_trigger = yes }
 					AND = {
 						title_province = { steppe_building_gfx_use_east_asian_trigger = yes }
 						title_province = { steppe_building_gfx_use_japanese_trigger = no }
@@ -284,7 +280,10 @@ chinese = {
 			primary_title ?= title:h_china
 		}
 		# Is a Ceremonial Liege or indepedent ruler
-		tgp_is_ceremonial_regent_trigger = no
+		trigger_if = {
+			limit = { tgp_realm_has_ceremonial_liege_trigger = yes }
+			tgp_has_ceremonial_liege_title_trigger = yes
+		}
 	}
 }
 
@@ -301,8 +300,9 @@ japanese = {
 				title_province = { geographical_region = world_asia }
 			}
 		}
-		# Is a Ceremonial Regent
-		tgp_is_ceremonial_regent_trigger = yes
+		# Is not Ceremonial Liege
+		tgp_realm_has_ceremonial_liege_trigger = yes
+		tgp_is_ceremonial_liege_trigger = no
 		trigger_if = {
 			limit = {
 				has_tgp_dlc_trigger = yes
@@ -330,7 +330,6 @@ southeast_asia = {
 		}
 		capital_county ?= {
 			OR = {
-				title_province = { geographical_region = world_asia_southeast }
 				title_province = { steppe_building_gfx_use_southeast_asian_trigger = yes }
 				culture = { has_building_gfx = southeast_asian_building_gfx }
 			}

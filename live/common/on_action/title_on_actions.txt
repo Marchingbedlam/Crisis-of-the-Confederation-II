@@ -587,7 +587,6 @@ on_title_gain = {
 						scope:title = {
 							has_county_modifier = mpo_siberian_permafrost_modifier_bad
 						}
-						culture ?= scope:title.culture
 						culture ?= { has_cultural_parameter = permafrost_modifier_mechanic }
 					}
 					scope:title = {
@@ -601,7 +600,6 @@ on_title_gain = {
 							has_county_modifier = mpo_siberian_permafrost_modifier
 						}
 						NOR = {
-							culture ?= scope:title.culture
 							culture ?= { has_cultural_parameter = permafrost_modifier_mechanic }
 						}
 					}
@@ -1042,14 +1040,24 @@ on_title_gain = {
 		# KING+ TIER TITLES #
 		#####################
 		else = {
+			# Newly formed Hegemon of China should spruce up their council
+			if = {
+				limit = { scope:title = title:h_china }
+				save_scope_as = councillor_liege
+				fill_the_ministry_effect = yes
+			}
 			# Hegemonies cannot have Ceremonial Regents
 			if = {
 				limit = {
 					exists = this
-					tgp_realm_has_ceremonial_liege_trigger = yes
+					any_held_title = { exists = var:administrative_ui_special_title }
 					scope:title.tier = tier_hegemony
 				}
 				tgp_destroy_ceremonial_throne_effect = yes
+				if = {
+					limit = { has_trait = former_emperor }
+					remove_trait = former_emperor
+				}
 			}
 			# Ceremonial Liege
 			if = {
@@ -1838,21 +1846,32 @@ on_title_gain = {
 					primary_title.tier <= scope:title.tier
 				}
 				every_vassal = {
-					limit = {
-						culture = { has_cultural_parameter = must_pledge_loyalty_to_liege }
-						NOT = { var:pledge_loyalty_to_liege_grace ?= liege }
-						NOT = { owns_story_of_type = story_cycle_pledge_loyalty_to_liege_overdue }
-					}
-					create_story = story_cycle_pledge_loyalty_to_liege_overdue
-					random_owned_story = {
-						type = story_cycle_pledge_loyalty_to_liege_overdue
-						set_variable = new_liege_variant
+					if = {
+						limit = {
+							culture = { has_cultural_parameter = must_pledge_loyalty_to_liege }
+							OR = {
+								government_has_flag = government_is_feudal
+								government_has_flag = government_is_clan
+								government_has_flag = government_is_japan_feudal
+							}
+							NOT = { var:pledge_loyalty_to_liege_grace ?= liege }
+							NOT = { owns_story_of_type = story_cycle_pledge_loyalty_to_liege_overdue }
+						}
+						create_story = story_cycle_pledge_loyalty_to_liege_overdue
+						story:story_cycle_pledge_loyalty_to_liege_overdue = {
+							set_variable = new_liege_variant
+						}
 					}
 				}
 			}
 			else_if = {  # if you now have a new liege, and they also follow a culture with the Pay Homage requirement, you must swear continued fealty
 				limit = {
 					liege.culture = { has_cultural_parameter = must_pledge_loyalty_to_liege }
+					OR = {
+						government_has_flag = government_is_feudal
+						government_has_flag = government_is_clan
+						government_has_flag = government_is_japan_feudal
+					}
 					NOT = { var:pledge_loyalty_to_liege_grace ?= liege }
 					NOT = { owns_story_of_type = story_cycle_pledge_loyalty_to_liege_overdue }
 				}
@@ -2228,15 +2247,23 @@ on_title_gain = {
 				is_house_head = no
 				is_ai = yes
 				government_is_japanese_trigger = yes
+				scope:previous_holder = {
+					is_ai = yes
+					player_heir = { is_ai = yes }
+				}
+				scope:new_holder = {
+					is_ai = yes
+					player_heir = { is_ai = yes }
+				}
 				house.house_head = {
 					is_ai = yes
+					player_heir = { is_ai = yes }
 					is_vassal_or_below_of = root
 				}
 				is_independent_ruler = yes
 			}
 			house = { set_house_head = root }
 		}
-		
 		if = { # If courtiers get lost between governorship assignments, move them home
 			limit = {
 				is_ai = no
@@ -3048,7 +3075,6 @@ on_title_lost = {
 				}
 			}
 		}
-		
 		if = { # If courtiers get lost between governorship assignments, move them home
 			limit = {
 				is_ai = no
@@ -3627,11 +3653,14 @@ on_vassal_change = {
 		### If a minister becomes independent we destroy the ministry title
 		if = {
 			limit = {
+				# independent title
 				OR = {
 					liege ?= { tgp_has_access_to_ministry_trigger = no }
 					this = top_liege
 				}
+
 				any_held_title = {
+					# has a ministry title that is not being swapped
 					OR =  {
 						this = title:e_minister_chancellor
 						this = title:e_minister_censor
@@ -3744,6 +3773,10 @@ on_vassal_change = {
 			}
 			# TGP end the ceremonial liege
 			tgp_destroy_ceremonial_throne_effect = yes
+			if = {
+				limit = { has_trait = former_emperor }
+				remove_trait = former_emperor
+			}
 		}
 		
 		# Bloc

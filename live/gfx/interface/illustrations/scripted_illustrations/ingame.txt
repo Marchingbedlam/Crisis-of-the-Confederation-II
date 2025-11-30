@@ -5,6 +5,22 @@ character_view_bg = {
 
 	# Dead
 
+	# Tengri generic holy site
+	texture = {
+		reference = "event_scenes/mpo_temple_steppe.dds"
+
+		trigger = {
+			is_alive = no
+			OR = {
+				religion = religion:tengrism_religion
+				religion = religion:magyar_religion
+				religion = religion:siberian_religion
+				religion = religion:shamanism_religion
+				religion = religion:kamuyism_religion
+			}
+		}
+	}
+
 	texture = { # Zoroastrian
 		reference = "event_scenes/fp3_temple.dds"
 
@@ -30,6 +46,16 @@ character_view_bg = {
 			trigger_else = {
 				culture = { has_building_gfx = iberian_building_gfx }
 			}
+		}
+	}
+
+	texture = {
+		reference = "event_scenes/ep3_hagia_sophia.dds"
+
+		trigger = {
+			is_alive = no
+			religion = religion:christianity_religion
+			primary_title = title:e_byzantium
 		}
 	}
 
@@ -65,6 +91,15 @@ character_view_bg = {
 		}
 	}
 
+	texture = { # FP1
+		reference = "event_scenes/fp1_tribal_temple.dds"
+
+		trigger = {
+			is_alive = no
+			religion = religion:germanic_religion
+		}
+	}
+
 	texture = { # Dharmic East Asia
 		reference = "event_scenes/tgp_temple_asia.dds"
 
@@ -76,43 +111,19 @@ character_view_bg = {
 					is_in_family = rf_sinitic
 				}
 			}
-			culture = {
-				has_graphical_east_asia_culture_group_trigger = yes
-			}
 		}
 	}
 
-	texture = { # FP1
-		reference = "event_scenes/fp1_tribal_temple.dds"
-
+	texture = { # Pagans
 		trigger = {
 			is_alive = no
-			religion = religion:germanic_religion
-		}
-	}
-
-	# Tengri generic holy site
-	texture = {
-		reference = "event_scenes/mpo_temple_steppe.dds"
-
-		trigger = {
-			is_alive = no
+			religion = { is_in_family = rf_pagan }
 			OR = {
-				religion = religion:tengrism_religion
-				religion = religion:magyar_religion
-				religion = religion:siberian_religion
-				religion = religion:shamanism_religion
-				religion = religion:kamuyism_religion
+				government_has_flag = government_is_tribal
+				government_has_flag = government_is_nomadic
 			}
 		}
-	}
-
-	texture = { # Sintic Faiths outside SEA
-		trigger = {
-			is_alive = no
-			religion = { is_in_family = rf_sinitic }
-		}
-		reference = "event_scenes/tgp_holysite_asia.dds"
+		reference = "event_scenes/ep2_holysite_tribal.dds"
 	}
 
 	# Fallback
@@ -5777,7 +5788,10 @@ character_view_bg = {
 				NOT = { location = involved_activity.activity_location }
 			}
 			location = {
-				terrain = farmlands
+				OR = {
+					terrain = farmlands
+					terrain = floodplains
+				}
 				culture ?= { has_graphical_east_asia_culture_group_trigger = yes }
 			}
 		}
@@ -6869,7 +6883,7 @@ character_view_bg = {
 			trigger_else = {
 				OR = {
 					employer.culture ?= { has_graphical_east_asia_culture_group_trigger = yes }
-					employer.culture = { has_graphical_steppe_culture_group_trigger = yes }
+					employer.culture ?= { has_graphical_steppe_culture_group_trigger = yes }
 				}
 			}
 			is_character_window_main_character = no
@@ -7329,6 +7343,10 @@ character_view_bg = {
 			exists = location
 			location = {
 				is_coastal = yes
+				OR = {
+					geographical_region = world_europe
+					geographical_region = world_steppe_west
+				}
 			}
 			NOR = {
 				exists = liege
@@ -7346,6 +7364,10 @@ character_view_bg = {
 			exists = location
 			location = {
 				is_coastal = yes
+				OR = {
+					geographical_region = world_europe
+					geographical_region = world_steppe_west
+				}
 			}
 			NOR = {
 				exists = liege
@@ -7368,6 +7390,10 @@ character_view_bg = {
 						exists = location
 						location = {
 							is_coastal = yes
+							OR = {
+								geographical_region = world_europe
+								geographical_region = world_steppe_west
+							}
 						}
 						NOR = {
 							exists = liege
@@ -7383,6 +7409,10 @@ character_view_bg = {
 						exists = location
 						location = {
 							is_coastal = yes
+							OR = {
+								geographical_region = world_europe
+								geographical_region = world_steppe_west
+							}
 						}
 						NOR = {
 							exists = liege
@@ -7398,6 +7428,10 @@ character_view_bg = {
 						exists = location
 						location = {
 							is_coastal = yes
+							OR = {
+								geographical_region = world_europe
+								geographical_region = world_steppe_west
+							}
 						}
 						NOR = {
 							exists = liege
@@ -7568,6 +7602,7 @@ character_view_bg = {
 				OR = {
 					geographical_region = world_middle_east
 					geographical_region = world_middle_east_persia
+					geographical_region = world_steppe_tarim
 				}
 			}
 			NOR = {
@@ -7588,6 +7623,7 @@ character_view_bg = {
 				OR = {
 					geographical_region = world_middle_east
 					geographical_region = world_middle_east_persia
+					geographical_region = world_steppe_tarim
 				}
 			}
 			NOR = {
@@ -7613,6 +7649,7 @@ character_view_bg = {
 							OR = {
 								geographical_region = world_middle_east
 								geographical_region = world_middle_east_persia
+								geographical_region = world_steppe_tarim
 							}
 						}
 						NOR = {
@@ -7631,6 +7668,7 @@ character_view_bg = {
 							OR = {
 								geographical_region = world_middle_east
 								geographical_region = world_middle_east_persia
+								geographical_region = world_steppe_tarim
 							}
 						}
 						NOR = {
@@ -7649,6 +7687,7 @@ character_view_bg = {
 							OR = {
 								geographical_region = world_middle_east
 								geographical_region = world_middle_east_persia
+								geographical_region = world_steppe_tarim
 							}
 						}
 						NOR = {
@@ -7671,8 +7710,12 @@ character_view_bg = {
 		trigger = {
 			exists = location
 			location = {
-				geographical_region = world_india
+				OR = {
+					geographical_region = world_india
+					geographical_region = world_burma
+				}
 			}
+			
 			NOR = {
 				exists = liege
 				exists = host
@@ -7688,7 +7731,10 @@ character_view_bg = {
 		trigger = {
 			exists = location
 			location = {
-				geographical_region = world_india
+				OR = {
+					geographical_region = world_india
+					geographical_region = world_burma
+				}
 			}
 			NOR = {
 				exists = liege
@@ -7710,7 +7756,10 @@ character_view_bg = {
 					primary_spouse = {
 						exists = location
 						location = {
-							geographical_region = world_india
+							OR = {
+								geographical_region = world_india
+								geographical_region = world_burma
+							}
 						}
 						NOR = {
 							exists = liege
@@ -7725,7 +7774,10 @@ character_view_bg = {
 					betrothed = {
 						exists = location
 						location = {
-							geographical_region = world_india
+							OR = {
+								geographical_region = world_india
+								geographical_region = world_burma
+							}
 						}
 						NOR = {
 							exists = liege
@@ -7740,7 +7792,10 @@ character_view_bg = {
 					liege ?= {
 						exists = location
 						location = {
-							geographical_region = world_india
+							OR = {
+								geographical_region = world_india
+								geographical_region = world_burma
+							}
 						}
 						NOR = {
 							exists = liege
@@ -7748,6 +7803,103 @@ character_view_bg = {
 							is_travelling = yes
 							exists = involved_activity
 						}
+					}
+				}
+			}
+			is_character_window_main_character = no
+		}
+	}
+
+	#Wandering SE Asia coastal
+	texture = {
+		reference = "event_scenes/tgp_village_sea.dds"
+
+		trigger = {
+			exists = location
+			location = {
+				geographical_region = world_asia_southeast
+				county ?= {
+					is_coastal_county = yes
+				}
+			}
+			NOR = {
+				exists = liege
+				exists = host
+				is_travelling = yes
+				exists = involved_activity
+			}
+		}
+	}
+
+	environment = {
+		reference = "environment_tgp_village_sea"
+
+		trigger = {
+			exists = location
+			location = {
+				geographical_region = world_asia_southeast
+				county ?= {
+					is_coastal_county = yes
+				}
+			}
+			NOR = {
+				exists = liege
+				exists = host
+				is_travelling = yes
+				exists = involved_activity
+			}
+			is_character_window_main_character = yes
+		}
+	}
+
+	environment = {
+		reference = "environment_tgp_village_sea"
+
+		trigger = {
+			OR = {
+				primary_spouse ?= {
+					exists = location
+					location = {
+						geographical_region = world_asia_southeast
+						county ?= {
+							is_coastal_county = yes
+						}
+					}
+					NOR = {
+						exists = liege
+						exists = host
+						is_travelling = yes
+						exists = involved_activity
+					}
+				}
+				betrothed ?= {
+					exists = location
+					location = {
+						geographical_region = world_asia_southeast
+						county ?= {
+							is_coastal_county = yes
+						}
+					}
+					NOR = {
+						exists = liege
+						exists = host
+						is_travelling = yes
+						exists = involved_activity
+					}
+				}
+				AND = {
+					exists = location
+					location = {
+						geographical_region = world_asia_southeast
+						county ?= {
+							is_coastal_county = yes
+						}
+					}
+					NOR = {
+						exists = liege
+						exists = host
+						is_travelling = yes
+						exists = involved_activity
 					}
 				}
 			}
@@ -7859,6 +8011,448 @@ character_view_bg = {
 							is_travelling = yes
 							exists = involved_activity
 						}
+					}
+				}
+			}
+			is_character_window_main_character = no
+		}
+	}
+
+	#wandering steppe - scary!
+	texture = {
+		reference = "event_scenes/mpo_campfire_steppe.dds"
+
+		trigger = {
+			exists = location
+			location = {
+				geographical_region = world_steppe
+			}
+			OR = {
+				has_trait = sadistic
+				has_trait = murderer
+				has_trait = education_intrigue_4
+				has_trait = education_intrigue_5
+				has_trait = lunatic
+				has_trait = possessed
+				has_trait = gallowsbait
+				has_trait = torturer
+				has_trait = kinslayer
+				has_trait = cannibal
+				has_trait = witch
+				has_trait = deviant
+			}
+			NOR = {
+				exists = liege
+				exists = host
+				is_travelling = yes
+				exists = involved_activity
+			}
+		}
+	}
+
+	environment = {
+		reference = "environment_mpo_campfire_steppe"
+
+		trigger = {
+			exists = location
+			location = {
+				geographical_region = world_steppe
+			}
+			OR = {
+				has_trait = sadistic
+				has_trait = murderer
+				has_trait = education_intrigue_4
+				has_trait = education_intrigue_5
+				has_trait = gallowsbait
+				has_trait = torturer
+				has_trait = kinslayer
+				has_trait = cannibal
+				has_trait = witch
+				has_trait = deviant
+			}
+			NOR = {
+				exists = liege
+				exists = host
+				is_travelling = yes
+				exists = involved_activity
+			}
+			is_character_window_main_character = yes
+		}
+	}
+
+	environment = {
+		reference = "environment_mpo_campfire_steppe"
+
+		trigger = {
+			OR = {
+				primary_spouse ?= {
+					exists = location
+					location = {
+						geographical_region = world_steppe
+					}
+					OR = {
+						has_trait = sadistic
+						has_trait = murderer
+						has_trait = education_intrigue_4
+						has_trait = education_intrigue_5
+						has_trait = gallowsbait
+						has_trait = torturer
+						has_trait = kinslayer
+						has_trait = cannibal
+						has_trait = witch
+						has_trait = deviant
+					}
+					NOR = {
+						exists = liege
+						exists = host
+						is_travelling = yes
+						exists = involved_activity
+					}
+				}
+				betrothed ?= {
+					exists = location
+					location = {
+						geographical_region = world_steppe
+						has_holding_type = nomad_holding
+					}
+					OR = {
+						has_trait = sadistic
+						has_trait = murderer
+						has_trait = education_intrigue_4
+						has_trait = education_intrigue_5
+						has_trait = gallowsbait
+						has_trait = torturer
+						has_trait = kinslayer
+						has_trait = cannibal
+						has_trait = witch
+						has_trait = deviant
+					}
+					NOR = {
+						exists = liege
+						exists = host
+						is_travelling = yes
+						exists = involved_activity
+					}
+				}
+				AND = {
+					exists = location
+					location = {
+						geographical_region = world_steppe
+						has_holding_type = nomad_holding
+					}
+					OR = {
+						has_trait = sadistic
+						has_trait = murderer
+						has_trait = education_intrigue_4
+						has_trait = education_intrigue_5
+						has_trait = gallowsbait
+						has_trait = torturer
+						has_trait = kinslayer
+						has_trait = cannibal
+						has_trait = witch
+						has_trait = deviant
+					}
+					NOR = {
+						exists = liege
+						exists = host
+						is_travelling = yes
+						exists = involved_activity
+					}
+				}
+			}
+			is_character_window_main_character = no
+		}
+	}
+
+	#Wandering steppe
+	texture = {
+		reference = "event_scenes/mpo_camp_steppe.dds"
+
+		trigger = {
+			exists = location
+			location = {
+				geographical_region = world_steppe
+				OR = {
+					has_holding_type = nomad_holding
+					has_holding_type = herder_holding
+				}
+			}
+			NOR = {
+				exists = liege
+				exists = host
+				is_travelling = yes
+				exists = involved_activity
+			}
+		}
+	}
+
+	environment = {
+		reference = "environment_mpo_camp_steppe"
+
+		trigger = {
+			exists = location
+			location = {
+				geographical_region = world_steppe
+				OR = {
+					has_holding_type = nomad_holding
+					has_holding_type = herder_holding
+				}
+			}
+			NOR = {
+				exists = liege
+				exists = host
+				is_travelling = yes
+				exists = involved_activity
+			}
+			is_character_window_main_character = yes
+		}
+	}
+
+	environment = {
+		reference = "environment_mpo_camp_steppe"
+
+		trigger = {
+			OR = {
+				primary_spouse ?= {
+					exists = location
+					location = {
+						geographical_region = world_steppe
+						OR = {
+							has_holding_type = nomad_holding
+							has_holding_type = herder_holding
+						}
+					}
+					NOR = {
+						exists = liege
+						exists = host
+						is_travelling = yes
+						exists = involved_activity
+					}
+				}
+				betrothed ?= {
+					exists = location
+					location = {
+						geographical_region = world_steppe
+						OR = {
+							has_holding_type = nomad_holding
+							has_holding_type = herder_holding
+						}
+					}
+					NOR = {
+						exists = liege
+						exists = host
+						is_travelling = yes
+						exists = involved_activity
+					}
+				}
+				AND = {
+					exists = location
+					location = {
+						geographical_region = world_steppe
+						OR = {
+							has_holding_type = nomad_holding
+							has_holding_type = herder_holding
+						}
+					}
+					NOR = {
+						exists = liege
+						exists = host
+						is_travelling = yes
+						exists = involved_activity
+					}
+				}
+			}
+			is_character_window_main_character = no
+		}
+	}
+
+	#Wandering tibet
+	texture = {
+		reference = "event_scenes/mpo_rural_village_asian.dds"
+
+		trigger = {
+			exists = location
+			location = {
+				geographical_region = world_tibet
+			}
+			NOR = {
+				exists = liege
+				exists = host
+				is_travelling = yes
+				exists = involved_activity
+			}
+		}
+	}
+
+	environment = {
+		reference = "environment_mpo_rural_village_asian"
+
+		trigger = {
+			exists = location
+			location = {
+				geographical_region = world_tibet
+			}
+			NOR = {
+				exists = liege
+				exists = host
+				is_travelling = yes
+				exists = involved_activity
+			}
+			is_character_window_main_character = yes
+		}
+	}
+
+	environment = {
+		reference = "environment_mpo_rural_village_asian"
+
+		trigger = {
+			OR = {
+				primary_spouse ?= {
+					exists = location
+					location = {
+						geographical_region = world_tibet
+					}
+					NOR = {
+						exists = liege
+						exists = host
+						is_travelling = yes
+						exists = involved_activity
+					}
+				}
+				betrothed ?= {
+					exists = location
+					location = {
+						geographical_region = world_tibet
+					}
+					NOR = {
+						exists = liege
+						exists = host
+						is_travelling = yes
+						exists = involved_activity
+					}
+				}
+				AND = {
+					exists = location
+					location = {
+						geographical_region = world_tibet
+					}
+					NOR = {
+						exists = liege
+						exists = host
+						is_travelling = yes
+						exists = involved_activity
+					}
+				}
+			}
+			is_character_window_main_character = no
+		}
+	}
+
+	#Wandering africa
+	texture = {
+		reference = "event_scenes/market_east.dds"
+
+		trigger = {
+			exists = location
+			location = {
+				geographical_region = world_africa
+				OR = {
+					has_holding_type = castle_holding
+					has_holding_type = city_holding
+					has_holding_type = church_holding
+					has_holding_type = temple_citadel_holding
+				}
+			}
+			NOR = {
+				exists = liege
+				exists = host
+				is_travelling = yes
+				exists = involved_activity
+			}
+		}
+	}
+
+	environment = {
+		reference = "environment_event_market_east"
+
+		trigger = {
+			exists = location
+			location = {
+				geographical_region = world_africa
+				OR = {
+					has_holding_type = castle_holding
+					has_holding_type = city_holding
+					has_holding_type = church_holding
+					has_holding_type = temple_citadel_holding
+				}
+			}
+			NOR = {
+				exists = liege
+				exists = host
+				is_travelling = yes
+				exists = involved_activity
+			}
+			is_character_window_main_character = yes
+		}
+	}
+
+	environment = {
+		reference = "environment_event_market_east"
+
+		trigger = {
+			OR = {
+				primary_spouse ?= {
+					exists = location
+					location = {
+						geographical_region = world_africa
+						OR = {
+							has_holding_type = castle_holding
+							has_holding_type = city_holding
+							has_holding_type = church_holding
+							has_holding_type = temple_citadel_holding
+						}
+					}
+					NOR = {
+						exists = liege
+						exists = host
+						is_travelling = yes
+						exists = involved_activity
+					}
+				}
+				betrothed ?= {
+					exists = location
+					location = {
+						geographical_region = world_africa
+						OR = {
+							has_holding_type = castle_holding
+							has_holding_type = city_holding
+							has_holding_type = church_holding
+							has_holding_type = temple_citadel_holding
+						}
+					}
+					NOR = {
+						exists = liege
+						exists = host
+						is_travelling = yes
+						exists = involved_activity
+					}
+				}
+				AND = {
+					exists = location
+					location = {
+						geographical_region = world_africa
+						OR = {
+							has_holding_type = castle_holding
+							has_holding_type = city_holding
+							has_holding_type = church_holding
+							has_holding_type = temple_citadel_holding
+						}
+					}
+					NOR = {
+						exists = liege
+						exists = host
+						is_travelling = yes
+						exists = involved_activity
 					}
 				}
 			}

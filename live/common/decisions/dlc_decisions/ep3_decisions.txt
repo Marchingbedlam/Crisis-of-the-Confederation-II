@@ -103,6 +103,7 @@
 	# }
 # }
 
+### Restore [ROOT.Char.GetPrimaryTitle.GetNameNoTierNoTooltip] ###
 restore_backwater_counties_decision = {
 	picture = {
 		reference = "gfx/interface/illustrations/decisions/ep3_decision_estate.dds"
@@ -156,22 +157,6 @@ restore_backwater_counties_decision = {
 	}
 
 	cost = {
-		gold = {
-			value = medium_gold_value
-			multiply = {
-				value = 1
-				every_sub_realm_county = {
-					limit = {
-						title_province = {
-							geographical_region = greek_backwater_modifier_region
-						}
-						has_county_modifier = backwater_county_modifier
-						development_level >= 50
-					}
-					add = 1
-				}
-			}
-		}
 		gold = {
 			value = 0
 			if = {
@@ -2106,6 +2091,7 @@ adopt_state_faith = {
 	}
 }
 
+### Found Salon ###
 found_salon_decision = {
 	picture = {
 		reference = "gfx/interface/illustrations/decisions/decision_golden_age.dds"
@@ -2330,6 +2316,7 @@ found_salon_decision = {
 	# }
 # }
 
+### Commission Icon ###
 commission_icon_decision = {
 	picture = {
 		reference = "gfx/interface/illustrations/decisions/decision_smith.dds"
@@ -2563,6 +2550,7 @@ commission_icon_decision = {
 	}
 }
 
+### Embrace Heresy ###
 embrace_heresy_decision = {
 	picture = {
 		reference = "gfx/interface/illustrations/decisions/decision_major_religion.dds"
@@ -2956,6 +2944,7 @@ push_heresy_as_state_faith = {
 	# }
 # }
 
+### Foster Integration ###
 foster_integration_decision = {
 	picture = {
 		reference = "gfx/interface/illustrations/decisions/decision_legitimacy.dds"
@@ -3125,6 +3114,7 @@ foster_integration_decision = {
 	}
 }
 
+### Gather Faction Support ###
 gather_faction_support_decision = {
 	picture = {
 		reference = "gfx/interface/illustrations/decisions/decision_recruitment.dds"
@@ -3745,6 +3735,7 @@ gather_faction_support_decision = {
 	# }
 # }
 
+### Go Fishing ###
 go_fishing_decision = {
 	picture = { reference = "gfx/interface/illustrations/event_scenes/bp1_docks_tribal.dds" }
 	desc = go_fishing_decision_desc
