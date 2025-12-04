@@ -1,44 +1,4 @@
-﻿initialize_starting_legislature_effect = {
-	save_scope_as = ruler
-	start_situation = {
-		type = legislature
-		save_scope_as = situation
-		start_phase = legislature_in_session
-	}
-	every_held_title = {
-		limit = { tier = prev.primary_title.tier }
-		save_temporary_scope_as = temp_title
-		scope:situation.situation_sub_region:legislature_title_region = {
-			add_dejure_title_to_sub_region = scope:temp_title
-		}
-		clear_saved_scope = temp_title
-	}
-	primary_title = {
-		save_scope_as = target_title
-		set_variable = {
-			name = legislature
-			value = scope:situation
-		}
-	}
-	scope:situation ?= {
-		set_situation_center_province = scope:ruler.capital_province
-		set_variable = {
-			name = legislature_title
-			value = scope:target_title
-		}
-		set_variable = { name = months_in_session value = 0 }
-	}
-	# Elect starting legislators
-	every_sub_realm_county ?= { elect_new_legislator_effect = yes }
-	scope:situation ?= {
-		every_participant_group = {
-			every_situation_group_participant = {
-				recalculate_participant_group = scope:situation
-			}
-		}
-	}
-}
-elect_new_legislator_effect = {
+﻿elect_new_legislator_effect = {
 	save_scope_as = county
 	title_province = {
 		faith = { save_temporary_scope_as = temp_faith }

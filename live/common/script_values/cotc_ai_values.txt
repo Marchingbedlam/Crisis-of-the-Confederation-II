@@ -386,10 +386,30 @@ ai_intellectualism = {
 ai_interventionism = {
 	value = 0
 	if = {
-		limit = { is_landed = yes }
+		limit = {
+			OR = {
+				is_independent_ruler = yes
+				AND = {
+					exists = scope:activity.var:ruler
+					this = scope:activity.var:ruler
+				}
+				AND = {
+					exists = scope:budget_ruler
+					this = scope:budget_ruler
+				}
+				AND = {
+					exists = scope:tax_ruler
+					this = scope:tax_ruler
+				}
+			}
+		}
 		add = ai_greed
+		add = ai_energy
 	}
-	else = { subtract = ai_greed }
+	else = {
+		subtract = ai_greed
+		subtract = ai_energy
+	}
 	add = ai_compassion
 	subtract = ai_vengefulness
 	subtract = stewardship

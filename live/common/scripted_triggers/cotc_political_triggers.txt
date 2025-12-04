@@ -67,8 +67,8 @@ eligible_legislator_candidate_trigger = {
 		}
 	}
 	# This is not a demotion to a lower legislature
-	OR = {
-		NOT = { has_variable = legislature }
+	trigger_if = {
+		limit = { has_variable = legislature }
 		var:legislature.var:legislature_title.holder ?= {
 			tier_difference = {
 				target = scope:situation.var:legislature_title.holder
@@ -94,8 +94,11 @@ has_legislature_trigger = {
 }
 
 legislature_blocks_law_trigger = {
-	has_legislature_trigger = yes
-	NOT = { has_variable = bill_passed }
+	custom_tooltip = {
+		text = needs_a_bill_desc
+		has_legislature_trigger = yes
+		NOT = { has_variable = bill_passed }
+	}
 }
 
 legislature_in_session_trigger = {

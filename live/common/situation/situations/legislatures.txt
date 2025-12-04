@@ -12,33 +12,6 @@
 			auto_add_rulers = yes
 			map_color = rgb{ 250 100 0 }
 			is_character_valid = { scope:situation.var:legislature_title.holder ?= { this = ROOT } }
-			on_join = {
-				# Handle government transitions and the like
-				# Uh-oh, our new government type is a dictatorship!
-				if = {
-					limit = { NOT = { government_has_flag = government_has_legislature } }
-					# Dissolve the legislature
-					trigger_event = { id = legislature_events.100 }
-				}
-				# This is not the primary title, and the primary title has no legislature
-				else_if = {
-					limit = { primary_title = { NOT = { has_variable = legislature } } }
-					# Reattach the legislature to the new primary title
-					trigger_event = { id = legislature_events.200 }
-				}
-				# More than one title has a legislature, including the primary title
-				if = {
-					limit = {
-						primary_title = { has_variable = legislature }
-						any_held_title = {
-							has_variable = legislature
-							count >= 2
-						}
-					}
-					# Merge all other legislatures into the primary title's
-					trigger_event = { id = legislature_events.300 }
-				}
-			}
 		}
 		vassals = {
 			icon = "gfx/interface/icons/flat_icons/prestige.dds"
@@ -62,7 +35,8 @@
 			on_start = {
 				# Set the timer for the next election
 				set_variable = { name = months_in_session value = 0 }
-				# Announce election
+				# Announce election]
+				every_participant_group = { every_situation_group_participant = { trigger_event = legislature_events.1 } }
 			}
 			on_end = {
 				scope:situation = {

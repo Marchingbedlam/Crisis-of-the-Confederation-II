@@ -102,18 +102,12 @@
 				default = { current_military_budget = 0 }
 				ai_will_do = {
 					value = 0
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = military_spending_score
-					# Sanity check
 					if = {
-						limit = {
-							scope:host = {
-								ai_rationality >= -50
-								NOT = { debt_level > 0 }
-							}
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { compare_variable = { name = planned_military_budget value = 0 } }
+							add = 100
 						}
-						multiply = 0
 					}
 				}
 			}
@@ -123,19 +117,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 5 } } }
 				default = { current_military_budget = 5 }
 				ai_will_do = {
-					value = 5
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = military_spending_score
-					# Sanity check
+					value = 0
 					if = {
-						limit = {
-							scope:host = {
-								ai_rationality >= -50
-								NOT = { debt_level > 0 }
-							}
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { compare_variable = { name = planned_military_budget value = 5 } }
+							add = 100
 						}
-						multiply = 0
 					}
 				}
 			}
@@ -145,10 +133,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 10 } } }
 				default = { current_military_budget = 10 }
 				ai_will_do = {
-					value = 10
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = military_spending_score
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { compare_variable = { name = planned_military_budget value = 10 } }
+							add = 100
+						}
+					}
 				}
 			}
 			propose_15_military_spending = {
@@ -157,10 +148,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 15 } } }
 				default = { current_military_budget = 15 }
 				ai_will_do = {
-					value = 15
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = military_spending_score
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { compare_variable = { name = planned_military_budget value = 15 } }
+							add = 100
+						}
+					}
 				}
 			}
 			propose_20_military_spending = {
@@ -169,10 +163,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 20 } } }
 				default = { current_military_budget = 20 }
 				ai_will_do = {
-					value = 20
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = military_spending_score
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { compare_variable = { name = planned_military_budget value = 20 } }
+							add = 100
+						}
+					}
 				}
 			}
 			propose_25_military_spending = {
@@ -181,10 +178,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 25 } } }
 				default = { current_military_budget = 25 }
 				ai_will_do = {
-					value = 25
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = military_spending_score
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { compare_variable = { name = planned_military_budget value = 25 } }
+							add = 100
+						}
+					}
 				}
 			}
 			propose_30_military_spending = {
@@ -193,10 +193,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 30 } } }
 				default = { current_military_budget = 30 }
 				ai_will_do = {
-					value = 30
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = military_spending_score
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { compare_variable = { name = planned_military_budget value = 30 } }
+							add = 100
+						}
+					}
 				}
 			}
 			propose_35_military_spending = {
@@ -205,10 +208,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 35 } } }
 				default = { current_military_budget = 35 }
 				ai_will_do = {
-					value = 35
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = military_spending_score
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { compare_variable = { name = planned_military_budget value = 35 } }
+							add = 100
+						}
+					}
 				}
 			}
 			propose_40_military_spending = {
@@ -217,10 +223,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 40 } } }
 				default = { current_military_budget = 40 }
 				ai_will_do = {
-					value = 40
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = military_spending_score
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { compare_variable = { name = planned_military_budget value = 40 } }
+							add = 100
+						}
+					}
 				}
 			}
 			propose_45_military_spending = {
@@ -229,10 +238,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 45 } } }
 				default = { current_military_budget = 45 }
 				ai_will_do = {
-					value = 45
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = military_spending_score
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { compare_variable = { name = planned_military_budget value = 45 } }
+							add = 100
+						}
+					}
 				}
 			}
 			propose_50_military_spending = {
@@ -241,10 +253,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 50 } } }
 				default = { current_military_budget = 50 }
 				ai_will_do = {
-					value = 50
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = military_spending_score
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { compare_variable = { name = planned_military_budget value = 50 } }
+							add = 100
+						}
+					}
 				}
 			}
 			propose_55_military_spending = {
@@ -253,19 +268,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 55 } } }
 				default = { current_military_budget = 55 }
 				ai_will_do = {
-					value = 55
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = military_spending_score
-					# Sanity check
 					if = {
-						limit = {
-							scope:host = {
-								ai_rationality >= 0
-								NOT = { is_at_war = yes }
-							}
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { compare_variable = { name = planned_military_budget value = 55 } }
+							add = 100
 						}
-						multiply = 0
 					}
 				}
 			}
@@ -275,19 +283,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 60 } } }
 				default = { current_military_budget = 60 }
 				ai_will_do = {
-					value = 60
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = military_spending_score
-					# Sanity check
 					if = {
-						limit = {
-							scope:host = {
-								ai_rationality >= 25
-								NOT = { is_at_war = yes }
-							}
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { compare_variable = { name = planned_military_budget value = 60 } }
+							add = 100
 						}
-						multiply = 0
 					}
 				}
 			}
@@ -297,19 +298,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 65 } } }
 				default = { current_military_budget = 65 }
 				ai_will_do = {
-					value = 65
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = military_spending_score
-					# Sanity check
 					if = {
-						limit = {
-							scope:host = {
-								ai_rationality >= -50
-								NOT = { is_at_war = yes }
-							}
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { compare_variable = { name = planned_military_budget value = 65 } }
+							add = 100
 						}
-						multiply = 0
 					}
 				}
 			}
@@ -319,19 +313,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 70 } } }
 				default = { current_military_budget = 70 }
 				ai_will_do = {
-					value = 70
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = military_spending_score
-					# Sanity check
 					if = {
-						limit = {
-							scope:host = {
-								ai_rationality >= -75
-								NOT = { is_at_war = yes }
-							}
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { compare_variable = { name = planned_military_budget value = 70 } }
+							add = 100
 						}
-						multiply = 0
 					}
 				}
 			}
@@ -341,14 +328,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 75 } } }
 				default = { current_military_budget = 75 }
 				ai_will_do = {
-					value = 75
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = military_spending_score
-					# Sanity check
 					if = {
-						limit = { scope:host = { ai_rationality >= -100 } }
-						multiply = 0
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { compare_variable = { name = planned_military_budget value = 75 } }
+							add = 100
+						}
 					}
 				}
 			}
@@ -358,14 +343,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 80 } } }
 				default = { current_military_budget = 80 }
 				ai_will_do = {
-					value = 80
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = military_spending_score
-					# Sanity check
 					if = {
-						limit = { scope:host = { ai_rationality >= -125 } }
-						multiply = 0
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { compare_variable = { name = planned_military_budget value = 80 } }
+							add = 100
+						}
 					}
 				}
 			}
@@ -375,14 +358,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 85 } } }
 				default = { current_military_budget = 85 }
 				ai_will_do = {
-					value = 85
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = military_spending_score
-					# Sanity check
 					if = {
-						limit = { scope:host = { ai_rationality >= -150 } }
-						multiply = 0
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { compare_variable = { name = planned_military_budget value = 85 } }
+							add = 100
+						}
 					}
 				}
 			}
@@ -392,14 +373,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 90 } } }
 				default = { current_military_budget = 90 }
 				ai_will_do = {
-					value = 90
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = military_spending_score
-					# Sanity check
 					if = {
-						limit = { scope:host = { ai_rationality >= -175 } }
-						multiply = 0
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { compare_variable = { name = planned_military_budget value = 90 } }
+							add = 100
+						}
 					}
 				}
 			}
@@ -409,14 +388,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 95 } } }
 				default = { current_military_budget = 95 }
 				ai_will_do = {
-					value = 95
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = military_spending_score
-					# Sanity check
 					if = {
-						limit = { scope:host = { ai_rationality >= -200 } }
-						multiply = 0
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { compare_variable = { name = planned_military_budget value = 95 } }
+							add = 100
+						}
 					}
 				}
 			}
@@ -426,14 +403,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 100 } } }
 				default = { current_military_budget = 100 }
 				ai_will_do = {
-					value = 100
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = military_spending_score
-					# Sanity check
 					if = {
-						limit = { scope:host = { ai_rationality >= -225 } }
-						multiply = 0
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { compare_variable = { name = planned_military_budget value = 100 } }
+							add = 100
+						}
 					}
 				}
 			}
@@ -446,18 +421,12 @@
 				default = { current_ministry_budget = 0 }
 				ai_will_do = {
 					value = 0
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = ministry_spending_score
-					# Sanity check
 					if = {
-						limit = {
-							scope:host = {
-								ai_rationality >= -100
-								NOT = { debt_level > 0 }
-							}
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { compare_variable = { name = planned_ministry_budget value = 0 } }
+							add = 100
 						}
-						multiply = 0
 					}
 				}
 			}
@@ -467,19 +436,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 5 } } }
 				default = { current_ministry_budget = 5 }
 				ai_will_do = {
-					value = 5
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = ministry_spending_score
-					# Sanity check
+					value = 0
 					if = {
-						limit = {
-							scope:host = {
-								ai_rationality >= -50
-								NOT = { debt_level > 0 }
-							}
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { compare_variable = { name = planned_ministry_budget value = 5 } }
+							add = 100
 						}
-						multiply = 0
 					}
 				}
 			}
@@ -489,10 +452,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 10 } } }
 				default = { current_ministry_budget = 10 }
 				ai_will_do = {
-					value = 10
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = ministry_spending_score
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { compare_variable = { name = planned_ministry_budget value = 10 } }
+							add = 100
+						}
+					}
 				}
 			}
 			propose_15_ministry_spending = {
@@ -501,10 +467,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 15 } } }
 				default = { current_ministry_budget = 15 }
 				ai_will_do = {
-					value = 15
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = ministry_spending_score
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { compare_variable = { name = planned_ministry_budget value = 15 } }
+							add = 100
+						}
+					}
 				}
 			}
 			propose_20_ministry_spending = {
@@ -513,10 +482,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 20 } } }
 				default = { current_ministry_budget = 20 }
 				ai_will_do = {
-					value = 20
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = ministry_spending_score
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { compare_variable = { name = planned_ministry_budget value = 20 } }
+							add = 100
+						}
+					}
 				}
 			}
 			propose_25_ministry_spending = {
@@ -525,10 +497,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 25 } } }
 				default = { current_ministry_budget = 25 }
 				ai_will_do = {
-					value = 25
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = ministry_spending_score
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { compare_variable = { name = planned_ministry_budget value = 25 } }
+							add = 100
+						}
+					}
 				}
 			}
 			propose_30_ministry_spending = {
@@ -537,10 +512,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 30 } } }
 				default = { current_ministry_budget = 30 }
 				ai_will_do = {
-					value = 30
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = ministry_spending_score
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { compare_variable = { name = planned_ministry_budget value = 30 } }
+							add = 100
+						}
+					}
 				}
 			}
 			propose_35_ministry_spending = {
@@ -549,10 +527,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 35 } } }
 				default = { current_ministry_budget = 35 }
 				ai_will_do = {
-					value = 35
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = ministry_spending_score
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { compare_variable = { name = planned_ministry_budget value = 35 } }
+							add = 100
+						}
+					}
 				}
 			}
 			propose_40_ministry_spending = {
@@ -561,10 +542,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 40 } } }
 				default = { current_ministry_budget = 40 }
 				ai_will_do = {
-					value = 40
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = ministry_spending_score
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { compare_variable = { name = planned_ministry_budget value = 40 } }
+							add = 100
+						}
+					}
 				}
 			}
 			propose_45_ministry_spending = {
@@ -573,10 +557,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 45 } } }
 				default = { current_ministry_budget = 45 }
 				ai_will_do = {
-					value = 45
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = ministry_spending_score
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { compare_variable = { name = planned_ministry_budget value = 45 } }
+							add = 100
+						}
+					}
 				}
 			}
 			propose_50_ministry_spending = {
@@ -585,10 +572,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 50 } } }
 				default = { current_ministry_budget = 50 }
 				ai_will_do = {
-					value = 50
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = ministry_spending_score
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { compare_variable = { name = planned_ministry_budget value = 50 } }
+							add = 100
+						}
+					}
 				}
 			}
 			propose_55_ministry_spending = {
@@ -597,14 +587,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 55 } } }
 				default = { current_ministry_budget = 55 }
 				ai_will_do = {
-					value = 55
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = ministry_spending_score
-					# Sanity check
 					if = {
-						limit = { scope:host = { ai_rationality >= 0 } }
-						multiply = 0
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { compare_variable = { name = planned_ministry_budget value = 55 } }
+							add = 100
+						}
 					}
 				}
 			}
@@ -614,14 +602,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 60 } } }
 				default = { current_ministry_budget = 60 }
 				ai_will_do = {
-					value = 60
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = ministry_spending_score
-					# Sanity check
 					if = {
-						limit = { scope:host = { ai_rationality >= -25 } }
-						multiply = 0
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { compare_variable = { name = planned_ministry_budget value = 60 } }
+							add = 100
+						}
 					}
 				}
 			}
@@ -631,14 +617,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 65 } } }
 				default = { current_ministry_budget = 65 }
 				ai_will_do = {
-					value = 65
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = ministry_spending_score
-					# Sanity check
 					if = {
-						limit = { scope:host = { ai_rationality >= -50 } }
-						multiply = 0
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { compare_variable = { name = planned_ministry_budget value = 65 } }
+							add = 100
+						}
 					}
 				}
 			}
@@ -648,14 +632,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 70 } } }
 				default = { current_ministry_budget = 70 }
 				ai_will_do = {
-					value = 70
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = ministry_spending_score
-					# Sanity check
 					if = {
-						limit = { scope:host = { ai_rationality >= -75 } }
-						multiply = 0
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { compare_variable = { name = planned_ministry_budget value = 70 } }
+							add = 100
+						}
 					}
 				}
 			}
@@ -665,14 +647,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 75 } } }
 				default = { current_ministry_budget = 75 }
 				ai_will_do = {
-					value = 75
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = ministry_spending_score
-					# Sanity check
 					if = {
-						limit = { scope:host = { ai_rationality >= -100 } }
-						multiply = 0
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { compare_variable = { name = planned_ministry_budget value = 75 } }
+							add = 100
+						}
 					}
 				}
 			}
@@ -682,14 +662,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 80 } } }
 				default = { current_ministry_budget = 80 }
 				ai_will_do = {
-					value = 80
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = ministry_spending_score
-					# Sanity check
 					if = {
-						limit = { scope:host = { ai_rationality >= -125 } }
-						multiply = 0
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { compare_variable = { name = planned_ministry_budget value = 80 } }
+							add = 100
+						}
 					}
 				}
 			}
@@ -699,14 +677,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 85 } } }
 				default = { current_ministry_budget = 85 }
 				ai_will_do = {
-					value = 85
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = ministry_spending_score
-					# Sanity check
 					if = {
-						limit = { scope:host = { ai_rationality >= -150 } }
-						multiply = 0
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { compare_variable = { name = planned_ministry_budget value = 85 } }
+							add = 100
+						}
 					}
 				}
 			}
@@ -716,14 +692,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 90 } } }
 				default = { current_ministry_budget = 90 }
 				ai_will_do = {
-					value = 90
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = ministry_spending_score
-					# Sanity check
 					if = {
-						limit = { scope:host = { ai_rationality >= -175 } }
-						multiply = 0
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { compare_variable = { name = planned_ministry_budget value = 90 } }
+							add = 100
+						}
 					}
 				}
 			}
@@ -733,14 +707,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 95 } } }
 				default = { current_ministry_budget = 95 }
 				ai_will_do = {
-					value = 95
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = ministry_spending_score
-					# Sanity check
 					if = {
-						limit = { scope:host = { ai_rationality >= -200 } }
-						multiply = 0
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { compare_variable = { name = planned_ministry_budget value = 95 } }
+							add = 100
+						}
 					}
 				}
 			}
@@ -750,14 +722,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 100 } } }
 				default = { current_ministry_budget = 100 }
 				ai_will_do = {
-					value = 100
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = ministry_spending_score
-					# Sanity check
 					if = {
-						limit = { scope:host = { ai_rationality >= -225 } }
-						multiply = 0
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { compare_variable = { name = planned_ministry_budget value = 100 } }
+							add = 100
+						}
 					}
 				}
 			}
@@ -770,18 +740,12 @@
 				default = { current_salary_budget = 0 }
 				ai_will_do = {
 					value = 0
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = salary_spending_score
-					# Sanity check
 					if = {
-						limit = {
-							scope:host = {
-								ai_rationality >= -50
-								NOT = { debt_level > 0 }
-							}
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { compare_variable = { name = planned_salary_budget value = 0 } }
+							add = 100
 						}
-						multiply = 0
 					}
 				}
 			}
@@ -791,19 +755,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 5 } } }
 				default = { current_salary_budget = 5 }
 				ai_will_do = {
-					value = 5
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = salary_spending_score
-					# Sanity check
+					value = 0
 					if = {
-						limit = {
-							scope:host = {
-								ai_rationality >= -25
-								NOT = { debt_level > 0 }
-							}
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { compare_variable = { name = planned_salary_budget value = 5 } }
+							add = 100
 						}
-						multiply = 0
 					}
 				}
 			}
@@ -813,10 +771,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 10 } } }
 				default = { current_salary_budget = 10 }
 				ai_will_do = {
-					value = 10
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = salary_spending_score
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { compare_variable = { name = planned_salary_budget value = 10 } }
+							add = 100
+						}
+					}
 				}
 			}
 			propose_15_salary_spending = {
@@ -825,10 +786,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 15 } } }
 				default = { current_salary_budget = 15 }
 				ai_will_do = {
-					value = 15
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = salary_spending_score
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { compare_variable = { name = planned_salary_budget value = 15 } }
+							add = 100
+						}
+					}
 				}
 			}
 			propose_20_salary_spending = {
@@ -837,10 +801,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 20 } } }
 				default = { current_salary_budget = 20 }
 				ai_will_do = {
-					value = 20
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = salary_spending_score
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { compare_variable = { name = planned_salary_budget value = 20 } }
+							add = 100
+						}
+					}
 				}
 			}
 			propose_25_salary_spending = {
@@ -849,10 +816,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 25 } } }
 				default = { current_salary_budget = 25 }
 				ai_will_do = {
-					value = 25
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = salary_spending_score
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { compare_variable = { name = planned_salary_budget value = 25 } }
+							add = 100
+						}
+					}
 				}
 			}
 			propose_30_salary_spending = {
@@ -861,10 +831,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 30 } } }
 				default = { current_salary_budget = 30 }
 				ai_will_do = {
-					value = 30
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = salary_spending_score
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { compare_variable = { name = planned_salary_budget value = 30 } }
+							add = 100
+						}
+					}
 				}
 			}
 			propose_35_salary_spending = {
@@ -873,10 +846,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 35 } } }
 				default = { current_salary_budget = 35 }
 				ai_will_do = {
-					value = 35
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = salary_spending_score
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { compare_variable = { name = planned_salary_budget value = 35 } }
+							add = 100
+						}
+					}
 				}
 			}
 			propose_40_salary_spending = {
@@ -885,10 +861,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 40 } } }
 				default = { current_salary_budget = 40 }
 				ai_will_do = {
-					value = 40
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = salary_spending_score
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { compare_variable = { name = planned_salary_budget value = 40 } }
+							add = 100
+						}
+					}
 				}
 			}
 			propose_45_salary_spending = {
@@ -897,10 +876,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 45 } } }
 				default = { current_salary_budget = 45 }
 				ai_will_do = {
-					value = 45
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = salary_spending_score
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { compare_variable = { name = planned_salary_budget value = 45 } }
+							add = 100
+						}
+					}
 				}
 			}
 			propose_50_salary_spending = {
@@ -909,10 +891,13 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 50 } } }
 				default = { current_salary_budget = 50 }
 				ai_will_do = {
-					value = 50
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = salary_spending_score
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { compare_variable = { name = planned_salary_budget value = 50 } }
+							add = 100
+						}
+					}
 				}
 			}
 			propose_55_salary_spending = {
@@ -921,14 +906,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 55 } } }
 				default = { current_salary_budget = 55 }
 				ai_will_do = {
-					value = 55
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = salary_spending_score
-					# Sanity check
 					if = {
-						limit = { scope:host = { ai_rationality >= 0 } }
-						multiply = 0
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { compare_variable = { name = planned_salary_budget value = 55 } }
+							add = 100
+						}
 					}
 				}
 			}
@@ -938,14 +921,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 60 } } }
 				default = { current_salary_budget = 60 }
 				ai_will_do = {
-					value = 60
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = salary_spending_score
-					# Sanity check
 					if = {
-						limit = { scope:host = { ai_rationality >= -25 } }
-						multiply = 0
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { compare_variable = { name = planned_salary_budget value = 60 } }
+							add = 100
+						}
 					}
 				}
 			}
@@ -955,14 +936,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 65 } } }
 				default = { current_salary_budget = 65 }
 				ai_will_do = {
-					value = 65
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = salary_spending_score
-					# Sanity check
 					if = {
-						limit = { scope:host = { ai_rationality >= -50 } }
-						multiply = 0
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { compare_variable = { name = planned_salary_budget value = 65 } }
+							add = 100
+						}
 					}
 				}
 			}
@@ -972,14 +951,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 70 } } }
 				default = { current_salary_budget = 70 }
 				ai_will_do = {
-					value = 70
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = salary_spending_score
-					# Sanity check
 					if = {
-						limit = { scope:host = { ai_rationality >= -75 } }
-						multiply = 0
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { compare_variable = { name = planned_salary_budget value = 70 } }
+							add = 100
+						}
 					}
 				}
 			}
@@ -989,14 +966,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 75 } } }
 				default = { current_salary_budget = 75 }
 				ai_will_do = {
-					value = 75
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = salary_spending_score
-					# Sanity check
 					if = {
-						limit = { scope:host = { ai_rationality >= -100 } }
-						multiply = 0
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { compare_variable = { name = planned_salary_budget value = 75 } }
+							add = 100
+						}
 					}
 				}
 			}
@@ -1006,14 +981,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 80 } } }
 				default = { current_salary_budget = 80 }
 				ai_will_do = {
-					value = 80
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = salary_spending_score
-					# Sanity check
 					if = {
-						limit = { scope:host = { ai_rationality >= -125 } }
-						multiply = 0
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { compare_variable = { name = planned_salary_budget value = 80 } }
+							add = 100
+						}
 					}
 				}
 			}
@@ -1023,14 +996,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 85 } } }
 				default = { current_salary_budget = 85 }
 				ai_will_do = {
-					value = 85
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = salary_spending_score
-					# Sanity check
 					if = {
-						limit = { scope:host = { ai_rationality >= -150 } }
-						multiply = 0
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { compare_variable = { name = planned_salary_budget value = 85 } }
+							add = 100
+						}
 					}
 				}
 			}
@@ -1040,14 +1011,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 90 } } }
 				default = { current_salary_budget = 90 }
 				ai_will_do = {
-					value = 90
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = salary_spending_score
-					# Sanity check
 					if = {
-						limit = { scope:host = { ai_rationality >= -175 } }
-						multiply = 0
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { compare_variable = { name = planned_salary_budget value = 90 } }
+							add = 100
+						}
 					}
 				}
 			}
@@ -1057,14 +1026,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 95 } } }
 				default = { current_salary_budget = 95 }
 				ai_will_do = {
-					value = 95
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = salary_spending_score
-					# Sanity check
 					if = {
-						limit = { scope:host = { ai_rationality >= -200 } }
-						multiply = 0
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { compare_variable = { name = planned_salary_budget value = 95 } }
+							add = 100
+						}
 					}
 				}
 			}
@@ -1074,14 +1041,12 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 100 } } }
 				default = { current_salary_budget = 100 }
 				ai_will_do = {
-					value = 100
-					save_temporary_value_as = proposed_budget
-					save_temporary_scope_as = budget_ruler
-					value = salary_spending_score
-					# Sanity check
 					if = {
-						limit = { scope:host = { ai_rationality >= -225 } }
-						multiply = 0
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { compare_variable = { name = planned_salary_budget value = 100 } }
+							add = 100
+						}
 					}
 				}
 			}
@@ -1219,19 +1184,48 @@
 	
 	ai_will_do = {
 		value = 0
-		add = ai_energy
 		if = {
-			limit = { debt_level >= 0 }
+			limit = { var:planned_military_budget > current_military_budget }
 			add = {
-				value = debt_level
-				multiply = 10
+				value = planned_military_budget
+				subtract = current_military_budget
+			}
+		}
+		else_if = {
+			limit = { var:planned_military_budget < current_military_budget }
+			add = {
+				value = current_military_budget
+				subtract = planned_military_budget
 			}
 		}
 		if = {
-			limit = { is_at_war = yes }
-			add = 30
+			limit = { var:planned_ministry_budget > current_ministry_budget }
+			add = {
+				value = planned_ministry_budget
+				subtract = current_ministry_budget
+			}
 		}
-		min = 20 # Should always be willing to consider a budget adjustment
+		else_if = {
+			limit = { var:planned_ministry_budget < current_ministry_budget }
+			add = {
+				value = current_ministry_budget
+				subtract = planned_ministry_budget
+			}
+		}
+		if = {
+			limit = { var:planned_salary_budget > current_salary_budget }
+			add = {
+				value = planned_salary_budget
+				subtract = current_salary_budget
+			}
+		}
+		else_if = {
+			limit = { var:planned_salary_budget < current_salary_budget }
+			add = {
+				value = current_salary_budget
+				subtract = planned_salary_budget
+			}
+		}
 	}
 	ai_check_interval_by_tier = {
 		barony = 0

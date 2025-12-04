@@ -1,6 +1,7 @@
 provincial_taxes = {
 	display_mode = tree
 	icon = treasury_icon
+	can_be_changed = { scope:liege = { NOT = { legislature_blocks_law_trigger = yes } } }
 	obligation_levels = {
 		provincial_tax_exempt = {
 			position = { 0 0 }
@@ -16,6 +17,8 @@ provincial_taxes = {
 				# Vassals get Treasury income that is this percentage less than their taxes to their liege
 				monthly_treasury_from_liege_mult = 0
 			}
+			
+			flag = has_provincial_taxes
 		}
 		provincial_tax_low = {
 			parent = provincial_tax_exempt
@@ -48,6 +51,8 @@ provincial_taxes = {
 				# Vassals get Treasury income that is this percentage less than their taxes to their liege
 				monthly_treasury_from_liege_mult = -0.05
 			}
+			
+			flag = has_provincial_taxes
 		}
 		provincial_tax_normal = {
 			default = yes
@@ -80,6 +85,8 @@ provincial_taxes = {
 				# Vassals get Treasury income that is this percentage less than their taxes to their liege
 				monthly_treasury_from_liege_mult = -0.1
 			}
+			
+			flag = has_provincial_taxes
 		}
 		provincial_tax_high = {
 			parent = provincial_tax_normal
@@ -113,6 +120,7 @@ provincial_taxes = {
 				monthly_treasury_from_liege_mult = -0.15
 			}
 			
+			flag = has_provincial_taxes
 			flag = obligation_high_taxes
 		}
 		provincial_tax_extortionate = {
@@ -147,6 +155,7 @@ provincial_taxes = {
 				monthly_treasury_from_liege_mult = -0.2
 			}
 			
+			flag = has_provincial_taxes
 			flag = obligation_high_taxes
 		}
 	}

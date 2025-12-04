@@ -125,3 +125,39 @@ court_is_criminal_trigger = {
 		liege = { government_has_flag = government_is_criminal }
 	}
 }
+# Checks whether we should consider a character's interests as being opposed to our own
+character_is_hostile_trigger = {
+	$CHARACTER$ = { save_temporary_scope = loyalty_target }
+	OR = {
+		AND = {
+			opinion = { target = $CHARACTER$ value <= -50 }
+			court_is_despotic_trigger = yes
+			ai_honor < 0
+		}
+		AND = {
+			opinion = { target = $CHARACTER$ value <= -50 }
+			court_is_despotic_trigger = no
+			ai_lawfulness < 0
+		}
+		any_scheme = {
+			scheme_target = $CHARACTER$
+			is_hostile = yes
+		}
+		character_is_war_enemy_trigger = { CHARACTER = $CHARACTER$ }
+	}
+}
+# Checks whether we are enemies in a war, regardless of whose war it technically is
+character_is_war_enemy_trigger = {
+	save_temporary_scope = evaluated_enemy
+	OR = {
+		is_at_war_with = $CHARACTER$
+		$CHARACTER$ = { any_liege_or_above = { is_at_war_with = scope:evaluated_enemy } }
+		any_liege_or_above = {
+			save_temporary_scope = evaluated_enemy
+			OR = {
+				is_at_war_with = $CHARACTER$
+				$CHARACTER$ = { any_liege_or_above = { is_at_war_with = scope:evaluated_enemy } }
+			}
+		}
+	}
+}

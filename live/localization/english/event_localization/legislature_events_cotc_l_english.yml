@@ -253,6 +253,10 @@
  legislature_events.2000.desc: "The [host.GetTitleTierName] has proposed a new budget for [activity.MakeScope.Var('title').GetDefinitiveName], and [activity.MakeScope.Var('title').Title.Custom('GetLegislatureArticle')][activity.MakeScope.Var('title').Title.Custom('GetLegislatureName')] has convened to vote on it. The proposed budget is as follows:\n\n[host.Custom('GetBillProvisions')]\n\nThere is still some time before voting begins. How do you plan to vote?"
  legislature_events.2000.a: "I intend to vote for this budget."
  legislature_events.2000.b: "I intend to vote against this budget."
+ legislature_events.2000.votes_for.tt: "[activity.MakeScope.Var('title').Title.Custom('GetLegislatorName')] Supports [activity.Custom('GetBillType')|U]."
+ legislature_events.2000.votes_for.desc: "[activity.MakeScope.Var('title').Title.Custom('GetLegislatorName')] [voter.GetFullName] intends to vote for the proposed [activity.Custom('GetBillType')]."
+ legislature_events.2000.votes_against.tt: "[activity.MakeScope.Var('title').Title.Custom('GetLegislatorName')] Opposes [activity.Custom('GetBillType')|U]."
+ legislature_events.2000.votes_against.desc: "[activity.MakeScope.Var('title').Title.Custom('GetLegislatorName')] [voter.GetFullName] intends to vote against the proposed [activity.Custom('GetBillType')]."
  
  legislature_events.2100.desc: "[activity.MakeScope.Var('title').Title.Custom('GetLegislatureArticle')|U][activity.MakeScope.Var('title').Title.Custom('GetLegislatureName')|U] has passed your budget, which will now be enacted as official policy:\n\n[activity.Custom('GetBillProvisions')]"
  legislature_events.2100.a: "Mission accomplished.

@@ -4166,6 +4166,24 @@ types MyRealmWindow
 				}
 			}
 
+			### TAX LAWS
+			vbox_law_item = {
+				datacontext = "[GetPlayer]"
+				visible = "[And( GuiLawGroup.IsAvailable, GuiLawGroup.GetLawGroup.HasFlag( 'province_tax_law' ) )]"
+
+				blockoverride "item_title"
+				{
+					text = "MY_REALM_WINDOW_LAWS_PROVINCE_TAX_LAWS"
+				}
+
+				blockoverride "show_law"
+				{
+					visible = "[And( GuiLawGroup.IsAvailable, GuiLawGroup.GetLawGroup.HasFlag( 'province_tax_law' ) )]"
+
+					tooltip_when_disabled = "MY_REALM_WINDOW_LAWS_PROVINCE_TAX_LAWS_DESC_DISABLED"
+				}
+			}
+
 			### TREASURY BUDGET LAWS
 			vbox_law_item = {
 				datacontext = "[GetPlayer]"

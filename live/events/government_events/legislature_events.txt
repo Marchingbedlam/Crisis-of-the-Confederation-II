@@ -52,19 +52,21 @@ legislature_events.10 = {
 		if = {
 			limit = { is_pool_guest = yes }
 			court_owner = {
-				send_interface_toast = {
+				send_interface_message = {
 					type = msg_legislator_elected
 					title = legislature_events.10.legislator_elected.tt
 					desc = legislature_events.10.legislator_elected.desc
+					left_icon = scope:legislator_elect
 				}
 			}
 		}
 		else = {
 			liege = {
-				send_interface_toast = {
+				send_interface_message = {
 					type = msg_legislator_elected
 					title = legislature_events.10.legislator_elected.tt
 					desc = legislature_events.10.legislator_elected.desc
+					left_icon = scope:legislator_elect
 				}
 			}
 		}
@@ -105,19 +107,21 @@ legislature_events.11 = {
 		if = {
 			limit = { is_pool_guest = yes }
 			court_owner = {
-				send_interface_toast = {
+				send_interface_message = {
 					type = msg_legislator_elected
 					title = legislature_events.11.legislator_elected.tt
 					desc = legislature_events.11.legislator_elected.desc
+					left_icon = scope:legislator_elect
 				}
 			}
 		}
 		else = {
 			liege = {
-				send_interface_toast = {
+				send_interface_message = {
 					type = msg_legislator_elected
 					title = legislature_events.11.legislator_elected.tt
 					desc = legislature_events.11.legislator_elected.desc
+					left_icon = scope:legislator_elect
 				}
 			}
 		}
@@ -531,35 +535,35 @@ legislature_events.1110 = {
 		# The ruler of your constituency, who may have had a hand in your election
 		if = {
 			limit = { exists = var:riding.holder }
-			add_to_guest_subset = { name = possible_lobbyists target = var:riding.holder }
+			add_to_variable_list = { name = possible_lobbyists target = var:riding.holder }
 		}
 		# Friends and lovers
 		every_relation = {
 			type = friend
 			if = {
 				limit = { NOT = { ROOT = { is_target_in_variable_list = { target = PREV name = possible_lobbyists } } } }
-				ROOT = { add_to_guest_subset = { name = possible_lobbyists target = PREV } }
+				ROOT = { add_to_variable_list = { name = possible_lobbyists target = PREV } }
 			}
 		}
 		every_relation = {
 			type = lover
 			if = {
 				limit = { NOT = { ROOT = { is_target_in_variable_list = { target = PREV name = possible_lobbyists } } } }
-				ROOT = { add_to_guest_subset = { name = possible_lobbyists target = PREV } }
+				ROOT = { add_to_variable_list = { name = possible_lobbyists target = PREV } }
 			}
 		}
 		every_relation = {
 			type = soulmate
 			if = {
 				limit = { NOT = { ROOT = { is_target_in_variable_list = { target = PREV name = possible_lobbyists } } } }
-				ROOT = { add_to_guest_subset = { name = possible_lobbyists target = PREV } }
+				ROOT = { add_to_variable_list = { name = possible_lobbyists target = PREV } }
 			}
 		}
 		every_relation = {
 			type = elder
 			if = {
 				limit = { NOT = { ROOT = { is_target_in_variable_list = { target = PREV name = possible_lobbyists } } } }
-				ROOT = { add_to_guest_subset = { name = possible_lobbyists target = PREV } }
+				ROOT = { add_to_variable_list = { name = possible_lobbyists target = PREV } }
 			}
 		}
 		# The leader of this legislator's ideology in the legislature
@@ -1119,7 +1123,8 @@ legislature_events.1510 = {
 				send_interface_toast = {
 					type = msg_vote_change_good
 					title = legislature_events.1500.bribe_accepted.tt
-					desc = legislature_events.1500.bribe_accepted.desc
+					custom_tooltip = legislature_events.1500.bribe_accepted.desc
+					left_icon = scope:target_opponent
 				}
 			}
 		}
@@ -1160,7 +1165,8 @@ legislature_events.1510 = {
 				send_interface_toast = {
 					type = msg_vote_change_bad
 					title = legislature_events.1500.bribe_refused.tt
-					desc = legislature_events.1500.bribe_refused.desc
+					custom_tooltip = legislature_events.1500.bribe_refused.desc
+					left_icon = scope:target_opponent
 				}
 			}
 		}
@@ -1228,7 +1234,8 @@ legislature_events.1520 = {
 				send_interface_toast = {
 					type = msg_vote_change_good
 					title = legislature_events.1500.pork_accepted.tt
-					desc = legislature_events.1500.pork_accepted.desc
+					custom_tooltip = legislature_events.1500.pork_accepted.desc
+					left_icon = scope:target_opponent
 				}
 			}
 		}
@@ -1275,7 +1282,8 @@ legislature_events.1520 = {
 				send_interface_toast = {
 					type = msg_vote_change_bad
 					title = legislature_events.1500.pork_refused.tt
-					desc = legislature_events.1500.pork_refused.desc
+					custom_tooltip = legislature_events.1500.pork_refused.desc
+					left_icon = scope:target_opponent
 				}
 			}
 		}
@@ -1317,7 +1325,8 @@ legislature_events.1530 = {
 				send_interface_toast = {
 					type = msg_vote_change_good
 					title = legislature_events.1500.hook_used.tt
-					desc = legislature_events.1500.hook_used.desc
+					custom_tooltip = legislature_events.1500.hook_used.desc
+					left_icon = scope:target_opponent
 				}
 			}
 		}
@@ -1353,7 +1362,8 @@ legislature_events.1535 = {
 				send_interface_toast = {
 					type = msg_vote_change_good
 					title = legislature_events.1500.hook_succeeded.tt
-					desc = legislature_events.1500.hook_succeeded.desc
+					custom_tooltip = legislature_events.1500.hook_succeeded.desc
+					left_icon = scope:target_opponent
 				}
 			}
 		}
@@ -1388,7 +1398,8 @@ legislature_events.1535 = {
 				send_interface_toast = {
 					type = msg_vote_change_bad
 					title = legislature_events.1500.hook_failed.tt
-					desc = legislature_events.1500.hook_failed.desc
+					custom_tooltip = legislature_events.1500.hook_failed.desc
+					left_icon = scope:target_opponent
 				}
 			}
 		}
@@ -1433,7 +1444,8 @@ legislature_events.1540 = {
 				send_interface_toast = {
 					type = msg_vote_change_good
 					title = legislature_events.1500.hook_gained.tt
-					desc = legislature_events.1500.hook_gained.desc
+					custom_tooltip = legislature_events.1500.hook_gained.desc
+					left_icon = scope:target_opponent
 				}
 			}
 		}
@@ -1464,7 +1476,8 @@ legislature_events.1540 = {
 				send_interface_toast = {
 					type = msg_vote_change_bad
 					title = legislature_events.1500.hook_not_gained.tt
-					desc = legislature_events.1500.hook_not_gained.desc
+					custom_tooltip = legislature_events.1500.hook_not_gained.desc
+					left_icon = scope:target_opponent
 				}
 			}
 		}
@@ -1515,7 +1528,7 @@ legislature_events.1600 = {
 					send_interface_toast = {
 						type = msg_vote_speech_good
 						title = legislature_events.1600.successful_speech_self.tt
-						desc = legislature_events.1600.successful_speech_self.desc
+						custom_tooltip = legislature_events.1600.successful_speech_self.desc
 					}
 					scope:host = {
 						if = {
@@ -1523,7 +1536,8 @@ legislature_events.1600 = {
 							send_interface_toast = {
 								type = msg_vote_speech_good
 								title = legislature_events.1600.successful_speech_host.tt
-								desc = legislature_events.1600.successful_speech_host.desc
+								custom_tooltip = legislature_events.1600.successful_speech_host.desc
+								left_icon = scope:speaker
 							}
 						}
 					}
@@ -1534,6 +1548,7 @@ legislature_events.1600 = {
 								type = msg_vote_speech_good
 								title = legislature_events.1600.successful_speech.tt
 								desc = legislature_events.1600.successful_speech.desc
+								left_icon = scope:speaker
 							}
 						}
 						every_guest_subset = {
@@ -1554,7 +1569,7 @@ legislature_events.1600 = {
 					send_interface_toast = {
 						type = msg_vote_speech_bad
 						title = legislature_events.1600.unsuccessful_speech_self.tt
-						desc = legislature_events.1600.unsuccessful_speech_self.desc
+						custom_tooltip = legislature_events.1600.unsuccessful_speech_self.desc
 					}
 					scope:host = {
 						if = {
@@ -1562,7 +1577,8 @@ legislature_events.1600 = {
 							send_interface_toast = {
 								type = msg_vote_speech_bad
 								title = legislature_events.1600.unsuccessful_speech_host.tt
-								desc = legislature_events.1600.unsuccessful_speech_host.desc
+								custom_tooltip = legislature_events.1600.unsuccessful_speech_host.desc
+								left_icon = scope:speaker
 							}
 						}
 					}
@@ -1573,6 +1589,7 @@ legislature_events.1600 = {
 								type = msg_vote_speech_bad
 								title = legislature_events.1600.unsuccessful_speech.tt
 								desc = legislature_events.1600.unsuccessful_speech.desc
+								left_icon = scope:speaker
 							}
 						}
 						every_guest_subset = {
@@ -1581,6 +1598,7 @@ legislature_events.1600 = {
 								type = msg_vote_speech_neutral
 								title = legislature_events.1600.unsuccessful_speech.tt
 								desc = legislature_events.1600.unsuccessful_speech.desc
+								left_icon = scope:speaker
 							}
 						}
 					}
@@ -1635,6 +1653,7 @@ legislature_events.1601 = {
 		trigger = { NOT = { has_variable = vote_strength } }
 		show_as_unavailable = { always = yes }
 		hidden_effect = {
+			save_scope_as = vote_changer
 			scope:activity = {
 				remove_from_guest_subset = { name = budget_opponents target = ROOT }
 				add_to_guest_subset = { name = budget_supporters target = ROOT }
@@ -1644,6 +1663,7 @@ legislature_events.1601 = {
 					type = msg_vote_change_good
 					title = legislature_events.1601.changed_vote.tt
 					desc = legislature_events.1601.changed_vote.desc
+					left_icon = scope:vote_changer
 				}
 			}
 		}
@@ -1740,13 +1760,14 @@ legislature_events.1650 = {
 					send_interface_toast = {
 						type = msg_vote_speech_good
 						title = legislature_events.1650.successful_speech_self.tt
-						desc = legislature_events.1650.successful_speech_self.desc
+						custom_tooltip = legislature_events.1650.successful_speech_self.desc
 					}
 					scope:host = {
 						send_interface_toast = {
 							type = msg_vote_speech_bad
 							title = legislature_events.1650.successful_speech_host.tt
-							desc = legislature_events.1650.successful_speech_host.desc
+							custom_tooltip = legislature_events.1650.successful_speech_host.desc
+							left_icon = scope:speaker
 						}
 					}
 					scope:activity = {
@@ -1760,6 +1781,7 @@ legislature_events.1650 = {
 								type = msg_vote_speech_good
 								title = legislature_events.1650.successful_speech.tt
 								desc = legislature_events.1650.successful_speech.desc
+								left_icon = scope:speaker
 							}
 						}
 					}
@@ -1776,13 +1798,14 @@ legislature_events.1650 = {
 					send_interface_toast = {
 						type = msg_vote_speech_bad
 						title = legislature_events.1650.unsuccessful_speech_self.tt
-						desc = legislature_events.1650.unsuccessful_speech_self.desc
+						custom_tooltip = legislature_events.1650.unsuccessful_speech_self.desc
 					}
 					scope:host = {
 						send_interface_toast = {
 							type = msg_vote_speech_neutral
 							title = legislature_events.1650.unsuccessful_speech_host.tt
-							desc = legislature_events.1650.unsuccessful_speech_host.desc
+							custom_tooltip = legislature_events.1650.unsuccessful_speech_host.desc
+							left_icon = scope:speaker
 						}
 					}
 					scope:activity = {
@@ -1792,6 +1815,7 @@ legislature_events.1650 = {
 								type = msg_vote_speech_neutral
 								title = legislature_events.1650.unsuccessful_speech.tt
 								desc = legislature_events.1650.unsuccessful_speech.desc
+								left_icon = scope:speaker
 							}
 						}
 						every_guest_subset = {
@@ -1800,6 +1824,7 @@ legislature_events.1650 = {
 								type = msg_vote_speech_bad
 								title = legislature_events.1650.unsuccessful_speech.tt
 								desc = legislature_events.1650.unsuccessful_speech.desc
+								left_icon = scope:speaker
 							}
 						}
 					}
@@ -1859,11 +1884,13 @@ legislature_events.1651 = {
 			}
 			set_variable = { name = vote_strength value = 50 }
 			change_variable = { name = vote_strength add = scope:speaker.diplomacy }
+			save_scope_as = vote_changer
 			scope:host = {
 				send_interface_message = {
 					type = msg_vote_change_bad
 					title = legislature_events.1651.changed_vote.tt
 					desc = legislature_events.1651.changed_vote.desc
+					left_icon = scope:vote_changer
 				}
 			}
 		}
@@ -2357,14 +2384,32 @@ legislature_events.1700 = {
 	option = {
 		name = legislature_events.1700.m
 		if = {
-			limit = { ai_authoritarianism >= very_high_positive_ai_value }
-			custom_tooltip = pos_authoritarianism_desc
-			add_stress = medium_stress_gain
-		}
-		else_if = {
-			limit = { ai_authoritarianism >= medium_positive_ai_value }
-			custom_tooltip = pos_authoritarianism_desc
-			add_stress = minor_stress_gain
+			limit = {
+				OR = {
+					AND = {
+						scope:legislator = { is_in_guest_subset = { name = bill_supporters } }
+						opinion_of_bill < 0
+						NOT = { this = scope:host }
+					}
+					AND = {
+						scope:legislator = { is_in_guest_subset = { name = bill_opponents } }
+						OR = {
+							this = scope:host
+							opinion_of_bill > 0
+						}
+					}
+				}
+			}
+			if = {
+				limit = { ai_authoritarianism >= very_high_positive_ai_value }
+				custom_tooltip = pos_authoritarianism_desc
+				add_stress = medium_stress_gain
+			}
+			else_if = {
+				limit = { ai_authoritarianism >= medium_positive_ai_value }
+				custom_tooltip = pos_authoritarianism_desc
+				add_stress = minor_stress_gain
+			}
 		}
 		ai_chance = {
 			base = 100
@@ -2372,13 +2417,24 @@ legislature_events.1700 = {
 				add = {
 					value = 0
 					subtract = ai_energy
+					subtract = ai_authoritarianism
+				}
+				NOR = {
+					AND = {
+						scope:legislator = { is_in_guest_subset = { name = bill_supporters } }
+						opinion_of_bill < 0
+						NOT = { this = scope:host }
+					}
+					AND = {
+						scope:legislator = { is_in_guest_subset = { name = bill_opponents } }
+						OR = {
+							this = scope:host
+							opinion_of_bill > 0
+						}
+					}
 				}
 			}
 			modifier = {
-				add = {
-					value = 0
-					subtract = ai_authoritarianism
-				}
 			}
 		}
 	}
@@ -2416,10 +2472,11 @@ legislature_events.1710 = {
 			}
 			set_variable = { name = vote_strength value = "opinion(scope:lobbyist)" }
 			scope:host = {
-				send_interface_toast = {
+				send_interface_message = {
 					type = msg_vote_change_good
 					title = legislature_events.1710.changed_vote.tt
 					desc = legislature_events.1710.changed_vote.desc
+					left_icon = scope:legislator
 				}
 				add_opinion = { modifier = opinion_meddled_for_my_bill target = scope:lobbyist }
 			}
@@ -2427,7 +2484,8 @@ legislature_events.1710 = {
 				send_interface_toast = {
 					type = msg_vote_change_good
 					title = legislature_events.1710.appeal_succeeded.tt
-					desc = legislature_events.1710.appeal_succeeded.desc
+					custom_tooltip = legislature_events.1710.appeal_succeeded.desc
+					left_icon = scope:legislator
 				}
 			}
 		}
@@ -2459,7 +2517,8 @@ legislature_events.1710 = {
 				send_interface_toast = {
 					type = msg_vote_change_bad
 					title = legislature_events.1710.appeal_failed.tt
-					desc = legislature_events.1710.appeal_failed.desc
+					custom_tooltip = legislature_events.1710.appeal_failed.desc
+					left_icon = scope:legislator
 				}
 			}
 		}
@@ -2501,10 +2560,11 @@ legislature_events.1715 = {
 			}
 			set_variable = { name = vote_strength value = "opinion(scope:lobbyist)" }
 			scope:host = {
-				send_interface_toast = {
+				send_interface_message = {
 					type = msg_vote_change_bad
 					title = legislature_events.1715.changed_vote.tt
 					desc = legislature_events.1715.changed_vote.desc
+					left_icon = scope:legislator
 				}
 				add_opinion = { modifier = opinion_meddled_against_my_bill target = scope:lobbyist }
 			}
@@ -2512,7 +2572,8 @@ legislature_events.1715 = {
 				send_interface_toast = {
 					type = msg_vote_change_good
 					title = legislature_events.1715.appeal_succeeded.tt
-					desc = legislature_events.1715.appeal_succeeded.desc
+					custom_tooltip = legislature_events.1715.appeal_succeeded.desc
+					left_icon = scope:legislator
 				}
 			}
 		}
@@ -2544,7 +2605,8 @@ legislature_events.1715 = {
 				send_interface_toast = {
 					type = msg_vote_change_bad
 					title = legislature_events.1715.appeal_failed.tt
-					desc = legislature_events.1715.appeal_failed.desc
+					custom_tooltip = legislature_events.1715.appeal_failed.desc
+					left_icon = scope:legislator
 				}
 			}
 		}
@@ -2587,10 +2649,11 @@ legislature_events.1720 = {
 			set_variable = { name = vote_strength value = 100 }
 			change_variable = { name = vote_strength add = ai_zeal }
 			scope:host = {
-				send_interface_toast = {
+				send_interface_message = {
 					type = msg_vote_change_good
 					title = legislature_events.1710.changed_vote.tt
 					desc = legislature_events.1710.changed_vote.desc
+					left_icon = scope:legislator
 				}
 				add_opinion = { modifier = opinion_meddled_for_my_bill target = scope:lobbyist }
 			}
@@ -2598,7 +2661,8 @@ legislature_events.1720 = {
 				send_interface_toast = {
 					type = msg_vote_change_good
 					title = legislature_events.1710.appeal_succeeded.tt
-					desc = legislature_events.1710.appeal_succeeded.desc
+					custom_tooltip = legislature_events.1710.appeal_succeeded.desc
+					left_icon = scope:legislator
 				}
 			}
 		}
@@ -2632,7 +2696,8 @@ legislature_events.1720 = {
 				send_interface_toast = {
 					type = msg_vote_change_bad
 					title = legislature_events.1710.appeal_failed.tt
-					desc = legislature_events.1710.appeal_failed.desc
+					custom_tooltip = legislature_events.1710.appeal_failed.desc
+					left_icon = scope:legislator
 				}
 			}
 		}
@@ -2675,10 +2740,11 @@ legislature_events.1725 = {
 			set_variable = { name = vote_strength value = 100 }
 			change_variable = { name = vote_strength add = ai_zeal }
 			scope:host = {
-				send_interface_toast = {
+				send_interface_message = {
 					type = msg_vote_change_bad
 					title = legislature_events.1715.changed_vote.tt
 					desc = legislature_events.1715.changed_vote.desc
+					left_icon = scope:legislator
 				}
 				add_opinion = { modifier = opinion_meddled_against_my_bill target = scope:lobbyist }
 			}
@@ -2686,7 +2752,8 @@ legislature_events.1725 = {
 				send_interface_toast = {
 					type = msg_vote_change_good
 					title = legislature_events.1715.appeal_succeeded.tt
-					desc = legislature_events.1715.appeal_succeeded.desc
+					custom_tooltip = legislature_events.1715.appeal_succeeded.desc
+					left_icon = scope:legislator
 				}
 			}
 		}
@@ -2720,7 +2787,8 @@ legislature_events.1725 = {
 				send_interface_toast = {
 					type = msg_vote_change_bad
 					title = legislature_events.1715.appeal_failed.tt
-					desc = legislature_events.1715.appeal_failed.desc
+					custom_tooltip = legislature_events.1715.appeal_failed.desc
+					left_icon = scope:legislator
 				}
 			}
 		}
@@ -2761,10 +2829,11 @@ legislature_events.1730 = {
 			}
 			set_variable = { name = vote_strength value = 100000 } # Should be functionally infinite
 			scope:host = {
-				send_interface_toast = {
+				send_interface_message = {
 					type = msg_vote_change_good
 					title = legislature_events.1710.changed_vote.tt
 					desc = legislature_events.1710.changed_vote.desc
+					left_icon = scope:legislator
 				}
 				add_opinion = { modifier = opinion_meddled_for_my_bill target = scope:lobbyist }
 			}
@@ -2772,7 +2841,8 @@ legislature_events.1730 = {
 				send_interface_toast = {
 					type = msg_vote_change_good
 					title = legislature_events.1710.appeal_succeeded.tt
-					desc = legislature_events.1710.appeal_succeeded.desc
+					custom_tooltip = legislature_events.1710.appeal_succeeded.desc
+					left_icon = scope:legislator
 				}
 			}
 		}
@@ -2804,10 +2874,11 @@ legislature_events.1735 = {
 			}
 			set_variable = { name = vote_strength value = 100000 } # Should be functionally infinite
 			scope:host = {
-				send_interface_toast = {
+				send_interface_message = {
 					type = msg_vote_change_bad
 					title = legislature_events.1715.changed_vote.tt
 					desc = legislature_events.1715.changed_vote.desc
+					left_icon = scope:legislator
 				}
 				add_opinion = { modifier = opinion_meddled_against_my_bill target = scope:lobbyist }
 			}
@@ -2815,7 +2886,8 @@ legislature_events.1735 = {
 				send_interface_toast = {
 					type = msg_vote_change_good
 					title = legislature_events.1715.appeal_succeeded.tt
-					desc = legislature_events.1715.appeal_succeeded.desc
+					custom_tooltip = legislature_events.1715.appeal_succeeded.desc
+					left_icon = scope:legislator
 				}
 			}
 		}
@@ -2850,10 +2922,11 @@ legislature_events.1740 = {
 			set_variable = { name = vote_strength value = 100 }
 			change_variable = { name = vote_strength add = ai_honor }
 			scope:host = {
-				send_interface_toast = {
+				send_interface_message = {
 					type = msg_vote_change_good
 					title = legislature_events.1710.changed_vote.tt
 					desc = legislature_events.1710.changed_vote.desc
+					left_icon = scope:legislator
 				}
 				add_opinion = { modifier = opinion_meddled_for_my_bill target = scope:lobbyist }
 			}
@@ -2861,7 +2934,8 @@ legislature_events.1740 = {
 				send_interface_toast = {
 					type = msg_vote_change_good
 					title = legislature_events.1710.appeal_succeeded.tt
-					desc = legislature_events.1710.appeal_succeeded.desc
+					custom_tooltip = legislature_events.1710.appeal_succeeded.desc
+					left_icon = scope:legislator
 				}
 			}
 		}
@@ -2890,7 +2964,8 @@ legislature_events.1740 = {
 				send_interface_toast = {
 					type = msg_vote_change_bad
 					title = legislature_events.1710.appeal_failed.tt
-					desc = legislature_events.1710.appeal_failed.desc
+					custom_tooltip = legislature_events.1710.appeal_failed.desc
+					left_icon = scope:legislator
 				}
 			}
 		}
@@ -2934,10 +3009,11 @@ legislature_events.1745 = {
 			set_variable = { name = vote_strength value = 100 }
 			change_variable = { name = vote_strength add = ai_honor }
 			scope:host = {
-				send_interface_toast = {
+				send_interface_message = {
 					type = msg_vote_change_bad
 					title = legislature_events.1715.changed_vote.tt
 					desc = legislature_events.1715.changed_vote.desc
+					left_icon = scope:legislator
 				}
 				add_opinion = { modifier = opinion_meddled_against_my_bill target = scope:lobbyist }
 			}
@@ -2945,7 +3021,8 @@ legislature_events.1745 = {
 				send_interface_toast = {
 					type = msg_vote_change_good
 					title = legislature_events.1715.appeal_succeeded.tt
-					desc = legislature_events.1715.appeal_succeeded.desc
+					custom_tooltip = legislature_events.1715.appeal_succeeded.desc
+					left_icon = scope:legislator
 				}
 			}
 		}
@@ -2974,7 +3051,8 @@ legislature_events.1745 = {
 				send_interface_toast = {
 					type = msg_vote_change_bad
 					title = legislature_events.1715.appeal_failed.tt
-					desc = legislature_events.1715.appeal_failed.desc
+					custom_tooltip = legislature_events.1715.appeal_failed.desc
+					left_icon = scope:legislator
 				}
 			}
 		}
@@ -3018,10 +3096,11 @@ legislature_events.1750 = {
 			set_variable = { name = vote_strength value = 100 }
 			change_variable = { name = vote_strength add = ai_honor }
 			scope:host = {
-				send_interface_toast = {
+				send_interface_message = {
 					type = msg_vote_change_good
 					title = legislature_events.1710.changed_vote.tt
 					desc = legislature_events.1710.changed_vote.desc
+					left_icon = scope:legislator
 				}
 				add_opinion = { modifier = opinion_meddled_for_my_bill target = scope:lobbyist }
 			}
@@ -3029,7 +3108,8 @@ legislature_events.1750 = {
 				send_interface_toast = {
 					type = msg_vote_change_good
 					title = legislature_events.1710.appeal_succeeded.tt
-					desc = legislature_events.1710.appeal_succeeded.desc
+					custom_tooltip = legislature_events.1710.appeal_succeeded.desc
+					left_icon = scope:legislator
 				}
 			}
 		}
@@ -3055,7 +3135,8 @@ legislature_events.1750 = {
 				send_interface_toast = {
 					type = msg_vote_change_bad
 					title = legislature_events.1710.appeal_failed.tt
-					desc = legislature_events.1710.appeal_failed.desc
+					custom_tooltip = legislature_events.1710.appeal_failed.desc
+					left_icon = scope:legislator
 				}
 			}
 		}
@@ -3099,10 +3180,11 @@ legislature_events.1755 = {
 			set_variable = { name = vote_strength value = 100 }
 			change_variable = { name = vote_strength add = ai_honor }
 			scope:host = {
-				send_interface_toast = {
+				send_interface_message = {
 					type = msg_vote_change_bad
 					title = legislature_events.1715.changed_vote.tt
 					desc = legislature_events.1715.changed_vote.desc
+					left_icon = scope:legislator
 				}
 				add_opinion = { modifier = opinion_meddled_for_my_bill target = scope:lobbyist }
 			}
@@ -3110,7 +3192,8 @@ legislature_events.1755 = {
 				send_interface_toast = {
 					type = msg_vote_change_good
 					title = legislature_events.1715.appeal_succeeded.tt
-					desc = legislature_events.1715.appeal_succeeded.desc
+					custom_tooltip = legislature_events.1715.appeal_succeeded.desc
+					left_icon = scope:legislator
 				}
 			}
 		}
@@ -3136,7 +3219,8 @@ legislature_events.1755 = {
 				send_interface_toast = {
 					type = msg_vote_change_bad
 					title = legislature_events.1715.appeal_failed.tt
-					desc = legislature_events.1715.appeal_failed.desc
+					custom_tooltip = legislature_events.1715.appeal_failed.desc
+					left_icon = scope:legislator
 				}
 			}
 		}
@@ -3200,13 +3284,15 @@ legislature_events.1760 = {
 					type = msg_vote_change_good
 					title = legislature_events.1710.changed_vote.tt
 					desc = legislature_events.1710.changed_vote.desc
+					left_icon = scope:legislator
 				}
 			}
 			scope:lobbyist = {
 				send_interface_toast = {
 					type = msg_vote_change_good
 					title = legislature_events.1710.appeal_succeeded.tt
-					desc = legislature_events.1710.appeal_succeeded.desc
+					custom_tooltip = legislature_events.1710.appeal_succeeded.desc
+					left_icon = scope:legislator
 				}
 			}
 		}
@@ -3239,7 +3325,8 @@ legislature_events.1760 = {
 				send_interface_toast = {
 					type = msg_vote_change_bad
 					title = legislature_events.1710.appeal_failed.tt
-					desc = legislature_events.1710.appeal_failed.desc
+					custom_tooltip = legislature_events.1710.appeal_failed.desc
+					left_icon = scope:legislator
 				}
 			}
 		}
@@ -3303,13 +3390,15 @@ legislature_events.1765 = {
 					type = msg_vote_change_bad
 					title = legislature_events.1715.changed_vote.tt
 					desc = legislature_events.1715.changed_vote.desc
+					left_icon = scope:legislator
 				}
 			}
 			scope:lobbyist = {
 				send_interface_toast = {
 					type = msg_vote_change_good
 					title = legislature_events.1715.appeal_succeeded.tt
-					desc = legislature_events.1715.appeal_succeeded.desc
+					custom_tooltip = legislature_events.1715.appeal_succeeded.desc
+					left_icon = scope:legislator
 				}
 			}
 		}
@@ -3342,7 +3431,8 @@ legislature_events.1765 = {
 				send_interface_toast = {
 					type = msg_vote_change_bad
 					title = legislature_events.1715.appeal_failed.tt
-					desc = legislature_events.1715.appeal_failed.desc
+					custom_tooltip = legislature_events.1715.appeal_failed.desc
+					left_icon = scope:legislator
 				}
 			}
 		}
@@ -3371,7 +3461,7 @@ legislature_events.2000 = {
 	}
 	left_portrait = {
 		character = scope:host
-		animation = throne_room_ruler
+		animation = idle
 	}
 	
 	immediate = { set_variable = event_did_fire }
@@ -3386,6 +3476,17 @@ legislature_events.2000 = {
 			}
 		}
 		vote_for_budget_strength_effect = yes
+		hidden_effect = {
+			save_scope_as = voter
+			scope:host = {
+				send_interface_message = {
+					type = msg_vote_change_good
+					title = legislature_events.2000.votes_for.tt
+					desc = legislature_events.2000.votes_for.desc
+					left_icon = scope:voter
+				}
+			}
+		}
 		ai_chance = {
 			base = 50
 			# I just want to block any bills, period
@@ -3448,6 +3549,17 @@ legislature_events.2000 = {
 			}
 		}
 		vote_against_budget_strength_effect = yes
+		hidden_effect = {
+			save_scope_as = voter
+			scope:host = {
+				send_interface_message = {
+					type = msg_vote_change_bad
+					title = legislature_events.2000.votes_against.tt
+					desc = legislature_events.2000.votes_against.desc
+					left_icon = scope:voter
+				}
+			}
+		}
 		ai_chance = {
 			base = 50
 			# I am a rubber stamp
@@ -3509,14 +3621,13 @@ legislature_events.2100 = {
 		animation = war_over_win
 	}
 	
-	immediate = { set_variable = bill_passed }
-	
 	option = {
 		name = legislature_events.2100.a
 		add_prestige = {
 			value = 50
 			multiply = tier_multiplier
 		}
+		hidden_effect = { set_variable = bill_passed }
 		pass_military_budget_effect = yes
 		pass_ministry_budget_effect = yes
 		pass_salary_budget_effect = yes
@@ -3616,18 +3727,20 @@ legislature_events.2200 = {
 		hidden_effect = {
 			every_in_list = {
 				variable = supporters_gained
-				send_interface_toast = {
+				send_interface_message = {
 					type = msg_vote_change_bad
 					title = legislature_events.2200.refused_amendment.tt
 					desc = legislature_events.2200.refused_amendment.desc
+					left_icon = scope:legislator
 				}
 			}
 			every_in_list = {
 				variable = supporters_lost
-				send_interface_toast = {
+				send_interface_message = {
 					type = msg_vote_change_good
 					title = legislature_events.2200.refused_amendment.tt
 					desc = legislature_events.2200.refused_amendment.desc
+					left_icon = scope:legislator
 				}
 			}
 		}

@@ -1,48 +1,538 @@
-
-quarterly_playable_pulse = {
-	on_actions = {
-		legislature_quarterly_pulse
+﻿#################
+# HOOKS TO CODE #
+#################
+on_game_start_after_lobby = { on_actions = { global_government_setup_on_action } }
+on_title_gained = { on_actions = { government_update_on_action } }
+on_title_lost = { on_actions = { government_update_on_action } }
+on_primary_title_change = { on_actions = { government_update_on_action } }
+on_government_change = { on_actions = { government_update_on_action } }
+on_vassal_changed = {
+	effect = {
+		trigger_event = { on_action = government_update_on_action }
+		liege ?= {
+			if = {
+				limit = { NOT = { THIS = PREV } }
+				trigger_event = { on_action = government_update_on_action }
+			}
+		}
 	}
 }
-legislature_quarterly_pulse = {
+quarterly_playable_pulse = {
+	on_actions = {
+		progress_legislature_on_action
+		plan_budget_on_action
+	}
+}
+
+###################
+# ROOT ON_ACTIONS #
+###################
+global_government_setup_on_action = {
 	effect = {
-		# Progress the terms of any legislatures
-		any_held_title = {
-			var:legislature ?= {
-				if = {
-					limit = { situation_current_phase = legislature_in_session }
-					change_variable = { name = months_in_session add = 3 }
-				}
-				# If the term is up, call an election
-				if = {
-					limit = {
-						situation_current_phase = legislature_in_session
-						OR = {
-							AND = {
-								ROOT = { has_realm_law = two_year_sessions }
-								var:months_in_session >= 24
-							}
-							AND = {
-								ROOT = { has_realm_law = four_year_sessions }
-								var:months_in_session >= 48
-							}
-							AND = {
-								ROOT = { has_realm_law = six_year_sessions }
-								var:months_in_session >= 72
-							}
-							AND = {
-								ROOT = { has_realm_law = eight_year_sessions }
-								var:months_in_session >= 96
-							}
-							AND = {
-								ROOT = { has_realm_law = ten_year_sessions }
-								var:months_in_session >= 120
-							}
-						}
-					}
-					activate_situation_catalyst = { catalyst = catalyst_term_expired character = ROOT }
+		every_ruler = { trigger_event = { on_action = government_setup_on_action } }
+	}
+}
+government_setup_on_action = {
+	on_actions = {
+		# Legislatures
+		initialize_starting_legislature_on_action
+		
+		# Laws
+		province_taxes_on_action
+		
+		# Planning
+		plan_budget_on_action
+	}
+}
+government_update_on_action = {
+	on_actions = {
+		# Legislatures
+		initialize_new_legislature_on_action
+		abolish_legislature_on_action
+		reattach_legislature_on_action
+		merge_legislatures_on_action
+		
+		# Laws
+		province_taxes_on_action
+		
+		# Planning
+		plan_budget_on_action
+	}
+}
+
+################
+# LEGISLATURES #
+################
+initialize_starting_legislature_on_action = {
+	trigger = {
+		should_have_legislature_trigger = yes
+		has_legislature_trigger = no
+	}
+	effect = {
+		save_scope_as = ruler
+		debug_log_scopes = yes
+		start_situation = {
+			type = legislature
+			save_scope_as = situation
+			start_phase = legislature_in_session
+		}
+		every_held_title = {
+			save_temporary_scope_as = temp_title
+			scope:situation.situation_sub_region:legislature_title_region = {
+				add_dejure_title_to_sub_region = scope:temp_title
+			}
+			clear_saved_scope = temp_title
+		}
+		primary_title = {
+			save_scope_as = target_title
+			set_variable = {
+				name = legislature
+				value = scope:situation
+			}
+		}
+		scope:situation ?= {
+			set_situation_center_province = scope:ruler.capital_province
+			set_variable = {
+				name = legislature_title
+				value = scope:target_title
+			}
+			set_variable = { name = months_in_session value = 0 }
+		}
+		# Elect starting legislators
+		every_sub_realm_county ?= { elect_new_legislator_effect = yes }
+		scope:situation ?= {
+			every_participant_group = {
+				every_situation_group_participant = {
+					recalculate_participant_group = scope:situation
 				}
 			}
+		}
+	}
+}
+initialize_new_legislature_on_action = {
+	trigger = {
+		should_have_legislature_trigger = yes
+		has_legislature_trigger = no
+	}
+	effect = {
+		save_scope_as = ruler
+		start_situation = {
+			type = legislature
+			save_scope_as = situation
+			start_phase = legislature_election
+		}
+		every_held_title = {
+			limit = { tier = prev.primary_title.tier }
+			save_temporary_scope_as = temp_title
+			scope:situation.situation_sub_region:legislature_title_region = {
+				add_dejure_title_to_sub_region = scope:temp_title
+			}
+			clear_saved_scope = temp_title
+		}
+		primary_title = {
+			save_scope_as = target_title
+			set_variable = {
+				name = legislature
+				value = scope:situation
+			}
+		}
+		scope:situation ?= {
+			set_situation_center_province = scope:ruler.capital_province
+			set_variable = {
+				name = legislature_title
+				value = scope:target_title
+			}
+		}
+	}
+}
+progress_legislature_on_action = {
+	trigger = {
+		has_legislature_trigger = yes
+		primary_title.var:legislature ?= { situation_current_phase = legislature_in_session }
+	}
+	effect = { primary_title.var:legislature ?= { change_variable = { name = months_in_session add = 3 } } }
+}
+abolish_legislature_on_action = {
+	# We're a despot or dictator and don't need a legislature, or are too low-ranking to have one
+	trigger = {
+		has_legislature_trigger = yes
+		should_have_legislature_trigger = no
+	}
+	events = { legislature_events.100 }
+}
+reattach_legislature_on_action = {
+	# We should and do have a legislature but it's attached to the wrong title
+	trigger = {
+		should_have_legislature_trigger = yes
+		primary_title = { NOT = { has_variable = legislature } }
+		any_held_title = { has_variable = legislature }
+	}
+	events = { legislature_events.200 }
+}
+merge_legislatures_on_action = {
+	# We have more than one legislature
+	trigger = {
+		has_legislature_trigger = yes
+		primary_title = { has_variable = legislature }
+		any_held_title = {
+			has_variable = legislature
+			count >= 2
+		}
+	}
+	events = { legislature_events.300 }
+}
+
+########
+# LAWS #
+########
+province_taxes_on_action = {
+	on_actions = {
+		military_province_taxes_0_on_action
+		military_province_taxes_1_on_action
+		military_province_taxes_2_on_action
+		military_province_taxes_3_on_action
+		military_province_taxes_4_on_action
+		commercial_province_taxes_0_on_action
+		commercial_province_taxes_1_on_action
+		commercial_province_taxes_2_on_action
+		commercial_province_taxes_3_on_action
+		commercial_province_taxes_4_on_action
+		administrative_province_taxes_0_on_action
+		administrative_province_taxes_1_on_action
+		administrative_province_taxes_2_on_action
+		administrative_province_taxes_3_on_action
+		administrative_province_taxes_4_on_action
+	}
+}
+military_province_taxes_0_on_action = {
+	trigger = { has_realm_law = military_province_tax_law_0 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_military
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 0 }
+		}
+		remove_variable = bill_passed
+	}
+}
+military_province_taxes_1_on_action = {
+	trigger = { has_realm_law = military_province_tax_law_1 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_military
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 1 }
+		}
+		remove_variable = bill_passed
+	}
+}
+military_province_taxes_2_on_action = {
+	trigger = { has_realm_law = military_province_tax_law_2 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_military
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 2 }
+		}
+		remove_variable = bill_passed
+	}
+}
+military_province_taxes_3_on_action = {
+	trigger = { has_realm_law = military_province_tax_law_3 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_military
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 3 }
+		}
+		remove_variable = bill_passed
+	}
+}
+military_province_taxes_4_on_action = {
+	trigger = { has_realm_law = military_province_tax_law_4 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_military
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 4 }
+		}
+		remove_variable = bill_passed
+	}
+}
+commercial_province_taxes_0_on_action = {
+	trigger = { has_realm_law = commercial_province_tax_law_0 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_commercial
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 0 }
+		}
+		remove_variable = bill_passed
+	}
+}
+commercial_province_taxes_1_on_action = {
+	trigger = { has_realm_law = commercial_province_tax_law_1 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_commercial
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 1 }
+		}
+		remove_variable = bill_passed
+	}
+}
+commercial_province_taxes_2_on_action = {
+	trigger = { has_realm_law = commercial_province_tax_law_2 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_commercial
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 2 }
+		}
+		remove_variable = bill_passed
+	}
+}
+commercial_province_taxes_3_on_action = {
+	trigger = { has_realm_law = commercial_province_tax_law_3 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_commercial
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 3 }
+		}
+		remove_variable = bill_passed
+	}
+}
+commercial_province_taxes_4_on_action = {
+	trigger = { has_realm_law = commercial_province_tax_law_4 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_commercial
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 4 }
+		}
+		remove_variable = bill_passed
+	}
+}
+administrative_province_taxes_0_on_action = {
+	trigger = { has_realm_law = administrative_province_tax_law_0 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_administrative
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 0 }
+		}
+		remove_variable = bill_passed
+	}
+}
+administrative_province_taxes_1_on_action = {
+	trigger = { has_realm_law = administrative_province_tax_law_1 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_administrative
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 1 }
+		}
+		remove_variable = bill_passed
+	}
+}
+administrative_province_taxes_2_on_action = {
+	trigger = { has_realm_law = administrative_province_tax_law_2 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_administrative
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 2 }
+		}
+		remove_variable = bill_passed
+	}
+}
+administrative_province_taxes_3_on_action = {
+	trigger = { has_realm_law = administrative_province_tax_law_3 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_administrative
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 3 }
+		}
+		remove_variable = bill_passed
+	}
+}
+administrative_province_taxes_4_on_action = {
+	trigger = { has_realm_law = administrative_province_tax_law_4 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_administrative
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 4 }
+		}
+		remove_variable = bill_passed
+	}
+}
+############
+# PLANNING #
+############
+plan_budget_on_action = {
+	trigger = {
+		is_independent_ruler = yes
+		should_have_legislature_trigger = yes
+	}
+	effect = {
+		# Target budgets
+		save_temporary_scope_as = budget_ruler
+		set_variable = { name = planned_military_budget value = target_military_budget }
+		set_variable = { name = planned_ministry_budget value = target_ministry_budget }
+		set_variable = { name = planned_salary_budget value = target_salary_budget }
+		set_variable = { name = planned_budget_surplus value = target_budget_surplus }
+		while = {
+			limit = { planned_total_budget < 100 }
+			debug_log = "Total Planned Budget: [ROOT.Char.MakeScope.ScriptValue('planned_total_budget')]"
+			random_list = {
+				200 = {
+					modifier = { add = ai_hawkishness }
+					debug_log = "Increasing planned military budget..."
+					change_variable = { name = planned_military_budget add = 5 }
+				}
+				200 = {
+					modifier = { add = ai_interventionism }
+					debug_log = "Increasing planned ministry budget..."
+					change_variable = { name = planned_ministry_budget add = 5 }
+				}
+				200 = {
+					modifier = { add = ai_intellectualism }
+					debug_log = "Increasing planned salary budget..."
+					change_variable = { name = planned_salary_budget add = 5 }
+				}
+				200 = {
+					modifier = { add = ai_greed }
+					debug_log = "Increasing planned budget surplus..."
+					change_variable = { name = planned_budget_surplus add = 5 }
+				}
+			}
+		}
+		if = {
+			limit = { planned_total_budget > 100 }
+			set_variable = { name = counter value = planned_total_budget }
+			change_variable = { name = counter subtract = 100 }
+			while = {
+				limit = { var:counter > 0 }
+				debug_log = "Total Planned Budget: [ROOT.Char.MakeScope.ScriptValue('planned_total_budget')]"
+				change_variable = { name = counter subtract = 5 }
+				random_list = {
+					200 = {
+						modifier = {
+							add = {
+								value = 0
+								subtract = ai_hawkishness
+							}
+						}
+						modifier = {
+							factor = 0
+							var:planned_military_budget <= 0
+						}
+						debug_log "Reducing planned military budget..."
+						change_variable = { name = planned_military_budget subtract = 5 }
+					}
+					200 = {
+						modifier = {
+							add = {
+								value = 0
+								subtract = ai_interventionism
+							}
+						}
+						modifier = {
+							factor = 0
+							var:planned_ministry_budget <= 0
+						}
+						debug_log "Reducing planned ministry budget..."
+						change_variable = { name = planned_ministry_budget subtract = 5 }
+					}
+					200 = {
+						modifier = {
+							add = {
+								value = 0
+								subtract = ai_intellectualism
+							}
+						}
+						modifier = {
+							factor = 0
+							var:planned_salary_budget <= 0
+						}
+						debug_log "Reducing planned salary budget..."
+						change_variable = { name = planned_salary_budget subtract = 5 }
+					}
+					200 = {
+						modifier = {
+							add = {
+								value = 0
+								subtract = ai_greed
+							}
+						}
+						modifier = {
+							factor = 0
+							var:planned_budget_surplus <= 0
+							ai_rationality >= high_positive_ai_value
+						}
+						modifier = {
+							factor = 0
+							var:planned_budget_surplus <= -10
+							ai_rationality >= low_positive_ai_value
+						}
+						modifier = {
+							factor = 0
+							var:planned_budget_surplus <= -20
+						}
+						debug_log "Reducing planned surplus..."
+						change_variable = { name = planned_budget_surplus subtract = 5 }
+					}
+				}
+			}
+			#remove_variable = counter
 		}
 	}
 }
