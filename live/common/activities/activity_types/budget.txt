@@ -1053,38 +1053,64 @@
 		}
 	}
 	
-	on_start = { scope:host = { trigger_event = legislature_events.1000 } }
+	on_start = {
+		scope:activity = {
+			set_variable = { name = ruler value = scope:host }
+			set_variable = { name = title value = scope:host.primary_title }
+			set_variable = { name = legislature value = var:ruler.primary_title.var:legislature }
+		}
+		scope:host = { trigger_event = legislature_events.1000 }
+	}
 	
 	on_complete = {
-		if = {
-			limit = { ROOT = scope:host }
-			scope:activity = {
-				if = {
-					limit = { has_variable = bill_passed }
-					scope:host = { trigger_event = { id = legislature_events.2100 } }
-					every_guest_subset = {
-						name = bill_supporters
-						trigger_event = { id = legislature_events.1201 }
-					}
-					every_guest_subset = {
-						name = bill_opponents
-						trigger_event = { id = legislature_events.1202 }
-					}
-				}
-				else = {
-					scope:host = { trigger_event = { id = legislature_events.2101 } }
-					every_guest_subset = {
-						name = bill_supporters
-						trigger_event = { id = legislature_events.1211 }
-					}
-					every_guest_subset = {
-						name = bill_opponents
-						trigger_event = { id = legislature_events.1212 }
-					}
-				}
-				every_attending_character = { trigger_event = { on_action = bill_clean_legislators_on_action } }
+		scope:activity = {
+			var:ruler = { save_scope_as = ruler }
+			var:title = { save_scope_as = title }
+			var:legislature = { save_scope_as = legislature }
+			save_scope_value_as = { name = final_supporters value = total_bill_supporters }
+			save_scope_value_as = { name = final_opponents value = total_bill_opponents }
+			save_scope_value_as = { name = proposed_military_budget value = var:proposed_military_budget }
+			save_scope_value_as = { name = proposed_ministry_budget value = var:proposed_ministry_budget }
+			save_scope_value_as = { name = proposed_salary_budget value = var:proposed_salary_budget }
+			save_scope_value_as = { name = proposed_total_budget value = proposed_total_budget }
+			save_scope_value_as = { name = pork_value value = var:pork }
+			every_in_list = {
+				variable = pork_recipients
+				add_to_list = pork_distribution
 			}
 		}
+		if = {
+			limit = { scope:activity = { has_variable = bill_passed } }
+			if = {
+				limit = { ROOT = scope:host }
+				trigger_event = legislature_events.2100
+				every_vassal = { trigger_event = legislature_events.2105 }
+				every_tributary = { trigger_event = legislature_events.2105 }
+			}
+			else_if = {
+				limit = { is_in_guest_subset = { name = bill_supporters } }
+				trigger_event = legislature_events.2101
+			}
+			else_if = {
+				limit = { is_in_guest_subset = { name = bill_opponents } }
+				trigger_event = legislature_events.2102
+			}
+		}
+		else = {
+			if = {
+				limit = { ROOT = scope:host }
+				trigger_event = legislature_events.2110
+			}
+			else_if = {
+				limit = { is_in_guest_subset = { name = bill_supporters } }
+				trigger_event = legislature_events.2111
+			}
+			else_if = {
+				limit = { is_in_guest_subset = { name = bill_opponents } }
+				trigger_event = legislature_events.2112
+			}
+		}
+		trigger_event = { on_action = bill_clean_legislators_on_action }
 	}
 	
 	phases = {
@@ -1140,7 +1166,7 @@
 				if = {
 					limit = { ROOT = scope:host }
 					# Offer to amend the budget in order to get more supporters
-					trigger_event = { on_action = propose_random_budget_amendment_on_action }
+					trigger_event = { on_action = propose_random_budget_amendment_on_action days = { 2 6 } }
 					# Give someone a chance to give a speech
 					trigger_event = { on_action = bill_debate_pulse_speech_on_action days = { 2 6 } }
 				}
@@ -1288,8 +1314,6 @@
 		}
 	}
 	
-	on_start = { scope:host = { trigger_event = { id = legislature_events.1000 } } }
-	
 	### Plug in widgets
 	activity_window_widgets = {
 		bill_supporter_opponent_widget = "window_activity_contestants_right_bar_container"
@@ -1331,7 +1355,7 @@
 			camera = camera_body_right
 			
 			effect = {
-				every_guest_subset = {
+				ordered_guest_subset = {
 					name = bill_supporters
 					order_by = legislative_seniority
 					add_to_list = characters

@@ -29,6 +29,10 @@ GetLegislatorNamePlural = {
 GetBillType = {
 	type = activity
 	text = {
+		trigger = { has_activity_type = tax_bill_activity }
+		localization_key = "tax_bill_custom_loc"
+	}
+	text = {
 		trigger = { has_activity_type = budget_bill_activity }
 		localization_key = "budget_bill_custom_loc"
 	}
@@ -43,9 +47,41 @@ GetBillProvisions = {
 			this = { save_scope_as = bill }
 			var:title = { save_scope_as = bill_title }
 		}
+		trigger = { has_activity_type = tax_bill_activity }
+		localization_key = "tax_bill_provisions_custom_loc"
+	}
+	text = {
+		setup_scope = {
+			this = { save_scope_as = bill }
+			var:title = { save_scope_as = bill_title }
+		}
 		trigger = { has_activity_type = budget_bill_activity }
 		localization_key = "budget_bill_provisions_custom_loc"
 	}
+}
+GetBillEarmarks = {
+	type = activity
+	text = {
+		setup_scope = { save_scope_value_as = { name = pork_value value = var:pork } }
+		trigger = { has_variable = pork }
+		localization_key = "bill_earmarks_custom_loc"
+	}
+	text = { localization_key = "blank_custom_loc" }
+}
+GetPostBillEarmarks = {
+	type = character
+	text = {
+		setup_scope = { save_scope_value_as = { name = pork_value value = pork_value } }
+		trigger = {
+			trigger_if = {
+				limit = { exists = scope:pork_value }
+				scope:pork_value > 0
+			}
+			else = { always = no }
+		}
+		localization_key = "bill_post_earmarks_custom_loc"
+	}
+	text = { localization_key = "blank_custom_loc" }
 }
 GetBillSellDifficulty = {
 	type = character

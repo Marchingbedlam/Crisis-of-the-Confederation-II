@@ -16,6 +16,7 @@ propose_balanced_budget = {
 				scope:activity = {
 					proposed_budget_deficit > 0
 					any_attending_character = {
+						is_in_guest_subset = { name = bill_opponents }
 						OR = {
 							has_activity_intent = balance_budget_intent
 							has_activity_intent = balance_budget_maintain_military_intent
@@ -24,7 +25,7 @@ propose_balanced_budget = {
 						}
 						OR = {
 							NOT = { has_variable = vote_bargained_for }
-							var:vote_bargained_for < ai_rationality
+							var:vote_strength < ai_rationality
 						}
 					}
 				}
@@ -32,7 +33,6 @@ propose_balanced_budget = {
 		}
 	}
 	effect = {
-		debug_log = "Assigning budget..."
 		# Let's calculate some ways the budget could be balanced!
 		# We can fix this by reducing just one budget
 		if = {
@@ -234,14 +234,16 @@ reduce_proposed_military_on_action = {
 								scope:host.var:amended_military_budget >= scope:activity.var:ruler.current_military_budget
 							}
 						}
-						NOT = { has_variable = vote_bargained_for }
+						OR = {
+							NOT = { has_variable = vote_bargained_for }
+							var:vote_strength < ai_rationality
+						}
 					}
 				}
 			}
 		}
 	}
 	effect = {
-		debug_log = "Reducing military budget..."
 		# Set all variables for the proposed budget modification
 		remove_variable = amended_ministry_budget
 		remove_variable = amended_salary_budget
@@ -289,14 +291,16 @@ reduce_proposed_ministry_on_action = {
 								scope:host.var:amended_ministry_budget >= scope:activity.var:ruler.current_ministry_budget
 							}
 						}
-						NOT = { has_variable = vote_bargained_for }
+						OR = {
+							NOT = { has_variable = vote_bargained_for }
+							var:vote_strength < ai_rationality
+						}
 					}
 				}
 			}
 		}
 	}
 	effect = {
-		debug_log = "Reducing ministry budget..."
 		# Set all variables for the proposed budget modification
 		remove_variable = amended_military_budget
 		remove_variable = amended_salary_budget
@@ -344,14 +348,12 @@ reduce_proposed_salary_on_action = {
 								scope:host.var:amended_salary_budget >= scope:activity.var:ruler.current_salary_budget
 							}
 						}
-						NOT = { has_variable = vote_bargained_for }
 					}
 				}
 			}
 		}
 	}
 	effect = {
-		debug_log = "Reducing salary budget..."
 		# Set all variables for the proposed budget modification
 		remove_variable = amended_military_budget
 		remove_variable = amended_ministry_budget
@@ -405,14 +407,16 @@ reduce_proposed_military_ministry_on_action = {
 								scope:host.var:amended_ministry_budget_milmin >= scope:activity.var:ruler.current_ministry_budget
 							}
 						}
-						NOT = { has_variable = vote_bargained_for }
+						OR = {
+							NOT = { has_variable = vote_bargained_for }
+							var:vote_strength < ai_rationality
+						}
 					}
 				}
 			}
 		}
 	}
 	effect = {
-		debug_log = "Reducing milmin budget..."
 		# Set all variables for the proposed budget modification
 		remove_variable = amended_military_budget
 		remove_variable = amended_ministry_budget
@@ -468,14 +472,16 @@ reduce_proposed_military_salary_on_action = {
 								scope:host.var:amended_salary_budget_milsal >= scope:activity.var:ruler.current_salary_budget
 							}
 						}
-						NOT = { has_variable = vote_bargained_for }
+						OR = {
+							NOT = { has_variable = vote_bargained_for }
+							var:vote_strength < ai_rationality
+						}
 					}
 				}
 			}
 		}
 	}
 	effect = {
-		debug_log = "Reducing milsal budget..."
 		# Set all variables for the proposed budget modification
 		remove_variable = amended_military_budget
 		remove_variable = amended_ministry_budget
@@ -486,7 +492,7 @@ reduce_proposed_military_salary_on_action = {
 		# Get rid of all unnecessary variables
 		remove_variable = amended_military_budget_milmin
 		remove_variable = amended_military_budget_milsal
-		remove_variable = amended_salary_budget_milmin
+		remove_variable = amended_salary_budget_milsal
 		remove_variable = amended_salary_budget_minsal
 		remove_variable = amended_ministry_budget_milsal
 		remove_variable = amended_ministry_budget_minsal
@@ -531,14 +537,16 @@ reduce_proposed_ministry_salary_on_action = {
 								scope:host.var:amended_salary_budget_minsal >= scope:activity.var:ruler.current_salary_budget
 							}
 						}
-						NOT = { has_variable = vote_bargained_for }
+						OR = {
+							NOT = { has_variable = vote_bargained_for }
+							var:vote_strength < ai_rationality
+						}
 					}
 				}
 			}
 		}
 	}
 	effect = {
-		debug_log = "Reducing minsal budget..."
 		# Set all variables for the proposed budget modification
 		remove_variable = amended_military_budget
 		remove_variable = amended_ministry_budget
@@ -549,7 +557,7 @@ reduce_proposed_ministry_salary_on_action = {
 		# Get rid of all unnecessary variables
 		remove_variable = amended_ministry_budget_milmin
 		remove_variable = amended_ministry_budget_milsal
-		remove_variable = amended_salary_budget_milmin
+		remove_variable = amended_salary_budget_milsal
 		remove_variable = amended_salary_budget_minsal
 		remove_variable = amended_military_budget_milsal
 		remove_variable = amended_military_budget_minsal
@@ -591,7 +599,7 @@ reduce_all_proposed_budgets_on_action = {
 						}
 						OR = {
 							NOT = { has_variable = vote_bargained_for }
-							var:vote_bargained_for < ai_rationality
+							var:vote_strength < ai_rationality
 						}
 					}
 				}
@@ -599,7 +607,6 @@ reduce_all_proposed_budgets_on_action = {
 		}
 	}
 	effect = {
-		debug_log = "Reducing all budgets..."
 		# Set all variables for the proposed budget modification
 		remove_variable = amended_military_budget
 		remove_variable = amended_ministry_budget
@@ -640,12 +647,14 @@ propose_increased_military_spending = {
 		modifier = {
 			factor = 0
 			NOT = {
-				any_attending_character = {
-					is_in_guest_subset = { name = bill_opponents }
-					has_activity_intent = increase_military_budget_intent
-					OR = {
-						NOT = { has_variable = vote_bargained_for }
-						var:vote_bargained_for < ai_rationality
+				scope:activity = {
+					any_attending_character = {
+						is_in_guest_subset = { name = bill_opponents }
+						has_activity_intent = increase_military_budget_intent
+						OR = {
+							NOT = { has_variable = vote_bargained_for }
+							var:vote_strength < ai_rationality
+						}
 					}
 				}
 			}
@@ -680,12 +689,14 @@ propose_increased_ministry_spending = {
 		modifier = {
 			factor = 0
 			NOT = {
-				any_attending_character = {
-					is_in_guest_subset = { name = bill_opponents }
-					has_activity_intent = increase_ministry_budget_intent
-					OR = {
-						NOT = { has_variable = vote_bargained_for }
-						var:vote_bargained_for < ai_rationality
+				scope:activity = {
+					any_attending_character = {
+						is_in_guest_subset = { name = bill_opponents }
+						has_activity_intent = increase_ministry_budget_intent
+						OR = {
+							NOT = { has_variable = vote_bargained_for }
+							var:vote_strength < ai_rationality
+						}
 					}
 				}
 			}
@@ -694,7 +705,7 @@ propose_increased_ministry_spending = {
 	effect = {
 		# Set all variables for the proposed budget modification
 		set_variable = { name = amended_military_budget value = scope:activity.var:proposed_military_budget }
-		set_variable = { name = amended_ministry_budget value = scope:ruler.current_ministry }
+		set_variable = { name = amended_ministry_budget value = scope:ruler.current_ministry_budget }
 		change_variable = { name = amended_ministry_budget add = 5 }
 		set_variable = { name = amended_salary_budget value = scope:activity.var:proposed_salary_budget }
 		
@@ -720,12 +731,14 @@ propose_increased_salary_spending = {
 		modifier = {
 			factor = 0
 			NOT = {
-				any_attending_character = {
-					is_in_guest_subset = { name = bill_opponents }
-					has_activity_intent = increase_salary_budget_intent
-					OR = {
-						NOT = { has_variable = vote_bargained_for }
-						var:vote_bargained_for < ai_rationality
+				scope:activity = {
+					any_attending_character = {
+						is_in_guest_subset = { name = bill_opponents }
+						has_activity_intent = increase_salary_budget_intent
+						OR = {
+							NOT = { has_variable = vote_bargained_for }
+							var:vote_strength < ai_rationality
+						}
 					}
 				}
 			}

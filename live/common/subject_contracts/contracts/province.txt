@@ -27,23 +27,7 @@ provincial_taxes = {
 			tax = { value = 0.75 }
 			subject_opinion = 5
 
-			ai_liege_desire = {
-				value = 2
-				if = {
-					limit = {
-						scope:liege = {
-							ai_should_focus_on_building_in_their_capital = yes
-						}
-						scope:subject = {
-							AND = {
-								government_has_flag = government_is_feudal
-								vassal_contract_obligation_level:provincial_taxes <= provincial_tax_exempt_level
-							}
-						}
-					}
-					add = 8
-				}
-			}
+			ai_liege_desire = 2
 			ai_subject_desire = 4
 			score = 1
 			
@@ -61,23 +45,7 @@ provincial_taxes = {
 
 			tax = { value = 0.75 }
 
-			ai_liege_desire = {
-				value = 3
-				if = {
-					limit = {
-						scope:liege = {
-							ai_should_focus_on_building_in_their_capital = yes
-						}
-						scope:subject = {
-							AND = {
-								government_has_flag = government_is_feudal
-								vassal_contract_obligation_level:provincial_taxes <= provincial_tax_low_level
-							}
-						}
-					}
-					add = 7
-				}
-			}
+			ai_liege_desire = 3
 			ai_subject_desire = 3
 			score = 0
 			
@@ -95,23 +63,7 @@ provincial_taxes = {
 			tax = { value = 0.75 }
 			subject_opinion = -15
 
-			ai_liege_desire = {
-				value = 5
-				if = {
-					limit = {
-						scope:liege = {
-							ai_should_focus_on_building_in_their_capital = yes
-						}
-						scope:subject = {
-							AND = {
-								government_has_flag = government_is_feudal
-								vassal_contract_obligation_level:provincial_taxes <= provincial_tax_normal_level
-							}
-						}
-					}
-					add = 6
-				}
-			}
+			ai_liege_desire = 5
 			ai_subject_desire = 2
 			score = -2
 			
@@ -130,23 +82,7 @@ provincial_taxes = {
 			tax = { value = 0.75 }
 			subject_opinion = -25
 
-			ai_liege_desire = {
-				value = 6
-				if = {
-					limit = {
-						scope:liege = {
-							ai_should_focus_on_building_in_their_capital = yes
-						}
-						scope:subject = {
-							AND = {
-								government_has_flag = government_is_feudal
-								vassal_contract_obligation_level:provincial_taxes <= provincial_tax_high_level
-							}
-						}
-					}
-					add = 5
-				}
-			}
+			ai_liege_desire = 6
 			ai_subject_desire = 1
 			score = -3
 			

@@ -3,11 +3,16 @@
 		every_guest_subset = {
 			name = bill_opponents
 			limit = {
-				supports_budget_amendment_trigger = yes
-				OR = {
-					NOT = { has_variable = vote_bargained_for }
-					var:vote_bargained_for < ai_rationality
+				trigger_if = {
+					limit = { scope:activity = { has_activity_type = budget_bill_activity } }
+					supports_budget_amendment_trigger = yes
 				}
+				trigger_else_if = {
+					limit = { scope:activity = { has_activity_type = tax_bill_activity } }
+					supports_tax_code_amendment_trigger = yes
+				}
+				trigger_else = { always = no }
+				vote_is_open_trigger = yes
 			}
 			scope:host = { add_to_variable_list = { name = supporters_gained target = PREV } }
 		}
@@ -25,11 +30,16 @@ build_supporters_lost_list_effect = {
 		every_guest_subset = {
 			name = bill_supporters
 			limit = {
-				opposes_budget_amendment_trigger = yes
-				OR = {
-					NOT = { has_variable = vote_bargained_for }
-					var:vote_bargained_for < ai_rationality
+				trigger_if = {
+					limit = { scope:activity = { has_activity_type = budget_bill_activity } }
+					opposes_budget_amendment_trigger = yes
 				}
+				trigger_else_if = {
+					limit = { scope:activity = { has_activity_type = tax_bill_activity } }
+					opposes_tax_code_amendment_trigger = yes
+				}
+				trigger_else = { always = no }
+				vote_is_open_trigger = yes
 			}
 			scope:host = { add_to_variable_list = { name = supporters_lost target = PREV } }
 		}
@@ -37,13 +47,14 @@ build_supporters_lost_list_effect = {
 }
 
 pork_spending_effect = {
-	scope:activity = {
-		var:ruler = { remove_treasury = scope:activity.var:pork }
+	if = {
+		limit = { scope:pork_value > 0 }
+		scope:ruler = { remove_treasury = scope:pork_value }
 		every_in_list = {
-			variable = pork_recipients
+			list = pork_distribution
 			limit = { tier = tier_county }
 			save_temporary_scope_as = pork_target
-			scope:activity.var:legislature = {
+			scope:legislature = {
 				random_in_list = {
 					variable = legislators
 					limit = {
@@ -80,10 +91,10 @@ pork_spending_effect = {
 			}
 		}
 		every_in_list = {
-			variable = pork_recipients
+			variable = pork_distribution
 			limit = { tier >= tier_duchy }
 			save_temporary_scope_as = pork_target
-			scope:activity.var:legislature = {
+			scope:legislature = {
 				random_in_list = {
 					variable = legislators
 					limit = {
@@ -125,9 +136,9 @@ pork_spending_effect = {
 	}
 }
 pass_military_budget_effect = {
-	scope:activity.var:ruler = {
+	scope:ruler = {
 		switch = {
-			trigger = scope:activity.var:proposed_military_budget
+			trigger = scope:proposed_military_budget
 			0 = { add_realm_law_skip_effects = budget_allocation_military_0 }
 			5 = { add_realm_law_skip_effects = budget_allocation_military_5 }
 			10 = { add_realm_law_skip_effects = budget_allocation_military_10 }
@@ -153,9 +164,9 @@ pass_military_budget_effect = {
 	}
 }
 pass_ministry_budget_effect = {
-	scope:activity.var:ruler = {
+	scope:ruler = {
 		switch = {
-			trigger = scope:activity.var:proposed_ministry_budget
+			trigger = scope:proposed_ministry_budget
 			0 = { add_realm_law_skip_effects = budget_allocation_ministry_0 }
 			5 = { add_realm_law_skip_effects = budget_allocation_ministry_5 }
 			10 = { add_realm_law_skip_effects = budget_allocation_ministry_10 }
@@ -181,9 +192,9 @@ pass_ministry_budget_effect = {
 	}
 }
 pass_salary_budget_effect = {
-	scope:activity.var:ruler = {
+	scope:ruler = {
 		switch = {
-			trigger = scope:activity.var:proposed_salary_budget
+			trigger = scope:proposed_salary_budget
 			0 = { add_realm_law_skip_effects = budget_allocation_salary_0 }
 			5 = { add_realm_law_skip_effects = budget_allocation_salary_5 }
 			10 = { add_realm_law_skip_effects = budget_allocation_salary_10 }
@@ -206,6 +217,74 @@ pass_salary_budget_effect = {
 			95 = { add_realm_law_skip_effects = budget_allocation_salary_95 }
 			100 = { add_realm_law_skip_effects = budget_allocation_salary_100 }
 		}
+	}
+}
+pass_military_tax_code_effect = {
+	scope:ruler = {
+		switch = {
+			trigger = scope:proposed_military_tax_rate
+			0 = { add_realm_law = military_province_tax_law_0 }
+			5 = { add_realm_law = military_province_tax_law_1 }
+			10 = { add_realm_law = military_province_tax_law_2 }
+			15 = { add_realm_law = military_province_tax_law_3 }
+			20 = { add_realm_law = military_province_tax_law_4 }
+		}
+	}
+}
+pass_commercial_tax_code_effect = {
+	scope:ruler = {
+		switch = {
+			trigger = scope:proposed_commercial_tax_rate
+			0 = { add_realm_law = commercial_province_tax_law_0 }
+			5 = { add_realm_law = commercial_province_tax_law_1 }
+			10 = { add_realm_law = commercial_province_tax_law_2 }
+			15 = { add_realm_law = commercial_province_tax_law_3 }
+			20 = { add_realm_law = commercial_province_tax_law_4 }
+		}
+	}
+}
+pass_technocratic_tax_code_effect = {
+	scope:ruler = {
+		switch = {
+			trigger = scope:proposed_technocratic_tax_rate
+			0 = { add_realm_law = technocratic_province_tax_law_0 }
+			5 = { add_realm_law = technocratic_province_tax_law_1 }
+			10 = { add_realm_law = technocratic_province_tax_law_2 }
+			15 = { add_realm_law = technocratic_province_tax_law_3 }
+			20 = { add_realm_law = technocratic_province_tax_law_4 }
+		}
+	}
+}
+pass_theocratic_tax_code_effect = {
+	scope:ruler = {
+		switch = {
+			trigger = scope:proposed_theocratic_tax_rate
+			0 = { add_realm_law = theocratic_province_tax_law_0 }
+			5 = { add_realm_law = theocratic_province_tax_law_1 }
+			10 = { add_realm_law = theocratic_province_tax_law_2 }
+			15 = { add_realm_law = theocratic_province_tax_law_3 }
+			20 = { add_realm_law = theocratic_province_tax_law_4 }
+		}
+	}
+}
+vote_for_bill_strength_effect = {
+	if = {
+		limit = { scope:activity = { has_activity_type = budget_bill_activity } }
+		vote_for_budget_strength_effect = yes
+	}
+	else_if = {
+		limit = { scope:activity = { has_activity_type = tax_bill_activity } }
+		vote_for_tax_code_strength_effect = yes
+	}
+}
+vote_against_bill_strength_effect = {
+	if = {
+		limit = { scope:activity = { has_activity_type = budget_bill_activity } }
+		vote_against_budget_strength_effect = yes
+	}
+	else_if = {
+		limit = { scope:activity = { has_activity_type = tax_bill_activity } }
+		vote_against_tax_code_strength_effect = yes
 	}
 }
 vote_for_budget_strength_effect = {
@@ -253,9 +332,9 @@ vote_for_budget_strength_effect = {
 					has_activity_intent = balance_budget_maintain_ministry_intent
 					has_activity_intent = balance_budget_maintain_salary_intent
 				}
-				change_variable = { name = vote_strength add = scope:host.current_total_budget }
-				change_variable = { name = vote_strength subtract = scope:activity.proposed_total_budget }
 			}
+			change_variable = { name = vote_strength add = scope:host.current_total_budget }
+			change_variable = { name = vote_strength subtract = scope:activity.proposed_total_budget }
 		}
 	}
 }
@@ -304,9 +383,135 @@ vote_against_budget_strength_effect = {
 					has_activity_intent = balance_budget_maintain_ministry_intent
 					has_activity_intent = balance_budget_maintain_salary_intent
 				}
-				change_variable = { name = vote_strength subtract = scope:host.current_total_budget }
-				change_variable = { name = vote_strength add = scope:activity.proposed_total_budget }
 			}
+			change_variable = { name = vote_strength subtract = scope:host.current_total_budget }
+			change_variable = { name = vote_strength add = scope:activity.proposed_total_budget }
+		}
+	}
+}
+vote_for_tax_code_strength_effect = {
+	hidden_effect = {
+		set_variable = { name = vote_strength value = 0 }
+		if = {
+			limit = { has_activity_intent = support_bill_intent }
+			change_variable = { name = vote_strength add = "opinion(scope:host)" }
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_activity_intent = increase_revenue_intent
+					has_activity_intent = increase_revenue_maintain_military_intent
+					has_activity_intent = increase_revenue_maintain_commercial_intent
+					has_activity_intent = increase_revenue_maintain_technocratic_intent
+					has_activity_intent = increase_revenue_maintain_theocratic_intent
+				}
+			}
+			change_variable = { name = vote_strength add = scope:activity.proposed_total_taxes }
+			change_variable = { name = vote_strength subtract = scope:activity.var:ruler.current_total_taxes }
+			change_variable = { name = vote_strength multiply = 25 }
+		}
+		if = {
+			limit = {
+				scope:activity = { var:proposed_military_taxes < var:ruler.current_military_taxes }
+				OR = {
+					has_activity_intent = cut_military_taxes_intent
+					has_activity_intent = increase_revenue_maintain_military_intent
+				}
+			}
+			change_variable = { name = vote_strength add = 50 }
+		}
+		else_if = {
+			limit = {
+				scope:activity = { var:proposed_commercial_taxes < var:ruler.current_commercial_taxes }
+				OR = {
+					has_activity_intent = cut_commercial_taxes_intent
+					has_activity_intent = increase_revenue_maintain_commercial_intent
+				}
+			}
+			change_variable = { name = vote_strength add = 50 }
+		}
+		else_if = {
+			limit = {
+				scope:activity = { var:proposed_technocratic_taxes < var:ruler.current_technocratic_taxes }
+				OR = {
+					has_activity_intent = cut_technocratic_taxes_intent
+					has_activity_intent = increase_revenue_maintain_technocratic_intent
+				}
+			}
+			change_variable = { name = vote_strength add = 50 }
+		}
+		else_if = {
+			limit = {
+				scope:activity = { var:proposed_theocratic_taxes < var:ruler.current_theocratic_taxes }
+				OR = {
+					has_activity_intent = cut_theocratic_taxes_intent
+					has_activity_intent = increase_revenue_maintain_theocratic_intent
+				}
+			}
+			change_variable = { name = vote_strength add = 50 }
+		}
+	}
+}
+vote_against_tax_code_strength_effect = {
+	hidden_effect = {
+		set_variable = { name = vote_strength value = 0 }
+		if = {
+			limit = { has_activity_intent = block_bill_intent }
+			change_variable = { name = vote_strength subtract = "opinion(scope:host)" }
+		}
+		else_if = {
+			limit = {
+				OR = {
+					has_activity_intent = increase_revenue_intent
+					has_activity_intent = increase_revenue_maintain_military_intent
+					has_activity_intent = increase_revenue_maintain_commercial_intent
+					has_activity_intent = increase_revenue_maintain_technocratic_intent
+					has_activity_intent = increase_revenue_maintain_theocratic_intent
+				}
+			}
+			change_variable = { name = vote_strength add = scope:activity.var:ruler.current_total_taxes }
+			change_variable = { name = vote_strength subtract = scope:activity.proposed_total_taxes }
+			change_variable = { name = vote_strength multiply = 25 }
+		}
+		if = {
+			limit = {
+				scope:activity = { var:proposed_military_taxes > var:ruler.current_military_taxes }
+				OR = {
+					has_activity_intent = cut_military_taxes_intent
+					has_activity_intent = increase_revenue_maintain_military_intent
+				}
+			}
+			change_variable = { name = vote_strength add = 50 }
+		}
+		else_if = {
+			limit = {
+				scope:activity = { var:proposed_commercial_taxes > var:ruler.current_commercial_taxes }
+				OR = {
+					has_activity_intent = cut_commercial_taxes_intent
+					has_activity_intent = increase_revenue_maintain_commercial_intent
+				}
+			}
+			change_variable = { name = vote_strength add = 50 }
+		}
+		else_if = {
+			limit = {
+				scope:activity = { var:proposed_technocratic_taxes > var:ruler.current_technocratic_taxes }
+				OR = {
+					has_activity_intent = cut_technocratic_taxes_intent
+					has_activity_intent = increase_revenue_maintain_technocratic_intent
+				}
+			}
+			change_variable = { name = vote_strength add = 50 }
+		}
+		else_if = {
+			limit = {
+				scope:activity = { var:proposed_theocratic_taxes > var:ruler.current_theocratic_taxes }
+				OR = {
+					has_activity_intent = cut_theocratic_taxes_intent
+					has_activity_intent = increase_revenue_maintain_theocratic_intent
+				}
+			}
+			change_variable = { name = vote_strength add = 50 }
 		}
 	}
 }

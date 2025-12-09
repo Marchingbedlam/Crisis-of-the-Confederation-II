@@ -388,7 +388,7 @@ legislature_events.1015 = {
 		animation = idle
 	}
 	left_portrait = {
-		character = scope:host
+		character = scope:activity_host
 		animation = disappointment
 	}
 	
@@ -423,7 +423,7 @@ legislature_events.1025 = {
 		animation = anger
 	}
 	left_portrait = {
-		character = scope:host
+		character = scope:activity_host
 		animation = dismissal
 	}
 	
@@ -458,11 +458,51 @@ legislature_events.1035 = {
 		animation = shock
 	}
 	left_portrait = {
-		character = scope:host
+		character = scope:activity_host
 		animation = dismissal
 	}
 	
 	option = { name = legislature_events.1035.a }
+}
+# Bill failed because it doesn't do anything
+legislature_events.1040 = {
+	desc = legislature_events.1040.desc
+	
+	theme = realm
+	override_background = council_chamber
+	
+	right_portrait = {
+		character = ROOT
+		animation = dismissal
+	}
+	
+	option = {
+		name = legislature_events.1040.a
+		add_prestige = -50 # This is embarassing
+		hidden_effect = {
+			if = {
+				limit = { is_ai = no }
+				set_variable = { name = player_probably_messed_up value = yes days = 1 }
+			}
+		}
+	}
+}
+legislature_events.1045 = {
+	desc = legislature_events.1045.desc
+	
+	theme = realm
+	override_background = council_chamber
+	
+	right_portrait = {
+		character = ROOT
+		animation = shock
+	}
+	left_portrait = {
+		character = scope:activity_host
+		animation = dismissal
+	}
+	
+	option = { name = legislature_events.1045.a }
 }
 
 # Everyone loves your bill, no debate needed, let's pass this sucker and go home!
@@ -606,90 +646,13 @@ legislature_events.1200 = {
 	
 	option = {
 		name = legislature_events.1200.a
+		if = {
+			limit = { has_activity_intent = pass_bill_intent }
+			complete_activity_intent = yes
+		}
 		scope:activity = {
 			hidden_effect = { set_variable = bill_passed }
 			progress_activity_phase_after = { days = 1 }
-		}
-	}
-}
-# A bill you voted for has passed!
-legislature_events.1201 = {
-	desc = legislature_events.1201.desc
-	
-	theme = realm
-	override_background = council_chamber
-	
-	right_portrait = {
-		character = ROOT
-		animation = war_over_win
-	}
-	left_portrait = {
-		character = scope:host
-		animation = war_over_win
-	}
-	
-	option = {
-		name = legislature_events.1201.a
-		add_prestige = {
-			value = 5
-			multiply = scope:activity.var:ruler.tier_multiplier
-		}
-		reverse_add_opinion = { modifier = opinion_voted_for_my_bill target = scope:host }
-		show_as_tooltip = {
-			pass_military_budget_effect = yes
-			pass_ministry_budget_effect = yes
-			pass_salary_budget_effect = yes
-			pork_spending_effect = yes
-		}
-		hidden_effect = {
-			if = {
-				limit = { bill_is_ideologically_necessary = { BILL = scope:activity } }
-				change_variable = { name = ai_faith_in_democracy add = 1 }
-			}
-			else_if = {
-				limit = { var:ai_faith_in_democracy <= 10 }
-				change_variable = { name = ai_faith_in_democracy add = 1 }
-			}
-		}
-	}
-}
-# A bill you voted against has passed!
-legislature_events.1202 = {
-	desc = legislature_events.1202.desc
-	
-	theme = realm
-	override_background = council_chamber
-	
-	right_portrait = {
-		character = ROOT
-		animation = war_over_loss
-	}
-	left_portrait = {
-		character = scope:host
-		animation = war_over_win
-	}
-	
-	option = {
-		name = legislature_events.1202.a
-		add_prestige = {
-			value = -5
-			multiply = scope:activity.var:ruler.tier_multiplier
-		}
-		reverse_add_opinion = { modifier = opinion_voted_against_my_bill target = scope:host }
-		show_as_tooltip = {
-			pass_military_budget_effect = yes
-			pass_ministry_budget_effect = yes
-			pass_salary_budget_effect = yes
-			pork_spending_effect = yes
-		}
-		hidden_effect = {
-			if = {
-				limit = { bill_is_ideologically_unacceptable = { BILL = scope:activity } }
-				change_variable = { name = ai_faith_in_democracy subtract = 5 }
-			}
-			else = {
-				change_variable = { name = ai_faith_in_democracy subtract = 1 }
-			}
 		}
 	}
 }
@@ -709,73 +672,6 @@ legislature_events.1210 = {
 	option = {
 		name = legislature_events.1210.a
 		scope:activity = { progress_activity_phase_after = { days = 1 } }
-	}
-}
-# A bill you voted for has failed!
-legislature_events.1211 = {
-	desc = legislature_events.1211.desc
-	
-	theme = realm
-	override_background = council_chamber
-	
-	right_portrait = {
-		character = ROOT
-		animation = war_over_loss
-	}
-	left_portrait = {
-		character = scope:host
-		animation = war_over_loss
-	}
-	
-	option = {
-		name = legislature_events.1211.a
-		add_prestige = {
-			value = -5
-			multiply = scope:activity.var:ruler.tier_multiplier
-		}
-		reverse_add_opinion = { modifier = opinion_voted_for_my_bill target = scope:host }
-		hidden_effect = {
-			if = {
-				limit = { bill_is_ideologically_necessary = { BILL = scope:activity } }
-				change_variable = { name = ai_faith_in_democracy subtract = 5 }
-			}
-			else = { change_variable = { name = ai_faith_in_democracy subtract = 1 } }
-		}
-	}
-}
-# A bill you voted against has failed!
-legislature_events.1212 = {
-	desc = legislature_events.1212.desc
-	
-	theme = realm
-	override_background = council_chamber
-	
-	right_portrait = {
-		character = ROOT
-		animation = war_over_loss
-	}
-	left_portrait = {
-		character = scope:host
-		animation = war_over_win
-	}
-	
-	option = {
-		name = legislature_events.1212.a
-		add_prestige = {
-			value = 5
-			multiply = scope:activity.var:ruler.tier_multiplier
-		}
-		reverse_add_opinion = { modifier = opinion_voted_against_my_bill target = scope:host }
-		hidden_effect = {
-			if = {
-				limit = { bill_is_ideologically_unacceptable = { BILL = scope:activity } }
-				change_variable = { name = ai_faith_in_democracy add = 1 }
-			}
-			else_if = {
-				limit = { var:ai_faith_in_democracy <= 10 }
-				change_variable = { name = ai_faith_in_democracy add = 1 }
-			}
-		}
 	}
 }
 
@@ -801,7 +697,8 @@ legislature_events.1300 = {
 			remove_from_guest_subset = { name = bill_opponents target = ROOT }
 			add_to_guest_subset = { name = bill_supporters target = ROOT }
 		}
-		vote_for_budget_strength_effect = yes
+		remove_variable = vote_bargained_for
+		vote_for_bill_strength_effect = yes
 		ai_chance = { base = 100 }
 	}
 	
@@ -834,7 +731,8 @@ legislature_events.1310 = {
 			remove_from_guest_subset = { name = bill_supporters target = ROOT }
 			add_to_guest_subset = { name = bill_opponents target = ROOT }
 		}
-		vote_against_budget_strength_effect = yes
+		vote_against_bill_strength_effect = yes
+		remove_variable = vote_bargained_for
 		ai_chance = { base = 100 }
 	}
 	
@@ -879,25 +777,11 @@ legislature_events.1500 = {
 				multiply = 10
 			}
 		}
+		positive_lawfulness_stress_gain_effect = yes
 		if = {
-			limit = { ai_lawfulness >= very_high_positive_ai_value }
-			custom_tooltip = pos_lawfulness_desc
-			add_stress = major_stress_gain
-		}
-		else_if = {
-			limit = { ai_lawfulness >= medium_positive_ai_value }
-			custom_tooltip = pos_lawfulness_desc
-			add_stress = medium_stress_gain
-		}
-		else_if = {
-			limit = { ai_greed > ai_rationality }
+			limit = { ai_rationality < ai_greed }
 			custom_tooltip = pos_greed_desc
 			add_stress = medium_stress_gain
-		}
-		else_if = {
-			limit = { ai_lawfulness >= very_low_positive_ai_value }
-			custom_tooltip = pos_lawfulness_desc
-			add_stress = minor_stress_gain
 		}
 		hidden_effect = { scope:target_opponent = { trigger_event = { id = legislature_events.1510 } } }
 		ai_chance = {
@@ -913,7 +797,7 @@ legislature_events.1500 = {
 			modifier = {
 				add = {
 					value = 0
-					subtract = ai_honor
+					subtract = ai_lawfulness
 					max = 0
 					multiply = 3
 				}
@@ -921,7 +805,7 @@ legislature_events.1500 = {
 			modifier = {
 				add = {
 					value = 0
-					subtract = ai_honor
+					subtract = ai_lawfulness
 					min = 0
 				}
 			}
@@ -933,7 +817,7 @@ legislature_events.1500 = {
 			modifier = {
 				add = {
 					value = 0
-					subtract = scope:target_opponent.ai_honor
+					subtract = scope:target_opponent.ai_lawfulness
 				}
 				ai_rationality >= low_positive_ai_value
 			}
@@ -958,21 +842,7 @@ legislature_events.1500 = {
 			limit = { scope:activity.var:pork > 0 }
 			custom_tooltip = already_spending_pork_desc
 		}
-		if = {
-			limit = { ai_interventionism < very_high_negative_ai_value }
-			custom_tooltip = neg_interventionism_desc
-			add_stress = major_stress_gain
-		}
-		else_if = {
-			limit = { ai_interventionism < medium_negative_ai_value }
-			custom_tooltip = neg_interventionism_desc
-			add_stress = medium_stress_gain
-		}
-		else_if = {
-			limit = { ai_interventionism < very_low_negative_ai_value }
-			custom_tooltip = neg_interventionism_desc
-			add_stress = minor_stress_gain
-		}
+		negative_interventionism_stress_gain_effect = yes
 		hidden_effect = { scope:target_opponent = { trigger_event = { id = legislature_events.1520 } } }
 		ai_chance = {
 			base = 50
@@ -1093,21 +963,7 @@ legislature_events.1510 = {
 				multiply = 10
 			}
 		}
-		if = {
-			limit = { ai_lawfulness >= very_high_positive_ai_value }
-			custom_tooltip = pos_lawfulness_desc
-			add_stress = major_stress_gain
-		}
-		else_if = {
-			limit = { ai_lawfulness >= medium_positive_ai_value }
-			custom_tooltip = pos_lawfulness_desc
-			add_stress = medium_stress_gain
-		}
-		else_if = {
-			limit = { ai_lawfulness >= very_low_positive_ai_value }
-			custom_tooltip = pos_lawfulness_desc
-			add_stress = minor_stress_gain
-		}
+		positive_lawfulness_stress_gain_effect = yes
 		add_piety = {
 			value = bribe_piety
 			multiply = 10
@@ -1119,6 +975,7 @@ legislature_events.1510 = {
 			}
 			set_variable = { name = vote_strength value = 100 }
 			change_variable = { name = vote_strength add = ai_honor }
+			set_variable = vote_bargained_for
 			scope:actor = {
 				send_interface_toast = {
 					type = msg_vote_change_good
@@ -1145,21 +1002,7 @@ legislature_events.1510 = {
 	# Refuse the bribe
 	option = {
 		name = legislature_events.1510.b
-		if = {
-			limit = { ai_greed >= very_high_positive_ai_value }
-			custom_tooltip = pos_greed_desc
-			add_stress = major_stress_gain
-		}
-		else_if = {
-			limit = { ai_greed >= medium_positive_ai_value }
-			custom_tooltip = pos_greed_desc
-			add_stress = medium_stress_gain
-		}
-		else_if = {
-			limit = { ai_greed >= very_low_positive_ai_value }
-			custom_tooltip = pos_greed_desc
-			add_stress = minor_stress_gain
-		}
+		positive_greed_stress_gain_effect = yes
 		hidden_effect = {
 			scope:actor = {
 				send_interface_toast = {
@@ -1202,21 +1045,7 @@ legislature_events.1520 = {
 	option = {
 		name = legislature_events.1520.a
 		custom_tooltip = pork_barrel_effect_desc
-		if = {
-			limit = { ai_interventionism <= very_high_negative_ai_value }
-			custom_tooltip = neg_interventionism_desc
-			add_stress = major_stress_gain
-		}
-		else_if = {
-			limit = { ai_interventionism <= medium_negative_ai_value }
-			custom_tooltip = neg_interventionism_desc
-			add_stress = medium_stress_gain
-		}
-		else_if = {
-			limit = { ai_interventionism <= very_low_negative_ai_value }
-			custom_tooltip = neg_interventionism_desc
-			add_stress = minor_stress_gain
-		}
+		negative_interventionism_stress_gain_effect = yes
 		add_piety = {
 			value = pork_piety
 			multiply = 10
@@ -1226,10 +1055,11 @@ legislature_events.1520 = {
 				remove_from_guest_subset = { name = bill_opponents target = ROOT }
 				add_to_guest_subset = { name = bill_supporters target = ROOT }
 				change_variable = { name = pork add = ROOT.var:riding.treasury_required_for_stimulus }
-				add_to_guest_subset = { name = pork_recipients target = ROOT.var:riding }
+				add_to_variable_list = { name = pork_recipients target = ROOT.var:riding }
 			}
 			set_variable = { name = vote_strength value = 300 }
 			change_variable = { name = vote_strength add = ai_honor }
+			set_variable = vote_bargained_for
 			scope:actor = {
 				send_interface_toast = {
 					type = msg_vote_change_good
@@ -1262,21 +1092,7 @@ legislature_events.1520 = {
 	# Refuse the deal
 	option = {
 		name = legislature_events.1520.b
-		if = {
-			limit = { ai_interventionism >= very_high_positive_ai_value }
-			custom_tooltip = pos_interventionism_desc
-			add_stress = major_stress_gain
-		}
-		else_if = {
-			limit = { ai_interventionism >= medium_positive_ai_value }
-			custom_tooltip = pos_interventionism_desc
-			add_stress = medium_stress_gain
-		}
-		else_if = {
-			limit = { ai_interventionism >= very_low_positive_ai_value }
-			custom_tooltip = pos_interventionism_desc
-			add_stress = minor_stress_gain
-		}
+		positive_interventionism_stress_gain_effect = yes
 		hidden_effect = {
 			scope:actor = {
 				send_interface_toast = {
@@ -1321,6 +1137,7 @@ legislature_events.1530 = {
 				add_to_guest_subset = { name = bill_supporters target = ROOT }
 			}
 			set_variable = { name = vote_strength value = 10000 }
+			set_variable = vote_bargained_for
 			scope:actor = {
 				send_interface_toast = {
 					type = msg_vote_change_good
@@ -1358,6 +1175,7 @@ legislature_events.1535 = {
 			}
 			set_variable = { name = vote_strength value = 100 }
 			change_variable = { name = vote_strength add = ai_honor }
+			set_variable = vote_bargained_for
 			scope:actor = {
 				send_interface_toast = {
 					type = msg_vote_change_good
@@ -1376,21 +1194,7 @@ legislature_events.1535 = {
 	# Refuse
 	option = {
 		name = legislature_events.1535.b
-		if = {
-			limit = { ai_honor >= very_high_positive_ai_value }
-			custom_tooltip = pos_honor_desc
-			add_stress = major_stress_gain
-		}
-		else_if = {
-			limit = { ai_honor >= medium_positive_ai_value }
-			custom_tooltip = pos_honor_desc
-			add_stress = medium_stress_gain
-		}
-		else_if = {
-			limit = { ai_honor >= very_low_positive_ai_value }
-			custom_tooltip = pos_honor_desc
-			add_stress = minor_stress_gain
-		}
+		positive_honor_stress_gain_effect = yes
 		scope:actor = { add_opinion = { modifier = opinion_betrayed_favor target = ROOT } }
 		hidden_effect = {
 			change_variable = { name = trustworthiness subtract = 25 }
@@ -1440,6 +1244,7 @@ legislature_events.1540 = {
 			}
 			set_variable = { name = vote_strength value = 100 }
 			change_variable = { name = vote_strength add = ai_honor }
+			set_variable = vote_bargained_for
 			scope:actor = {
 				send_interface_toast = {
 					type = msg_vote_change_good
@@ -1650,21 +1455,12 @@ legislature_events.1601 = {
 	# I guess I'll vote for it after all
 	option = {
 		name = legislature_events.1601.a
-		trigger = { NOT = { has_variable = vote_strength } }
-		show_as_unavailable = { always = yes }
-		hidden_effect = {
-			save_scope_as = vote_changer
-			scope:activity = {
-				remove_from_guest_subset = { name = budget_opponents target = ROOT }
-				add_to_guest_subset = { name = budget_supporters target = ROOT }
-			}
-			scope:host = {
-				send_interface_message = {
-					type = msg_vote_change_good
-					title = legislature_events.1601.changed_vote.tt
-					desc = legislature_events.1601.changed_vote.desc
-					left_icon = scope:vote_changer
-				}
+		if = {
+			limit = { has_variable = vote_bargained_for }
+			if = {
+				limit = { ai_rationality < ai_honor }
+				custom_tooltip = pos_honor_desc
+				add_stress = medium_stress_gain
 			}
 		}
 		if = {
@@ -1674,6 +1470,22 @@ legislature_events.1601 = {
 			}
 			custom_tooltip = pos_zeal_desc
 			add_stress = major_stress_gain
+		}
+		hidden_effect = {
+			save_scope_as = vote_changer
+			scope:activity = {
+				remove_from_guest_subset = { name = bill_opponents target = ROOT }
+				add_to_guest_subset = { name = bill_supporters target = ROOT }
+			}
+			remove_variable = vote_bargained_for
+			scope:host = {
+				send_interface_message = {
+					type = msg_vote_change_good
+					title = legislature_events.1601.changed_vote.tt
+					desc = legislature_events.1601.changed_vote.desc
+					left_icon = scope:vote_changer
+				}
+			}
 		}
 		ai_chance = {
 			base = 0
@@ -1700,19 +1512,13 @@ legislature_events.1601 = {
 	option = {
 		name = legislature_events.1601.b
 		if = {
-			limit = { ai_rationality >= very_high_positive_ai_value }
-			custom_tooltip = pos_rationality_desc
-			add_stress = major_stress_gain
-		}
-		else_if = {
-			limit = { ai_rationality >= medium_positive_ai_value }
-			custom_tooltip = pos_rationality_desc
-			add_stress = medium_stress_gain
-		}
-		else_if = {
-			limit = { ai_rationality >= very_low_positive_ai_value }
-			custom_tooltip = pos_rationality_desc
-			add_stress = minor_stress_gain
+			limit = {
+				OR = {
+					NOT = { has_variable = vote_bargained_for }
+					ai_rationality >= ai_honor
+				}
+			}
+			positive_rationality_stress_gain_effect = yes
 		}
 		ai_chance = {
 			base = 50
@@ -1875,23 +1681,12 @@ legislature_events.1651 = {
 	# I guess I'll vote against it after all
 	option = {
 		name = legislature_events.1651.a
-		trigger = { NOT = { has_variable = vote_strength } }
-		show_as_unavailable = { always = yes }
-		hidden_effect = {
-			scope:activity = {
-				remove_from_guest_subset = { name = budget_opponents target = ROOT }
-				add_to_guest_subset = { name = budget_supporters target = ROOT }
-			}
-			set_variable = { name = vote_strength value = 50 }
-			change_variable = { name = vote_strength add = scope:speaker.diplomacy }
-			save_scope_as = vote_changer
-			scope:host = {
-				send_interface_message = {
-					type = msg_vote_change_bad
-					title = legislature_events.1651.changed_vote.tt
-					desc = legislature_events.1651.changed_vote.desc
-					left_icon = scope:vote_changer
-				}
+		if = {
+			limit = { has_variable = vote_bargained_for }
+			if = {
+				limit = { ai_rationality < ai_honor }
+				custom_tooltip = pos_honor_desc
+				add_stress = medium_stress_gain
 			}
 		}
 		if = {
@@ -1901,6 +1696,24 @@ legislature_events.1651 = {
 			}
 			custom_tooltip = pos_zeal_desc
 			add_stress = major_stress_gain
+		}
+		hidden_effect = {
+			scope:activity = {
+				remove_from_guest_subset = { name = bill_opponents target = ROOT }
+				add_to_guest_subset = { name = bill_supporters target = ROOT }
+			}
+			set_variable = { name = vote_strength value = 50 }
+			change_variable = { name = vote_strength add = scope:speaker.diplomacy }
+			remove_variable = vote_bargained_for
+			save_scope_as = vote_changer
+			scope:host = {
+				send_interface_message = {
+					type = msg_vote_change_bad
+					title = legislature_events.1651.changed_vote.tt
+					desc = legislature_events.1651.changed_vote.desc
+					left_icon = scope:vote_changer
+				}
+			}
 		}
 		ai_chance = {
 			base = 50
@@ -1926,21 +1739,7 @@ legislature_events.1651 = {
 	# I remain unconvinced.
 	option = {
 		name = legislature_events.1651.b
-		if = {
-			limit = { ai_rationality >= very_high_positive_ai_value }
-			custom_tooltip = pos_rationality_desc
-			add_stress = major_stress_gain
-		}
-		else_if = {
-			limit = { ai_rationality >= medium_positive_ai_value }
-			custom_tooltip = pos_rationality_desc
-			add_stress = medium_stress_gain
-		}
-		else_if = {
-			limit = { ai_rationality >= very_low_positive_ai_value }
-			custom_tooltip = pos_rationality_desc
-			add_stress = minor_stress_gain
-		}
+		positive_rationality_stress_gain_effect = yes
 		ai_chance = {
 			base = 50
 			modifier = {
@@ -2029,6 +1828,12 @@ legislature_events.1700 = {
 				NOT = { bill_is_ideologically_unacceptable = { BILL = scope:activity } }
 			}
 		}
+		show_as_unavailable = {
+			scope:legislator = {
+				faith = { this = ROOT.faith }
+				NOT = { bill_is_ideologically_unacceptable = { BILL = scope:activity } }
+			}
+		}
 		hidden_effect = { scope:legislator = { trigger_event = { id = legislature_events.1720 } } }
 		ai_chance = {
 			base = 200
@@ -2059,6 +1864,12 @@ legislature_events.1700 = {
 			}
 			NOT = { scope:host = ROOT }
 		}
+		show_as_unavailable = {
+			scope:legislator = {
+				faith = { this = ROOT.faith }
+				NOT = { bill_is_ideologically_necessary = { BILL = scope:activity } }
+			}
+		}
 		hidden_effect = { scope:legislator = { trigger_event = { id = legislature_events.1725 } } }
 		ai_chance = {
 			base = 200
@@ -2085,23 +1896,10 @@ legislature_events.1700 = {
 			scope:legislator = { is_in_guest_subset = { name = bill_opponents } }
 			has_strong_usable_hook = scope:legislator
 		}
+		show_as_unavailable = { has_strong_usable_hook = scope:legislator }
 		use_hook = scope:legislator
 		hidden_effect = { scope:legislator = { trigger_event = { id = legislature_events.1730 } } }
-		if = {
-			limit = { ai_authoritarianism <= very_high_negative_ai_value }
-			custom_tooltip = neg_authoritarianism_desc
-			add_stress = major_stress_gain
-		}
-		else_if = {
-			limit = { ai_authoritarianism <= medium_negative_ai_value }
-			custom_tooltip = neg_authoritarianism_desc
-			add_stress = medium_stress_gain
-		}
-		else_if = {
-			limit = { ai_authoritarianism <= very_low_negative_ai_value }
-			custom_tooltip = neg_authoritarianism_desc
-			add_stress = minor_stress_gain
-		}
+		negative_authoritarianism_stress_gain_effect = yes
 		ai_chance = {
 			base = 100
 			modifier = { add = ai_authoritarianism }
@@ -2119,23 +1917,10 @@ legislature_events.1700 = {
 			NOT = { scope:host = ROOT }
 			has_strong_usable_hook = scope:legislator
 		}
+		show_as_unavailable = { has_strong_usable_hook = scope:legislator }
 		use_hook = scope:legislator
 		hidden_effect = { scope:legislator = { trigger_event = { id = legislature_events.1735 } } }
-		if = {
-			limit = { ai_authoritarianism <= very_high_negative_ai_value }
-			custom_tooltip = neg_authoritarianism_desc
-			add_stress = major_stress_gain
-		}
-		else_if = {
-			limit = { ai_authoritarianism <= medium_negative_ai_value }
-			custom_tooltip = neg_authoritarianism_desc
-			add_stress = medium_stress_gain
-		}
-		else_if = {
-			limit = { ai_authoritarianism <= very_low_negative_ai_value }
-			custom_tooltip = neg_authoritarianism_desc
-			add_stress = minor_stress_gain
-		}
+		negative_authoritarianism_stress_gain_effect = yes
 		ai_chance = {
 			base = 100
 			modifier = { add = ai_authoritarianism }
@@ -2152,6 +1937,7 @@ legislature_events.1700 = {
 			scope:legislator = { is_in_guest_subset = { name = bill_opponents } }
 			has_weak_hook = scope:legislator
 		}
+		show_as_unavailable = { has_weak_hook = scope:legislator }
 		use_hook = scope:legislator
 		hidden_effect = { scope:legislator = { trigger_event = { id = legislature_events.1740 } } }
 		ai_chance = {
@@ -2170,6 +1956,7 @@ legislature_events.1700 = {
 			NOT = { scope:host = ROOT }
 			has_weak_hook = scope:legislator
 		}
+		show_as_unavailable = { has_weak_hook = scope:legislator }
 		use_hook = scope:legislator
 		hidden_effect = { scope:legislator = { trigger_event = { id = legislature_events.1745 } } }
 		ai_chance = {
@@ -2189,6 +1976,7 @@ legislature_events.1700 = {
 				is_in_guest_subset = { name = bill_opponents }
 			}
 		}
+		show_as_unavailable = { scope:legislator = { can_add_hook = { type = favor_hook target = ROOT } } }
 		show_as_tooltip = { scope:legislator = { add_hook = { type = favor_hook target = ROOT } } }
 		hidden_effect = { scope:legislator = { trigger_event = { id = legislature_events.1750 } } }
 		ai_chance = {
@@ -2216,6 +2004,7 @@ legislature_events.1700 = {
 			}
 			NOT = { scope:host = ROOT }
 		}
+		show_as_unavailable = { scope:legislator = { can_add_hook = { type = favor_hook target = ROOT } } }
 		show_as_tooltip = { scope:legislator = { add_hook = { type = favor_hook target = ROOT } } }
 		hidden_effect = { scope:legislator = { trigger_event = { id = legislature_events.1755 } } }
 		ai_chance = {
@@ -2240,6 +2029,7 @@ legislature_events.1700 = {
 			scope:legislator = { is_in_guest_subset = { name = bill_opponents } }
 			gold >= bribe_value
 		}
+		show_as_unavailable = { gold >= bribe_value }
 		show_as_tooltip = {
 			pay_short_term_gold = { target = scope:legislator gold = bribe_value }
 			add_piety = {
@@ -2248,25 +2038,11 @@ legislature_events.1700 = {
 			}
 		}
 		hidden_effect = { scope:legislator = { trigger_event = { id = legislature_events.1760 } } }
+		positive_lawfulness_stress_gain_effect = yes
 		if = {
-			limit = { ai_lawfulness >= high_positive_ai_value }
-			custom_tooltip = pos_lawfulness_desc
-			add_stress = major_stress_gain
-		}
-		else_if = {
-			limit = { ai_lawfulness >= low_positive_ai_value }
-			custom_tooltip = pos_lawfulness_desc
-			add_stress = medium_stress_gain
-		}
-		else_if = {
 			limit = { ai_greed > ai_rationality }
 			custom_tooltip = pos_greed_desc
 			add_stress = medium_stress_gain
-		}
-		else_if = {
-			limit = { ai_lawfulness >= very_low_negative_ai_value }
-			custom_tooltip = pos_lawfulness_desc
-			add_stress = minor_stress_gain
 		}
 		ai_chance = {
 			base = 100
@@ -2314,6 +2090,7 @@ legislature_events.1700 = {
 			gold >= bribe_value
 			NOT = { scope:host = ROOT }
 		}
+		show_as_unavailable = { gold >= bribe_value }
 		show_as_tooltip = {
 			pay_short_term_gold = { target = scope:legislator gold = bribe_value }
 			add_piety = {
@@ -2322,25 +2099,11 @@ legislature_events.1700 = {
 			}
 		}
 		hidden_effect = { scope:legislator = { trigger_event = { id = legislature_events.1765 } } }
+		positive_lawfulness_stress_gain_effect = yes
 		if = {
-			limit = { ai_lawfulness >= high_positive_ai_value }
-			custom_tooltip = pos_lawfulness_desc
-			add_stress = major_stress_gain
-		}
-		else_if = {
-			limit = { ai_lawfulness >= low_positive_ai_value }
-			custom_tooltip = pos_lawfulness_desc
-			add_stress = medium_stress_gain
-		}
-		else_if = {
 			limit = { ai_greed > ai_rationality }
 			custom_tooltip = pos_greed_desc
 			add_stress = medium_stress_gain
-		}
-		else_if = {
-			limit = { ai_lawfulness >= very_low_negative_ai_value }
-			custom_tooltip = pos_lawfulness_desc
-			add_stress = minor_stress_gain
 		}
 		ai_chance = {
 			base = 100
@@ -2400,16 +2163,7 @@ legislature_events.1700 = {
 					}
 				}
 			}
-			if = {
-				limit = { ai_authoritarianism >= very_high_positive_ai_value }
-				custom_tooltip = pos_authoritarianism_desc
-				add_stress = medium_stress_gain
-			}
-			else_if = {
-				limit = { ai_authoritarianism >= medium_positive_ai_value }
-				custom_tooltip = pos_authoritarianism_desc
-				add_stress = minor_stress_gain
-			}
+			positive_authoritarianism_stress_gain_effect = yes
 		}
 		ai_chance = {
 			base = 100
@@ -2467,10 +2221,11 @@ legislature_events.1710 = {
 		reverse_add_opinion = { modifier = opinion_followed_pressure target = scope:lobbyist }
 		hidden_effect = {
 			scope:activity = {
-				remove_from_guest_subset = { name = budget_opponents target = ROOT }
-				add_to_guest_subset = { name = budget_supporters target = ROOT }
+				remove_from_guest_subset = { name = bill_opponents target = ROOT }
+				add_to_guest_subset = { name = bill_supporters target = ROOT }
 			}
 			set_variable = { name = vote_strength value = "opinion(scope:lobbyist)" }
+			set_variable = vote_bargained_for
 			scope:host = {
 				send_interface_message = {
 					type = msg_vote_change_good
@@ -2555,10 +2310,11 @@ legislature_events.1715 = {
 		reverse_add_opinion = { modifier = opinion_followed_pressure target = scope:lobbyist }
 		hidden_effect = {
 			scope:activity = {
-				remove_from_guest_subset = { name = budget_supporters target = ROOT }
-				add_to_guest_subset = { name = budget_opponents target = ROOT }
+				remove_from_guest_subset = { name = bill_supporters target = ROOT }
+				add_to_guest_subset = { name = bill_opponents target = ROOT }
 			}
 			set_variable = { name = vote_strength value = "opinion(scope:lobbyist)" }
+			set_variable = vote_bargained_for
 			scope:host = {
 				send_interface_message = {
 					type = msg_vote_change_bad
@@ -2643,11 +2399,12 @@ legislature_events.1720 = {
 		reverse_add_opinion = { modifier = opinion_followed_pressure target = scope:lobbyist }
 		hidden_effect = {
 			scope:activity = {
-				remove_from_guest_subset = { name = budget_opponents target = ROOT }
-				add_to_guest_subset = { name = budget_supporters target = ROOT }
+				remove_from_guest_subset = { name = bill_opponents target = ROOT }
+				add_to_guest_subset = { name = bill_supporters target = ROOT }
 			}
 			set_variable = { name = vote_strength value = 100 }
 			change_variable = { name = vote_strength add = ai_zeal }
+			remove_variable = vote_bargained_for
 			scope:host = {
 				send_interface_message = {
 					type = msg_vote_change_good
@@ -2691,6 +2448,7 @@ legislature_events.1720 = {
 	option = {
 		name = legislature_events.1720.b
 		reverse_add_opinion = { modifier = opinion_defied_pressure target = scope:lobbyist }
+		positive_zeal_stress_gain_effect = yes
 		hidden_effect = {
 			scope:lobbyist = {
 				send_interface_toast = {
@@ -2734,11 +2492,12 @@ legislature_events.1725 = {
 		reverse_add_opinion = { modifier = opinion_followed_pressure target = scope:lobbyist }
 		hidden_effect = {
 			scope:activity = {
-				remove_from_guest_subset = { name = budget_supporters target = ROOT }
-				add_to_guest_subset = { name = budget_opponents target = ROOT }
+				remove_from_guest_subset = { name = bill_supporters target = ROOT }
+				add_to_guest_subset = { name = bill_opponents target = ROOT }
 			}
 			set_variable = { name = vote_strength value = 100 }
 			change_variable = { name = vote_strength add = ai_zeal }
+			remove_variable = vote_bargained_for
 			scope:host = {
 				send_interface_message = {
 					type = msg_vote_change_bad
@@ -2782,6 +2541,7 @@ legislature_events.1725 = {
 	option = {
 		name = legislature_events.1725.b
 		reverse_add_opinion = { modifier = opinion_defied_pressure target = scope:lobbyist }
+		positive_zeal_stress_gain_effect = yes
 		hidden_effect = {
 			scope:lobbyist = {
 				send_interface_toast = {
@@ -2824,10 +2584,11 @@ legislature_events.1730 = {
 		name = legislature_events.1730.a
 		hidden_effect = {
 			scope:activity = {
-				remove_from_guest_subset = { name = budget_opponents target = ROOT }
-				add_to_guest_subset = { name = budget_supporters target = ROOT }
+				remove_from_guest_subset = { name = bill_opponents target = ROOT }
+				add_to_guest_subset = { name = bill_supporters target = ROOT }
 			}
 			set_variable = { name = vote_strength value = 100000 } # Should be functionally infinite
+			set_variable = vote_bargained_for
 			scope:host = {
 				send_interface_message = {
 					type = msg_vote_change_good
@@ -2869,10 +2630,11 @@ legislature_events.1735 = {
 		name = legislature_events.1735.a
 		hidden_effect = {
 			scope:activity = {
-				remove_from_guest_subset = { name = budget_supporters target = ROOT }
-				add_to_guest_subset = { name = budget_opponents target = ROOT }
+				remove_from_guest_subset = { name = bill_supporters target = ROOT }
+				add_to_guest_subset = { name = bill_opponents target = ROOT }
 			}
 			set_variable = { name = vote_strength value = 100000 } # Should be functionally infinite
+			set_variable = vote_bargained_for
 			scope:host = {
 				send_interface_message = {
 					type = msg_vote_change_bad
@@ -2916,11 +2678,12 @@ legislature_events.1740 = {
 		hidden_effect = {
 			change_variable = { name = trustworthiness add = 10 }
 			scope:activity = {
-				remove_from_guest_subset = { name = budget_opponents target = ROOT }
-				add_to_guest_subset = { name = budget_supporters target = ROOT }
+				remove_from_guest_subset = { name = bill_opponents target = ROOT }
+				add_to_guest_subset = { name = bill_supporters target = ROOT }
 			}
 			set_variable = { name = vote_strength value = 100 }
 			change_variable = { name = vote_strength add = ai_honor }
+			set_variable = vote_bargained_for
 			scope:host = {
 				send_interface_message = {
 					type = msg_vote_change_good
@@ -2958,6 +2721,7 @@ legislature_events.1740 = {
 		name = legislature_events.1740.b
 		reverse_add_opinion = { modifier = opinion_defied_pressure target = scope:lobbyist }
 		reverse_add_opinion = { modifier = opinion_betrayed_favor target = scope:lobbyist }
+		positive_honor_stress_gain_effect = yes
 		hidden_effect = {
 			change_variable = { name = trustworthiness subtract = 25 }
 			scope:lobbyist = {
@@ -3003,11 +2767,12 @@ legislature_events.1745 = {
 		hidden_effect = {
 			change_variable = { name = trustworthiness add = 10 }
 			scope:activity = {
-				remove_from_guest_subset = { name = budget_supporters target = ROOT }
-				add_to_guest_subset = { name = budget_opponents target = ROOT }
+				remove_from_guest_subset = { name = bill_supporters target = ROOT }
+				add_to_guest_subset = { name = bill_opponents target = ROOT }
 			}
 			set_variable = { name = vote_strength value = 100 }
 			change_variable = { name = vote_strength add = ai_honor }
+			set_variable = vote_bargained_for
 			scope:host = {
 				send_interface_message = {
 					type = msg_vote_change_bad
@@ -3045,6 +2810,7 @@ legislature_events.1745 = {
 		name = legislature_events.1745.b
 		reverse_add_opinion = { modifier = opinion_defied_pressure target = scope:lobbyist }
 		reverse_add_opinion = { modifier = opinion_betrayed_favor target = scope:lobbyist }
+		positive_honor_stress_gain_effect = yes
 		hidden_effect = {
 			change_variable = { name = trustworthiness subtract = 25 }
 			scope:lobbyist = {
@@ -3090,11 +2856,12 @@ legislature_events.1750 = {
 		add_hook = { type = favor_hook target = scope:lobbyist }
 		hidden_effect = {
 			scope:activity = {
-				remove_from_guest_subset = { name = budget_opponents target = ROOT }
-				add_to_guest_subset = { name = budget_supporters target = ROOT }
+				remove_from_guest_subset = { name = bill_opponents target = ROOT }
+				add_to_guest_subset = { name = bill_supporters target = ROOT }
 			}
 			set_variable = { name = vote_strength value = 100 }
 			change_variable = { name = vote_strength add = ai_honor }
+			set_variable = vote_bargained_for
 			scope:host = {
 				send_interface_message = {
 					type = msg_vote_change_good
@@ -3174,11 +2941,12 @@ legislature_events.1755 = {
 		add_hook = { type = favor_hook target = scope:lobbyist }
 		hidden_effect = {
 			scope:activity = {
-				remove_from_guest_subset = { name = budget_supporters target = ROOT }
-				add_to_guest_subset = { name = budget_opponents target = ROOT }
+				remove_from_guest_subset = { name = bill_supporters target = ROOT }
+				add_to_guest_subset = { name = bill_opponents target = ROOT }
 			}
 			set_variable = { name = vote_strength value = 100 }
 			change_variable = { name = vote_strength add = ai_honor }
+			set_variable = vote_bargained_for
 			scope:host = {
 				send_interface_message = {
 					type = msg_vote_change_bad
@@ -3259,6 +3027,7 @@ legislature_events.1760 = {
 			pay_short_term_gold = { target = ROOT gold = bribe_value }
 			give_official_bribe_secret_effect = { TARGET = ROOT }
 		}
+		positive_lawfulness_stress_gain_effect = yes
 		add_piety = {
 			value = bribe_piety
 			multiply = 10
@@ -3271,10 +3040,11 @@ legislature_events.1760 = {
 				}
 			}
 			scope:activity = {
-				remove_from_guest_subset = { name = budget_opponents target = ROOT }
-				add_to_guest_subset = { name = budget_supporters target = ROOT }
+				remove_from_guest_subset = { name = bill_opponents target = ROOT }
+				add_to_guest_subset = { name = bill_supporters target = ROOT }
 			}
 			set_variable = { name = vote_strength value = 200 }
+			set_variable = vote_bargained_for
 			if = {
 				limit = { ai_honor > 0 }
 				change_variable = { name = vote_strength add = ai_honor }
@@ -3320,6 +3090,7 @@ legislature_events.1760 = {
 	option = {
 		name = legislature_events.1760.b
 		reverse_add_opinion = { modifier = opinion_defied_pressure target = scope:lobbyist }
+		positive_greed_stress_gain_effect = yes
 		hidden_effect = {
 			scope:lobbyist = {
 				send_interface_toast = {
@@ -3365,6 +3136,7 @@ legislature_events.1765 = {
 			pay_short_term_gold = { target = ROOT gold = bribe_value }
 			give_official_bribe_secret_effect = { TARGET = ROOT }
 		}
+		positive_lawfulness_stress_gain_effect = yes
 		add_piety = {
 			value = bribe_piety
 			multiply = 10
@@ -3377,10 +3149,11 @@ legislature_events.1765 = {
 				}
 			}
 			scope:activity = {
-				remove_from_guest_subset = { name = budget_supporters target = ROOT }
-				add_to_guest_subset = { name = budget_opponents target = ROOT }
+				remove_from_guest_subset = { name = bill_supporters target = ROOT }
+				add_to_guest_subset = { name = bill_opponents target = ROOT }
 			}
 			set_variable = { name = vote_strength value = 200 }
+			set_variable = vote_bargained_for
 			if = {
 				limit = { ai_honor > 0 }
 				change_variable = { name = vote_strength add = ai_honor }
@@ -3426,6 +3199,7 @@ legislature_events.1765 = {
 	option = {
 		name = legislature_events.1765.b
 		reverse_add_opinion = { modifier = opinion_defied_pressure target = scope:lobbyist }
+		positive_greed_stress_gain_effect = yes
 		hidden_effect = {
 			scope:lobbyist = {
 				send_interface_toast = {
@@ -3625,7 +3399,7 @@ legislature_events.2100 = {
 		name = legislature_events.2100.a
 		add_prestige = {
 			value = 50
-			multiply = tier_multiplier
+			multiply = scope:ruler.tier_multiplier
 		}
 		hidden_effect = { set_variable = bill_passed }
 		pass_military_budget_effect = yes
@@ -3642,7 +3416,7 @@ legislature_events.2100 = {
 	
 	after = { remove_variable = bill_passed }
 }
-# Your budget bill has failed!
+# A bill you voted for has passed!
 legislature_events.2101 = {
 	desc = legislature_events.2101.desc
 	
@@ -3653,14 +3427,188 @@ legislature_events.2101 = {
 		character = ROOT
 		animation = war_over_win
 	}
+	left_portrait = {
+		character = scope:host
+		animation = war_over_win
+	}
+	
+	immediate = {
+		if = {
+			limit = { bill_is_ideologically_necessary = { BILL = scope:activity } }
+			change_variable = { name = ai_faith_in_democracy add = 1 }
+		}
+		else_if = {
+			limit = { var:ai_faith_in_democracy <= 10 }
+			change_variable = { name = ai_faith_in_democracy add = 1 }
+		}
+	}
 	
 	option = {
 		name = legislature_events.2101.a
 		add_prestige = {
+			value = 5
+			multiply = scope:ruler.tier_multiplier
+		}
+		reverse_add_opinion = { modifier = opinion_voted_for_my_bill target = scope:host }
+		show_as_tooltip = {
+			pass_military_budget_effect = yes
+			pass_ministry_budget_effect = yes
+			pass_salary_budget_effect = yes
+			pork_spending_effect = yes
+		}
+	}
+}
+# A bill you voted against has passed!
+legislature_events.2102 = {
+	desc = legislature_events.2102.desc
+	
+	theme = realm
+	override_background = council_chamber
+	
+	right_portrait = {
+		character = ROOT
+		animation = war_over_loss
+	}
+	left_portrait = {
+		character = scope:host
+		animation = war_over_win
+	}
+	
+	immediate = {
+		if = {
+			limit = { bill_is_ideologically_unacceptable = { BILL = scope:activity } }
+			change_variable = { name = ai_faith_in_democracy subtract = 5 }
+		}
+		else = {
+			change_variable = { name = ai_faith_in_democracy subtract = 1 }
+		}
+	}
+	
+	option = {
+		name = legislature_events.2102.a
+		add_prestige = {
+			value = -5
+			multiply = scope:ruler.tier_multiplier
+		}
+		reverse_add_opinion = { modifier = opinion_voted_against_my_bill target = scope:host }
+		show_as_tooltip = {
+			pass_military_budget_effect = yes
+			pass_ministry_budget_effect = yes
+			pass_salary_budget_effect = yes
+			pork_spending_effect = yes
+		}
+	}
+}
+# Your liege or suzerain passed a new budget!
+legislature_events.2105 = {
+	desc = legislature_events.2105.desc
+	
+	theme = realm
+	override_background = council_chamber
+	
+	left_portrait = {
+		character = scope:host
+		animation = war_over_win
+	}
+	
+	option = {
+		name = legislature_events.2105.a
+		show_as_tooltip = {
+			pass_military_budget_effect = yes
+			pass_ministry_budget_effect = yes
+			pass_salary_budget_effect = yes
+			pork_spending_effect = yes
+		}
+	}
+}
+# Your budget bill has failed!
+legislature_events.2110 = {
+	desc = legislature_events.2110.desc
+	
+	theme = realm
+	override_background = council_chamber
+	
+	right_portrait = {
+		character = ROOT
+		animation = war_over_win
+	}
+	
+	option = {
+		name = legislature_events.2110.a
+		add_prestige = {
 			value = -50
-			multiply = tier_multiplier
+			multiply = scope:ruler.tier_multiplier
 		}
 		hidden_effect = { change_variable = { name = ai_faith_in_democracy subtract = 5 } }
+	}
+}
+# A bill you voted for has failed!
+legislature_events.2111 = {
+	desc = legislature_events.2111.desc
+	
+	theme = realm
+	override_background = council_chamber
+	
+	right_portrait = {
+		character = ROOT
+		animation = war_over_loss
+	}
+	left_portrait = {
+		character = scope:host
+		animation = war_over_loss
+	}
+	
+	immediate = {
+		if = {
+			limit = { bill_is_ideologically_necessary = { BILL = scope:activity } }
+			change_variable = { name = ai_faith_in_democracy subtract = 5 }
+		}
+		else = { change_variable = { name = ai_faith_in_democracy subtract = 1 } }
+	}
+	
+	option = {
+		name = legislature_events.2111.a
+		add_prestige = {
+			value = -5
+			multiply = scope:ruler.tier_multiplier
+		}
+		reverse_add_opinion = { modifier = opinion_voted_for_my_bill target = scope:host }
+	}
+}
+# A bill you voted against has failed!
+legislature_events.2112 = {
+	desc = legislature_events.2112.desc
+	
+	theme = realm
+	override_background = council_chamber
+	
+	right_portrait = {
+		character = ROOT
+		animation = war_over_loss
+	}
+	left_portrait = {
+		character = scope:host
+		animation = war_over_win
+	}
+	
+	immediate = {
+		if = {
+			limit = { bill_is_ideologically_unacceptable = { BILL = scope:activity } }
+			change_variable = { name = ai_faith_in_democracy add = 1 }
+		}
+		else_if = {
+			limit = { var:ai_faith_in_democracy <= 10 }
+			change_variable = { name = ai_faith_in_democracy add = 1 }
+		}
+	}
+	
+	option = {
+		name = legislature_events.2112.a
+		add_prestige = {
+			value = 5
+			multiply = scope:ruler.tier_multiplier
+		}
+		reverse_add_opinion = { modifier = opinion_voted_against_my_bill target = scope:host }
 	}
 }
 # Someone proposes an amendment!
@@ -3756,6 +3704,521 @@ legislature_events.2200 = {
 		remove_variable = amended_military_budget
 		remove_variable = amended_ministry_budget
 		remove_variable = amended_salary_budget
+		clear_variable_list = supporters_gained
+		clear_variable_list = supporters_lost
+	}
+}
+# Everyone has arrived for a tax code session, let's consider the new tax code!
+legislature_events.3000 = {
+	desc = legislature_events.2000.desc
+	
+	theme = realm
+	override_background = council_chamber
+	
+	right_portrait = {
+		character = ROOT
+		animation = thinking
+	}
+	left_portrait = {
+		character = scope:host
+		animation = idle
+	}
+	
+	# Intend to support the bill
+	option = {
+		name = legislature_events.2000.a
+		scope:activity = {
+			add_to_guest_subset = {
+				name = bill_supporters
+				target = ROOT
+			}
+		}
+		vote_for_tax_code_strength_effect = yes
+		hidden_effect = {
+			save_scope_as = voter
+			scope:host = {
+				send_interface_message = {
+					type = msg_vote_change_good
+					title = legislature_events.2000.votes_for.tt
+					desc = legislature_events.2000.votes_for.desc
+					left_icon = scope:voter
+				}
+			}
+		}
+		ai_chance = {
+			base = 50
+			# I just want to block any bills, period
+			modifier = {
+				factor = 0
+				has_activity_intent = block_bill_intent
+			}
+			# I want to increase revenue, and this bill doesn't do that
+			modifier = {
+				factor = 0
+				scope:activity = { proposed_total_tax_income <= var:ruler.current_total_tax_income }
+				OR = {
+					has_activity_intent = increase_revenue_intent
+					has_activity_intent = increase_revenue_maintain_military_intent
+					has_activity_intent = increase_revenue_maintain_commercial_intent
+					has_activity_intent = increase_revenue_maintain_technocratic_intent
+					has_activity_intent = increase_revenue_maintain_theocratic_intent
+				}
+			}
+			# This bill raises taxes I don't like
+			modifier = {
+				factor = 0
+				scope:activity = { var:proposed_military_taxes > var:ruler.current_military_taxes }
+				has_activity_intent = increase_revenue_maintain_military_intent
+			}
+			modifier = {
+				factor = 0
+				scope:activity = { var:proposed_commercial_taxes > var:ruler.current_commercial_taxes }
+				has_activity_intent = increase_revenue_maintain_commercial_intent
+			}
+			modifier = {
+				factor = 0
+				scope:activity = { var:proposed_technocratic_taxes > var:ruler.current_technocratic_taxes }
+				has_activity_intent = increase_revenue_maintain_technocratic_intent
+			}
+			modifier = {
+				factor = 0
+				scope:activity = { var:proposed_theocratic_taxes > var:ruler.current_theocratic_taxes }
+				has_activity_intent = increase_revenue_maintain_theocratic_intent
+			}
+			# This bill doesn't make tax cuts I want
+			modifier = {
+				factor = 0
+				scope:activity = { var:proposed_military_taxes >= var:ruler.current_military_taxes }
+				has_activity_intent = cut_military_taxes_intent
+			}
+			modifier = {
+				factor = 0
+				scope:activity = { var:proposed_commercial_taxes >= var:ruler.current_commercial_taxes }
+				has_activity_intent = cut_commercial_taxes_intent
+			}
+			modifier = {
+				factor = 0
+				scope:activity = { var:proposed_technocratic_taxes >= var:ruler.current_technocratic_taxes }
+				has_activity_intent = cut_technocratic_taxes_intent
+			}
+			modifier = {
+				factor = 0
+				scope:activity = { var:proposed_theocratic_taxes >= var:ruler.current_theocratic_taxes }
+				has_activity_intent = cut_theocratic_taxes_intent
+			}
+		}
+	}
+	# Intend to oppose the bill
+	option = {
+		name = legislature_events.2000.b
+		scope:activity = {
+			add_to_guest_subset = {
+				name = bill_opponents
+				target = ROOT
+			}
+		}
+		vote_against_tax_code_strength_effect = yes
+		hidden_effect = {
+			save_scope_as = voter
+			scope:host = {
+				send_interface_message = {
+					type = msg_vote_change_bad
+					title = legislature_events.2000.votes_against.tt
+					desc = legislature_events.2000.votes_against.desc
+					left_icon = scope:voter
+				}
+			}
+		}
+		ai_chance = {
+			base = 50
+			# I am a rubber stamp
+			modifier = {
+				factor = 0
+				has_activity_intent = support_bill_intent
+			}
+			# I want to increase revenue and this bill does that
+			modifier = {
+				factor = 0
+				scope:activity = { proposed_total_tax_income > var:ruler.current_total_tax_income }
+				OR = {
+					has_activity_intent = increase_revenue_intent
+					AND = {
+						scope:activity = { var:proposed_military_taxes <= var:ruler.current_military_taxes }
+						has_activity_intent = increase_revenue_maintain_military_intent
+					}
+					AND = {
+						scope:activity = { var:proposed_commercial_taxes <= var:ruler.current_commercial_taxes }
+						has_activity_intent = increase_revenue_maintain_commercial_intent
+					}
+					AND = {
+						scope:activity = { var:proposed_technocratic_taxes <= var:ruler.current_technocratic_taxes }
+						has_activity_intent = increase_revenue_maintain_technocratic_intent
+					}
+					AND = {
+						scope:activity = { var:proposed_theocratic_taxes <= var:ruler.current_theocratic_taxes }
+						has_activity_intent = increase_revenue_maintain_theocratic_intent
+					}
+				}
+			}
+			# This bill makes tax cuts I like
+			modifier = {
+				factor = 0
+				scope:activity = { var:proposed_military_taxes < var:ruler.current_military_taxes }
+				has_activity_intent = cut_military_taxes_intent
+			}
+			modifier = {
+				factor = 0
+				scope:activity = { var:proposed_commercial_taxes < var:ruler.current_commercial_taxes }
+				has_activity_intent = cut_commercial_taxes_intent
+			}
+			modifier = {
+				factor = 0
+				scope:activity = { var:proposed_technocratic_taxes < var:ruler.current_technocratic_taxes }
+				has_activity_intent = cut_technocratic_taxes_intent
+			}
+			modifier = {
+				factor = 0
+				scope:activity = { var:proposed_theocratic_taxes < var:ruler.current_theocratic_taxes }
+				has_activity_intent = cut_theocratic_taxes_intent
+			}
+		}
+	}
+}
+# Your tax code has successfully passed!
+legislature_events.3100 = {
+	desc = legislature_events.3100.desc
+	
+	theme = realm
+	override_background = council_chamber
+	
+	right_portrait = {
+		character = ROOT
+		animation = war_over_win
+	}
+	
+	option = {
+		name = legislature_events.2100.a
+		add_prestige = {
+			value = 50
+			multiply = scope:ruler.tier_multiplier
+		}
+		hidden_effect = { set_variable = bill_passed }
+		pass_military_tax_code_effect = yes
+		pass_commercial_tax_code_effect = yes
+		pass_technocratic_tax_code_effect = yes
+		pass_theocratic_tax_code_effect = yes
+		pork_spending_effect = yes
+		hidden_effect = {
+			trigger_event = { on_action = province_taxes_on_action }
+			if = {
+				limit = { var:ai_faith_in_democracy <= 10 }
+				change_variable = { name = ai_faith_in_democracy add = 1 }
+			}
+		}
+	}
+	
+	after = { remove_variable = bill_passed }
+}
+# A bill you voted for has passed!
+legislature_events.3101 = {
+	desc = legislature_events.3101.desc
+	
+	theme = realm
+	override_background = council_chamber
+	
+	right_portrait = {
+		character = ROOT
+		animation = war_over_win
+	}
+	left_portrait = {
+		character = scope:host
+		animation = war_over_win
+	}
+	
+	immediate = {
+		if = {
+			limit = { bill_is_ideologically_necessary = { BILL = scope:activity } }
+			change_variable = { name = ai_faith_in_democracy add = 1 }
+		}
+		else_if = {
+			limit = { var:ai_faith_in_democracy <= 10 }
+			change_variable = { name = ai_faith_in_democracy add = 1 }
+		}
+	}
+	
+	option = {
+		name = legislature_events.2101.a
+		add_prestige = {
+			value = 5
+			multiply = scope:ruler.tier_multiplier
+		}
+		reverse_add_opinion = { modifier = opinion_voted_for_my_bill target = scope:host }
+		show_as_tooltip = {
+			pass_military_tax_code_effect = yes
+			pass_commercial_tax_code_effect = yes
+			pass_technocratic_tax_code_effect = yes
+			pass_theocratic_tax_code_effect = yes
+			pork_spending_effect = yes
+		}
+	}
+}
+# A bill you voted against has passed!
+legislature_events.3102 = {
+	desc = legislature_events.3102.desc
+	
+	theme = realm
+	override_background = council_chamber
+	
+	right_portrait = {
+		character = ROOT
+		animation = war_over_loss
+	}
+	left_portrait = {
+		character = scope:host
+		animation = war_over_win
+	}
+	
+	immediate = {
+		if = {
+			limit = { bill_is_ideologically_unacceptable = { BILL = scope:activity } }
+			change_variable = { name = ai_faith_in_democracy subtract = 5 }
+		}
+		else = {
+			change_variable = { name = ai_faith_in_democracy subtract = 1 }
+		}
+	}
+	
+	option = {
+		name = legislature_events.2102.a
+		add_prestige = {
+			value = -5
+			multiply = scope:ruler.tier_multiplier
+		}
+		reverse_add_opinion = { modifier = opinion_voted_against_my_bill target = scope:host }
+		show_as_tooltip = {
+			pass_military_tax_code_effect = yes
+			pass_commercial_tax_code_effect = yes
+			pass_technocratic_tax_code_effect = yes
+			pass_theocratic_tax_code_effect = yes
+			pork_spending_effect = yes
+		}
+	}
+}
+# Your liege or suzerain passed a new tax code!
+legislature_events.3105 = {
+	desc = legislature_events.3105.desc
+	
+	theme = realm
+	override_background = council_chamber
+	
+	left_portrait = {
+		character = scope:host
+		animation = war_over_win
+	}
+	
+	option = {
+		name = legislature_events.2105.a
+		show_as_tooltip = {
+			pass_military_tax_code_effect = yes
+			pass_commercial_tax_code_effect = yes
+			pass_technocratic_tax_code_effect = yes
+			pass_theocratic_tax_code_effect = yes
+			pork_spending_effect = yes
+		}
+	}
+}
+# Your tax code has failed!
+legislature_events.3110 = {
+	desc = legislature_events.3110.desc
+	
+	theme = realm
+	override_background = council_chamber
+	
+	right_portrait = {
+		character = ROOT
+		animation = war_over_win
+	}
+	
+	option = {
+		name = legislature_events.2110.a
+		add_prestige = {
+			value = -50
+			multiply = scope:ruler.tier_multiplier
+		}
+		hidden_effect = { change_variable = { name = ai_faith_in_democracy subtract = 5 } }
+	}
+}
+# A bill you voted for has failed!
+legislature_events.3111 = {
+	desc = legislature_events.3111.desc
+	
+	theme = realm
+	override_background = council_chamber
+	
+	right_portrait = {
+		character = ROOT
+		animation = war_over_loss
+	}
+	left_portrait = {
+		character = scope:host
+		animation = war_over_loss
+	}
+	
+	immediate = {
+		if = {
+			limit = { bill_is_ideologically_necessary = { BILL = scope:activity } }
+			change_variable = { name = ai_faith_in_democracy subtract = 5 }
+		}
+		else = { change_variable = { name = ai_faith_in_democracy subtract = 1 } }
+	}
+	
+	option = {
+		name = legislature_events.2111.a
+		add_prestige = {
+			value = -5
+			multiply = scope:ruler.tier_multiplier
+		}
+		reverse_add_opinion = { modifier = opinion_voted_for_my_bill target = scope:host }
+	}
+}
+# A bill you voted against has failed!
+legislature_events.3112 = {
+	desc = legislature_events.3112.desc
+	
+	theme = realm
+	override_background = council_chamber
+	
+	right_portrait = {
+		character = ROOT
+		animation = war_over_loss
+	}
+	left_portrait = {
+		character = scope:host
+		animation = war_over_win
+	}
+	
+	immediate = {
+		if = {
+			limit = { bill_is_ideologically_unacceptable = { BILL = scope:activity } }
+			change_variable = { name = ai_faith_in_democracy add = 1 }
+		}
+		else_if = {
+			limit = { var:ai_faith_in_democracy <= 10 }
+			change_variable = { name = ai_faith_in_democracy add = 1 }
+		}
+	}
+	
+	option = {
+		name = legislature_events.2112.a
+		add_prestige = {
+			value = 5
+			multiply = scope:ruler.tier_multiplier
+		}
+		reverse_add_opinion = { modifier = opinion_voted_against_my_bill target = scope:host }
+	}
+}
+# Someone proposes an amendment!
+legislature_events.3200 = {
+	desc = legislature_events.3200.desc
+	
+	theme = realm
+	override_background = council_chamber
+	
+	immediate = {
+		ordered_in_list = {
+			variable = supporters_gained
+			order_by = legislative_seniority
+			save_scope_as = representative_opponent
+		}
+	}
+	
+	right_portrait = {
+		character = scope:representative_opponent
+		animation = debate
+	}
+	left_portrait = {
+		character = ROOT
+		animation = thinking
+	}
+	
+	# Agree to the amendment
+	option = {
+		name = legislature_events.2200.a
+		custom_tooltip = amend_bill_desc
+		custom_tooltip = gain_supporters_desc
+		custom_tooltip = lose_supporters_desc
+		hidden_effect = {
+			scope:activity = {
+				set_variable = { name = proposed_military_taxes value = ROOT.var:amended_military_taxes }
+				set_variable = { name = proposed_commercial_taxes value = ROOT.var:amended_commercial_taxes }
+				set_variable = { name = proposed_technocratic_taxes value = ROOT.var:amended_technocratic_taxes }
+				set_variable = { name = proposed_theocratic_taxes value = ROOT.var:amended_theocratic_taxes }
+			}
+			every_in_list = {
+				variable = supporters_gained
+				trigger_event = { id = legislature_events.1300 }
+			}
+			every_in_list = {
+				variable = supporters_lost
+				trigger_event = { id = legislature_events.1310 }
+			}
+		}
+		ai_chance = {
+			base = 90
+			modifier = {
+				add = ai_rationality
+			}
+			modifier = {
+				add = ai_greed
+				amended_total_tax_income > scope:activity.proposed_total_tax_income
+			}
+			# Don't do this if you would lose more supporters than you gain
+			modifier = {
+				factor = 0
+				total_supporters_lost >= total_supporters_gained
+			}
+		}
+	}
+	
+	# Do not agree to the amendment
+	option = {
+		name = legislature_events.2200.b
+		hidden_effect = {
+			every_in_list = {
+				variable = supporters_gained
+				send_interface_message = {
+					type = msg_vote_change_bad
+					title = legislature_events.2200.refused_amendment.tt
+					desc = legislature_events.2200.refused_amendment.desc
+					left_icon = scope:legislator
+				}
+			}
+			every_in_list = {
+				variable = supporters_lost
+				send_interface_message = {
+					type = msg_vote_change_good
+					title = legislature_events.2200.refused_amendment.tt
+					desc = legislature_events.2200.refused_amendment.desc
+					left_icon = scope:legislator
+				}
+			}
+		}
+		ai_chance = {
+			base = 10
+			modifier = { add = ai_vengefulness }
+			modifier = {
+				add = ai_greed
+				amended_total_tax_income < scope:activity.proposed_total_tax_income
+			}
+		}
+	}
+	
+	# Clean up all the now-unnecessary variables
+	after = {
+		remove_variable = amended_military_taxes
+		remove_variable = amended_commercial_taxes
+		remove_variable = amended_technocratic_taxes
+		remove_variable = amended_theocratic_taxes
 		clear_variable_list = supporters_gained
 		clear_variable_list = supporters_lost
 	}

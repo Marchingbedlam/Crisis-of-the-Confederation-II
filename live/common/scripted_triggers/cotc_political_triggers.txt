@@ -115,6 +115,12 @@ is_character_in_legislature_trigger = {
 		}
 	}
 }
+vote_is_open_trigger = {
+	OR = {
+		NOT = { has_variable = vote_bargained_for }
+		var:vote_strength < ai_rationality
+	}
+}
 supports_budget_amendment_trigger = {
 	OR = {
 		AND = {
@@ -190,4 +196,98 @@ opposes_budget_amendment_trigger = {
 			scope:host.var:amended_salary_budget <= scope:activity.var:ruler.current_salary_budget
 		}
 	}
+}
+supports_tax_code_amendment_trigger = {
+	trigger_if = {
+		limit = { has_activity_intent = increase_revenue_intent }
+		scope:host.amended_total_tax_income > scope:activity.var:ruler.current_total_tax_income
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = increase_revenue_maintain_military_intent }
+		scope:host.amended_total_tax_income > scope:activity.var:ruler.current_total_tax_income
+		scope:host.var:amended_military_taxes <= scope:activity.var:ruler.current_military_taxes
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = increase_revenue_maintain_commercial_intent }
+		scope:host.amended_total_tax_income > scope:activity.var:ruler.current_total_tax_income
+		scope:host.var:amended_commercial_taxes <= scope:activity.var:ruler.current_commercial_taxes
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = increase_revenue_maintain_technocratic_intent }
+		scope:host.amended_total_tax_income > scope:activity.var:ruler.current_total_tax_income
+		scope:host.var:amended_technocratic_taxes <= scope:activity.var:ruler.current_technocratic_taxes
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = increase_revenue_maintain_theocratic_intent }
+		scope:host.amended_total_tax_income > scope:activity.var:ruler.current_total_tax_income
+		scope:host.var:amended_theocratic_taxes <= scope:activity.var:ruler.current_theocratic_taxes
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = cut_military_taxes_intent }
+		scope:host.var:amended_military_taxes < scope:activity.var:ruler.current_military_taxes
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = cut_commercial_taxes_intent }
+		scope:host.var:amended_commercial_taxes < scope:activity.var:ruler.current_commercial_taxes
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = cut_technocratic_taxes_intent }
+		scope:host.var:amended_technocratic_taxes < scope:activity.var:ruler.current_technocratic_taxes
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = cut_theocratic_taxes_intent }
+		scope:host.var:amended_theocratic_taxes < scope:activity.var:ruler.current_theocratic_taxes
+	}
+	trigger_else = { always = no }
+}
+opposes_tax_code_amendment_trigger = {
+	trigger_if = {
+		limit = { has_activity_intent = increase_revenue_intent }
+		scope:host.amended_total_tax_income <= scope:activity.var:ruler.current_total_tax_income
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = increase_revenue_maintain_military_intent }
+		OR = {
+			scope:host.amended_total_tax_income <= scope:activity.var:ruler.current_total_tax_income
+			scope:host.var:amended_military_taxes > scope:activity.var:ruler.current_military_taxes
+		}
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = increase_revenue_maintain_commercial_intent }
+		OR = {
+			scope:host.amended_total_tax_income <= scope:activity.var:ruler.current_total_tax_income
+			scope:host.var:amended_commercial_taxes > scope:activity.var:ruler.current_commercial_taxes
+		}
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = increase_revenue_maintain_technocratic_intent }
+		OR = {
+			scope:host.amended_total_tax_income <= scope:activity.var:ruler.current_total_tax_income
+			scope:host.var:amended_technocratic_taxes > scope:activity.var:ruler.current_technocratic_taxes
+		}
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = increase_revenue_maintain_theocratic_intent }
+		OR = {
+			scope:host.amended_total_tax_income <= scope:activity.var:ruler.current_total_tax_income
+			scope:host.var:amended_theocratic_taxes > scope:activity.var:ruler.current_theocratic_taxes
+		}
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = cut_military_taxes_intent }
+		scope:host.var:amended_military_taxes >= scope:activity.var:ruler.current_military_taxes
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = cut_commercial_taxes_intent }
+		scope:host.var:amended_commercial_taxes >= scope:activity.var:ruler.current_commercial_taxes
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = cut_technocratic_taxes_intent }
+		scope:host.var:amended_technocratic_taxes >= scope:activity.var:ruler.current_technocratic_taxes
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = cut_theocratic_taxes_intent }
+		scope:host.var:amended_theocratic_taxes >= scope:activity.var:ruler.current_theocratic_taxes
+	}
+	trigger_else = { always = no }
 }

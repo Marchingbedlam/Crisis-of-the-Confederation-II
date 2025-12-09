@@ -2,6 +2,7 @@
 bill_clean_legislators_on_action = {
 	effect = {
 		remove_variable = bargained_for_vote
+		remove_variable = vote_strength
 		remove_variable = had_speech_opportunity
 		clear_variable_list = possible_lobbyists
 	}
@@ -25,7 +26,7 @@ bill_debate_pulse_speech_on_action = {
 							is_in_guest_subset = { name = bill_opponents }
 						}
 						NOR = {
-							this = scope_host
+							this = scope:host
 							has_variable = had_speech_opportunity
 						}
 					}
@@ -59,7 +60,7 @@ bill_debate_pulse_legislator_makes_deal_on_action = {
 		modifier = { add = scope:host.ai_energy }
 		modifier = {
 			factor = 0
-			is_bill_opponent_trigger = no
+			NOT = { is_in_guest_subset = { name = bil_opponents } }
 		}
 	}
 	effect = {

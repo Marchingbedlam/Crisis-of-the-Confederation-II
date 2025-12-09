@@ -1,0 +1,752 @@
+﻿tax_bill_activity = {
+	is_shown = {
+		any_character_situation = {
+			situation_type = legislature
+			situation_participant_group:ruler = { any_situation_group_participant = { this = ROOT } }
+		}
+	}
+	activity_group_type = bills
+	sort_order = 11
+	
+	can_start = {
+		realm_uses_treasury_laws_trigger = yes
+		is_independent_ruler = yes
+		legislature_in_session_trigger = yes
+	}
+	
+	can_plan = {
+		realm_uses_treasury_laws_trigger = yes
+		is_independent_ruler = yes
+		legislature_in_session_trigger = yes
+	}
+	
+	is_valid = {
+		trigger_if = {
+			limit = { has_variable = ruler }
+			var:ruler = { legislature_in_session_trigger = yes }
+		}
+		trigger_if = {
+			limit = {
+				has_variable = ruler
+				has_variable = proposed_military_taxes
+				has_variable = proposed_commercial_taxes
+				has_variable = proposed_technocratic_taxes
+			}
+			NAND = {
+				var:proposed_military_taxes = var:ruler.current_military_taxes
+				var:proposed_commercial_taxes = var:ruler.current_commercial_taxes
+				var:proposed_technocratic_taxes = var:ruler.current_technocratic_taxes
+				var:proposed_theocratic_taxes = var:ruler.current_theocratic_taxes
+			}
+		}
+		NOT = { has_variable = quorum_not_met }
+	}
+	
+	on_invalidated = {
+		var:title = { save_scope_as = activity_title }
+		var:ruler = { save_scope_as = activity_ruler }
+		scope:host = { save_scope_as = activity_host }
+		every_attending_character = { trigger_event = { on_action = bill_clean_legislators_on_action } }
+		if = {
+			limit = { has_variable = quorum_not_met }
+			every_attending_character = {
+				limit = { NOT = { this = scope:host } }
+				trigger_event = legislature_events.1015
+			}
+			scope:host = { trigger_event = legislature_events.1010 }
+		}
+		else_if = {
+			limit = { var:ruler = { legislature_in_session_trigger = no } }
+			scope:host = { trigger_event = { id = legislature_events.1020 } }
+			every_attending_character = {
+				limit = { NOT = { this = scope:host } }
+				trigger_event = { id = legislature_events.1025 }
+			}
+		}
+		else_if = {
+			limit = {
+				var:proposed_military_taxes = var:ruler.current_military_taxes
+				var:proposed_commercial_taxes = var:ruler.current_commercial_taxes
+				var:proposed_technocratic_taxes = var:ruler.current_technocratic_taxes
+				var:proposed_theocratic_taxes = var:ruler.current_theocratic_taxes
+			}
+			scope:host = { trigger_event = { id = legislature_events.1040 } }
+			every_attending_character = {
+				limit = { NOT = { this = scope:host } }
+				trigger_event = { id = legislature_events.1045 }
+			}
+		}
+		else = {
+			scope:host = { trigger_event = { id = legislature_events.1030 } }
+			every_attending_character = {
+				limit = { NOT = { this = scope:host } }
+				trigger_event = { id = legislature_events.1035 }
+			}
+		}
+	}
+	
+	on_host_death = {
+		# Make the title heir the new host
+		if = {
+			limit = { exists = scope:host.primary_title.current_heir }
+			scope:host.primary_title.current_heir = { save_scope_as = new_host }
+		}
+		# Otherwise pass to primary heir
+		else = {
+			scope:host.primary_heir = { save_scope_as = new_host }
+		}
+
+		# If we have a new host, set them
+		if = {
+			limit = { exists = scope:new_host }
+			set_activity_host = scope:new_host
+			scope:new_host = {
+				trigger_event = { id = activity_system.0080 days = 1 }
+			}
+		}
+	}
+	
+	province_filter = capital
+	
+	is_location_valid = {
+		county = { scope:host = { completely_controls = PREV } }
+	}
+	
+	province_score = {
+		value = 0
+		if = {
+			limit = { this = scope:host.capital_province }
+			add = 100
+		}
+	}
+	
+	max_province_icons = 1
+	
+	options = {
+		proposed_military_taxes = {
+			propose_military_tax_exemption = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_military_taxes value = 0 } } }
+				default = { current_military_taxes = 0 }
+				ai_will_do = {
+					value = 0
+					save_temporary_scope_as = tax_ruler
+					if = {
+						limit = { target_military_taxes = 0 }
+						add = 100
+					}
+				}
+			}
+			propose_low_military_taxes = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_military_taxes value = 1 } } }
+				default = { current_military_taxes = 1 }
+				ai_will_do = {
+					value = 0
+					save_temporary_scope_as = tax_ruler
+					if = {
+						limit = { target_military_taxes = 1 }
+						add = 100
+					}
+				}
+			}
+			propose_normal_military_taxes = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_military_taxes value = 2 } } }
+				default = { current_military_taxes = 2 }
+				ai_will_do = {
+					value = 0
+					save_temporary_scope_as = tax_ruler
+					if = {
+						limit = { target_military_taxes = 2 }
+						add = 100
+					}
+				}
+			}
+			propose_high_military_taxes = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_military_taxes value = 3 } } }
+				default = { current_military_taxes = 3 }
+				ai_will_do = {
+					value = 0
+					save_temporary_scope_as = tax_ruler
+					if = {
+						limit = { target_military_taxes = 3 }
+						add = 100
+					}
+				}
+			}
+			propose_extortionate_military_taxes = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_military_taxes value = 4 } } }
+				default = { current_military_taxes = 4 }
+				ai_will_do = {
+					value = 0
+					save_temporary_scope_as = tax_ruler
+					if = {
+						limit = { target_military_taxes = 4 }
+						add = 100
+					}
+				}
+			}
+		}
+		proposed_commercial_taxes = {
+			propose_commercial_tax_exemption = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_commercial_taxes value = 0 } } }
+				default = { current_commercial_taxes = 0 }
+				ai_will_do = {
+					value = 0
+					save_temporary_scope_as = tax_ruler
+					if = {
+						limit = { target_commercial_taxes = 0 }
+						add = 100
+					}
+				}
+			}
+			propose_low_commercial_taxes = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_commercial_taxes value = 1 } } }
+				default = { current_commercial_taxes = 1 }
+				ai_will_do = {
+					value = 0
+					save_temporary_scope_as = tax_ruler
+					if = {
+						limit = { target_commercial_taxes = 1 }
+						add = 100
+					}
+				}
+			}
+			propose_normal_commercial_taxes = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_commercial_taxes value = 2 } } }
+				default = { current_commercial_taxes = 2 }
+				ai_will_do = {
+					value = 0
+					save_temporary_scope_as = tax_ruler
+					if = {
+						limit = { target_commercial_taxes = 2 }
+						add = 100
+					}
+				}
+			}
+			propose_high_commercial_taxes = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_commercial_taxes value = 3 } } }
+				default = { current_commercial_taxes = 3 }
+				ai_will_do = {
+					value = 0
+					save_temporary_scope_as = tax_ruler
+					if = {
+						limit = { target_commercial_taxes = 3 }
+						add = 100
+					}
+				}
+			}
+			propose_extortionate_commercial_taxes = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_commercial_taxes value = 4 } } }
+				default = { current_commercial_taxes = 4 }
+				ai_will_do = {
+					value = 0
+					save_temporary_scope_as = tax_ruler
+					if = {
+						limit = { target_commercial_taxes = 4 }
+						add = 100
+					}
+				}
+			}
+		}
+		proposed_technocratic_taxes = {
+			propose_technocratic_tax_exemption = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_technocratic_taxes value = 0 } } }
+				default = { current_technocratic_taxes = 0 }
+				ai_will_do = {
+					value = 0
+					save_temporary_scope_as = tax_ruler
+					if = {
+						limit = { target_technocratic_taxes = 0 }
+						add = 100
+					}
+				}
+			}
+			propose_low_technocratic_taxes = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_technocratic_taxes value = 1 } } }
+				default = { current_technocratic_taxes = 1 }
+				ai_will_do = {
+					value = 0
+					save_temporary_scope_as = tax_ruler
+					if = {
+						limit = { target_technocratic_taxes = 1 }
+						add = 100
+					}
+				}
+			}
+			propose_normal_technocratic_taxes = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_technocratic_taxes value = 2 } } }
+				default = { current_technocratic_taxes = 2 }
+				ai_will_do = {
+					value = 0
+					save_temporary_scope_as = tax_ruler
+					if = {
+						limit = { target_technocratic_taxes = 2 }
+						add = 100
+					}
+				}
+			}
+			propose_high_technocratic_taxes = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_technocratic_taxes value = 3 } } }
+				default = { current_technocratic_taxes = 3 }
+				ai_will_do = {
+					value = 0
+					save_temporary_scope_as = tax_ruler
+					if = {
+						limit = { target_technocratic_taxes = 3 }
+						add = 100
+					}
+				}
+			}
+			propose_extortionate_technocratic_taxes = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_technocratic_taxes value = 4 } } }
+				default = { current_technocratic_taxes = 4 }
+				ai_will_do = {
+					value = 0
+					save_temporary_scope_as = tax_ruler
+					if = {
+						limit = { target_technocratic_taxes = 4 }
+						add = 100
+					}
+				}
+			}
+		}
+		proposed_theocratic_taxes = {
+			propose_theocratic_tax_exemption = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_theocratic_taxes value = 0 } } }
+				default = { current_theocratic_taxes = 0 }
+				ai_will_do = {
+					value = 0
+					save_temporary_scope_as = tax_ruler
+					if = {
+						limit = { target_theocratic_taxes = 0 }
+						add = 100
+					}
+				}
+			}
+			propose_low_theocratic_taxes = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_theocratic_taxes value = 1 } } }
+				default = { current_theocratic_taxes = 1 }
+				ai_will_do = {
+					value = 0
+					save_temporary_scope_as = tax_ruler
+					if = {
+						limit = { target_theocratic_taxes = 1 }
+						add = 100
+					}
+				}
+			}
+			propose_normal_theocratic_taxes = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_theocratic_taxes value = 2 } } }
+				default = { current_theocratic_taxes = 2 }
+				ai_will_do = {
+					value = 0
+					save_temporary_scope_as = tax_ruler
+					if = {
+						limit = { target_theocratic_taxes = 2 }
+						add = 100
+					}
+				}
+			}
+			propose_high_theocratic_taxes = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_theocratic_taxes value = 3 } } }
+				default = { current_theocratic_taxes = 3 }
+				ai_will_do = {
+					value = 0
+					save_temporary_scope_as = tax_ruler
+					if = {
+						limit = { target_theocratic_taxes = 3 }
+						add = 100
+					}
+				}
+			}
+			propose_extortionate_theocratic_taxes = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_theocratic_taxes value = 4 } } }
+				default = { current_theocratic_taxes = 4 }
+				ai_will_do = {
+					value = 0
+					save_temporary_scope_as = tax_ruler
+					if = {
+						limit = { target_theocratic_taxes = 4 }
+						add = 100
+					}
+				}
+			}
+		}
+	}
+	
+	on_start = {
+		scope:activity = {
+			set_variable = { name = ruler value = scope:host }
+			set_variable = { name = title value = scope:host.primary_title }
+			set_variable = { name = legislature value = var:ruler.primary_title.var:legislature }
+		}
+		scope:host = { trigger_event = legislature_events.1000 }
+	}
+	
+	on_complete = {
+		scope:activity = {
+			var:ruler = { save_scope_as = ruler }
+			var:title = { save_scope_as = title }
+			var:legislature = { save_scope_as = legislature }
+			save_scope_value_as = { name = final_supporters value = total_bill_supporters }
+			save_scope_value_as = { name = final_opponents value = total_bill_opponents }
+			save_scope_value_as = { name = proposed_military_tax_rate value = proposed_military_tax_rate }
+			save_scope_value_as = { name = proposed_commercial_tax_rate value = proposed_commercial_tax_rate }
+			save_scope_value_as = { name = proposed_technocratic_tax_rate value = proposed_technocratic_tax_rate }
+			save_scope_value_as = { name = proposed_theocratic_tax_rate value = proposed_theocratic_tax_rate }
+			save_scope_value_as = { name = pork_value value = var:pork }
+			every_in_list = {
+				variable = pork_recipients
+				add_to_list = pork_distribution
+			}
+		}
+		if = {
+			limit = { scope:activity = { has_variable = bill_passed } }
+			if = {
+				limit = { ROOT = scope:host }
+				trigger_event = legislature_events.3100
+				every_vassal = { trigger_event = legislature_events.3105 }
+				every_tributary = { trigger_event = legislature_events.3105 }
+			}
+			else_if = {
+				limit = { is_in_guest_subset = { name = bill_supporters } }
+				trigger_event = legislature_events.3101
+			}
+			else_if = {
+				limit = { is_in_guest_subset = { name = bill_opponents } }
+				trigger_event = legislature_events.3102
+			}
+		}
+		else = {
+			if = {
+				limit = { ROOT = scope:host }
+				trigger_event = legislature_events.3110
+			}
+			else_if = {
+				limit = { is_in_guest_subset = { name = bill_supporters } }
+				trigger_event = legislature_events.3111
+			}
+			else_if = {
+				limit = { is_in_guest_subset = { name = bill_opponents } }
+				trigger_event = legislature_events.3112
+			}
+		}
+		trigger_event = { on_action = bill_clean_legislators_on_action }
+	}
+	
+	phases = {
+		debate = {
+			order = 1
+			is_predefined = yes
+			
+			is_shown = { always = yes }
+
+			on_enter_phase = {
+				scope:activity = { 
+					progress_activity_phase_after = { days = 1 }
+				}
+			}
+			
+			on_phase_active = {
+				if = {
+					limit = { this = scope:host } # Run only once
+					scope:activity = {
+						# First, check that we've met quorum
+						# For budget bills, quorum is a simple majority
+						if = {
+							limit = {
+								any_attending_character = {
+									save_temporary_scope_as = evaluated_character
+									is_character_in_legislature_trigger = { LEGISLATURE = scope:activity.var:legislature CHARACTER = scope:evaluated_character }
+									count < scope:activity.var:legislature.simple_majority
+								}
+							}
+							set_variable = quorum_not_met
+						}
+						# We've met quorum, so collect everyone's initial votes
+						else = {
+							every_attending_character = {
+								limit = {
+									save_temporary_scope_as = evaluated_character
+									is_character_in_legislature_trigger = { LEGISLATURE = scope:activity.var:legislature CHARACTER = scope:evaluated_character }
+								}
+								trigger_event = legislature_events.3000
+							}
+							# Check whether we can proceed directly to the voting phase,
+							# or if further debate is needed
+							scope:host = {
+								trigger_event = { id = legislature_events.1100 delayed = yes }
+								trigger_event = { id = legislature_events.1101 delayed = yes }
+							}
+						}
+					}
+				}
+			}
+			
+			on_weekly_pulse = {
+				if = {
+					limit = { ROOT = scope:host }
+					# Offer to amend the budget in order to get more supporters
+					# Give someone a chance to give a speech
+					trigger_event = { on_action = bill_debate_pulse_speech_on_action days = { 2 6 } }
+				}
+				else_if = {
+					limit = { is_character_in_legislature_trigger = { LEGISLATURE = scope:activity.var:legislature CHARACTER = ROOT } }
+					# Attending legislators do things
+					trigger_event = { on_action = bill_debate_pulse_legislator_on_action days = { 2 6 } }
+				}
+			}
+		}
+		voting = {
+			order = 2
+			is_predefined = yes
+			
+			is_shown = { always = yes }
+
+			on_enter_phase = {
+				scope:activity = { 
+					progress_activity_phase_after = { days = 1 } 
+				}		
+			}
+			
+			on_phase_active = {
+				# The final vote! Did we succeed or fail?
+				if = {
+					limit = { ROOT = scope:host }
+					scope:host = {
+						trigger_event = legislature_events.1200 # Bill passed
+						trigger_event = legislature_events.1210 # Bill failed
+					}
+				}
+			}
+		}
+	}
+	
+	max_guest_arrival_delay_time = { months = 1 }
+	
+	cooldown = {
+		days = one_year_cooldown_with_escape
+	}
+	
+	is_single_location = yes
+	
+	ai_will_do = {
+		value = 0
+		save_temporary_scope_as = tax_ruler
+		if = {
+			limit = { target_military_taxes > current_military_taxes }
+			add = target_military_taxes
+			subtract = current_military_taxes
+		}
+		else_if = {
+			limit = { target_military_taxes < current_military_taxes }
+			add = current_military_taxes
+			subtract = target_military_taxes
+		}
+		if = {
+			limit = { target_commercial_taxes > current_commercial_taxes }
+			add = target_commercial_taxes
+			subtract = current_commercial_taxes
+		}
+		else_if = {
+			limit = { target_commercial_taxes < current_commercial_taxes }
+			add = current_commercial_taxes
+			subtract = target_commercial_taxes
+		}
+		if = {
+			limit = { target_technocratic_taxes > current_technocratic_taxes }
+			add = target_technocratic_taxes
+			subtract = current_technocratic_taxes
+		}
+		else_if = {
+			limit = { target_technocratic_taxes < current_technocratic_taxes }
+			add = current_technocratic_taxes
+			subtract = target_technocratic_taxes
+		}
+		if = {
+			limit = { target_theocratic_taxes > current_theocratic_taxes }
+			add = target_theocratic_taxes
+			subtract = current_theocratic_taxes
+		}
+		else_if = {
+			limit = { target_theocratic_taxes < current_theocratic_taxes }
+			add = current_theocratic_taxes
+			subtract = target_theocratic_taxes
+		}
+		multiply = 20
+	}
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 1
+		kingdom = 1
+		empire = 1
+		hegemony = 1
+	}
+	ai_will_select_province = {
+		value = scope:score
+	}
+	
+	max_guests = {
+		value = 500 # Hopefully this will only become a problem with really, really big empires
+	}
+	allow_zero_guest_invites = no
+	guest_invite_rules = {
+		defaults = {
+			1 = activity_invite_rule_legislators
+		}
+	}
+	guest_subsets = { bill_supporters bill_opponents bill_abstainers }
+	
+	host_intents = {
+		intents = { pass_bill_intent }
+		default = pass_bill_intent
+	}
+	
+	guest_intents = {
+		intents = {
+			support_bill_intent
+			block_bill_intent
+			increase_revenue_intent
+			increase_revenue_maintain_military_intent
+			increase_revenue_maintain_commercial_intent
+			increase_revenue_maintain_technocratic_intent
+			cut_military_taxes_intent
+			cut_commercial_taxes_intent
+			cut_technocratic_taxes_intent
+		}
+		default = support_bill_intent
+	}
+	
+	guest_join_chance = {
+		base = 100
+		base_activity_modifier = yes
+		modifier = {
+			add = {
+				value = 0
+				add = {
+					value = ai_honor
+					min = 0
+				}
+				add = {
+					value = ai_energy
+					max = 0
+				}
+			}
+		}
+	}
+	
+	### Plug in widgets
+	activity_window_widgets = {
+		bill_supporter_opponent_widget = "window_activity_contestants_right_bar_container"
+		bill_votes = "activity_plugin_widgets_summary"
+		bill_provisions = "activity_top_layer_idle_widgets"
+	}
+	
+	# These are placeholders, obviously
+	background = {
+		texture = "gfx/interface/illustrations/event_scenes/fp2_throneroom.dds"
+		environment = "environment_event_fp2_throneroom" 
+		ambience = "event:/DLC/EP4/SFX/Events/Event_Backgrounds/tgp_examination_room"
+	}
+	window_characters = {
+		ruler = {
+			camera = camera_body
+			
+			effect = { scope:host = { add_to_list = characters } }
+			
+			scripted_animation = {
+				triggered_animation = {
+					trigger = {
+						total_bill_supporters = 0
+						total_bill_opponents = 0
+					}
+					animation = idle
+				}
+				triggered_animation = {
+					trigger = { total_bill_supporters >= var:legislature.simple_majority }
+					animation = admiration
+				}
+				triggered_animation = {
+					trigger = { total_bill_supporters < var:legislature.simple_majority }
+					animation = debate
+				}
+			}
+		}
+		bill_supporter = {
+			camera = camera_body_right
+			
+			effect = {
+				ordered_guest_subset = {
+					name = bill_supporters
+					order_by = legislative_seniority
+					add_to_list = characters
+				}
+			}
+			
+			scripted_animation = {
+				animation = debate
+			}
+		}
+		bill_opponent = {
+			camera = camera_body_left
+			
+			effect = {
+				ordered_guest_subset = {
+					name = bill_opponents
+					order_by = legislative_seniority
+					add_to_list = characters
+				}
+			}
+			
+			scripted_animation = {
+				animation = debate
+			}
+		}
+	}
+	
+	# No hangers-on!
+	travel_entourage_selection = {
+		max = 0
+		ai_max = 0
+	}
+}

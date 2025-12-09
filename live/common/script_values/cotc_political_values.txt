@@ -273,17 +273,17 @@ opinion_of_bill = {
 		}
 		else = { add = balance_budget_score }
 		if = {
-			limit = { scope:activity.proposed_military_budget >= scope:activity.ruler.current_military_budget }
+			limit = { scope:activity.var:proposed_military_budget >= scope:activity.ruler.current_military_budget }
 			add = military_spending_score
 		}
 		else = { subtract = military_spending_score }
 		if = {
-			limit = { scope:activity.proposed_ministry_budget >= scope:activity.ruler.current_ministry_budget }
+			limit = { scope:activity.var:proposed_ministry_budget >= scope:activity.ruler.current_ministry_budget }
 			add = ministry_spending_score
 		}
 		else = { subtract = ministry_spending_score }
 		if = {
-			limit = { scope:activity.proposed_salary_budget >= scope:activity.ruler.current_salary_budget }
+			limit = { scope:activity.var:proposed_salary_budget >= scope:activity.ruler.current_salary_budget }
 			add = salary_spending_score
 		}
 		else = { subtract = salary_spending_score }
@@ -292,6 +292,14 @@ opinion_of_bill = {
 support_bill_score = {
 	value = 0
 	add = "opinion(scope:host)"
+	add = {
+		value = ai_authoritarianism
+		if = {
+			limit = { opinion = { target = scope:host value > 0 } }
+			min = 0
+		}
+		else = { max = 0 }
+	}
 	subtract = {
 		value = ai_rationality
 		min = 0
@@ -301,7 +309,7 @@ block_bill_score = {
 	value = 0
 	subtract = "opinion(scope:host)"
 	if = {
-		opinion = { target = scope:host value < 0 }
+		limit = { opinion = { target = scope:host value < 0 } }
 		add = ai_vengefulness
 	}
 	subtract = {
@@ -1083,7 +1091,7 @@ increase_military_spending_score = {
 		}
 		multiply = {
 			value = 100
-			subtract = scope:activity.var:current_military_budget
+			subtract = scope:activity.var:ruler.current_military_budget
 			divide = 10
 		}
 	}
@@ -1119,7 +1127,7 @@ increase_ministry_spending_score = {
 		}
 		multiply = {
 			value = 100
-			subtract = scope:activity.var:current_ministry_budget
+			subtract = scope:activity.var:ruler.current_ministry_budget
 			divide = 10
 		}
 	}
@@ -1159,7 +1167,7 @@ increase_salary_spending_score = {
 		}
 		multiply = {
 			value = 100
-			subtract = scope:activity.var:current_salary_budget
+			subtract = scope:activity.var:ruler.current_salary_budget
 			divide = 10
 		}
 	}
@@ -1196,72 +1204,972 @@ balance_budget_score = {
 ########################
 # TAX BILL INFORMATION #
 ########################
+military_tax_base = {
+	value = 0
+	every_vassal = {
+		limit = {
+			government_has_flag = government_is_military
+			vassal_contract_has_flag = has_provincial_taxes
+		}
+		add = monthly_character_income
+	}
+}
+commercial_tax_base = {
+	value = 0
+	every_vassal = {
+		limit = {
+			government_has_flag = government_is_commercial
+			vassal_contract_has_flag = has_provincial_taxes
+		}
+		add = monthly_character_income
+	}
+}
+technocratic_tax_base = {
+	value = 0
+	every_vassal = {
+		limit = {
+			government_has_flag = government_is_technocratic
+			vassal_contract_has_flag = has_provincial_taxes
+		}
+		add = monthly_character_income
+	}
+}
+theocratic_tax_base = {
+	value = 0
+	every_vassal = {
+		limit = {
+			government_has_flag = government_is_theocratic
+			vassal_contract_has_flag = has_provincial_taxes
+		}
+		add = monthly_character_income
+	}
+}
 current_military_taxes = {
 	value = 0
-	scope:activity.var:ruler = {
-		if = {
-			limit = { has_realm_law = military_province_tax_law_1 }
-			add = 1
-		}
-		else_if = {
-			limit = { has_realm_law = military_province_tax_law_2 }
-			add = 2
-		}
-		else_if = {
-			limit = { has_realm_law = military_province_tax_law_3 }
-			add = 3
-		}
-		else_if = {
-			limit = { has_realm_law = military_province_tax_law_4 }
-			add = 4
-		}
+	if = {
+		limit = { has_realm_law = military_province_tax_law_1 }
+		add = 1
+	}
+	else_if = {
+		limit = { has_realm_law = military_province_tax_law_2 }
+		add = 2
+	}
+	else_if = {
+		limit = { has_realm_law = military_province_tax_law_3 }
+		add = 3
+	}
+	else_if = {
+		limit = { has_realm_law = military_province_tax_law_4 }
+		add = 4
 	}
 }
 current_commercial_taxes = {
 	value = 0
-	scope:activity.var:ruler = {
-		if = {
-			limit = { has_realm_law = commercial_province_tax_law_1 }
-			add = 1
-		}
-		else_if = {
-			limit = { has_realm_law = commercial_province_tax_law_2 }
-			add = 2
-		}
-		else_if = {
-			limit = { has_realm_law = commercial_province_tax_law_3 }
-			add = 3
-		}
-		else_if = {
-			limit = { has_realm_law = commercial_province_tax_law_4 }
-			add = 4
-		}
+	if = {
+		limit = { has_realm_law = commercial_province_tax_law_1 }
+		add = 1
+	}
+	else_if = {
+		limit = { has_realm_law = commercial_province_tax_law_2 }
+		add = 2
+	}
+	else_if = {
+		limit = { has_realm_law = commercial_province_tax_law_3 }
+		add = 3
+	}
+	else_if = {
+		limit = { has_realm_law = commercial_province_tax_law_4 }
+		add = 4
 	}
 }
-current_administrative_taxes = {
+current_technocratic_taxes = {
 	value = 0
-	scope:activity.var:ruler = {
-		if = {
-			limit = { has_realm_law = administrative_province_tax_law_1 }
-			add = 1
+	if = {
+		limit = { has_realm_law = technocratic_province_tax_law_1 }
+		add = 1
+	}
+	else_if = {
+		limit = { has_realm_law = technocratic_province_tax_law_2 }
+		add = 2
+	}
+	else_if = {
+		limit = { has_realm_law = technocratic_province_tax_law_3 }
+		add = 3
+	}
+	else_if = {
+		limit = { has_realm_law = technocratic_province_tax_law_4 }
+		add = 4
+	}
+}
+current_theocratic_taxes = {
+	value = 0
+	if = {
+		limit = { has_realm_law = theocratic_province_tax_law_1 }
+		add = 1
+	}
+	else_if = {
+		limit = { has_realm_law = theocratic_province_tax_law_2 }
+		add = 2
+	}
+	else_if = {
+		limit = { has_realm_law = theocratic_province_tax_law_3 }
+		add = 3
+	}
+	else_if = {
+		limit = { has_realm_law = theocratic_province_tax_law_4 }
+		add = 4
+	}
+}
+current_total_taxes = {
+	value = current_military_taxes
+	add = current_commercial_taxes
+	add = current_technocratic_taxes
+}
+current_military_tax_income = {
+	value = military_tax_base
+	multiply = current_military_taxes
+}
+current_commercial_tax_income = {
+	value = commercial_tax_base
+	multiply = current_commercial_taxes
+}
+current_technocratic_tax_income = {
+	value = technocratic_tax_base
+	multiply = current_technocratic_taxes
+}
+current_theocratic_tax_income = {
+	value = theocratic_tax_base
+	multiply = current_theocratic_taxes
+}
+current_total_tax_income = {
+	value = current_military_tax_income
+	add = current_commercial_tax_income
+	add = current_technocratic_tax_income
+	add = current_theocratic_tax_income
+}
+proposed_military_tax_rate = {
+	value = var:proposed_military_taxes
+	multiply = 5
+}
+proposed_commercial_tax_rate = {
+	value = var:proposed_commercial_taxes
+	multiply = 5
+}
+proposed_technocratic_tax_rate = {
+	value = var:proposed_technocratic_taxes
+	multiply = 5
+}
+proposed_theocratic_tax_rate = {
+	value = var:proposed_theocratic_taxes
+	multiply = 5
+}
+proposed_total_taxes = {
+	value = var:proposed_military_taxes
+	add = var:proposed_commercial_taxes
+	add = var:proposed_technocratic_taxes
+	add = var:proposed_theocratic_taxes
+}
+proposed_total_tax_income = {
+	value = 0
+	add = {
+		value = var:proposed_military_taxes
+		multiply = var:ruler.military_tax_base
+	}
+	add = {
+		value = var:proposed_commercial_taxes
+		multiply = var:ruler.commercial_tax_base
+	}
+	add = {
+		value = var:proposed_technocratic_taxes
+		multiply = var:ruler.technocratic_tax_base
+	}
+	add = {
+		value = var:proposed_theocratic_taxes
+		multiply = var:ruler.theocratic_tax_base
+	}
+}
+amended_military_tax_rate = {
+	value = var:amended_military_taxes
+	multiply = 5
+}
+amended_commercial_tax_rate = {
+	value = var:amended_commercial_taxes
+	multiply = 5
+}
+amended_technocratic_tax_rate = {
+	value = var:amended_technocratic_taxes
+	multiply = 5
+}
+amended_theocratic_tax_rate = {
+	value = var:amended_theocratic_taxes
+	multiply = 5
+}
+amended_total_taxes = {
+	value = var:amended_military_taxes
+	add = var:amended_commercial_taxes
+	add = var:amended_technocratic_taxes
+	add = var:amended_theocratic_taxes
+}
+amended_total_tax_income = {
+	value = 0
+	add = {
+		value = var:amended_military_taxes
+		multiply = scope:activity.var:ruler.military_tax_base
+	}
+	add = {
+		value = var:amended_commercial_taxes
+		multiply = scope:activity.var:ruler.commercial_tax_base
+	}
+	add = {
+		value = var:amended_technocratic_taxes
+		multiply = scope:activity.var:ruler.technocratic_tax_base
+	}
+	add = {
+		value = var:amended_theocratic_taxes
+		multiply = scope:activity.var:ruler.theocratic_tax_base
+	}
+}
+target_military_taxes = {
+	value = 0
+	# Available tax base
+	if = {
+		limit = {
+			scope:tax_ruler.military_tax_base >= scope:tax_ruler.commercial_tax_base
+			scope:tax_ruler.military_tax_base >= scope:tax_ruler.technocratic_tax_base
 		}
-		else_if = {
-			limit = { has_realm_law = administrative_province_tax_law_2 }
-			add = 2
+		add = 3
+	}
+	else_if = {
+		limit = {
+			OR = {
+				scope:tax_ruler.military_tax_base >= scope:tax_ruler.commercial_tax_base
+				scope:tax_ruler.military_tax_base >= scope:tax_ruler.technocratic_tax_base
+			}
 		}
-		else_if = {
-			limit = { has_realm_law = administrative_province_tax_law_3 }
-			add = 3
-		}
-		else_if = {
-			limit = { has_realm_law = administrative_province_tax_law_4 }
-			add = 4
+		add = 2
+	}
+	else = { add = 1 }
+	# Personality
+	if = {
+		limit = { ai_greed >= very_high_positive_ai_value }
+		add = 1.25
+	}
+	else_if = {
+		limit = { ai_greed >= high_positive_ai_value }
+		add = 1
+	}
+	else_if = {
+		limit = { ai_greed >= medium_positive_ai_value }
+		add = 0.75
+	}
+	else_if = {
+		limit = { ai_greed >= low_positive_ai_value }
+		add = 0.5
+	}
+	else_if = {
+		limit = { ai_greed >= very_low_positive_ai_value }
+		add = 0.25
+	}
+	else_if = {
+		limit = { ai_greed <= very_high_negative_ai_value }
+		subtract = 1.25
+	}
+	else_if = {
+		limit = { ai_greed <= high_negative_ai_value }
+		subtract = 1
+	}
+	else_if = {
+		limit = { ai_greed <= medium_negative_ai_value }
+		subtract = 0.75
+	}
+	else_if = {
+		limit = { ai_greed <= low_negative_ai_value }
+		subtract = 0.5
+	}
+	else_if = {
+		limit = { ai_greed <= very_low_negative_ai_value }
+		subtract = 0.25
+	}
+	if = {
+		limit = { ai_interventionism >= very_high_positive_ai_value }
+		add = 1.25
+	}
+	else_if = {
+		limit = { ai_interventionism >= high_positive_ai_value }
+		add = 1
+	}
+	else_if = {
+		limit = { ai_interventionism >= medium_positive_ai_value }
+		add = 0.75
+	}
+	else_if = {
+		limit = { ai_interventionism >= low_positive_ai_value }
+		add = 0.5
+	}
+	else_if = {
+		limit = { ai_interventionism >= very_low_positive_ai_value }
+		add = 0.25
+	}
+	else_if = {
+		limit = { ai_interventionism <= very_high_negative_ai_value }
+		subtract = 1.25
+	}
+	else_if = {
+		limit = { ai_interventionism <= high_negative_ai_value }
+		subtract = 1
+	}
+	else_if = {
+		limit = { ai_interventionism <= medium_negative_ai_value }
+		subtract = 0.75
+	}
+	else_if = {
+		limit = { ai_interventionism <= low_negative_ai_value }
+		subtract = 0.5
+	}
+	else_if = {
+		limit = { ai_interventionism <= very_low_negative_ai_value }
+		subtract = 0.25
+	}
+	if = {
+		limit = { ai_hawkishness >= very_high_positive_ai_value }
+		subtract = 1.25
+	}
+	else_if = {
+		limit = { ai_hawkishness >= high_positive_ai_value }
+		subtract = 1
+	}
+	else_if = {
+		limit = { ai_hawkishness >= medium_positive_ai_value }
+		subtract = 0.75
+	}
+	else_if = {
+		limit = { ai_hawkishness >= low_positive_ai_value }
+		subtract = 0.5
+	}
+	else_if = {
+		limit = { ai_hawkishness >= very_low_positive_ai_value }
+		subtract = 0.25
+	}
+	else_if = {
+		limit = { ai_hawkishness <= very_high_negative_ai_value }
+		add = 1.25
+	}
+	else_if = {
+		limit = { ai_hawkishness <= high_negative_ai_value }
+		add = 1
+	}
+	else_if = {
+		limit = { ai_hawkishness <= medium_negative_ai_value }
+		add = 0.75
+	}
+	else_if = {
+		limit = { ai_hawkishness <= low_negative_ai_value }
+		add = 0.5
+	}
+	else_if = {
+		limit = { ai_hawkishness <= very_low_negative_ai_value }
+		add = 0.25
+	}
+	# Practical Considerations
+	if = {
+		limit = { scope:tax_ruler.debt_level >= 0 }
+		add = scope:tax_ruler.debt_level
+		add = 1
+	}
+	if = {
+		limit = { ai_rationality >= ai_vengefulness }
+		scope:tax_ruler = {
+			every_vassal = {
+				limit = {
+					government_has_flag = government_is_military
+					vassal_contract_has_flag = has_provincial_taxes
+					opinion = { target = scope:tax_ruler value < 0 }
+				}
+				subtract = 0.1
+			}
 		}
 	}
+	if = {
+		limit = { ai_greed >= ai_compassion }
+		scope:tax_ruler = {
+			every_vassal = {
+				limit = {
+					government_has_flag = government_is_military
+					vassal_contract_has_flag = has_provincial_taxes
+					opinion = { target = scope:tax_ruler value > 50 }
+				}
+				add = 0.05
+			}
+		}
+	}
+	min = {
+		value = scope:tax_ruler.current_military_taxes
+		subtract = 1
+	}
+	max = {
+		value = scope:tax_ruler.current_military_taxes
+		add = 1
+	}
+	min = 0
+	if = {
+		limit = { ai_rationality > medium_negative_ai_value }
+		min = 1
+	}
+	max = 4
+	round = yes
+}
+target_commercial_taxes = {
+	value = 0
+	# Available tax base
+	if = {
+		limit = {
+			scope:tax_ruler.commercial_tax_base >= scope:tax_ruler.military_tax_base
+			scope:tax_ruler.commercial_tax_base >= scope:tax_ruler.technocratic_tax_base
+		}
+		add = 3
+	}
+	else_if = {
+		limit = {
+			OR = {
+				scope:tax_ruler.commercial_tax_base >= scope:tax_ruler.military_tax_base
+				scope:tax_ruler.commercial_tax_base >= scope:tax_ruler.technocratic_tax_base
+			}
+		}
+		add = 2
+	}
+	else = { add = 1 }
+	# Personality
+	if = {
+		limit = { ai_greed >= very_high_positive_ai_value }
+		add = 1.25
+	}
+	else_if = {
+		limit = { ai_greed >= high_positive_ai_value }
+		add = 1
+	}
+	else_if = {
+		limit = { ai_greed >= medium_positive_ai_value }
+		add = 0.75
+	}
+	else_if = {
+		limit = { ai_greed >= low_positive_ai_value }
+		add = 0.5
+	}
+	else_if = {
+		limit = { ai_greed >= very_low_positive_ai_value }
+		add = 0.25
+	}
+	else_if = {
+		limit = { ai_greed <= very_high_negative_ai_value }
+		subtract = 1.25
+	}
+	else_if = {
+		limit = { ai_greed <= high_negative_ai_value }
+		subtract = 1
+	}
+	else_if = {
+		limit = { ai_greed <= medium_negative_ai_value }
+		subtract = 0.75
+	}
+	else_if = {
+		limit = { ai_greed <= low_negative_ai_value }
+		subtract = 0.5
+	}
+	else_if = {
+		limit = { ai_greed <= very_low_negative_ai_value }
+		subtract = 0.25
+	}
+	if = {
+		limit = { ai_interventionism >= very_high_positive_ai_value }
+		add = 2.5
+	}
+	else_if = {
+		limit = { ai_interventionism >= high_positive_ai_value }
+		add = 2
+	}
+	else_if = {
+		limit = { ai_interventionism >= medium_positive_ai_value }
+		add = 1.5
+	}
+	else_if = {
+		limit = { ai_interventionism >= low_positive_ai_value }
+		add = 1
+	}
+	else_if = {
+		limit = { ai_interventionism >= very_low_positive_ai_value }
+		add = 0.5
+	}
+	else_if = {
+		limit = { ai_interventionism <= very_high_negative_ai_value }
+		subtract = 2.5
+	}
+	else_if = {
+		limit = { ai_interventionism <= high_negative_ai_value }
+		subtract = 2
+	}
+	else_if = {
+		limit = { ai_interventionism <= medium_negative_ai_value }
+		subtract = 1.5
+	}
+	else_if = {
+		limit = { ai_interventionism <= low_negative_ai_value }
+		subtract = 1
+	}
+	else_if = {
+		limit = { ai_interventionism <= very_low_negative_ai_value }
+		subtract = 0.5
+	}
+	# Practical Considerations
+	if = {
+		limit = { scope:tax_ruler.debt_level >= 0 }
+		add = scope:tax_ruler.debt_level
+		add = 1
+	}
+	if = {
+		limit = { ai_rationality >= ai_vengefulness }
+		scope:tax_ruler = {
+			every_vassal = {
+				limit = {
+					government_has_flag = government_is_commercial
+					vassal_contract_has_flag = has_provincial_taxes
+					opinion = { target = scope:tax_ruler value < 0 }
+				}
+				subtract = 0.1
+			}
+		}
+	}
+	if = {
+		limit = { ai_greed >= ai_compassion }
+		scope:tax_ruler = {
+			every_vassal = {
+				limit = {
+					government_has_flag = government_is_commercial
+					vassal_contract_has_flag = has_provincial_taxes
+					opinion = { target = scope:tax_ruler value > 50 }
+				}
+				add = 0.05
+			}
+		}
+	}
+	min = {
+		value = scope:tax_ruler.current_commercial_taxes
+		subtract = 1
+	}
+	max = {
+		value = scope:tax_ruler.current_commercial_taxes
+		add = 1
+	}
+	min = 0
+	if = {
+		limit = { ai_rationality > medium_negative_ai_value }
+		min = 1
+	}
+	max = 4
+	round = yes
+}
+target_technocratic_taxes = {
+	value = 0
+	# Available tax base
+	if = {
+		limit = {
+			scope:tax_ruler.technocratic_tax_base >= scope:tax_ruler.military_tax_base
+			scope:tax_ruler.technocratic_tax_base >= scope:tax_ruler.commercial_tax_base
+		}
+		add = 3
+	}
+	else_if = {
+		limit = {
+			OR = {
+				scope:tax_ruler.technocratic_tax_base >= scope:tax_ruler.military_tax_base
+				scope:tax_ruler.technocratic_tax_base >= scope:tax_ruler.commercial_tax_base
+			}
+		}
+		add = 2
+	}
+	else = { add = 1 }
+	# Personality
+	if = {
+		limit = { ai_greed >= very_high_positive_ai_value }
+		add = 1.25
+	}
+	else_if = {
+		limit = { ai_greed >= high_positive_ai_value }
+		add = 1
+	}
+	else_if = {
+		limit = { ai_greed >= medium_positive_ai_value }
+		add = 0.75
+	}
+	else_if = {
+		limit = { ai_greed >= low_positive_ai_value }
+		add = 0.5
+	}
+	else_if = {
+		limit = { ai_greed >= very_low_positive_ai_value }
+		add = 0.25
+	}
+	else_if = {
+		limit = { ai_greed <= very_high_negative_ai_value }
+		subtract = 1.25
+	}
+	else_if = {
+		limit = { ai_greed <= high_negative_ai_value }
+		subtract = 1
+	}
+	else_if = {
+		limit = { ai_greed <= medium_negative_ai_value }
+		subtract = 0.75
+	}
+	else_if = {
+		limit = { ai_greed <= low_negative_ai_value }
+		subtract = 0.5
+	}
+	else_if = {
+		limit = { ai_greed <= very_low_negative_ai_value }
+		subtract = 0.25
+	}
+	if = {
+		limit = { ai_interventionism >= very_high_positive_ai_value }
+		add = 1.25
+	}
+	else_if = {
+		limit = { ai_interventionism >= high_positive_ai_value }
+		add = 1
+	}
+	else_if = {
+		limit = { ai_interventionism >= medium_positive_ai_value }
+		add = 0.75
+	}
+	else_if = {
+		limit = { ai_interventionism >= low_positive_ai_value }
+		add = 0.5
+	}
+	else_if = {
+		limit = { ai_interventionism >= very_low_positive_ai_value }
+		add = 0.25
+	}
+	else_if = {
+		limit = { ai_interventionism <= very_high_negative_ai_value }
+		subtract = 1.25
+	}
+	else_if = {
+		limit = { ai_interventionism <= high_negative_ai_value }
+		subtract = 1
+	}
+	else_if = {
+		limit = { ai_interventionism <= medium_negative_ai_value }
+		subtract = 0.75
+	}
+	else_if = {
+		limit = { ai_interventionism <= low_negative_ai_value }
+		subtract = 0.5
+	}
+	else_if = {
+		limit = { ai_interventionism <= very_low_negative_ai_value }
+		subtract = 0.25
+	}
+	if = {
+		limit = { ai_intellectualism >= very_high_positive_ai_value }
+		subtract = 1.25
+	}
+	else_if = {
+		limit = { ai_intellectualism >= high_positive_ai_value }
+		subtract = 1
+	}
+	else_if = {
+		limit = { ai_intellectualism >= medium_positive_ai_value }
+		subtract = 0.75
+	}
+	else_if = {
+		limit = { ai_intellectualism >= low_positive_ai_value }
+		subtract = 0.5
+	}
+	else_if = {
+		limit = { ai_intellectualism >= very_low_positive_ai_value }
+		subtract = 0.25
+	}
+	else_if = {
+		limit = { ai_intellectualism <= very_high_negative_ai_value }
+		add = 1.25
+	}
+	else_if = {
+		limit = { ai_intellectualism <= high_negative_ai_value }
+		add = 1
+	}
+	else_if = {
+		limit = { ai_intellectualism <= medium_negative_ai_value }
+		add = 0.75
+	}
+	else_if = {
+		limit = { ai_intellectualism <= low_negative_ai_value }
+		add = 0.5
+	}
+	else_if = {
+		limit = { ai_intellectualism <= very_low_negative_ai_value }
+		add = 0.25
+	}
+	# Practical Considerations
+	if = {
+		limit = { scope:tax_ruler.debt_level >= 0 }
+		add = scope:tax_ruler.debt_level
+		add = 1
+	}
+	if = {
+		limit = { ai_rationality >= ai_vengefulness }
+		scope:tax_ruler = {
+			every_vassal = {
+				limit = {
+					government_has_flag = government_is_technocratic
+					vassal_contract_has_flag = has_provincial_taxes
+					opinion = { target = scope:tax_ruler value < 0 }
+				}
+				subtract = 0.1
+			}
+		}
+	}
+	if = {
+		limit = { ai_greed >= ai_compassion }
+		scope:tax_ruler = {
+			every_vassal = {
+				limit = {
+					government_has_flag = government_is_technocratic
+					vassal_contract_has_flag = has_provincial_taxes
+					opinion = { target = scope:tax_ruler value > 50 }
+				}
+				add = 0.05
+			}
+		}
+	}
+	min = {
+		value = scope:tax_ruler.current_technocratic_taxes
+		subtract = 1
+	}
+	max = {
+		value = scope:tax_ruler.current_technocratic_taxes
+		add = 1
+	}
+	min = 0
+	if = {
+		limit = { ai_rationality > medium_negative_ai_value }
+		min = 1
+	}
+	max = 4
+	round = yes
+}
+target_theocratic_taxes = {
+	value = 0 # Theocracies are tax-exempt by default
+	# Personality
+	if = {
+		limit = { ai_greed >= very_high_positive_ai_value }
+		add = 1.25
+	}
+	else_if = {
+		limit = { ai_greed >= high_positive_ai_value }
+		add = 1
+	}
+	else_if = {
+		limit = { ai_greed >= medium_positive_ai_value }
+		add = 0.75
+	}
+	else_if = {
+		limit = { ai_greed >= low_positive_ai_value }
+		add = 0.5
+	}
+	else_if = {
+		limit = { ai_greed >= very_low_positive_ai_value }
+		add = 0.25
+	}
+	else_if = {
+		limit = { ai_greed <= very_high_negative_ai_value }
+		subtract = 1.25
+	}
+	else_if = {
+		limit = { ai_greed <= high_negative_ai_value }
+		subtract = 1
+	}
+	else_if = {
+		limit = { ai_greed <= medium_negative_ai_value }
+		subtract = 0.75
+	}
+	else_if = {
+		limit = { ai_greed <= low_negative_ai_value }
+		subtract = 0.5
+	}
+	else_if = {
+		limit = { ai_greed <= very_low_negative_ai_value }
+		subtract = 0.25
+	}
+	if = {
+		limit = { ai_interventionism >= very_high_positive_ai_value }
+		add = 1.25
+	}
+	else_if = {
+		limit = { ai_interventionism >= high_positive_ai_value }
+		add = 1
+	}
+	else_if = {
+		limit = { ai_interventionism >= medium_positive_ai_value }
+		add = 0.75
+	}
+	else_if = {
+		limit = { ai_interventionism >= low_positive_ai_value }
+		add = 0.5
+	}
+	else_if = {
+		limit = { ai_interventionism >= very_low_positive_ai_value }
+		add = 0.25
+	}
+	else_if = {
+		limit = { ai_interventionism <= very_high_negative_ai_value }
+		subtract = 1.25
+	}
+	else_if = {
+		limit = { ai_interventionism <= high_negative_ai_value }
+		subtract = 1
+	}
+	else_if = {
+		limit = { ai_interventionism <= medium_negative_ai_value }
+		subtract = 0.75
+	}
+	else_if = {
+		limit = { ai_interventionism <= low_negative_ai_value }
+		subtract = 0.5
+	}
+	else_if = {
+		limit = { ai_interventionism <= very_low_negative_ai_value }
+		subtract = 0.25
+	}
+	if = {
+		limit = { ai_zeal >= very_high_positive_ai_value }
+		subtract = 1.25
+	}
+	else_if = {
+		limit = { ai_zeal >= high_positive_ai_value }
+		subtract = 1
+	}
+	else_if = {
+		limit = { ai_zeal >= medium_positive_ai_value }
+		subtract = 0.75
+	}
+	else_if = {
+		limit = { ai_zeal >= low_positive_ai_value }
+		subtract = 0.5
+	}
+	else_if = {
+		limit = { ai_zeal >= very_low_positive_ai_value }
+		subtract = 0.25
+	}
+	else_if = {
+		limit = { ai_zeal <= very_high_negative_ai_value }
+		add = 1.25
+	}
+	else_if = {
+		limit = { ai_zeal <= high_negative_ai_value }
+		add = 1
+	}
+	else_if = {
+		limit = { ai_zeal <= medium_negative_ai_value }
+		add = 0.75
+	}
+	else_if = {
+		limit = { ai_zeal <= low_negative_ai_value }
+		add = 0.5
+	}
+	else_if = {
+		limit = { ai_zeal <= very_low_negative_ai_value }
+		add = 0.25
+	}
+	if = {
+		limit = { faith = { has_doctrine = doctrine_secular } }
+		subtract = 5
+	}
+	# Practical Considerations
+	if = {
+		limit = { scope:tax_ruler.debt_level >= 0 }
+		add = scope:tax_ruler.debt_level
+		add = 1
+	}
+	if = {
+		limit = { ai_rationality >= ai_vengefulness }
+		scope:tax_ruler = {
+			every_vassal = {
+				limit = {
+					government_has_flag = government_is_theocratic
+					vassal_contract_has_flag = has_provincial_taxes
+					opinion = { target = scope:tax_ruler value < 0 }
+				}
+				subtract = 0.1
+			}
+		}
+	}
+	if = {
+		limit = { ai_greed >= ai_compassion }
+		scope:tax_ruler = {
+			every_vassal = {
+				limit = {
+					government_has_flag = government_is_theocratic
+					vassal_contract_has_flag = has_provincial_taxes
+					opinion = { target = scope:tax_ruler value > 50 }
+				}
+				add = 0.05
+			}
+		}
+	}
+	min = {
+		value = scope:tax_ruler.current_theocratic_taxes
+		subtract = 1
+	}
+	max = {
+		value = scope:tax_ruler.current_theocratic_taxes
+		add = 1
+	}
+	min = 0
+	if = {
+		limit = { ai_rationality > medium_negative_ai_value }
+		min = 1
+	}
+	max = 4
+	round = yes
 }
 #####################
 # TAX BILL OPINIONS #
 #####################
+technocratic_tax_score = {
+	value = 0
+	
+	# Personality
+	add = ai_intellectualism
+	
+	# Practical concerns
+	if = {
+		limit = {
+			target_is_liege_or_above = scope:activity.var:ruler
+			court_is_technocratic_trigger = yes
+		}
+		add = {
+			value = ai_greed
+			min = 0
+		}
+	}
+}
+theocratic_tax_score = {
+	value = 0
+	
+	# Personality
+	add = ai_zeal
+	
+	# Practical concerns
+	if = {
+		limit = {
+			target_is_liege_or_above = scope:activity.var:ruler
+			court_is_theocratic_trigger = yes
+		}
+		add = {
+			value = ai_greed
+			min = 0
+		}
+	}
+}
 increase_revenue_score = {
 	value = 0
 	# Personality
@@ -1296,7 +2204,7 @@ cut_military_taxes_score = {
 	}
 }
 cut_commercial_taxes_score = {
-	value = commercial_spending_score
+	value = ministry_spending_score
 	if = {
 		limit = {
 			target_is_liege_or_above = scope:activity.var:ruler
@@ -1308,16 +2216,29 @@ cut_commercial_taxes_score = {
 		}
 	}
 }
-cut_administrative_taxes_score = {
-	value = administrative_spending_score
+cut_technocratic_taxes_score = {
+	value = technocratic_tax_score
 	if = {
 		limit = {
 			target_is_liege_or_above = scope:activity.var:ruler
-			court_is_administrative_trigger = yes
+			court_is_technocratic_trigger = yes
 		}
 		add = {
 			value = ai_greed
-			multiply = scope:activity.var:ruler.current_administrative_taxes
+			multiply = scope:activity.var:ruler.current_technocratic_taxes
+		}
+	}
+}
+cut_theocratic_taxes_score = {
+	value = theocratic_tax_score
+	if = {
+		limit = {
+			target_is_liege_or_above = scope:activity.var:ruler
+			court_is_theocratic_trigger = yes
+		}
+		add = {
+			value = ai_greed
+			multiply = scope:activity.var:ruler.current_theocratic_taxes
 		}
 	}
 }

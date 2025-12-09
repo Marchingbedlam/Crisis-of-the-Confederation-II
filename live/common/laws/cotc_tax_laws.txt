@@ -102,55 +102,107 @@ commercial_province_tax_law = {
 		ai_will_do = { value = 0 }
 	}
 }
-administrative_province_tax_law = {
+technocratic_province_tax_law = {
 	can_change_law_group = { legislature_blocks_law_trigger = no }
-	default = administrative_province_tax_law_2
+	default = technocratic_province_tax_law_2
 	flag = province_tax_law
-	flag = administrative_province_tax_law
+	flag = technocratic_province_tax_law
 	
-	administrative_province_tax_law_0 = {
+	technocratic_province_tax_law_0 = {
 		can_keep = { should_have_legislature_trigger = yes }
 		can_pass = { legislature_blocks_law_trigger = no }
 		should_start_with = { always = no }
 		modifier = { }
 		shown_in_encyclopedia = no
-		on_pass = { trigger_event = { on_action = administrative_province_taxes_0_on_action } }
+		on_pass = { trigger_event = { on_action = technocratic_province_taxes_0_on_action } }
 		ai_will_do = { value = 0 }
 	}
-	administrative_province_tax_law_1 = {
+	technocratic_province_tax_law_1 = {
 		can_keep = { should_have_legislature_trigger = yes }
 		can_pass = { legislature_blocks_law_trigger = no }
 		should_start_with = { always = no }
 		modifier = { }
 		shown_in_encyclopedia = no
-		on_pass = { trigger_event = { on_action = administrative_province_taxes_1_on_action } }
+		on_pass = { trigger_event = { on_action = technocratic_province_taxes_1_on_action } }
 		ai_will_do = { value = 0 }
 	}
-	administrative_province_tax_law_2 = {
+	technocratic_province_tax_law_2 = {
 		can_keep = { should_have_legislature_trigger = yes }
 		can_pass = { legislature_blocks_law_trigger = no }
 		should_start_with = { always = yes }
 		modifier = { }
 		shown_in_encyclopedia = no
-		on_pass = { trigger_event = { on_action = administrative_province_taxes_2_on_action } }
+		on_pass = { trigger_event = { on_action = technocratic_province_taxes_2_on_action } }
 		ai_will_do = { value = 0 }
 	}
-	administrative_province_tax_law_3 = {
+	technocratic_province_tax_law_3 = {
 		can_keep = { should_have_legislature_trigger = yes }
 		can_pass = { legislature_blocks_law_trigger = no }
 		should_start_with = { always = no }
 		modifier = { }
 		shown_in_encyclopedia = no
-		on_pass = { trigger_event = { on_action = administrative_province_taxes_3_on_action } }
+		on_pass = { trigger_event = { on_action = technocratic_province_taxes_3_on_action } }
 		ai_will_do = { value = 0 }
 	}
-	administrative_province_tax_law_4 = {
+	technocratic_province_tax_law_4 = {
 		can_keep = { should_have_legislature_trigger = yes }
 		can_pass = { legislature_blocks_law_trigger = no }
 		should_start_with = { always = no }
 		modifier = { }
 		shown_in_encyclopedia = no
-		on_pass = { trigger_event = { on_action = administrative_province_taxes_4_on_action } }
+		on_pass = { trigger_event = { on_action = technocratic_province_taxes_4_on_action } }
+		ai_will_do = { value = 0 }
+	}
+}
+theocratic_province_tax_law = {
+	can_change_law_group = { legislature_blocks_law_trigger = no }
+	default = theocratic_province_tax_law_0
+	flag = province_tax_law
+	flag = theocratic_province_tax_law
+	
+	theocratic_province_tax_law_0 = {
+		can_keep = { should_have_legislature_trigger = yes }
+		can_pass = { legislature_blocks_law_trigger = no }
+		should_start_with = { faith = { has_doctrine = doctrine_secular } }
+		modifier = { }
+		shown_in_encyclopedia = no
+		on_pass = { trigger_event = { on_action = theocratic_province_taxes_0_on_action } }
+		ai_will_do = { value = 0 }
+	}
+	theocratic_province_tax_law_1 = {
+		can_keep = { should_have_legislature_trigger = yes }
+		can_pass = { legislature_blocks_law_trigger = no }
+		should_start_with = { always = no }
+		modifier = { }
+		shown_in_encyclopedia = no
+		on_pass = { trigger_event = { on_action = theocratic_province_taxes_1_on_action } }
+		ai_will_do = { value = 0 }
+	}
+	theocratic_province_tax_law_2 = {
+		can_keep = { should_have_legislature_trigger = yes }
+		can_pass = { legislature_blocks_law_trigger = no }
+		should_start_with = { faith = { NOT = { has_doctrine = doctrine_secular } } }
+		modifier = { }
+		shown_in_encyclopedia = no
+		on_pass = { trigger_event = { on_action = theocratic_province_taxes_2_on_action } }
+		ai_will_do = { value = 0 }
+	}
+	theocratic_province_tax_law_3 = {
+		can_keep = { should_have_legislature_trigger = yes }
+		can_pass = { legislature_blocks_law_trigger = no }
+		should_start_with = { always = no }
+		modifier = { }
+		shown_in_encyclopedia = no
+		on_pass = { trigger_event = { on_action = theocratic_province_taxes_3_on_action } }
+		ai_will_do = { value = 0 }
+	}
+	theocratic_province_tax_law_4 = {
+		can_keep = { should_have_legislature_trigger = yes }
+		can_pass = { legislature_blocks_law_trigger = no }
+		should_start_with = { always = no }
+		modifier = { }
+		shown_in_encyclopedia = no
+		on_pass = { trigger_event = { on_action = theocratic_province_taxes_4_on_action } }
 		ai_will_do = { value = 0 }
 	}
 }

@@ -1,0 +1,340 @@
+﻿propose_random_tax_code_amendment_on_action = {
+	random_on_action = {
+		1 = propose_revenue_increase
+		1 = propose_military_tax_cut
+		1 = propose_commercial_tax_cut
+		1 = propose_technocratic_tax_cut
+		1 = propose_theocratic_tax_cut
+	}
+}
+propose_revenue_increase = {
+	weight_multiplier = {
+		base = 1
+		modifier = {
+			factor = 0
+			scope:activity = {
+				OR = {
+					proposed_total_tax_income > var:ruler.current_total_tax_income
+					proposed_total_taxes >= 12
+				}
+			}
+		}
+		modifier = {
+			factor = 0
+			NOT = {
+				scope:activity = {
+					any_attending_character = {
+						is_in_guest_subset = { name = bill_opponents }
+						OR = {
+							has_activity_intent = increase_revenue_intent
+							has_activity_intent = increase_revenue_maintain_military_intent
+							has_activity_intent = increase_revenue_maintain_commercial_intent
+							has_activity_intent = increase_revenue_maintain_technocratic_intent
+							has_activity_intent = increase_revenue_maintain_theocratic_intent
+						}
+						vote_is_open_trigger = yes
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		# Build a temporary list of every possible vote-changer
+		every_attending_character = {
+			limit = {
+				is_in_guest_subset = { name = bill_opponents }
+				OR = {
+					has_activity_intent = increase_revenue_intent
+					has_activity_intent = increase_revenue_maintain_military_intent
+					has_activity_intent = increase_revenue_maintain_commercial_intent
+					has_activity_intent = increase_revenue_maintain_technocratic_intent
+					has_activity_intent = increase_revenue_maintain_theocratic_intent
+				}
+				vote_is_open_trigger = yes
+			}
+			add_to_temporary_list = possible_vote_changers
+		}
+		# Calculate a way to increase revenue
+		set_variable = { name = amended_military_taxes value = scope:activity.var:proposed_military_taxes }
+		set_variable = { name = amended_commercial_taxes value = scope:activity.var:proposed_commercial_taxes }
+		set_variable = { name = amended_technocratic_taxes value = scope:activity.var:proposed_technocratic_taxes }
+		set_variable = { name = amended_technocratic_taxes value = scope:activity.var:proposed_theocratic_taxes }
+		while = {
+			limit = {
+				amended_total_taxes < 16
+				amended_total_tax_income <= scope:activity.var:ruler.current_total_tax_income
+				any_in_list = {
+					list = possible_vote_changers
+					count > 0
+				}
+			}
+			# Pick a tax to increase
+			random_list = {
+				# Increase military taxes
+				0 = {
+					modifier = { add = scope:activity.var:ruler.military_tax_base }
+					modifier = {
+						factor = {
+							value = 0
+							every_in_list = {
+								list = possible_vote_changers
+								limit = { NOT = { has_activity_intent = increase_revenue_maintain_military_intent } }
+								add = 1
+							}
+						}
+					}
+					modifier = {
+						factor = 0
+						var:amended_military_taxes >= 4
+					}
+					change_variable = { name = amended_military_taxes add = 1 }
+					if = {
+						limit = { var:amended_military_taxes > scope:activity.var:ruler.current_military_taxes }
+						every_in_list = {
+							list = possible_vote_changers
+							limit = { has_activity_intent = increase_revenue_maintain_military_intent }
+							remove_from_list = possible_vote_changers
+						}
+					}
+				}
+				# Increase commercial taxes
+				0 = {
+					modifier = { add = scope:activity.var:ruler.commercial_tax_base }
+					modifier = {
+						factor = {
+							value = 0
+							every_in_list = {
+								list = possible_vote_changers
+								limit = { NOT = { has_activity_intent = increase_revenue_maintain_commercial_intent } }
+								add = 1
+							}
+						}
+					}
+					modifier = {
+						factor = 0
+						var:amended_commercial_taxes >= 4
+					}
+					change_variable = { name = amended_commercial_taxes add = 1 }
+					if = {
+						limit = { var:amended_commercial_taxes > scope:activity.var:ruler.current_commercial_taxes }
+						every_in_list = {
+							list = possible_vote_changers
+							limit = { has_activity_intent = increase_revenue_maintain_commercial_intent }
+							remove_from_list = possible_vote_changers
+						}
+					}
+				}
+				# Increase technocratic taxes
+				0 = {
+					modifier = { add = scope:activity.var:ruler.technocratic_tax_base }
+					modifier = {
+						factor = {
+							value = 0
+							every_in_list = {
+								list = possible_vote_changers
+								limit = { NOT = { has_activity_intent = increase_revenue_maintain_technocratic_intent } }
+								add = 1
+							}
+						}
+					}
+					modifier = {
+						factor = 0
+						var:amended_technocratic_taxes >= 4
+					}
+					change_variable = { name = amended_technocratic_taxes add = 1 }
+					if = {
+						limit = { var:amended_technocratic_taxes > scope:activity.var:ruler.current_technocratic_taxes }
+						every_in_list = {
+							list = possible_vote_changers
+							limit = { has_activity_intent = increase_revenue_maintain_technocratic_intent }
+							remove_from_list = possible_vote_changers
+						}
+					}
+				}
+				# Increase theocratic taxes
+				0 = {
+					modifier = { add = scope:activity.var:ruler.theocratic_tax_base }
+					modifier = {
+						factor = {
+							value = 0
+							every_in_list = {
+								list = possible_vote_changers
+								limit = {
+									NOR = {
+										has_activity_intent = increase_revenue_maintain_technocratic_intent
+										AND = {
+											faith = { has_doctrine = doctrine_secular }
+											scope:host = {
+												var:amended_military_taxes < 4
+												var:amended_commercial_taxes < 4
+												var:amended_technocratic_taxes < 4
+											}
+										}
+									}
+								}
+								add = 1
+							}
+						}
+					}
+					modifier = {
+						factor = 0
+						var:amended_theocratic_taxes >= 4
+					}
+					change_variable = { name = amended_theocratic_taxes add = 1 }
+					if = {
+						limit = { var:amended_theocratic_taxes > scope:activity.var:ruler.current_theocratic_taxes }
+						every_in_list = {
+							list = possible_vote_changers
+							limit = { has_activity_intent = increase_revenue_maintain_theocratic_intent }
+							remove_from_list = possible_vote_changers
+						}
+					}
+				}
+			}
+		}
+		
+		build_supporters_gained_list_effect = yes
+		build_supporters_lost_list_effect = yes
+		trigger_event = legislature_events.3200
+	}
+}
+propose_military_tax_cut = {
+	weight_multiplier = {
+		base = 1
+		modifier = {
+			factor = 0
+			scope:activity.var:ruler.current_military_taxes <= 0
+		}
+		modifier = {
+			factor = 0
+			scope:activity = { var:proposed_military_taxes < var:ruler.current_military_taxes }
+		}
+		modifier = {
+			factor = 0
+			NOT = {
+				scope:activity = {
+					any_attending_character = {
+						is_in_guest_subset = { name = bill_opponents }
+						has_activity_intent = cut_military_taxes_intent
+						vote_is_open_trigger = yes
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		set_variable = { name = amended_military_taxes value = scope:activity.var:ruler.current_military_taxes }
+		change_variable = { name = amended_military_taxes subtract = 1 }
+		set_variable = { name = amended_commercial_taxes value = scope:activity.var:proposed_commercial_taxes }
+		set_variable = { name = amended_technocratic_taxes value = scope:activity.var:proposed_technocratic_taxes }
+		set_variable = { name = amended_theocratic_taxes value = scope:activity.var:proposed_theocratic_taxes }
+		build_supporters_gained_list_effect = yes
+		build_supporters_lost_list_effect = yes
+		trigger_event = legislature_events.3200
+	}
+}
+propose_commercial_tax_cut = {
+	weight_multiplier = {
+		base = 1
+		modifier = {
+			factor = 0
+			scope:activity.var:ruler.current_commercial_taxes <= 0
+		}
+		modifier = {
+			factor = 0
+			scope:activity = { var:proposed_commercial_taxes < var:ruler.current_commercial_taxes }
+		}
+		modifier = {
+			factor = 0
+			NOT = {
+				scope:activity = {
+					any_attending_character = {
+						is_in_guest_subset = { name = bill_opponents }
+						has_activity_intent = cut_commercial_taxes_intent
+						vote_is_open_trigger = yes
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		set_variable = { name = amended_commercial_taxes value = scope:activity.var:ruler.current_commercial_taxes }
+		change_variable = { name = amended_commercial_taxes subtract = 1 }
+		set_variable = { name = amended_military_taxes value = scope:activity.var:proposed_military_taxes }
+		set_variable = { name = amended_technocratic_taxes value = scope:activity.var:proposed_technocratic_taxes }
+		set_variable = { name = amended_theocratic_taxes value = scope:activity.var:proposed_theocratic_taxes }
+		build_supporters_gained_list_effect = yes
+		build_supporters_lost_list_effect = yes
+		trigger_event = legislature_events.3200
+	}
+}
+propose_technocratic_tax_cut = {
+	weight_multiplier = {
+		base = 1
+		modifier = {
+			factor = 0
+			scope:activity.var:ruler.current_technocratic_taxes <= 0
+		}
+		modifier = {
+			factor = 0
+			scope:activity = { var:proposed_technocratic_taxes < var:ruler.current_technocratic_taxes }
+		}
+		modifier = {
+			factor = 0
+			NOT = {
+				scope:activity = {
+					any_attending_character = {
+						is_in_guest_subset = { name = bill_opponents }
+						has_activity_intent = cut_technocratic_taxes_intent
+						vote_is_open_trigger = yes
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		set_variable = { name = amended_technocratic_taxes value = scope:activity.var:ruler.current_technocratic_taxes }
+		change_variable = { name = amended_technocratic_taxes subtract = 1 }
+		set_variable = { name = amended_military_taxes value = scope:activity.var:proposed_military_taxes }
+		set_variable = { name = amended_commercial_taxes value = scope:activity.var:proposed_commercial_taxes }
+		set_variable = { name = amended_theocratic_taxes value = scope:activity.var:proposed_theocratic_taxes }
+		build_supporters_gained_list_effect = yes
+		build_supporters_lost_list_effect = yes
+		trigger_event = legislature_events.3200
+	}
+}
+propose_theocratic_tax_cut = {
+	weight_multiplier = {
+		base = 1
+		modifier = {
+			factor = 0
+			scope:activity.var:ruler.current_theocratic_taxes <= 0
+		}
+		modifier = {
+			factor = 0
+			scope:activity = { var:proposed_theocratic_taxes < var:ruler.current_theocratic_taxes }
+		}
+		modifier = {
+			factor = 0
+			NOT = {
+				scope:activity = {
+					any_attending_character = {
+						is_in_guest_subset = { name = bill_opponents }
+						has_activity_intent = cut_theocratic_taxes_intent
+						vote_is_open_trigger = yes
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		set_variable = { name = amended_theocratic_taxes value = scope:activity.var:ruler.current_theocratic_taxes }
+		change_variable = { name = amended_theocratic_taxes subtract = 1 }
+		set_variable = { name = amended_military_taxes value = scope:activity.var:proposed_military_taxes }
+		set_variable = { name = amended_commercial_taxes value = scope:activity.var:proposed_commercial_taxes }
+		set_variable = { name = amended_technocratic_taxes value = scope:activity.var:proposed_technocratic_taxes }
+		build_supporters_gained_list_effect = yes
+		build_supporters_lost_list_effect = yes
+		trigger_event = legislature_events.3200
+	}
+}

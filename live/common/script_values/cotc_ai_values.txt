@@ -535,3 +535,47 @@ ai_personal_fear_of = {
 		multiply = 0
 	}
 }
+
+ai_bill_cooldown = {
+	value = 1265
+	if = {
+		limit = { ai_energy >= very_high_positive_ai_value }
+		subtract = 900
+	}
+	else_if = {
+		limit = { ai_energy >= high_positive_ai_value }
+		subtract = 720
+	}
+	else_if = {
+		limit = { ai_energy >= medium_positive_ai_value }
+		subtract = 540
+	}
+	else_if = {
+		limit = { ai_energy >= low_positive_ai_value }
+		subtract = 360
+	}
+	else_if = {
+		limit = { ai_energy >= very_low_positive_ai_value }
+		subtract = 180
+	}
+	else_if = {
+		limit = { ai_energy <= very_high_negative_ai_value }
+		add = 900
+	}
+	else_if = {
+		limit = { ai_energy <= high_negative_ai_value }
+		add = 720
+	}
+	else_if = {
+		limit = { ai_energy <= medium_negative_ai_value }
+		add = 540
+	}
+	else_if = {
+		limit = { ai_energy <= low_negative_ai_value }
+		add = 360
+	}
+	else_if = {
+		limit = { ai_energy <= very_low_negative_ai_value }
+		add = 180
+	}
+}

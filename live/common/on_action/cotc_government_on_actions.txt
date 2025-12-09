@@ -197,11 +197,16 @@ province_taxes_on_action = {
 		commercial_province_taxes_2_on_action
 		commercial_province_taxes_3_on_action
 		commercial_province_taxes_4_on_action
-		administrative_province_taxes_0_on_action
-		administrative_province_taxes_1_on_action
-		administrative_province_taxes_2_on_action
-		administrative_province_taxes_3_on_action
-		administrative_province_taxes_4_on_action
+		technocratic_province_taxes_0_on_action
+		technocratic_province_taxes_1_on_action
+		technocratic_province_taxes_2_on_action
+		technocratic_province_taxes_3_on_action
+		technocratic_province_taxes_4_on_action
+		theocratic_province_taxes_0_on_action
+		theocratic_province_taxes_1_on_action
+		theocratic_province_taxes_2_on_action
+		theocratic_province_taxes_3_on_action
+		theocratic_province_taxes_4_on_action
 	}
 }
 military_province_taxes_0_on_action = {
@@ -344,13 +349,13 @@ commercial_province_taxes_4_on_action = {
 		remove_variable = bill_passed
 	}
 }
-administrative_province_taxes_0_on_action = {
-	trigger = { has_realm_law = administrative_province_tax_law_0 }
+technocratic_province_taxes_0_on_action = {
+	trigger = { has_realm_law = technocratic_province_tax_law_0 }
 	effect = {
 		set_variable = bill_passed
 		every_vassal = {
 			limit = {
-				government_has_flag = government_is_administrative
+				government_has_flag = government_is_technocratic
 				vassal_contract_has_flag = has_provincial_taxes
 			}
 			vassal_contract_set_obligation_level = { type = provincial_taxes level = 0 }
@@ -358,13 +363,13 @@ administrative_province_taxes_0_on_action = {
 		remove_variable = bill_passed
 	}
 }
-administrative_province_taxes_1_on_action = {
-	trigger = { has_realm_law = administrative_province_tax_law_1 }
+technocratic_province_taxes_1_on_action = {
+	trigger = { has_realm_law = technocratic_province_tax_law_1 }
 	effect = {
 		set_variable = bill_passed
 		every_vassal = {
 			limit = {
-				government_has_flag = government_is_administrative
+				government_has_flag = government_is_technocratic
 				vassal_contract_has_flag = has_provincial_taxes
 			}
 			vassal_contract_set_obligation_level = { type = provincial_taxes level = 1 }
@@ -372,13 +377,13 @@ administrative_province_taxes_1_on_action = {
 		remove_variable = bill_passed
 	}
 }
-administrative_province_taxes_2_on_action = {
-	trigger = { has_realm_law = administrative_province_tax_law_2 }
+technocratic_province_taxes_2_on_action = {
+	trigger = { has_realm_law = technocratic_province_tax_law_2 }
 	effect = {
 		set_variable = bill_passed
 		every_vassal = {
 			limit = {
-				government_has_flag = government_is_administrative
+				government_has_flag = government_is_technocratic
 				vassal_contract_has_flag = has_provincial_taxes
 			}
 			vassal_contract_set_obligation_level = { type = provincial_taxes level = 2 }
@@ -386,13 +391,13 @@ administrative_province_taxes_2_on_action = {
 		remove_variable = bill_passed
 	}
 }
-administrative_province_taxes_3_on_action = {
-	trigger = { has_realm_law = administrative_province_tax_law_3 }
+technocratic_province_taxes_3_on_action = {
+	trigger = { has_realm_law = technocratic_province_tax_law_3 }
 	effect = {
 		set_variable = bill_passed
 		every_vassal = {
 			limit = {
-				government_has_flag = government_is_administrative
+				government_has_flag = government_is_technocratic
 				vassal_contract_has_flag = has_provincial_taxes
 			}
 			vassal_contract_set_obligation_level = { type = provincial_taxes level = 3 }
@@ -400,13 +405,83 @@ administrative_province_taxes_3_on_action = {
 		remove_variable = bill_passed
 	}
 }
-administrative_province_taxes_4_on_action = {
-	trigger = { has_realm_law = administrative_province_tax_law_4 }
+technocratic_province_taxes_4_on_action = {
+	trigger = { has_realm_law = technocratic_province_tax_law_4 }
 	effect = {
 		set_variable = bill_passed
 		every_vassal = {
 			limit = {
-				government_has_flag = government_is_administrative
+				government_has_flag = government_is_technocratic
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 4 }
+		}
+		remove_variable = bill_passed
+	}
+}
+theocratic_province_taxes_0_on_action = {
+	trigger = { has_realm_law = theocratic_province_tax_law_0 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_theocratic
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 0 }
+		}
+		remove_variable = bill_passed
+	}
+}
+theocratic_province_taxes_1_on_action = {
+	trigger = { has_realm_law = theocratic_province_tax_law_1 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_theocratic
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 1 }
+		}
+		remove_variable = bill_passed
+	}
+}
+theocratic_province_taxes_2_on_action = {
+	trigger = { has_realm_law = theocratic_province_tax_law_2 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_theocratic
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 2 }
+		}
+		remove_variable = bill_passed
+	}
+}
+theocratic_province_taxes_3_on_action = {
+	trigger = { has_realm_law = theocratic_province_tax_law_3 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_theocratic
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 3 }
+		}
+		remove_variable = bill_passed
+	}
+}
+theocratic_province_taxes_4_on_action = {
+	trigger = { has_realm_law = theocratic_province_tax_law_4 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_theocratic
 				vassal_contract_has_flag = has_provincial_taxes
 			}
 			vassal_contract_set_obligation_level = { type = provincial_taxes level = 4 }
@@ -431,26 +506,21 @@ plan_budget_on_action = {
 		set_variable = { name = planned_budget_surplus value = target_budget_surplus }
 		while = {
 			limit = { planned_total_budget < 100 }
-			debug_log = "Total Planned Budget: [ROOT.Char.MakeScope.ScriptValue('planned_total_budget')]"
 			random_list = {
 				200 = {
 					modifier = { add = ai_hawkishness }
-					debug_log = "Increasing planned military budget..."
 					change_variable = { name = planned_military_budget add = 5 }
 				}
 				200 = {
 					modifier = { add = ai_interventionism }
-					debug_log = "Increasing planned ministry budget..."
 					change_variable = { name = planned_ministry_budget add = 5 }
 				}
 				200 = {
 					modifier = { add = ai_intellectualism }
-					debug_log = "Increasing planned salary budget..."
 					change_variable = { name = planned_salary_budget add = 5 }
 				}
 				200 = {
 					modifier = { add = ai_greed }
-					debug_log = "Increasing planned budget surplus..."
 					change_variable = { name = planned_budget_surplus add = 5 }
 				}
 			}
@@ -461,7 +531,6 @@ plan_budget_on_action = {
 			change_variable = { name = counter subtract = 100 }
 			while = {
 				limit = { var:counter > 0 }
-				debug_log = "Total Planned Budget: [ROOT.Char.MakeScope.ScriptValue('planned_total_budget')]"
 				change_variable = { name = counter subtract = 5 }
 				random_list = {
 					200 = {
@@ -475,7 +544,6 @@ plan_budget_on_action = {
 							factor = 0
 							var:planned_military_budget <= 0
 						}
-						debug_log "Reducing planned military budget..."
 						change_variable = { name = planned_military_budget subtract = 5 }
 					}
 					200 = {
@@ -489,7 +557,6 @@ plan_budget_on_action = {
 							factor = 0
 							var:planned_ministry_budget <= 0
 						}
-						debug_log "Reducing planned ministry budget..."
 						change_variable = { name = planned_ministry_budget subtract = 5 }
 					}
 					200 = {
@@ -503,7 +570,6 @@ plan_budget_on_action = {
 							factor = 0
 							var:planned_salary_budget <= 0
 						}
-						debug_log "Reducing planned salary budget..."
 						change_variable = { name = planned_salary_budget subtract = 5 }
 					}
 					200 = {
@@ -527,12 +593,11 @@ plan_budget_on_action = {
 							factor = 0
 							var:planned_budget_surplus <= -20
 						}
-						debug_log "Reducing planned surplus..."
 						change_variable = { name = planned_budget_surplus subtract = 5 }
 					}
 				}
 			}
-			#remove_variable = counter
+			remove_variable = counter
 		}
 	}
 }
