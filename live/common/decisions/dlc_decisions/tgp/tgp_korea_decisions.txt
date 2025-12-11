@@ -17,6 +17,7 @@
 		# hegemony = 0
 	# }
 
+<<<<<<< HEAD
 	# is_shown = {
 		# NOR = {
 			# exists = title:e_goryeo.holder
@@ -41,6 +42,33 @@
 			# }
 		# }
 	# }
+=======
+	is_shown = {
+		has_tgp_dlc_trigger = yes
+		NOR = {
+			exists = title:e_goryeo.holder
+			exists = title:k_yongson_throne.holder
+		}
+		culture = {
+			OR = {
+				has_cultural_pillar = heritage_korean
+				has_cultural_pillar = heritage_buyeo
+				any_parent_culture = {
+					OR = {
+						has_cultural_pillar = heritage_korean
+						has_cultural_pillar = heritage_buyeo
+					}
+				}
+			}
+		}
+		NOT = {
+			is_target_in_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:unify_goryeo_decision
+			}
+		}
+	}
+>>>>>>> 1.18.2
 
 	# is_valid = {
 		# government_allows = administrative
@@ -103,6 +131,7 @@
 		# }
 	# }
 
+<<<<<<< HEAD
 	# effect = {
 		# if = {
 			# limit = {
@@ -130,6 +159,27 @@
 		# show_as_tooltip = { korea_unify_goryeo_reward_effect = yes }
 		# trigger_event = tgp_korea_decision.9101
 	# }
+=======
+	effect = {
+		if = {
+			limit = {
+				is_ai = no
+			}
+			add_achievement_global_variable_effect = {
+				VARIABLE = achieved_ep4_13_how_its_done_done_done_achievement
+				VALUE = yes
+			}
+		}
+		#Can only happen once
+		add_to_global_variable_list = {
+			name = unavailable_unique_decisions
+			target = flag:unify_goryeo_decision
+		}
+		save_scope_as = king_of_goryeo
+		show_as_tooltip = { korea_unify_goryeo_reward_effect = yes }
+		trigger_event = tgp_korea_decision.9101
+	}
+>>>>>>> 1.18.2
 
 	# ai_will_do = {
 		# base = 100

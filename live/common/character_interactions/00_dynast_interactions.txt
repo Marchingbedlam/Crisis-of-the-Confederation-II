@@ -176,14 +176,14 @@ disinherit_interaction = {
 	cost = {
 		renown = {
 			value = {
-				add = medium_dynasty_prestige_value
+				add = scope:actor.dynasty.medium_dynasty_prestige_value
 				if = {
 					limit = {
 						scope:recipient = {
 							is_landed_or_landless_administrative = yes
 						}
 					}
-					add = major_dynasty_prestige_value
+					add = scope:actor.dynasty.major_dynasty_prestige_value
 				}
 				if = {
 					limit = {
@@ -194,7 +194,7 @@ disinherit_interaction = {
 							}
 						}
 					}
-					add = medium_dynasty_prestige_value
+					add = scope:actor.dynasty.medium_dynasty_prestige_value
 				}
 				if = {
 					limit = {
@@ -775,7 +775,7 @@ restore_inheritance_interaction = {
 
 	cost = {
 		renown = {
-			value = medium_dynasty_prestige_value
+			value = scope:actor.dynasty.medium_dynasty_prestige_value
 		}
 	}
 	
@@ -919,14 +919,14 @@ denounce_interaction = {
 	cost = {
 		renown = {
 			value = {
-				add = minor_dynasty_prestige_value
+				add = scope:actor.dynasty.minor_dynasty_prestige_value
 				if = {
 					limit = {
 						scope:recipient = {
 							is_landed_or_landless_administrative = yes
 						}
 					}
-					add = medium_dynasty_prestige_value
+					add = scope:actor.dynasty.medium_dynasty_prestige_value
 				}
 				if = {
 					limit = {
@@ -937,7 +937,7 @@ denounce_interaction = {
 							}
 						}
 					}
-					add = minor_dynasty_prestige_value
+					add = scope:actor.dynasty.minor_dynasty_prestige_value
 				}
 			}
 		}
@@ -1167,7 +1167,7 @@ forgive_interaction = {
 
 	cost = {
 		renown = {
-			value = miniscule_dynasty_prestige_value
+			value = scope:actor.dynasty.miniscule_dynasty_prestige_value
 		}
 	}
 	
@@ -1570,7 +1570,7 @@ dynast_claim_title_interaction = {
 	target_type = title
 	target_filter = recipient_domain_titles
 	ignores_pending_interaction_block = yes
-	cost = { renown = major_dynasty_prestige_value }
+	cost = { renown = scope:actor.dynasty.major_dynasty_prestige_value }
 	is_shown = {
 		scope:recipient != scope:actor
 
@@ -1731,7 +1731,7 @@ dynast_legitimize_bastard_interaction = {
 	auto_accept = yes
 
 	cost = {
-		renown = medium_dynasty_prestige_value
+		renown = scope:actor.dynasty.medium_dynasty_prestige_value
 	}
 	
 	on_accept = {
@@ -1833,8 +1833,9 @@ send_to_varangian_guard_interaction = {
 			is_ruler = no
 			is_adult = yes
 			is_married = no
-			NOT = {
+			NOR = {
 				has_trait = varangian
+				has_trait = order_member
 			}
 		}
 		trigger_if = {

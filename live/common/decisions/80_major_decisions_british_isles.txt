@@ -302,6 +302,7 @@
 	# }
 # }
 
+<<<<<<< HEAD
 # # Request Laudabiliter - by Flavio
 # england_request_laudabiliter_decision = {
 	# picture = {
@@ -357,6 +358,61 @@
 			# }
 		# }
 	# }
+=======
+# Request Laudabiliter - by Flavio
+### Request Claim on Ireland ###
+england_request_laudabiliter_decision = {
+	picture = {
+		reference = "gfx/interface/illustrations/decisions/decision_misc.dds"
+	}
+	desc = england_request_laudabiliter_decision_desc
+	selection_tooltip = england_request_laudabiliter_decision_tooltip
+	decision_group_type = major
+
+	is_shown = {
+		government_has_flag = government_is_feudal
+		is_landed_or_landless_administrative = yes
+		root.faith = faith:catholic
+		highest_held_title_tier >= 4 # Kings and Emperors only.
+		faith:catholic.religious_head ?= {
+			has_title = title:k_papal_state
+		}
+		NOT = {  # Can only do it once.
+			is_target_in_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:flag_england_requested_laudabiliter
+			}
+		}
+		OR = {
+			culture = { has_cultural_pillar = heritage_frankish }
+			culture = { has_cultural_pillar = heritage_west_germanic }
+			culture = { has_cultural_pillar = heritage_north_germanic }
+		}
+		# The ruler picking the decision should not already control Ireland.
+		NOT = {
+			completely_controls_region = custom_roman_hibernia
+		}
+		# The ruler asking it must be a King or Emperor in some way related to Britain.
+		OR = {
+			has_title = title:k_england
+			has_title = title:k_scotland
+			has_title = title:k_wales
+			has_title = title:k_brittany
+			has_title = title:k_france
+			has_title = title:e_britannia
+			has_title = title:e_france
+		}
+		any_county_in_region = {
+			region = custom_roman_hibernia
+			OR = {
+				NOT = { faith = faith:catholic }
+				holder = {
+					NOT = { faith = faith:catholic }
+				}
+			}
+		}
+	}
+>>>>>>> 1.18.2
 	
 	# is_valid = {
 		# piety_level >= 3
@@ -427,6 +483,7 @@
 		# always = yes
 	# }
 
+<<<<<<< HEAD
 	# ai_will_do = {
 		# base = 15
 		# ai_value_modifier = {
@@ -434,6 +491,24 @@
 		# }
 	# }
 # }
+=======
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 0
+		kingdom = 48
+		empire = 48
+		hegemony = 0
+	}
+
+	ai_will_do = {
+		base = 15
+		ai_value_modifier = {
+			ai_boldness = 1.0
+		}
+	}
+}
+>>>>>>> 1.18.2
 
 # #############################################
 # # Negotiate the Danelaw						#

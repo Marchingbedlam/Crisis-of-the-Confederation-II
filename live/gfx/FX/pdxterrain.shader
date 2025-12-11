@@ -409,6 +409,8 @@ PixelShader =
 
 	Code
 	[[
+		static const float UNDERWATER_CLIP_OFFSET = 0.00001f;
+		static const float TERRAIN_SKIRT_CLIP_OFFSET = 0.01f;
 		SLightingProperties GetFlatMapLerpSunLightingProperties( float3 WorldSpacePos, float ShadowTerm )
 		{
 			SLightingProperties LightingProps;
@@ -421,6 +423,22 @@ PixelShader =
 
 			return LightingProps;
 		}
+		void CheckClipNeeded( float TerrainHeight, float2 MapCoords, float StartColorOverlayHeightBlend )
+		{
+			#ifdef TERRAIN_SKIRT
+				clip( TerrainHeight - TERRAIN_SKIRT_CLIP_OFFSET );
+			#endif
+
+			#ifdef UNDERWATER
+				// When doing the refraction pass and applying the Color Overlay, skip the parts above the ocean.
+				if ( StartColorOverlayHeightBlend > 0.99f )
+				{
+					clip( _RefractionCullHeight - TerrainHeight );
+				}
+			#endif
+			clip( vec2( 1.0f ) - MapCoords );
+		}
+
 	]]
 
 	MainCode PixelShader
@@ -429,19 +447,61 @@ PixelShader =
 		Output = "PDX_COLOR"
 		Code
 		[[
+
 			PDX_MAIN
 			{
+<<<<<<< HEAD
 				// MOD(CL)
 				discard;
 				// END MOD
 				clip( vec2( 1.0f ) - Input.WorldSpacePos.xz * WorldSpaceToTerrain0To1 );
+=======
+				float FullColorOverlayFactor = 0.0f;
+				bool IsFullyColorOverlay = false;
+>>>>>>> 1.18.2
 
-				float4 DetailDiffuse;
-				float3 DetailNormal;
-				float4 DetailMaterial;
-				CalculateDetails( Input.WorldSpacePos.xz, DetailDiffuse, DetailNormal, DetailMaterial );
+				const float2 ColorMapCoords = Input.WorldSpacePos.xz * WorldSpaceToTerrain0To1;
+				CheckClipNeeded( Input.WorldSpacePos.y, ColorMapCoords, _StartColorOverlayHeightBlend * _EnabledTerrainCulling );
 
-				float2 ColorMapCoords = Input.WorldSpacePos.xz * WorldSpaceToTerrain0To1;
+			#ifndef UNDERWATER
+				// Skip terrain rendering below the ocean surface.
+				if ( Input.WorldSpacePos.y < UNDERWATER_CLIP_OFFSET && _EnabledTerrainCulling > 0.99f)
+				{
+					return float4( _UnderwaterTerrainColor.rgb, 0.0f );
+				}
+			#endif
+
+				float3 FlatMap = float3( 0.5f, 0.5f, 0.5f ); // neutral overlay
+				#ifdef TERRAIN_FLAT_MAP_LERP
+					FlatMap = lerp( FlatMap, PdxTex2D( FlatMapTexture,
+						float2( ColorMapCoords.x, 1.0f - ColorMapCoords.y ) ).rgb,
+						FlatMapLerp );
+				#endif
+
+				#ifdef TERRAIN_COLOR_OVERLAY
+					float3 BorderColor;
+					float BorderPreLightingBlend;
+					float BorderPostLightingBlend;
+					GetBorderColorAndBlendGame( Input.WorldSpacePos.xz, FlatMap, BorderColor, BorderPreLightingBlend, BorderPostLightingBlend );
+
+					FullColorOverlayFactor = BorderPreLightingBlend + BorderPostLightingBlend;
+					FullColorOverlayFactor *= _FullyColorOverlayHeightBlend * _EnabledTerrainCulling;
+				#endif
+				if ( FullColorOverlayFactor > 0.99f )
+				{
+					IsFullyColorOverlay = true;
+				}
+
+				float4 DetailDiffuse = vec4( 0.0f );
+				float3 DetailNormal = float3( 0.0f, 1.0f, 0.0f );
+				float4 DetailMaterial = vec4( 0.0f );
+				float ShadowTerm = 1.0f;
+				if( !IsFullyColorOverlay )
+				{
+					CalculateDetails( Input.WorldSpacePos.xz, DetailDiffuse, DetailNormal, DetailMaterial );
+					ShadowTerm = CalculateShadow( Input.ShadowProj, ShadowMap );
+				}
+
 				float FogOfWarAlphaValue = PdxTex2D( FogOfWarAlpha, ColorMapCoords).r;
 #if defined( PDX_OSX ) && defined( PDX_OPENGL )
 				// We're limited to the amount of samplers we can bind at any given time on Mac, so instead
@@ -455,42 +515,41 @@ PixelShader =
 				float ColorDarken = ColorMapSample.a;
 				float3 ColorMap = ColorMapSample.rgb;
 #endif
-				float WaterNormalLerp = 0.0;
-				EffectIntensities ConditionData;
-				SampleProvinceEffectsMask( ColorMapCoords, ConditionData );
-				ApplyProvinceEffectsTerrain( ConditionData, DetailDiffuse, DetailNormal, DetailMaterial, Input.WorldSpacePos, WaterNormalLerp );
-
-				float3 FlatMap = float3( vec3( 0.5f ) ); // neutral overlay
-				#ifdef TERRAIN_FLAT_MAP_LERP
-					FlatMap = lerp( FlatMap, PdxTex2D( FlatMapTexture,
-						float2( ColorMapCoords.x, 1.0f - ColorMapCoords.y ) ).rgb,
-						FlatMapLerp );
-
-				#endif
-				// Use the property that only water has lower roughness to adjust the terrain normals to face upward.
-				float WaterNormalAdjustment = smoothstep( 0.6f, 1.0f, 1 - DetailMaterial.a);
-				WaterNormalLerp = max( WaterNormalLerp, WaterNormalAdjustment);
-				float3 Normal = CalculateNormal( Input.WorldSpacePos.xz );
-				float3 ReorientedNormal = ReorientNormal(
-					lerp( Normal, float3( 0.0f, 1.0f, 0.0f ), WaterNormalLerp ),
-					DetailNormal );
 
 				float SnowHighlight = 0.0f;
+				float3 Normal = CalculateNormal( Input.WorldSpacePos.xz );
 				#ifndef UNDERWATER
-					ApplySnowMaterialTerrain( ConditionData, DetailDiffuse, DetailNormal, DetailMaterial, Input.WorldSpacePos.xz, SnowHighlight );
+					float3 ReorientedNormal = Normal;
+					if( !IsFullyColorOverlay )
+					{
+						float WaterNormalLerp = 0.0f;
+						EffectIntensities ConditionData;
+						BilinearSampleProvinceEffectsMask( ColorMapCoords, ConditionData );
+						ApplyProvinceEffectsTerrain( ConditionData, DetailDiffuse, DetailNormal, DetailMaterial, Input.WorldSpacePos, WaterNormalLerp );
+
+						// Use the property that only water has lower roughness to adjust the terrain normals to face upward.
+						float WaterNormalAdjustment = smoothstep( 0.6f, 1.0f, 1 - DetailMaterial.a);
+						WaterNormalLerp = max( WaterNormalLerp, WaterNormalAdjustment);
+						float3 ReorientedNormal = ReorientNormal(
+							lerp( Normal, float3( 0.0f, 1.0f, 0.0f ), WaterNormalLerp ),
+							DetailNormal );
+
+						ApplySnowMaterialTerrain( DetailDiffuse, DetailNormal, DetailMaterial, Normal, Input.WorldSpacePos.xz, ColorMapCoords, SnowHighlight );
+
+						if( ConditionData._Drought > 0.0f || SnowHighlight > 0.0f )
+						{
+							ShadowTerm = lerp( ShadowTerm + 0.4f , ShadowTerm , ShadowTerm );
+						}
+					}
+				#else
+					float3 ReorientedNormal = ReorientNormal( Normal, DetailNormal );
 				#endif
 
 				float3 Diffuse = SoftLight( DetailDiffuse.rgb, ColorMap,
 					( 1 - DetailMaterial.r ) * COLORMAP_OVERLAY_STRENGTH );
 
 				#ifdef TERRAIN_COLOR_OVERLAY
-					float3 BorderColor;
-					float BorderPreLightingBlend;
-					float BorderPostLightingBlend;
-					GetBorderColorAndBlendGame( Input.WorldSpacePos.xz, FlatMap, BorderColor, BorderPreLightingBlend, BorderPostLightingBlend );
-
-					LerpBorderColorWithFogOfWar( Diffuse, Input.WorldSpacePos.xz, BorderColor, BorderPreLightingBlend );
-
+					LerpBorderColorWithFogOfWarAlphaValue( Diffuse, FogOfWarAlphaValue, BorderColor, BorderPreLightingBlend );
 					#ifdef TERRAIN_FLAT_MAP_LERP
 						float3 FlatColor;
 						GetBorderColorAndBlendGameLerp( Input.WorldSpacePos.xz, FlatMap,
@@ -499,43 +558,20 @@ PixelShader =
 
 						FlatMap = lerp( FlatMap, FlatColor,
 							saturate( BorderPreLightingBlend + BorderPostLightingBlend ) );
-
 					#endif
+					float4 HighlightColor = GetHighlightColor( ColorMapCoords );
+					ApplyHighlightColor( Diffuse, HighlightColor );
+					CompensateWhiteHighlightColor( Diffuse, HighlightColor, SnowHighlight );
 				#endif
-
-				#ifdef TERRAIN_COLOR_OVERLAY
-					ApplyHighlightColor( Diffuse, ColorMapCoords );
-					CompensateWhiteHighlightColor( Diffuse, ColorMapCoords, SnowHighlight );
-				#endif
-
-				float ShadowTerm = CalculateShadow( Input.ShadowProj, ShadowMap );
-				if( ConditionData._Drought > 0.0f || SnowHighlight > 0.0f )
-				{
-					ShadowTerm = lerp( ShadowTerm + 0.4f , ShadowTerm , ShadowTerm );
-				}
-
-				float Roughness = DetailMaterial.a;
-				float SpecIntensity = DetailMaterial.g;
-				float Metalness = DetailMaterial.b;
 
 				SMaterialProperties MaterialProps = GetMaterialProperties(
 					Diffuse,
 					ReorientedNormal,
-					Roughness,
-					SpecIntensity,
-					Metalness
+					DetailMaterial.a,
+					DetailMaterial.g,
+					DetailMaterial.b
 				);
 
-				// Calculate combined shadow mask from clouds and shadow tint
-				float CloudMask = GetCloudShadowMask( Input.WorldSpacePos.xz, FogOfWarAlphaValue );
-				float3 ToLightDir = ToTerrainSunnySunDir;
-
-				// DEBUG: Uncomment one of these lines to visualize masks
-				//float ShadowTintMask = GetTerrainShadowTintMask( ColorMapCoords, ToLightDir, ShadowTerm, ReorientedNormal );
-				//float CombinedShadowMask = saturate( CloudMask + ShadowTintMask );
-				// return float4( CloudMask, CloudMask, CloudMask, 1.0f );					// Show cloud mask only
-				// return float4( ShadowTintMask, ShadowTintMask, ShadowTintMask, 1.0f );	// Show shadow tint mask only
-				// return float4( CombinedShadowMask, CombinedShadowMask, CombinedShadowMask, 1.0f );	// Show combined mask
 				SLightingProperties LightingProps = GetMapLightingProperties( Input.WorldSpacePos, ShadowTerm );
 				#ifdef TERRAIN_FLAT_MAP_LERP
 					LightingProps._LightIntensity = lerp( TERRAIN_SUNNY_SUN_COLOR * TERRAIN_SUNNY_SUN_INTENSITY, FlatMapLerpSunIntensity * SunDiffuse, FlatMapLerp );
@@ -543,28 +579,34 @@ PixelShader =
 					LightingProps._ToLightDir = lerp( ToTerrainSunnySunDir, ToSunDir , FlatMapLerp );
 				#endif
 
-				float3 FinalColor = CalculateTerrainDualScenarioLighting( LightingProps, MaterialProps, CloudMask, EnvironmentMap );
-
-				// Apply shadow tint with cloud interaction for terrain
-				FinalColor = ApplyTerrainShadowTintWithClouds( FinalColor, Input.WorldSpacePos.xz, CloudMask, ShadowTerm, ReorientedNormal, Normal );
-
-				float BlendAmount = ( 1.0f - ColorDarken ) * CloudMask; // Combine color mask with cloud coverage
-				FinalColor.rgb = ApplyOvercastContrast( FinalColor, BlendAmount );
-				// FinalColor.rgb = float3(BlendAmount, BlendAmount, BlendAmount );
+				// Calculate combined shadow mask from clouds and shadow tint
+				float CloudMask = 0.0f;
+				float3 FinalColor = vec3( 0.0f );
+				if( !IsFullyColorOverlay )
+				{
+					CloudMask = GetCloudShadowMask( Input.WorldSpacePos.xz, FogOfWarAlphaValue );
+					FinalColor = CalculateTerrainDualScenarioLighting( LightingProps, MaterialProps, CloudMask, EnvironmentMap );
+					// Apply shadow tint with cloud interaction for terrain
+					FinalColor = ApplyTerrainShadowTintWithClouds( FinalColor, Input.WorldSpacePos.xz, CloudMask, ShadowTerm, ReorientedNormal, Normal );
+					float BlendAmount = ( 1.0f - ColorDarken ) * CloudMask; // Combine color mask with cloud coverage
+					FinalColor.rgb = ApplyOvercastContrast( FinalColor, BlendAmount );
+				}
 
 				#ifdef TERRAIN_COLOR_OVERLAY
 				 	float NdotL = saturate( dot( MaterialProps._Normal, LightingProps._ToLightDir ) ) + 1e-5;
 					BorderColor *= lerp( max( _WaterZoomedInZoomedOutFactor - 0.4f, 0.4f ), 1.0f, NdotL );
-					BorderColor = lerp( BorderColor, BorderColor * 0.1f, CloudMask ); // Don't have darkening effect visible when zoomed out
 					FinalColor.rgb = lerp( FinalColor.rgb, BorderColor, BorderPostLightingBlend );
-					ApplyHighlightColor( FinalColor.rgb, ColorMapCoords, 0.25f );
+					ApplyHighlightColor( FinalColor.rgb, HighlightColor, 0.25f );
 					ApplyDiseaseDiffuse( FinalColor, ColorMapCoords );
 					ApplyLegendDiffuse( FinalColor, ColorMapCoords );
 				#endif
 
 				#ifndef UNDERWATER
-					FinalColor = ApplyFogOfWar( FinalColor, Input.WorldSpacePos, FogOfWarAlpha );
-					FinalColor = ApplyMapDistanceFogWithoutFoW( FinalColor, Input.WorldSpacePos );
+					if( !IsFullyColorOverlay )
+					{
+						FinalColor = ApplyFogOfWar( FinalColor, Input.WorldSpacePos, FogOfWarAlpha );
+						FinalColor = ApplyMapDistanceFogWithoutFoW( FinalColor, Input.WorldSpacePos );
+					}	
 				#endif
 
 				#ifdef TERRAIN_FLAT_MAP_LERP
@@ -596,28 +638,24 @@ PixelShader =
 		[[
 			PDX_MAIN
 			{
+<<<<<<< HEAD
 				// MOD(CL)
 				discard;
 				// END MOD
 				clip( vec2( 1.0f ) - Input.WorldSpacePos.xz * WorldSpaceToTerrain0To1 );
+=======
+				float FullColorOverlayFactor = 0.0f;
+				bool IsFullyColorOverlay = false;
+
+				const float2 ColorMapCoords = Input.WorldSpacePos.xz * WorldSpaceToTerrain0To1;
+				CheckClipNeeded( Input.WorldSpacePos.y, ColorMapCoords, _StartColorOverlayHeightBlend);
+>>>>>>> 1.18.2
 
 				float3 DetailDiffuse = Input.DetailDiffuse;
 				float4 DetailMaterial = Input.DetailMaterial;
-
-				float2 ColorMapCoords = Input.WorldSpacePos.xz * WorldSpaceToTerrain0To1;
-				float FogOfWarAlphaValue = PdxTex2D( FogOfWarAlpha, ColorMapCoords).r;
 				float3 ColorMap = Input.ColorMap;
 				float3 FlatMap = Input.FlatMap;
-
 				float3 Normal = Input.Normal;
-
-				float SnowHighlight = 0.0f;
-				#ifndef UNDERWATER
-					DetailDiffuse = ApplyDynamicMasksDiffuse( DetailDiffuse, Normal, ColorMapCoords );
-				#endif
-
-				float3 Diffuse = GetOverlay( DetailDiffuse.rgb, ColorMap, ( 1 - DetailMaterial.r ) * COLORMAP_OVERLAY_STRENGTH );
-				float3 ReorientedNormal = Normal;
 
 				#ifdef TERRAIN_COLOR_OVERLAY
 					float3 BorderColor;
@@ -625,7 +663,24 @@ PixelShader =
 					float BorderPostLightingBlend;
 					GetBorderColorAndBlendGame( Input.WorldSpacePos.xz, FlatMap, BorderColor, BorderPreLightingBlend, BorderPostLightingBlend );
 
-					LerpBorderColorWithFogOfWar( Diffuse, Input.WorldSpacePos.xz, BorderColor, BorderPreLightingBlend );
+					FullColorOverlayFactor = BorderPreLightingBlend + BorderPostLightingBlend;
+					FullColorOverlayFactor *= _FullyColorOverlayHeightBlend * _EnabledTerrainCulling;
+				#endif
+				if ( FullColorOverlayFactor > 0.99f )
+				{
+					IsFullyColorOverlay = true;
+				}
+
+				float SnowHighlight = 0.0f;
+				#ifndef UNDERWATER
+					DetailDiffuse = ApplyDynamicMasksDiffuse( DetailDiffuse, Normal, ColorMapCoords );
+				#endif
+
+				float3 Diffuse = SoftLight( DetailDiffuse.rgb, ColorMap, ( 1 - DetailMaterial.r ) * COLORMAP_OVERLAY_STRENGTH );
+
+				#ifdef TERRAIN_COLOR_OVERLAY
+					float FogOfWarAlphaValue = PdxTex2D( FogOfWarAlpha, ColorMapCoords).r;
+					LerpBorderColorWithFogOfWarAlphaValue( Diffuse, FogOfWarAlphaValue, BorderColor, BorderPreLightingBlend );
 
 					#ifdef TERRAIN_FLAT_MAP_LERP
 						float3 FlatColor;
@@ -634,33 +689,29 @@ PixelShader =
 							FlatMapLerp );
 						FlatMap = lerp( FlatMap, FlatColor,
 							saturate( BorderPreLightingBlend + BorderPostLightingBlend ) );
-
 					#endif
 				#endif
 
-				//float ShadowTerm = CalculateShadow( Input.ShadowProj, ShadowMap );
-				float ShadowTerm = 1.0f;
-
-				float Roughness = lerp( 1.0f, DetailMaterial.a, FogOfWarAlphaValue);
-				float SpecIntensity = lerp( 0.0f, DetailMaterial.g, FogOfWarAlphaValue);
-				float Metalness = lerp( 0.0f, DetailMaterial.b, FogOfWarAlphaValue);
-
+				float3 FinalColor = vec3( 0.0f );
 				SMaterialProperties MaterialProps = GetMaterialProperties(
 					Diffuse,
-					ReorientedNormal,
-					Roughness,		// Max roughness in FoW
-					SpecIntensity,	// No specular in FoW
-					Metalness		// No metalness in FoW
+					Normal,
+					DetailMaterial.a,
+					DetailMaterial.g,
+					DetailMaterial.b
 				);
-
-				SLightingProperties LightingProps = GetSunLightingProperties(
-					Input.WorldSpacePos, ShadowTerm );
-
-				float3 FinalColor = CalculateSunLightingLowSpec( MaterialProps, LightingProps );
-
+				float ShadowTerm = 1.0f;
+				SLightingProperties LightingProps = GetMapLightingProperties( Input.WorldSpacePos, ShadowTerm );
+				if( !IsFullyColorOverlay )
+				{
+					FinalColor = CalculateTerrainSunLightingLowSpec( MaterialProps, LightingProps );
+				}
 				#ifndef UNDERWATER
-					FinalColor = ApplyFogOfWar( FinalColor, Input.WorldSpacePos, FogOfWarAlpha );
-					FinalColor = ApplyMapDistanceFog( FinalColor, Input.WorldSpacePos, FogOfWarAlpha );
+					if( !IsFullyColorOverlay )
+					{
+						FinalColor = ApplyFogOfWar( FinalColor, Input.WorldSpacePos, FogOfWarAlpha );
+						FinalColor = ApplyMapDistanceFog( FinalColor, Input.WorldSpacePos, FogOfWarAlpha );
+					}
 				#endif
 
 				#ifdef TERRAIN_COLOR_OVERLAY
@@ -668,8 +719,9 @@ PixelShader =
 				#endif
 
 				#ifdef TERRAIN_COLOR_OVERLAY
-					ApplyHighlightColor( FinalColor.rgb, ColorMapCoords );
-					CompensateWhiteHighlightColor( FinalColor.rgb, ColorMapCoords, SnowHighlight );
+					float4 HighlightColor = GetHighlightColor( ColorMapCoords );
+					ApplyHighlightColor( FinalColor.rgb, HighlightColor );
+					CompensateWhiteHighlightColor( FinalColor.rgb, HighlightColor, SnowHighlight );
 				#endif
 
 				#ifdef TERRAIN_FLAT_MAP_LERP
@@ -728,7 +780,8 @@ PixelShader =
 
 				float3 FinalColor = FlatMap;
 				#ifdef TERRAIN_COLOR_OVERLAY
-					ApplyHighlightColor( FinalColor, ColorMapCoords, 0.5f );
+					float4 HighlightColor = GetHighlightColor( ColorMapCoords );
+					ApplyHighlightColor( FinalColor, HighlightColor, 0.5f );
 				#endif
 
 				#ifdef TERRAIN_DEBUG

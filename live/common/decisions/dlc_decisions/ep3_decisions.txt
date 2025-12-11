@@ -841,6 +841,7 @@ restore_backwater_counties_decision = {
 				# }
 			# }
 
+<<<<<<< HEAD
 			# scope:called.faith = { save_scope_as = the_faith }
 			# # Prep for eventual crusade
 			# scope:enemy ?= {
@@ -890,6 +891,57 @@ restore_backwater_counties_decision = {
 			# }
 		# }
 	# }
+=======
+			scope:called.faith = { save_scope_as = the_faith }
+			# Prep for eventual crusade
+			scope:enemy ?= {
+				if = {
+					limit = {
+						highest_held_title_tier = tier_kingdom
+					}
+					primary_title = { save_scope_as = target_kingdom }
+				}
+				else_if = {
+					limit = {
+						liege ?= { highest_held_title_tier = tier_kingdom }
+					}
+					liege.primary_title = { save_scope_as = target_kingdom }
+				}
+				else_if = {
+					limit = {
+						highest_held_title_tier > tier_kingdom
+					}
+					ordered_realm_de_jure_kingdom = {
+						order_by = great_holy_war_target_kingdom_weight_simplified	
+						position = 0				
+						save_scope_as = target_kingdom
+					}
+				}
+				else = {
+					liege ?= {
+						ordered_realm_de_jure_kingdom = {
+							order_by = great_holy_war_target_kingdom_weight_simplified		
+							position = 0				
+							save_scope_as = target_kingdom
+						}
+					}
+				}
+			}
+			scope:called_1 ?= {
+				trigger_event = {
+					id = ep3_decisions_event.4010
+					days = 3
+				}
+			}
+			scope:called_2 ?= {
+				trigger_event = {
+					id = ep3_decisions_event.4011
+					days = 3
+				}
+			}
+		}
+	}
+>>>>>>> 1.18.2
 
 	# ai_potential = {
 		# has_title = title:e_byzantium
@@ -3651,6 +3703,7 @@ gather_faction_support_decision = {
 		# trigger_event = ep3_frankokratia_events.0090
 	# }
 
+<<<<<<< HEAD
 	# ai_check_interval_by_tier = {
 		# barony = 0
 		# county = 0
@@ -3659,6 +3712,16 @@ gather_faction_support_decision = {
 		# empire = 9
 		# hegemony = 9
 	# }
+=======
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 36
+		kingdom = 9
+		empire = 9
+		hegemony = 9
+	}
+>>>>>>> 1.18.2
 	
 	# ai_potential = {
 		# is_available = yes

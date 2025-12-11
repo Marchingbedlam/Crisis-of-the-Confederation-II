@@ -62,6 +62,12 @@ hasan_sabbah.1000 = {
 		}
 
 		set_character_faith = faith:ismaili
+		if = {
+			limit = { 
+				faith:ismaili = { has_doctrine = doctrine_monotheist }
+			}
+			custom_description_no_bullet = { text = mandala_monotheist_warning_tt }
+		}
 		custom_tooltip = {
 			text = unlock_evangelize_decision_tt
 			create_story = story_hasan

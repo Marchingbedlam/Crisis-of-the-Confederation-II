@@ -286,6 +286,7 @@
 		# }
 	# }
 
+<<<<<<< HEAD
 	# is_shown = {
 		# OR = {
 			# culture = {
@@ -325,6 +326,46 @@
 			# }
 		# }
 	# }
+=======
+	is_shown = {
+		OR = {
+			culture_has_african_heritage_pillar_trigger = yes
+			culture = {
+				OR = {
+					this = culture:egyptian # Arabic, not ancient
+					any_parent_culture_or_above = {
+						OR = {
+							# Central
+							has_cultural_pillar = heritage_central_african
+							# North
+							has_cultural_pillar = heritage_berber
+							has_cultural_pillar = heritage_egyptian
+							this = culture:egyptian # Arabic, not ancient
+							# West
+							has_cultural_pillar = heritage_akan
+							has_cultural_pillar = heritage_akan
+							has_cultural_pillar = heritage_sahelian
+							has_cultural_pillar = heritage_senegambian
+							has_cultural_pillar = heritage_west_african
+							has_cultural_pillar = heritage_yoruba
+							# East
+							has_cultural_pillar = heritage_bantu
+							has_cultural_pillar = heritage_east_african
+							has_cultural_pillar = heritage_somalian
+						}
+					}
+				}
+			}
+		}
+		capital_province ?= { geographical_region = world_africa }
+		NOT = {
+			is_target_in_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:unite_africa_decision
+			}
+		}
+	}
+>>>>>>> 1.18.2
 
 	# is_valid = {
 		# completely_controls_region = world_africa

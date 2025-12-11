@@ -240,6 +240,12 @@ almohad.1002 = {
 		name = almohad.1002.b
 		flavor = almohad.1002.b.flavor
 		set_character_faith_with_conversion = faith:masmudi
+		if = {
+			limit = { 
+				faith:masmudi = { has_doctrine = doctrine_monotheist }
+			}
+			custom_description_no_bullet = { text = mandala_monotheist_warning_tt }
+		}
 		add_piety = massive_piety_loss
 		add_piety_level = -1
 		scope:ibn_tumart = {

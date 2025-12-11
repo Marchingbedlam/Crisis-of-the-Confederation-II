@@ -233,7 +233,7 @@ tribute_mission_decision_china = {
 	desc = tribute_mission_decision_desc_china
 
 	is_shown = {
-		exists = title:h_china
+		title:h_china ?= { is_title_created = yes }
 		is_tributary_or_independent_neighbor_of_hegemon_trigger = { HEGEMON = h_china }
 	}
 
@@ -263,11 +263,67 @@ tribute_mission_decision_china = {
 					limit = { short_term_gold >= excessive_gold_tribute_value }
 					add = 20 
 				}
+<<<<<<< HEAD
 				# trigger_else_if = {
 					# limit = { is_tributary_or_independent_neighbor_of_china_trigger = yes }
 					# can_employ_court_eunuchs_trigger = { CHAR = title:h_china.holder }
 				# }
 				trigger_else = { always = no } # We should never get here, the above is a sanity check
+=======
+				if = {
+					limit = { short_term_gold >= adequate_gold_tribute_value }
+					add = 20 
+				}
+			}
+		}
+		item = { # Herd
+			value = tribute_mission_herd
+			is_valid = { has_herd_tribute_trigger = yes }
+			localization = tribute_mission_decision_option_herd
+			icon = "gfx/interface/icons/icon_herd.dds"
+			ai_chance = {
+				value = 20 
+				if = {
+					limit = { 
+						domicile ?= { herd >= excessive_herd_tribute_value }
+					}
+					add = 20 
+				}
+				if = {
+					limit = { 
+						domicile ?= { herd >= adequate_herd_tribute_value }
+					}
+					add = 20 
+				}
+			}
+		}
+
+		item = { # Artifact
+			value = tribute_mission_artifact
+			is_valid = { has_artifact_tribute_trigger = yes }
+			localization = tribute_mission_decision_option_artifact
+			icon = "gfx/interface/icons/message_feed/artifact.dds"
+			ai_chance = { value = 20 }
+		}
+
+		item = { # Concubine 
+			value = tribute_mission_concubine
+			is_valid = { 
+				has_concubine_tribute_trigger = yes
+				title:h_china.holder = { is_adult = yes }
+				can_have_concubines_trigger = { CHAR = title:h_china.holder }
+			}
+			localization = tribute_mission_decision_option_concubine
+			icon = "gfx/interface/icons/concubine_icon.dds"
+			ai_chance = { value = 50 } #The AI can do it? Do it!
+		}
+
+		item = { # Eunuch
+			value = tribute_mission_eunuch
+			is_valid = { 
+				has_eunuch_tribute_trigger = yes
+				can_employ_court_eunuchs_trigger = { CHAR = title:h_china.holder }
+>>>>>>> 1.18.2
 			}
 			localization = tribute_mission_decision_option_eunuch
 			icon = "gfx/interface/icons/character_interactions/eunuch.dds"
@@ -299,6 +355,7 @@ tribute_mission_decision_china = {
 			}
 		}
 
+<<<<<<< HEAD
 		#Your Suzerain requested this specifically
 		if = {
 			limit = {	
@@ -672,6 +729,20 @@ tribute_mission_decision_china = {
 			has_trait = greatest_of_khans
 			is_gurkhan = yes
 		}
+=======
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 72
+		duchy = 36
+		kingdom = 36
+		empire = 36
+		hegemony = 0
+	}
+
+	ai_potential = {
+		exists = title:h_china.holder
+		tribute_mission_decision_ai_potential_trigger = { TARGET = title:h_china.holder }
+>>>>>>> 1.18.2
 	}
 
 	ai_will_do = {
@@ -691,7 +762,7 @@ tribute_mission_decision_roman_empire = {
 	desc = tribute_mission_decision_desc_roman_empire
 
 	is_shown = {
-		exists = title:h_roman_empire
+		title:h_roman_empire ?= { is_title_created = yes }
 		is_tributary_or_independent_neighbor_of_hegemon_trigger = { HEGEMON = h_roman_empire }
 	}
 
@@ -761,6 +832,7 @@ tribute_mission_decision_roman_empire = {
 			value = tribute_mission_concubine
 			is_valid = { 
 				has_concubine_tribute_trigger = yes
+				title:h_roman_empire.holder = { is_adult = yes }
 				can_have_concubines_trigger = { CHAR = title:h_roman_empire.holder }
 			}
 			localization = tribute_mission_decision_option_concubine
@@ -787,7 +859,7 @@ tribute_mission_decision_roman_empire = {
 
 	ai_check_interval_by_tier = {
 		barony = 0
-		county = 36
+		county = 72
 		duchy = 36
 		kingdom = 36
 		empire = 36
@@ -795,6 +867,7 @@ tribute_mission_decision_roman_empire = {
 	}
 
 	ai_potential = {
+		exists = title:h_roman_empire.holder
 		tribute_mission_decision_ai_potential_trigger = { TARGET = title:h_roman_empire.holder }
 	}
 
@@ -815,7 +888,7 @@ tribute_mission_decision_eastern_roman_empire = {
 	desc = tribute_mission_decision_desc_eastern_roman_empire
 
 	is_shown = {
-		exists = title:h_eastern_roman_empire
+		title:h_eastern_roman_empire ?= { is_title_created = yes }
 		is_tributary_or_independent_neighbor_of_hegemon_trigger = { HEGEMON = h_eastern_roman_empire }
 	}
 
@@ -885,6 +958,7 @@ tribute_mission_decision_eastern_roman_empire = {
 			value = tribute_mission_concubine
 			is_valid = { 
 				has_concubine_tribute_trigger = yes
+				title:h_eastern_roman_empire.holder = { is_adult = yes }
 				can_have_concubines_trigger = { CHAR = title:h_eastern_roman_empire.holder }
 			}
 			localization = tribute_mission_decision_option_concubine
@@ -911,7 +985,7 @@ tribute_mission_decision_eastern_roman_empire = {
 
 	ai_check_interval_by_tier = {
 		barony = 0
-		county = 36
+		county = 72
 		duchy = 36
 		kingdom = 36
 		empire = 36
@@ -919,6 +993,7 @@ tribute_mission_decision_eastern_roman_empire = {
 	}
 
 	ai_potential = {
+		exists = title:h_eastern_roman_empire.holder
 		tribute_mission_decision_ai_potential_trigger = { TARGET = title:h_eastern_roman_empire.holder }
 	}
 
@@ -939,7 +1014,7 @@ tribute_mission_decision_dar_al_islam = {
 	desc = tribute_mission_decision_desc_dar_al_islam
 
 	is_shown = {
-		exists = title:h_dar_al_islam
+		title:h_dar_al_islam ?= { is_title_created = yes }
 		is_tributary_or_independent_neighbor_of_hegemon_trigger = { HEGEMON = h_dar_al_islam }
 	}
 
@@ -1009,6 +1084,7 @@ tribute_mission_decision_dar_al_islam = {
 			value = tribute_mission_concubine
 			is_valid = { 
 				has_concubine_tribute_trigger = yes
+				title:h_dar_al_islam.holder = { is_adult = yes }
 				can_have_concubines_trigger = { CHAR = title:h_dar_al_islam.holder }
 			}
 			localization = tribute_mission_decision_option_concubine
@@ -1035,7 +1111,7 @@ tribute_mission_decision_dar_al_islam = {
 
 	ai_check_interval_by_tier = {
 		barony = 0
-		county = 36
+		county = 72
 		duchy = 36
 		kingdom = 36
 		empire = 36
@@ -1043,6 +1119,7 @@ tribute_mission_decision_dar_al_islam = {
 	}
 
 	ai_potential = {
+		exists = title:h_dar_al_islam.holder
 		tribute_mission_decision_ai_potential_trigger = { TARGET = title:h_dar_al_islam.holder }
 	}
 
@@ -1063,7 +1140,7 @@ tribute_mission_decision_india = {
 	desc = tribute_mission_decision_desc_india
 
 	is_shown = {
-		exists = title:h_india
+		title:h_india ?= { is_title_created = yes }
 		is_tributary_or_independent_neighbor_of_hegemon_trigger = { HEGEMON = h_india }
 	}
 
@@ -1133,6 +1210,7 @@ tribute_mission_decision_india = {
 			value = tribute_mission_concubine
 			is_valid = { 
 				has_concubine_tribute_trigger = yes
+				title:h_india.holder = { is_adult = yes }
 				can_have_concubines_trigger = { CHAR = title:h_india.holder }
 			}
 			localization = tribute_mission_decision_option_concubine
@@ -1159,7 +1237,7 @@ tribute_mission_decision_india = {
 
 	ai_check_interval_by_tier = {
 		barony = 0
-		county = 36
+		county = 72
 		duchy = 36
 		kingdom = 36
 		empire = 36
@@ -1167,6 +1245,7 @@ tribute_mission_decision_india = {
 	}
 
 	ai_potential = {
+		exists = title:h_india.holder
 		tribute_mission_decision_ai_potential_trigger = { TARGET = title:h_india.holder }
 	}
 

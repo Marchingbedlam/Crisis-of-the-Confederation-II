@@ -534,6 +534,7 @@
 	# }
 # }
 
+<<<<<<< HEAD
 # # Become Soryo as Kampaku
 # tgp_japan_establish_soryo_administration_decision = {
 	# decision_group_type = major
@@ -542,6 +543,17 @@
 	# selection_tooltip = tgp_japan_establish_soryo_administration_decision_tooltip
 	# picture = { reference = "gfx/interface/illustrations/event_story/tgp_japanese_shogunate.dds" }
 	# sort_order = 80
+=======
+# Become Soryo as independent Ritsuryō
+### Establish Sōryō Administration ###
+tgp_japan_establish_soryo_administration_decision = {
+	decision_group_type = major
+	title = tgp_japan_establish_soryo_administration_decision
+	desc = tgp_japan_establish_soryo_administration_decision_desc
+	selection_tooltip = tgp_japan_establish_soryo_administration_decision_tooltip
+	picture = { reference = "gfx/interface/illustrations/event_story/tgp_japanese_shogunate.dds" }
+	sort_order = 80
+>>>>>>> 1.18.2
 
 	# cost = {
 		# prestige = {
@@ -555,6 +567,7 @@
 		# }
 	# }
 
+<<<<<<< HEAD
 	# is_shown = {
 		# has_tgp_dlc_trigger = yes
 		# has_title = title:e_japan
@@ -589,6 +602,45 @@
 		# }
 		# is_at_war = no
 	# }
+=======
+	is_shown = {
+		has_tgp_dlc_trigger = yes
+		is_independent_ruler = yes
+		government_is_japanese_trigger = yes
+		NOR = { 
+			government_has_flag = government_is_japan_feudal 
+			has_global_variable = shogunate_established
+		}
+	}
+
+	is_valid = {
+		# Is Regent
+		trigger_if = {
+			limit = {
+				has_title = title:e_japan
+			}
+			has_realm_law = japanese_regency_succession_law
+		}
+		is_independent_ruler = yes
+		has_government = japan_administrative_government
+		has_realm_law = japanese_bureaucracy_3
+		custom_tooltip = {
+			text = house_head_create_faction_cohesion_hard_tt
+			house.house_confederation ?= {
+				leading_house ?= root.house
+				has_cohesion_level_parameter = house_head_adopt_soryo_regency
+			}
+		}
+		custom_tooltip = {
+			text = house_head_adopt_soryo_regency_tt
+			house.house_confederation ?= {
+				leading_house ?= root.house
+				has_cohesion_level_parameter = house_head_adopt_soryo_regency
+			}
+		}
+		is_at_war = no
+	}
+>>>>>>> 1.18.2
 
 	# is_valid_showing_failures_only = {
 		# is_available_adult = yes
@@ -788,6 +840,7 @@
 		# }
 	# }
 	
+<<<<<<< HEAD
 	# ai_check_interval_by_tier = {
 		# barony = 0
 		# county = 0
@@ -799,6 +852,19 @@
 	# ai_potential = { always = yes }
 	# ai_will_do = { base = 100 }
 # }
+=======
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 0
+		kingdom = 0
+		empire = 36
+		hegemony = 0
+	}
+	ai_potential = { always = yes }
+	ai_will_do = { base = 100 }
+}
+>>>>>>> 1.18.2
 
 # # Yamato into Minamoto/Taira
 # tgp_japan_imperial_branch_decision = {
@@ -1080,6 +1146,7 @@
 		# }
 	# }
 	
+<<<<<<< HEAD
 	# ai_check_interval_by_tier = {
 		# barony = 0
 		# county = 12
@@ -1088,16 +1155,33 @@
 		# empire = 12
 		# hegemony = 12
 	# }
+=======
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 36
+		duchy = 36
+		kingdom = 36
+		empire = 36
+		hegemony = 36
+	}
+>>>>>>> 1.18.2
 
 	# ai_potential = {
 		# is_adult = yes
 		# is_at_war = no
 	# }
 
+<<<<<<< HEAD
 	# ai_will_do = {
 		# base = 10
 	# }
 # }
+=======
+	ai_will_do = {
+		base = 100
+	}
+}
+>>>>>>> 1.18.2
 
 # #Inspire the Troops - Strength - House Aspiration
 # tgp_japan_train_with_troops_decision = {
@@ -1220,6 +1304,7 @@
 		# hegemony = 60
 	# }
 
+<<<<<<< HEAD
 	# is_shown = {
 		# religion = religion:buddhism_religion
 		# is_adult = yes
@@ -1273,6 +1358,90 @@
 			# id = tgp_japan_decision.9500
 		# }
 	# }
+=======
+	is_shown = {
+		religion = religion:buddhism_religion
+		is_adult = yes
+		NOT = { government_has_flag = government_is_mandala }
+	}
+
+	is_valid = {
+		religion = religion:buddhism_religion
+		trigger_if = {
+			limit = { is_ai = no }
+			custom_tooltip = {
+				text = renounce_noble_family_title_decision_tt.title
+				any_held_title = { is_noble_family_title = yes }
+			}
+			custom_tooltip = {
+				text = renounce_noble_family_title_decision_tt.heir
+				any_held_title = {
+					is_noble_family_title = yes
+					current_heir = { is_available_ai_adult = yes }
+				}
+			}
+		}
+		OR = {
+			age >= 60
+			custom_tooltip = {
+				text = tgp_japan_become_a_monk_decision_health_tt
+				health <= poor_health
+			}
+			has_contagious_deadly_disease_trigger = yes
+			has_trait = infirm
+			has_trait = depressed_1
+		}
+	}
+
+	is_valid_showing_failures_only = {
+		# Is available sans health checks
+		is_available_quick = {
+			adult = yes
+			alive = yes
+			travel = no
+			in_army = no
+			imprisoned = no
+			incapable = no
+		}
+		custom_description = {
+			text = ALREADY_IN_ACTIVITY
+			NOR = {
+				exists = involved_activity
+				has_variable = {
+					name = homage_liege_scope
+					name = meditation_character_flag
+					name = local_shrine_rite
+					name = petition_liege_character_flag
+					name = holding_court_character_flag
+				}
+				is_being_visited_on_tour_strict = yes
+			}
+		}
+		custom_description = {
+			text = ALREADY_PLANNING_ACTIVITY
+			NOT = { has_character_flag = planning_an_activity }
+		}
+		# Variable set within the adventure inspiration events
+		NOT = { has_variable = gone_adventuring }
+		is_at_war_with_liege = no
+		trigger_if = {
+			limit = {
+				has_realm_law_flag = celestial_retirement_law
+			}
+			tgp_is_above_retirement_age_trigger = { REALM_OWNER = root }
+		}
+	}
+
+	effect = {
+		show_as_tooltip = {
+			add_trait = devoted
+			tgp_renounce_estate_effect = yes
+		}
+		trigger_event = {
+			id = tgp_japan_decision.9500
+		}
+	}
+>>>>>>> 1.18.2
 
 	# ai_potential = {
 		# is_adult = yes

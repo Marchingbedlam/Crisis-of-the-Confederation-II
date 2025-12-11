@@ -1252,6 +1252,7 @@ scripted_effect fp1_1011_gib_pretty_hair_effect = {
 #	Tanglehair becomes Fairhair.
 fp1_major_decisions.1011 = {
 	type = character_event
+	window = big_event_window
 	title = fp1_major_decisions.1011.t
 	desc = {
 		desc = fp1_major_decisions.1011.desc.intro
@@ -1275,6 +1276,7 @@ fp1_major_decisions.1011 = {
 	}
 	override_background = { reference = fp1_ocean_norse }
 
+<<<<<<< HEAD
 	trigger = {
 		# This character is Harald Fairhair.
 		exists = character:1
@@ -1297,22 +1299,65 @@ fp1_major_decisions.1011 = {
 					can_marry_character_trigger = { CHARACTER = root }
 					has_any_bad_relationship_with_root_trigger = no
 					is_ai = yes
+=======
+	immediate = {
+		play_music_cue = "mx_cue_succession"
+		# Check to see if Gyda is still around and kicking, and if so, treat this as a romance.
+		character:166044 = {
+			hidden_effect = {
+				if = {
+					limit = {
+						betrothed ?= {
+							NOR = {
+								this = character:144000
+								is_ai = no
+							}
+						}
+					}
+					break_betrothal = betrothed
 				}
-				save_scope_as = gyda
+				else_if = {
+					limit = {
+						is_adult = yes
+						is_married = yes
+						any_spouse = {
+							NOR = {
+								this = character:144000
+								is_ai = no
+							}
+						}
+					}
+					every_spouse = {
+						prev = {
+							divorce = prev
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						exists = concubinist
+						concubinist = {
+							NOR = {
+								this = character:144000
+								is_ai = no
+							}
+						}
+					}
+					concubinist = {
+						remove_concubine = prev
+					}
+				}
+				if = {
+					limit = {
+						is_alive = yes
+						could_marry_character_trigger = { CHARACTER = root }
+						has_any_bad_relationship_with_root_trigger = no
+						is_ai = yes
+					}
+					save_scope_as = gyda
+>>>>>>> 1.18.2
+				}
 			}
-		}
-	}
-
-	# My vow fulfilled!
-	option = {
-		name = fp1_major_decisions.1011.a
-
-		# Apply standard haircut effects.
-		fp1_1011_gib_pretty_hair_effect = yes
-
-		ai_chance = {
-			# AI should only default to this if Gyda is unavailable.
-			base = 0
 		}
 	}
 	
@@ -1323,13 +1368,41 @@ fp1_major_decisions.1011 = {
 			# Gyda must have been valid.
 			exists = scope:gyda
 			# And, for MP, remain valid.
-			can_marry_character_trigger = { CHARACTER = scope:gyda }
+			could_marry_character_trigger = { CHARACTER = scope:gyda }
+		}
+		
+		if = {
+			limit = {
+				is_married = yes
+				primary_spouse ?= {
+					NOT = {
+						this = character:144000
+					}
+				}
+			}
+			divorce = primary_spouse
+		}
+		else_if = {
+			limit = {
+				betrothed ?= {
+					NOT = {
+						this = character:144000
+					}
+				}
+			}
+			break_betrothal = betrothed
 		}
 
 		# Apply standard haircut effects.
 		fp1_1011_gib_pretty_hair_effect = yes
 		# Harald & Gyda are wed.
 		if = {
+			limit = {
+				scope:gyda = { is_adult = no }
+			}
+			create_betrothal = scope:gyda
+		}
+		else_if = {
 			limit = {
 				has_ep2_dlc_trigger = yes
 			}
@@ -1345,17 +1418,32 @@ fp1_major_decisions.1011 = {
 		add_opinion = {
 			target = scope:gyda
 			modifier = love_opinion
-			opinion = 50
+			opinion = 150
 		}
 		reverse_add_opinion = {
 			target = scope:gyda
 			modifier = love_opinion
-			opinion = 50
+			opinion = 150
 		}
+		
+		add_stress = -200
 
 		ai_chance = {
 			# AI should always select this option if it's present.
 			base = 100
+		}
+	}
+
+	# My vow fulfilled!
+	option = {
+		name = fp1_major_decisions.1011.a
+
+		# Apply standard haircut effects.
+		fp1_1011_gib_pretty_hair_effect = yes
+
+		ai_chance = {
+			# AI should only default to this if Gyda is unavailable.
+			base = 0
 		}
 	}
 	
@@ -1384,13 +1472,6 @@ fp1_major_decisions.1011 = {
 # Check Norway's creation status.
 fp1_major_decisions.1012 = {
 	hidden = yes
-
-	# If Norway has just been created for the first time...
-	trigger = {
-		scope:title = title:k_norway
-		scope:transfer_type = flag:created
-		NOT = { exists = global_var:norway_created }
-	}
 
 	# ... flag that.
 	immediate = {
