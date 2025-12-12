@@ -1250,24 +1250,27 @@
 		# hegemony = 120
 	# }
 
-	# is_shown = {
-		# exists = title:e_byzantium.holder #Must exist in the first place...
-		# NOT = {
-			# root = title:e_byzantium.holder #That'd be awkward...
-		# }
-		# OR = {
-			# culture = { has_cultural_pillar = heritage_frankish }
-			# culture = { has_cultural_pillar = heritage_central_germanic }
-			# culture = { has_cultural_pillar = heritage_latin }
-		# }
-		# is_ruler = yes
-		# is_playable_character = yes
-		# is_roman_emperor_trigger = yes
-		# NOR = { #Once an Emperor throws the challenge, he has only one chance to dismantle the Empire.
-			# has_character_flag = flag_emperor_challenging_byz #Applied below.
-			# has_character_flag = flag_emperor_challenged_byz #Applied in war.
-		# }
-	# }
+	#is_shown = {
+	#	exists = title:e_byzantium.holder #Must exist in the first place...
+	#	NOT = {
+	#		root = title:e_byzantium.holder #That'd be awkward...
+	#	}
+	#	OR = {
+	#		culture = { has_cultural_pillar = heritage_frankish }
+	#		culture = { has_cultural_pillar = heritage_central_germanic }
+	#		culture = { has_cultural_pillar = heritage_latin }
+	#	}
+	#	is_ruler = yes
+	#	is_playable_character = yes
+	#	OR = {
+	#		is_roman_emperor_trigger = yes
+	#		has_title = title:e_hre
+	#	}
+	#	NOR = { #Once an Emperor throws the challenge, he has only one chance to dismantle the Empire.
+	#		has_character_flag = flag_emperor_challenging_byz #Applied below.
+	#		has_character_flag = flag_emperor_challenged_byz #Applied in war.
+	#	}
+	#}
 
 	# is_valid = {
 		# prestige_level >= max_prestige_level

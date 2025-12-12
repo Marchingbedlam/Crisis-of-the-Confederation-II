@@ -103,7 +103,12 @@ castle_01 = {
 		# Building Oath
 		hidden_effect = {
 			if = {
-				limit = { county.holder = { has_character_modifier = oath_of_buildings } }
+				limit = {
+					county.holder = {
+						has_character_modifier = oath_of_buildings
+					}
+				}
+				county.holder = { save_scope_as = holder }
 				add_random_economic_building_effect = yes
 				add_random_military_building_effect = yes
 				add_random_fortification_building_effect = yes
@@ -184,7 +189,25 @@ castle_02 = {
 		monthly_prestige = 0.03
 		monthly_dynasty_prestige = 0.02
 	}
-	
+
+	province_terrain_modifier = {
+		parameter = maritime_mercantilism_coastal_holdings
+		is_coastal = yes
+		tax_mult = maritime_mercantilism_coastal_holdings_value
+	}
+
+	province_terrain_modifier = {
+		parameter = castle_holding_fort_level_in_jungle_bonus
+		terrain = jungle
+		additional_fort_level = 2
+	}
+
+	province_terrain_modifier = {
+		parameter = coastal_holdings_give_defensive_bonus
+		is_coastal = yes
+		defender_holding_advantage = 3
+	}
+
 	flag = castle
 
 	on_complete = {
@@ -290,7 +313,25 @@ castle_03 = {
 		monthly_prestige = 0.04
 		monthly_dynasty_prestige = 0.03
 	}
-	
+
+	province_terrain_modifier = {
+		parameter = maritime_mercantilism_coastal_holdings
+		is_coastal = yes
+		tax_mult = maritime_mercantilism_coastal_holdings_value
+	}
+
+	province_terrain_modifier = {
+		parameter = castle_holding_fort_level_in_jungle_bonus
+		terrain = jungle
+		additional_fort_level = 3
+	}
+
+	province_terrain_modifier = {
+		parameter = coastal_holdings_give_defensive_bonus
+		is_coastal = yes
+		defender_holding_advantage = 4
+	}
+
 	flag = castle
 
 	on_complete = {
@@ -385,6 +426,31 @@ castle_04 = {
 		parameter = castle_fortifications_increase
 		defender_holding_advantage = 20
 	}
+
+	character_culture_modifier = {
+		parameter = castle_grant_prestige
+		monthly_prestige = 0.05
+		monthly_dynasty_prestige = 0.04
+	}
+
+	province_terrain_modifier = {
+		parameter = maritime_mercantilism_coastal_holdings
+		is_coastal = yes
+		tax_mult = maritime_mercantilism_coastal_holdings_value
+	}
+
+	province_terrain_modifier = {
+		parameter = castle_holding_fort_level_in_jungle_bonus
+		terrain = jungle
+		additional_fort_level = 4
+	}
+
+	province_terrain_modifier = {
+		parameter = coastal_holdings_give_defensive_bonus
+		is_coastal = yes
+		defender_holding_advantage = 5
+	}
+
 	flag = castle
 
 	on_complete = {

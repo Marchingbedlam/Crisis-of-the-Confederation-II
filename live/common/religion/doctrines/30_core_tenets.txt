@@ -2458,6 +2458,7 @@
 				has_doctrine = special_doctrine_is_jewish_faith
 				has_doctrine = special_doctrine_is_hindu_faith
 				has_doctrine = special_doctrine_is_buddhist_faith
+				has_doctrine = tenet_adorcism #If you already have it
 			}
 		}
 
@@ -2724,7 +2725,12 @@
 			}
 		}
 
-		is_shown = { has_doctrine = religious_hostility_doctrine }
+		is_shown = { 
+			OR = {
+				has_doctrine = religious_hostility_doctrine
+				has_doctrine = tenet_mystical_birthright #If you already have it
+			}
+		}
 
 		parameters = { mystic_birthright_active = yes }
 
@@ -4543,7 +4549,7 @@
 		character_modifier = {
 			church_holding_build_gold_cost = -0.15
 			church_holding_holding_build_speed = -0.15
-			temple_citadel_holding_holding_build_gold_cost = -0.15
+			temple_citadel_holding_build_gold_cost = -0.15
 			temple_citadel_holding_holding_build_speed = -0.15
 		}
 		

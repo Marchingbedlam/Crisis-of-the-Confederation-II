@@ -1459,6 +1459,12 @@ iberia_north_africa.0122 = {
 		}
 
 		set_character_faith_with_conversion = scope:religious_leader.faith
+		if = {
+			limit = { 
+				scope:religious_leader.faith = { has_doctrine = doctrine_monotheist }
+			}
+			custom_description_no_bullet = { text = mandala_monotheist_warning_tt }
+		}
 		show_as_tooltip = {
 			scope:religious_leader = {
 				favour_the_countryside_basques_decision_generic_effects_scripted_effect = yes

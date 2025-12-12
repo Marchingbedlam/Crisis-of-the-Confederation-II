@@ -3478,6 +3478,14 @@ grant_great_yuan_effect = {
 	else = {
 		create_story = story_conqueror
 	}
+
+	#Cycle handling
+	if = {
+		limit = {
+			scope:great_yuan_title = title:h_china
+		}
+		title:h_china.holder = { tgp_claim_mandate_of_heaven_effect = yes }
+	}
 }
 
 grant_blue_horde_effect = {
