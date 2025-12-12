@@ -35,6 +35,24 @@ setup_tributaries_effect = {
         	tgp_1178_tributary_setup_effect = yes
     	}
     }
+   	if = {
+		limit = {
+			current_date < 1066.9.15
+		}
+		base_867_tributary_setup_effect = yes
+	}
+	else_if = {
+		limit = { 
+			current_date = 1066.9.15 
+		}
+		base_1066_tributary_setup_effect = yes
+	}
+	else_if = {
+		limit = { 
+			current_date > 1066.9.15
+		}
+		base_1178_tributary_setup_effect = yes
+	}
 }
 
 # $TRIBUTARY$ = the new tributary
@@ -487,7 +505,7 @@ mpo_1066_tributary_setup_effect = {
 			break_subject_contract_and_establish_tributary_effect = { SUZERAIN = scope:suzerain TRIBUTARY = this }
 		}
 		#Eastern tributaries, mostly Jurchens
-		character:balhae_dae_34 = {
+		character:balhae_go_8 = {
 			break_subject_contract_and_establish_tributary_effect = { SUZERAIN = scope:suzerain TRIBUTARY = this }
 		}
 		character:jurchen_wanyan_6 = {

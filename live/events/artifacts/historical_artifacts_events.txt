@@ -964,9 +964,22 @@ historical_artifacts.0023 = {
 		if = {
 			limit = {
 				has_tgp_dlc_trigger = yes
+				current_date > 1150.1.1 #Needs to be long past creation date for this to make sense
 			}
 			title:h_china.holder = {
 				create_artifact_military_classics_effect = {
+					OWNER = this
+				}
+			}
+		}
+		#Green Stone Amitabha Buddha Statue
+		if = {
+			limit = {
+				has_tgp_dlc_trigger = yes
+				current_date >= 1066.5.1
+			}
+			title:k_viet.holder = {
+				create_artifact_statue_viet_green_amitabha_buddha_effect = {
 					OWNER = this
 				}
 			}

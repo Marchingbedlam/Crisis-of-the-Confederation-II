@@ -91,6 +91,17 @@ PixelShader =
 		SampleModeV = "Clamp"
 		Type = "Cube"
 	}
+	TextureSampler SurroundFlatMapMask
+	{
+		Ref = SurroundFlatMapMask
+		MagFilter = "Linear"
+		MinFilter = "Linear"
+		MipFilter = "Linear"
+		SampleModeU = "Border"
+		SampleModeV = "Border"
+		Border_Color = { 1 1 1 1 }
+		File = "gfx/map/surround_map/surround_mask.dds"
+	}
 
 	MainCode PixelShader
 	{
@@ -99,23 +110,19 @@ PixelShader =
 		Code
 		[[			
 			PDX_MAIN
-			{
+			{	
+				float2 MapCoords = Input.WorldSpacePos.xz * WorldSpaceToTerrain0To1;
+				if ( FlatMapLerp > 0.001f )
+				{
+					float FlatMapMask = 1.0f - PdxTex2D( SurroundFlatMapMask, float2( MapCoords.x, 1.0f - MapCoords.y ) ).b;
+					clip( FlatMapMask - 0.1f );
+				}
 				float4 Diffuse = PdxTex2D( BorderTexture, Input.UV );
 				float3 BaseDiffuse = Diffuse.rgb;
 				// Get FoW value and darken the border in FoW areas
-				float2 MapCoords = Input.WorldSpacePos.xz * WorldSpaceToDetail;
+
 				float FogOfWarAlphaValue = PdxTex2D( FogOfWarAlpha, MapCoords ).r;
 				Diffuse.rgb *= ( 0.3f + 0.7f * FogOfWarAlphaValue ); // Darken to 30% in FoW
-
-				Diffuse.a *= _Alpha;
-				float ShadowTerm = CalculateShadow( Input.ShadowProj, ShadowMap );
-
-				// Different material properties based on FoW
-				float Roughness = 0.4f; //lerp( 0.4f, 0.4f, FogOfWarAlphaValue );	// More rough in FoW
-				float SpecIntensity = 0.0f;											// Less specular in FoW
-				float Metalness = 0.5f; //lerp( 0.5f, 0.5f, FogOfWarAlphaValue );	// Less metallic in FoW
-				float3 UpNormal = float3( 0.0f, 1.0f, 0.0f );
-
 				Diffuse.rgb = lerp( BaseDiffuse, Diffuse.rgb, 0.03f );
 
 				// Apply shadow tint with cloud interaction for borders
@@ -205,10 +212,15 @@ PixelShader =
 				
 				Diffuse.a *= _Alpha;
 
-				float ShadowTerm = CalculateShadow( Input.ShadowProj, ShadowMap );
-				// Apply shadow tint with cloud interaction for war borders
-				float CloudMask = GetCloudShadowMask( Input.WorldSpacePos.xz );
-				Diffuse.rgb = ApplyTerrainShadowTintWithClouds( Diffuse.rgb, Input.WorldSpacePos.xz, CloudMask, ShadowTerm );
+				#ifndef LOW_SPEC_SHADERS
+					if ( _StartColorOverlayHeightBlend < 0.00001f )
+					{
+						float ShadowTerm = CalculateShadow( Input.ShadowProj, ShadowMap );
+						// Apply shadow tint with cloud interaction for war borders
+						float CloudMask = GetCloudShadowMask( Input.WorldSpacePos.xz );
+						Diffuse.rgb = ApplyTerrainShadowTintWithClouds( Diffuse.rgb, Input.WorldSpacePos.xz, CloudMask, ShadowTerm );
+					}
+				#endif
 
 				return Diffuse;
 			}
@@ -232,12 +244,16 @@ PixelShader =
 				Diffuse.rgb = ApplyFogOfWar( Diffuse.rgb, Input.WorldSpacePos, FogOfWarAlpha );
 				Diffuse.rgb = ApplyMapDistanceFogWithoutFoW( Diffuse.rgb, Input.WorldSpacePos );
 				Diffuse.a *= _Alpha;
-				
-				float ShadowTerm = CalculateShadow( Input.ShadowProj, ShadowMap );
 
-				// Apply shadow tint with cloud interaction for war borders
-				float CloudMask = GetCloudShadowMask( Input.WorldSpacePos.xz );
-				Diffuse.rgb = ApplyTerrainShadowTintWithClouds( Diffuse.rgb, Input.WorldSpacePos.xz, CloudMask, ShadowTerm );
+				#ifndef LOW_SPEC_SHADERS
+					if ( _StartColorOverlayHeightBlend < 0.00001f )
+					{
+						float ShadowTerm = CalculateShadow( Input.ShadowProj, ShadowMap );
+						// Apply shadow tint with cloud interaction for war borders
+						float CloudMask = GetCloudShadowMask( Input.WorldSpacePos.xz );
+						Diffuse.rgb = ApplyTerrainShadowTintWithClouds( Diffuse.rgb, Input.WorldSpacePos.xz, CloudMask, ShadowTerm );
+					}
+				#endif
 
 				return Diffuse;
 			}
@@ -265,13 +281,6 @@ PixelShader =
 				Diffuse.rgb = ApplyMapDistanceFogWithoutFoW( Diffuse.rgb, Input.WorldSpacePos );
 				
 				Diffuse.a *= _Alpha;
-
-				float3 UpNormal = float3( 0.0f, 1.0f, 0.0f );
-				float ShadowTerm = CalculateShadow( Input.ShadowProj, ShadowMap );
-				// Apply shadow tint with cloud interaction for struggle borders //Disabled for now to look more like CE2
-				//float CloudMask = GetCloudShadowMask( Input.WorldSpacePos.xz );
-				//Diffuse.rgb = ApplyTerrainShadowTintWithClouds( Diffuse.rgb, Input.WorldSpacePos.xz, CloudMask, ShadowTerm );
-				
 				return Diffuse;
 			}
 		]]

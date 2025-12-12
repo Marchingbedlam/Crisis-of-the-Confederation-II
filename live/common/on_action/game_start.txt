@@ -161,6 +161,10 @@ on_game_start = {
 				else_if = {
 					limit = {
 						highest_held_title_tier > tier_kingdom
+						trigger_if = { # Heinich IV crowned April 1st 1084 by Pope Clement III
+							limit = { has_title = title:e_hre }
+							NOT = { game_start_date = 1066.9.15 }
+						}
 					}
 					add_realm_law_skip_effects = crowned_emperor
 					set_variable = crowned_emperor_var
