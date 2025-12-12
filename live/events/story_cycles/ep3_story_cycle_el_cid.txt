@@ -1607,7 +1607,10 @@ cid.2020 = {
 			}
 		}
 		set_variable = had_cid_2020
-		var:cid_liege = { save_scope_as = liege }
+		var:cid_liege = {
+			save_scope_as = liege
+			save_scope_as = defender
+		}
 		scope:liege.primary_title = {
 			every_de_jure_county = {
 				limit = {
@@ -1618,6 +1621,11 @@ cid.2020 = {
 					}
 				}
 				add_to_list = granted_title
+			}
+			ordered_in_list = {
+				list = granted_title
+				order_by = development_level
+				save_scope_as = target
 			}
 		}
 	}
@@ -1633,11 +1641,12 @@ cid.2020 = {
 			ALWAYS_INDEPENDENT = no
 			TITLE_LIST = granted_title
 		}
-		ep3_become_landed_transfer_no_ennobled_modifier_effect = {
+		ep3_become_landed_transfer_effect = {
 			TITLE_RECEIVER = root
 			TITLE_LIST = granted_title
 			TYPE = granted
 			REASON = flag:negotiated
+			ENNOBLED_ADVENTURER = flag:no
 		}
 		
 		ai_chance = {
@@ -1793,7 +1802,10 @@ cid.4010 = {
 
 	immediate = {
 		set_variable = had_cid_4010
-		var:cid_liege = { save_scope_as = liege }
+		var:cid_liege = {
+			save_scope_as = liege
+			save_scope_as = defender
+		}
 		if = {
 			limit = {
 				scope:liege = {
@@ -1831,17 +1843,23 @@ cid.4010 = {
 		cid_4010_disloyal_effect = yes
 		var:cid_title_to_give = {
 			every_de_jure_county = { add_to_list = seized_titles }
+			ordered_in_list = {
+				list = seized_titles
+				order_by = development_level
+				save_scope_as = target
+			}
 		}
 		ep3_become_landed_save_liege_effect = {
 			TITLE_GIVER = var:cid_title_to_give.holder
 			ALWAYS_INDEPENDENT = yes
 			TITLE_LIST = seized_titles
 		}
-		ep3_become_landed_transfer_no_ennobled_modifier_effect = {
+		ep3_become_landed_transfer_effect = {
 			TITLE_RECEIVER = root
 			TITLE_LIST = seized_titles
 			TYPE = usurped
 			REASON = flag:seize_realm
+			ENNOBLED_ADVENTURER = flag:no
 		}
 		
 		ai_chance = {

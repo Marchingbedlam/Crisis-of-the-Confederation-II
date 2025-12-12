@@ -10541,31 +10541,13 @@ character_view_bg = {
 
 	##########################################
 
-	# Japan, Emperor
-	texture = {
-		reference = "event_scenes/tgp_japan_throne_room.dds"
-
-		trigger = {
-			primary_title ?= title:e_japan
-		}
-	}
-
-	environment = {
-		reference = "environment_tgp_frontend_celestial_main"
-
-		trigger = {
-			primary_title ?= title:e_japan
-		}
-	}
-
-	##########################################
-
 	# East Asia, high rank
 	texture = {
 		reference = "event_scenes/tgp_asia_throne_room.dds"
 
 		trigger = {
 			high_tier_throne_room_trigger = { REGION = east_asia }
+			culture = { has_graphical_east_asia_culture_group_trigger = yes }
 		}
 	}
 
@@ -10574,6 +10556,7 @@ character_view_bg = {
 
 		trigger = {
 			high_tier_throne_room_trigger = { REGION = east_asia }
+			culture = { has_graphical_east_asia_culture_group_trigger = yes }
 		}
 	}
 

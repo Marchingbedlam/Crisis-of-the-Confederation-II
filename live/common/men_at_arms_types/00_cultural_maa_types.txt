@@ -1201,19 +1201,22 @@ shenbigong = {
 	type = archers
 	
 	damage = 44
-	toughness = 20
+	toughness = 18
 	pursuit = 0
 	screen = 0
 	
 	terrain_bonus = {
 		hills = { damage = 10 toughness = 4 }
 		mountains = { damage = 8 toughness = 2 }
-		desert_mountains = { damage = 8 toughness = 2 }
+		plains = { toughness = -8 }
+		drylands = { toughness = -8 }
+		desert = { toughness = -8 }
+		steppe = { toughness = -8 }
 	}
 	
 	counters = {
-		heavy_infantry = 1.5
-		heavy_cavalry = 1.5
+		heavy_infantry = 1.25
+		heavy_cavalry = 1.25
 		pikemen = 1
 		peasant_militia = 2
 	}

@@ -3087,6 +3087,12 @@ fp2_lyonese_monk.0641 = {
 			days = 1
 		}
 		set_character_faith_with_conversion = faith:adoptionist
+		if = {
+			limit = { 
+				faith:adoptionist = { has_doctrine = doctrine_monotheist }
+			}
+			custom_description_no_bullet = { text = mandala_monotheist_warning_tt }
+		}
 		add_heresiarch_trait_effect = yes
 		## The hidden character's list gets used.
 		every_in_list = {

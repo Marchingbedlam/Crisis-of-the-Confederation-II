@@ -71,7 +71,13 @@ ep3_roman_restoration.0100 = {
 				destroy_title = prev
 			}
 		}
-		set_character_faith = faith:hellenic_pagan 
+		set_character_faith = faith:hellenic_pagan
+		if = {
+			limit = { 
+				faith:hellenic_pagan = { has_doctrine = doctrine_monotheist }
+			}
+			custom_description_no_bullet = { text = mandala_monotheist_warning_tt }
+		}
 		primary_title = { set_state_faith = faith:hellenic_pagan }
 		every_held_title = {
 			custom = custom.every_held_county
@@ -127,7 +133,13 @@ ep3_roman_restoration.0100 = {
 				destroy_title = prev
 			}
 		}
-		set_character_faith = faith:hellenic_pagan 
+		set_character_faith = faith:hellenic_pagan
+		if = {
+			limit = { 
+				faith:hellenic_pagan = { has_doctrine = doctrine_monotheist }
+			}
+			custom_description_no_bullet = { text = mandala_monotheist_warning_tt }
+		}
 		primary_title = { set_state_faith = faith:hellenic_pagan }
 		every_held_title = {
 			custom = custom.every_held_county
