@@ -10,13 +10,11 @@
 	
 	can_start = {
 		realm_uses_treasury_laws_trigger = yes
-		is_independent_ruler = yes
 		legislature_in_session_trigger = yes
 	}
 	
 	can_plan = {
 		realm_uses_treasury_laws_trigger = yes
-		is_independent_ruler = yes
 		legislature_in_session_trigger = yes
 	}
 	
@@ -109,7 +107,7 @@
 	province_filter = capital
 	
 	is_location_valid = {
-		county = { scope:host = { completely_controls = PREV } }
+		scope:host = { capital_province = { this = ROOT } }
 	}
 	
 	province_score = {
@@ -644,6 +642,7 @@
 	
 	guest_intents = {
 		intents = {
+			maintain_status_quo_intent
 			support_bill_intent
 			block_bill_intent
 			increase_revenue_intent
@@ -654,7 +653,7 @@
 			cut_commercial_taxes_intent
 			cut_technocratic_taxes_intent
 		}
-		default = support_bill_intent
+		default = maintain_status_quo_intent
 	}
 	
 	guest_join_chance = {

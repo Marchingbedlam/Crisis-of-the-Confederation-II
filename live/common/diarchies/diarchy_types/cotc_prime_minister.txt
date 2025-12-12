@@ -1,20 +1,25 @@
-premiership = {
+cotc_premiership = {
 	# Handled via content - this is only for power sharing arrangements we want to start automatically.
 	start = {
 		liege = {
 			government_has_flag = government_is_parliamentary
-			primary_title = { tier >= tier_county }
+			highest_held_title_tier >= tier_duchy
 		}
 	}
 
 	end = {
-		liege = {
-			NOT = {
+		NOT = {
+			liege = {
 				government_has_flag = government_is_parliamentary
-				primary_title = { tier >= tier_county }
+				has_legislature_trigger = yes
+				any_vassal = { count > 0 }
 			}
 		}
 	}
+	
+	succession = yes
+	
+	candidate_score = { value = prime_minister_score }
 
 	# Mandates
 	## Just the standard suite
@@ -70,48 +75,6 @@ premiership = {
 	# Trend towards an even balance of power.
 	swing_balance = {
 		value = 40
-	}
-
-	succession = yes
-	# Candidate scoring for succession.
-	candidate_score = {
-		value = 0
-		# Copied from popular elective for now, later will be based on the legislature
-		liege = { primary_title = { save_temp_scope_as = title } }
-		# Get general public opinion as a baseline
-		add = {
-			value = title_political_support
-			desc = ideological_support_desc
-		}
-		# Add bonus from political campaigning
-		add = {
-			value = title_campaign_support
-			desc = campaign_support_desc
-		}
-		# Diplomacy bonus
-		add = {
-			value = diplomacy
-			switch = {
-				trigger = scope:title.tier
-				county = { multiply = 2 }
-				duchy = { multiply = 3 }
-				kingdom = { multiply = 4 }
-				empire = { multiply = 5 }
-			}
-			desc = [diplomacy_skill|E]
-		}
-		# Level of prestige bonus
-		add = {
-			value = level_of_prestige
-			switch = {
-				trigger = scope:title.tier
-				county = { multiply = 2 }
-				duchy = { multiply = 3 }
-				kingdom = { multiply = 4 }
-				empire = { multiply = 5 }
-			}
-			desc = [level_of_prestige|E]
-		}
 	}
 
 	end_interaction = liege_dismiss_entrenched_regency_interaction

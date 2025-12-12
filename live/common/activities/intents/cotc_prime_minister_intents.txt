@@ -1,0 +1,253 @@
+﻿become_prime_minister_intent = { icon = extoll_reign_intent }
+remain_prime_minister_intent = {
+	icon = extoll_reign_intent
+	is_shown = { involved_activity.activity_host.liege.diarch = { this = ROOT } }
+	is_valid = { involved_activity.activity_host.liege.diarch = { this = ROOT } }
+	ai_will_do = { value = 100 }
+}
+oust_prime_minister_intent = {
+	is_shown = { NOT = { involved_activity.activity_host.liege.diarch = { this = ROOT } } }
+	is_valid = { NOT = { involved_activity.activity_host.liege.diarch = { this = ROOT } } }
+	ai_will_do = {
+		value = 0
+		involved_activity.activity_host.liege.diarch = { save_temporary_scope_as = prime_minister }
+		subtract = "opinion(scope:prime_minister)"
+	}
+}
+keep_challenger_out_intent = {
+	is_shown = { NOT = { involved_activity.activity_host.liege.diarch = { this = ROOT } } }
+	is_valid = { NOT = { involved_activity.activity_host.liege.diarch = { this = ROOT } } }
+	ai_will_do = {
+		value = 0
+		involved_activity.activity_host = { save_temporary_scope_as = challenger }
+		subtract = "opinion(scope:challenger)"
+	}
+}
+support_ideology_intent = {
+	is_shown = {
+		NOT = { involved_activity.activity_host.liege.diarch = { this = ROOT } }
+		involved_activity.activity_host = {
+			save_temporary_scope_as = challenger
+			liege.diarch = { save_temporary_scope_as = incumbent }
+		}
+		faith = {
+			OR = {
+				AND = {
+					this = challenger.faith
+					NOT = { this = incumbent.faith }
+				}
+				AND = {
+					NOT = { this = challenger.faith }
+					this = incumbent.faith
+				}
+			}
+		}
+	}
+	is_valid = {
+		NOT = { involved_activity.activity_host.liege.diarch = { this = ROOT } }
+		involved_activity.activity_host = {
+			save_temporary_scope_as = challenger
+			liege.diarch = { save_temporary_scope_as = incumbent }
+		}
+		faith = {
+			OR = {
+				AND = {
+					this = challenger.faith
+					NOT = { this = incumbent.faith }
+				}
+				AND = {
+					NOT = { this = challenger.faith }
+					this = incumbent.faith
+				}
+			}
+		}
+	}
+	ai_will_do = {
+		value = ai_zeal
+		multiply = faith.fervor
+		divide = 10
+	}
+}
+support_culture_intent = {
+	is_shown = {
+		NOT = { involved_activity.activity_host.liege.diarch = { this = ROOT } }
+		involved_activity.activity_host = {
+			save_temporary_scope_as = challenger
+			liege.diarch = { save_temporary_scope_as = incumbent }
+		}
+		culture = {
+			OR = {
+				AND = {
+					this = challenger.culture
+					NOT = { this = incumbent.culture }
+				}
+				AND = {
+					NOT = { this = challenger.culture }
+					this = incumbent.culture
+				}
+			}
+		}
+	}
+	is_valid = {
+		NOT = { involved_activity.activity_host.liege.diarch = { this = ROOT } }
+		involved_activity.activity_host = {
+			save_temporary_scope_as = challenger
+			liege.diarch = { save_temporary_scope_as = incumbent }
+		}
+		culture = {
+			OR = {
+				AND = {
+					this = challenger.culture
+					NOT = { this = incumbent.culture }
+				}
+				AND = {
+					NOT = { this = challenger.culture }
+					this = incumbent.culture
+				}
+			}
+		}
+	}
+	ai_will_do = { value = ai_parochialism }
+}
+support_patron_prime_minister_intent = {
+	is_shown = {
+		NOT = { involved_activity.activity_host.liege.diarch = { this = ROOT } }
+		involved_activity.activity_host = {
+			save_temporary_scope_as = challenger
+			liege.diarch = { save_temporary_scope_as = incumbent }
+		}
+		OR = {
+			has_relation_disciple = scope:challenger
+			has_relation_disciple = scope:incumbent
+		}
+	}
+	is_valid = {
+		NOT = { involved_activity.activity_host.liege.diarch = { this = ROOT } }
+		involved_activity.activity_host = {
+			save_temporary_scope_as = challenger
+			liege.diarch = { save_temporary_scope_as = incumbent }
+		}
+		OR = {
+			has_relation_disciple = scope:challenger
+			has_relation_disciple = scope:incumbent
+		}
+	}
+	ai_will_do = {
+		value = ai_honor
+	}
+	ai_targets = {
+		type = scripted_relations
+	}
+	is_target_valid = {
+		has_relation_disciple = scope:target
+		involved_activity.activity_host = {
+			save_temporary_scope_as = challenger
+			liege.diarch = { save_temporary_scope_as = incumbent }
+		}
+		scope:target = {
+			OR = {
+				this = scope:challenger
+				this = scope:incumbent
+			}
+		}
+	}
+	ai_target_score = {
+		value = "opinion(scope:target)"
+	}
+}
+support_friend_prime_minister_intent = {
+	is_shown = {
+		NOT = { involved_activity.activity_host.liege.diarch = { this = ROOT } }
+		involved_activity.activity_host = {
+			save_temporary_scope_as = challenger
+			liege.diarch = { save_temporary_scope_as = incumbent }
+		}
+		OR = {
+			is_friends_with = { TARGET = scope:challenger }
+			is_friends_with = { TARGET = scope:incumbent }
+		}
+	}
+	is_valid = {
+		NOT = { involved_activity.activity_host.liege.diarch = { this = ROOT } }
+		involved_activity.activity_host = {
+			save_temporary_scope_as = challenger
+			liege.diarch = { save_temporary_scope_as = incumbent }
+		}
+		OR = {
+			is_friends_with = { TARGET = scope:challenger }
+			is_friends_with = { TARGET = scope:incumbent }
+		}
+	}
+	ai_will_do = {
+		value = ai_vengefulness
+	}
+	ai_targets = {
+		type = scripted_relations
+	}
+	is_target_valid = {
+		is_friends_with = { TARGET = scope:target }
+		involved_activity.activity_host = {
+			save_temporary_scope_as = challenger
+			liege.diarch = { save_temporary_scope_as = incumbent }
+		}
+		scope:target = {
+			OR = {
+				this = scope:challenger
+				this = scope:incumbent
+			}
+		}
+	}
+	ai_target_score = {
+		value = "opinion(scope:target)"
+	}
+}
+oppose_rival_prime_minister_intent = {
+	is_shown = {
+		NOT = { involved_activity.activity_host.liege.diarch = { this = ROOT } }
+		involved_activity.activity_host = {
+			save_temporary_scope_as = challenger
+			liege.diarch = { save_temporary_scope_as = incumbent }
+		}
+		OR = {
+			is_rivals_with = { TARGET = scope:challenger }
+			is_rivals_with = { TARGET = scope:incumbent }
+		}
+	}
+	is_valid = {
+		NOT = { involved_activity.activity_host.liege.diarch = { this = ROOT } }
+		involved_activity.activity_host = {
+			save_temporary_scope_as = challenger
+			liege.diarch = { save_temporary_scope_as = incumbent }
+		}
+		OR = {
+			is_rivals_with = { TARGET = scope:challenger }
+			is_rivals_with = { TARGET = scope:incumbent }
+		}
+	}
+	ai_will_do = {
+		value = ai_sociability
+	}
+	ai_targets = {
+		type = scripted_relations
+	}
+	is_target_valid = {
+		is_rivals_with = { TARGET = scope:target }
+		involved_activity.activity_host = {
+			save_temporary_scope_as = challenger
+			liege.diarch = { save_temporary_scope_as = incumbent }
+		}
+		scope:target = {
+			OR = {
+				this = scope:challenger
+				this = scope:incumbent
+			}
+		}
+	}
+	ai_target_score = {
+		value = 0
+		subtract = "opinion(scope:target)"
+	}
+}
+trade_favors_intent = {
+	ai_will_do = { value = ai_greed }
+}

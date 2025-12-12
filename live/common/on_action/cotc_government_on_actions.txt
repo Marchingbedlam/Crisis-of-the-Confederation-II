@@ -107,6 +107,7 @@ initialize_starting_legislature_on_action = {
 				}
 			}
 		}
+		trigger_event = { on_action = set_initial_prime_minister }
 	}
 }
 initialize_new_legislature_on_action = {
@@ -143,6 +144,7 @@ initialize_new_legislature_on_action = {
 				value = scope:target_title
 			}
 		}
+		trigger_event = { on_action = set_initial_prime_minister }
 	}
 }
 progress_legislature_on_action = {
@@ -180,6 +182,25 @@ merge_legislatures_on_action = {
 		}
 	}
 	events = { legislature_events.300 }
+}
+
+###################
+# PRIME MINISTERS #
+###################
+set_initial_prime_minister = {
+	trigger = {
+		government_has_flag = government_is_parliamentary
+		has_legislature_trigger = yes
+		NOT = { has_diarchy_type = cotc_premiership }
+		any_vassal = { count > 0 }
+	}
+	effect = {
+		try_start_diarchy = cotc_premiership
+		ordered_vassal = {
+			order_by = prime_minister_score
+			ROOT = { set_diarch = PREV }
+		}
+	}
 }
 
 ########

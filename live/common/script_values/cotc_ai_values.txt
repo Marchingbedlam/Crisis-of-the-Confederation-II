@@ -438,6 +438,101 @@ ai_interventionism = {
 		}
 	}
 }
+# How strongly does this character value their own culture over others?
+ai_parochialism = {
+	value = 0
+	subtract = ai_compassion
+	if = {
+		limit = { faith = { has_doctrine = tenet_federalism } }
+		subtract = {
+			value = ai_zeal
+			multiply = 2
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+		}
+	}
+	if = {
+		limit = { faith = { has_doctrine = doctrine_metroplanetism } }
+		if = {
+			limit = { culture = { this = culture:terran } }
+			add = {
+				value = ai_zeal
+				multiply = 3
+				multiply = {
+					value = faith.fervor
+					divide = 100
+				}
+			}
+		}
+		else = {
+			subtract = {
+				value = ai_zeal
+				multiply = 3
+				multiply = {
+					value = faith.fervor
+					divide = 100
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = { faith = { has_doctrine = doctrine_commonality_pluralism } }
+		subtract = {
+			value = ai_zeal
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+		}
+	}
+	else_if = {
+		limit = { faith = { has_doctrine = doctrine_separatism } }
+		add = {
+			value = ai_zeal
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+		}
+	}
+	else_if = {
+		limit = { faith = { has_doctrine = doctrine_anti_metroplanetism } }
+		if = {
+			limit = { culture = { this = culture:terran } }
+			subtract = {
+				value = ai_zeal
+				multiply = 3
+				multiply = {
+					value = faith.fervor
+					divide = 100
+				}
+			}
+		}
+		else = {
+			add = {
+				value = ai_zeal
+				multiply = 3
+				multiply = {
+					value = faith.fervor
+					divide = 100
+				}
+			}
+		}
+	}
+	else_if = {
+		limit = { faith = { has_doctrine = doctrine_particularism } }
+		add = {
+			value = ai_zeal
+			multiply = 5
+			multiply = {
+				value = faith.fervor
+				divide = 100
+			}
+		}
+	}
+}
 # How scared is this character of another character, in a personal way?
 ai_personal_fear_of = {
 	value = 0

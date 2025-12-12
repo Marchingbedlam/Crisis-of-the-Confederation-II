@@ -112,14 +112,3 @@ remove_from_legislature_effect = {
 	remove_variable = legislature
 	remove_variable = riding
 }
-appoint_random_prime_minister_effect = {
-	try_start_diarchy = premiership
-	random_vassal = {
-		limit = {
-			is_adult = yes
-			is_available = yes
-		}
-		save_temporary_scope_as = temp_prime_minister
-	}
-	set_diarch = scope:temp_prime_minister
-}

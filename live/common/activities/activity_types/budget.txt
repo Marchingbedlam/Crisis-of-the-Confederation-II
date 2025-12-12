@@ -80,7 +80,7 @@
 	province_filter = capital
 	
 	is_location_valid = {
-		county = { scope:host = { completely_controls = PREV } }
+		scope:host = { capital_province = { this = ROOT } }
 	}
 	
 	province_score = {
@@ -1283,6 +1283,7 @@
 	
 	guest_intents = {
 		intents = {
+			maintain_status_quo_intent
 			support_bill_intent
 			block_bill_intent
 			balance_budget_intent
@@ -1293,7 +1294,7 @@
 			increase_ministry_budget_intent
 			increase_salary_budget_intent
 		}
-		default = balance_budget_intent
+		default = maintain_status_quo_intent
 	}
 	
 	guest_join_chance = {

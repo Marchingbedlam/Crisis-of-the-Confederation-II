@@ -1,0 +1,62 @@
+﻿eligible_legislator_candidate_trigger = {
+	is_adult = yes
+	is_alive = yes
+	is_incapable = no
+	is_landed = no
+	NOT = {
+		scope:situation = {
+			is_target_in_variable_list = {
+				name = legislators
+				target = PREV
+			}
+		}
+	}
+	# This is not a demotion to a lower legislature
+	trigger_if = {
+		limit = { has_variable = legislature }
+		var:legislature.var:legislature_title.holder ?= {
+			tier_difference = {
+				target = scope:situation.var:legislature_title.holder
+				value <= 0
+			}
+		}
+	}
+	is_interested_in_politics_trigger = yes
+	debug_log_details = yes
+}
+
+should_have_legislature_trigger = {
+	government_has_flag = government_has_legislature
+	highest_held_title_tier >= tier_duchy
+	is_landed = yes
+}
+
+has_legislature_trigger = {
+	custom_tooltip = {
+		text = has_legislature_desc
+		any_held_title = { has_variable = legislature }
+	}
+}
+
+legislature_blocks_law_trigger = {
+	custom_tooltip = {
+		text = needs_a_bill_desc
+		has_legislature_trigger = yes
+		NOT = { has_variable = bill_passed }
+	}
+}
+
+legislature_in_session_trigger = {
+	any_held_title = {
+		has_variable = legislature
+		var:legislature = { situation_current_phase = legislature_in_session }
+	}
+}
+is_character_in_legislature_trigger = {
+	$LEGISLATURE$ = {
+		any_in_list = {
+			variable = legislators
+			this = $CHARACTER$
+		}
+	}
+}
