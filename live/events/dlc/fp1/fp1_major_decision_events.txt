@@ -1276,7 +1276,6 @@ fp1_major_decisions.1011 = {
 	}
 	override_background = { reference = fp1_ocean_norse }
 
-<<<<<<< HEAD
 	trigger = {
 		# This character is Harald Fairhair.
 		exists = character:1
@@ -1299,63 +1298,6 @@ fp1_major_decisions.1011 = {
 					can_marry_character_trigger = { CHARACTER = root }
 					has_any_bad_relationship_with_root_trigger = no
 					is_ai = yes
-=======
-	immediate = {
-		play_music_cue = "mx_cue_succession"
-		# Check to see if Gyda is still around and kicking, and if so, treat this as a romance.
-		character:166044 = {
-			hidden_effect = {
-				if = {
-					limit = {
-						betrothed ?= {
-							NOR = {
-								this = character:144000
-								is_ai = no
-							}
-						}
-					}
-					break_betrothal = betrothed
-				}
-				else_if = {
-					limit = {
-						is_adult = yes
-						is_married = yes
-						any_spouse = {
-							NOR = {
-								this = character:144000
-								is_ai = no
-							}
-						}
-					}
-					every_spouse = {
-						prev = {
-							divorce = prev
-						}
-					}
-				}
-				else_if = {
-					limit = {
-						exists = concubinist
-						concubinist = {
-							NOR = {
-								this = character:144000
-								is_ai = no
-							}
-						}
-					}
-					concubinist = {
-						remove_concubine = prev
-					}
-				}
-				if = {
-					limit = {
-						is_alive = yes
-						could_marry_character_trigger = { CHARACTER = root }
-						has_any_bad_relationship_with_root_trigger = no
-						is_ai = yes
-					}
-					save_scope_as = gyda
->>>>>>> 1.18.2
 				}
 			}
 		}

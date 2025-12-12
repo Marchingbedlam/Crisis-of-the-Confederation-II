@@ -3318,7 +3318,6 @@ birth.8011 = {
 				}
 				liege_has_co_emperorship_trigger = yes
 				liege = {
-<<<<<<< HEAD
 					OR = {
 						has_title = title:e_byzantium	#Must be the current emperor.
 						has_title = title:e_roman_empire	#Or the other emperor.
@@ -3332,21 +3331,6 @@ birth.8011 = {
 					has_title = title:e_roman_empire	#Or the other emperor.
 				}
 				capital_county = title:c_avalon	#Must rule from the Bucoleon Palace.
-=======
-					is_roman_emperor_trigger = yes
-					OR = {
-						capital_county = title:c_byzantion	#Must rule from the Bucoleon Palace.
-						capital_county = title:c_roma # ... or from Rome itself.
-					}
-				}
-			}
-			trigger_else = {
-				is_roman_emperor_trigger = yes
-					OR = {
-						capital_county = title:c_byzantion	#Must rule from the Bucoleon Palace.
-						capital_county = title:c_roma # ... or from Rome itself.
-					}
->>>>>>> 1.18.2
 			}
 		}
 		mother = {
@@ -3355,14 +3339,7 @@ birth.8011 = {
 					is_ruler = no
 					exists = location # Security check
 					OR = {
-<<<<<<< HEAD
 						location = title:c_avalon.title_province
-=======
-						OR = {
-							location = title:c_byzantion.title_province
-							location = title:c_roma.title_province
-						}
->>>>>>> 1.18.2
 						# Be a bit more lenient with co-emperors.
 						AND = {
 							is_diarch = yes

@@ -1310,30 +1310,6 @@ can_raze_own_holding = {
 		limit = {
 			is_ai = yes
 		}
-<<<<<<< HEAD
-		scope:province.county = {
-			any_neighboring_county = {
-				title_province = {
-					OR = {
-						has_holding_type = nomad_holding
-						has_holding_type = herder_holding
-					}
-				}
-			}
-		}
-		trigger_if = {
-			limit = {
-				religion = religion:islam_religion
-			}
-			scope:province.county != title:c_avalon
-			scope:province.county != title:c_avalon
-			trigger_if = {
-				limit = {
-					culture = {
-						NOR = {
-							has_cultural_pillar = heritage_mongolic
-							has_cultural_pillar = heritage_turkic
-=======
 		trigger_if = { # The AI only razes holdings that border a nomad holding
 			limit = { government_has_flag = government_is_nomadic }
 			scope:province.county = {
@@ -1342,7 +1318,6 @@ can_raze_own_holding = {
 						OR = {
 							has_holding_type = nomad_holding
 							has_holding_type = herder_holding
->>>>>>> 1.18.2
 						}
 					}
 				}

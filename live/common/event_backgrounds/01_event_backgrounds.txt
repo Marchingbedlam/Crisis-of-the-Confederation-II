@@ -755,10 +755,6 @@ temple_scope = {
 	background = { #Dharmic (Outdoors)
 		trigger = {
 			scope:background_temple_scope = {
-<<<<<<< HEAD
-				faith.religion = {
-					is_in_family = rf_eastern #Dharmic if not East Asian
-=======
 				OR = {
 					faith.religion ?= { is_in_family = rf_eastern }
 					faith.religion ?= { is_in_family = rf_sinitic }
@@ -769,7 +765,6 @@ temple_scope = {
 							location ?= {steppe_building_gfx_use_indian_trigger = yes }
 						}
 					}
->>>>>>> 1.18.2
 				}
 			}
 		}
@@ -11710,10 +11705,6 @@ ep2_hunt_activity_camp = {
 ep2_wedding_ceremony = {
 	background = {	 #Indian
 		trigger = {
-<<<<<<< HEAD
-			scope:activity ?= { has_activity_type = activity_wedding }
-			location.culture = { has_graphical_india_culture_group_trigger = yes }
-=======
 			trigger_if = {
 				limit = { exists = scope:activity }
 				scope:activity ?= { has_activity_type = activity_wedding }
@@ -11722,7 +11713,6 @@ ep2_wedding_ceremony = {
 				location.culture ?= { has_graphical_india_culture_group_trigger = yes }
 				location ?= { steppe_building_gfx_use_indian_trigger = yes }
 			}
->>>>>>> 1.18.2
 		}
 		reference = "gfx/interface/illustrations/event_scenes/ep2_wedding_ceremony_indian.dds"
 		environment = "environment_indian_wedding"

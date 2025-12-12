@@ -450,15 +450,10 @@ PixelShader =
 
 			PDX_MAIN
 			{
-<<<<<<< HEAD
 				// MOD(CL)
 				discard;
 				// END MOD
 				clip( vec2( 1.0f ) - Input.WorldSpacePos.xz * WorldSpaceToTerrain0To1 );
-=======
-				float FullColorOverlayFactor = 0.0f;
-				bool IsFullyColorOverlay = false;
->>>>>>> 1.18.2
 
 				const float2 ColorMapCoords = Input.WorldSpacePos.xz * WorldSpaceToTerrain0To1;
 				CheckClipNeeded( Input.WorldSpacePos.y, ColorMapCoords, _StartColorOverlayHeightBlend * _EnabledTerrainCulling );
@@ -638,18 +633,10 @@ PixelShader =
 		[[
 			PDX_MAIN
 			{
-<<<<<<< HEAD
 				// MOD(CL)
 				discard;
 				// END MOD
 				clip( vec2( 1.0f ) - Input.WorldSpacePos.xz * WorldSpaceToTerrain0To1 );
-=======
-				float FullColorOverlayFactor = 0.0f;
-				bool IsFullyColorOverlay = false;
-
-				const float2 ColorMapCoords = Input.WorldSpacePos.xz * WorldSpaceToTerrain0To1;
-				CheckClipNeeded( Input.WorldSpacePos.y, ColorMapCoords, _StartColorOverlayHeightBlend);
->>>>>>> 1.18.2
 
 				float3 DetailDiffuse = Input.DetailDiffuse;
 				float4 DetailMaterial = Input.DetailMaterial;
