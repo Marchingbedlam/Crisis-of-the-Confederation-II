@@ -13,7 +13,7 @@ bill_debate_pulse_speech_on_action = {
 		# If the bill's sponsor hasn't had a chance to speak yet, give it to them
 		if = {
 			limit = { NOT = { has_variable = had_speech_opportunity } }
-			trigger_event = legislature_events.1600
+			trigger_event = cotc_bill_events.500
 		}
 		else = {
 			scope:activity = {
@@ -33,11 +33,11 @@ bill_debate_pulse_speech_on_action = {
 					order_by = legislative_seniority
 					if = {
 						limit = { is_in_guest_subset = { name = bill_supporters } }
-						trigger_event = legislature_events.1600
+						trigger_event = cotc_bill_events.500
 					}
 					else_if = {
 						limit = { is_in_guest_subset = { name = bill_opponents } }
-						trigger_event = legislature_events.1650
+						trigger_event = cotc_bill_events.550
 					}
 				}
 			}
@@ -65,7 +65,7 @@ bill_debate_pulse_legislator_makes_deal_on_action = {
 	}
 	effect = {
 		save_scope_as = target_opponent
-		scope:host = { trigger_event = legislature_events.1500 }
+		scope:host = { trigger_event = cotc_bill_events.400 }
 	}
 }
 # Get lobbied by someone
@@ -97,7 +97,7 @@ bill_debate_pulse_legislator_is_lobbied_on_action = {
 			ordered_in_list = {
 				variable = possible_lobbyists
 				order_by = intrigue
-				trigger_event = legislature_events.1700
+				trigger_event = cotc_bill_events.600
 			}
 		}
 	}

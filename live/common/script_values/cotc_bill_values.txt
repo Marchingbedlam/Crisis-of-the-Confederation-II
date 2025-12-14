@@ -134,14 +134,14 @@ block_bill_score = {
 }
 # How hard a "sell" is this bill? (for diplomacy challenge purposes)
 bill_sell_difficulty = {
-	value = 20
+	value = 10
 	add = bill_unreasonableness
 	subtract = bill_necessity
 	min = 10
 }
 # How hard a "target" is this bill?
 bill_target_difficulty = {
-	value = 20
+	value = 10
 	add = bill_necessity
 	subtract = bill_unreasonableness
 	min = 10
@@ -524,7 +524,7 @@ combined_ministry_salary_proposal = {
 	value = var:proposed_ministry_budget
 	add = var:proposed_salary_budget
 }
-# These are used to evaluate a proposed budget amendment
+# Used to evaluate a proposed budget amendment
 amended_total_budget = {
 	value = var:amended_military_budget
 	add = var:amended_ministry_budget

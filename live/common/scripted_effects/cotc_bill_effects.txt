@@ -346,6 +346,10 @@ vote_against_budget_strength_effect = {
 			change_variable = { name = vote_strength subtract = "opinion(scope:host)" }
 		}
 		else_if = {
+			limit = { has_activity_intent = maintain_status_quo_intent }
+			set_variable = { name = vote_strength value = 50 }
+		}
+		else_if = {
 			limit = {
 				OR = {
 					has_activity_intent = increase_military_budget_intent
@@ -458,6 +462,10 @@ vote_against_tax_code_strength_effect = {
 		if = {
 			limit = { has_activity_intent = block_bill_intent }
 			change_variable = { name = vote_strength subtract = "opinion(scope:host)" }
+		}
+		else_if = {
+			limit = { has_activity_intent = maintain_status_quo_intent }
+			set_variable = { name = vote_strength value = 50 }
 		}
 		else_if = {
 			limit = {

@@ -49,16 +49,16 @@
 			limit = { has_variable = quorum_not_met }
 			every_attending_character = {
 				limit = { NOT = { this = scope:host } }
-				trigger_event = legislature_events.1015
+				trigger_event = cotc_bill_events.15
 			}
-			scope:host = { trigger_event = legislature_events.1010 }
+			scope:host = { trigger_event = cotc_bill_events.10 }
 		}
 		else_if = {
 			limit = { var:ruler = { legislature_in_session_trigger = no } }
-			scope:host = { trigger_event = { id = legislature_events.1020 } }
+			scope:host = { trigger_event = { id = cotc_bill_events.20 } }
 			every_attending_character = {
 				limit = { NOT = { this = scope:host } }
-				trigger_event = { id = legislature_events.1025 }
+				trigger_event = { id = cotc_bill_events.25 }
 			}
 		}
 		else_if = {
@@ -68,17 +68,17 @@
 				var:proposed_technocratic_taxes = var:ruler.current_technocratic_taxes
 				var:proposed_theocratic_taxes = var:ruler.current_theocratic_taxes
 			}
-			scope:host = { trigger_event = { id = legislature_events.1040 } }
+			scope:host = { trigger_event = { id = cotc_bill_events.40 } }
 			every_attending_character = {
 				limit = { NOT = { this = scope:host } }
-				trigger_event = { id = legislature_events.1045 }
+				trigger_event = { id = cotc_bill_events.45 }
 			}
 		}
 		else = {
-			scope:host = { trigger_event = { id = legislature_events.1030 } }
+			scope:host = { trigger_event = { id = cotc_bill_events.30 } }
 			every_attending_character = {
 				limit = { NOT = { this = scope:host } }
-				trigger_event = { id = legislature_events.1035 }
+				trigger_event = { id = cotc_bill_events.35 }
 			}
 		}
 	}
@@ -417,7 +417,7 @@
 			set_variable = { name = title value = scope:host.primary_title }
 			set_variable = { name = legislature value = var:ruler.primary_title.var:legislature }
 		}
-		scope:host = { trigger_event = legislature_events.1000 }
+		scope:host = { trigger_event = cotc_bill_events.1 }
 	}
 	
 	on_complete = {
@@ -441,31 +441,31 @@
 			limit = { scope:activity = { has_variable = bill_passed } }
 			if = {
 				limit = { ROOT = scope:host }
-				trigger_event = legislature_events.3100
-				every_vassal = { trigger_event = legislature_events.3105 }
-				every_tributary = { trigger_event = legislature_events.3105 }
+				trigger_event = cotc_tax_bill_events.200
+				every_vassal = { trigger_event = cotc_tax_bill_events.250 }
+				every_tributary = { trigger_event = cotc_tax_bill_events.250 }
 			}
 			else_if = {
 				limit = { is_in_guest_subset = { name = bill_supporters } }
-				trigger_event = legislature_events.3101
+				trigger_event = cotc_tax_bill_events.210
 			}
 			else_if = {
 				limit = { is_in_guest_subset = { name = bill_opponents } }
-				trigger_event = legislature_events.3102
+				trigger_event = cotc_tax_bill_events.220
 			}
 		}
 		else = {
 			if = {
 				limit = { ROOT = scope:host }
-				trigger_event = legislature_events.3110
+				trigger_event = cotc_tax_bill_events.300
 			}
 			else_if = {
 				limit = { is_in_guest_subset = { name = bill_supporters } }
-				trigger_event = legislature_events.3111
+				trigger_event = cotc_tax_bill_events.310
 			}
 			else_if = {
 				limit = { is_in_guest_subset = { name = bill_opponents } }
-				trigger_event = legislature_events.3112
+				trigger_event = cotc_tax_bill_events.320
 			}
 		}
 		trigger_event = { on_action = bill_clean_legislators_on_action }
@@ -507,13 +507,13 @@
 									save_temporary_scope_as = evaluated_character
 									is_character_in_legislature_trigger = { LEGISLATURE = scope:activity.var:legislature CHARACTER = scope:evaluated_character }
 								}
-								trigger_event = legislature_events.3000
+								trigger_event = cotc_tax_bill_events.100
 							}
 							# Check whether we can proceed directly to the voting phase,
 							# or if further debate is needed
 							scope:host = {
-								trigger_event = { id = legislature_events.1100 delayed = yes }
-								trigger_event = { id = legislature_events.1101 delayed = yes }
+								trigger_event = { id = cotc_bill_events.100 delayed = yes }
+								trigger_event = { id = cotc_bill_events.150 delayed = yes }
 							}
 						}
 					}
@@ -524,6 +524,7 @@
 				if = {
 					limit = { ROOT = scope:host }
 					# Offer to amend the budget in order to get more supporters
+					trigger_event = { on_action = propose_random_tax_code_amendment_on_action days = { 2 6 } }
 					# Give someone a chance to give a speech
 					trigger_event = { on_action = bill_debate_pulse_speech_on_action days = { 2 6 } }
 				}
@@ -551,8 +552,8 @@
 				if = {
 					limit = { ROOT = scope:host }
 					scope:host = {
-						trigger_event = legislature_events.1200 # Bill passed
-						trigger_event = legislature_events.1210 # Bill failed
+						trigger_event = cotc_bill_events.200 # Bill passed
+						trigger_event = cotc_bill_events.250 # Bill failed
 					}
 				}
 			}
