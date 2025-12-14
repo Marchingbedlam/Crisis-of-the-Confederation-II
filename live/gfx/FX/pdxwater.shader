@@ -53,7 +53,7 @@ PixelShader =
 		[[
 			PDX_MAIN
 			{
-				// MOD(CL)
+				// MOD(COTC)
 				discard;
 				// END MOD
 				float4 ShadowProj = mul( ShadowMapTextureMatrix, float4( Input.WorldSpacePos, 1.0f ) );
@@ -99,8 +99,8 @@ PixelShader =
 		Input = "VS_OUTPUT_WATER"
 		Output = "PDX_COLOR"
 		Code
-		[[			
-			// MOD(CL)
+		[[
+			// MOD(COTC)
 			discard;
 			// END MOD
 			// low spec version of CalcWater
