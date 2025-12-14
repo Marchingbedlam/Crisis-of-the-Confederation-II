@@ -223,7 +223,7 @@ PixelShader =
 		[[
 			PDX_MAIN
 			{
-				// MOD(CL)
+				// MOD(COTC)
 				discard;
 				// END MOD
 				float2 UV = Input.uv;
