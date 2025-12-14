@@ -124,17 +124,24 @@ PixelShader =
 				float FogOfWarAlphaValue = PdxTex2D( FogOfWarAlpha, MapCoords ).r;
 				Diffuse.rgb *= ( 0.3f + 0.7f * FogOfWarAlphaValue ); // Darken to 30% in FoW
 				Diffuse.rgb = lerp( BaseDiffuse, Diffuse.rgb, 0.03f );
-
-				// Apply shadow tint with cloud interaction for borders
-				float CloudMask = GetCloudShadowMask( Input.WorldSpacePos.xz );
-				Diffuse.rgb = ApplyTerrainShadowTintWithClouds( Diffuse.rgb, Input.WorldSpacePos.xz, CloudMask, ShadowTerm );
-				
-				float3 CloudyColor = float3( 0.0f, 0.01f, 0.02f );
-				Diffuse.rgb = lerp( Diffuse.rgb, CloudyColor, CloudMask * 0.6f );
+				Diffuse.a *= _Alpha;
+				#ifndef LOW_SPEC_SHADERS
+					if ( _StartColorOverlayHeightBlend < 0.00001f )
+					{
+						float ShadowTerm = CalculateShadow( Input.ShadowProj, ShadowMap );
+						// Apply shadow tint with cloud interaction for borders
+						float CloudMask = GetCloudShadowMask( Input.WorldSpacePos.xz, FogOfWarAlphaValue );
+						Diffuse.rgb = ApplyTerrainShadowTintWithClouds( Diffuse.rgb, Input.WorldSpacePos.xz, CloudMask, ShadowTerm );
+						
+						float3 CloudyColor = float3( 0.0f, 0.01f, 0.02f );
+						Diffuse.rgb = lerp( Diffuse.rgb, CloudyColor, CloudMask * 0.6f );
+					}
+				#endif
 				// MOD(COTC)
 				// Diffuse.rgb = ApplyFogOfWar( Diffuse.rgb, Input.WorldSpacePos, FogOfWarAlpha );
 				// Diffuse.rgb = ApplyMapDistanceFogWithoutFoW( Diffuse.rgb, Input.WorldSpacePos );
 				// ENDMOD
+
 				return Diffuse;
 			}
 		]]
