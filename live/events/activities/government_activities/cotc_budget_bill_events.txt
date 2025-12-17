@@ -2,6 +2,7 @@
 
 # Everyone has arrived for a budget session, let's consider the new budget!
 cotc_budget_bill_events.100 = {
+	type = activity_event
 	desc = cotc_budget_bill_events.100.desc
 	
 	theme = realm
@@ -27,9 +28,17 @@ cotc_budget_bill_events.100 = {
 				target = ROOT
 			}
 		}
-		vote_for_budget_strength_effect = yes
+		vote_for_bill_strength_effect = yes
 		hidden_effect = {
 			save_scope_as = voter
+			scope:activity = {
+				add_activity_log_entry = {
+					key = voted_for_bill
+					tags = { positive intent }
+					character = scope:voter
+					custom_tooltip = voted_for_bill_intent_desc
+				}
+			}
 			scope:host = {
 				send_interface_message = {
 					type = msg_vote_change_good
@@ -45,6 +54,11 @@ cotc_budget_bill_events.100 = {
 			modifier = {
 				factor = 0
 				has_activity_intent = maintain_status_quo_intent
+			}
+			# I want to hold out for political favors
+			modifier = {
+				factor = 0
+				has_activity_intent = trade_favors_intent
 			}
 			# I just want to block any bills, period
 			modifier = {
@@ -105,9 +119,17 @@ cotc_budget_bill_events.100 = {
 				target = ROOT
 			}
 		}
-		vote_against_budget_strength_effect = yes
+		vote_against_bill_strength_effect = yes
 		hidden_effect = {
 			save_scope_as = voter
+			scope:activity = {
+				add_activity_log_entry = {
+					key = voted_against_bill
+					tags = { negative intent }
+					character = scope:voter
+					custom_tooltip = voted_against_bill_intent_desc
+				}
+			}
 			scope:host = {
 				send_interface_message = {
 					type = msg_vote_change_bad
@@ -168,6 +190,7 @@ cotc_budget_bill_events.100 = {
 }
 # Your budget bill has successfully passed!
 cotc_budget_bill_events.200 = {
+	type = activity_event
 	desc = cotc_budget_bill_events.200.desc
 	
 	theme = realm
@@ -201,6 +224,7 @@ cotc_budget_bill_events.200 = {
 }
 # A bill you voted for has passed!
 cotc_budget_bill_events.210 = {
+	type = activity_event
 	desc = cotc_budget_bill_events.210.desc
 	
 	theme = realm
@@ -216,6 +240,10 @@ cotc_budget_bill_events.210 = {
 	}
 	
 	immediate = {
+		if = {
+			limit = { budget_passed_voter_intent_trigger = { BUDGET = scope:activity } }
+			complete_activity_intent = yes
+		}
 		if = {
 			limit = { bill_is_ideologically_necessary = { BILL = scope:activity } }
 			change_variable = { name = ai_faith_in_democracy add = 1 }
@@ -243,6 +271,7 @@ cotc_budget_bill_events.210 = {
 }
 # A bill you voted against has passed!
 cotc_budget_bill_events.220 = {
+	type = activity_event
 	desc = cotc_budget_bill_events.220.desc
 	
 	theme = realm
@@ -258,6 +287,10 @@ cotc_budget_bill_events.220 = {
 	}
 	
 	immediate = {
+		if = {
+			limit = { budget_passed_voter_intent_trigger = { BUDGET = scope:activity } }
+			complete_activity_intent = yes
+		}
 		if = {
 			limit = { bill_is_ideologically_unacceptable = { BILL = scope:activity } }
 			change_variable = { name = ai_faith_in_democracy subtract = 5 }
@@ -306,6 +339,7 @@ cotc_budget_bill_events.250 = {
 }
 # Your budget bill has failed!
 cotc_budget_bill_events.300 = {
+	type = activity_event
 	desc = cotc_budget_bill_events.300.desc
 	
 	theme = realm
@@ -327,6 +361,7 @@ cotc_budget_bill_events.300 = {
 }
 # A bill you voted for has failed!
 cotc_budget_bill_events.310 = {
+	type = activity_event
 	desc = cotc_budget_bill_events.310.desc
 	
 	theme = realm
@@ -342,6 +377,10 @@ cotc_budget_bill_events.310 = {
 	}
 	
 	immediate = {
+		if = {
+			limit = { budget_failed_voter_intent_trigger = { BUDGET = scope:activity } }
+			complete_activity_intent = yes
+		}
 		if = {
 			limit = { bill_is_ideologically_necessary = { BILL = scope:activity } }
 			change_variable = { name = ai_faith_in_democracy subtract = 5 }
@@ -376,6 +415,10 @@ cotc_budget_bill_events.320 = {
 	
 	immediate = {
 		if = {
+			limit = { budget_failed_voter_intent_trigger = { BUDGET = scope:activity } }
+			complete_activity_intent = yes
+		}
+		if = {
 			limit = { bill_is_ideologically_unacceptable = { BILL = scope:activity } }
 			change_variable = { name = ai_faith_in_democracy add = 1 }
 		}
@@ -407,6 +450,16 @@ cotc_budget_bill_events.400 = {
 			order_by = legislative_seniority
 			save_scope_as = representative_opponent
 		}
+		scope:activity = {
+			add_activity_log_entry = {
+				key = proposed_amendment
+				tags = { neutral }
+				character = scope:representative_opponent
+				custom_tooltip = proposed_amendment_desc
+				custom_tooltip = budget_bill_amendment_proposed_desc
+				show_in_conclusion = yes
+			}
+		}
 	}
 	
 	right_portrait = {
@@ -426,6 +479,14 @@ cotc_budget_bill_events.400 = {
 		custom_tooltip = lose_supporters_desc
 		hidden_effect = {
 			scope:activity = {
+				add_activity_log_entry = {
+					key = accepted_amendment
+					tags = { positive }
+					character = scope:host
+					target = scope:representative_opponent
+					custom_tooltip = accepted_amendment_desc
+					show_in_conclusion = yes
+				}
 				set_variable = { name = proposed_military_budget value = ROOT.var:amended_military_budget }
 				set_variable = { name = proposed_ministry_budget value = ROOT.var:amended_ministry_budget }
 				set_variable = { name = proposed_salary_budget value = ROOT.var:amended_salary_budget }
@@ -456,6 +517,16 @@ cotc_budget_bill_events.400 = {
 	option = {
 		name = cotc_budget_bill_events.400.b
 		hidden_effect = {
+			scope:activity = {
+				add_activity_log_entry = {
+					key = rejected_amendment
+					tags = { negative }
+					character = scope:host
+					target = scope:representative_opponent
+					custom_tooltip = rejected_amendment_desc
+					show_in_conclusion = yes
+				}
+			}
 			every_in_list = {
 				variable = supporters_gained
 				send_interface_message = {

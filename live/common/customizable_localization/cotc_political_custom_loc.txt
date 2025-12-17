@@ -63,7 +63,15 @@ GetBillEarmarks = {
 	type = activity
 	text = {
 		setup_scope = { save_scope_value_as = { name = pork_value value = var:pork } }
-		trigger = { has_variable = pork }
+		trigger = {
+			trigger_if = {
+				limit = { has_variable = pork }
+				var:pork > 0
+			}
+			trigger_else = {
+				always = no
+			}
+		}
 		localization_key = "bill_earmarks_custom_loc"
 	}
 	text = { localization_key = "blank_custom_loc" }
@@ -128,6 +136,10 @@ GetLegislativeIntent = {
 	text = {
 		trigger = { has_activity_intent = maintain_status_quo_intent }
 		localization_key = "maintain_status_quo_intent_custom_loc"
+	}
+	text = {
+		trigger = { has_activity_intent = trade_favors_intent }
+		localization_key = "trade_favors_intent_custom_loc"
 	}
 	text = {
 		setup_scope = { involved_activity = { activity_host = { save_scope_as = sponsor } } }

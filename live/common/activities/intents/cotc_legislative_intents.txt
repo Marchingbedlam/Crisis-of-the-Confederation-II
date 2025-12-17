@@ -2,9 +2,14 @@
 	icon = extoll_reign_intent
 }
 maintain_status_quo_intent = {
+	ai_will_do = { value = 0 } # Should only be chosen as a backup
+}
+trade_favors_intent = {
 	ai_will_do = {
 		value = 10
-		subtract = ai_boldness
+		add = ai_greed
+		add = ai_rationality
+		subtract = ai_lawfulness
 	}
 }
 support_bill_intent = {

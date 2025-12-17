@@ -71,6 +71,29 @@
  game_concept_theocratic_power_base_adj: "Theocratic"
  game_concept_theocratic_power_base_desc: "$game_concept_theocratic_power_base_adj$ [governments|E] [base_power|E] on control through religion.\n\n$BULLET$#indent_newline:2 Primary [holding_type|E]: [administrative_holding|E]#!\n$BULLET$#indent_newline:2 May control [city_holdings|E] at reduced efficiency#!\n$BULLET$#indent_newline:2 Can receive [treasury|E] from their [liege|E]'s [treasury_military_budget|E]#!\n$BULLET$#indent_newline:2 Can have a [state_faith|E]#!\n$BULLET$#indent_newline:2 Rulers are considered Priests#!"
  
+ game_concept_authority_type_cotc: "Authority Type"
+ game_concept_authority_types_cotc: "Authority Types"
+ game_concept_authority_cotc: "Authority"
+ game_concept_authority_type_cotc_desc: "A [government|E]'s $game_concept_authority_type_cotc$ is the degree of power it entrusts to the [ruler|E]. Your $game_concept_authority_type_cotc$ determines how much power you have over your [realm|E]."
+ 
+ game_concept_despotism_cotc: "Despotism"
+ game_concept_despotic_cotc: "Despotic"
+ game_concept_despotism_cotc_desc: "$game_concept_despotic_cotc$ [governments|e] make no distinction between personal and institutional power - the [ruler|E] is the [realm|E] and the [realm|E] is the [ruler|E].\n\n$BULLET$#indent_newline:2 Can have a [royal_court|E]#!\n$BULLET$#indent_newline:2 Uses [gold|E] instead of [treasury|E]#!"
+ 
+ game_concept_dictatorship_cotc: "Dictatorship"
+ game_concept_dictatorial_cotc: "Dictatorial"
+ game_concept_dictatorship_cotc_desc: "$game_concept_dictatorial_cotc$ [governments|E] are led by a single [ruler|E] whose [authority_cotc|E] is absolute, but who is nevertheless considered to be bound by the rule of law and whose personal authority is distinct from that of the state.\n$BULLET$#indent_newline:2 Can have a [royal_court|E]#!"
+ 
+ game_concept_separation_of_powers_cotc: "Separation of Powers"
+ game_concept_presidential_system_cotc: "Presidential System"
+ game_concept_presidential_cotc: "Presidential"
+ game_concept_separation_of_powers_cotc_desc: "$game_concept_presidential_cotc$ [governments|E] balance power over the state between a [ruler|E] who controls the executive branch and a [legislature_cotc|E] that controls legislation.\n$BULLET$#indent_newline:2 Can have a [legislature_cotc|E]#!\n$BULLET$#indent_newline:2 The [ruler|E] can propose [bills_cotc|E]#!"
+ 
+ game_concept_parliamentarianism_cotc: "Parliamentarianism"
+ game_concept_parliamentarian_cotc: "Parliamentarian"
+ game_concept_parliamentary_system_cotc: "Parliamentary System"
+ game_concept_parliamentarianism_cotc_desc: "$game_concept_parliamentarian_cotc$ [governments|E] subordinate the [ruler|E] to the [legislature_cotc|E], electing a [prime_minister_cotc|E] who takes on many of the Ruler's powers.\n$BULLET$#indent_newline:2 Can have a [legislature_cotc|E]#!\n$BULLET$#indent_newline:2 Can have a [prime_minister_cotc|E]#!\n$BULLET$#indent_newline:2 The [ruler|E] and [prime_minister_cotc|E] can both propose [bills_cotc|E]#!"
+ 
  game_concept_legislature_cotc: "Legislature"
  game_concept_legislatures_cotc: "Legislatures"
  game_concept_legislator_cotc: "Legislator"
@@ -90,13 +113,34 @@
  game_concept_bills_cotc: "Bills"
  game_concept_bill_cotc_desc: "A $game_concept_bill_cotc$ is an [activity|E] inviting the [legislature_cotc|E] to vote on a new [law|E] or [laws|E].\n\nLegislators will divide themselves into [bill_supporters_cotc|E] and [bill_opponents_cotc|E] based on their opinions of the proposal. At the end of the debate phase, if the $game_concept_bill_cotc$ has more [bill_supporters_cotc|E] than the required majority, it will be adapted as a [law|E]."
  
+ game_concept_special_motion_cotc: "Motion"
+ game_concept_special_motions_cotc: "Motions"
+ game_concept_special_motion_cotc_desc: "A $game_concept_special_motion_cotc$ is an [activity|E] inviting the [legislature_cotc|E] to authorize some special action.\n\nLegislators will divide themselves into [bill_supporters_cotc|E] and [bill_opponents_cotc|E] based on their opinions of the proposal. At the end of the debate phase, if the $game_concept_special_motion_cotc$ has more [bill_supporters_cotc|E] than the required majority, the motion will pass."
+ 
  game_concept_bill_supporter_cotc: "Supporter"
  game_concept_bill_supporters_cotc: "Supporters"
- game_concept_bill_supporter_cotc_desc: "$game_concept_bill_supporters_cotc$ support the current [bill_cotc|E] and intend to vote for it. They may be persuaded otherwise by lobbyists or persuasive speeches."
+ game_concept_bill_supporter_cotc_desc: "$game_concept_bill_supporters_cotc$ are [legislators_cotc|E] who support the current [bill_cotc|E] or [special_motion_cotc|E] and intend to vote for it. They may be persuaded otherwise by lobbyists or persuasive speeches."
  
  game_concept_bill_opponent_cotc: "Opponent"
  game_concept_bill_opponents_cotc: "Opponents"
- game_concept_bill_opponent_cotc_desc: "$game_concept_bill_opponents_cotc$ oppose the current [bill_cotc|E] and intend to vote against it. They may be persuaded otherwise by lobbyists, persuasive speeches, or backroom deals."
+ game_concept_bill_opponent_cotc_desc: "$game_concept_bill_opponents_cotc$ are are [legislators_cotc|E] who oppose the current [bill_cotc|E] or [special_motion_cotc|E] and intend to vote against it. They may be persuaded otherwise by lobbyists, persuasive speeches, or backroom deals."
+ 
+ game_concept_no_confidence_motion_cotc: "Vote of No Confidence"
+ game_concept_no_confidence_motions_cotc: "Votes of No Confidence"
+ game_concept_no_confidence_cotc: "No Confidence"
+ game_concept_no_confidence_motion_cotc_desc: "A $game_concept_no_confidence_motion$ is a [special_motion_cotc|E] claiming that the current [prime_minister_cotc|E] no longer commands the confidence of the [legislature_cotc|E], and calling for their replacement with a new [prime_minister_cotc|E].\n\n[legislators_cotc|E] may vote for either the incumbent or the challenger, and at the end of the debate phase, whichever candidate has more votes will become or remain [prime_minister_cotc|E]."
+ 
+ game_concept_prime_minister_cotc: "Prime Minister"
+ game_concept_prime_ministers_cotc: "Prime Ministers"
+ game_concept_minister_president_cotc: "Minister-President"
+ game_concept_ministers_president_cotc: "Ministers-President"
+ game_concept_premier_cotc: "Premier"
+ game_concept_premiers_cotc: "Premiers"
+ game_concept_premiership_cotc: "Premiership"
+ game_concept_premierships_cotc: "Premierships"
+ game_concept_first_minister_cotc: "First Minister"
+ game_concept_first_ministers_cotc: "First Ministers"
+ game_concept_prime_minister_cotc_desc: "A $game_concept_prime_minister_cotc$ is a type of [diarch|E] available to [parliamentarian_cotc|E] [governments|E], who takes on many of the powers normally available to the [ruler|E].\n\nThe $game_concept_prime_minister_cotc$ is elected by the [legislature_cotc|E], and has the power to convene the [legislature_cotc|E] and propose [bills_cotc|E] and [special_motions_cotc|E].\n\nThe $game_concept_prime_minister_cotc$ is accountable to the [legislature_cotc|E], and may be replaced if the [legislature_cotc|E] passes a [no_confidence_motion_cotc|E]."
  
  game_concept_province_cotc: "Province"
  game_concept_provinces_cotc: "Provinces"

@@ -59,8 +59,12 @@ bill_debate_pulse_legislator_makes_deal_on_action = {
 		base = 250
 		modifier = { add = scope:host.ai_energy }
 		modifier = {
+			factor = 2
+			has_activity_intent = trade_favors_intent
+		}
+		modifier = {
 			factor = 0
-			NOT = { is_in_guest_subset = { name = bil_opponents } }
+			NOT = { is_in_guest_subset = { name = bill_opponents } }
 		}
 	}
 	effect = {

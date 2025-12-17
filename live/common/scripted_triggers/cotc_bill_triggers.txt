@@ -201,3 +201,197 @@ opposes_tax_code_amendment_trigger = {
 	}
 	trigger_else = { always = no }
 }
+budget_passed_voter_intent_trigger = {
+	trigger_if = {
+		limit = { has_activity_intent = support_bill_intent }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = balance_budget_intent }
+		$BUDGET$.proposed_total_budget <= 100
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = balance_budget_maintain_military_intent }
+		$BUDGET$.proposed_total_budget <= 100
+		$BUDGET$.var:proposed_military_budget >= $BUDGET$.var:ruler.current_military_budget
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = balance_budget_maintain_ministry_intent }
+		$BUDGET$.proposed_total_budget <= 100
+		$BUDGET$.var:proposed_ministry_budget >= $BUDGET$.var:ruler.current_ministry_budget
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = balance_budget_maintain_salary_intent }
+		$BUDGET$.proposed_total_budget <= 100
+		$BUDGET$.var:proposed_salary_budget >= $BUDGET$.var:ruler.current_salary_budget
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = increase_military_budget_intent }
+		$BUDGET$.var:proposed_military_budget > $BUDGET$.var:ruler.current_military_budget
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = increase_ministry_budget_intent }
+		$BUDGET$.var:proposed_ministry_budget > $BUDGET$.var:ruler.current_ministry_budget
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = increase_salary_budget_intent }
+		$BUDGET$.var:proposed_salary_budget > $BUDGET$.var:ruler.current_salary_budget
+	}
+	trigger_else = { always = no }
+}
+budget_failed_voter_intent_trigger = {
+	trigger_if = {
+		limit = {
+			OR = {
+				has_activity_intent = maintain_status_quo_intent
+				has_activity_intent = block_bill_intent
+			}
+		}
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = balance_budget_intent }
+		$BUDGET$.proposed_total_budget > 100
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = balance_budget_maintain_military_intent }
+		OR = {
+			$BUDGET$.proposed_total_budget > 100
+			$BUDGET$.var:proposed_military_budget < $BUDGET$.var:ruler.current_military_budget
+		}
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = balance_budget_maintain_ministry_intent }
+		OR = {
+			$BUDGET$.proposed_total_budget > 100
+			$BUDGET$.var:proposed_ministry_budget < $BUDGET$.var:ruler.current_ministry_budget
+		}
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = balance_budget_maintain_salary_intent }
+		OR = {
+			$BUDGET$.proposed_total_budget > 100
+			$BUDGET$.var:proposed_salary_budget < $BUDGET$.var:ruler.current_salary_budget
+		}
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = increase_military_budget_intent }
+		$BUDGET$.var:proposed_military_budget <= $BUDGET$.var:ruler.current_military_budget
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = increase_ministry_budget_intent }
+		$BUDGET$.var:proposed_ministry_budget <= $BUDGET$.var:ruler.current_ministry_budget
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = increase_salary_budget_intent }
+		$BUDGET$.var:proposed_salary_budget <= $BUDGET$.var:ruler.current_salary_budget
+	}
+	trigger_else = { always = no }
+}
+tax_code_passed_voter_intent_trigger = {
+	trigger_if = {
+		limit = { has_activity_intent = support_bill_intent }
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = increase_revenue_intent }
+		$TAX_CODE$.proposed_total_tax_income > $TAX_CODE$.var:ruler.current_total_tax_income
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = increase_revenue_maintain_military_intent }
+		$TAX_CODE$.proposed_total_tax_income > $TAX_CODE$.var:ruler.current_total_tax_income
+		$TAX_CODE$.proposed_military_taxes <= $TAX_CODE$.var:ruler.current_military_taxes
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = increase_revenue_maintain_commercial_intent }
+		$TAX_CODE$.proposed_total_tax_income > $TAX_CODE$.var:ruler.current_total_tax_income
+		$TAX_CODE$.proposed_commercial_taxes <= $TAX_CODE$.var:ruler.current_commercial_taxes
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = increase_revenue_maintain_technocratic_intent }
+		$TAX_CODE$.proposed_total_tax_income > $TAX_CODE$.var:ruler.current_total_tax_income
+		$TAX_CODE$.proposed_technocratic_taxes <= $TAX_CODE$.var:ruler.current_technocratic_taxes
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = increase_revenue_maintain_theocratic_intent }
+		$TAX_CODE$.proposed_total_tax_income > $TAX_CODE$.var:ruler.current_total_tax_income
+		$TAX_CODE$.proposed_theocratic_taxes <= $TAX_CODE$.var:ruler.current_theocratic_taxes
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = cut_military_taxes_intent }
+		$TAX_CODE$.proposed_military_taxes > $TAX_CODE$.var:ruler.current_military_taxes
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = cut_commercial_taxes_intent }
+		$TAX_CODE$.proposed_commercial_taxes > $TAX_CODE$.var:ruler.current_commercial_taxes
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = cut_technocratic_taxes_intent }
+		$TAX_CODE$.proposed_technocratic_taxes > $TAX_CODE$.var:ruler.current_technocratic_taxes
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = cut_theocratic_taxes_intent }
+		$TAX_CODE$.proposed_theocratic_taxes > $TAX_CODE$.var:ruler.current_theocratic_taxes
+	}
+	trigger_else = { always = no }
+}
+tax_code_failed_voter_intent_trigger = {
+	trigger_if = {
+		limit = {
+			OR = {
+				has_activity_intent = maintain_status_quo_intent
+				has_activity_intent = block_bill_intent
+			}
+		}
+		always = yes
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = increase_revenue_intent }
+		$TAX_CODE$.proposed_total_tax_income <= $TAX_CODE$.var:ruler.current_total_tax_income
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = increase_revenue_maintain_military_intent }
+		OR = {
+			$TAX_CODE$.proposed_total_tax_income <= $TAX_CODE$.var:ruler.current_total_tax_income
+			$TAX_CODE$.proposed_military_taxes > $TAX_CODE$.var:ruler.current_military_taxes
+		}
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = increase_revenue_maintain_commercial_intent }
+		OR = {
+			$TAX_CODE$.proposed_total_tax_income <= $TAX_CODE$.var:ruler.current_total_tax_income
+			$TAX_CODE$.proposed_commercial_taxes > $TAX_CODE$.var:ruler.current_commercial_taxes
+		}
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = increase_revenue_maintain_technocratic_intent }
+		OR = {
+			$TAX_CODE$.proposed_total_tax_income <= $TAX_CODE$.var:ruler.current_total_tax_income
+			$TAX_CODE$.proposed_technocratic_taxes > $TAX_CODE$.var:ruler.current_technocratic_taxes
+		}
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = increase_revenue_maintain_theocratic_intent }
+		OR = {
+			$TAX_CODE$.proposed_total_tax_income <= $TAX_CODE$.var:ruler.current_total_tax_income
+			$TAX_CODE$.proposed_theocratic_taxes > $TAX_CODE$.var:ruler.current_theocratic_taxes
+		}
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = cut_military_taxes_intent }
+		$TAX_CODE$.proposed_military_taxes <= $TAX_CODE$.var:ruler.current_military_taxes
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = cut_commercial_taxes_intent }
+		$TAX_CODE$.proposed_commercial_taxes <= $TAX_CODE$.var:ruler.current_commercial_taxes
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = cut_technocratic_taxes_intent }
+		$TAX_CODE$.proposed_technocratic_taxes <= $TAX_CODE$.var:ruler.current_technocratic_taxes
+	}
+	trigger_else_if = {
+		limit = { has_activity_intent = cut_theocratic_taxes_intent }
+		$TAX_CODE$.proposed_theocratic_taxes <= $TAX_CODE$.var:ruler.current_theocratic_taxes
+	}
+	trigger_else = { always = no }
+}

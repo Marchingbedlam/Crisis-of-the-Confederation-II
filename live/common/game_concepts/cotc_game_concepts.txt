@@ -65,6 +65,26 @@ meritocracy_cotc = {
 	parent = legitimacy_type
 	texture = "gfx/interface/icons/government_types/administrative_government.dds"
 }
+authority_type_cotc = {
+	alias = { authority_cotc authority_types_cotc }
+	parent = government
+}
+despotism_cotc = {
+	alias = { despotic_cotc }
+	parent = authority_type_cotc
+}
+dictatorship_cotc = {
+	alias = { dictatorial_cotc }
+	parent = authority_type_cotc
+}
+separation_of_powers_cotc = {
+	alias = { presidential_cotc presidential_system_cotc }
+	parent = authority_type_cotc
+}
+parliamentarianism_cotc = {
+	alias = { parliamentarian_cotc parliamentary_system_cotc }
+	parent = authority_type_cotc
+}
 legislature_cotc = {
 	alias = {
 		legislatures_cotc legislator_cotc legislators_cotc legislative_cotc
@@ -76,6 +96,32 @@ legislature_cotc = {
 bill_cotc = {
 	alias = { bills_cotc }
 	parent = activity
+}
+special_motion_cotc = {
+	alias = { special_motions_cotc }
+	parent = activity
+}
+bill_supporter_cotc = {
+	alias = { bill_supporters_cotc }
+	parent = activity
+}
+bill_opponent_cotc = {
+	alias = { bill_opponents_cotc }
+	parent = activity
+}
+no_confidence_motion_cotc = {
+	alias = { no_confidence_motions_cotc no_confidence_cotc }
+	parent = special_motions_cotc
+}
+prime_minister_cotc = {
+	alias = {
+		prime_ministers_cotc
+		premier_cotc premiers_cotc
+		premiership_cotc premierships_cotc
+		minister_president_cotc ministers_president_cotc
+		first_minister_cotc first_ministers_cotc
+	}
+	parent = diarchy
 }
 commercial_holding = {
 	alias = { commercial_holdings }

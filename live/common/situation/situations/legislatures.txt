@@ -13,6 +13,24 @@
 			map_color = rgb{ 250 100 0 }
 			is_character_valid = { scope:situation.var:legislature_title.holder ?= { this = ROOT } }
 		}
+		head_of_government = {
+			icon = "gfx/interface/icons/flat_icons/prestige.dds"
+			require_realm_in_sub_region = yes
+			auto_add_landless_rulers = yes
+			auto_add_rulers = yes
+			map_color = rgb{ 100 250 100 }
+			is_character_valid = {
+				scope:situation.var:legislature_title.holder ?= {
+					trigger_if = {
+						limit = { has_diarchy_type = cotc_premiership }
+						diarch = { this = ROOT }
+					}
+					trigger_else = {
+						this = ROOT
+					}
+				}
+			}
+		}
 		vassals = {
 			icon = "gfx/interface/icons/flat_icons/prestige.dds"
 			require_realm_in_sub_region = yes

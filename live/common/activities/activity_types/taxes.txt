@@ -29,6 +29,7 @@
 				has_variable = proposed_military_taxes
 				has_variable = proposed_commercial_taxes
 				has_variable = proposed_technocratic_taxes
+				has_variable = proposed_theocratic_taxes
 			}
 			NAND = {
 				var:proposed_military_taxes = var:ruler.current_military_taxes
@@ -416,6 +417,7 @@
 			set_variable = { name = ruler value = scope:host }
 			set_variable = { name = title value = scope:host.primary_title }
 			set_variable = { name = legislature value = var:ruler.primary_title.var:legislature }
+			set_variable = { name = pork value = 0 }
 		}
 		scope:host = { trigger_event = cotc_bill_events.1 }
 	}
@@ -644,6 +646,7 @@
 	guest_intents = {
 		intents = {
 			maintain_status_quo_intent
+			trade_favors_intent
 			support_bill_intent
 			block_bill_intent
 			increase_revenue_intent

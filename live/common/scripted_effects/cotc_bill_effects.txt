@@ -268,258 +268,246 @@ pass_theocratic_tax_code_effect = {
 	}
 }
 vote_for_bill_strength_effect = {
-	if = {
-		limit = { scope:activity = { has_activity_type = budget_bill_activity } }
-		vote_for_budget_strength_effect = yes
-	}
-	else_if = {
-		limit = { scope:activity = { has_activity_type = tax_bill_activity } }
-		vote_for_tax_code_strength_effect = yes
+	hidden_effect = {
+		set_variable = { name = vote_strength value = 0 }
+		if = {
+			limit = { has_activity_intent = support_bill_intent }
+			change_variable = { name = vote_strength add = "opinion(scope:host)" }
+		}
+		else_if = {
+			limit = { scope:activity = { has_activity_type = budget_bill_activity } }
+			vote_for_budget_strength_effect = yes
+		}
+		else_if = {
+			limit = { scope:activity = { has_activity_type = tax_bill_activity } }
+			vote_for_tax_code_strength_effect = yes
+		}
 	}
 }
 vote_against_bill_strength_effect = {
-	if = {
-		limit = { scope:activity = { has_activity_type = budget_bill_activity } }
-		vote_against_budget_strength_effect = yes
-	}
-	else_if = {
-		limit = { scope:activity = { has_activity_type = tax_bill_activity } }
-		vote_against_tax_code_strength_effect = yes
+	hidden_effect = {
+		set_variable = { name = vote_strength value = 0 }
+		if = {
+			limit = { has_activity_intent = maintain_status_quo_intent }
+			change_variable = { name = vote_strength add = 50 }
+			change_variable = { name = vote_strength subtract = ai_rationality }
+		}
+		else_if = {
+			limit = { has_activity_intent = trade_favors_intent }
+			change_variable = { name = vote_strength subtract = { value = ai_greed min = 0 } }
+			change_variable = { name = vote_strength subtract = { value = ai_rationality min = 0 } }
+		}
+		else_if = {
+			limit = { has_activity_intent = block_bill_intent }
+			change_variable = { name = vote_strength subtract = "opinion(scope:host)" }
+		}
+		else_if = {
+			limit = { scope:activity = { has_activity_type = budget_bill_activity } }
+			vote_against_budget_strength_effect = yes
+		}
+		else_if = {
+			limit = { scope:activity = { has_activity_type = tax_bill_activity } }
+			vote_against_tax_code_strength_effect = yes
+		}
 	}
 }
 vote_for_budget_strength_effect = {
-	hidden_effect = {
-		set_variable = { name = vote_strength value = 0 }
-		if = {
-			limit = { has_activity_intent = support_bill_intent }
-			change_variable = { name = vote_strength add = "opinion(scope:host)" }
-		}
-		else_if = {
-			limit = {
-				OR = {
-					has_activity_intent = increase_military_budget_intent
-					has_activity_intent = balance_budget_maintain_military_intent
-				}
+	if = {
+		limit = {
+			OR = {
+				has_activity_intent = increase_military_budget_intent
+				has_activity_intent = balance_budget_maintain_military_intent
 			}
-			change_variable = { name = vote_strength add = scope:host.current_military_budget }
-			change_variable = { name = vote_strength subtract = scope:activity.var:proposed_military_budget }
 		}
-		else_if = {
-			limit = {
-				OR = {
-					has_activity_intent = increase_ministry_budget_intent
-					has_activity_intent = balance_budget_maintain_ministry_intent
-				}
+		change_variable = { name = vote_strength add = scope:host.current_military_budget }
+		change_variable = { name = vote_strength subtract = scope:activity.var:proposed_military_budget }
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_activity_intent = increase_ministry_budget_intent
+				has_activity_intent = balance_budget_maintain_ministry_intent
 			}
-			change_variable = { name = vote_strength add = scope:host.current_ministry_budget }
-			change_variable = { name = vote_strength subtract = scope:activity.var:proposed_ministry_budget }
 		}
-		else_if = {
-			limit = {
-				OR = {
-					has_activity_intent = increase_salary_budget_intent
-					has_activity_intent = balance_budget_maintain_salary_intent
-				}
+		change_variable = { name = vote_strength add = scope:host.current_ministry_budget }
+		change_variable = { name = vote_strength subtract = scope:activity.var:proposed_ministry_budget }
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_activity_intent = increase_salary_budget_intent
+				has_activity_intent = balance_budget_maintain_salary_intent
 			}
-			change_variable = { name = vote_strength add = scope:host.current_salary_budget }
-			change_variable = { name = vote_strength subtract = scope:activity.var:proposed_salary_budget }
 		}
-		if = {
-			limit = {
-				OR = {
-					has_activity_intent = balance_budget_intent
-					has_activity_intent = balance_budget_maintain_military_intent
-					has_activity_intent = balance_budget_maintain_ministry_intent
-					has_activity_intent = balance_budget_maintain_salary_intent
-				}
+		change_variable = { name = vote_strength add = scope:host.current_salary_budget }
+		change_variable = { name = vote_strength subtract = scope:activity.var:proposed_salary_budget }
+	}
+	if = {
+		limit = {
+			OR = {
+				has_activity_intent = balance_budget_intent
+				has_activity_intent = balance_budget_maintain_military_intent
+				has_activity_intent = balance_budget_maintain_ministry_intent
+				has_activity_intent = balance_budget_maintain_salary_intent
 			}
-			change_variable = { name = vote_strength add = scope:host.current_total_budget }
-			change_variable = { name = vote_strength subtract = scope:activity.proposed_total_budget }
 		}
+		change_variable = { name = vote_strength add = scope:host.current_total_budget }
+		change_variable = { name = vote_strength subtract = scope:activity.proposed_total_budget }
 	}
 }
 vote_against_budget_strength_effect = {
-	hidden_effect = {
-		set_variable = { name = vote_strength value = 0 }
-		if = {
-			limit = { has_activity_intent = block_bill_intent }
-			change_variable = { name = vote_strength subtract = "opinion(scope:host)" }
-		}
-		else_if = {
-			limit = { has_activity_intent = maintain_status_quo_intent }
-			set_variable = { name = vote_strength value = 50 }
-		}
-		else_if = {
-			limit = {
-				OR = {
-					has_activity_intent = increase_military_budget_intent
-					has_activity_intent = balance_budget_maintain_military_intent
-				}
+	if = {
+		limit = {
+			OR = {
+				has_activity_intent = increase_military_budget_intent
+				has_activity_intent = balance_budget_maintain_military_intent
 			}
-			change_variable = { name = vote_strength subtract = scope:host.current_military_budget }
-			change_variable = { name = vote_strength add = scope:activity.var:proposed_military_budget }
 		}
-		else_if = {
-			limit = {
-				OR = {
-					has_activity_intent = increase_ministry_budget_intent
-					has_activity_intent = balance_budget_maintain_ministry_intent
-				}
+		change_variable = { name = vote_strength subtract = scope:host.current_military_budget }
+		change_variable = { name = vote_strength add = scope:activity.var:proposed_military_budget }
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_activity_intent = increase_ministry_budget_intent
+				has_activity_intent = balance_budget_maintain_ministry_intent
 			}
-			change_variable = { name = vote_strength subtract = scope:host.current_ministry_budget }
-			change_variable = { name = vote_strength add = scope:activity.var:proposed_ministry_budget }
 		}
-		else_if = {
-			limit = {
-				OR = {
-					has_activity_intent = increase_salary_budget_intent
-					has_activity_intent = balance_budget_maintain_salary_intent
-				}
+		change_variable = { name = vote_strength subtract = scope:host.current_ministry_budget }
+		change_variable = { name = vote_strength add = scope:activity.var:proposed_ministry_budget }
+	}
+	else_if = {
+		limit = {
+			OR = {
+				has_activity_intent = increase_salary_budget_intent
+				has_activity_intent = balance_budget_maintain_salary_intent
 			}
-			change_variable = { name = vote_strength subtract = scope:host.current_salary_budget }
-			change_variable = { name = vote_strength add = scope:activity.var:proposed_salary_budget }
 		}
-		if = {
-			limit = {
-				OR = {
-					has_activity_intent = balance_budget_intent
-					has_activity_intent = balance_budget_maintain_military_intent
-					has_activity_intent = balance_budget_maintain_ministry_intent
-					has_activity_intent = balance_budget_maintain_salary_intent
-				}
+		change_variable = { name = vote_strength subtract = scope:host.current_salary_budget }
+		change_variable = { name = vote_strength add = scope:activity.var:proposed_salary_budget }
+	}
+	if = {
+		limit = {
+			OR = {
+				has_activity_intent = balance_budget_intent
+				has_activity_intent = balance_budget_maintain_military_intent
+				has_activity_intent = balance_budget_maintain_ministry_intent
+				has_activity_intent = balance_budget_maintain_salary_intent
 			}
-			change_variable = { name = vote_strength subtract = scope:host.current_total_budget }
-			change_variable = { name = vote_strength add = scope:activity.proposed_total_budget }
 		}
+		change_variable = { name = vote_strength subtract = scope:host.current_total_budget }
+		change_variable = { name = vote_strength add = scope:activity.proposed_total_budget }
 	}
 }
 vote_for_tax_code_strength_effect = {
-	hidden_effect = {
-		set_variable = { name = vote_strength value = 0 }
-		if = {
-			limit = { has_activity_intent = support_bill_intent }
-			change_variable = { name = vote_strength add = "opinion(scope:host)" }
-		}
-		else_if = {
-			limit = {
-				OR = {
-					has_activity_intent = increase_revenue_intent
-					has_activity_intent = increase_revenue_maintain_military_intent
-					has_activity_intent = increase_revenue_maintain_commercial_intent
-					has_activity_intent = increase_revenue_maintain_technocratic_intent
-					has_activity_intent = increase_revenue_maintain_theocratic_intent
-				}
+	if = {
+		limit = {
+			OR = {
+				has_activity_intent = increase_revenue_intent
+				has_activity_intent = increase_revenue_maintain_military_intent
+				has_activity_intent = increase_revenue_maintain_commercial_intent
+				has_activity_intent = increase_revenue_maintain_technocratic_intent
+				has_activity_intent = increase_revenue_maintain_theocratic_intent
 			}
-			change_variable = { name = vote_strength add = scope:activity.proposed_total_taxes }
-			change_variable = { name = vote_strength subtract = scope:activity.var:ruler.current_total_taxes }
-			change_variable = { name = vote_strength multiply = 25 }
 		}
-		if = {
-			limit = {
-				scope:activity = { var:proposed_military_taxes < var:ruler.current_military_taxes }
-				OR = {
-					has_activity_intent = cut_military_taxes_intent
-					has_activity_intent = increase_revenue_maintain_military_intent
-				}
+		change_variable = { name = vote_strength add = scope:activity.proposed_total_taxes }
+		change_variable = { name = vote_strength subtract = scope:activity.var:ruler.current_total_taxes }
+		change_variable = { name = vote_strength multiply = 25 }
+	}
+	if = {
+		limit = {
+			scope:activity = { var:proposed_military_taxes < var:ruler.current_military_taxes }
+			OR = {
+				has_activity_intent = cut_military_taxes_intent
+				has_activity_intent = increase_revenue_maintain_military_intent
 			}
-			change_variable = { name = vote_strength add = 50 }
 		}
-		else_if = {
-			limit = {
-				scope:activity = { var:proposed_commercial_taxes < var:ruler.current_commercial_taxes }
-				OR = {
-					has_activity_intent = cut_commercial_taxes_intent
-					has_activity_intent = increase_revenue_maintain_commercial_intent
-				}
+		change_variable = { name = vote_strength add = 50 }
+	}
+	else_if = {
+		limit = {
+			scope:activity = { var:proposed_commercial_taxes < var:ruler.current_commercial_taxes }
+			OR = {
+				has_activity_intent = cut_commercial_taxes_intent
+				has_activity_intent = increase_revenue_maintain_commercial_intent
 			}
-			change_variable = { name = vote_strength add = 50 }
 		}
-		else_if = {
-			limit = {
-				scope:activity = { var:proposed_technocratic_taxes < var:ruler.current_technocratic_taxes }
-				OR = {
-					has_activity_intent = cut_technocratic_taxes_intent
-					has_activity_intent = increase_revenue_maintain_technocratic_intent
-				}
+		change_variable = { name = vote_strength add = 50 }
+	}
+	else_if = {
+		limit = {
+			scope:activity = { var:proposed_technocratic_taxes < var:ruler.current_technocratic_taxes }
+			OR = {
+				has_activity_intent = cut_technocratic_taxes_intent
+				has_activity_intent = increase_revenue_maintain_technocratic_intent
 			}
-			change_variable = { name = vote_strength add = 50 }
 		}
-		else_if = {
-			limit = {
-				scope:activity = { var:proposed_theocratic_taxes < var:ruler.current_theocratic_taxes }
-				OR = {
-					has_activity_intent = cut_theocratic_taxes_intent
-					has_activity_intent = increase_revenue_maintain_theocratic_intent
-				}
+		change_variable = { name = vote_strength add = 50 }
+	}
+	else_if = {
+		limit = {
+			scope:activity = { var:proposed_theocratic_taxes < var:ruler.current_theocratic_taxes }
+			OR = {
+				has_activity_intent = cut_theocratic_taxes_intent
+				has_activity_intent = increase_revenue_maintain_theocratic_intent
 			}
-			change_variable = { name = vote_strength add = 50 }
 		}
+		change_variable = { name = vote_strength add = 50 }
 	}
 }
 vote_against_tax_code_strength_effect = {
-	hidden_effect = {
-		set_variable = { name = vote_strength value = 0 }
-		if = {
-			limit = { has_activity_intent = block_bill_intent }
-			change_variable = { name = vote_strength subtract = "opinion(scope:host)" }
-		}
-		else_if = {
-			limit = { has_activity_intent = maintain_status_quo_intent }
-			set_variable = { name = vote_strength value = 50 }
-		}
-		else_if = {
-			limit = {
-				OR = {
-					has_activity_intent = increase_revenue_intent
-					has_activity_intent = increase_revenue_maintain_military_intent
-					has_activity_intent = increase_revenue_maintain_commercial_intent
-					has_activity_intent = increase_revenue_maintain_technocratic_intent
-					has_activity_intent = increase_revenue_maintain_theocratic_intent
-				}
+	if = {
+		limit = {
+			OR = {
+				has_activity_intent = increase_revenue_intent
+				has_activity_intent = increase_revenue_maintain_military_intent
+				has_activity_intent = increase_revenue_maintain_commercial_intent
+				has_activity_intent = increase_revenue_maintain_technocratic_intent
+				has_activity_intent = increase_revenue_maintain_theocratic_intent
 			}
-			change_variable = { name = vote_strength add = scope:activity.var:ruler.current_total_taxes }
-			change_variable = { name = vote_strength subtract = scope:activity.proposed_total_taxes }
-			change_variable = { name = vote_strength multiply = 25 }
 		}
-		if = {
-			limit = {
-				scope:activity = { var:proposed_military_taxes > var:ruler.current_military_taxes }
-				OR = {
-					has_activity_intent = cut_military_taxes_intent
-					has_activity_intent = increase_revenue_maintain_military_intent
-				}
+		change_variable = { name = vote_strength add = scope:activity.var:ruler.current_total_taxes }
+		change_variable = { name = vote_strength subtract = scope:activity.proposed_total_taxes }
+		change_variable = { name = vote_strength multiply = 25 }
+	}
+	if = {
+		limit = {
+			scope:activity = { var:proposed_military_taxes > var:ruler.current_military_taxes }
+			OR = {
+				has_activity_intent = cut_military_taxes_intent
+				has_activity_intent = increase_revenue_maintain_military_intent
 			}
-			change_variable = { name = vote_strength add = 50 }
 		}
-		else_if = {
-			limit = {
-				scope:activity = { var:proposed_commercial_taxes > var:ruler.current_commercial_taxes }
-				OR = {
-					has_activity_intent = cut_commercial_taxes_intent
-					has_activity_intent = increase_revenue_maintain_commercial_intent
-				}
+		change_variable = { name = vote_strength add = 50 }
+	}
+	else_if = {
+		limit = {
+			scope:activity = { var:proposed_commercial_taxes > var:ruler.current_commercial_taxes }
+			OR = {
+				has_activity_intent = cut_commercial_taxes_intent
+				has_activity_intent = increase_revenue_maintain_commercial_intent
 			}
-			change_variable = { name = vote_strength add = 50 }
 		}
-		else_if = {
-			limit = {
-				scope:activity = { var:proposed_technocratic_taxes > var:ruler.current_technocratic_taxes }
-				OR = {
-					has_activity_intent = cut_technocratic_taxes_intent
-					has_activity_intent = increase_revenue_maintain_technocratic_intent
-				}
+		change_variable = { name = vote_strength add = 50 }
+	}
+	else_if = {
+		limit = {
+			scope:activity = { var:proposed_technocratic_taxes > var:ruler.current_technocratic_taxes }
+			OR = {
+				has_activity_intent = cut_technocratic_taxes_intent
+				has_activity_intent = increase_revenue_maintain_technocratic_intent
 			}
-			change_variable = { name = vote_strength add = 50 }
 		}
-		else_if = {
-			limit = {
-				scope:activity = { var:proposed_theocratic_taxes > var:ruler.current_theocratic_taxes }
-				OR = {
-					has_activity_intent = cut_theocratic_taxes_intent
-					has_activity_intent = increase_revenue_maintain_theocratic_intent
-				}
+		change_variable = { name = vote_strength add = 50 }
+	}
+	else_if = {
+		limit = {
+			scope:activity = { var:proposed_theocratic_taxes > var:ruler.current_theocratic_taxes }
+			OR = {
+				has_activity_intent = cut_theocratic_taxes_intent
+				has_activity_intent = increase_revenue_maintain_theocratic_intent
 			}
-			change_variable = { name = vote_strength add = 50 }
 		}
+		change_variable = { name = vote_strength add = 50 }
 	}
 }

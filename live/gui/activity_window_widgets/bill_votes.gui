@@ -1,17 +1,19 @@
-vbox = {
+hbox = {
 	name = "bill_votes"
 	datacontext = "[ActivityWindow.GetActivity]"
-	spacing = 5
+	spacing = 25
 
-	text_single = {
-		text = "bill_supporter_count"
-		align = nobaseline
-		max_width = 200
-	}
-	text_single = {
-		text = "bill_opponent_count"
-		align = nobaseline
-		max_width = 200
+	vbox = {
+		text_single = {
+			text = "bill_supporter_count"
+			align = nobaseline
+			max_width = 200
+		}
+		text_single = {
+			text = "bill_opponent_count"
+			align = nobaseline
+			max_width = 200
+		}
 	}
 
 	progressbar_standard = {

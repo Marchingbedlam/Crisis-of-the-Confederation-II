@@ -2,6 +2,7 @@
 
 ### You have proposed a bill!
 cotc_bill_events.1 = {
+	type = activity_event
 	desc = cotc_bill_events.1.desc
 	
 	theme = realm
@@ -9,9 +10,13 @@ cotc_bill_events.1 = {
 	
 	immediate = {
 		scope:activity = {
-			set_variable = { name = ruler value = scope:host }
-			set_variable = { name = title value = scope:host.primary_title }
-			set_variable = { name = legislature value = var:ruler.primary_title.var:legislature }
+			add_activity_log_entry = {
+				key = bill_proposed
+				tags = { positive }
+				character = scope:host
+				show_in_conclusion = yes
+				custom_tooltip = bill_proposed_desc
+			}
 		}
 	}
 	
@@ -25,6 +30,7 @@ cotc_bill_events.1 = {
 
 # You do not have a quorum for your bill
 cotc_bill_events.10 = {
+	type = activity_event
 	desc = cotc_bill_events.10.desc
 	
 	theme = realm
@@ -33,6 +39,18 @@ cotc_bill_events.10 = {
 	right_portrait = {
 		character = ROOT
 		animation = disappointment
+	}
+	
+	immediate = {
+		scope:activity = {
+			add_activity_log_entry = {
+				key = bill_failed_quorum
+				tags = { negative }
+				character = scope:host
+				show_in_conclusion = yes
+				custom_tooltip = bill_failed_quorum_desc
+			}
+		}
 	}
 	
 	option = {
@@ -46,6 +64,7 @@ cotc_bill_events.10 = {
 }
 # Bill did not pass because it failed quorum
 cotc_bill_events.15 = {
+	type = activity_event
 	desc = cotc_bill_events.15.desc
 	
 	theme = realm
@@ -65,6 +84,7 @@ cotc_bill_events.15 = {
 
 # You no longer have a legislature
 cotc_bill_events.20 = {
+	type = activity_event
 	desc = cotc_bill_events.20.desc
 	
 	theme = realm
@@ -81,6 +101,7 @@ cotc_bill_events.20 = {
 }
 # Bill failed because the legislature no longer exists
 cotc_bill_events.25 = {
+	type = activity_event
 	desc = cotc_bill_events.25.desc
 	
 	theme = realm
@@ -100,6 +121,7 @@ cotc_bill_events.25 = {
 
 # You no longer meet the requirements for the law
 cotc_bill_events.30 = {
+	type = activity_event
 	desc = cotc_bill_events.30.desc
 	
 	theme = realm
@@ -116,6 +138,7 @@ cotc_bill_events.30 = {
 }
 # Bill failed because the realm no longer meets the requirements for the law
 cotc_bill_events.35 = {
+	type = activity_event
 	desc = cotc_bill_events.35.desc
 	
 	theme = realm
@@ -134,6 +157,7 @@ cotc_bill_events.35 = {
 }
 # Bill failed because it doesn't do anything
 cotc_bill_events.40 = {
+	type = activity_event
 	desc = cotc_bill_events.40.desc
 	
 	theme = realm
@@ -156,6 +180,7 @@ cotc_bill_events.40 = {
 	}
 }
 cotc_bill_events.45 = {
+	type = activity_event
 	desc = cotc_bill_events.45.desc
 	
 	theme = realm
@@ -171,10 +196,12 @@ cotc_bill_events.45 = {
 	}
 	
 	option = { name = cotc_bill_events.45.a }
-}
+
+	type = activity_event}
 
 # Everyone loves your bill, no debate needed, let's pass this sucker and go home!
 cotc_bill_events.100 = {
+	type = activity_event
 	desc = cotc_bill_events.100.desc
 	trigger = { scope:activity.total_bill_supporters >= scope:activity.var:legislature.simple_majority }
 	
@@ -186,6 +213,18 @@ cotc_bill_events.100 = {
 		animation = war_over_win
 	}
 	
+	immediate = {
+		scope:activity = {
+			add_activity_log_entry = {
+				key = bill_passed_without_debate
+				tags = { positive }
+				character = scope:host
+				show_in_conclusion = yes
+				custom_tooltip = bill_passed_without_debate_desc
+			}
+		}
+	}
+	
 	option = {
 		name = cotc_bill_events.100.a
 		hidden_effect = { change_variable = { name = ai_faith_in_democracy add = 5 } }
@@ -194,6 +233,7 @@ cotc_bill_events.100 = {
 }
 # Not everyone loves your bill, let the debate begin!
 cotc_bill_events.150 = {
+	type = activity_event
 	desc = cotc_bill_events.150.desc
 	trigger = { scope:activity.total_bill_supporters < scope:activity.var:legislature.simple_majority }
 	
@@ -203,6 +243,18 @@ cotc_bill_events.150 = {
 	right_portrait = {
 		character = ROOT
 		animation = disappointed
+	}
+	
+	immediate = {
+		scope:activity = {
+			add_activity_log_entry = {
+				key = debate_begins_on_bill
+				tags = { neutral }
+				character = scope:host
+				show_in_conclusion = yes
+				custom_tooltip = debate_begins_on_bill_desc
+			}
+		}
 	}
 	
 	option = {
@@ -301,6 +353,7 @@ cotc_bill_events.155 = {
 
 # Your bill has passed!
 cotc_bill_events.200 = {
+	type = activity_event
 	trigger = { scope:activity.total_bill_supporters >= scope:activity.var:legislature.simple_majority }
 	desc = cotc_bill_events.200.desc
 	
@@ -310,6 +363,18 @@ cotc_bill_events.200 = {
 	right_portrait = {
 		character = ROOT
 		animation = war_over_win
+	}
+	
+	immediate = {
+		scope:activity = {
+			add_activity_log_entry = {
+				key = bill_passed
+				tags = { positive intent }
+				character = scope:host
+				custom_tooltip = bill_passed_desc
+				show_in_conclusion = yes
+			}
+		}
 	}
 	
 	option = {
@@ -326,6 +391,7 @@ cotc_bill_events.200 = {
 }
 # Your bill has failed!
 cotc_bill_events.250 = {
+	type = activity_event
 	trigger = { scope:activity.total_bill_supporters < scope:activity.var:legislature.simple_majority }
 	desc = cotc_bill_events.250.desc
 	
@@ -337,6 +403,18 @@ cotc_bill_events.250 = {
 		animation = war_over_loss
 	}
 	
+	immediate = {
+		scope:activity = {
+			add_activity_log_entry = {
+				key = bill_failed
+				tags = { positive intent }
+				character = scope:host
+				custom_tooltip = bill_failed_desc
+				show_in_conclusion = yes
+			}
+		}
+	}
+	
 	option = {
 		name = cotc_bill_events.250.a
 		scope:activity = { progress_activity_phase_after = { days = 1 } }
@@ -345,6 +423,7 @@ cotc_bill_events.250 = {
 
 # A bill has been amended in a way you like!
 cotc_bill_events.300 = {
+	type = activity_event
 	desc = cotc_bill_events.300.desc
 	
 	theme = realm
@@ -361,9 +440,17 @@ cotc_bill_events.300 = {
 	
 	option = {
 		name = cotc_bill_events.300.a
+		save_temporary_scope_as = voter
 		scope:activity = {
-			remove_from_guest_subset = { name = bill_opponents target = ROOT }
-			add_to_guest_subset = { name = bill_supporters target = ROOT }
+			remove_from_guest_subset = { name = bill_opponents target = scope:voter }
+			add_to_guest_subset = { name = bill_supporters target = scope:voter }
+			add_activity_log_entry = {
+				key = voted_for_bill
+				tags = { positive }
+				character = scope:voter
+				target = scope:host
+				custom_tooltip = voted_for_bill_amendment_desc
+			}
 		}
 		remove_variable = vote_bargained_for
 		vote_for_bill_strength_effect = yes
@@ -379,6 +466,7 @@ cotc_bill_events.300 = {
 }
 # A bill has been amended in a way you don't like!
 cotc_bill_events.310 = {
+	type = activity_event
 	desc = cotc_bill_events.310.desc
 	
 	theme = realm
@@ -395,9 +483,17 @@ cotc_bill_events.310 = {
 	
 	option = {
 		name = cotc_bill_events.310.a
+		save_temporary_scope_as = voter
 		scope:activity = {
-			remove_from_guest_subset = { name = bill_supporters target = ROOT }
-			add_to_guest_subset = { name = bill_opponents target = ROOT }
+			remove_from_guest_subset = { name = bill_supporters target = scope:voter }
+			add_to_guest_subset = { name = bill_opponents target = scope:voter }
+			add_activity_log_entry = {
+				key = voted_against_bill
+				tags = { positive }
+				character = scope:voter
+				target = scope:host
+				custom_tooltip = voted_against_bill_amendment_desc
+			}
 		}
 		vote_against_bill_strength_effect = yes
 		remove_variable = vote_bargained_for
@@ -413,6 +509,7 @@ cotc_bill_events.310 = {
 
 # Let's do some horse trading
 cotc_bill_events.400 = {
+	type = activity_event
 	desc = cotc_bill_events.400.desc
 	
 	theme = realm
@@ -422,6 +519,8 @@ cotc_bill_events.400 = {
 		# For bribe calculations
 		save_scope_as = actor
 		scope:target_opponent = { save_scope_as = recipient }
+		# Calculate cost of earmarks
+		save_scope_value_as = { name = pork_cost value = scope:target_opponent.var:riding.treasury_required_for_stimulus }
 	}
 	
 	right_portrait = {
@@ -503,9 +602,12 @@ cotc_bill_events.400 = {
 	# Throw in some pork
 	option = {
 		name = cotc_bill_events.400.b
-		trigger = { treasury >= scope:target_opponent.var:riding.treasury_required_for_stimulus }
-		show_as_unavailable = { always = yes }
-		show_as_tooltip = { pay_short_term_treasury = { target = scope:target_opponent treasury = scope:target_opponent.var:riding.treasury_required_for_stimulus } }
+		trigger = {
+			scope:activity = { has_variable = pork }
+			treasury >= scope:pork_cost
+		}
+		show_as_unavailable = { scope:activity = { has_variable = pork } }
+		show_as_tooltip = { pay_short_term_treasury = { target = scope:target_opponent treasury = scope:pork_cost } }
 		if = {
 			limit = { scope:activity.var:pork > 0 }
 			custom_tooltip = already_spending_pork_desc
@@ -606,6 +708,7 @@ cotc_bill_events.400 = {
 }
 # You have been offered a bribe to change your vote on a bill
 cotc_bill_events.410 = {
+	type = activity_event
 	desc = cotc_bill_events.410.desc
 	
 	theme = realm
@@ -636,10 +739,22 @@ cotc_bill_events.410 = {
 			value = bribe_piety
 			multiply = 10
 		}
+		if = {
+			limit = { has_activity_intent = trade_favors_intent }
+			complete_activity_intent = yes
+		}
 		hidden_effect = {
+			save_temporary_scope_as = voter
 			scope:activity = {
 				remove_from_guest_subset = { name = bill_opponents target = ROOT }
 				add_to_guest_subset = { name = bill_supporters target = ROOT }
+				add_activity_log_entry = {
+					key = voted_for_bill
+					tags = { positive }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = voted_for_bill_backroom_deal_desc
+				}
 			}
 			set_variable = { name = vote_strength value = 100 }
 			change_variable = { name = vote_strength add = ai_honor }
@@ -672,6 +787,16 @@ cotc_bill_events.410 = {
 		name = cotc_bill_events.410.b
 		positive_greed_stress_gain_effect = yes
 		hidden_effect = {
+			save_temporary_scope_as = voter
+			scope:activity = {
+				add_activity_log_entry = {
+					key = refused_backroom_deal
+					tags = { neutral }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = refused_backroom_deal_pro_desc
+				}
+			}
 			scope:actor = {
 				send_interface_toast = {
 					type = msg_legislature_response_bad
@@ -690,11 +815,19 @@ cotc_bill_events.410 = {
 					min = 0
 				}
 			}
+			modifier = {
+				add = {
+					value = 0
+					subtract = 50
+				}
+				has_activity_intent = trade_favors_intent
+			}
 		}
 	}
 }
 # You have been offered pork-barrel spending to win over your vote
 cotc_bill_events.420 = {
+	type = activity_event
 	desc = cotc_bill_events.420.desc
 	
 	theme = realm
@@ -718,11 +851,30 @@ cotc_bill_events.420 = {
 			value = pork_piety
 			multiply = 10
 		}
+		if = {
+			limit = { has_activity_intent = trade_favors_intent }
+			complete_activity_intent = yes
+		}
 		hidden_effect = {
+			scope:activity = { change_variable = { name = pork add = scope:pork_cost } }
+			save_temporary_scope_as = voter
 			scope:activity = {
+				add_activity_log_entry = {
+					key = added_pork_to_bill
+					tags = { neutral }
+					character = scope:voter
+					custom_tooltip = added_pork_to_bill_desc
+					show_in_conclusion = yes
+				}
+				add_activity_log_entry = {
+					key = voted_for_bill
+					tags = { positive }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = voted_for_bill_backroom_deal_desc
+				}
 				remove_from_guest_subset = { name = bill_opponents target = ROOT }
 				add_to_guest_subset = { name = bill_supporters target = ROOT }
-				change_variable = { name = pork add = ROOT.var:riding.treasury_required_for_stimulus }
 				add_to_variable_list = { name = pork_recipients target = ROOT.var:riding }
 			}
 			set_variable = { name = vote_strength value = 300 }
@@ -762,6 +914,16 @@ cotc_bill_events.420 = {
 		name = cotc_bill_events.420.b
 		positive_interventionism_stress_gain_effect = yes
 		hidden_effect = {
+			save_temporary_scope_as = voter
+			scope:activity = {
+				add_activity_log_entry = {
+					key = refused_backroom_deal
+					tags = { neutral }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = refused_backroom_deal_pro_desc
+				}
+			}
 			scope:actor = {
 				send_interface_toast = {
 					type = msg_legislature_response_bad
@@ -779,11 +941,19 @@ cotc_bill_events.420 = {
 					min = 0
 				}
 			}
+			modifier = {
+				add = {
+					value = 0
+					subtract = 50
+				}
+				has_activity_intent = trade_favors_intent
+			}
 		}
 	}
 }
 # You are forced to change your vote because of a strong hook
 cotc_bill_events.430 = {
+	type = activity_event
 	desc = cotc_bill_events.430.desc
 	
 	theme = realm
@@ -800,7 +970,15 @@ cotc_bill_events.430 = {
 	option = {
 		name = cotc_bill_events.430.a
 		hidden_effect = {
+			save_temporary_scope_as = voter
 			scope:activity = {
+				add_activity_log_entry = {
+					key = voted_for_bill
+					tags = { positive }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = voted_for_bill_backroom_deal_desc
+				}
 				remove_from_guest_subset = { name = bill_opponents target = ROOT }
 				add_to_guest_subset = { name = bill_supporters target = ROOT }
 			}
@@ -819,6 +997,7 @@ cotc_bill_events.430 = {
 }
 # You are asked to change your vote because of a weak hook
 cotc_bill_events.435 = {
+	type = activity_event
 	desc = cotc_bill_events.435.desc
 	
 	theme = realm
@@ -835,9 +1014,21 @@ cotc_bill_events.435 = {
 	# Agree
 	option = {
 		name = cotc_bill_events.435.a
+		if = {
+			limit = { has_activity_intent = trade_favors_intent }
+			complete_activity_intent = yes
+		}
 		hidden_effect = {
+			save_temporary_scope_as = voter
 			change_variable = { name = trustworthiness add = 10 }
 			scope:activity = {
+				add_activity_log_entry = {
+					key = voted_for_bill
+					tags = { positive }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = voted_for_bill_backroom_deal_desc
+				}
 				remove_from_guest_subset = { name = bill_opponents target = ROOT }
 				add_to_guest_subset = { name = bill_supporters target = ROOT }
 			}
@@ -865,6 +1056,16 @@ cotc_bill_events.435 = {
 		positive_honor_stress_gain_effect = yes
 		scope:actor = { add_opinion = { modifier = opinion_betrayed_favor target = ROOT } }
 		hidden_effect = {
+			save_temporary_scope_as = voter
+			scope:activity = {
+				add_activity_log_entry = {
+					key = refused_backroom_deal
+					tags = { neutral }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = refused_backroom_deal_pro_desc
+				}
+			}
 			change_variable = { name = trustworthiness subtract = 25 }
 			scope:actor = {
 				send_interface_toast = {
@@ -883,11 +1084,19 @@ cotc_bill_events.435 = {
 					min = 0
 				}
 			}
+			modifier = {
+				add = {
+					value = 0
+					subtract = 50
+				}
+				has_activity_intent = trade_favors_intent
+			}
 		}
 	}
 }
 # You are asked to change your vote as a favor
 cotc_bill_events.440 = {
+	type = activity_event
 	desc = cotc_bill_events.440.desc
 	
 	theme = realm
@@ -905,8 +1114,20 @@ cotc_bill_events.440 = {
 	option = {
 		name = cotc_bill_events.440.a
 		add_hook = { type = favor_hook target = scope:actor }
+		if = {
+			limit = { has_activity_intent = trade_favors_intent }
+			complete_activity_intent = yes
+		}
 		hidden_effect = {
+			save_temporary_scope_as = voter
 			scope:activity = {
+				add_activity_log_entry = {
+					key = voted_for_bill
+					tags = { positive }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = voted_for_bill_backroom_deal_desc
+				}
 				remove_from_guest_subset = { name = bill_opponents target = ROOT }
 				add_to_guest_subset = { name = bill_supporters target = ROOT }
 			}
@@ -945,6 +1166,16 @@ cotc_bill_events.440 = {
 	option = {
 		name = cotc_bill_events.440.b
 		hidden_effect = {
+			save_temporary_scope_as = voter
+			scope:activity = {
+				add_activity_log_entry = {
+					key = refused_backroom_deal
+					tags = { neutral }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = refused_backroom_deal_pro_desc
+				}
+			}
 			scope:actor = {
 				send_interface_toast = {
 					type = msg_legislature_response_bad
@@ -962,12 +1193,20 @@ cotc_bill_events.440 = {
 					min = 0
 				}
 			}
+			modifier = {
+				add = {
+					value = 0
+					subtract = 50
+				}
+				has_activity_intent = trade_favors_intent
+			}
 		}
 	}
 }
 
 # Make a speech advocating for the bill
 cotc_bill_events.500 = {
+	type = activity_event
 	desc = cotc_bill_events.500.desc
 	
 	theme = realm
@@ -1015,6 +1254,13 @@ cotc_bill_events.500 = {
 						}
 					}
 					scope:activity = {
+						add_activity_log_entry = {
+							key = made_successful_speech
+							tags = { positive }
+							character = scope:speaker
+							custom_tooltip = made_successful_speech_for_bill_desc
+							show_in_conclusion = yes
+						}
 						every_guest_subset = {
 							name = bill_supporters
 							send_interface_message = {
@@ -1056,6 +1302,13 @@ cotc_bill_events.500 = {
 						}
 					}
 					scope:activity = {
+						add_activity_log_entry = {
+							key = made_unsuccessful_speech
+							tags = { neutral }
+							character = scope:speaker
+							custom_tooltip = made_unsuccessful_speech_for_bill_desc
+							show_in_conclusion = yes
+						}
 						every_guest_subset = {
 							name = bill_supporters
 							send_interface_message = {
@@ -1104,6 +1357,7 @@ cotc_bill_events.500 = {
 }
 # Someone made a convincing speech advocating for the bill
 cotc_bill_events.505 = {
+	type = activity_event
 	desc = cotc_bill_events.505.desc
 	
 	theme = realm
@@ -1140,18 +1394,27 @@ cotc_bill_events.505 = {
 			add_stress = major_stress_gain
 		}
 		hidden_effect = {
-			save_scope_as = vote_changer
+			save_scope_as = voter
 			scope:activity = {
+				add_activity_log_entry = {
+					key = voted_for_bill
+					tags = { positive }
+					character = scope:speaker
+					target = scope:voter
+					custom_tooltip = voted_for_bill_speech_desc
+				}
 				remove_from_guest_subset = { name = bill_opponents target = ROOT }
 				add_to_guest_subset = { name = bill_supporters target = ROOT }
 			}
+			set_variable = { name = vote_strength value = 50 }
+			change_variable = { name = vote_strength add = scope:speaker.diplomacy }
 			remove_variable = vote_bargained_for
 			scope:host = {
 				send_interface_message = {
 					type = msg_vote_change_good
 					title = cotc_bill_events.505.changed_vote.tt
 					desc = cotc_bill_events.505.changed_vote.desc
-					left_icon = scope:vote_changer
+					left_icon = scope:voter
 				}
 			}
 		}
@@ -1201,6 +1464,7 @@ cotc_bill_events.505 = {
 }
 # Make a speech denouncing the bill
 cotc_bill_events.550 = {
+	type = activity_event
 	desc = cotc_bill_events.550.desc
 	
 	theme = realm
@@ -1245,6 +1509,13 @@ cotc_bill_events.550 = {
 						}
 					}
 					scope:activity = {
+						add_activity_log_entry = {
+							key = made_successful_speech
+							tags = { negative }
+							character = scope:speaker
+							custom_tooltip = made_successful_speech_against_bill_desc
+							show_in_conclusion = yes
+						}
 						every_guest_subset = {
 							name = bill_supporters
 							trigger_event = { id = cotc_bill_events.555 }
@@ -1283,6 +1554,13 @@ cotc_bill_events.550 = {
 						}
 					}
 					scope:activity = {
+						add_activity_log_entry = {
+							key = made_unsuccessful_speech
+							tags = { neutral }
+							character = scope:speaker
+							custom_tooltip = made_unsuccessful_speech_against_bill_desc
+							show_in_conclusion = yes
+						}
 						every_guest_subset = {
 							name = bill_supporters
 							send_interface_message = {
@@ -1330,6 +1608,7 @@ cotc_bill_events.550 = {
 }
 # Someone made a convincing speech denouncing the bill
 cotc_bill_events.555 = {
+	type = activity_event
 	desc = cotc_bill_events.555.desc
 	
 	theme = realm
@@ -1366,20 +1645,27 @@ cotc_bill_events.555 = {
 			add_stress = major_stress_gain
 		}
 		hidden_effect = {
+			save_scope_as = voter
 			scope:activity = {
-				remove_from_guest_subset = { name = bill_opponents target = ROOT }
-				add_to_guest_subset = { name = bill_supporters target = ROOT }
+				add_activity_log_entry = {
+					key = voted_against_bill
+					tags = { negative }
+					character = scope:speaker
+					target = scope:voter
+					custom_tooltip = voted_against_bill_speech_desc
+				}
+				remove_from_guest_subset = { name = bill_supporters target = ROOT }
+				add_to_guest_subset = { name = bill_opponents target = ROOT }
 			}
 			set_variable = { name = vote_strength value = 50 }
 			change_variable = { name = vote_strength add = scope:speaker.diplomacy }
 			remove_variable = vote_bargained_for
-			save_scope_as = vote_changer
 			scope:host = {
 				send_interface_message = {
 					type = msg_vote_change_bad
 					title = cotc_bill_events.555.changed_vote.tt
 					desc = cotc_bill_events.555.changed_vote.desc
-					left_icon = scope:vote_changer
+					left_icon = scope:voter
 				}
 			}
 		}
@@ -1422,6 +1708,7 @@ cotc_bill_events.555 = {
 
 # You have a chance to lobby a legislator
 cotc_bill_events.600 = {
+	type = activity_event
 	desc = cotc_bill_events.600.desc
 	
 	theme = realm
@@ -1886,6 +2173,7 @@ cotc_bill_events.600 = {
 
 # Someone has appealed to your respect for them to vote for the bill
 cotc_bill_events.610 = {
+	type = activity_event
 	desc = cotc_bill_events.610.desc
 	
 	theme = realm
@@ -1905,7 +2193,15 @@ cotc_bill_events.610 = {
 		name = cotc_bill_events.610.a
 		reverse_add_opinion = { modifier = opinion_followed_pressure target = scope:lobbyist }
 		hidden_effect = {
+			save_temporary_scope_as = voter
 			scope:activity = {
+				add_activity_log_entry = {
+					key = voted_for_bill
+					tags = { positive }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = voted_for_bill_persuasion_desc
+				}
 				remove_from_guest_subset = { name = bill_opponents target = ROOT }
 				add_to_guest_subset = { name = bill_supporters target = ROOT }
 			}
@@ -1956,6 +2252,16 @@ cotc_bill_events.610 = {
 		name = cotc_bill_events.610.b
 		reverse_add_opinion = { modifier = opinion_defied_pressure target = scope:lobbyist }
 		hidden_effect = {
+			save_temporary_scope_as = voter
+			scope:activity = {
+				add_activity_log_entry = {
+					key = refused_persuasion
+					tags = { neutral }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = refused_persuasion_pro_desc
+				}
+			}
 			scope:lobbyist = {
 				send_interface_toast = {
 					type = msg_legislature_response_bad
@@ -1978,6 +2284,7 @@ cotc_bill_events.610 = {
 }
 # Someone has appealed to your respect for them to vote against the bill
 cotc_bill_events.615 = {
+	type = activity_event
 	desc = cotc_bill_events.615.desc
 	
 	theme = realm
@@ -1997,7 +2304,15 @@ cotc_bill_events.615 = {
 		name = cotc_bill_events.615.a
 		reverse_add_opinion = { modifier = opinion_followed_pressure target = scope:lobbyist }
 		hidden_effect = {
+			save_temporary_scope_as = voter
 			scope:activity = {
+				add_activity_log_entry = {
+					key = voted_against_bill
+					tags = { negative }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = voted_against_bill_persuasion_desc
+				}
 				remove_from_guest_subset = { name = bill_supporters target = ROOT }
 				add_to_guest_subset = { name = bill_opponents target = ROOT }
 			}
@@ -2045,6 +2360,16 @@ cotc_bill_events.615 = {
 		name = cotc_bill_events.615.b
 		reverse_add_opinion = { modifier = opinion_defied_pressure target = scope:lobbyist }
 		hidden_effect = {
+			save_temporary_scope_as = voter
+			scope:activity = {
+				add_activity_log_entry = {
+					key = refused_persuasion
+					tags = { neutral }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = refused_persuasion_anti_desc
+				}
+			}
 			scope:lobbyist = {
 				send_interface_toast = {
 					type = msg_legislature_response_bad
@@ -2067,6 +2392,7 @@ cotc_bill_events.615 = {
 }
 # Someone has appealed to your shared ideology vote for the bill
 cotc_bill_events.620 = {
+	type = activity_event
 	desc = cotc_bill_events.620.desc
 	
 	theme = realm
@@ -2086,7 +2412,15 @@ cotc_bill_events.620 = {
 		name = cotc_bill_events.620.a
 		reverse_add_opinion = { modifier = opinion_followed_pressure target = scope:lobbyist }
 		hidden_effect = {
+			save_temporary_scope_as = voter
 			scope:activity = {
+				add_activity_log_entry = {
+					key = voted_for_bill
+					tags = { positive }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = voted_for_bill_persuasion_desc
+				}
 				remove_from_guest_subset = { name = bill_opponents target = ROOT }
 				add_to_guest_subset = { name = bill_supporters target = ROOT }
 			}
@@ -2141,6 +2475,16 @@ cotc_bill_events.620 = {
 		reverse_add_opinion = { modifier = opinion_defied_pressure target = scope:lobbyist }
 		positive_zeal_stress_gain_effect = yes
 		hidden_effect = {
+			save_temporary_scope_as = voter
+			scope:activity = {
+				add_activity_log_entry = {
+					key = refused_persuasion
+					tags = { neutral }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = refused_persuasion_pro_desc
+				}
+			}
 			scope:lobbyist = {
 				send_interface_toast = {
 					type = msg_legislature_response_bad
@@ -2163,6 +2507,7 @@ cotc_bill_events.620 = {
 }
 # Someone has appealed to your shared ideology to vote against the bill
 cotc_bill_events.625 = {
+	type = activity_event
 	desc = cotc_bill_events.625.desc
 	
 	theme = realm
@@ -2182,7 +2527,15 @@ cotc_bill_events.625 = {
 		name = cotc_bill_events.625.a
 		reverse_add_opinion = { modifier = opinion_followed_pressure target = scope:lobbyist }
 		hidden_effect = {
+			save_temporary_scope_as = voter
 			scope:activity = {
+				add_activity_log_entry = {
+					key = voted_against_bill
+					tags = { negative }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = voted_against_bill_persuasion_desc
+				}
 				remove_from_guest_subset = { name = bill_supporters target = ROOT }
 				add_to_guest_subset = { name = bill_opponents target = ROOT }
 			}
@@ -2234,6 +2587,16 @@ cotc_bill_events.625 = {
 		reverse_add_opinion = { modifier = opinion_defied_pressure target = scope:lobbyist }
 		positive_zeal_stress_gain_effect = yes
 		hidden_effect = {
+			save_temporary_scope_as = voter
+			scope:activity = {
+				add_activity_log_entry = {
+					key = refused_persuasion
+					tags = { neutral }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = refused_persuasion_anti_desc
+				}
+			}
 			scope:lobbyist = {
 				send_interface_toast = {
 					type = msg_legislature_response_bad
@@ -2256,6 +2619,7 @@ cotc_bill_events.625 = {
 }
 # Someone used a strong hook on you to vote for the bill
 cotc_bill_events.630 = {
+	type = activity_event
 	desc = cotc_bill_events.630.desc
 	
 	theme = realm
@@ -2274,7 +2638,15 @@ cotc_bill_events.630 = {
 	option = {
 		name = cotc_bill_events.630.a
 		hidden_effect = {
+			save_temporary_scope_as = voter
 			scope:activity = {
+				add_activity_log_entry = {
+					key = voted_for_bill
+					tags = { positive }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = voted_for_bill_backroom_deal_desc
+				}
 				remove_from_guest_subset = { name = bill_opponents target = ROOT }
 				add_to_guest_subset = { name = bill_supporters target = ROOT }
 			}
@@ -2305,6 +2677,7 @@ cotc_bill_events.630 = {
 }
 # Someone used a strong hook on you to vote against the bill
 cotc_bill_events.635 = {
+	type = activity_event
 	desc = cotc_bill_events.635.desc
 	
 	theme = realm
@@ -2323,6 +2696,16 @@ cotc_bill_events.635 = {
 	option = {
 		name = cotc_bill_events.635.a
 		hidden_effect = {
+			save_temporary_scope_as = voter
+			scope:activity = {
+				add_activity_log_entry = {
+					key = voted_against_bill
+					tags = { negative }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = voted_against_bill_backroom_deal_desc
+				}
+			}
 			scope:activity = {
 				remove_from_guest_subset = { name = bill_supporters target = ROOT }
 				add_to_guest_subset = { name = bill_opponents target = ROOT }
@@ -2351,6 +2734,7 @@ cotc_bill_events.635 = {
 }
 # Someone used a weak hook on you to get you to vote for the bill
 cotc_bill_events.640 = {
+	type = activity_event
 	desc = cotc_bill_events.640.desc
 	
 	theme = realm
@@ -2369,9 +2753,21 @@ cotc_bill_events.640 = {
 	option = {
 		name = cotc_bill_events.640.a
 		reverse_add_opinion = { modifier = opinion_followed_pressure target = scope:lobbyist }
+		if = {
+			limit = { has_activity_intent = trade_favors_intent }
+			complete_activity_intent = yes
+		}
 		hidden_effect = {
+			save_temporary_scope_as = voter
 			change_variable = { name = trustworthiness add = 10 }
 			scope:activity = {
+				add_activity_log_entry = {
+					key = voted_for_bill
+					tags = { positive }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = voted_for_bill_backroom_deal_desc
+				}
 				remove_from_guest_subset = { name = bill_opponents target = ROOT }
 				add_to_guest_subset = { name = bill_supporters target = ROOT }
 			}
@@ -2420,6 +2816,16 @@ cotc_bill_events.640 = {
 		reverse_add_opinion = { modifier = opinion_betrayed_favor target = scope:lobbyist }
 		positive_honor_stress_gain_effect = yes
 		hidden_effect = {
+			save_temporary_scope_as = voter
+			scope:activity = {
+				add_activity_log_entry = {
+					key = refused_backroom_deal
+					tags = { neutral }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = refused_backroom_deal_pro_desc
+				}
+			}
 			change_variable = { name = trustworthiness subtract = 25 }
 			scope:lobbyist = {
 				send_interface_toast = {
@@ -2443,6 +2849,7 @@ cotc_bill_events.640 = {
 }
 # Someone used a weak hook on you to get you to vote against the bill
 cotc_bill_events.645 = {
+	type = activity_event
 	desc = cotc_bill_events.645.desc
 	
 	theme = realm
@@ -2461,9 +2868,21 @@ cotc_bill_events.645 = {
 	option = {
 		name = cotc_bill_events.645.a
 		reverse_add_opinion = { modifier = opinion_followed_pressure target = scope:lobbyist }
+		if = {
+			limit = { has_activity_intent = trade_favors_intent }
+			complete_activity_intent = yes
+		}
 		hidden_effect = {
+			save_temporary_scope_as = voter
 			change_variable = { name = trustworthiness add = 10 }
 			scope:activity = {
+				add_activity_log_entry = {
+					key = voted_against_bill
+					tags = { negative }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = voted_against_bill_backroom_deal_desc
+				}
 				remove_from_guest_subset = { name = bill_supporters target = ROOT }
 				add_to_guest_subset = { name = bill_opponents target = ROOT }
 			}
@@ -2509,6 +2928,16 @@ cotc_bill_events.645 = {
 		reverse_add_opinion = { modifier = opinion_betrayed_favor target = scope:lobbyist }
 		positive_honor_stress_gain_effect = yes
 		hidden_effect = {
+			save_temporary_scope_as = voter
+			scope:activity = {
+				add_activity_log_entry = {
+					key = refused_backroom_deal
+					tags = { neutral }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = refused_backroom_deal_anti_desc
+				}
+			}
 			change_variable = { name = trustworthiness subtract = 25 }
 			scope:lobbyist = {
 				send_interface_toast = {
@@ -2532,6 +2961,7 @@ cotc_bill_events.645 = {
 }
 # Someone asks you to vote for the bill as a favor
 cotc_bill_events.650 = {
+	type = activity_event
 	desc = cotc_bill_events.650.desc
 	
 	theme = realm
@@ -2551,8 +2981,20 @@ cotc_bill_events.650 = {
 		name = cotc_bill_events.650.a
 		reverse_add_opinion = { modifier = opinion_followed_pressure target = scope:lobbyist }
 		add_hook = { type = favor_hook target = scope:lobbyist }
+		if = {
+			limit = { has_activity_intent = trade_favors_intent }
+			complete_activity_intent = yes
+		}
 		hidden_effect = {
+			save_temporary_scope_as = voter
 			scope:activity = {
+				add_activity_log_entry = {
+					key = voted_for_bill
+					tags = { positive }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = voted_for_bill_backroom_deal_desc
+				}
 				remove_from_guest_subset = { name = bill_opponents target = ROOT }
 				add_to_guest_subset = { name = bill_supporters target = ROOT }
 			}
@@ -2598,6 +3040,16 @@ cotc_bill_events.650 = {
 		name = cotc_bill_events.650.b
 		reverse_add_opinion = { modifier = opinion_defied_pressure target = scope:lobbyist }
 		hidden_effect = {
+			save_temporary_scope_as = voter
+			scope:activity = {
+				add_activity_log_entry = {
+					key = refused_backroom_deal
+					tags = { neutral }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = refused_backroom_deal_pro_desc
+				}
+			}
 			scope:lobbyist = {
 				send_interface_toast = {
 					type = msg_legislature_response_bad
@@ -2620,6 +3072,7 @@ cotc_bill_events.650 = {
 }
 # Someone asks you to vote against the bill as a favor
 cotc_bill_events.655 = {
+	type = activity_event
 	desc = cotc_bill_events.655.desc
 	
 	theme = realm
@@ -2639,8 +3092,20 @@ cotc_bill_events.655 = {
 		name = cotc_bill_events.655.a
 		reverse_add_opinion = { modifier = opinion_followed_pressure target = scope:lobbyist }
 		add_hook = { type = favor_hook target = scope:lobbyist }
+		if = {
+			limit = { has_activity_intent = trade_favors_intent }
+			complete_activity_intent = yes
+		}
 		hidden_effect = {
+			save_temporary_scope_as = voter
 			scope:activity = {
+				add_activity_log_entry = {
+					key = voted_against_bill
+					tags = { negative }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = voted_against_bill_backroom_deal_desc
+				}
 				remove_from_guest_subset = { name = bill_supporters target = ROOT }
 				add_to_guest_subset = { name = bill_opponents target = ROOT }
 			}
@@ -2683,6 +3148,16 @@ cotc_bill_events.655 = {
 		name = cotc_bill_events.655.b
 		reverse_add_opinion = { modifier = opinion_defied_pressure target = scope:lobbyist }
 		hidden_effect = {
+			save_temporary_scope_as = voter
+			scope:activity = {
+				add_activity_log_entry = {
+					key = refused_backroom_deal
+					tags = { neutral }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = refused_backroom_deal_anti_desc
+				}
+			}
 			scope:lobbyist = {
 				send_interface_toast = {
 					type = msg_legislature_response_bad
@@ -2705,6 +3180,7 @@ cotc_bill_events.655 = {
 }
 # Someone offers a bribe to vote for the bill
 cotc_bill_events.660 = {
+	type = activity_event
 	desc = cotc_bill_events.660.desc
 	
 	theme = realm
@@ -2732,7 +3208,12 @@ cotc_bill_events.660 = {
 			value = bribe_piety
 			multiply = 10
 		}
+		if = {
+			limit = { has_activity_intent = trade_favors_intent }
+			complete_activity_intent = yes
+		}
 		hidden_effect = {
+			save_temporary_scope_as = voter
 			scope:lobbyist = {
 				add_piety = {
 					value = bribe_piety
@@ -2740,6 +3221,13 @@ cotc_bill_events.660 = {
 				}
 			}
 			scope:activity = {
+				add_activity_log_entry = {
+					key = voted_for_bill
+					tags = { positive }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = voted_for_bill_backroom_deal_desc
+				}
 				remove_from_guest_subset = { name = bill_opponents target = ROOT }
 				add_to_guest_subset = { name = bill_supporters target = ROOT }
 			}
@@ -2796,6 +3284,16 @@ cotc_bill_events.660 = {
 		reverse_add_opinion = { modifier = opinion_defied_pressure target = scope:lobbyist }
 		positive_greed_stress_gain_effect = yes
 		hidden_effect = {
+			save_temporary_scope_as = voter
+			scope:activity = {
+				add_activity_log_entry = {
+					key = refused_backroom_deal
+					tags = { neutral }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = refused_backroom_deal_pro_desc
+				}
+			}
 			scope:lobbyist = {
 				send_interface_toast = {
 					type = msg_legislature_response_bad
@@ -2818,6 +3316,7 @@ cotc_bill_events.660 = {
 }
 # Someone offers a bribe to vote against the bill
 cotc_bill_events.665 = {
+	type = activity_event
 	desc = cotc_bill_events.665.desc
 	
 	theme = realm
@@ -2845,7 +3344,12 @@ cotc_bill_events.665 = {
 			value = bribe_piety
 			multiply = 10
 		}
+		if = {
+			limit = { has_activity_intent = trade_favors_intent }
+			complete_activity_intent = yes
+		}
 		hidden_effect = {
+			save_temporary_scope_as = voter
 			scope:lobbyist = {
 				add_piety = {
 					value = bribe_piety
@@ -2853,6 +3357,13 @@ cotc_bill_events.665 = {
 				}
 			}
 			scope:activity = {
+				add_activity_log_entry = {
+					key = voted_against_bill
+					tags = { negative }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = voted_against_bill_backroom_deal_desc
+				}
 				remove_from_guest_subset = { name = bill_supporters target = ROOT }
 				add_to_guest_subset = { name = bill_opponents target = ROOT }
 			}
@@ -2905,6 +3416,16 @@ cotc_bill_events.665 = {
 		reverse_add_opinion = { modifier = opinion_defied_pressure target = scope:lobbyist }
 		positive_greed_stress_gain_effect = yes
 		hidden_effect = {
+			save_temporary_scope_as = voter
+			scope:activity = {
+				add_activity_log_entry = {
+					key = refused_backroom_deal
+					tags = { neutral }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = refused_backroom_deal_anti_desc
+				}
+			}
 			scope:lobbyist = {
 				send_interface_toast = {
 					type = msg_legislature_response_bad

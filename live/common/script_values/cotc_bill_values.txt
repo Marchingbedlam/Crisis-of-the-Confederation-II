@@ -1143,18 +1143,22 @@ current_total_taxes = {
 current_military_tax_income = {
 	value = military_tax_base
 	multiply = current_military_taxes
+	divide = 20
 }
 current_commercial_tax_income = {
 	value = commercial_tax_base
 	multiply = current_commercial_taxes
+	divide = 20
 }
 current_technocratic_tax_income = {
 	value = technocratic_tax_base
 	multiply = current_technocratic_taxes
+	divide = 20
 }
 current_theocratic_tax_income = {
 	value = theocratic_tax_base
 	multiply = current_theocratic_taxes
+	divide = 20
 }
 current_total_tax_income = {
 	value = current_military_tax_income
@@ -1189,18 +1193,22 @@ proposed_total_tax_income = {
 	add = {
 		value = var:proposed_military_taxes
 		multiply = var:ruler.military_tax_base
+		divide = 20
 	}
 	add = {
 		value = var:proposed_commercial_taxes
 		multiply = var:ruler.commercial_tax_base
+		divide = 20
 	}
 	add = {
 		value = var:proposed_technocratic_taxes
 		multiply = var:ruler.technocratic_tax_base
+		divide = 20
 	}
 	add = {
 		value = var:proposed_theocratic_taxes
 		multiply = var:ruler.theocratic_tax_base
+		divide = 20
 	}
 }
 amended_military_tax_rate = {
@@ -1230,18 +1238,22 @@ amended_total_tax_income = {
 	add = {
 		value = var:amended_military_taxes
 		multiply = scope:activity.var:ruler.military_tax_base
+		divide = 20
 	}
 	add = {
 		value = var:amended_commercial_taxes
 		multiply = scope:activity.var:ruler.commercial_tax_base
+		divide = 20
 	}
 	add = {
 		value = var:amended_technocratic_taxes
 		multiply = scope:activity.var:ruler.technocratic_tax_base
+		divide = 20
 	}
 	add = {
 		value = var:amended_theocratic_taxes
 		multiply = scope:activity.var:ruler.theocratic_tax_base
+		divide = 20
 	}
 }
 target_military_taxes = {

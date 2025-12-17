@@ -32,14 +32,8 @@ support_ideology_intent = {
 		}
 		faith = {
 			OR = {
-				AND = {
-					this = challenger.faith
-					NOT = { this = incumbent.faith }
-				}
-				AND = {
-					NOT = { this = challenger.faith }
-					this = incumbent.faith
-				}
+				this = scope:challenger.faith
+				this = scope:incumbent.faith
 			}
 		}
 	}
@@ -51,14 +45,8 @@ support_ideology_intent = {
 		}
 		faith = {
 			OR = {
-				AND = {
-					this = challenger.faith
-					NOT = { this = incumbent.faith }
-				}
-				AND = {
-					NOT = { this = challenger.faith }
-					this = incumbent.faith
-				}
+				this = scope:challenger.faith
+				this = scope:incumbent.faith
 			}
 		}
 	}
@@ -77,14 +65,8 @@ support_culture_intent = {
 		}
 		culture = {
 			OR = {
-				AND = {
-					this = challenger.culture
-					NOT = { this = incumbent.culture }
-				}
-				AND = {
-					NOT = { this = challenger.culture }
-					this = incumbent.culture
-				}
+				this = scope:challenger.culture
+				this = scope:incumbent.culture
 			}
 		}
 	}
@@ -96,14 +78,8 @@ support_culture_intent = {
 		}
 		culture = {
 			OR = {
-				AND = {
-					this = challenger.culture
-					NOT = { this = incumbent.culture }
-				}
-				AND = {
-					NOT = { this = challenger.culture }
-					this = incumbent.culture
-				}
+				this = scope:challenger.culture
+				this = scope:incumbent.culture
 			}
 		}
 	}
@@ -247,7 +223,4 @@ oppose_rival_prime_minister_intent = {
 		value = 0
 		subtract = "opinion(scope:target)"
 	}
-}
-trade_favors_intent = {
-	ai_will_do = { value = ai_greed }
 }

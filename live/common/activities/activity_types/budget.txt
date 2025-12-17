@@ -21,15 +21,30 @@
 	}
 	
 	is_valid = {
-		scope:host = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-			legislature_in_session_trigger = yes
+		trigger_if = {
+			limit = { has_variable = ruler }
+			var:ruler = { legislature_in_session_trigger = yes }
+		}
+		trigger_if = {
+			limit = {
+				has_variable = ruler
+				has_variable = proposed_military_budget
+				has_variable = proposed_ministry_budget
+				has_variable = proposed_salary_budget
+			}
+			NAND = {
+				var:proposed_military_budget = var:ruler.current_military_budget
+				var:proposed_ministry_budget = var:ruler.current_ministry_budget
+				var:proposed_salary_budget = var:ruler.current_salary_budget
+			}
 		}
 		NOT = { has_variable = quorum_not_met }
 	}
 	
 	on_invalidated = {
+		var:title = { save_scope_as = activity_title }
+		var:ruler = { save_scope_as = activity_ruler }
+		scope:host = { save_scope_as = activity_host }
 		every_attending_character = { trigger_event = { on_action = bill_clean_legislators_on_action } }
 		if = {
 			limit = { has_variable = quorum_not_met }
@@ -40,11 +55,23 @@
 			scope:host = { trigger_event = cotc_bill_events.10 }
 		}
 		else_if = {
-			limit = { legislature_in_session_trigger = no }
+			limit = { var:ruler = { legislature_in_session_trigger = no } }
 			scope:host = { trigger_event = { id = cotc_bill_events.20 } }
 			every_attending_character = {
 				limit = { NOT = { this = scope:host } }
 				trigger_event = { id = cotc_bill_events.25 }
+			}
+		}
+		else_if = {
+			limit = {
+				var:proposed_military_budget = var:ruler.current_military_budget
+				var:proposed_ministry_budget = var:ruler.current_ministry_budget
+				var:proposed_salary_budget = var:ruler.current_salary_budget
+			}
+			scope:host = { trigger_event = { id = cotc_bill_events.40 } }
+			every_attending_character = {
+				limit = { NOT = { this = scope:host } }
+				trigger_event = { id = cotc_bill_events.45 }
 			}
 		}
 		else = {
@@ -105,7 +132,7 @@
 					if = {
 						limit = { has_variable = planned_military_budget }
 						if = {
-							limit = { compare_variable = { name = planned_military_budget value = 0 } }
+							limit = { var:planned_military_budget = 0 }
 							add = 100
 						}
 					}
@@ -121,7 +148,7 @@
 					if = {
 						limit = { has_variable = planned_military_budget }
 						if = {
-							limit = { compare_variable = { name = planned_military_budget value = 5 } }
+							limit = { var:planned_military_budget = 5 }
 							add = 100
 						}
 					}
@@ -133,10 +160,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 10 } } }
 				default = { current_military_budget = 10 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_military_budget }
 						if = {
-							limit = { compare_variable = { name = planned_military_budget value = 10 } }
+							limit = { var:planned_military_budget = 10 }
 							add = 100
 						}
 					}
@@ -148,10 +176,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 15 } } }
 				default = { current_military_budget = 15 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_military_budget }
 						if = {
-							limit = { compare_variable = { name = planned_military_budget value = 15 } }
+							limit = { var:planned_military_budget = 15 }
 							add = 100
 						}
 					}
@@ -163,10 +192,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 20 } } }
 				default = { current_military_budget = 20 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_military_budget }
 						if = {
-							limit = { compare_variable = { name = planned_military_budget value = 20 } }
+							limit = { var:planned_military_budget = 20 }
 							add = 100
 						}
 					}
@@ -178,10 +208,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 25 } } }
 				default = { current_military_budget = 25 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_military_budget }
 						if = {
-							limit = { compare_variable = { name = planned_military_budget value = 25 } }
+							limit = { var:planned_military_budget = 25 }
 							add = 100
 						}
 					}
@@ -193,10 +224,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 30 } } }
 				default = { current_military_budget = 30 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_military_budget }
 						if = {
-							limit = { compare_variable = { name = planned_military_budget value = 30 } }
+							limit = { var:planned_military_budget = 30 }
 							add = 100
 						}
 					}
@@ -208,10 +240,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 35 } } }
 				default = { current_military_budget = 35 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_military_budget }
 						if = {
-							limit = { compare_variable = { name = planned_military_budget value = 35 } }
+							limit = { var:planned_military_budget = 35 }
 							add = 100
 						}
 					}
@@ -223,10 +256,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 40 } } }
 				default = { current_military_budget = 40 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_military_budget }
 						if = {
-							limit = { compare_variable = { name = planned_military_budget value = 40 } }
+							limit = { var:planned_military_budget = 40 }
 							add = 100
 						}
 					}
@@ -238,10 +272,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 45 } } }
 				default = { current_military_budget = 45 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_military_budget }
 						if = {
-							limit = { compare_variable = { name = planned_military_budget value = 45 } }
+							limit = { var:planned_military_budget = 45 }
 							add = 100
 						}
 					}
@@ -253,10 +288,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 50 } } }
 				default = { current_military_budget = 50 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_military_budget }
 						if = {
-							limit = { compare_variable = { name = planned_military_budget value = 50 } }
+							limit = { var:planned_military_budget = 50 }
 							add = 100
 						}
 					}
@@ -268,10 +304,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 55 } } }
 				default = { current_military_budget = 55 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_military_budget }
 						if = {
-							limit = { compare_variable = { name = planned_military_budget value = 55 } }
+							limit = { var:planned_military_budget = 55 }
 							add = 100
 						}
 					}
@@ -283,10 +320,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 60 } } }
 				default = { current_military_budget = 60 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_military_budget }
 						if = {
-							limit = { compare_variable = { name = planned_military_budget value = 60 } }
+							limit = { var:planned_military_budget = 60 }
 							add = 100
 						}
 					}
@@ -298,10 +336,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 65 } } }
 				default = { current_military_budget = 65 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_military_budget }
 						if = {
-							limit = { compare_variable = { name = planned_military_budget value = 65 } }
+							limit = { var:planned_military_budget = 65 }
 							add = 100
 						}
 					}
@@ -313,10 +352,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 70 } } }
 				default = { current_military_budget = 70 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_military_budget }
 						if = {
-							limit = { compare_variable = { name = planned_military_budget value = 70 } }
+							limit = { var:planned_military_budget = 70 }
 							add = 100
 						}
 					}
@@ -328,10 +368,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 75 } } }
 				default = { current_military_budget = 75 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_military_budget }
 						if = {
-							limit = { compare_variable = { name = planned_military_budget value = 75 } }
+							limit = { var:planned_military_budget = 75 }
 							add = 100
 						}
 					}
@@ -343,10 +384,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 80 } } }
 				default = { current_military_budget = 80 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_military_budget }
 						if = {
-							limit = { compare_variable = { name = planned_military_budget value = 80 } }
+							limit = { var:planned_military_budget = 80 }
 							add = 100
 						}
 					}
@@ -358,10 +400,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 85 } } }
 				default = { current_military_budget = 85 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_military_budget }
 						if = {
-							limit = { compare_variable = { name = planned_military_budget value = 85 } }
+							limit = { var:planned_military_budget = 85 }
 							add = 100
 						}
 					}
@@ -373,10 +416,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 90 } } }
 				default = { current_military_budget = 90 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_military_budget }
 						if = {
-							limit = { compare_variable = { name = planned_military_budget value = 90 } }
+							limit = { var:planned_military_budget = 90 }
 							add = 100
 						}
 					}
@@ -388,10 +432,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 95 } } }
 				default = { current_military_budget = 95 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_military_budget }
 						if = {
-							limit = { compare_variable = { name = planned_military_budget value = 95 } }
+							limit = { var:planned_military_budget = 95 }
 							add = 100
 						}
 					}
@@ -403,10 +448,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 100 } } }
 				default = { current_military_budget = 100 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_military_budget }
 						if = {
-							limit = { compare_variable = { name = planned_military_budget value = 100 } }
+							limit = { var:planned_military_budget = 100 }
 							add = 100
 						}
 					}
@@ -424,7 +470,7 @@
 					if = {
 						limit = { has_variable = planned_ministry_budget }
 						if = {
-							limit = { compare_variable = { name = planned_ministry_budget value = 0 } }
+							limit = { var:planned_ministry_budget = 0 }
 							add = 100
 						}
 					}
@@ -440,7 +486,7 @@
 					if = {
 						limit = { has_variable = planned_ministry_budget }
 						if = {
-							limit = { compare_variable = { name = planned_ministry_budget value = 5 } }
+							limit = { var:planned_ministry_budget = 5 }
 							add = 100
 						}
 					}
@@ -452,10 +498,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 10 } } }
 				default = { current_ministry_budget = 10 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_ministry_budget }
 						if = {
-							limit = { compare_variable = { name = planned_ministry_budget value = 10 } }
+							limit = { var:planned_ministry_budget = 10 }
 							add = 100
 						}
 					}
@@ -467,10 +514,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 15 } } }
 				default = { current_ministry_budget = 15 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_ministry_budget }
 						if = {
-							limit = { compare_variable = { name = planned_ministry_budget value = 15 } }
+							limit = { var:planned_ministry_budget = 15 }
 							add = 100
 						}
 					}
@@ -482,10 +530,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 20 } } }
 				default = { current_ministry_budget = 20 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_ministry_budget }
 						if = {
-							limit = { compare_variable = { name = planned_ministry_budget value = 20 } }
+							limit = { var:planned_ministry_budget = 20 }
 							add = 100
 						}
 					}
@@ -497,10 +546,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 25 } } }
 				default = { current_ministry_budget = 25 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_ministry_budget }
 						if = {
-							limit = { compare_variable = { name = planned_ministry_budget value = 25 } }
+							limit = { var:planned_ministry_budget = 25 }
 							add = 100
 						}
 					}
@@ -512,10 +562,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 30 } } }
 				default = { current_ministry_budget = 30 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_ministry_budget }
 						if = {
-							limit = { compare_variable = { name = planned_ministry_budget value = 30 } }
+							limit = { var:planned_ministry_budget = 30 }
 							add = 100
 						}
 					}
@@ -527,10 +578,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 35 } } }
 				default = { current_ministry_budget = 35 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_ministry_budget }
 						if = {
-							limit = { compare_variable = { name = planned_ministry_budget value = 35 } }
+							limit = { var:planned_ministry_budget = 35 }
 							add = 100
 						}
 					}
@@ -542,10 +594,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 40 } } }
 				default = { current_ministry_budget = 40 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_ministry_budget }
 						if = {
-							limit = { compare_variable = { name = planned_ministry_budget value = 40 } }
+							limit = { var:planned_ministry_budget = 40 }
 							add = 100
 						}
 					}
@@ -557,10 +610,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 45 } } }
 				default = { current_ministry_budget = 45 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_ministry_budget }
 						if = {
-							limit = { compare_variable = { name = planned_ministry_budget value = 45 } }
+							limit = { var:planned_ministry_budget = 45 }
 							add = 100
 						}
 					}
@@ -572,10 +626,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 50 } } }
 				default = { current_ministry_budget = 50 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_ministry_budget }
 						if = {
-							limit = { compare_variable = { name = planned_ministry_budget value = 50 } }
+							limit = { var:planned_ministry_budget = 50 }
 							add = 100
 						}
 					}
@@ -587,10 +642,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 55 } } }
 				default = { current_ministry_budget = 55 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_ministry_budget }
 						if = {
-							limit = { compare_variable = { name = planned_ministry_budget value = 55 } }
+							limit = { var:planned_ministry_budget = 55 }
 							add = 100
 						}
 					}
@@ -602,10 +658,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 60 } } }
 				default = { current_ministry_budget = 60 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_ministry_budget }
 						if = {
-							limit = { compare_variable = { name = planned_ministry_budget value = 60 } }
+							limit = { var:planned_ministry_budget = 60 }
 							add = 100
 						}
 					}
@@ -617,10 +674,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 65 } } }
 				default = { current_ministry_budget = 65 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_ministry_budget }
 						if = {
-							limit = { compare_variable = { name = planned_ministry_budget value = 65 } }
+							limit = { var:planned_ministry_budget = 65 }
 							add = 100
 						}
 					}
@@ -632,10 +690,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 70 } } }
 				default = { current_ministry_budget = 70 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_ministry_budget }
 						if = {
-							limit = { compare_variable = { name = planned_ministry_budget value = 70 } }
+							limit = { var:planned_ministry_budget = 70 }
 							add = 100
 						}
 					}
@@ -647,10 +706,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 75 } } }
 				default = { current_ministry_budget = 75 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_ministry_budget }
 						if = {
-							limit = { compare_variable = { name = planned_ministry_budget value = 75 } }
+							limit = { var:planned_ministry_budget = 75 }
 							add = 100
 						}
 					}
@@ -662,10 +722,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 80 } } }
 				default = { current_ministry_budget = 80 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_ministry_budget }
 						if = {
-							limit = { compare_variable = { name = planned_ministry_budget value = 80 } }
+							limit = { var:planned_ministry_budget = 80 }
 							add = 100
 						}
 					}
@@ -677,10 +738,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 85 } } }
 				default = { current_ministry_budget = 85 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_ministry_budget }
 						if = {
-							limit = { compare_variable = { name = planned_ministry_budget value = 85 } }
+							limit = { var:planned_ministry_budget = 85 }
 							add = 100
 						}
 					}
@@ -692,10 +754,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 90 } } }
 				default = { current_ministry_budget = 90 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_ministry_budget }
 						if = {
-							limit = { compare_variable = { name = planned_ministry_budget value = 90 } }
+							limit = { var:planned_ministry_budget = 90 }
 							add = 100
 						}
 					}
@@ -707,10 +770,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 95 } } }
 				default = { current_ministry_budget = 95 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_ministry_budget }
 						if = {
-							limit = { compare_variable = { name = planned_ministry_budget value = 95 } }
+							limit = { var:planned_ministry_budget = 95 }
 							add = 100
 						}
 					}
@@ -722,10 +786,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 100 } } }
 				default = { current_ministry_budget = 100 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_ministry_budget }
 						if = {
-							limit = { compare_variable = { name = planned_ministry_budget value = 100 } }
+							limit = { var:planned_ministry_budget = 100 }
 							add = 100
 						}
 					}
@@ -743,7 +808,7 @@
 					if = {
 						limit = { has_variable = planned_salary_budget }
 						if = {
-							limit = { compare_variable = { name = planned_salary_budget value = 0 } }
+							limit = { var:planned_salary_budget = 0 }
 							add = 100
 						}
 					}
@@ -759,7 +824,7 @@
 					if = {
 						limit = { has_variable = planned_salary_budget }
 						if = {
-							limit = { compare_variable = { name = planned_salary_budget value = 5 } }
+							limit = { var:planned_salary_budget = 5 }
 							add = 100
 						}
 					}
@@ -771,10 +836,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 10 } } }
 				default = { current_salary_budget = 10 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_salary_budget }
 						if = {
-							limit = { compare_variable = { name = planned_salary_budget value = 10 } }
+							limit = { var:planned_salary_budget = 10 }
 							add = 100
 						}
 					}
@@ -786,10 +852,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 15 } } }
 				default = { current_salary_budget = 15 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_salary_budget }
 						if = {
-							limit = { compare_variable = { name = planned_salary_budget value = 15 } }
+							limit = { var:planned_salary_budget = 15 }
 							add = 100
 						}
 					}
@@ -801,10 +868,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 20 } } }
 				default = { current_salary_budget = 20 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_salary_budget }
 						if = {
-							limit = { compare_variable = { name = planned_salary_budget value = 20 } }
+							limit = { var:planned_salary_budget = 20 }
 							add = 100
 						}
 					}
@@ -816,10 +884,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 25 } } }
 				default = { current_salary_budget = 25 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_salary_budget }
 						if = {
-							limit = { compare_variable = { name = planned_salary_budget value = 25 } }
+							limit = { var:planned_salary_budget = 25 }
 							add = 100
 						}
 					}
@@ -831,10 +900,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 30 } } }
 				default = { current_salary_budget = 30 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_salary_budget }
 						if = {
-							limit = { compare_variable = { name = planned_salary_budget value = 30 } }
+							limit = { var:planned_salary_budget = 30 }
 							add = 100
 						}
 					}
@@ -846,10 +916,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 35 } } }
 				default = { current_salary_budget = 35 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_salary_budget }
 						if = {
-							limit = { compare_variable = { name = planned_salary_budget value = 35 } }
+							limit = { var:planned_salary_budget = 35 }
 							add = 100
 						}
 					}
@@ -861,10 +932,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 40 } } }
 				default = { current_salary_budget = 40 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_salary_budget }
 						if = {
-							limit = { compare_variable = { name = planned_salary_budget value = 40 } }
+							limit = { var:planned_salary_budget = 40 }
 							add = 100
 						}
 					}
@@ -876,10 +948,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 45 } } }
 				default = { current_salary_budget = 45 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_salary_budget }
 						if = {
-							limit = { compare_variable = { name = planned_salary_budget value = 45 } }
+							limit = { var:planned_salary_budget = 45 }
 							add = 100
 						}
 					}
@@ -891,10 +964,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 50 } } }
 				default = { current_salary_budget = 50 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_salary_budget }
 						if = {
-							limit = { compare_variable = { name = planned_salary_budget value = 50 } }
+							limit = { var:planned_salary_budget = 50 }
 							add = 100
 						}
 					}
@@ -906,10 +980,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 55 } } }
 				default = { current_salary_budget = 55 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_salary_budget }
 						if = {
-							limit = { compare_variable = { name = planned_salary_budget value = 55 } }
+							limit = { var:planned_salary_budget = 55 }
 							add = 100
 						}
 					}
@@ -921,10 +996,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 60 } } }
 				default = { current_salary_budget = 60 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_salary_budget }
 						if = {
-							limit = { compare_variable = { name = planned_salary_budget value = 60 } }
+							limit = { var:planned_salary_budget = 60 }
 							add = 100
 						}
 					}
@@ -936,10 +1012,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 65 } } }
 				default = { current_salary_budget = 65 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_salary_budget }
 						if = {
-							limit = { compare_variable = { name = planned_salary_budget value = 65 } }
+							limit = { var:planned_salary_budget = 65 }
 							add = 100
 						}
 					}
@@ -951,10 +1028,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 70 } } }
 				default = { current_salary_budget = 70 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_salary_budget }
 						if = {
-							limit = { compare_variable = { name = planned_salary_budget value = 70 } }
+							limit = { var:planned_salary_budget = 70 }
 							add = 100
 						}
 					}
@@ -966,10 +1044,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 75 } } }
 				default = { current_salary_budget = 75 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_salary_budget }
 						if = {
-							limit = { compare_variable = { name = planned_salary_budget value = 75 } }
+							limit = { var:planned_salary_budget = 75 }
 							add = 100
 						}
 					}
@@ -981,10 +1060,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 80 } } }
 				default = { current_salary_budget = 80 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_salary_budget }
 						if = {
-							limit = { compare_variable = { name = planned_salary_budget value = 80 } }
+							limit = { var:planned_salary_budget = 80 }
 							add = 100
 						}
 					}
@@ -996,10 +1076,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 85 } } }
 				default = { current_salary_budget = 85 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_salary_budget }
 						if = {
-							limit = { compare_variable = { name = planned_salary_budget value = 85 } }
+							limit = { var:planned_salary_budget = 85 }
 							add = 100
 						}
 					}
@@ -1011,10 +1092,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 90 } } }
 				default = { current_salary_budget = 90 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_salary_budget }
 						if = {
-							limit = { compare_variable = { name = planned_salary_budget value = 90 } }
+							limit = { var:planned_salary_budget = 90 }
 							add = 100
 						}
 					}
@@ -1026,10 +1108,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 95 } } }
 				default = { current_salary_budget = 95 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_salary_budget }
 						if = {
-							limit = { compare_variable = { name = planned_salary_budget value = 95 } }
+							limit = { var:planned_salary_budget = 95 }
 							add = 100
 						}
 					}
@@ -1041,10 +1124,11 @@
 				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 100 } } }
 				default = { current_salary_budget = 100 }
 				ai_will_do = {
+					value = 0
 					if = {
 						limit = { has_variable = planned_salary_budget }
 						if = {
-							limit = { compare_variable = { name = planned_salary_budget value = 100 } }
+							limit = { var:planned_salary_budget = 100 }
 							add = 100
 						}
 					}
@@ -1058,6 +1142,7 @@
 			set_variable = { name = ruler value = scope:host }
 			set_variable = { name = title value = scope:host.primary_title }
 			set_variable = { name = legislature value = var:ruler.primary_title.var:legislature }
+			set_variable = { name = pork value = 0 }
 		}
 		scope:host = { trigger_event = cotc_bill_events.1 }
 	}
@@ -1211,45 +1296,54 @@
 	ai_will_do = {
 		value = 0
 		if = {
-			limit = { var:planned_military_budget > current_military_budget }
-			add = {
-				value = planned_military_budget
-				subtract = current_military_budget
+			limit = { has_variable = planned_military_budget }
+			if = {
+				limit = { var:planned_military_budget > current_military_budget }
+				add = {
+					value = var:planned_military_budget
+					subtract = current_military_budget
+				}
 			}
-		}
-		else_if = {
-			limit = { var:planned_military_budget < current_military_budget }
-			add = {
-				value = current_military_budget
-				subtract = planned_military_budget
-			}
-		}
-		if = {
-			limit = { var:planned_ministry_budget > current_ministry_budget }
-			add = {
-				value = planned_ministry_budget
-				subtract = current_ministry_budget
-			}
-		}
-		else_if = {
-			limit = { var:planned_ministry_budget < current_ministry_budget }
-			add = {
-				value = current_ministry_budget
-				subtract = planned_ministry_budget
+			else_if = {
+				limit = { var:planned_military_budget < current_military_budget }
+				add = {
+					value = current_military_budget
+					subtract = var:planned_military_budget
+				}
 			}
 		}
 		if = {
-			limit = { var:planned_salary_budget > current_salary_budget }
-			add = {
-				value = planned_salary_budget
-				subtract = current_salary_budget
+			limit = { has_variable = planned_ministry_budget }
+			if = {
+				limit = { var:planned_ministry_budget > current_ministry_budget }
+				add = {
+					value = var:planned_ministry_budget
+					subtract = current_ministry_budget
+				}
+			}
+			else_if = {
+				limit = { var:planned_ministry_budget < current_ministry_budget }
+				add = {
+					value = current_ministry_budget
+					subtract = var:planned_ministry_budget
+				}
 			}
 		}
-		else_if = {
-			limit = { var:planned_salary_budget < current_salary_budget }
-			add = {
-				value = current_salary_budget
-				subtract = planned_salary_budget
+		if = {
+			limit = { has_variable = planned_salary_budget }
+			if = {
+				limit = { var:planned_salary_budget > current_salary_budget }
+				add = {
+					value = var:planned_salary_budget
+					subtract = current_salary_budget
+				}
+			}
+			else_if = {
+				limit = { var:planned_salary_budget < current_salary_budget }
+				add = {
+					value = current_salary_budget
+					subtract = var:planned_salary_budget
+				}
 			}
 		}
 	}
@@ -1284,6 +1378,7 @@
 	guest_intents = {
 		intents = {
 			maintain_status_quo_intent
+			trade_favors_intent
 			support_bill_intent
 			block_bill_intent
 			balance_budget_intent
