@@ -222,7 +222,7 @@ PixelShader =
 			PDX_MAIN
 			{
 				float2 ColorMapCoords =  Input.WorldSpacePos.xz *  WorldSpaceToTerrain0To1;
-				float ProvinceStrength = smoothstep( 10.0f, 75.0f, CameraPosition.y );
+				float ProvinceStrength = smoothstep( 10.0f, 200.0f, CameraPosition.y );
 
 				float3 ProvinceOverlayColor;
 				float PreLightingBlend;
