@@ -83,6 +83,23 @@ language_cotc_iranian = {
 	
 	color = persian
 }
+language_cotc_coptic = {
+	type = language
+	is_shown = {
+		language_is_shown_trigger = {
+			LANGUAGE = language_cotc_coptic
+		}
+	}
+	ai_will_do = {
+		value = 10
+		if = {
+			limit = { has_cultural_pillar = language_cotc_coptic }
+			multiply = 10
+		}
+	}
+	
+	color = ancient_egyptian
+}
 language_cotc_japanese = {
 	type = language
 	is_shown = {
