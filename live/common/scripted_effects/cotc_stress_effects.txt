@@ -376,3 +376,57 @@ negative_zeal_stress_gain_effect = {
 		add_stress = miniscule_stress_gain
 	}
 }
+positive_vengefulness_stress_gain_effect = {
+	if = {
+		limit = { ai_vengefulness >= very_high_positive_ai_value }
+		custom_tooltip = pos_vengefulness_desc
+		add_stress = massive_stress_gain
+	}
+	else_if = {
+		limit = { ai_vengefulness >= high_positive_ai_value }
+		custom_tooltip = pos_vengefulness_desc
+		add_stress = major_stress_gain
+	}
+	else_if = {
+		limit = { ai_vengefulness >= medium_positive_ai_value }
+		custom_tooltip = pos_vengefulness_desc
+		add_stress = medium_stress_gain
+	}
+	else_if = {
+		limit = { ai_vengefulness >= low_positive_ai_value }
+		custom_tooltip = pos_vengefulness_desc
+		add_stress = minor_stress_gain
+	}
+	else_if = {
+		limit = { ai_vengefulness >= very_low_positive_ai_value }
+		custom_tooltip = pos_vengefulness_desc
+		add_stress = miniscule_stress_gain
+	}
+}
+negative_vengefulness_stress_gain_effect = {
+	if = {
+		limit = { ai_vengefulness <= very_high_negative_ai_value }
+		custom_tooltip = pos_vengefulness_desc
+		add_stress = massive_stress_gain
+	}
+	else_if = {
+		limit = { ai_vengefulness <= high_negative_ai_value }
+		custom_tooltip = pos_vengefulness_desc
+		add_stress = major_stress_gain
+	}
+	else_if = {
+		limit = { ai_vengefulness <= medium_negative_ai_value }
+		custom_tooltip = pos_vengefulness_desc
+		add_stress = medium_stress_gain
+	}
+	else_if = {
+		limit = { ai_vengefulness <= low_negative_ai_value }
+		custom_tooltip = pos_vengefulness_desc
+		add_stress = minor_stress_gain
+	}
+	else_if = {
+		limit = { ai_vengefulness <= very_low_negative_ai_value }
+		custom_tooltip = pos_vengefulness_desc
+		add_stress = miniscule_stress_gain
+	}
+}

@@ -112,3 +112,83 @@ remove_from_legislature_effect = {
 	remove_variable = legislature
 	remove_variable = riding
 }
+vote_for_challenger_strength_effect = {
+	set_variable = { name = vote_strength value = "opinion(scope:activity.var:challenger)" }
+	change_variable = { name = vote_strength subtract = "opinion(scope:activity.var:incumbent)" }
+	if = {
+		limit = {
+			faith = {
+				this = scope:activity.var:challenger.faith
+				this != scope:activity.var:incumbent.faith
+			}
+		}
+		change_variable = { name = vote_strength add = { value = ai_zeal min = 0 } }
+	}
+	else_if = {
+		limit = {
+			faith = {
+				this != scope:activity.var:challenger.faith
+				this = scope:activity.var:incumbent.faith
+			}
+		}
+		change_variable = { name = vote_strength subtract = { value = ai_zeal min = 0 } }
+	}
+	if = {
+		limit = {
+			culture = {
+				this = scope:activity.var:challenger.culture
+				this != scope:activity.var:incumbent.culture
+			}
+		}
+		change_variable = { name = vote_strength add = { value = ai_parochialism min = 0 } }
+	}
+	else_if = {
+		limit = {
+			culture = {
+				this != scope:activity.var:challenger.culture
+				this = scope:activity.var:incumbent.culture
+			}
+		}
+		change_variable = { name = vote_strength subtract = { value = ai_parochialism min = 0 } }
+	}
+}
+vote_for_incumbent_strength_effect = {
+	set_variable = { name = vote_strength value = "opinion(scope:activity.var:incumbent)" }
+	change_variable = { name = vote_strength subtract = "opinion(scope:activity.var:challenger)" }
+	if = {
+		limit = {
+			faith = {
+				this = scope:activity.var:incumbent.faith
+				this != scope:activity.var:challenger.faith
+			}
+		}
+		change_variable = { name = vote_strength add = { value = ai_zeal min = 0 } }
+	}
+	else_if = {
+		limit = {
+			faith = {
+				this != scope:activity.var:incumbent.faith
+				this = scope:activity.var:challenger.faith
+			}
+		}
+		change_variable = { name = vote_strength subtract = { value = ai_zeal min = 0 } }
+	}
+	if = {
+		limit = {
+			culture = {
+				this = scope:activity.var:incumbent.culture
+				this != scope:activity.var:challenger.culture
+			}
+		}
+		change_variable = { name = vote_strength add = { value = ai_parochialism min = 0 } }
+	}
+	else_if = {
+		limit = {
+			culture = {
+				this != scope:activity.var:incumbent.culture
+				this = scope:activity.var:challenger.culture
+			}
+		}
+		change_variable = { name = vote_strength subtract = { value = ai_parochialism min = 0 } }
+	}
+}

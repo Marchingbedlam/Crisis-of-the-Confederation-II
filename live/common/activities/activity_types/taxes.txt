@@ -11,6 +11,12 @@
 	can_start = {
 		realm_uses_treasury_laws_trigger = yes
 		legislature_in_session_trigger = yes
+		primary_title.var:legislature = {
+			custom_tooltip = {
+				NOT = { has_variable = current_motion }
+				text = legislature_not_convened_desc
+			}
+		}
 	}
 	
 	can_plan = {
@@ -42,6 +48,7 @@
 	}
 	
 	on_invalidated = {
+		var:legislature = { remove_variable = current_motion }
 		var:title = { save_scope_as = activity_title }
 		var:ruler = { save_scope_as = activity_ruler }
 		scope:host = { save_scope_as = activity_host }
@@ -418,12 +425,15 @@
 			set_variable = { name = title value = scope:host.primary_title }
 			set_variable = { name = legislature value = var:ruler.primary_title.var:legislature }
 			set_variable = { name = pork value = 0 }
+			set_variable = simple_majority_bill
+			var:legislature = { set_variable = { name = current_motion value = scope:activity } }
 		}
 		scope:host = { trigger_event = cotc_bill_events.1 }
 	}
 	
 	on_complete = {
 		scope:activity = {
+			var:legislature = { remove_variable = current_motion }
 			var:ruler = { save_scope_as = ruler }
 			var:title = { save_scope_as = title }
 			var:legislature = { save_scope_as = legislature }

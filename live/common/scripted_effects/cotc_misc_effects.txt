@@ -7,32 +7,38 @@
 initialize_character_effect = {
 	save_scope_as = initialized_character
 	liege_or_court_owner ?= { save_scope_as = host }
+	if = {
+		limit = { NOT = { exists = scope:host } }
+		save_scope_as = host
+	}
 	scope:host ?= {
 		# Grab some random provinces the new character might be from
 		# A neighboring province
-		county = {
-			random_neighboring_county = {
-				title_province = {
-					save_scope_as = potential_home_province_1
+		location ?= {
+			county = {
+				random_neighboring_county = {
+					title_province = {
+						save_scope_as = potential_home_province_1
+					}
 				}
 			}
 		}
 		# Another province in the same realm
-		random_realm_county = {
+		random_realm_county ?= {
 			title_province = {
 				save_scope_as = potential_home_province_2
 			}
 		}
-		random_neighboring_top_liege_realm_owner = {
-			random_realm_county = {
+		random_neighboring_top_liege_realm_owner ?= {
+			random_realm_county ?= {
 				title_province = {
 					save_scope_as = potential_home_province_3
 				}
 			}
 		}
-		random_independent_ruler = {
+		random_independent_ruler ?= {
 			limit = { in_diplomatic_range = scope:host }
-			random_realm_county = {
+			random_realm_county ?= {
 				title_province = {
 					save_scope_as = potential_home_province_4
 				}
@@ -43,141 +49,141 @@ initialize_character_effect = {
 	random_list = {
 		1 = {
 			# This character is from ROOT's location
-			scope:host.location = { save_temporary_scope_as = home_province }
+			trigger = { exists = scope:host.location }
+			scope:host.location ?= { save_temporary_scope_as = home_province }
 		}
 		1 = {
 			# This character is from a neighboring system
 			trigger = { exists = scope:potential_home_province_1 }
-			scope:potential_home_province_1 = { save_scope_as = home_province }
+			scope:potential_home_province_1 ?= { save_scope_as = home_province }
 		}
 		1 = {
 			# This character is from somewhere in the same realm
 			trigger = { exists = scope:potential_home_province_2 }
-			scope:potential_home_province_2 = { save_scope_as = home_province }
+			scope:potential_home_province_2 ?= { save_scope_as = home_province }
 		}
 		1 = {
 			# This character is from a neighboring realm
 			trigger = { exists = scope:potential_home_province_3 }
-			scope:potential_home_province_3 = { save_scope_as = home_province }
+			scope:potential_home_province_3 ?= { save_scope_as = home_province }
 		}
 		1 = {
 			# This character is from a distant realm
 			trigger = { exists = scope:potential_home_province_4 }
-			scope:potential_home_province_4 = { save_scope_as = home_province }
+			scope:potential_home_province_4 ?= { save_scope_as = home_province }
 		}
 	}
 	# Something went wrong generating this character, probably because the game hasn't fully loaded yet
 	# Save a flag and we'll reinitialize them after the lobby
 	if = {
-		limit = {
-			NOT = { exists = scope_potential_home_province_1 }
-			NOT = { exists = scope_potential_home_province_2 }
-			NOT = { exists = scope_potential_home_province_3 }
-			NOT = { exists = scope_potential_home_province_4 }
-		}
+		limit = { NOT = { exists = scope:home_province } }
 		add_to_global_variable_list = { name = uninitialized_characters target = THIS }
 	}
-	clear_saved_scope = potential_home_province_1
-	clear_saved_scope = potential_home_province_2
-	clear_saved_scope = potential_home_province_3
-	clear_saved_scope = potential_home_province_4
-	if = {
-		limit = { scope:home_province.culture = culture:terran }
-		# Terrans are a special case - we should pick a particular Earth culture they're from
-		randomize_terran_culture_effect = yes
-		create_character = {
-			age = { 20 40 }
-			random_traits = yes
-			culture = scope:randomized_terran_culture
-			faith = scope:home_province.faith
-			gender = scope:initialized_character
-			dynasty = generate
-			save_scope_as = dummy_character
-		}
-		# Copy important data from dummy_character_1
-		copy_inheritable_appearance_from = scope:dummy_character
-		set_culture = culture:terran
-		set_faith = scope:dummy_character.faith
-		set_house = scope:dummy_character.house
-		change_first_name = { template_character = scope:dummy_character }
-		
-		# Get rid of the dummy
-		scope:dummy_character = { silent_disappearance_effect = yes }
-		clear_saved_scope = dummy_character
-		clear_saved_scope = randomized_terran_culture
-		
-		# Optionally, give this character a first name from a different culture
-		random = {
-			chance = 50
-			culture:terran = { save_scope_as = randomized_terran_culture }
-			#randomize_terran_culture_effect = yes
+	else = {
+		clear_saved_scope = potential_home_province_1
+		clear_saved_scope = potential_home_province_2
+		clear_saved_scope = potential_home_province_3
+		clear_saved_scope = potential_home_province_4
+		if = {
+			limit = { scope:home_province.culture = culture:terran }
+			# Terrans are a special case - we should pick a particular Earth culture they're from
+			randomize_terran_culture_effect = yes
 			create_character = {
+				location = scope:home_province
 				age = { 20 40 }
-				gender = scope:initialized_character
 				random_traits = yes
 				culture = scope:randomized_terran_culture
-				faith = scope:host.location.faith
-				dynasty = none
+				faith = scope:home_province.faith
+				gender = scope:initialized_character
+				dynasty = generate
 				save_scope_as = dummy_character
 			}
+			# Copy important data from dummy_character_1
+			copy_inheritable_appearance_from = scope:dummy_character
+			set_culture = culture:terran
+			set_faith = scope:dummy_character.faith
+			set_house = scope:dummy_character.house
 			change_first_name = { template_character = scope:dummy_character }
-		
+			
 			# Get rid of the dummy
 			scope:dummy_character = { silent_disappearance_effect = yes }
 			clear_saved_scope = dummy_character
 			clear_saved_scope = randomized_terran_culture
+			
+			# Optionally, give this character a first name from a different culture
+			random = {
+				chance = 50
+				culture:terran = { save_scope_as = randomized_terran_culture }
+				#randomize_terran_culture_effect = yes
+				create_character = {
+					location = scope:home_province
+					age = { 20 40 }
+					gender = scope:initialized_character
+					random_traits = yes
+					culture = scope:randomized_terran_culture
+					faith = scope:host.location.faith
+					dynasty = none
+					save_scope_as = dummy_character
+				}
+				change_first_name = { template_character = scope:dummy_character }
+			
+				# Get rid of the dummy
+				scope:dummy_character = { silent_disappearance_effect = yes }
+				clear_saved_scope = dummy_character
+				clear_saved_scope = randomized_terran_culture
+			}
 		}
-	}
-	else = {
-		# Generate a dummy character from the home province to copy data from
-		# This character should not use a template, on pain of circularity
-		create_character = {
-			age = { 20 40 }
-			gender = scope:initialized_character
-			random_traits = yes
-			culture = scope:home_province.culture
-			faith = scope:home_province.faith
-			dynasty = generate
-			save_scope_as = dummy_character
-		}
-		# Copy important data from dummy_character_1
-		copy_inheritable_appearance_from = scope:dummy_character
-		set_culture = scope:dummy_character.culture
-		set_faith = scope:dummy_character.faith
-		set_house = scope:dummy_character.house
-		change_first_name = { template_character = scope:dummy_character }
-		
-		# Get rid of the dummy
-		scope:dummy_character = { silent_disappearance_effect = yes }
-		clear_saved_scope = dummy_character
-	}
-	
-	# But wait! Even if our character is from a different system, there's
-	# a 50% chance that they're not a recent immigrant, but a long-term
-	# one that's assimilated! If so, we should give them an appropriate first
-	# name, culture, and faith
-	scope:host.location = { debug_log_scopes = yes }
-	scope:home_province = { debug_log_scopes = yes }
-	if = {
-		limit = { NOT = { scope:host.location = scope:home_province } }
-		random = {
-			chance = 50
+		else = {
+			# Generate a dummy character from the home province to copy data from
+			# This character should not use a template, on pain of circularity
 			create_character = {
+				location = scope:home_province
 				age = { 20 40 }
 				gender = scope:initialized_character
 				random_traits = yes
-				culture = scope:host.location.culture
-				faith = scope:host.location.faith
-				dynasty = none
+				culture = scope:home_province.culture
+				faith = scope:home_province.faith
+				dynasty = generate
 				save_scope_as = dummy_character
 			}
+			# Copy important data from dummy_character_1
+			copy_inheritable_appearance_from = scope:dummy_character
 			set_culture = scope:dummy_character.culture
 			set_faith = scope:dummy_character.faith
+			set_house = scope:dummy_character.house
 			change_first_name = { template_character = scope:dummy_character }
-		
+			
 			# Get rid of the dummy
 			scope:dummy_character = { silent_disappearance_effect = yes }
 			clear_saved_scope = dummy_character
+		}
+		
+		# But wait! Even if our character is from a different system, there's
+		# a 50% chance that they're not a recent immigrant, but a long-term
+		# one that's assimilated! If so, we should give them an appropriate first
+		# name, culture, and faith
+		if = {
+			limit = { NOT = { scope:host.location = scope:home_province } }
+			random = {
+				chance = 50
+				create_character = {
+					location = scope:home_province
+					age = { 20 40 }
+					gender = scope:initialized_character
+					random_traits = yes
+					culture = scope:host.location.culture
+					faith = scope:host.location.faith
+					dynasty = none
+					save_scope_as = dummy_character
+				}
+				set_culture = scope:dummy_character.culture
+				set_faith = scope:dummy_character.faith
+				change_first_name = { template_character = scope:dummy_character }
+			
+				# Get rid of the dummy
+				scope:dummy_character = { silent_disappearance_effect = yes }
+				clear_saved_scope = dummy_character
+			}
 		}
 	}
 	clear_saved_scope = initialized_character
@@ -297,6 +303,7 @@ generate_family_name_effect = {
 	save_scope_as = character_to_name
 	# Generate a dummy character to copy data from
 	create_character = {
+		location = scope:home_province
 		age = { 20 40 }
 		gender = scope:character_to_name
 		random_traits = yes

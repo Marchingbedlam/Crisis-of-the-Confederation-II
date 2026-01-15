@@ -365,3 +365,382 @@ GetDeadCharacterConsequences = {
 	# Character was a nobody (why are we reporting on this?)
 	text = { localization_key = blank_custom_loc }
 }
+
+GetBadDiplomacyInsult = {
+	type = character
+	random_valid = yes
+	
+	text = {
+		trigger = { ai_vengefulness > 0 }
+		localization_key = "petty_and_spiteful_custom_loc"
+	}
+	text = {
+		trigger = {
+			OR = {
+				ai_vengefulness > 0
+				ai_compassion < 0
+			}
+		}
+		localization_key = "full_of_hate_and_venom_custom_loc"
+	}
+	text = {
+		trigger = { ai_rationality < 0 }
+		localization_key = "a_blundering_fool_custom_loc"
+	}
+	text = {
+		trigger = {
+			ai_rationality < 0
+			OR = {
+				ai_vengefulness > 0
+				ai_compassion < 0
+			}
+		}
+		localization_key = "a_contemptuous_oaf_custom_loc"
+	}
+	text = {
+		trigger = {
+			ai_rationality > 0
+			ai_vengefulness > 0
+		}
+		localization_key = "arrogant_and_pigheaded_custom_loc"
+	}
+	text = {
+		trigger = { diplomacy < 10 }
+		localization_key = "utterly_incompetent_custom_loc"
+	}
+	text = { localization_key = "unfit_for_office_custom_loc" }
+	text = { localization_key = "a_miserable_failure_custom_loc" }
+}
+GetBadMartialInsult = {
+	type = character
+	random_valid = yes
+	text = {
+		trigger = { ai_boldness < 0 }
+		localization_key =  "a_helpless_coward_custom_loc"
+	}
+	text = {
+		trigger = { ai_boldness < 10 }
+		localization_key = "timid_and_indecisive_custom_loc"
+	}
+	text = {
+		trigger = { ai_boldness >= 10 }
+		localization_key = "reckless_and_foolhardy_custom_loc"
+	}
+	text = {
+		trigger = { ai_honor < 0 }
+		localization_key = "a_brutal_butcher_custom_loc"
+	}
+	text = {
+		trigger = { ai_compassion > 0 }
+		localization_key = "soft_and_squeamish_custom_loc"
+	}
+	text = {
+		trigger = { ai_rationality < 0 }
+		localization_key = "a_blundering_fool_custom_loc"
+	}
+	text = {
+		trigger = { martial < 10 }
+		localization_key = "utterly_incompetent_custom_loc"
+	}
+	text = { localization_key = "unfit_for_office_custom_loc" }
+	text = { localization_key = "a_miserable_failure_custom_loc" }
+}
+GetBadStewardshipInsult = {
+	type = character
+	random_valid = yes
+	text = {
+		trigger = { ai_greed > 0 }
+		localization_key = "a_miserly_penny_pincher_custom_loc"
+	}
+	text = {
+		trigger = { ai_greed < 0 }
+		localization_key = "a_wasteful_spendthrift_custom_loc"
+	}
+	text = {
+		trigger = {
+			ai_greed > 0
+			ai_honor < 0
+		}
+		localization_key = "a_greedy_opportunist_custom_loc"
+	}
+	text = {
+		trigger = { ai_rationality < 0 }
+		localization_key = "a_blundering_fool_custom_loc"
+	}
+	text = {
+		trigger = { stewardship < 10 }
+		localization_key = "utterly_incompetent_custom_loc"
+	}
+	text = { localization_key = "a_financial_black_hole_custom_loc" }
+	text = { localization_key = "unfit_for_office_custom_loc" }
+	text = { localization_key = "a_miserable_failure_custom_loc" }
+}
+GetBadAtIdeologyInsult = {
+	type = character
+	random_valid = yes
+	text = {
+		trigger = {
+			faith = { has_doctrine = religious_hostility_doctrine }
+			ai_zeal < 0
+		}
+		localization_key = "a_damnable_heretic_custom_loc"
+	}
+	text = {
+		trigger = {
+			faith = { has_doctrine = religious_hostility_doctrine }
+			ai_zeal < 0
+		}
+		localization_key = "a_heathen_apostate_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = custom_loc_char }
+		trigger = { has_any_shunned_or_criminal_trait_in_faith_trigger = { CHARACTER = scope:custom_loc_character FAITH = scope:custom_loc_character.faith } }
+		localization_key = "a_criminal_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = custom_loc_char }
+		localization_key = "adherent_in_name_only_custom_loc"
+	}
+}
+GetDisloyalInsult = {
+	type = character
+	random_valid = yes
+	text = {
+		trigger = { ai_greed > 0 }
+		localization_key = "a_greedy_opportunist_custom_loc"
+	}
+	text = {
+		trigger = { ai_authoritarianism < 0 }
+		localization_key = "a_deranged_anarchist_custom_loc"
+	}
+	text = {
+		trigger = { ai_lawfulness < 0 }
+		localization_key = "a_lawless_reprobate_custom_loc"
+	}
+	text = {
+		trigger = { ai_zeal > 0 }
+		localization_key = "a_blind_fanatic_custom_loc"
+	}
+	text = {
+		trigger = { intrigue > 12 }
+		localization_key = "a_backstabbing_schemer_custom_loc"
+	}
+	text = {
+		trigger = { diplomacy > 12 }
+		localization_key = "a_silver_tongued_demagogue_custom_loc"
+	}
+	text = {
+		trigger = { diarch_loyalty <= diarch_loyalty_visibly_disloyal_threshold }
+		localization_key = "a_self_interested_traitor_custom_loc"
+	}
+	text = {
+		trigger = { is_a_faction_member = yes }
+		localization_key = "a_self_interested_traitor_custom_loc"
+	}
+	text = { localization_key = "a_self_interested_opportunist_custom_loc" }
+}
+GetIdeologyInsult = {
+	type = faith
+	random_valid = yes
+	text = {
+		trigger = {
+			has_doctrine = religious_hostility_doctrine
+			trigger_if = {
+				limit = { exists = scope:insulting_faith }
+				scope:insulting_faith ?= { NOT = { has_doctrine = religious_hostility_doctrine } }
+			}
+		}
+		localization_key = "a_primitive_superstition_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = insulted_faith }
+		trigger = {
+			has_doctrine = religious_hostility_doctrine
+			trigger_if = {
+				limit = { exists = scope:insulting_faith }
+				scope:insulting_faith ?= {
+					has_doctrine = religious_hostility_doctrine
+					faith_hostility_level = { target = scope:insulted_faith value > 1 }
+				}
+			}
+		}
+		localization_key = "a_demonic_cult_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = insulted_faith }
+		trigger = {
+			has_doctrine = religious_hostility_doctrine
+			trigger_if = {
+				limit = { exists = scope:insulting_faith }
+				scope:insulting_faith ?= {
+					has_doctrine = religious_hostility_doctrine
+					faith_hostility_level = { target = scope:insulted_faith value <= 1 }
+				}
+			}
+		}
+		localization_key = "a_damnable_heresy_custom_loc"
+	}
+	text = {
+		trigger = { has_doctrine = criminal_hostility_doctrine }
+		localization_key = "simple_lawlessness_custom_loc"
+	}
+	text = {
+		trigger = { has_doctrine = criminal_hostility_doctrine }
+		localization_key "a_pathetic_excuse_for_theft_and_murder_custom_loc"
+	}
+	text = {
+		trigger = {
+			has_doctrine = criminal_hostility_doctrine
+			trigger_if = {
+				limit = { exists = scope:insulting_faith }
+				scope:insulting_faith ?= { NOT = { has_doctrine = criminal_hostility_doctrine } }
+			}
+		}
+		localization_key = "literally_organized_crime_custom_loc"
+	}
+	text = {
+		trigger = { has_doctrine = political_hostility_doctrine }
+		localization_key = "political_insanity_custom_loc"
+	}
+	text = {
+		trigger = {
+			has_doctrine = political_hostility_doctrine
+			OR = {
+				has_doctrine = doctrine_despotism
+				has_doctrine = doctrine_dictatorship
+			}
+			trigger_if = {
+				limit = { exists = scope:insulting_faith }
+				scope:insulting_faith ?= {
+					OR = {
+						has_doctrine = doctrine_separation_of_powers
+						has_doctrine = doctrine_parliamentarianism
+						has_doctrine = doctrine_anarchism
+					}
+				}
+			}
+		}
+		localization_key = "unchecked_tyranny_custom_loc"
+	}
+	text = {
+		trigger = {
+			has_doctrine = political_hostility_doctrine
+			OR = {
+				has_doctrine = doctrine_separation_of_powers
+				has_doctrine = doctrine_parliamentarianism
+				has_doctrine = doctrine_anarchism
+			}
+			trigger_if = {
+				limit = { exists = scope:insulting_faith }
+				scope:insulting_faith ?= {
+					OR = {
+						has_doctrine = doctrine_despotism
+						has_doctrine = doctrine_dictatorship
+					}
+				}
+			}
+		}
+		localization_key = "sheer_anarchy_custom_loc"
+	}
+	text = {
+		trigger = {
+			NOR = {
+				has_doctrine = doctrine_anarchism
+				has_doctrine = doctrine_no_legitimacy
+			}
+			trigger_if = {
+				limit = { exists = scope:insulting_faith }
+				scope:insulting_faith ?= {
+					NOR = {
+						has_doctrine = doctrine_anarchism
+						has_doctrine = doctrine_no_legitimacy
+					}
+				}
+			}
+			trigger_else = { always = no }
+		}
+		localization_key = "unchecked_tyranny_custom_loc"
+	}
+	text = {
+		trigger = {
+			OR = {
+				has_doctrine = doctrine_anarchism
+				has_doctrine = doctrine_no_legitimacy
+			}
+			trigger_if = {
+				limit = { exists = scope:insulting_faith }
+				scope:insulting_faith ?= {
+					NOR = {
+						has_doctrine = doctrine_anarchism
+						has_doctrine = doctrine_no_legitimacy
+					}
+				}
+			}
+		}
+		localization_key = "sheer_anarchy_custom_loc"
+	}
+	text = {
+		trigger = {
+			OR = {
+				has_doctrine = doctrine_commonality_pluralism
+				has_doctrine = doctrine_separatism
+			}
+			trigger_if = {
+				limit = { exists = scope:insulting_faith }
+				scope:insulting_faith = {
+					OR = {
+						has_doctrine = doctrine_metroplanetism
+						has_doctrine = doctrine_anti_metroplanetism
+					}
+				}
+			}
+		}
+		localization_key = "repackaged_particularism_custom_loc"
+	}
+	text = {
+		trigger = { has_doctrine = doctrine_particularism }
+		localization_key = "blatant_particularism_custom_loc"
+	}
+	text = {
+		trigger = {
+			OR = {
+				has_doctrine = tenet_cyberneticism
+				has_doctrine = tenet_bio_directionism
+				has_doctrine = tenet_genetic_dynasties
+			}
+			trigger_if = {
+				limit = { exists = scope:insulting_faith }
+				scope:insulting_faith = {
+					NOR = {
+						has_doctrine = tenet_cyberneticism
+						has_doctrine = tenet_bio_directionism
+						has_doctrine = tenet_genetic_dynasties
+					}
+				}
+			}
+		}
+		localization_key = "cold_and_inhuman_custom_loc"
+	}
+	text = {
+		trigger = {
+			OR = {
+				has_doctrine = tenet_cyberneticism
+				has_doctrine = tenet_bio_directionism
+				has_doctrine = tenet_genetic_dynasties
+			}
+			trigger_if = {
+				limit = { exists = scope:insulting_faith }
+				scope:insulting_faith = { has_doctrine = tenet_human_purity }
+			}
+		}
+		localization_key = "desecration_of_the_sacred_human_form_custom_loc"
+	}
+	text = {
+		trigger = { fervor < 50 }
+		localization_key = "a_failed_idea_custom_loc"
+	}
+	text = {
+		trigger = { fervor < 20 }
+		localization_key = "a_legacy_of_failure_custom_loc"
+	}
+}

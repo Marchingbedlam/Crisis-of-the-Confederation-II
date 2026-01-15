@@ -1,10 +1,4 @@
 ﻿become_prime_minister_intent = { icon = extoll_reign_intent }
-remain_prime_minister_intent = {
-	icon = extoll_reign_intent
-	is_shown = { involved_activity.activity_host.liege.diarch = { this = ROOT } }
-	is_valid = { involved_activity.activity_host.liege.diarch = { this = ROOT } }
-	ai_will_do = { value = 100 }
-}
 oust_prime_minister_intent = {
 	is_shown = { NOT = { involved_activity.activity_host.liege.diarch = { this = ROOT } } }
 	is_valid = { NOT = { involved_activity.activity_host.liege.diarch = { this = ROOT } } }
@@ -112,7 +106,7 @@ support_patron_prime_minister_intent = {
 		value = ai_honor
 	}
 	ai_targets = {
-		type = scripted_relations
+		ai_recipients = scripted_relations
 	}
 	is_target_valid = {
 		has_relation_disciple = scope:target
@@ -158,7 +152,7 @@ support_friend_prime_minister_intent = {
 		value = ai_vengefulness
 	}
 	ai_targets = {
-		type = scripted_relations
+		ai_recipients = scripted_relations
 	}
 	is_target_valid = {
 		is_friends_with = { TARGET = scope:target }
@@ -204,7 +198,7 @@ oppose_rival_prime_minister_intent = {
 		value = ai_sociability
 	}
 	ai_targets = {
-		type = scripted_relations
+		ai_recipients = scripted_relations
 	}
 	is_target_valid = {
 		is_rivals_with = { TARGET = scope:target }
@@ -222,5 +216,36 @@ oppose_rival_prime_minister_intent = {
 	ai_target_score = {
 		value = 0
 		subtract = "opinion(scope:target)"
+	}
+}
+support_most_qualified_prime_minister_intent = {
+	is_shown = { NOT = { involved_activity.activity_host.liege.diarch = { this = ROOT } } }
+	is_valid = { NOT = { involved_activity.activity_host.liege.diarch = { this = ROOT } } }
+	ai_will_do = {
+		value = 20
+		add = ai_rationality
+	}
+}
+support_most_loyal_prime_minister_intent = {
+	is_shown = { NOT = { involved_activity.activity_host.liege.diarch = { this = ROOT } } }
+	is_valid = { NOT = { involved_activity.activity_host.liege.diarch = { this = ROOT } } }
+	ai_will_do = {
+		value = 0
+		involved_activity.activity_host.liege = { save_temporary_scope_as = ruler }
+		if = {
+			limit = { scope:ruler = ROOT }
+			add = 50
+		}
+		else = { add = "opinion(scope:ruler)" }
+		add = {
+			value = ai_authoritarianism
+			if = {
+				limit = {
+					NOT = { scope:ruler = ROOT }
+					opinion = { target = scope:ruler value < 0 }
+				}
+				max = 0
+			}
+		}
 	}
 }

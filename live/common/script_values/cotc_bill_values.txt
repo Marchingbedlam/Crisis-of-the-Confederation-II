@@ -16,8 +16,9 @@ treasury_required_for_stimulus = {
 ############################
 total_legislators_present = {
 	value = 0
+	var:title = { save_temporary_scope_as = bill_title }
 	every_attending_character = {
-		limit = { NOT = { this = scope:host } }
+		limit = { is_legislator_of = { TITLE = scope:bill_title } }
 		add = 1
 	}
 }
@@ -34,6 +35,17 @@ total_bill_opponents = {
 		name = bill_opponents
 		add = 1
 	}
+}
+total_undecideds = {
+	value = 0
+	every_guest_subset = {
+		name = undecideds
+		add = 1
+	}
+}
+total_legislators_voting = {
+	value = total_bill_supporters
+	add = total_bill_opponents
 }
 simple_majority = {
 	value = 0
@@ -54,6 +66,21 @@ supermajority = {
 	divide = 3
 	multiply = 2
 	ceiling = yes
+}
+bill_threshold = {
+	value = 0
+	if = {
+		limit = { has_variable = simple_majority_bill }
+		add = simple_majority
+	}
+	else_if = {
+		limit = { has_variable = supermajority_bill }
+		add = supermajority
+	}
+	else = {
+		add = total_bill_opponents
+		add = 1
+	}
 }
 total_supporters_gained = {
 	value = 1

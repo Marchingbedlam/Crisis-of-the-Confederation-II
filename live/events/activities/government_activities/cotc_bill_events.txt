@@ -354,7 +354,7 @@ cotc_bill_events.155 = {
 # Your bill has passed!
 cotc_bill_events.200 = {
 	type = activity_event
-	trigger = { scope:activity.total_bill_supporters >= scope:activity.var:legislature.simple_majority }
+	trigger = { scope:activity.total_bill_supporters >= scope:activity.bill_threshold }
 	desc = cotc_bill_events.200.desc
 	
 	theme = realm
@@ -392,7 +392,7 @@ cotc_bill_events.200 = {
 # Your bill has failed!
 cotc_bill_events.250 = {
 	type = activity_event
-	trigger = { scope:activity.total_bill_supporters < scope:activity.var:legislature.simple_majority }
+	trigger = { scope:activity.total_bill_supporters < scope:activity.bill_threshold }
 	desc = cotc_bill_events.250.desc
 	
 	theme = realm

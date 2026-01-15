@@ -60,3 +60,13 @@ is_character_in_legislature_trigger = {
 		}
 	}
 }
+is_legislator_of = {
+	trigger_if = {
+		limit = {
+			has_variable = legislature
+			var:legislature ?= { has_variable = legislature_title }
+		}
+		var:legislature.var:legislature_title = $TITLE$
+	}
+	trigger_else = { always = no }
+}

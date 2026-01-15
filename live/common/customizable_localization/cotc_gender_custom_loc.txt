@@ -1,4 +1,4 @@
-# Future-proofing for possible non-standard gender identities
+﻿# Future-proofing for possible non-standard gender identities
 GetThey = {
 	type = character
 	text = {
@@ -226,6 +226,18 @@ GetBePresent = {
 		localization_key = be_present_male_custom_loc
 	}
 	text = { localization_key = be_present_neutral_custom_loc }
+}
+GetBePresentContraction = {
+	type = character
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = be_present_contraction_female_custom_loc
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = be_present_contraction_male_custom_loc
+	}
+	text = { localization_key = be_present_contraction_neutral_custom_loc }
 }
 GetBePast = {
 	type = character

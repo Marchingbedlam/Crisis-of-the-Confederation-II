@@ -20,14 +20,9 @@ cotc_tax_bill_events.100 = {
 	# Intend to support the bill
 	option = {
 		name = cotc_budget_bill_events.100.a
-		scope:activity = {
-			add_to_guest_subset = {
-				name = bill_supporters
-				target = ROOT
-			}
-		}
-		vote_for_bill_strength_effect = yes
+		custom_tooltip = support_bill_desc
 		hidden_effect = {
+			vote_for_bill_strength_effect = yes
 			save_scope_as = voter
 			scope:host = {
 				send_interface_message = {
@@ -38,6 +33,10 @@ cotc_tax_bill_events.100 = {
 				}
 			}
 			scope:activity = {
+				add_to_guest_subset = {
+					name = bill_supporters
+					target = ROOT
+				}
 				add_activity_log_entry = {
 					key = voted_for_bill
 					tags = { positive intent }
@@ -123,14 +122,9 @@ cotc_tax_bill_events.100 = {
 	# Intend to oppose the bill
 	option = {
 		name = cotc_budget_bill_events.100.b
-		scope:activity = {
-			add_to_guest_subset = {
-				name = bill_opponents
-				target = ROOT
-			}
-		}
-		vote_against_bill_strength_effect = yes
+		custom_tooltip = oppose_bill_desc
 		hidden_effect = {
+			vote_against_bill_strength_effect = yes
 			save_scope_as = voter
 			scope:host = {
 				send_interface_message = {
@@ -141,6 +135,10 @@ cotc_tax_bill_events.100 = {
 				}
 			}
 			scope:activity = {
+				add_to_guest_subset = {
+					name = bill_opponents
+					target = ROOT
+				}
 				add_activity_log_entry = {
 					key = voted_against_bill
 					tags = { negative intent }

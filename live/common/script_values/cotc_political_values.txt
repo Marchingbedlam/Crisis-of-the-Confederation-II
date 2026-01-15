@@ -186,22 +186,3 @@ legislative_seniority = {
 		add = var:years_in_legislature
 	}
 }
-# This is used to calculate the most popular prime minister in the legislature
-prime_minister_score = {
-	value = legislative_seniority
-	multiply = {
-		value = 0
-		liege = {
-			every_held_title = {
-				limit = { has_variable = legislature }
-				var:legislature ?= {
-					every_in_list = {
-						variable = legislators
-						limit = { faith = { this = ROOT.faith } }
-						add = 1
-					}
-				}
-			}
-		}
-	}
-}

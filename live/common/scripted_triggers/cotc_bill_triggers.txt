@@ -395,3 +395,46 @@ tax_code_failed_voter_intent_trigger = {
 	}
 	trigger_else = { always = no }
 }
+legislator_cares_about_qualifications_trigger = {
+	is_legislator_of = { TITLE = scope:activity.var:title }
+	OR = {
+		has_activity_intent = support_most_qualified_prime_minister_intent
+		AND = {
+			ai_rationality >= ai_zeal
+			ai_rationality >= ai_vengefulness
+			ai_rationality >= ai_authoritarianism
+			ai_rationality >= ai_parochialism
+		}
+	}
+}
+legislator_cares_about_ideology_trigger = {
+	is_legislator_of = { TITLE = scope:activity.var:title }
+	OR = {
+		has_activity_intent = support_ideology_intent
+		AND = {
+			ai_zeal >= ai_rationality
+			ai_zeal >= ai_vengefulness
+			ai_zeal >= ai_authoritarianism
+			ai_zeal >= ai_parochialism
+		}
+	}
+}
+legislator_cares_about_loyalty_trigger = {
+	is_legislator_of = { TITLE = scope:activity.var:title }
+	OR = {
+		has_activity_intent = support_most_loyal_prime_minister_intent
+		AND = {
+			ai_authoritarianism >= ai_rationality
+			ai_authoritarianism >= ai_zeal
+			ai_authoritarianism >= ai_vengefulness
+			ai_authoritarianism >= ai_parochialism
+		}
+	}
+}
+legislator_cares_about_ethics_trigger = {
+	is_legislator_of = { TITLE = scope:activity.var:title }
+	ai_honor >= ai_zeal
+	ai_honor >= ai_vengefulness
+	ai_honor >= ai_parochialism
+	ai_honor >= ai_authoritarianism
+}

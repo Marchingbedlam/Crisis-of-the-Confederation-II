@@ -32,3 +32,80 @@
 		}
 	}
 }
+activity_invite_rule_liege_legislators = {
+	effect = {
+		liege = {
+			save_temporary_scope_as = ruler
+			every_courtier = {
+				limit = {
+					has_variable = legislature
+					var:legislature ?= { var:legislature_title = { holder = scope:ruler } }
+				}
+				add_to_list = characters
+			}
+			every_courtier_away = {
+				limit = {
+					has_variable = legislature
+					var:legislature ?= { var:legislature_title = { holder = scope:ruler } }
+				}
+				add_to_list = characters
+			}
+			every_vassal_or_below = {
+				every_courtier = {
+					limit = {
+						has_variable = legislature
+						var:legislature ?= { var:legislature_title = { holder = scope:ruler } }
+					}
+					add_to_list = characters
+				}
+				every_courtier_away = {
+					limit = {
+						has_variable = legislature
+						var:legislature ?= { var:legislature_title = { holder = scope:ruler } }
+					}
+					add_to_list = characters
+				}
+			}
+		}
+	}
+}
+activity_invite_rule_liege_legislators_diarch = {
+	effect = {
+		liege = {
+			save_temporary_scope_as = ruler
+			diarch ?= {
+				add_to_list = characters
+			}
+			every_courtier = {
+				limit = {
+					has_variable = legislature
+					var:legislature ?= { var:legislature_title = { holder = scope:ruler } }
+				}
+				add_to_list = characters
+			}
+			every_courtier_away = {
+				limit = {
+					has_variable = legislature
+					var:legislature ?= { var:legislature_title = { holder = scope:ruler } }
+				}
+				add_to_list = characters
+			}
+			every_vassal_or_below = {
+				every_courtier = {
+					limit = {
+						has_variable = legislature
+						var:legislature ?= { var:legislature_title = { holder = scope:ruler } }
+					}
+					add_to_list = characters
+				}
+				every_courtier_away = {
+					limit = {
+						has_variable = legislature
+						var:legislature ?= { var:legislature_title = { holder = scope:ruler } }
+					}
+					add_to_list = characters
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,58 @@
+﻿ideology_compatibility_modifier = {
+	modifier = {
+		add = $SCALE$
+		exists = $TARGET$
+		$TARGET$ ?= { this = $FAITH$ }
+	}
+	modifier = {
+		add = $SCALE$
+		exists = $TARGET$
+		$TARGET$ ?= { faith_hostility_level = { target = $FAITH$ value > 3 } }
+	}
+	modifier = {
+		add = $SCALE$
+		exists = $TARGET$
+		$TARGET$ ?= { faith_hostility_level = { target = $FAITH$ value > 2 } }
+	}
+	modifier = {
+		add = $SCALE$
+		exists = $TARGET$
+		$TARGET$ ?= { faith_hostility_level = { target = $FAITH$ value > 1 } }
+	}
+}
+average_sub_realm_ideology_compatibility_modifier = {
+	modifier = {
+		add = {
+			value = 0
+			$TARGET$ = {
+				every_sub_realm_county = {
+					title_province = {
+						faith = {
+							if = {
+								limit = { faith_hostility_level = { target = $FAITH$ value > 3 } }
+								add = $SCALE$
+							}
+							if = {
+								limit = { faith_hostility_level = { target = $FAITH$ value > 2 } }
+								add = $SCALE$
+							}
+							if = {
+								limit = { faith_hostility_level = { target = $FAITH$ value > 1 } }
+								add = $SCALE$
+							}
+							if = {
+								limit = { this = $FAITH$ }
+								add = $SCALE$
+							}
+						}
+					}
+				}
+			}
+			divide = {
+				value = 0
+				$TARGET$ = { every_sub_realm_county = { add = 1 } }
+				min = 1
+			}
+		}
+	}
+}
