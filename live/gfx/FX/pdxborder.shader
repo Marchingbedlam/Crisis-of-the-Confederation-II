@@ -140,6 +140,8 @@ PixelShader =
 				// MOD(COTC)
 				// Diffuse.rgb = ApplyFogOfWar( Diffuse.rgb, Input.WorldSpacePos, FogOfWarAlpha );
 				// Diffuse.rgb = ApplyMapDistanceFogWithoutFoW( Diffuse.rgb, Input.WorldSpacePos );
+
+				Diffuse.a *= smoothstep( 10.0, 100.0f, CameraPosition.y );
 				// ENDMOD
 
 				return Diffuse;

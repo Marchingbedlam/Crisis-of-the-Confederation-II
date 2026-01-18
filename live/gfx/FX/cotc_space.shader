@@ -23,7 +23,7 @@ Includes = {
 	"jomini/jomini_province_overlays.fxh"
 	"bordercolor.fxh"
 	"cotc_overrides.fxh"
-	"gh_atmospheric.fxh"
+	"cotc_utilities.fxh"
 	#END MOD
 }
 
@@ -222,7 +222,7 @@ PixelShader =
 			PDX_MAIN
 			{
 				float2 ColorMapCoords =  Input.WorldSpacePos.xz *  WorldSpaceToTerrain0To1;
-				float ProvinceStrength = smoothstep( 10.0f, 200.0f, CameraPosition.y );
+				float ProvinceStrength = COTC_GetHeightBasedAlpha();
 
 				float3 ProvinceOverlayColor;
 				float PreLightingBlend;
@@ -237,14 +237,14 @@ PixelShader =
 				if( ProvinceOverlayColor.r > 0.0f )
 				{
 					Color = ProvinceOverlayColor;
-					cotc_ApplyHighlightColor(Color, ColorMapCoords);
+					COTC_ApplyHighlightColor(Color, ColorMapCoords);
 				}
 				else
 				{
 					Color = PlaneMask;
 				}
 
-				GH_ApplyAtmosphericEffects( Color, Alpha, Input.WorldSpacePos );
+				COTC_ApplyBackgroundEffects( Color, Alpha, Input.WorldSpacePos );
 
 				return float4(Color, Alpha);
 			}
@@ -324,8 +324,8 @@ PixelShader =
 				SMaterialProperties MaterialProps = GetMaterialProperties( Diffuse.rgb, Normal, Properties.a, Properties.g, Properties.b );
 				SLightingProperties LightingProps = GetSunLightingProperties( Input.WorldSpacePos, ShadowTexture );
 				
-				float ProvinceStrength = smoothstep(10.0f, 75.0f, CameraPosition.y);
-				float3 Color = cotc_CalculateSunLighting( MaterialProps, LightingProps, EnvironmentMap, ProvinceStrength );
+				float ProvinceStrength = COTC_GetHeightBasedAlpha();
+				float3 Color = COTC_CalculateSunLighting( MaterialProps, LightingProps, EnvironmentMap, ProvinceStrength );
 				float Alpha = Diffuse.a;
 
 				float3 ProvinceOverlayColor;
@@ -358,7 +358,7 @@ PixelShader =
 					#endif
 				#endif
 
-				cotc_ApplyHighlightColor(Color, ColorMapCoords);
+				COTC_ApplyHighlightColor(Color, ColorMapCoords);
 
 				return float4( Color, Alpha );
 			}
