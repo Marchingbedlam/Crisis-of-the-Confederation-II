@@ -36,9 +36,9 @@ PixelShader = {
 		static const float  COTC_STARS_VERTICAL_SPEED = 0.2f;
 		static const float2 COTC_STARS_WIND_VELOCITY  = float2(-0.2f, -0.2f);
 
-		static const float COTC_STARS_LAYER_TILE_SIZE = 300.0f;
+		static const float COTC_STARS_LAYER_TILE_SIZE = 250.0f;
 		static const float COTC_STARS_LAYER_TILE_SIZE_SMALL = 150.0f;
-		static const float COTC_STARS_LAYER_TILE_SIZE_Y = 200.0f;
+		static const float COTC_STARS_LAYER_TILE_SIZE_Y = 300.0f;
 
 		static const int COTC_STARS_LAYERS_COUNT = 5;
 
