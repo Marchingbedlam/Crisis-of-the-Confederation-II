@@ -19,7 +19,7 @@ Includes = {
 	"liquid.fxh"
 	"clouds.fxh"
 	"province_effects.fxh"
-	#MOD(CL)
+	#MOD(COTC)
 	"jomini/jomini_province_overlays.fxh"
 	"bordercolor.fxh"
 	"cotc_overrides.fxh"

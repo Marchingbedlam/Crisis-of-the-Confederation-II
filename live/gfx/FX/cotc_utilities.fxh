@@ -7,7 +7,7 @@ PixelShader = {
 	Code [[
 		float COTC_GetHeightBasedAlpha()
 		{
-			return smoothstep( 10.0f, 100.0f, CameraPosition.y );
+			return smoothstep( 35.0f, 70.0f, CameraPosition.y );
 		}
 
 		void COTC_ApplyBackgroundEffects(inout float3 Color, inout float Alpha, float3 WorldSpacePos)

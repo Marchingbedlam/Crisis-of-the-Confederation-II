@@ -114,8 +114,6 @@ PixelShader = {
 				StarAlpha += LayerAlphaMultiplier*PdxTex2D(COTC_StarLayer, AdjustedLayerUV).a;
 			}
 
-			StarAlpha *= smoothstep( 0.0f, 100.0f, CameraPosition.y );
-
 			Color = lerp(Color, COTC_STARS_COLOR, saturate(StarAlpha));
 			Alpha = lerp(Alpha, 1.0f, saturate(StarAlpha));
 		}

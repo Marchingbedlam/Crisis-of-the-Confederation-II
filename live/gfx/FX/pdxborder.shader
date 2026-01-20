@@ -10,6 +10,9 @@ Includes = {
 	"cw/pdxterrain.fxh"
 	"clouds.fxh"
 	"jomini/map_lighting.fxh"
+	#MOD(COTC)
+	"cotc_utilities.fxh"
+	#END MOD
 }
 
 VertexStruct VS_OUTPUT_PDX_BORDER
@@ -141,7 +144,7 @@ PixelShader =
 				// Diffuse.rgb = ApplyFogOfWar( Diffuse.rgb, Input.WorldSpacePos, FogOfWarAlpha );
 				// Diffuse.rgb = ApplyMapDistanceFogWithoutFoW( Diffuse.rgb, Input.WorldSpacePos );
 
-				Diffuse.a *= smoothstep( 10.0, 100.0f, CameraPosition.y );
+				Diffuse.a *= COTC_GetHeightBasedAlpha();
 				// ENDMOD
 
 				return Diffuse;
