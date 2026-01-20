@@ -483,6 +483,8 @@ cotc_tax_bill_events.400 = {
 				show_in_conclusion = yes
 			}
 		}
+	
+		scope:activity.var:ruler = { save_scope_as = tax_ruler } # Save the ruler for tax evaluation purposes
 	}
 	
 	right_portrait = {
@@ -525,18 +527,16 @@ cotc_tax_bill_events.400 = {
 			}
 		}
 		ai_chance = {
-			base = 90
+			base = 10
 			modifier = {
-				add = ai_rationality
+				factor = {
+					value = total_supporters_gained
+					subtract = total_supporters_lost
+				}
 			}
-			modifier = {
-				add = ai_greed
-				amended_total_tax_income > scope:activity.proposed_total_tax_income
-			}
-			# Don't do this if you would lose more supporters than you gain
 			modifier = {
 				factor = 0
-				total_supporters_lost >= total_supporters_gained
+				scope:activity.total_bill_supporters >= scope:activity.var:legislature.simple_majority
 			}
 		}
 	}
@@ -575,11 +575,72 @@ cotc_tax_bill_events.400 = {
 			}
 		}
 		ai_chance = {
-			base = 10
+			base = 0
+			# Difference in amended taxes from desired taxes
+			modifier = {
+				add = {
+					value = var:amended_military_taxes
+					subtract = target_military_taxes
+				}
+				var:amended_military_taxes > target_military_taxes
+			}
+			modifier = {
+				add = {
+					value = target_military_taxes
+					subtract = var:amended_military_taxes
+				}
+				var:amended_military_taxes < target_military_taxes
+			}
+			modifier = {
+				add = {
+					value = var:amended_commercial_taxes
+					subtract = target_commercial_taxes
+				}
+				var:amended_commercial_taxes > target_commercial_taxes
+			}
+			modifier = {
+				add = {
+					value = target_commercial_taxes
+					subtract = var:amended_commercial_taxes
+				}
+				var:amended_commercial_taxes < target_commercial_taxes
+			}
+			modifier = {
+				add = {
+					value = var:amended_technocratic_taxes
+					subtract = target_technocratic_taxes
+				}
+				var:amended_technocratic_taxes > target_technocratic_taxes
+			}
+			modifier = {
+				add = {
+					value = target_technocratic_taxes
+					subtract = var:amended_technocratic_taxes
+				}
+				var:amended_technocratic_taxes < target_technocratic_taxes
+			}
+			modifier = {
+				add = {
+					value = var:amended_theocratic_taxes
+					subtract = target_theocratic_taxes
+				}
+				var:amended_theocratic_taxes > target_theocratic_taxes
+			}
+			modifier = {
+				add = {
+					value = target_theocratic_taxes
+					subtract = var:amended_theocratic_taxes
+				}
+				var:amended_theocratic_taxes < target_theocratic_taxes
+			}
+			modifier = { factor = 25 }
+			# How uncompromising are we?
 			modifier = { add = ai_vengefulness }
 			modifier = {
-				add = ai_greed
-				amended_total_tax_income < scope:activity.proposed_total_tax_income
+				add = {
+					value = ai_boldness
+					max = 0
+				}
 			}
 		}
 	}

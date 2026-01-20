@@ -17,6 +17,10 @@
 				text = legislature_not_convened_desc
 			}
 		}
+		trigger_if = {
+			limit = { has_diarchy = yes }
+			NOT = { has_diarchy_active_parameter = liege_cannot_propose_bills }
+		}
 	}
 	
 	can_plan = {
@@ -135,6 +139,12 @@
 				is_valid = { always = yes }
 				on_start = { scope:activity = { set_variable = { name = proposed_military_taxes value = 0 } } }
 				default = { current_military_taxes = 0 }
+				cost = {
+					influence = {
+						value = current_military_taxes
+						multiply = 25
+					}
+				}
 				ai_will_do = {
 					value = 0
 					save_temporary_scope_as = tax_ruler
@@ -149,6 +159,22 @@
 				is_valid = { always = yes }
 				on_start = { scope:activity = { set_variable = { name = proposed_military_taxes value = 1 } } }
 				default = { current_military_taxes = 1 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_military_taxes > 1 }
+							add = current_military_taxes
+							subtract = 1
+						}
+						else_if = {
+							limit = { current_military_taxes < 1 }
+							add = 1
+							subtract = current_military_taxes
+						}
+						multiply = 25
+					}
+				}
 				ai_will_do = {
 					value = 0
 					save_temporary_scope_as = tax_ruler
@@ -163,6 +189,22 @@
 				is_valid = { always = yes }
 				on_start = { scope:activity = { set_variable = { name = proposed_military_taxes value = 2 } } }
 				default = { current_military_taxes = 2 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_military_taxes > 2 }
+							add = current_military_taxes
+							subtract = 2
+						}
+						else_if = {
+							limit = { current_military_taxes < 2 }
+							add = 2
+							subtract = current_military_taxes
+						}
+						multiply = 25
+					}
+				}
 				ai_will_do = {
 					value = 0
 					save_temporary_scope_as = tax_ruler
@@ -177,6 +219,22 @@
 				is_valid = { always = yes }
 				on_start = { scope:activity = { set_variable = { name = proposed_military_taxes value = 3 } } }
 				default = { current_military_taxes = 3 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_military_taxes > 3 }
+							add = current_military_taxes
+							subtract = 3
+						}
+						else_if = {
+							limit = { current_military_taxes < 3 }
+							add = 3
+							subtract = current_military_taxes
+						}
+						multiply = 25
+					}
+				}
 				ai_will_do = {
 					value = 0
 					save_temporary_scope_as = tax_ruler
@@ -191,6 +249,13 @@
 				is_valid = { always = yes }
 				on_start = { scope:activity = { set_variable = { name = proposed_military_taxes value = 4 } } }
 				default = { current_military_taxes = 4 }
+				cost = {
+					influence = {
+						value = 4
+						subtract = current_military_taxes
+						multiply = 25
+					}
+				}
 				ai_will_do = {
 					value = 0
 					save_temporary_scope_as = tax_ruler
@@ -207,6 +272,12 @@
 				is_valid = { always = yes }
 				on_start = { scope:activity = { set_variable = { name = proposed_commercial_taxes value = 0 } } }
 				default = { current_commercial_taxes = 0 }
+				cost = {
+					influence = {
+						value = current_commercial_taxes
+						multiply = 25
+					}
+				}
 				ai_will_do = {
 					value = 0
 					save_temporary_scope_as = tax_ruler
@@ -221,6 +292,22 @@
 				is_valid = { always = yes }
 				on_start = { scope:activity = { set_variable = { name = proposed_commercial_taxes value = 1 } } }
 				default = { current_commercial_taxes = 1 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_commercial_taxes > 1 }
+							add = current_commercial_taxes
+							subtract = 1
+						}
+						else_if = {
+							limit = { current_commercial_taxes < 1 }
+							add = 1
+							subtract = current_commercial_taxes
+						}
+						multiply = 25
+					}
+				}
 				ai_will_do = {
 					value = 0
 					save_temporary_scope_as = tax_ruler
@@ -235,6 +322,22 @@
 				is_valid = { always = yes }
 				on_start = { scope:activity = { set_variable = { name = proposed_commercial_taxes value = 2 } } }
 				default = { current_commercial_taxes = 2 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_commercial_taxes > 2 }
+							add = current_commercial_taxes
+							subtract = 2
+						}
+						else_if = {
+							limit = { current_commercial_taxes < 2 }
+							add = 2
+							subtract = current_commercial_taxes
+						}
+						multiply = 25
+					}
+				}
 				ai_will_do = {
 					value = 0
 					save_temporary_scope_as = tax_ruler
@@ -249,6 +352,22 @@
 				is_valid = { always = yes }
 				on_start = { scope:activity = { set_variable = { name = proposed_commercial_taxes value = 3 } } }
 				default = { current_commercial_taxes = 3 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_commercial_taxes > 3 }
+							add = current_commercial_taxes
+							subtract = 3
+						}
+						else_if = {
+							limit = { current_commercial_taxes < 3 }
+							add = 3
+							subtract = current_commercial_taxes
+						}
+						multiply = 25
+					}
+				}
 				ai_will_do = {
 					value = 0
 					save_temporary_scope_as = tax_ruler
@@ -263,6 +382,13 @@
 				is_valid = { always = yes }
 				on_start = { scope:activity = { set_variable = { name = proposed_commercial_taxes value = 4 } } }
 				default = { current_commercial_taxes = 4 }
+				cost = {
+					influence = {
+						value = 4
+						subtract = current_commercial_taxes
+						multiply = 25
+					}
+				}
 				ai_will_do = {
 					value = 0
 					save_temporary_scope_as = tax_ruler
@@ -279,6 +405,12 @@
 				is_valid = { always = yes }
 				on_start = { scope:activity = { set_variable = { name = proposed_technocratic_taxes value = 0 } } }
 				default = { current_technocratic_taxes = 0 }
+				cost = {
+					influence = {
+						value = current_technocratic_taxes
+						multiply = 25
+					}
+				}
 				ai_will_do = {
 					value = 0
 					save_temporary_scope_as = tax_ruler
@@ -293,6 +425,22 @@
 				is_valid = { always = yes }
 				on_start = { scope:activity = { set_variable = { name = proposed_technocratic_taxes value = 1 } } }
 				default = { current_technocratic_taxes = 1 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_technocratic_taxes > 1 }
+							add = current_technocratic_taxes
+							subtract = 1
+						}
+						else_if = {
+							limit = { current_technocratic_taxes < 1 }
+							add = 1
+							subtract = current_technocratic_taxes
+						}
+						multiply = 25
+					}
+				}
 				ai_will_do = {
 					value = 0
 					save_temporary_scope_as = tax_ruler
@@ -307,6 +455,22 @@
 				is_valid = { always = yes }
 				on_start = { scope:activity = { set_variable = { name = proposed_technocratic_taxes value = 2 } } }
 				default = { current_technocratic_taxes = 2 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_technocratic_taxes > 2 }
+							add = current_technocratic_taxes
+							subtract = 2
+						}
+						else_if = {
+							limit = { current_technocratic_taxes < 2 }
+							add = 2
+							subtract = current_technocratic_taxes
+						}
+						multiply = 25
+					}
+				}
 				ai_will_do = {
 					value = 0
 					save_temporary_scope_as = tax_ruler
@@ -321,6 +485,22 @@
 				is_valid = { always = yes }
 				on_start = { scope:activity = { set_variable = { name = proposed_technocratic_taxes value = 3 } } }
 				default = { current_technocratic_taxes = 3 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_technocratic_taxes > 3 }
+							add = current_technocratic_taxes
+							subtract = 3
+						}
+						else_if = {
+							limit = { current_technocratic_taxes < 3 }
+							add = 3
+							subtract = current_technocratic_taxes
+						}
+						multiply = 25
+					}
+				}
 				ai_will_do = {
 					value = 0
 					save_temporary_scope_as = tax_ruler
@@ -335,6 +515,13 @@
 				is_valid = { always = yes }
 				on_start = { scope:activity = { set_variable = { name = proposed_technocratic_taxes value = 4 } } }
 				default = { current_technocratic_taxes = 4 }
+				cost = {
+					influence = {
+						value = 4
+						subtract = current_technocratic_taxes
+						multiply = 25
+					}
+				}
 				ai_will_do = {
 					value = 0
 					save_temporary_scope_as = tax_ruler
@@ -351,6 +538,12 @@
 				is_valid = { always = yes }
 				on_start = { scope:activity = { set_variable = { name = proposed_theocratic_taxes value = 0 } } }
 				default = { current_theocratic_taxes = 0 }
+				cost = {
+					influence = {
+						value = current_theocratic_taxes
+						multiply = 25
+					}
+				}
 				ai_will_do = {
 					value = 0
 					save_temporary_scope_as = tax_ruler
@@ -365,6 +558,22 @@
 				is_valid = { always = yes }
 				on_start = { scope:activity = { set_variable = { name = proposed_theocratic_taxes value = 1 } } }
 				default = { current_theocratic_taxes = 1 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_theocratic_taxes > 1 }
+							add = current_theocratic_taxes
+							subtract = 1
+						}
+						else_if = {
+							limit = { current_theocratic_taxes < 1 }
+							add = 1
+							subtract = current_theocratic_taxes
+						}
+						multiply = 25
+					}
+				}
 				ai_will_do = {
 					value = 0
 					save_temporary_scope_as = tax_ruler
@@ -379,6 +588,22 @@
 				is_valid = { always = yes }
 				on_start = { scope:activity = { set_variable = { name = proposed_theocratic_taxes value = 2 } } }
 				default = { current_theocratic_taxes = 2 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_theocratic_taxes > 2 }
+							add = current_theocratic_taxes
+							subtract = 2
+						}
+						else_if = {
+							limit = { current_theocratic_taxes < 2 }
+							add = 2
+							subtract = current_theocratic_taxes
+						}
+						multiply = 25
+					}
+				}
 				ai_will_do = {
 					value = 0
 					save_temporary_scope_as = tax_ruler
@@ -393,6 +618,22 @@
 				is_valid = { always = yes }
 				on_start = { scope:activity = { set_variable = { name = proposed_theocratic_taxes value = 3 } } }
 				default = { current_theocratic_taxes = 3 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_theocratic_taxes > 3 }
+							add = current_theocratic_taxes
+							subtract = 3
+						}
+						else_if = {
+							limit = { current_theocratic_taxes < 3 }
+							add = 3
+							subtract = current_theocratic_taxes
+						}
+						multiply = 25
+					}
+				}
 				ai_will_do = {
 					value = 0
 					save_temporary_scope_as = tax_ruler
@@ -407,6 +648,13 @@
 				is_valid = { always = yes }
 				on_start = { scope:activity = { set_variable = { name = proposed_theocratic_taxes value = 4 } } }
 				default = { current_theocratic_taxes = 4 }
+				cost = {
+					influence = {
+						value = 4
+						subtract = current_theocratic_taxes
+						multiply = 25
+					}
+				}
 				ai_will_do = {
 					value = 0
 					save_temporary_scope_as = tax_ruler

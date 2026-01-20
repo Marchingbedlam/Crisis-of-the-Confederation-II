@@ -599,6 +599,26 @@ cotc_bill_events.400 = {
 			}
 		}
 	}
+	# A gift of influence
+	option = {
+		name = cotc_bill_events.400.f
+		trigger = { influence >= influence_bribe_value }
+		show_as_unavailable = { always = yes }
+		show_as_tooltip = {
+			change_influence = { value = influence_bribe_value multiply = -1 }
+			scope:target_opponent = { change_influence = influence_bribe_value }
+		}
+		hidden_effect = { scope:target_opponent = { trigger_event = { id = cotc_bill_events.450 } } }
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = {
+					value = influence
+					divide = { value = influence_bribe_value min = 1 }
+				}
+			}
+		}
+	}
 	# Throw in some pork
 	option = {
 		name = cotc_bill_events.400.b
@@ -808,7 +828,7 @@ cotc_bill_events.410 = {
 		}
 		ai_chance = {
 			base = 100
-			modifier = { add = ai_greed }
+			modifier = { add = ai_lawfulness }
 			modifier = {
 				add = {
 					value = var:vote_strength
@@ -1187,6 +1207,104 @@ cotc_bill_events.440 = {
 		}
 		ai_chance = {
 			base = 10
+			modifier = {
+				add = {
+					value = var:vote_strength
+					min = 0
+				}
+			}
+			modifier = {
+				add = {
+					value = 0
+					subtract = 50
+				}
+				has_activity_intent = trade_favors_intent
+			}
+		}
+	}
+}
+# You have been offered influence to change your vote on a bill
+cotc_bill_events.450 = {
+	type = activity_event
+	desc = cotc_bill_events.450.desc
+	
+	theme = realm
+	override_background = council_chamber
+	
+	right_portrait = {
+		character = ROOT
+		animation = thinking
+	}
+	left_portrait = {
+		character = scope:actor
+		animation = debate
+	}
+	
+	# Accept the deal
+	option = {
+		name = cotc_bill_events.450.a
+		scope:actor = { change_influence = { value = influence_bribe_value multiply = -1 } }
+		change_influence = influence_bribe_value
+		if = {
+			limit = { has_activity_intent = trade_favors_intent }
+			complete_activity_intent = yes
+		}
+		hidden_effect = {
+			save_temporary_scope_as = voter
+			scope:activity = {
+				remove_from_guest_subset = { name = bill_opponents target = ROOT }
+				add_to_guest_subset = { name = bill_supporters target = ROOT }
+				add_activity_log_entry = {
+					key = voted_for_bill
+					tags = { positive }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = voted_for_bill_backroom_deal_desc
+				}
+			}
+			set_variable = { name = vote_strength value = 100 }
+			change_variable = { name = vote_strength add = ai_honor }
+			set_variable = vote_bargained_for
+			scope:actor = {
+				send_interface_toast = {
+					type = msg_legislature_response_good
+					title = cotc_bill_events.400.influence_accepted.tt
+					desc = cotc_bill_events.400.influence_accepted.desc
+					left_icon = scope:target_opponent
+				}
+			}
+		}
+		ai_chance = {
+			base = 100
+			modifier = { add = ai_greed }
+		}
+	}
+	# Refuse the bribe
+	option = {
+		name = cotc_bill_events.410.b
+		positive_greed_stress_gain_effect = yes
+		hidden_effect = {
+			save_temporary_scope_as = voter
+			scope:activity = {
+				add_activity_log_entry = {
+					key = refused_backroom_deal
+					tags = { neutral }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = refused_backroom_deal_pro_desc
+				}
+			}
+			scope:actor = {
+				send_interface_toast = {
+					type = msg_legislature_response_bad
+					title = cotc_bill_events.400.influence_refused.tt
+					desc = cotc_bill_events.400.influence_refused.desc
+					left_icon = scope:target_opponent
+				}
+			}
+		}
+		ai_chance = {
+			base = 100
 			modifier = {
 				add = {
 					value = var:vote_strength
@@ -1708,7 +1826,7 @@ cotc_bill_events.555 = {
 
 # You have a chance to lobby a legislator
 cotc_bill_events.600 = {
-	type = activity_event
+	# Non-attendees can actually get this event, so it is NOT an activity event
 	desc = cotc_bill_events.600.desc
 	
 	theme = realm
@@ -1983,6 +2101,64 @@ cotc_bill_events.600 = {
 				add = {
 					value = 0
 					subtract = ai_greed
+				}
+			}
+			modifier = {
+				factor = 0
+				opinion_of_bill >= 0
+			}
+		}
+	}
+	# Offer influence to vote for the bill
+	option = {
+		name = cotc_bill_events.600.n
+		trigger = {
+			scope:legislator = { is_in_guest_subset = { name = bill_opponents } }
+			influence >= influence_bribe_value
+		}
+		show_as_unavailable = { scope:legislator = { is_in_guest_subset = { name = bill_opponents } } }
+		show_as_tooltip = {
+			change_influence = { value = influence_bribe_value multiply = -1 }
+			scope:target_opponent = { change_influence = influence_bribe_value }
+		}
+		hidden_effect = { scope:target_opponent = { trigger_event = { id = cotc_bill_events.670 } } }
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = {
+					value = influence
+					divide = { value = influence_bribe_value min = 1 }
+				}
+			}
+			modifier = {
+				factor = 0
+				opinion_of_bill >= 0
+			}
+		}
+	}
+	# Offer influence to vote against the bill
+	option = {
+		name = cotc_bill_events.600.o
+		trigger = {
+			scope:legislator = { is_in_guest_subset = { name = bill_supporters } }
+			influence >= influence_bribe_value
+			NOT = { scope:host = ROOT }
+		}
+		show_as_unavailable = {
+			scope:legislator = { is_in_guest_subset = { name = bill_supporters } }
+			NOT = { scope:host = ROOT }
+		}
+		show_as_tooltip = {
+			change_influence = { value = influence_bribe_value multiply = -1 }
+			scope:target_opponent = { change_influence = influence_bribe_value }
+		}
+		hidden_effect = { scope:target_opponent = { trigger_event = { id = cotc_bill_events.675 } } }
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = {
+					value = influence
+					divide = { value = influence_bribe_value min = 1 }
 				}
 			}
 			modifier = {
@@ -3415,6 +3591,232 @@ cotc_bill_events.665 = {
 		name = cotc_bill_events.665.b
 		reverse_add_opinion = { modifier = opinion_defied_pressure target = scope:lobbyist }
 		positive_greed_stress_gain_effect = yes
+		hidden_effect = {
+			save_temporary_scope_as = voter
+			scope:activity = {
+				add_activity_log_entry = {
+					key = refused_backroom_deal
+					tags = { neutral }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = refused_backroom_deal_anti_desc
+				}
+			}
+			scope:lobbyist = {
+				send_interface_toast = {
+					type = msg_legislature_response_bad
+					title = cotc_bill_events.615.appeal_failed.tt
+					desc = cotc_bill_events.615.appeal_failed.desc
+					left_icon = scope:legislator
+				}
+			}
+		}
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = {
+					value = var:vote_strength
+					min = 0
+				}
+			}
+		}
+	}
+}
+# Someone offers influence to vote for the bill
+cotc_bill_events.670 = {
+	type = activity_event
+	desc = cotc_bill_events.670.desc
+	
+	theme = realm
+	override_background = council_chamber
+	
+	right_portrait = {
+		character = ROOT
+		animation = thinking
+	}
+	left_portrait = {
+		character = scope:lobbyist
+		animation = debate
+	}
+	
+	# Agree
+	option = {
+		name = cotc_bill_events.670.a
+		reverse_add_opinion = { modifier = opinion_followed_pressure target = scope:lobbyist }
+		scope:lobbyist = { change_influence = { value = influence_bribe_value multiply = -1 } }
+		change_influence = influence_bribe_value
+		if = {
+			limit = { has_activity_intent = trade_favors_intent }
+			complete_activity_intent = yes
+		}
+		hidden_effect = {
+			save_temporary_scope_as = voter
+			scope:activity = {
+				add_activity_log_entry = {
+					key = voted_for_bill
+					tags = { positive }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = voted_for_bill_backroom_deal_desc
+				}
+				remove_from_guest_subset = { name = bill_opponents target = ROOT }
+				add_to_guest_subset = { name = bill_supporters target = ROOT }
+			}
+			set_variable = { name = vote_strength value = 200 }
+			set_variable = vote_bargained_for
+			if = {
+				limit = { ai_honor > 0 }
+				change_variable = { name = vote_strength add = ai_honor }
+			}
+			scope:host = {
+				if = {
+					limit = { NOT = { this = scope:lobbyist } }
+					send_interface_message = {
+						type = msg_vote_change_good
+						title = cotc_bill_events.610.changed_vote.tt
+						desc = cotc_bill_events.610.changed_vote.desc
+						left_icon = scope:legislator
+					}
+					add_opinion = { modifier = opinion_meddled_for_my_bill target = scope:lobbyist }
+				}
+			}
+			scope:lobbyist = {
+				send_interface_toast = {
+					type = msg_legislature_response_good
+					title = cotc_bill_events.610.appeal_succeeded.tt
+					desc = cotc_bill_events.610.appeal_succeeded.desc
+					left_icon = scope:legislator
+				}
+			}
+		}
+		ai_chance = {
+			base = 0
+			modifier = { add = influence_bribe_value }
+			modifier = {
+				add = {
+					value = 0
+					subtract = ai_zeal
+					max = 0
+				}
+				bill_is_ideologically_unacceptable = { BILL = scope:activity }
+			}
+		}
+	}
+	# Disagree
+	option = {
+		name = cotc_bill_events.670.b
+		reverse_add_opinion = { modifier = opinion_defied_pressure target = scope:lobbyist }
+		hidden_effect = {
+			save_temporary_scope_as = voter
+			scope:activity = {
+				add_activity_log_entry = {
+					key = refused_backroom_deal
+					tags = { neutral }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = refused_backroom_deal_pro_desc
+				}
+			}
+			scope:lobbyist = {
+				send_interface_toast = {
+					type = msg_legislature_response_bad
+					title = cotc_bill_events.610.appeal_failed.tt
+					desc = cotc_bill_events.610.appeal_failed.desc
+					left_icon = scope:legislator
+				}
+			}
+		}
+		ai_chance = {
+			base = 50
+			modifier = {
+				add = {
+					value = var:vote_strength
+					min = 0
+				}
+			}
+		}
+	}
+}
+# Someone offers influence to vote against the bill
+cotc_bill_events.675 = {
+	type = activity_event
+	desc = cotc_bill_events.675.desc
+	
+	theme = realm
+	override_background = council_chamber
+	
+	right_portrait = {
+		character = ROOT
+		animation = thinking
+	}
+	left_portrait = {
+		character = scope:lobbyist
+		animation = debate
+	}
+	
+	# Agree
+	option = {
+		name = cotc_bill_events.675.a
+		reverse_add_opinion = { modifier = opinion_followed_pressure target = scope:lobbyist }
+		scope:lobbyist = { change_influence = { value = influence_bribe_value multiply = -1 } }
+		change_influence = influence_bribe_value
+		if = {
+			limit = { has_activity_intent = trade_favors_intent }
+			complete_activity_intent = yes
+		}
+		hidden_effect = {
+			save_temporary_scope_as = voter
+			scope:activity = {
+				add_activity_log_entry = {
+					key = voted_against_bill
+					tags = { negative }
+					character = scope:actor
+					target = scope:voter
+					custom_tooltip = voted_against_bill_backroom_deal_desc
+				}
+				remove_from_guest_subset = { name = bill_supporters target = ROOT }
+				add_to_guest_subset = { name = bill_opponents target = ROOT }
+			}
+			set_variable = { name = vote_strength value = 200 }
+			set_variable = vote_bargained_for
+			if = {
+				limit = { ai_honor > 0 }
+				change_variable = { name = vote_strength add = ai_honor }
+			}
+			scope:host = {
+				send_interface_message = {
+					type = msg_vote_change_bad
+					title = cotc_bill_events.615.changed_vote.tt
+					desc = cotc_bill_events.615.changed_vote.desc
+					left_icon = scope:legislator
+				}
+			}
+			scope:lobbyist = {
+				send_interface_toast = {
+					type = msg_legislature_response_good
+					title = cotc_bill_events.615.appeal_succeeded.tt
+					desc = cotc_bill_events.615.appeal_succeeded.desc
+					left_icon = scope:legislator
+				}
+			}
+		}
+		ai_chance = {
+			base = 0
+			modifier = { add = influence_bribe_value }
+			modifier = {
+				add = {
+					value = 0
+					subtract = ai_zeal
+					max = 0
+				}
+				bill_is_ideologically_necessary = { BILL = scope:activity }
+			}
+		}
+	}
+	# Disagree
+	option = {
+		name = cotc_bill_events.675.b
+		reverse_add_opinion = { modifier = opinion_defied_pressure target = scope:lobbyist }
 		hidden_effect = {
 			save_temporary_scope_as = voter
 			scope:activity = {

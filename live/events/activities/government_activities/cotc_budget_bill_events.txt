@@ -501,14 +501,16 @@ cotc_budget_bill_events.400 = {
 			}
 		}
 		ai_chance = {
-			base = 90
+			base = 10
 			modifier = {
-				add = ai_rationality
+				factor = {
+					value = total_supporters_gained
+					subtract = total_supporters_lost
+				}
 			}
-			# Don't do this if you would lose more supporters than you gain
 			modifier = {
 				factor = 0
-				total_supporters_lost >= total_supporters_gained
+				scope:activity.total_bill_supporters >= scope:activity.var:legislature.simple_majority
 			}
 		}
 	}
@@ -547,9 +549,58 @@ cotc_budget_bill_events.400 = {
 			}
 		}
 		ai_chance = {
-			base = 10
+			base = 0
+			# How different is the amended bill from the planned bill?
+			modifier = {
+				add = {
+					value = var:amended_military_budget
+					subtract = var:planned_military_budget
+				}
+				var:amended_military_budget > var:planned_military_budget
+			}
+			modifier = {
+				add = {
+					value = var:planned_military_budget
+					subtract = var:amended_military_budget
+				}
+				var:amended_military_budget < var:planned_military_budget
+			}
+			modifier = {
+				add = {
+					value = var:amended_ministry_budget
+					subtract = var:planned_ministry_budget
+				}
+				var:amended_ministry_budget > var:planned_ministry_budget
+			}
+			modifier = {
+				add = {
+					value = var:planned_ministry_budget
+					subtract = var:amended_ministry_budget
+				}
+				var:amended_ministry_budget < var:planned_ministry_budget
+			}
+			modifier = {
+				add = {
+					value = var:amended_salary_budget
+					subtract = var:planned_salary_budget
+				}
+				var:amended_salary_budget > var:planned_salary_budget
+			}
+			modifier = {
+				add = {
+					value = var:planned_salary_budget
+					subtract = var:amended_salary_budget
+				}
+				var:amended_salary_budget < var:planned_salary_budget
+			}
+			# How uncompromising are we?
 			modifier = { add = ai_vengefulness }
-			modifier = { add = ai_greed }
+			modifier = {
+				add = {
+					value = ai_boldness
+					max = 0
+				}
+			}
 		}
 	}
 	

@@ -2412,7 +2412,26 @@ cotc_no_confidence_events.110 = {
 			}
 		}
 	}
-	after = { hidden_effect = { scope:activity.var:challenger = { trigger_event = cotc_no_confidence_events.115 } } }
+	after = {
+		# Build lobbyist lists for all attending legislators
+		hidden_effect = {
+			scope:activity = {
+				var:challenger = { trigger_event = cotc_no_confidence_events.115 }
+				every_guest_subset = {
+					name = bill_supporters
+					trigger_event = cotc_bill_events.155
+				}
+				every_guest_subset = {
+					name = bill_opponents
+					trigger_event = cotc_bill_events.155
+				}
+				every_guest_subset = {
+					name = undecideds
+					trigger_event = cotc_bill_events.155
+				}
+			}
+		}
+	}
 }
 
 cotc_no_confidence_events.115 = {
@@ -2501,65 +2520,21 @@ cotc_no_confidence_events.120 = {
 			}
 		}
 	}
-}
-
-# Build a list of possible lobbyists for each legislator
-cotc_no_confidence_events.150 = {
-	hidden = yes
-	immediate = {
-		# The ruler of your constituency, who may have had a hand in your election
-		if = {
-			limit = { exists = var:riding.holder }
-			add_to_variable_list = { name = possible_lobbyists target = var:riding.holder }
-		}
-		# Friends and lovers
-		every_relation = {
-			type = friend
-			if = {
-				limit = { NOT = { ROOT = { is_target_in_variable_list = { target = PREV name = possible_lobbyists } } } }
-				ROOT = { add_to_variable_list = { name = possible_lobbyists target = PREV } }
-			}
-		}
-		every_relation = {
-			type = lover
-			if = {
-				limit = { NOT = { ROOT = { is_target_in_variable_list = { target = PREV name = possible_lobbyists } } } }
-				ROOT = { add_to_variable_list = { name = possible_lobbyists target = PREV } }
-			}
-		}
-		every_relation = {
-			type = soulmate
-			if = {
-				limit = { NOT = { ROOT = { is_target_in_variable_list = { target = PREV name = possible_lobbyists } } } }
-				ROOT = { add_to_variable_list = { name = possible_lobbyists target = PREV } }
-			}
-		}
-		every_relation = {
-			type = elder
-			if = {
-				limit = { NOT = { ROOT = { is_target_in_variable_list = { target = PREV name = possible_lobbyists } } } }
-				ROOT = { add_to_variable_list = { name = possible_lobbyists target = PREV } }
-			}
-		}
-		# The leader of this legislator's ideology in the legislature
-		scope:activity = {
-			ordered_attending_character = {
-				limit = {
-					save_temporary_scope_as = evaluated_character
-					is_character_in_legislature_trigger = { LEGISLATURE = scope:activity.var:legislature CHARACTER = scope:evaluated_character }
-					faith = ROOT.faith
+	after = {
+		# Build lobbyist lists for all attending legislators
+		hidden_effect = {
+			scope:activity = {
+				every_guest_subset = {
+					name = bill_supporters
+					trigger_event = cotc_bill_events.155
 				}
-				order_by = legislative_seniority
-				ROOT = {
-					if = {
-						limit = {
-							NOR = {
-								ROOT = PREV
-								is_target_in_variable_list = { target = PREV name = possible_lobbyists }
-							}
-						}
-						add_to_guest_subset = { name = possible_lobbyists target = PREV }
-					}
+				every_guest_subset = {
+					name = bill_opponents
+					trigger_event = cotc_bill_events.155
+				}
+				every_guest_subset = {
+					name = undecideds
+					trigger_event = cotc_bill_events.155
 				}
 			}
 		}

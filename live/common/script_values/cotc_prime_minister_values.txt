@@ -16,6 +16,26 @@ prime_minister_score = {
 			}
 		}
 	}
+	# Prime ministers should actually be associated with the legislature and able to pass bills
+	if = {
+		limit = {
+			save_temporary_scope_as = pm_candidate
+			NOT = {
+				liege = {
+					any_held_title = {
+						has_variable = legislature
+						var:legislature ?= {
+							OR = {
+								situation_participant_group:head_of_government = { any_situation_group_participant = { this = scope:pm_candidate } }
+								situation_participant_group:vassals = { any_situation_group_participant = { this = scope:pm_candidate } }
+							}
+						}
+					}
+				}
+			}
+		}
+		multiply = 0
+	}
 }
 total_supporters_that_care_about_qualifications = {
 	value = 0

@@ -29,4 +29,27 @@ valid_political_campaign_province_trigger = {
 	}
 }
 
-cares_about_crime_trigger = { has_any_shunned_or_criminal_trait_in_faith_trigger = { CHARACTER = $CHARACTER$ faith = this.faith } }
+cares_about_crime_trigger = {
+	has_any_shunned_or_criminal_trait_in_faith_trigger = { CHARACTER = $CHARACTER$ FAITH = this.faith }
+}
+
+is_taxable_military_vassal_of = {
+	liege = { this = $LIEGE$ }
+	government_has_flag = government_is_military
+	vassal_contract_has_flag = has_provincial_taxes
+}
+is_taxable_commercial_vassal_of = {
+	liege = { this = $LIEGE$ }
+	government_has_flag = government_is_commercial
+	vassal_contract_has_flag = has_provincial_taxes
+}
+is_taxable_technocratic_vassal_of = {
+	liege = { this = $LIEGE$ }
+	government_has_flag = government_is_technocratic
+	vassal_contract_has_flag = has_provincial_taxes
+}
+is_taxable_theocratic_vassal_of = {
+	liege = { this = $LIEGE$ }
+	government_has_flag = government_is_theocratic
+	vassal_contract_has_flag = has_provincial_taxes
+}

@@ -262,8 +262,8 @@
 								trigger_event = cotc_no_confidence_events.100
 							}
 							# How long should debate go for?
-							scope:activity.var:incumbent = { trigger_event = { id = cotc_no_confidence_events.110 delayed = yes } }
-							scope:host = { trigger_event = { id = cotc_no_confidence_events.120 delayed = yes } }
+							scope:activity.var:incumbent = { trigger_event = { id = cotc_no_confidence_events.110 days = 1 } }
+							scope:host = { trigger_event = { id = cotc_no_confidence_events.120 days = 1 } }
 						}
 					}
 				}
@@ -276,8 +276,6 @@
 					save_scope_as = actor
 					scope:activity.var:incumbent = { save_scope_as = opponent }
 					trigger_event = { id = cotc_no_confidence_events.300 days = { 2 6 } }
-					# Give someone a chance to give a speech
-					trigger_event = { on_action = bill_debate_pulse_speech_on_action days = { 2 6 } }
 				}
 				else_if = {
 					limit = { ROOT = scope:activity.var:incumbent }
