@@ -279,7 +279,14 @@ vote_for_bill_strength_effect = {
 			vote_for_budget_strength_effect = yes
 		}
 		else_if = {
-			limit = { scope:activity = { has_activity_type = tax_bill_activity } }
+			limit = {
+				scope:activity = {
+					OR = {
+						has_activity_type = tax_bill_activity
+						has_activity_type = liege_tax_bill_activity
+					}
+				}
+			}
 			vote_for_tax_code_strength_effect = yes
 		}
 	}
@@ -306,7 +313,14 @@ vote_against_bill_strength_effect = {
 			vote_against_budget_strength_effect = yes
 		}
 		else_if = {
-			limit = { scope:activity = { has_activity_type = tax_bill_activity } }
+			limit = {
+				scope:activity = {
+					OR = {
+						has_activity_type = tax_bill_activity
+						has_activity_type = liege_tax_bill_activity
+					}
+				}
+			}
 			vote_against_tax_code_strength_effect = yes
 		}
 	}
@@ -319,7 +333,7 @@ vote_for_budget_strength_effect = {
 				has_activity_intent = balance_budget_maintain_military_intent
 			}
 		}
-		change_variable = { name = vote_strength add = scope:host.current_military_budget }
+		change_variable = { name = vote_strength add = scope:activity.var:ruler.current_military_budget }
 		change_variable = { name = vote_strength subtract = scope:activity.var:proposed_military_budget }
 	}
 	else_if = {
@@ -329,7 +343,7 @@ vote_for_budget_strength_effect = {
 				has_activity_intent = balance_budget_maintain_ministry_intent
 			}
 		}
-		change_variable = { name = vote_strength add = scope:host.current_ministry_budget }
+		change_variable = { name = vote_strength add = scope:activity.var:ruler.current_ministry_budget }
 		change_variable = { name = vote_strength subtract = scope:activity.var:proposed_ministry_budget }
 	}
 	else_if = {
@@ -339,7 +353,7 @@ vote_for_budget_strength_effect = {
 				has_activity_intent = balance_budget_maintain_salary_intent
 			}
 		}
-		change_variable = { name = vote_strength add = scope:host.current_salary_budget }
+		change_variable = { name = vote_strength add = scope:activity.var:ruler.current_salary_budget }
 		change_variable = { name = vote_strength subtract = scope:activity.var:proposed_salary_budget }
 	}
 	if = {
@@ -351,7 +365,7 @@ vote_for_budget_strength_effect = {
 				has_activity_intent = balance_budget_maintain_salary_intent
 			}
 		}
-		change_variable = { name = vote_strength add = scope:host.current_total_budget }
+		change_variable = { name = vote_strength add = scope:activity.var:ruler.current_total_budget }
 		change_variable = { name = vote_strength subtract = scope:activity.proposed_total_budget }
 	}
 }
@@ -363,7 +377,7 @@ vote_against_budget_strength_effect = {
 				has_activity_intent = balance_budget_maintain_military_intent
 			}
 		}
-		change_variable = { name = vote_strength subtract = scope:host.current_military_budget }
+		change_variable = { name = vote_strength subtract = scope:activity.var:ruler.current_military_budget }
 		change_variable = { name = vote_strength add = scope:activity.var:proposed_military_budget }
 	}
 	else_if = {
@@ -373,7 +387,7 @@ vote_against_budget_strength_effect = {
 				has_activity_intent = balance_budget_maintain_ministry_intent
 			}
 		}
-		change_variable = { name = vote_strength subtract = scope:host.current_ministry_budget }
+		change_variable = { name = vote_strength subtract = scope:activity.var:ruler.current_ministry_budget }
 		change_variable = { name = vote_strength add = scope:activity.var:proposed_ministry_budget }
 	}
 	else_if = {
@@ -383,7 +397,7 @@ vote_against_budget_strength_effect = {
 				has_activity_intent = balance_budget_maintain_salary_intent
 			}
 		}
-		change_variable = { name = vote_strength subtract = scope:host.current_salary_budget }
+		change_variable = { name = vote_strength subtract = scope:activity.var:ruler.current_salary_budget }
 		change_variable = { name = vote_strength add = scope:activity.var:proposed_salary_budget }
 	}
 	if = {
@@ -395,7 +409,7 @@ vote_against_budget_strength_effect = {
 				has_activity_intent = balance_budget_maintain_salary_intent
 			}
 		}
-		change_variable = { name = vote_strength subtract = scope:host.current_total_budget }
+		change_variable = { name = vote_strength subtract = scope:activity.var:ruler.current_total_budget }
 		change_variable = { name = vote_strength add = scope:activity.proposed_total_budget }
 	}
 }

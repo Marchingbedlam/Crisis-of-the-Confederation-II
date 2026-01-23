@@ -395,6 +395,79 @@ tax_code_failed_voter_intent_trigger = {
 	}
 	trigger_else = { always = no }
 }
+cotc_should_support_prime_minister_incumbent_trigger = {
+	OR = {
+		has_activity_intent = maintain_status_quo_intent
+		has_activity_intent = keep_challenger_out_intent
+		AND = {
+			has_activity_intent = support_ideology_intent
+			faith = scope:activity.var:incumbent.faith
+			faith != scope:activity.var:challenger.faith
+		}
+		AND = {
+			has_activity_intent = support_culture_intent
+			culture = scope:activity.var:incumbent.culture
+			culture != scope:activity.var:challenger.culture
+		}
+		AND = {
+			OR = {
+				has_activity_intent = support_patron_prime_minister_intent
+				has_activity_intent = support_friend_prime_minister_intent
+			}
+			exists = scope:intent_target
+			scope:intent_target ?= { this = scope:activity.var:incumbent }
+		}
+		AND = {
+			has_activity_intent = oppose_rival_prime_minister_intent
+			exists = scope:intent_target
+			scope:intent_target ?= { this = scope:activity.var:challenger }
+		}
+		AND = {
+			has_activity_intent = support_most_qualified_prime_minister_intent
+			scope:activity.var:incumbent.sum_of_all_skills_value > scope:activity.var:challenger.sum_of_all_skills_value
+		}
+		AND = {
+			has_activity_intent = support_most_loyal_prime_minister_intent
+			scope:activity.var:incumbent.diarch_loyalty > scope:activity.var:challenger.diarch_loyalty
+		}
+	}
+}
+cotc_should_support_prime_minister_challenger_trigger = {
+	OR = {
+		has_activity_intent = oust_prime_minister_intent
+		AND = {
+			has_activity_intent = support_ideology_intent
+			faith = scope:activity.var:challenger.faith
+			faith != scope:activity.var:incumbent.faith
+		}
+		AND = {
+			has_activity_intent = support_culture_intent
+			culture = scope:activity.var:challenger.culture
+			culture != scope:activity.var:incumbent.culture
+		}
+		AND = {
+			OR = {
+				has_activity_intent = support_patron_prime_minister_intent
+				has_activity_intent = support_friend_prime_minister_intent
+			}
+			exists = scope:intent_target
+			scope:intent_target ?= { this = scope:activity.var:challenger }
+		}
+		AND = {
+			has_activity_intent = oppose_rival_prime_minister_intent
+			exists = scope:intent_target
+			scope:intent_target ?= { this = scope:activity.var:incumbent }
+		}
+		AND = {
+			has_activity_intent = support_most_qualified_prime_minister_intent
+			scope:activity.var:incumbent.sum_of_all_skills_value < scope:activity.var:challenger.sum_of_all_skills_value
+		}
+		AND = {
+			has_activity_intent = support_most_loyal_prime_minister_intent
+			scope:activity.var:incumbent.diarch_loyalty < scope:activity.var:challenger.diarch_loyalty
+		}
+	}
+}
 legislator_cares_about_qualifications_trigger = {
 	is_legislator_of = { TITLE = scope:activity.var:title }
 	OR = {

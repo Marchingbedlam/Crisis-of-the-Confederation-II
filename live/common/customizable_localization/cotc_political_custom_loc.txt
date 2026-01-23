@@ -37,7 +37,12 @@ GetLegislatorNamePlural = {
 GetBillType = {
 	type = activity
 	text = {
-		trigger = { has_activity_type = tax_bill_activity }
+		trigger = {
+			OR = {
+				has_activity_type = tax_bill_activity
+				has_activity_type = liege_tax_bill_activity
+			}
+		}
 		localization_key = "tax_bill_custom_loc"
 	}
 	text = {
@@ -59,7 +64,12 @@ GetBillProvisions = {
 			this = { save_scope_as = bill }
 			var:title = { save_scope_as = bill_title }
 		}
-		trigger = { has_activity_type = tax_bill_activity }
+		trigger = {
+			OR = {
+				has_activity_type = tax_bill_activity
+				has_activity_type = liege_tax_bill_activity
+			}
+		}
 		localization_key = "tax_bill_provisions_custom_loc"
 	}
 	text = {

@@ -9,6 +9,7 @@ cotc_bill_events.1 = {
 	override_background = council_chamber
 	
 	immediate = {
+		debug_log = "bill initiated"
 		scope:activity = {
 			add_activity_log_entry = {
 				key = bill_proposed
@@ -30,7 +31,6 @@ cotc_bill_events.1 = {
 
 # You do not have a quorum for your bill
 cotc_bill_events.10 = {
-	type = activity_event
 	desc = cotc_bill_events.10.desc
 	
 	theme = realm
@@ -64,7 +64,6 @@ cotc_bill_events.10 = {
 }
 # Bill did not pass because it failed quorum
 cotc_bill_events.15 = {
-	type = activity_event
 	desc = cotc_bill_events.15.desc
 	
 	theme = realm
@@ -84,7 +83,6 @@ cotc_bill_events.15 = {
 
 # You no longer have a legislature
 cotc_bill_events.20 = {
-	type = activity_event
 	desc = cotc_bill_events.20.desc
 	
 	theme = realm
@@ -101,7 +99,6 @@ cotc_bill_events.20 = {
 }
 # Bill failed because the legislature no longer exists
 cotc_bill_events.25 = {
-	type = activity_event
 	desc = cotc_bill_events.25.desc
 	
 	theme = realm
@@ -121,7 +118,6 @@ cotc_bill_events.25 = {
 
 # You no longer meet the requirements for the law
 cotc_bill_events.30 = {
-	type = activity_event
 	desc = cotc_bill_events.30.desc
 	
 	theme = realm
@@ -138,7 +134,6 @@ cotc_bill_events.30 = {
 }
 # Bill failed because the realm no longer meets the requirements for the law
 cotc_bill_events.35 = {
-	type = activity_event
 	desc = cotc_bill_events.35.desc
 	
 	theme = realm
@@ -157,7 +152,6 @@ cotc_bill_events.35 = {
 }
 # Bill failed because it doesn't do anything
 cotc_bill_events.40 = {
-	type = activity_event
 	desc = cotc_bill_events.40.desc
 	
 	theme = realm
@@ -180,7 +174,6 @@ cotc_bill_events.40 = {
 	}
 }
 cotc_bill_events.45 = {
-	type = activity_event
 	desc = cotc_bill_events.45.desc
 	
 	theme = realm
