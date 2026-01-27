@@ -32,141 +32,177 @@ title_political_support = {
 	round = yes
 }
 # Score calculation for legislative elections
-legislator_score = {
+legislator_county_score = {
 	value = 0
-	save_temporary_scope_as = temp_candidate
+	title_province = {
+		faith = { save_temporary_scope_as = temp_faith }
+		culture = { save_temporary_scope_as = temp_culture }
+	}
 	# Opinion of incumbent
 	if = {
-		limit = { is_in_list = incumbents }
-		add = scope:county.county_opinion
-	}
-	# Opinion of candidate's ideology and credibility
-	add = {
-		value = 0
-		if = {
-			limit = { scope:temp_faith = { faith_hostility_level = { target = scope:temp_candidate.faith value = 3 } } }
-			subtract = 30
-		}
-		else_if = {
-			limit = { scope:temp_faith = { faith_hostility_level = { target = scope:temp_candidate.faith value = 2 } } }
-			subtract = 20
-		}
-		else = {
-			add = {
-				value = piety_level
-				multiply = 5
+		limit = {
+			scope:temp_candidate = {
+				has_variable = riding
+				var:riding ?= { this = scope:temp_riding }
 			}
 		}
-		multiply = scope:temp_faith.fervor
-		divide = 100
+		add = county_opinion
 	}
-	# Opinion of candidate's prestige
+	scope:temp_candidate = {
+		# Opinion of candidate's ideology and credibility
+		add = {
+			value = 0
+			if = {
+				limit = { scope:temp_faith = { faith_hostility_level = { target = scope:temp_candidate.faith value = 3 } } }
+				subtract = 30
+			}
+			else_if = {
+				limit = { scope:temp_faith = { faith_hostility_level = { target = scope:temp_candidate.faith value = 2 } } }
+				subtract = 20
+			}
+			else = {
+				add = {
+					value = piety_level
+					multiply = 5
+				}
+			}
+			multiply = scope:temp_faith.fervor
+			divide = 100
+		}
+		# Opinion of candidate's personality
+		if = {
+			limit = { num_virtuous_traits = { value >= 5 target = scope:temp_faith } }
+			add = 25
+		}
+		else_if = {
+			limit = { num_virtuous_traits = { value >= 4 target = scope:temp_faith } }
+			add = 20
+		}
+		else_if = {
+			limit = { num_virtuous_traits = { value >= 3 target = scope:temp_faith } }
+			add = 15
+		}
+		else_if = {
+			limit = { num_virtuous_traits = { value >= 2 target = scope:temp_faith } }
+			add = 10
+		}
+		else_if = {
+			limit = { num_virtuous_traits = { value >= 1 target = scope:temp_faith } }
+			add = 5
+		}
+		if = {
+			limit = { num_sinful_traits = { value >= 5 target = scope:temp_faith } }
+			subtract = 25
+		}
+		else_if = {
+			limit = { num_sinful_traits = { value >= 4 target = scope:temp_faith } }
+			subtract = 20
+		}
+		else_if = {
+			limit = { num_sinful_traits = { value >= 3 target = scope:temp_faith } }
+			subtract = 15
+		}
+		else_if = {
+			limit = { num_sinful_traits = { value >= 2 target = scope:temp_faith } }
+			subtract = 10
+		}
+		else_if = {
+			limit = { num_sinful_traits = { value >= 1 target = scope:temp_faith } }
+			subtract = 5
+		}
+		# Skill effects
+		if = {
+			limit = { scope:temp_faith = { has_doctrine = doctrine_military_power } }
+			add = {
+				value = martial
+				subtract = 10
+				multiply = 3
+			}
+		}
+		if = {
+			limit = { scope:temp_faith = { has_doctrine = doctrine_commercial_power } }
+			add = {
+				value = stewardship
+				subtract = 10
+				multiply = 3
+			}
+		}
+		if = {
+			limit = { scope:temp_faith = { has_doctrine = doctrine_administrative_power } }
+			add = {
+				value = learning
+				subtract = 10
+				multiply = 3
+			}
+		}
+		# Cultural bias
+		if = {
+			limit = { NOT = { culture = scope:temp_culture } }
+			divide = {
+				value = 2
+				if = {
+					limit = { scope:temp_faith = { has_doctrine = doctrine_particularism } }
+					multiply = 5
+				}
+			}
+		}
+		# Sexism
+		if = {
+			limit = {
+				OR = {
+					AND = {
+						is_male_cotc = no
+						scope:temp_faith = { has_doctrine = doctrine_gender_male_dominated }
+					}
+					AND = {
+						is_female_cotc = no
+						scope:temp_faith = { has_doctrine = doctrine_gender_female_dominated }
+					}
+				}
+			}
+			divide = 10
+		}
+	}
+}
+legislator_total_score = {
+	value = 0
+	save_temporary_scope_as = temp_candidate
+	# Population opinion effects
+	scope:temp_riding = {
+		if = {
+			limit = { tier = tier_county }
+			add = legislator_county_score
+		}
+		else = {
+			every_de_jure_county = {
+				limit = { target_is_de_facto_liege_or_above = scope:temp_legislature.var:legislature_title }
+				add = legislator_county_score
+			}
+			divide = {
+				value = 0
+				every_de_jure_county = {
+					limit = { target_is_de_facto_liege_or_above = scope:temp_legislature.var:legislature_title }
+					add = 1
+				}
+				min = 1
+			}
+		}
+	}
+	# Candidate's Prestige
 	add = {
 		value = prestige_level
 		multiply = 3
 	}
-	# Opinion of candidate's personality
-	if = {
-		limit = { num_virtuous_traits = { value >= 5 target = scope:temp_faith } }
-		add = 25
-	}
-	else_if = {
-		limit = { num_virtuous_traits = { value >= 4 target = scope:temp_faith } }
-		add = 20
-	}
-	else_if = {
-		limit = { num_virtuous_traits = { value >= 3 target = scope:temp_faith } }
-		add = 15
-	}
-	else_if = {
-		limit = { num_virtuous_traits = { value >= 2 target = scope:temp_faith } }
-		add = 10
-	}
-	else_if = {
-		limit = { num_virtuous_traits = { value >= 1 target = scope:temp_faith } }
-		add = 5
-	}
-	if = {
-		limit = { num_sinful_traits = { value >= 5 target = scope:temp_faith } }
-		subtract = 25
-	}
-	else_if = {
-		limit = { num_sinful_traits = { value >= 4 target = scope:temp_faith } }
-		subtract = 20
-	}
-	else_if = {
-		limit = { num_sinful_traits = { value >= 3 target = scope:temp_faith } }
-		subtract = 15
-	}
-	else_if = {
-		limit = { num_sinful_traits = { value >= 2 target = scope:temp_faith } }
-		subtract = 10
-	}
-	else_if = {
-		limit = { num_sinful_traits = { value >= 1 target = scope:temp_faith } }
-		subtract = 5
-	}
-	# Skill effects
+	# Skill Effects
 	add = {
 		value = diplomacy
 		subtract = 10
 		multiply = 3
 	}
+	# Campaigning effects
 	if = {
-		limit = { scope:temp_faith = { has_doctrine = doctrine_military_power } }
-		add = {
-			value = martial
-			subtract = 10
-			multiply = 3
-		}
-	}
-	if = {
-		limit = { scope:temp_faith = { has_doctrine = doctrine_commercial_power } }
-		add = {
-			value = stewardship
-			subtract = 10
-			multiply = 3
-		}
-	}
-	if = {
-		limit = { scope:temp_faith = { has_doctrine = doctrine_administrative_power } }
-		add = {
-			value = learning
-			subtract = 10
-			multiply = 3
-		}
-	}
-	# Hook so characters can manipulate elections
-	if = {
-		limit = { exists = var:legislative_external_value }
-		add = var:legislative_external_value
-	}
-	# Cultural bias
-	if = {
-		limit = { NOT = { culture = scope:temp_culture } }
-		divide = {
-			value = 2
-			if = {
-				limit = { scope:temp_faith = { has_doctrine = doctrine_particularism } }
-				multiply = 5
-			}
-		}
-	}
-	# Sexism
-	if = {
-		limit = {
-			OR = {
-				AND = {
-					is_female_cotc = yes
-					scope:temp_faith = { has_doctrine = doctrine_gender_male_dominated }
-				}
-				AND = {
-					is_male_cotc = yes
-					scope:temp_faith = { has_doctrine = doctrine_gender_female_dominated }
-				}
-			}
-		}
-		divide = 10
+		limit = { has_variable = legislative_campaign_score }
+		add = var:legislative_campaign_score
 	}
 }
 # Score calculation for how early a legislator gets to speak

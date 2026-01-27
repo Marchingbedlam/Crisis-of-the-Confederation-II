@@ -6,60 +6,66 @@ ai_authoritarianism = {
 	subtract = var:faith_in_democracy
 	
 	if = {
-		limit = { faith = { has_doctrine = doctrine_despotism } }
+		limit = { exists = secret_faith }
+		secret_faith ?= { save_temporary_scope_as = real_ideology }
+	}
+	else = { faith = { save_temporary_scope_as = real_ideology } }
+	
+	if = {
+		limit = { scope:real_ideology = { has_doctrine = doctrine_despotism } }
 		add = {
 			value = ai_zeal
 			multiply = 10
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			min = 0
 		}
 	}
 	else_if = {
-		limit = { faith = { has_doctrine = doctrine_dictatorship } }
+		limit = { scope:real_ideology = { has_doctrine = doctrine_dictatorship } }
 		add = {
 			value = ai_zeal
 			multiply = 5
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			min = 0
 		}
 	}
 	else_if = {
-		limit = { faith = { has_doctrine = doctrine_separation_of_powers } }
+		limit = { scope:real_ideology = { has_doctrine = doctrine_separation_of_powers } }
 		subtract = {
 			value = ai_zeal
 			multiply = 5
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			min = 0
 		}
 	}
 	else_if = {
-		limit = { faith = { has_doctrine = doctrine_parliamentarianism } }
+		limit = { scope:real_ideology = { has_doctrine = doctrine_parliamentarianism } }
 		subtract = {
 			value = ai_zeal
 			multiply = 5
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			min = 0
 		}
 	}
 	else_if = {
-		limit = { faith = { has_doctrine = doctrine_anarchism } }
+		limit = { scope:real_ideology = { has_doctrine = doctrine_anarchism } }
 		subtract = {
 			value = ai_zeal
 			multiply = 10
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			min = 0
@@ -67,7 +73,7 @@ ai_authoritarianism = {
 	}
 	if = {
 		limit = {
-			faith = {
+			scope:real_ideology = {
 				OR = {
 					has_doctrine = doctrine_aristocracy
 					has_doctrine = doctrine_meritocracy
@@ -77,7 +83,7 @@ ai_authoritarianism = {
 		add = {
 			value = ai_zeal
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			min = 0
@@ -85,7 +91,7 @@ ai_authoritarianism = {
 	}
 	else_if = {
 		limit = {
-			faith = {
+			scope:real_ideology = {
 				OR = {
 					has_doctrine = doctrine_democracy
 					has_doctrine = doctrine_no_legitimacy
@@ -95,66 +101,66 @@ ai_authoritarianism = {
 		subtract = {
 			value = ai_zeal
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			min = 0
 		}
 	}
 	if = {
-		limit = { faith = { has_doctrine = tenet_pursuit_of_power } }
+		limit = { scope:real_ideology = { has_doctrine = tenet_pursuit_of_power } }
 		subtract = {
 			value = ai_zeal
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			min = 0
 		}
 	}
 	if = {
-		limit = { faith = { has_doctrine = tenet_planned_economy } }
+		limit = { scope:real_ideology = { has_doctrine = tenet_planned_economy } }
 		add = {
 			value = ai_zeal
 			divide = 3
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			min = 0
 		}
 	}
 	if = {
-		limit = { faith = { has_doctrine = tenet_harmonious_society } }
+		limit = { scope:real_ideology = { has_doctrine = tenet_harmonious_society } }
 		add = {
 			value = ai_zeal
 			divide = 3
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			min = 0
 		}
 	}
 	if = {
-		limit = { faith = { has_doctrine = tenet_federalism } }
+		limit = { scope:real_ideology = { has_doctrine = tenet_federalism } }
 		subtract = {
 			value = ai_zeal
 			divide = 3
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			min = 0
 		}
 	}
 	if = {
-		limit = { faith = { has_doctrine = tenet_communal_possessions } }
+		limit = { scope:real_ideology = { has_doctrine = tenet_communal_possessions } }
 		subtract = {
 			value = ai_zeal
 			divide = 3
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			min = 0
@@ -166,53 +172,60 @@ ai_authoritarianism = {
 ai_lawfulness = {
 	value = 0
 	add = ai_honor
+	
 	if = {
-		limit = { faith = { has_doctrine = criminal_hostility_doctrine } }
+		limit = { exists = secret_faith }
+		secret_faith ?= { save_temporary_scope_as = real_ideology }
+	}
+	else = { faith = { save_temporary_scope_as = real_ideology } }
+	
+	if = {
+		limit = { scope:real_ideology = { has_doctrine = criminal_hostility_doctrine } }
 		subtract = 100
 	}
 	else_if = {
-		limit = { faith = { has_doctrine = doctrine_despotism } }
+		limit = { scope:real_ideology = { has_doctrine = doctrine_despotism } }
 		subtract = 50
 	}
 	else = {
-		add = faith.fervor
+		add = scope:real_ideology.fervor
 		add = {
 			value = ai_zeal
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			min = 0
 		}
 	}
 	if = {
-		limit = { faith = { has_doctrine = tenet_legalism } }
+		limit = { scope:real_ideology = { has_doctrine = tenet_legalism } }
 		add = {
 			value = ai_zeal
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			min = 0
 		}
 	}
 	if = {
-		limit = { faith = { has_doctrine = tenet_religious_legal_pronouncements } }
+		limit = { scope:real_ideology = { has_doctrine = tenet_religious_legal_pronouncements } }
 		add = {
 			value = ai_zeal
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			min = 0
 		}
 	}
 	if = {
-		limit = { faith = { has_doctrine = tenet_pursuit_of_power } }
+		limit = { scope:real_ideology = { has_doctrine = tenet_pursuit_of_power } }
 		subtract = {
 			value = ai_zeal
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			min = 0
@@ -226,91 +239,86 @@ ai_hawkishness = {
 	subtract = ai_compassion
 	add = martial
 	subtract = diplomacy
+	
 	if = {
-		limit = { faith = { has_doctrine = tenet_warmonger } }
+		limit = { exists = secret_faith }
+		secret_faith ?= { save_temporary_scope_as = real_ideology }
+	}
+	else = { faith = { save_temporary_scope_as = real_ideology } }
+	
+	if = {
+		limit = { scope:real_ideology = { has_doctrine = tenet_warmonger } }
 		add = {
 			value = ai_zeal
 			multiply = 5
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			min = 0
 		}
 	}
 	if = {
-		limit = { faith = { has_doctrine = tenet_armed_pilgrimages } }
+		limit = { scope:real_ideology = { has_doctrine = tenet_armed_pilgrimages } }
 		add = {
 			value = ai_zeal
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			min = 0
 		}
 	}
 	if = {
-		limit = { faith = { has_doctrine = tenet_unrelenting_faith } }
+		limit = { scope:real_ideology = { has_doctrine = tenet_unrelenting_faith } }
 		add = {
 			value = ai_zeal
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			min = 0
 		}
 	}
 	if = {
-		limit = { faith = { has_doctrine = tenet_struggle_submission } }
+		limit = { scope:real_ideology = { has_doctrine = tenet_struggle_submission } }
 		add = {
 			value = ai_zeal
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			min = 0
 		}
 	}
 	if = {
-		limit = { faith = { has_doctrine = tenet_pursuit_of_power } }
+		limit = { scope:real_ideology = { has_doctrine = tenet_pursuit_of_power } }
 		add = {
 			value = ai_zeal
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			min = 0
 		}
 	}
 	if = {
-		limit = { faith = { has_doctrine = tenet_sacred_destruction } }
+		limit = { scope:real_ideology = { has_doctrine = tenet_sacred_destruction } }
 		add = {
 			value = ai_zeal
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			min = 0
 		}
 	}
 	if = {
-		limit = { faith = { has_doctrine = tenet_pacifism } }
+		limit = { scope:real_ideology = { has_doctrine = tenet_pacifism } }
 		subtract = {
 			value = ai_zeal
 			multiply = {
-				value = faith.fervor
-				divide = 100
-			}
-			multiply = 5
-			min = 0
-		}
-	}
-	if = {
-		limit = { faith = { has_doctrine = tenet_dharmic_pacifism } }
-		subtract = {
-			value = ai_zeal
-			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			multiply = 5
@@ -318,33 +326,45 @@ ai_hawkishness = {
 		}
 	}
 	if = {
-		limit = { faith = { has_doctrine = tenet_pastoral_isolation } }
+		limit = { scope:real_ideology = { has_doctrine = tenet_dharmic_pacifism } }
 		subtract = {
 			value = ai_zeal
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
+				divide = 100
+			}
+			multiply = 5
+			min = 0
+		}
+	}
+	if = {
+		limit = { scope:real_ideology = { has_doctrine = tenet_pastoral_isolation } }
+		subtract = {
+			value = ai_zeal
+			multiply = {
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			min = 0
 		}
 	}
 	if = {
-		limit = { faith = { has_doctrine = tenet_harmonious_society } }
+		limit = { scope:real_ideology = { has_doctrine = tenet_harmonious_society } }
 		subtract = {
 			value = ai_zeal
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			min = 0
 		}
 	}
 	if = {
-		limit = { faith = { has_doctrine = tenet_preservation } }
+		limit = { scope:real_ideology = { has_doctrine = tenet_preservation } }
 		subtract = {
 			value = ai_zeal
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			min = 0
@@ -359,23 +379,30 @@ ai_intellectualism = {
 		multiply = 2
 	}
 	add = learning
+	
 	if = {
-		limit = { faith = { has_doctrine = tenet_alexandrian_catechism } }
+		limit = { exists = secret_faith }
+		secret_faith ?= { save_temporary_scope_as = real_ideology }
+	}
+	else = { faith = { save_temporary_scope_as = real_ideology } }
+	
+	if = {
+		limit = { scope:real_ideology = { has_doctrine = tenet_alexandrian_catechism } }
 		add = {
 			value = ai_zeal
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			min = 0
 		}
 	}
 	if = {
-		limit = { faith = { has_doctrine = tenet_pursuit_of_knowledge } }
+		limit = { scope:real_ideology = { has_doctrine = tenet_pursuit_of_knowledge } }
 		add = {
 			value = ai_zeal
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			min = 0
@@ -413,25 +440,32 @@ ai_interventionism = {
 	add = ai_compassion
 	subtract = ai_vengefulness
 	subtract = stewardship
+	
 	if = {
-		limit = { faith = { has_doctrine = tenet_capitalism } }
+		limit = { exists = secret_faith }
+		secret_faith ?= { save_temporary_scope_as = real_ideology }
+	}
+	else = { faith = { save_temporary_scope_as = real_ideology } }
+	
+	if = {
+		limit = { scope:real_ideology = { has_doctrine = tenet_capitalism } }
 		subtract = {
 			value = ai_zeal
 			multiply = 2
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			min = 0
 		}
 	}
 	if = {
-		limit = { faith = { has_doctrine = tenet_planned_economy } }
+		limit = { scope:real_ideology = { has_doctrine = tenet_planned_economy } }
 		add = {
 			value = ai_zeal
 			multiply = 2
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 			min = 0
@@ -442,26 +476,33 @@ ai_interventionism = {
 ai_parochialism = {
 	value = 0
 	subtract = ai_compassion
+	
 	if = {
-		limit = { faith = { has_doctrine = tenet_federalism } }
+		limit = { exists = secret_faith }
+		secret_faith ?= { save_temporary_scope_as = real_ideology }
+	}
+	else = { faith = { save_temporary_scope_as = real_ideology } }
+	
+	if = {
+		limit = { scope:real_ideology = { has_doctrine = tenet_federalism } }
 		subtract = {
 			value = ai_zeal
 			multiply = 2
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 		}
 	}
 	if = {
-		limit = { faith = { has_doctrine = doctrine_metroplanetism } }
+		limit = { scope:real_ideology = { has_doctrine = doctrine_metroplanetism } }
 		if = {
 			limit = { culture = { this = culture:terran } }
 			add = {
 				value = ai_zeal
 				multiply = 3
 				multiply = {
-					value = faith.fervor
+					value = scope:real_ideology.fervor
 					divide = 100
 				}
 			}
@@ -471,41 +512,41 @@ ai_parochialism = {
 				value = ai_zeal
 				multiply = 3
 				multiply = {
-					value = faith.fervor
+					value = scope:real_ideology.fervor
 					divide = 100
 				}
 			}
 		}
 	}
 	else_if = {
-		limit = { faith = { has_doctrine = doctrine_commonality_pluralism } }
+		limit = { scope:real_ideology = { has_doctrine = doctrine_commonality_pluralism } }
 		subtract = {
 			value = ai_zeal
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 		}
 	}
 	else_if = {
-		limit = { faith = { has_doctrine = doctrine_separatism } }
+		limit = { scope:real_ideology = { has_doctrine = doctrine_separatism } }
 		add = {
 			value = ai_zeal
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 		}
 	}
 	else_if = {
-		limit = { faith = { has_doctrine = doctrine_anti_metroplanetism } }
+		limit = { scope:real_ideology = { has_doctrine = doctrine_anti_metroplanetism } }
 		if = {
 			limit = { culture = { this = culture:terran } }
 			subtract = {
 				value = ai_zeal
 				multiply = 3
 				multiply = {
-					value = faith.fervor
+					value = scope:real_ideology.fervor
 					divide = 100
 				}
 			}
@@ -515,19 +556,19 @@ ai_parochialism = {
 				value = ai_zeal
 				multiply = 3
 				multiply = {
-					value = faith.fervor
+					value = scope:real_ideology.fervor
 					divide = 100
 				}
 			}
 		}
 	}
 	else_if = {
-		limit = { faith = { has_doctrine = doctrine_particularism } }
+		limit = { scope:real_ideology = { has_doctrine = doctrine_particularism } }
 		add = {
 			value = ai_zeal
 			multiply = 5
 			multiply = {
-				value = faith.fervor
+				value = scope:real_ideology.fervor
 				divide = 100
 			}
 		}

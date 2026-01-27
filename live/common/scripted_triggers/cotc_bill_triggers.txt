@@ -1,28 +1,10 @@
-﻿bill_is_ideologically_unacceptable = {
-	OR = {
-		AND = {
-			$BILL$.proposed_total_budget > 100
-			ai_interventionism <= 0
-		}
-		AND = {
-			$BILL$ = { has_variable = proposed_military_budget }
-			$BILL$.var:proposed_military_budget < $BILL$.var:ruler.current_military_budget
-			ai_hawkishness > 0
-		}
-		AND = {
-			$BILL$ = { has_variable = proposed_salary_budget }
-			$BILL$.var:proposed_salary_budget < $BILL$.var:ruler.current_salary_budget
-			ai_intellectualism > 0
-		}
-	}
+﻿is_budget_bill_trigger = {
+	has_activity_type = budget_bill_activity
 }
-bill_is_ideologically_necessary = {
+is_tax_bill_trigger = {
 	OR = {
-		AND = {
-			$BILL$.proposed_total_budget <= 100
-			$BILL$.var:ruler.current_total_budget > 100
-			ai_interventionism <= 0
-		}
+		has_activity_type = tax_bill_activity
+		has_activity_type = liege_tax_bill_activity
 	}
 }
 vote_is_open_trigger = {

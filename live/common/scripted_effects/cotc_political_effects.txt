@@ -1,110 +1,240 @@
-﻿elect_new_legislator_effect = {
-	save_scope_as = county
-	title_province = {
-		faith = { save_temporary_scope_as = temp_faith }
-		culture = { save_temporary_scope_as = temp_culture }
-	}
+﻿select_initial_legislator_effect = {
 	# Make a list of every possible candidate
-	scope:situation = {
-		every_in_list = {
-			list = incumbents
-			limit = { var:riding ?= { this = scope:county } }
-			scope:county = { add_to_variable_list = { name = candidates target = PREV } } # The incumbent is always an option
-		}
-	}
 	holder = {
 		every_courtier = {
-			limit = { eligible_legislator_candidate_trigger = yes }
-			scope:county = { add_to_variable_list = { name = candidates target = PREV } }
+			limit = {
+				eligible_legislator_candidate_trigger = yes
+				initial_legislator_candidate_trigger = { LEGISLATURE = $LEGISLATURE$ }
+				legal_legislator_candidate_trigger = { LEGISLATURE = $LEGISLATURE$ }
+			}
+			$RIDING$ = { add_to_variable_list = { name = candidates target = PREV } }
 		}
 		every_pool_guest = {
-			limit = { eligible_legislator_candidate_trigger = yes }
-			scope:county = { add_to_variable_list = { name = candidates target = PREV } }
+			limit = {
+				eligible_legislator_candidate_trigger = yes
+				initial_legislator_candidate_trigger = { LEGISLATURE = $LEGISLATURE$ }
+				legal_legislator_candidate_trigger = { LEGISLATURE = $LEGISLATURE$ }
+			}
+			$RIDING$ = { add_to_variable_list = { name = candidates target = PREV } }
 		}
 	}
 	every_county_province ?= {
 		province_owner ?= {
 			every_courtier = {
-				limit = { eligible_legislator_candidate_trigger = yes }
-				scope:county = { add_to_variable_list = { name = candidates target = PREV } }
+				limit = {
+					eligible_legislator_candidate_trigger = yes
+					initial_legislator_candidate_trigger = { LEGISLATURE = $LEGISLATURE$ }
+					legal_legislator_candidate_trigger = { LEGISLATURE = $LEGISLATURE$ }
+				}
+				$RIDING$ = { add_to_variable_list = { name = candidates target = PREV } }
 			}
 			every_pool_guest = {
-				limit = { eligible_legislator_candidate_trigger = yes }
-				scope:county = { add_to_variable_list = { name = candidates target = PREV } }
+				limit = {
+					eligible_legislator_candidate_trigger = yes
+					initial_legislator_candidate_trigger = { LEGISLATURE = $LEGISLATURE$ }
+					legal_legislator_candidate_trigger = { LEGISLATURE = $LEGISLATURE$ }
+				}
+				$RIDING$ = { add_to_variable_list = { name = candidates target = PREV } }
 			}
 		}
 		every_province_domicile ?= {
 			owner = {
 				every_courtier = {
-					limit = { eligible_legislator_candidate_trigger = yes }
-					scope:county = { add_to_variable_list = { name = candidates target = PREV } }
+					limit = {
+						eligible_legislator_candidate_trigger = yes
+						initial_legislator_candidate_trigger = { LEGISLATURE = $LEGISLATURE$ }
+						legal_legislator_candidate_trigger = { LEGISLATURE = $LEGISLATURE$ }
+					}
+					$RIDING$ = { add_to_variable_list = { name = candidates target = PREV } }
 				}
 				every_pool_guest = {
-					limit = { eligible_legislator_candidate_trigger = yes }
-					scope:county = { add_to_variable_list = { name = candidates target = PREV } }
+					limit = {
+						eligible_legislator_candidate_trigger = yes
+						initial_legislator_candidate_trigger = { LEGISLATURE = $LEGISLATURE$ }
+						legal_legislator_candidate_trigger = { LEGISLATURE = $LEGISLATURE$ }
+					}
+					$RIDING$ = { add_to_variable_list = { name = candidates target = PREV } }
 				}
 			}
 		}
 	}
-	# Elect the best candidate from the list
+	# Elect the initial legislator
+	elect_legislator_election_winner_effect = { LEGISLATURE = $LEGISLATURE$ RIDING = $RIDING$ }
+	clear_variable_list = candidates
+}
+hold_legislative_election_effect = {
+	# Grab the list of candidates
+	if = {
+		limit = { $LEGISLATURE$.var:legislature_title = { tier = tier_county } }
+		every_in_list = {
+			variable = county_candidates
+			save_as_temporary_scope = candidate
+			PREV = { add_to_variable_list = { name = candidates target = PREV } }
+		}
+		clear_variable_list = county_candidates
+	}
+	else_if = {
+		limit = { $LEGISLATURE$.var:legislature_title = { tier = tier_duchy } }
+		every_in_list = {
+			variable = duchy_candidates
+			save_as_temporary_scope = candidate
+			PREV = { add_to_variable_list = { name = candidates target = PREV } }
+		}
+		clear_variable_list = duchy_candidates
+	}
+	else_if = {
+		limit = { $LEGISLATURE$.var:legislature_title = { tier = tier_kingdom } }
+		every_in_list = {
+			variable = kingdom_candidates
+			save_as_temporary_scope = candidate
+			PREV = { add_to_variable_list = { name = candidates target = PREV } }
+		}
+		clear_variable_list = kingdom_candidates
+	}
+	else_if = {
+		limit = { $LEGISLATURE$.var:legislature_title = { tier = tier_empire } }
+		every_in_list = {
+			variable = empire_candidates
+			save_as_temporary_scope = candidate
+			PREV = { add_to_variable_list = { name = candidates target = PREV } }
+		}
+		clear_variable_list = empire_candidates
+	}
+	else_if = {
+		limit = { $LEGISLATURE$.var:legislature_title = { tier = tier_hegemony } }
+		every_in_list = {
+			variable = hegemony_candidates
+			save_as_temporary_scope = candidate
+			PREV = { add_to_variable_list = { name = candidates target = PREV } }
+		}
+		clear_variable_list = hegemony_candidates
+	}
+	select_legislator_election_winner_effect = { LEGISLATURE = $LEGISLATURE$ RIDING = $RIDING$ }
+	every_in_list = {
+		variable = candidates
+		remove_variable = legislative_campaign_score
+	}
+	clear_variable_list = candidates
+}
+elect_legislator_election_winner_effect = {
+	$LEGISLATURE$ = { save_as_temporary_scope = temp_legislature }
+	$RIDING$ = { save_as_temporary_scope = temp_riding }
 	ordered_in_list = {
 		variable = candidates
-		order_by = legislator_score
+		limit = {
+			eligible_legislator_candidate_trigger = yes
+			legal_legislator_candidate_trigger = { LEGISLATURE = $LEGISLATURE$ }
+		}
+		order_by = legislator_total_score
 		# This is a re-election
 		if = {
 			limit = {
 				has_variable = riding
 				has_variable = legislature
-				var:riding = { this = scope:county }
-				var:legislature = { this = scope:situation }
+				var:riding ?= { this = $RIDING$ }
+				var:legislature ?= { this = $LEGISLATURE$ }
 			}
-			reelect_legislator_effect = yes
+			reelect_as_legislator_effect = { LEGISLATURE = $LEGISLATURE$ RIDING = $RIDING$ }
 		}
 		# This is an election to a different legislature
 		else_if = {
 			limit = {
 				has_variable = riding
 				has_variable = legislature
-				NOT = { var:legislature = { this = scope:situation } }
+				NOT = { var:legislature = { this = $LEGISLATURE$ } }
 			}
 			remove_from_legislature_effect = yes
-			elect_legislator_effect = yes
+			elect_as_legislator_effect = { LEGISLATURE = $LEGISLATURE$ RIDING = $RIDING$ }
 		}
-		else = { elect_legislator_effect = yes }
+		else = { elect_as_legislator_effect = { LEGISLATURE = $LEGISLATURE$ RIDING = $RIDING$ } }
 	}
-	clear_variable_list = candidates
 }
-elect_legislator_effect = {
-	make_legislator_effect = { SITUATION = scope:situation RIDING = scope:county }
+stand_for_legislator_election_effect = {
+	$RIDING$ = {
+		if = {
+			limit = { $LEGISLATURE$.var:legislature_title = { tier = tier_county } }
+			add_to_variable_list = { name = county_candidates target = PREV }
+		}
+		else_if = {
+			limit = { $LEGISLATURE$.var:legislature_title = { tier = tier_duchy } }
+			add_to_variable_list = { name = duchy_candidates target = PREV }
+		}
+		else_if = {
+			limit = { $LEGISLATURE$.var:legislature_title = { tier = tier_kingdom } }
+			add_to_variable_list = { name = kingdom_candidates target = PREV }
+		}
+		else_if = {
+			limit = { $LEGISLATURE$.var:legislature_title = { tier = tier_empire } }
+			add_to_variable_list = { name = empire_candidates target = PREV }
+		}
+		else_if = {
+			limit = { $LEGISLATURE$.var:legislature_title = { tier = tier_hegemony } }
+			add_to_variable_list = { name = hegemony_candidates target = PREV }
+		}
+	}
+}
+drop_out_of_legislator_election_effect = {
+	$RIDING$ = {
+		if = {
+			limit = { $LEGISLATURE$.var:legislature_title = { tier = tier_county } }
+			remove_list_variable = { name = county_candidates target = PREV }
+		}
+		else_if = {
+			limit = { $LEGISLATURE$.var:legislature_title = { tier = tier_duchy } }
+			remove_list_variable = { name = duchy_candidates target = PREV }
+		}
+		else_if = {
+			limit = { $LEGISLATURE$.var:legislature_title = { tier = tier_kingdom } }
+			remove_list_variable = { name = kingdom_candidates target = PREV }
+		}
+		else_if = {
+			limit = { $LEGISLATURE$.var:legislature_title = { tier = tier_empire } }
+			remove_list_variable = { name = empire_candidates target = PREV }
+		}
+		else_if = {
+			limit = { $LEGISLATURE$.var:legislature_title = { tier = tier_hegemony } }
+			remove_list_variable = { name = hegemony_candidates target = PREV }
+		}
+	}
+}
+elect_as_legislator_effect = {
+	add_to_legislature_effect = { LEGISLATURE = $LEGISLATURE$ RIDING = $RIDING$ }
 	create_character_memory = { type = elected_legislator_memory }
 	scope:new_memory = {
-		set_variable = { name = legislature_title value = scope:situation.var:legislature_title }
-		set_variable = { name = riding value = scope:county }
+		set_variable = { name = legislature_title value = $LEGISLATURE$.var:legislature_title }
+		set_variable = { name = riding value = $RIDING$ }
 	}
+	$LEGISLATURE$ = { save_scope_as = legislature }
+	$RIDING$ = { save_scope_as = riding }
 	trigger_event = { id = legislature_events.10 }
 }
-reelect_legislator_effect = {
-	make_legislator_effect = { SITUATION = scope:situation RIDING = scope:county }
+reelect_as_legislator_effect = {
+	add_to_legislature_effect = { LEGISLATURE = $LEGISLATURE$ RIDING = $RIDING$ }
 	create_character_memory = { type = reelected_legislator_memory }
 	scope:new_memory = {
-		set_variable = { name = legislature_title value = scope:situation.var:legislature_title }
-		set_variable = { name = riding value = scope:county }
+		set_variable = { name = legislature_title value = $LEGISLATURE$.var:legislature_title }
+		set_variable = { name = riding value = $RIDING$ }
 	}
+	$LEGISLATURE$ = { save_scope_as = legislature }
+	$RIDING$ = { save_scope_as = riding }
 	trigger_event = { id = legislature_events.11 }
 }
-unelect_legislator_effect = {
+unelect_as_legislator_effect = {
+	remove_from_legislature_effect = yes
 	create_character_memory = { type = not_reelected_legislator_memory }
-	scope:new_memory = { set_variable = { name = legislature_title value = scope:situation.var:legislature_title } }
+	scope:new_memory = { set_variable = { name = legislature_title value = $LEGISLATURE$.var:legislature_title } }
+	$LEGISLATURE$ = { save_scope_as = legislature }
+	$RIDING$ = { save_scope_as = riding }
 	trigger_event = { id = legislature_events.12 }
 }
-make_legislator_effect = {
-	$SITUATION$ = {
+add_to_legislature_effect = {
+	$LEGISLATURE$ = {
 		add_to_variable_list = {
 			name = legislators
 			target = PREV
 		}
 	}
-	set_variable = { name = legislature value = $SITUATION$ }
+	set_variable = { name = legislature value = $LEGISLATURE$ }
 	set_variable = { name = riding value = $RIDING$ }
 }
 remove_from_legislature_effect = {

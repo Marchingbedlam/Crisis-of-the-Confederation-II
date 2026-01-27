@@ -117,6 +117,17 @@ opinion_of_bill = {
 			add = opinion_of_budget_bill
 		}
 		else_if = {
+			limit = {
+				scope:activity = {
+					OR = {
+						has_activity_type = tax_bill_activity
+						has_activity_type = liege_tax_bill_activity
+					}
+				}
+			}
+			add = opinion_of_tax_bill
+		}
+		else_if = {
 			limit = { scope:activity = { has_activity_type = no_confidence_motion_activity } }
 			add = opinion_of_no_confidence_motion
 		}

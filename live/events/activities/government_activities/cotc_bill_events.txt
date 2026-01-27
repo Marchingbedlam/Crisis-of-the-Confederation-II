@@ -784,15 +784,6 @@ cotc_bill_events.410 = {
 		ai_chance = {
 			base = 100
 			modifier = { add = ai_greed }
-			modifier = {
-				add = {
-					value = 0
-					subtract = ai_zeal
-					multiply = 3
-					max = 0
-				}
-				bill_is_ideologically_unacceptable = { BILL = scope:activity }
-			}
 		}
 	}
 	# Refuse the bribe
@@ -910,15 +901,6 @@ cotc_bill_events.420 = {
 					value = ai_interventionism
 					multiply = 3
 				}
-			}
-			modifier = {
-				add = {
-					value = 0
-					subtract = ai_zeal
-					multiply = 3
-					max = 0
-				}
-				bill_is_ideologically_unacceptable = { BILL = scope:activity }
 			}
 		}
 	}
@@ -1163,15 +1145,6 @@ cotc_bill_events.440 = {
 			modifier = {
 				add = "opinion(scope:actor)"
 				ai_vengefulness > ai_rationality
-			}
-			modifier = {
-				add = {
-					value = 0
-					subtract = ai_zeal
-					multiply = 3
-					max = 0
-				}
-				bill_is_ideologically_unacceptable = { BILL = scope:activity }
 			}
 		}
 	}
@@ -1496,14 +1469,6 @@ cotc_bill_events.505 = {
 				add_stress = medium_stress_gain
 			}
 		}
-		if = {
-			limit = {
-				bill_is_ideologically_unacceptable = { BILL = scope:activity }
-				ai_zeal >= 0
-			}
-			custom_tooltip = pos_zeal_desc
-			add_stress = major_stress_gain
-		}
 		hidden_effect = {
 			save_scope_as = voter
 			scope:activity = {
@@ -1539,15 +1504,6 @@ cotc_bill_events.505 = {
 			}
 			modifier = { add = "opinion(scope:speaker)" }
 			modifier = { add = ai_rationality }
-			modifier = {
-				add = {
-					value = 0
-					subtract = ai_zeal
-					multiply = 3
-					max = 0
-				}
-				bill_is_ideologically_unacceptable = { BILL = scope:activity }
-			}
 		}
 	}
 	# I remain unconvinced.
@@ -1747,14 +1703,6 @@ cotc_bill_events.555 = {
 				add_stress = medium_stress_gain
 			}
 		}
-		if = {
-			limit = {
-				bill_is_ideologically_necessary = { BILL = scope:activity }
-				ai_zeal >= 0
-			}
-			custom_tooltip = pos_zeal_desc
-			add_stress = major_stress_gain
-		}
 		hidden_effect = {
 			save_scope_as = voter
 			scope:activity = {
@@ -1790,15 +1738,6 @@ cotc_bill_events.555 = {
 			}
 			modifier = { add = "opinion(scope:speaker)" }
 			modifier = { add = ai_rationality }
-			modifier = {
-				add = {
-					value = 0
-					subtract = ai_zeal
-					multiply = 3
-					max = 0
-				}
-				bill_is_ideologically_necessary = { BILL = scope:activity }
-			}
 		}
 	}
 	# I remain unconvinced.
@@ -1891,7 +1830,6 @@ cotc_bill_events.600 = {
 			scope:legislator = {
 				is_in_guest_subset = { name = bill_opponents }
 				faith = { this = ROOT.faith }
-				NOT = { bill_is_ideologically_unacceptable = { BILL = scope:activity } }
 			}
 		}
 		show_as_unavailable = { scope:legislator = { is_in_guest_subset = { name = bill_opponents } } }
@@ -1921,7 +1859,6 @@ cotc_bill_events.600 = {
 			scope:legislator = {
 				is_in_guest_subset = { name = bill_supporters }
 				faith = { this = ROOT.faith }
-				NOT = { bill_is_ideologically_necessary = { BILL = scope:activity } }
 			}
 			NOT = { scope:host = ROOT }
 		}
@@ -2406,14 +2343,6 @@ cotc_bill_events.610 = {
 					subtract = ai_vengefulness
 				}
 			}
-			modifier = {
-				add = {
-					value = 0
-					subtract = ai_zeal
-					max = 0
-				}
-				bill_is_ideologically_unacceptable = { BILL = scope:activity }
-			}
 		}
 	}
 	# Disagree
@@ -2513,14 +2442,6 @@ cotc_bill_events.615 = {
 					value = 0
 					subtract = ai_vengefulness
 				}
-			}
-			modifier = {
-				add = {
-					value = 0
-					subtract = ai_zeal
-					max = 0
-				}
-				bill_is_ideologically_necessary = { BILL = scope:activity }
 			}
 		}
 	}
@@ -2625,10 +2546,6 @@ cotc_bill_events.620 = {
 					value = scope:lobbyist.piety_level
 					multiply = 10
 				}
-			}
-			modifier = {
-				add = 100
-				bill_is_ideologically_necessary = { BILL = scope:activity }
 			}
 			modifier = {
 				factor = {
@@ -2737,10 +2654,6 @@ cotc_bill_events.625 = {
 					value = scope:lobbyist.piety_level
 					multiply = 10
 				}
-			}
-			modifier = {
-				add = 100
-				bill_is_ideologically_unacceptable = { BILL = scope:activity }
 			}
 			modifier = {
 				factor = {
@@ -2968,14 +2881,6 @@ cotc_bill_events.640 = {
 			base = 100
 			modifier = { add = ai_honor }
 			modifier = { add = "opinion(scope:legislator)" }
-			modifier = {
-				add = {
-					value = 0
-					subtract = ai_zeal
-					max = 0
-				}
-				bill_is_ideologically_unacceptable = { BILL = scope:activity }
-			}
 		}
 	}
 	# Disagree
@@ -3080,14 +2985,6 @@ cotc_bill_events.645 = {
 			base = 100
 			modifier = { add = ai_honor }
 			modifier = { add = "opinion(scope:legislator)" }
-			modifier = {
-				add = {
-					value = 0
-					subtract = ai_zeal
-					max = 0
-				}
-				bill_is_ideologically_necessary = { BILL = scope:activity }
-			}
 		}
 	}
 	# Disagree
@@ -3194,14 +3091,6 @@ cotc_bill_events.650 = {
 		ai_chance = {
 			base = 100
 			modifier = { add = scope:lobbyist.var:trustworthiness }
-			modifier = {
-				add = {
-					value = 0
-					subtract = ai_zeal
-					max = 0
-				}
-				bill_is_ideologically_unacceptable = { BILL = scope:activity }
-			}
 		}
 	}
 	# Disagree
@@ -3302,14 +3191,6 @@ cotc_bill_events.655 = {
 		ai_chance = {
 			base = 100
 			modifier = { add = scope:lobbyist.var:trustworthiness }
-			modifier = {
-				add = {
-					value = 0
-					subtract = ai_zeal
-					max = 0
-				}
-				bill_is_ideologically_necessary = { BILL = scope:activity }
-			}
 		}
 	}
 	# Disagree
@@ -3437,14 +3318,6 @@ cotc_bill_events.660 = {
 					subtract = ai_lawfulness
 				}
 			}
-			modifier = {
-				add = {
-					value = 0
-					subtract = ai_zeal
-					max = 0
-				}
-				bill_is_ideologically_unacceptable = { BILL = scope:activity }
-			}
 		}
 	}
 	# Disagree
@@ -3569,14 +3442,6 @@ cotc_bill_events.665 = {
 					subtract = ai_lawfulness
 				}
 			}
-			modifier = {
-				add = {
-					value = 0
-					subtract = ai_zeal
-					max = 0
-				}
-				bill_is_ideologically_necessary = { BILL = scope:activity }
-			}
 		}
 	}
 	# Disagree
@@ -3685,14 +3550,6 @@ cotc_bill_events.670 = {
 		ai_chance = {
 			base = 0
 			modifier = { add = influence_bribe_value }
-			modifier = {
-				add = {
-					value = 0
-					subtract = ai_zeal
-					max = 0
-				}
-				bill_is_ideologically_unacceptable = { BILL = scope:activity }
-			}
 		}
 	}
 	# Disagree
@@ -3796,14 +3653,6 @@ cotc_bill_events.675 = {
 		ai_chance = {
 			base = 0
 			modifier = { add = influence_bribe_value }
-			modifier = {
-				add = {
-					value = 0
-					subtract = ai_zeal
-					max = 0
-				}
-				bill_is_ideologically_necessary = { BILL = scope:activity }
-			}
 		}
 	}
 	# Disagree

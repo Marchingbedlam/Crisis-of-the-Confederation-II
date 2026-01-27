@@ -70,7 +70,6 @@ initialize_starting_legislature_on_action = {
 	}
 	effect = {
 		save_scope_as = ruler
-		debug_log_scopes = yes
 		start_situation = {
 			type = legislature
 			save_scope_as = situation
@@ -99,7 +98,13 @@ initialize_starting_legislature_on_action = {
 			set_variable = { name = months_in_session value = 0 }
 		}
 		# Elect starting legislators
-		every_sub_realm_county ?= { elect_new_legislator_effect = yes }
+		if = {
+			limit = { highest_held_title_tier >= tier_empire }
+			every_sub_realm_duchy ?= { select_initial_legislator_effect = { LEGISLATURE = scope:situation RIDING = this } }
+		}
+		else = {
+			every_sub_realm_county ?= { select_initial_legislator_effect = { LEGISLATURE = scope:situation RIDING = this } }
+		}
 		scope:situation ?= {
 			every_participant_group = {
 				every_situation_group_participant = {
@@ -152,7 +157,37 @@ progress_legislature_on_action = {
 		has_legislature_trigger = yes
 		primary_title.var:legislature ?= { situation_current_phase = legislature_in_session }
 	}
-	effect = { primary_title.var:legislature ?= { change_variable = { name = months_in_session add = 3 } } }
+	effect = {
+		# Advance the legislature's term
+		primary_title.var:legislature ?= { change_variable = { name = months_in_session add = 3 } }
+		# If we've hit the term limit, call an election
+		if = {
+			limit = {
+				trigger_if = {
+					limit = { has_law = two_year_terms_law }
+					primary_title.var:legislature ?= { var:months_in_session >= 21 }
+				}
+				trigger_else_if = {
+					limit = { has_law = four_year_terms_law }
+					primary_title.var:legislature ?= { var:months_in_session >= 45 }
+				}
+				trigger_else_if = {
+					limit = { has_law = six_year_terms_law }
+					primary_title.var:legislature ?= { var:months_in_session >= 69 }
+				}
+				trigger_else_if = {
+					limit = { has_law = eight_year_terms_law }
+					primary_title.var:legislators ?= { var:months_in_session >= 93 }
+				}
+				trigger_else_if = {
+					limit = { has_law = ten_year_terms_law }
+					primary_title.var:legislators ?= { var:months_in_session >= 117 }
+				}
+				trigger_else = { always = no }
+			}
+			primary_title.var:legislature ?= { trigger_situation_catalyst = catalyst_term_expired }
+		}
+	}
 }
 abolish_legislature_on_action = {
 	# We're a despot or dictator and don't need a legislature, or are too low-ranking to have one

@@ -1,18 +1,18 @@
 ﻿l_english:
- legislature_events.1.desc: "[ROOT.Char.Custom('GetNewsIntro')][ROOT.Char.Custom('GetNewsSource')]legislative elections have been called in [situation.MakeScope.Var('legislature_title').GetDefinitiveName]. Citizens now head to the polls to elect a new [situation.MakeScope.Var('legislature_title').Custom('GetLegislatureName')]."
+ legislature_events.1.desc: "[ROOT.Char.Custom('GetNewsIntro')][ROOT.Char.Custom('GetNewsSource')]legislative elections have been called in [legislature.MakeScope.Var('legislature_title').GetDefinitiveName]. Citizens now head to the polls to elect a new [legislature.MakeScope.Var('legislature_title').Custom('GetLegislatureName')]."
  legislature_events.1.a: "I see."
  
- legislature_events.10.desc: "The polls have closed in the [county.GetNameNoTier] System, and you have been elected [situation.MakeScope.Var('legislature_title').Title.Custom('GetLegislatorName')]. You will now represent [county.GetNameNoTier] in the [situation.MakeScope.Var('legislature_title).Title.Custom('GetLegislatureName')] of [situation.MakeScope.Var('legislature_title).Title.GetDefinitiveName]."
+ legislature_events.10.desc: "The polls have closed in [riding.GetDefinitiveName], and you have been elected [legislature.MakeScope.Var('legislature_title').Title.Custom('GetLegislatorName')]. You will now represent [riding.GetNameNoTier] in the [legislature.MakeScope.Var('legislature_title).Title.Custom('GetLegislatureName')] of [legislature.MakeScope.Var('legislature_title).Title.GetDefinitiveName]."
  legislature_events.10.a: "A powerful opportunity."
- legislature_events.10.legislator_elected.tt: "[situation.MakeScope.Var('legislature_title').Title.Custom('GetLegislatorName')] Elected"
- legislature_events.10.legislator_elected.desc: "[legislator_elect.GetFullName] will now represent [county.GetNameNoTier] in the [situation.MakeScope.Var('legislature_title').Title.Custom('GetLegislatureName')] of [situation.MakeScope.Var('legislature_title').Title.GetDefinitiveName]."
+ legislature_events.10.legislator_elected.tt: "[legislature.MakeScope.Var('legislature_title').Title.Custom('GetLegislatorName')] Elected"
+ legislature_events.10.legislator_elected.desc: "[legislator_elect.GetFullName] will now represent [county.GetNameNoTier] in the [legislature.MakeScope.Var('legislature_title').Title.Custom('GetLegislatureName')] of [legislature.MakeScope.Var('legislature_title').Title.GetDefinitiveName]."
  
- legislature_events.11.desc: "The polls have closed in the [county.GetNameNoTier] System, and you have been re-elected [situation.MakeScope.Var('legislature_title').Title.Custom('GetLegislatorName')]."
+ legislature_events.11.desc: "The polls have closed in [riding.GetDefinitiveName], and you have been re-elected [legislature.MakeScope.Var('legislature_title').Title.Custom('GetLegislatorName')]."
  legislature_events.11.a: "My career continues."
  legislature_events.11.legislator_elected.tt: "[situation.MakeScope.Var('legislature_title').Title.Custom('GetLegislatorName')] Re-Elected"
- legislature_events.11.legislator_elected.desc: "[legislator_elect.GetFullName] will continue to represent [county.GetNameNoTier] in the [situation.MakeScope.Var('legislature_title').Title.Custom('GetLegislatureName')] of [situation.MakeScope.Var('legislature_title').Title.GetDefinitiveName]."
+ legislature_events.11.legislator_elected.desc: "[legislator_elect.GetFullName] will continue to represent [riding.GetNameNoTier] in the [legislature.MakeScope.Var('legislature_title').Title.Custom('GetLegislatureName')] of [legislature.MakeScope.Var('legislature_title').Title.GetDefinitiveName]."
  
- legislature_events.12.desc: "The polls have closed in the [county.GetNameNoTier] System, and unfortunately you have failed to be re-elected."
+ legislature_events.12.desc: "The polls have closed in [riding.GetDefinitiveName], and unfortunately you have failed to be re-elected."
  legislature_events.12.a: "Damn!"
  
  legislature_events.100.desc: "With the shift to a new form of government come changes to the organization of the state. You have permanently dissolved [situation.MakeScope.Var('legislature_title').Custom('GetLegislatureArticle')][situation.MakeScope.Var('legislature_title').Custom('GetLegislatureName')], estalishing one-[ROOT.Char.Custom('GetPerson')] rule."

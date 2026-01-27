@@ -106,16 +106,3 @@ bill_debate_pulse_legislator_is_lobbied_on_action = {
 		}
 	}
 }
-# Interactions with other government officials that don't affect the bill
-bill_debate_pulse_social_on_action = {
-	weight_multiplier = {
-		base = 100
-		modifier = {
-			add = {
-				value = scope:activity.total_legislators_present
-				multiply = 5
-			}
-		}
-	}
-	# Currently does nothing, but will fire events later!
-}
