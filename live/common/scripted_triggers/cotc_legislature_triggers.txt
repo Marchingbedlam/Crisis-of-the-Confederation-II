@@ -32,19 +32,19 @@ legal_legislator_candidate_trigger = {
 	faith = { save_temporary_scope_as = temp_faith }
 	$LEGISLATURE$.var:legislature_title ?= {
 		trigger_if = {
-			limit = { holder = { has_law = single_party_law } }
+			limit = { holder = { has_realm_law = single_party_law } }
 			state_faith ?= { faith_hostility_level = { target = scope:temp_faith value <= 0 } }
 		}
 		trigger_else_if = {
-			limit = { holder = { has_law = restricted_parties_law } }
+			limit = { holder = { has_realm_law = restricted_parties_law } }
 			state_faith ?= { faith_hostility_level = { target = scope:temp_faith value <= 1 } }
 		}
 		trigger_else_if = {
-			limit = { holder = { has_law = extremists_banned_law } }
+			limit = { holder = { has_realm_law = extremists_banned_law } }
 			state_faith ?= { faith_hostility_level = { target = scope:temp_faith value <= 2 } }
 		}
 		trigger_else_if = {
-			limit = { holder = { has_law = freedom_of_thought_law } }
+			limit = { holder = { has_realm_law = freedom_of_thought_law } }
 			state_faith ?= { faith_hostility_level = { target = scope:temp_faith value <= 3 } }
 		}
 		trigger_else = { always = yes }

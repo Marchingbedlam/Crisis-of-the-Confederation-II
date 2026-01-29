@@ -100,10 +100,10 @@ initialize_starting_legislature_on_action = {
 		# Elect starting legislators
 		if = {
 			limit = { highest_held_title_tier >= tier_empire }
-			every_sub_realm_duchy ?= { select_initial_legislator_effect = { LEGISLATURE = scope:situation RIDING = this } }
+			every_sub_realm_duchy ?= { select_initial_legislator_effect = { LEGISLATURE = scope:situation } }
 		}
 		else = {
-			every_sub_realm_county ?= { select_initial_legislator_effect = { LEGISLATURE = scope:situation RIDING = this } }
+			every_sub_realm_county ?= { select_initial_legislator_effect = { LEGISLATURE = scope:situation } }
 		}
 		scope:situation ?= {
 			every_participant_group = {

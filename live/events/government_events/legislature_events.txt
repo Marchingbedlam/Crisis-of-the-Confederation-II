@@ -279,7 +279,7 @@ legislature_events.300 = {
 			var:legislature = {
 				every_in_list = {
 					variable = legislators
-					make_legislator_effect = { SITUATION = scope:situation }
+					add_to_legislature_effect = { LEGISLATURE = scope:situation RIDING = var:riding }
 				}
 				situation_participant_group:vassals = {
 					every_situation_group_participant = {

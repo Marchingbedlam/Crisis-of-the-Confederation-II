@@ -1,4 +1,4 @@
-# Goes on the title attached to the legislature
+﻿# Goes on the title attached to the legislature
 GetLegislatureName = {
 	type = landed_title
 	
@@ -400,7 +400,7 @@ SenatorsCareAboutQualifications = {
 				count = 1
 			}
 		}
-		localization_key = "[activity.MakeScope.Var('title').GetLegislatorName]"
+		localization_key = "legislator_cares_custom_loc"
 	}
 	text = {
 		setup_scope = { save_scope_as = activity }
@@ -410,7 +410,7 @@ SenatorsCareAboutQualifications = {
 				count != 1
 			}
 		}
-		localization_key = "[activity.MakeScope.Var('title').GetLegislatorNamePlural]"
+		localization_key = "legislators_care_custom_loc"
 	}
 }
 SenatorsSupportNoNameQualifications = {
@@ -499,7 +499,7 @@ SenatorsCareAboutPurity = {
 				count = 1
 			}
 		}
-		localization_key = "[activity.MakeScope.Var('title').GetLegislatorName] cares"
+		localization_key = "legislator_cares_custom_loc"
 	}
 	text = {
 		setup_scope = { save_scope_as = activity }
@@ -510,7 +510,7 @@ SenatorsCareAboutPurity = {
 				count != 1
 			}
 		}
-		localization_key = "[activity.MakeScope.Var('title').GetLegislatorNamePlural] care"
+		localization_key = "legislators_care_custom_loc"
 	}
 }
 SenatorsSupportNoNamePurity = {
@@ -597,24 +597,30 @@ SenatorsUndecidedNoNamePurity = {
 SenatorsCareAboutIdeology = {
 	type = activity
 	text = {
-		setup_scope = { save_scope_as = activity }
+		setup_scope = {
+			save_scope_as = activity
+			var:title = { save_scope_as = title }
+		}
 		trigger = {
 			any_attending_character = {
 				legislator_cares_about_ideology_trigger = yes
 				count = 1
 			}
 		}
-		localization_key = "[activity.MakeScope.Var('title').GetLegislatorName]"
+		localization_key = "legislator_cares_custom_loc"
 	}
 	text = {
-		setup_scope = { save_scope_as = activity }
+		setup_scope = {
+			save_scope_as = activity
+			var:title = { save_scope_as = title }
+		}
 		trigger = {
 			any_attending_character = {
 				legislator_cares_about_ideology_trigger = yes
 				count != 1
 			}
 		}
-		localization_key = "[activity.MakeScope.Var('title').GetLegislatorNamePlural]"
+		localization_key = "legislators_care_custom_loc"
 	}
 }
 SenatorsSupportNoNameIdeology = {
@@ -695,24 +701,30 @@ SenatorsUndecidedNoNameIdeology = {
 SenatorsCareAboutLoyalty = {
 	type = activity
 	text = {
-		setup_scope = { save_scope_as = activity }
+		setup_scope = {
+			save_scope_as = activity
+			var:title = { save_scope_as = title }
+		}
 		trigger = {
 			any_attending_character = {
 				legislator_cares_about_loyalty_trigger = yes
 				count = 1
 			}
 		}
-		localization_key = "[activity.MakeScope.Var('title').GetLegislatorName]"
+		localization_key = "legislator_cares_custom_loc"
 	}
 	text = {
-		setup_scope = { save_scope_as = activity }
+		setup_scope = {
+			save_scope_as = activity
+			var:title = { save_scope_as = title }
+		}
 		trigger = {
 			any_attending_character = {
 				legislator_cares_about_loyalty_trigger = yes
 				count != 1
 			}
 		}
-		localization_key = "[activity.MakeScope.Var('title').GetLegislatorNamePlural]"
+		localization_key = "legislators_care_custom_loc"
 	}
 }
 SenatorsSupportNoNameLoyalty = {
@@ -793,24 +805,30 @@ SenatorsUndecidedNoNameLoyalty = {
 SenatorsCareAboutEthics = {
 	type = activity
 	text = {
-		setup_scope = { save_scope_as = activity }
+		setup_scope = {
+			save_scope_as = activity
+			var:title = { save_scope_as = title }
+		}
 		trigger = {
 			any_attending_character = {
 				legislator_cares_about_ethics_trigger = yes
 				count = 1
 			}
 		}
-		localization_key = "[activity.MakeScope.Var('title').GetLegislatorName]"
+		localization_key = "legislator_cares_custom_loc"
 	}
 	text = {
-		setup_scope = { save_scope_as = activity }
+		setup_scope = {
+			save_scope_as = activity
+			var:title = { save_scope_as = title }
+		}
 		trigger = {
 			any_attending_character = {
 				legislator_cares_about_ethics_trigger = yes
 				count != 1
 			}
 		}
-		localization_key = "[activity.MakeScope.Var('title').GetLegislatorNamePlural]"
+		localization_key = "legislators_care_custom_loc"
 	}
 }
 SenatorsSupportNoNameEthics = {
@@ -893,6 +911,7 @@ SenatorsCareAboutKnownCrime = {
 	text = {
 		setup_scope = {
 			save_scope_as = activity
+			var:title = { save_scope_as = title }
 			scope:opponent = { save_scope_as = potential_criminal }
 		}
 		trigger = {
@@ -902,11 +921,12 @@ SenatorsCareAboutKnownCrime = {
 				count = 1
 			}
 		}
-		localization_key = "[activity.MakeScope.Var('title').GetLegislatorName]"
+		localization_key = "legislator_cares_custom_loc"
 	}
 	text = {
 		setup_scope = {
 			save_scope_as = activity
+			var:title = { save_scope_as = title }
 			scope:opponent = { save_scope_as = potential_criminal }
 		}
 		trigger = {
@@ -916,7 +936,7 @@ SenatorsCareAboutKnownCrime = {
 				count != 1
 			}
 		}
-		localization_key = "[activity.MakeScope.Var('title').GetLegislatorNamePlural]"
+		localization_key = "legislators_care_custom_loc"
 	}
 }
 SenatorsSupportNoNameKnownCrime = {
@@ -1023,6 +1043,7 @@ SenatorsCareAboutSecretCrime = {
 	text = {
 		setup_scope = {
 			save_scope_as = activity
+			var:title = { save_scope_as = title }
 			scope:criminal_secret = { save_scope_as = target_criminal_secret }
 		}
 		trigger = {
@@ -1032,11 +1053,12 @@ SenatorsCareAboutSecretCrime = {
 				count = 1
 			}
 		}
-		localization_key = "[activity.MakeScope.Var('title').GetLegislatorName]"
+		localization_key = "legislator_would_care_custom_loc"
 	}
 	text = {
 		setup_scope = {
 			save_scope_as = activity
+			var:title = { save_scope_as = title }
 			scope:criminal_secret = { save_scope_as = target_criminal_secret }
 		}
 		trigger = {
@@ -1046,7 +1068,7 @@ SenatorsCareAboutSecretCrime = {
 				count != 1
 			}
 		}
-		localization_key = "[activity.MakeScope.Var('title').GetLegislatorNamePlural]"
+		localization_key = "legislators_would_care_custom_loc"
 	}
 }
 SenatorsSupportNoNameSecretCrime = {

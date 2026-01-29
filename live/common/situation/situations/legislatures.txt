@@ -65,7 +65,15 @@
 					}
 					# Elect new senators
 					clear_variable_list = legislators
-					var:legislature_title.holder ?= { every_sub_realm_county = { elect_new_legislator_effect = yes } }
+					var:legislature_title.holder ?= {
+						if = {
+							limit = { highest_held_title_tier >= tier_empire }
+							every_sub_realm_duchy = { hold_legislative_election_effect = { LEGISLATURE = scope:situation } }
+						}
+						else = {
+							every_sub_realm_county = { hold_legislative_election_effect = { LEGISLATURE = scope:situation } }
+						}
+					}
 					every_participant_group = {
 						every_situation_group_participant = {
 							recalculate_participant_group = scope:situation

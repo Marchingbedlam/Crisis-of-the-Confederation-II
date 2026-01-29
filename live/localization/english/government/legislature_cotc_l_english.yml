@@ -53,9 +53,12 @@
  not_reelected_legislator_memory: "Lost Re-Election to [ROOT.Var('legislature_title').Custom('GetLegislatureName')]"
  not_reelected_legislator_memory_desc: "I failed to be re-elected to the [ROOT.Var('legislature_title').Title.Custom('GetLegislatureName')] of [ROOT.Var('legislature_title').Title.GetNameNoTier]."
  not_reelected_legislator_memory_desc_second_perspective: "You failed to be re-elected to the [ROOT.Var('legislature_title').Title.Custom('GetLegislatureName')] of [ROOT.Var('legislature_title').Title.GetNameNoTier]."
- not_reelected_legislator_memory_desc_third_perspective: "[owner.Custom('GetFullPersonalName')] failed to be re-elected to the [ROOT.Var('legislature_title').Title.Custom('GetLegislatureName')] of [ROOT.Var('legislature_title').Title.GetNameNoTier]."
+ not_reelected_legislator_memory_desc_third_perspective: "[owner.Custom('GetFullPersonalName')] failed to be re-elected to the
+ singular_legislator_custom_loc: "[title.Custom('GetLegislatorName')]" [ROOT.Var('legislature_title').Title.Custom('GetLegislatureName')] of [ROOT.Var('legislature_title').Title.GetNameNoTier]."
  
  definitive_legislature_name_custom_loc: "[title.Custom('GetLegislatureArticle')][title.Custom('GetLegislatureName')]"
+ singular_legislator_custom_loc: "[title.Custom('GetLegislatorName')]"
+ plural_legislator_custom_loc: "[title.Custom('GetLegislatorNamePlural')]"
  senate_custom_loc: "Senate"
  senator_custom_loc: "Senator"
  senator_plural_custom_loc: "Senators"
@@ -245,10 +248,10 @@
  
  balance_budget_intent: "Balance Budget"
  balance_budget_intent_desc: "You intend to make sure that the realm spends no more than it can afford, and you don't care what needs to be cut to achieve that."
- balance_budget_intent_custom_Loc: "balance the budget"
+ balance_budget_intent_custom_loc: "balance the budget"
  balance_budget_maintain_military_intent: "No Military Cuts"
  balance_budget_maintain_military_intent_desc: "You must make sure that the realm spends no more than it can afford, but the military is vital. Any cuts must be made elsewhere."
- balance_budget_maintain_military_custom_loc: "balance the budget without cutting military spending"
+ balance_budget_maintain_military_intent_custom_loc: "balance the budget without cutting military spending"
  balance_budget_maintain_ministry_intent: "No Development Cuts"
  balance_budget_maintain_ministry_intent_desc: "You must make sure that the realm spends no more than it can afford, but long-term economic development is vital. Any cuts must be made elsewhere."
  balance_budget_maintain_ministry_intent_custom_loc: "balance the budget without cutting development spending"
@@ -263,7 +266,7 @@
  increase_ministry_budget_intent_custom_loc: "increase development spending"
  increase_salary_budget_intent: "Increase Administrative Spending"
  increase_salary_budget_intent_desc: "Intellectual pursuits have been severely neglected by the realm. You intend to ensure that administrative worlds get a bigger share of the budget."
- increase_salary_budget_custom_loc: "increase administrative spending"
+ increase_salary_budget_intent_custom_loc: "increase administrative spending"
  
  tax_bill_activity: "Tax Bill"
  tax_bill_activity_selection_tooltip: "Convene the [legislature_cotc|E] and pass a [bill_cotc|E] enacting a new provincial tax code."
