@@ -10,9 +10,9 @@ PixelShader = {
 			return smoothstep( 35.0f, 70.0f, CameraPosition.y );
 		}
 
-		void COTC_ApplyBackgroundEffects(inout float3 Color, inout float Alpha, float3 WorldSpacePos)
+		void COTC_ApplyBackgroundEffects(inout float3 Color, inout float Alpha, float3 WorldSpacePos, int StarLayerMult)
 		{
-			COTC_ApplyStars(Color, Alpha, WorldSpacePos);
+			COTC_ApplyStars(Color, Alpha, WorldSpacePos, StarLayerMult);
 		}
 	]]
 }
