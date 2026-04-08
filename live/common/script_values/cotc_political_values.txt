@@ -1,11 +1,12 @@
 ﻿##########################
 # LEGISLATOR INFORMATION #
-##########################
-# This calculates a basic level of political support for a character among the general
-# population of a particular title (both de jure and de facto). This can return a fairly
-# variable number so it's recommended that any modifications to this be multiplicative
-# rather than additive.
-# scope:title: The title being evaluated
+# Constants
+miniscule_campaign_strength_change = 0.01
+minor_campaign_strength_change = 0.02
+moderate_campaign_strength_change = 0.05
+major_campaign_strength_change = 0.1
+massive_campaign_strength_change = 0.2
+
 title_political_support = {
 	value = 0
 	save_temporary_scope_as = temp_candidate
@@ -31,8 +32,15 @@ title_political_support = {
 	divide = 10
 	round = yes
 }
-# Score calculation for legislative elections
-legislator_county_score = {
+political_campaign_cost_modifier = {
+	value = 0
+	if = {
+		limit = { type = legislative_election_campaign }
+		var:legislature ?= { var:legislature_title ?= { add = title_basic_cost_multiplier } }
+	}
+	else = { scheme_target_title ?= { add = title_leadership_cost_multiplier } }
+}
+county_election_score = { # Returns scope:temp_candidate's popularity in the scoped county
 	value = 0
 	title_province = {
 		faith = { save_temporary_scope_as = temp_faith }
@@ -40,12 +48,7 @@ legislator_county_score = {
 	}
 	# Opinion of incumbent
 	if = {
-		limit = {
-			scope:temp_candidate = {
-				has_variable = riding
-				var:riding ?= { this = scope:temp_riding }
-			}
-		}
+		limit = { reverse_is_incumbent_for_title = { CHARACTER = scope:temp_candidate } }
 		add = county_opinion
 	}
 	scope:temp_candidate = {
@@ -164,30 +167,8 @@ legislator_county_score = {
 		}
 	}
 }
-legislator_total_score = {
+candidate_election_score = { # General effects of the candidate as a person
 	value = 0
-	save_temporary_scope_as = temp_candidate
-	# Population opinion effects
-	scope:temp_riding = {
-		if = {
-			limit = { tier = tier_county }
-			add = legislator_county_score
-		}
-		else = {
-			every_de_jure_county = {
-				limit = { target_is_de_facto_liege_or_above = scope:temp_legislature.var:legislature_title }
-				add = legislator_county_score
-			}
-			divide = {
-				value = 0
-				every_de_jure_county = {
-					limit = { target_is_de_facto_liege_or_above = scope:temp_legislature.var:legislature_title }
-					add = 1
-				}
-				min = 1
-			}
-		}
-	}
 	# Candidate's Prestige
 	add = {
 		value = prestige_level
@@ -199,14 +180,89 @@ legislator_total_score = {
 		subtract = 10
 		multiply = 3
 	}
-	# Campaigning effects
-	if = {
-		limit = { has_variable = legislative_campaign_score }
-		add = var:legislative_campaign_score
+}
+
+legislator_endorsement_score = { # How valuable is your endorsement of this legislator?
+	value = candidate_election_score
+	save_temporary_scope_as = temp_candidate
+	scope:temp_riding = {
+		if = {
+			limit = { tier = tier_county }
+			add = county_election_score
+		}
+		else = {
+			every_de_jure_county = {
+				limit = { target_is_de_facto_liege_or_above = scope:temp_legislature.var:legislature_title }
+				add = county_election_score
+			}
+			divide = {
+				value = 0
+				every_de_jure_county = {
+					limit = { target_is_de_facto_liege_or_above = scope:temp_legislature.var:legislature_title }
+					add = 1
+				}
+				min = 1
+			}
+		}
 	}
 }
-# Score calculation for how early a legislator gets to speak
-legislative_seniority = {
+legislator_base_score = { # Base score for a candidate in a legislative election
+	value = candidate_election_score
+	save_temporary_scope_as = temp_candidate
+	# Population opinion effects
+	scope:temp_riding = {
+		if = {
+			limit = { tier = tier_county }
+			add = county_election_score
+		}
+		else = {
+			every_de_jure_county = {
+				limit = { target_is_de_facto_liege_or_above = scope:temp_legislature.var:legislature_title }
+				add = county_election_score
+			}
+			divide = {
+				value = 0
+				every_de_jure_county = {
+					limit = { target_is_de_facto_liege_or_above = scope:temp_legislature.var:legislature_title }
+					add = 1
+				}
+				min = 1
+			}
+		}
+	}
+	# Campaign effects
+	every_scheme = {
+		limit = {
+			scheme_type = legislative_election_campaign
+			var:legislature ?= { this = scope:temp_legislature }
+			has_variable = public_campaign_strength
+		}
+		multiply = { value = var:public_campaign_strength }
+	}
+}
+legislator_total_score = { # This allows for undisplayed "hidden" variables that affect election outcomes
+	value = legislator_base_score
+	# Campaign effects
+	every_scheme = {
+		limit = {
+			scheme_type = legislative_election_campaign
+			var:legislature ?= { this = scope:temp_legislature }
+			has_variable = hidden_campaign_strength
+		}
+		multiply = var:hidden_campaign_strength
+	}
+	# Random fudge factor
+	multiply = {
+		value = {
+			fixed_range = {
+				min = 0.9
+				max = 1.1
+			}
+		}
+	}
+}
+
+legislative_seniority = { # Score calculation for how early a legislator gets to speak
 	value = 0
 	add = {
 		value = influence_level
@@ -220,5 +276,33 @@ legislative_seniority = {
 	if = {
 		limit = { has_variable = years_in_legislature }
 		add = var:years_in_legislature
+	}
+}
+months_until_next_election = { # How long until the next election?
+	value = 0
+	var:legislature_title.holder = {
+		switch = {
+			trigger = has_realm_law
+			two_year_terms_law = { add = 21 }
+			four_year_terms_law = { add = 45 }
+			six_year_terms_law = { add = 69 }
+			eight_year_terms_law = { add = 93 }
+			ten_year_terms_law = { add = 117 }
+		}
+	}
+	if = {
+		limit = { exists = var:months_in_session }
+		subtract = var:months_in_session
+	}
+}
+ideology_represented_in_legislature = { # How many legislators follow this ideology?
+	value = 0
+	save_temporary_scope_as = temp_faith
+	scope:party_legislature = {
+		every_in_list = {
+			variable = legislators
+			limit = { faith = scope:temp_faith }
+			add = 1
+		}
 	}
 }

@@ -12,6 +12,43 @@ succession_law_allows_campaigning_trigger = {
 	}
 }
 
+character_is_incumbent_in_title = {
+	trigger_if = {
+		limit = { $TITLE$ = { tier = tier_barony } }
+		OR = {
+			$CHARACTER$ = { var:riding ?= { this = $TITLE$.county } }
+			$CHARACTER$ = { var:riding ?= { this = $TITLE$.duchy } }
+			$TITLE$ = { holder ?= { this = $CHARACTER$ } }
+			$TITLE$ = { holder ?= { any_liege_or_above = { this = $CHARACTER$ } } }
+		}
+	}
+	trigger_else_if = {
+		limit = { $TITLE$ = { tier = tier_county } }
+		OR = {
+			$CHARACTER$ = { var:riding ?= { this = $TITLE$ } }
+			$CHARACTER$ = { var:riding ?= { this = $TITLE$.duchy } }
+			$TITLE$ = { any_county_province ?= { province_owner = $CHARACTER$ } }
+			$TITLE$ = { holder ?= { any_liege_or_above ?= { this = $CHARACTER$ } } }
+		}
+	}
+	trigger_else_if = {
+		limit = { $TITLE$ = { tier = tier_duchy } }
+		OR = {
+			$CHARACTER$ = { var:riding ?= { this = $TITLE$ } }
+			$CHARACTER$ = { var:legislature ?= { var:legislature_title ?= { this = $TITLE$ } } }
+			$TITLE$ = { holder ?= { this = $CHARACTER$ } }
+			$TITLE$ = { holder ?= { any_liege_or_above = { this = $CHARACTER$ } } }
+		}
+	}
+	trigger_else = {
+		OR = {
+			$CHARACTER$ = { var:legislature ?= { var:legislature_title ?= { this = $TITLE$ } } }
+			$TITLE$ = { holder ?= { this = $CHARACTER$ } }
+			$TITLE$ = { holder ?= { any_liege_or_above = { this = $CHARACTER$ } } }
+		}
+	}
+}
+
 valid_political_campaign_province_trigger = {
 	province_owner = {
 		OR = {

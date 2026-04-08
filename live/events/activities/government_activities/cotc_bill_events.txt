@@ -537,7 +537,7 @@ cotc_bill_events.400 = {
 				multiply = 10
 			}
 		}
-		positive_lawfulness_stress_gain_effect = yes
+		positive_lawfulness_stress_gain_effect = { SCALE = 1 }
 		if = {
 			limit = { ai_rationality < ai_greed }
 			custom_tooltip = pos_greed_desc
@@ -625,7 +625,7 @@ cotc_bill_events.400 = {
 			limit = { scope:activity.var:pork > 0 }
 			custom_tooltip = already_spending_pork_desc
 		}
-		negative_interventionism_stress_gain_effect = yes
+		negative_interventionism_stress_gain_effect = { SCALE = 1 }
 		hidden_effect = { scope:target_opponent = { trigger_event = { id = cotc_bill_events.420 } } }
 		ai_chance = {
 			base = 50
@@ -747,7 +747,7 @@ cotc_bill_events.410 = {
 				multiply = 10
 			}
 		}
-		positive_lawfulness_stress_gain_effect = yes
+		positive_lawfulness_stress_gain_effect = { SCALE = 1 }
 		add_piety = {
 			value = bribe_piety
 			multiply = 10
@@ -789,7 +789,7 @@ cotc_bill_events.410 = {
 	# Refuse the bribe
 	option = {
 		name = cotc_bill_events.410.b
-		positive_greed_stress_gain_effect = yes
+		positive_greed_stress_gain_effect = { SCALE = 1 }
 		hidden_effect = {
 			save_temporary_scope_as = voter
 			scope:activity = {
@@ -850,7 +850,7 @@ cotc_bill_events.420 = {
 	option = {
 		name = cotc_bill_events.420.a
 		custom_tooltip = pork_barrel_effect_desc
-		negative_interventionism_stress_gain_effect = yes
+		negative_interventionism_stress_gain_effect = { SCALE = 1 }
 		add_piety = {
 			value = pork_piety
 			multiply = 10
@@ -907,7 +907,7 @@ cotc_bill_events.420 = {
 	# Refuse the deal
 	option = {
 		name = cotc_bill_events.420.b
-		positive_interventionism_stress_gain_effect = yes
+		positive_interventionism_stress_gain_effect = { SCALE = 1 }
 		hidden_effect = {
 			save_temporary_scope_as = voter
 			scope:activity = {
@@ -1048,7 +1048,7 @@ cotc_bill_events.435 = {
 	# Refuse
 	option = {
 		name = cotc_bill_events.435.b
-		positive_honor_stress_gain_effect = yes
+		positive_honor_stress_gain_effect = { SCALE = 1 }
 		scope:actor = { add_opinion = { modifier = opinion_betrayed_favor target = ROOT } }
 		hidden_effect = {
 			save_temporary_scope_as = voter
@@ -1248,7 +1248,7 @@ cotc_bill_events.450 = {
 	# Refuse the bribe
 	option = {
 		name = cotc_bill_events.410.b
-		positive_greed_stress_gain_effect = yes
+		positive_greed_stress_gain_effect = { SCALE = 1 }
 		hidden_effect = {
 			save_temporary_scope_as = voter
 			scope:activity = {
@@ -1516,7 +1516,7 @@ cotc_bill_events.505 = {
 					ai_rationality >= ai_honor
 				}
 			}
-			positive_rationality_stress_gain_effect = yes
+			positive_rationality_stress_gain_effect = { SCALE = 1 }
 		}
 		ai_chance = {
 			base = 50
@@ -1743,7 +1743,7 @@ cotc_bill_events.555 = {
 	# I remain unconvinced.
 	option = {
 		name = cotc_bill_events.555.b
-		positive_rationality_stress_gain_effect = yes
+		positive_rationality_stress_gain_effect = { SCALE = 1 }
 		ai_chance = {
 			base = 50
 			modifier = {
@@ -1895,7 +1895,7 @@ cotc_bill_events.600 = {
 		show_as_unavailable = { scope:legislator = { is_in_guest_subset = { name = bill_opponents } } }
 		use_hook = scope:legislator
 		hidden_effect = { scope:legislator = { trigger_event = { id = cotc_bill_events.630 } } }
-		negative_authoritarianism_stress_gain_effect = yes
+		negative_authoritarianism_stress_gain_effect = { SCALE = 1 }
 		ai_chance = {
 			base = 100
 			modifier = { add = ai_authoritarianism }
@@ -1919,7 +1919,7 @@ cotc_bill_events.600 = {
 		}
 		use_hook = scope:legislator
 		hidden_effect = { scope:legislator = { trigger_event = { id = cotc_bill_events.635 } } }
-		negative_authoritarianism_stress_gain_effect = yes
+		negative_authoritarianism_stress_gain_effect = { SCALE = 1 }
 		ai_chance = {
 			base = 100
 			modifier = { add = ai_authoritarianism }
@@ -2113,7 +2113,7 @@ cotc_bill_events.600 = {
 			}
 		}
 		hidden_effect = { scope:legislator = { trigger_event = { id = cotc_bill_events.660 } } }
-		positive_lawfulness_stress_gain_effect = yes
+		positive_lawfulness_stress_gain_effect = { SCALE = 1 }
 		if = {
 			limit = { ai_greed > ai_rationality }
 			custom_tooltip = pos_greed_desc
@@ -2177,7 +2177,7 @@ cotc_bill_events.600 = {
 			}
 		}
 		hidden_effect = { scope:legislator = { trigger_event = { id = cotc_bill_events.665 } } }
-		positive_lawfulness_stress_gain_effect = yes
+		positive_lawfulness_stress_gain_effect = { SCALE = 1 }
 		if = {
 			limit = { ai_greed > ai_rationality }
 			custom_tooltip = pos_greed_desc
@@ -2241,7 +2241,7 @@ cotc_bill_events.600 = {
 					}
 				}
 			}
-			positive_authoritarianism_stress_gain_effect = yes
+			positive_authoritarianism_stress_gain_effect = { SCALE = 1 }
 		}
 		ai_chance = {
 			base = 100
@@ -2559,7 +2559,7 @@ cotc_bill_events.620 = {
 	option = {
 		name = cotc_bill_events.620.b
 		reverse_add_opinion = { modifier = opinion_defied_pressure target = scope:lobbyist }
-		positive_zeal_stress_gain_effect = yes
+		positive_zeal_stress_gain_effect = { SCALE = 1 }
 		hidden_effect = {
 			save_temporary_scope_as = voter
 			scope:activity = {
@@ -2667,7 +2667,7 @@ cotc_bill_events.625 = {
 	option = {
 		name = cotc_bill_events.625.b
 		reverse_add_opinion = { modifier = opinion_defied_pressure target = scope:lobbyist }
-		positive_zeal_stress_gain_effect = yes
+		positive_zeal_stress_gain_effect = { SCALE = 1 }
 		hidden_effect = {
 			save_temporary_scope_as = voter
 			scope:activity = {
@@ -2888,7 +2888,7 @@ cotc_bill_events.640 = {
 		name = cotc_bill_events.640.b
 		reverse_add_opinion = { modifier = opinion_defied_pressure target = scope:lobbyist }
 		reverse_add_opinion = { modifier = opinion_betrayed_favor target = scope:lobbyist }
-		positive_honor_stress_gain_effect = yes
+		positive_honor_stress_gain_effect = { SCALE = 1 }
 		hidden_effect = {
 			save_temporary_scope_as = voter
 			scope:activity = {
@@ -2992,7 +2992,7 @@ cotc_bill_events.645 = {
 		name = cotc_bill_events.645.b
 		reverse_add_opinion = { modifier = opinion_defied_pressure target = scope:lobbyist }
 		reverse_add_opinion = { modifier = opinion_betrayed_favor target = scope:lobbyist }
-		positive_honor_stress_gain_effect = yes
+		positive_honor_stress_gain_effect = { SCALE = 1 }
 		hidden_effect = {
 			save_temporary_scope_as = voter
 			scope:activity = {
@@ -3253,7 +3253,7 @@ cotc_bill_events.660 = {
 			pay_short_term_gold = { target = ROOT gold = bribe_value }
 			give_official_bribe_secret_effect = { TARGET = ROOT }
 		}
-		positive_lawfulness_stress_gain_effect = yes
+		positive_lawfulness_stress_gain_effect = { SCALE = 1 }
 		add_piety = {
 			value = bribe_piety
 			multiply = 10
@@ -3324,7 +3324,7 @@ cotc_bill_events.660 = {
 	option = {
 		name = cotc_bill_events.660.b
 		reverse_add_opinion = { modifier = opinion_defied_pressure target = scope:lobbyist }
-		positive_greed_stress_gain_effect = yes
+		positive_greed_stress_gain_effect = { SCALE = 1 }
 		hidden_effect = {
 			save_temporary_scope_as = voter
 			scope:activity = {
@@ -3381,7 +3381,7 @@ cotc_bill_events.665 = {
 			pay_short_term_gold = { target = ROOT gold = bribe_value }
 			give_official_bribe_secret_effect = { TARGET = ROOT }
 		}
-		positive_lawfulness_stress_gain_effect = yes
+		positive_lawfulness_stress_gain_effect = { SCALE = 1 }
 		add_piety = {
 			value = bribe_piety
 			multiply = 10
@@ -3448,7 +3448,7 @@ cotc_bill_events.665 = {
 	option = {
 		name = cotc_bill_events.665.b
 		reverse_add_opinion = { modifier = opinion_defied_pressure target = scope:lobbyist }
-		positive_greed_stress_gain_effect = yes
+		positive_greed_stress_gain_effect = { SCALE = 1 }
 		hidden_effect = {
 			save_temporary_scope_as = voter
 			scope:activity = {

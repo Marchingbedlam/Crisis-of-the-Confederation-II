@@ -1,0 +1,224 @@
+﻿endorse_legislative_campaign_interaction = {
+	icon = support_candidacy
+	category = interaction_category_succession
+	common_interaction = yes
+	interface_priority = 110
+	desc = endorse_legislative_campaign_interaction_desc
+	
+	greeting = positive
+	notification_text = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					exists = scope:pay_off_hook
+					scope:recipient = { has_strong_hook = scope:actor }
+				}
+				desc = LEGISLATIVE_ENDORSEMENT_PROPOSAL_PAY_OFF_HOOK_STRONG
+			}
+			triggered_desc = {
+				trigger = { exists = scope:pay_off_hook }
+				desc = LEGISLATIVE_ENDORSEMENT_PROPOSAL_PAY_OFF_HOOK_WEAK
+			}
+			triggered_desc = {
+				trigger = { exists = scope:gain_favor }
+				desc = LEGISLATIVE_ENDORSEMENT_PROPOSAL_GAIN_FAVOR
+			}
+			desc = LEGISLATIVE_ENDORSEMENT_PROPOSAL
+		}
+	}
+	
+	is_shown = {
+		scope:recipient != scope:actor
+		
+		# Recipient has a relevant election campaign
+		scope:recipient = {
+			any_scheme = {
+				scheme_type = legislative_election_campaign
+				OR = {
+					scheme_target_title = { character_is_incumbent_in_title { TITLE = THIS CHARACTER = scope:actor } }
+					var:legislature ?= { var:legislature_title ?= { character_is_incumbent_in_title = { TITLE = THIS CHARACTER = scope:actor } } }
+				}
+			}
+		}
+	}
+	
+	is_valid_showing_failures_only = {
+		custom_description = {
+			text = has_not_endorsed_this_campaign_desc
+			scope:recipient = {
+				any_scheme = {
+					scheme_type = legislative_election_campaign
+					NOT = { is_target_in_variable_list = { name = endorsements target = scope:actor } }
+				}
+			}
+		}
+		custom_description = {
+			text = has_not_endorsed_rival_campaign_desc
+			scope:recipient = {
+				any_scheme = {
+					scheme_type = legislative_election_campaign
+					NOT = {
+						any_in_list = {
+							variable = rival_campaigns
+							is_target_in_variable_list = { name = endorsements target = scope:actor }
+						}
+					}
+				}
+			}
+		}
+		custom_description = {
+			text = "has_already_rejected_renegotiation"
+			subject = scope:recipient
+			NOT = {
+				scope:actor = {
+					has_opinion_modifier = {
+						modifier = opinion_refused_endorsement
+						target = scope:recipient
+					}
+				}
+			}
+		}
+	}
+
+	can_send = {
+		custom_description = { # Exploit prevention
+			text = "has_sent_interaction_already"
+			subject = scope:recipient
+			scope:actor = { NOT = { has_pending_interaction_of_type = endorse_legislative_campaign_interaction } }
+		}
+	}
+	
+	cost = {
+		influence = {
+			value = 0
+			scope:recipient = {
+				every_scheme = {
+					scheme_type = legislative_election_campaign
+					add = political_campaign_cost_modifier
+				}
+			}
+			multiply = miniscule_influence_value
+		}
+	}
+	
+	options_heading = endorse_political_campaign.t.conditions
+	send_options_exclusive = yes
+	send_option = { # No strings attached
+		flag = no_strings_attached
+		localization_key = endorse_political_campaign.tt.no_strings_attached
+	}
+	send_option = { # To pay off a hook
+		is_shown = { scope:recipient = { has_usable_hook = scope:actor } }
+		flag = pay_off_hook
+		localization_key = endorse_political_campaign.tt.pay_off_hook
+	}
+	send_option = { # For a future favor
+		is_shown = { scope:recipient = { NOT = { has_hook = scope:actor } } }
+		is_valid = { scope:actor = { can_add_hook = { target = scope:recipient type = favor_hook } } }
+		flag = gain_favor
+		localization_key = endorse_political_campaign.tt.gain_favor
+	}
+	
+	on_accept = {
+		scope:recipient = {
+			random_scheme = {
+				limit = { scheme_type = legislative_election_campaign }
+				save_scope_as = campaign
+			}
+			endorse_legislator_campaign_effect = { CAMPAIGN = scope:campaign ENDORSER = scope:actor }
+			if = {
+				limit = {
+					scope:pay_off_hook = yes
+					has_usable_hook = scope:actor
+				}
+				use_hook = scope:actor
+			}
+		}
+		if = {
+			limit = {
+				scope:gain_favor = yes
+				scope:actor = { can_add_hook = { target = scope:recipient type = favor_hook } }
+			}
+			scope:actor = { add_hook_no_toast = { type = favor_hook target = scope:recipient } }
+		}
+		hidden_tooltip = { scope:actor = { trigger_event = cotc_political_campaign_events.1000 } }
+	}
+	on_decline = {
+		scope:actor = {
+			add_opinion = { modifier = opinion_refused_endorsement target = scope:recipient }
+			hidden_tooltip = { trigger_event = cotc_political_campaign_events.1010 }
+		}
+	}
+	
+	ai_frequency_by_tier = {
+		barony = 12
+		county = 6
+		duchy = 3
+		kingdom = 1
+		empire = 1
+		hegemony = 1
+	}
+	
+	ai_target_quick_trigger = { is_adult = yes }
+	ai_targets = { ai_recipients = realm_characters }
+	
+	ai_accept = {
+		base = 0
+		modifier = {
+			add = {
+				value = 0
+				scope:recipient = {
+					random_scheme = {
+						limit = { type = legislative_election_campaign }
+						scheme_target_title = { save_temporary_scope_as = temp_riding }
+						var:legislature ?= { save_temporary_scope_as  = temp_legislature }
+					}
+				}
+				if = {
+					limit = { exists = scope:temp_legislature }
+					scope:actor = { add = legislator_endorsement_score }
+				}
+			}
+		}
+		modifier = {
+			add = {
+				value = 0
+				scope:recipient = { add = "opinion(scope:actor)" }
+				multiply = 0.25
+				max = 0
+			}
+			exists = scope:gain_favor
+		}
+		modifier = {
+			factor = 0.8
+			scope:recipient = { has_weak_hook = scope:actor }
+			exists = scope:pay_off_hook
+		}
+		modifier = {
+			factor = 0.8
+			exists = scope:pay_off_hook
+		}
+	}
+	ai_will_do = {
+		base = 0
+		is_most_favored_candidate_modifier = { CAMPAIGN_TYPE = legislative_election_campaign }
+		modifier = { # Wait until the actual year of the election in order to allow time for candidates to declare themselves
+			factor = 0.1
+			scope:recipient = {
+				any_scheme = {
+					has_variable = var:legislature
+					var:legislature ?= { months_until_next_election <= 12 }
+				}
+			}
+		}
+		# Be eager to gain or get rid of hooks
+		modifier = {
+			factor = 2
+			exists = scope:pay_off_hook
+		}
+		modifier = {
+			factor = 1.5
+			exists = scope:gain_favor
+		}
+	}
+}

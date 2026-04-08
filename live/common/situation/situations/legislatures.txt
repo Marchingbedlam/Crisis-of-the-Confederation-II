@@ -53,8 +53,33 @@
 			on_start = {
 				# Set the timer for the next election
 				set_variable = { name = months_in_session value = 0 }
-				# Announce election]
+				# Generate the list of ridings for this election
+				generate_riding_list_effect = yes
+				# Announce election
 				every_participant_group = { every_situation_group_participant = { trigger_event = legislature_events.1 } }
+				# Everyone who is elible for the election should consider running for it
+				save_scope_as = legislature
+				every_in_list = {
+					variable = ridings
+					save_scope_as = riding
+					scope:legislature = {
+						random_in_list = {
+							variable = legislators
+							limit = { var:riding ?= { this = scope:riding } }
+							trigger_event = { id = cotc_legislative_campaign_events.50 days = { 1 5 } }
+						}
+					}
+					if = {
+						limit = { tier = county }
+						plan_for_general_election_effect = { RIDING = THIS LEGISLATURE = scope:situation }
+					}
+					else = {
+						every_de_jure_county = {
+							limit = { target_is_de_facto_liege_or_above = scope:temp_legislature.var:legislature_title }
+							plan_for_general_election_effect = { RIDING = PREV LEGISLATURE = scope:situation }
+						}
+					}
+				}
 			}
 			on_end = {
 				scope:situation = {
@@ -65,14 +90,9 @@
 					}
 					# Elect new senators
 					clear_variable_list = legislators
-					var:legislature_title.holder ?= {
-						if = {
-							limit = { highest_held_title_tier >= tier_empire }
-							every_sub_realm_duchy = { hold_legislative_election_effect = { LEGISLATURE = scope:situation } }
-						}
-						else = {
-							every_sub_realm_county = { hold_legislative_election_effect = { LEGISLATURE = scope:situation } }
-						}
+					every_in_list = {
+						variable = ridings
+						hold_legislative_election_effect = { LEGISLATURE = scope:situation }
 					}
 					every_participant_group = {
 						every_situation_group_participant = {
@@ -83,6 +103,9 @@
 			}
 		}
 		legislature_in_session = {
+			parameters = {
+				display_time_until_election = yes
+			}
 			future_phases = {
 				legislature_election = {
 					takeover_type = points

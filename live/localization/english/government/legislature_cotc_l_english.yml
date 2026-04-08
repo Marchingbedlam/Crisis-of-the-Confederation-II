@@ -1,6 +1,21 @@
 ﻿l_english:
+ SITUATION_CURRENT_SESSION_ENDS: "Next Election Begins in [SituationWindow.GetSituation.MakeScope.ScriptValue('months_until_next_election')] Months"
+ SITUATION_WINDOW_LEGISLATURE_BREAKDOWN_HEADER: "[SituationWindow.GetSituation.MakeScope.Var('legislature_title').Title.Custom('GetLegislatureName')] Breakdown"
  LEGISLATURE_FAITH_CHARACTER_NAME: "[Character.GetFaith.GetName]"
  LEGISLATURE_RIDING_CHARACTER_NAME: "[Character.MakeScope.Var('riding').Title.GetName]"
+ PARTIES_HEADER: "Parties"
+ SEATS_HEADER: "Seats"
+ PARTY_SEATS: "[Faith.MakeScope.AddScope( 'party_legislature', SituationWindow.GetSituation ).ScriptValue('ideology_represented_in_legislature')]"
+ STATE_IDEOLOGY_LABEL: "State Ideology:"
+ PARTY_LEGALITY_LABEL: "Legal Parties:"
+ TERM_LENGTH_LABEL: "Term Length:"
+ DISTRICT_LEGISLATOR_NAME: "[Character.MakeScope.Var('legislature').Situation.MakeScope.Var('legislature_title').Title.Custom('GetLegislatorName')] [Character.GetUINameNotMe]"
+ LEGISLATOR_FAITH_LABEL: "Ideology:"
+ LEGISLATOR_CULTURE_LABEL: "Culture:"
+ LEGISLATOR_ELECTION_SCORE: "[Character.MakeScope.Var('current_legislator_base_score').GetValue|0]"
+ LEGISLATURE_LEADING_CANDIDATES: "Leading Candidates"
+ LEGISLATURE_NO_CANDIDATES: "There are currently no candidates for this district.\n[Character.GetUINameNotMeNoTooltip] will be re-elected in the next election."
+ LEGISLATURE_NO_CANDIDATES_NO_INCUMBENT: "There are currently no candidates for this district.\n\nA new politician will appear to represent it in the next election."
  
  BILL_SUPPORTER_WINDOW_OTHER_LABEL: "Other Supporters: [Subtract_int32( GetDataModelSize( ActivityWindow.GetCurrentPhaseGuestSubset( 'bill_supporters' ) ), '(int32)3' )]"
  BILL_SUPPORTER_WINDOW_OTHER_LABEL_HOVER: "#T Supporters#!\n$game_concept_bill_supporter_cotc_desc$\n\n"
@@ -17,6 +32,7 @@
  
  situation_legislature: "[Situation.MakeScope.Var('legislature_title').Title.Custom('GetLegislatureName')] of [Situation.MakeScope.Var('legislature_title').Title.GetNameNoTierNoTooltip]"
  legislature_tab_legislature_status: "Status"
+ legislature_tab_legislature_districts: "Districts"
  legislature_tab_legislature_legislators: "Legislators"
  
  legislature_participant_group_ruler: "Head of State"
@@ -62,6 +78,17 @@
  senate_custom_loc: "Senate"
  senator_custom_loc: "Senator"
  senator_plural_custom_loc: "Senators"
+ 
+ modifier_county_legislator: "$county_adj$ Legislator"
+ modifier_county_legislator_desc: "This character is a member of a $county_singular$-level [legislature_cotc|E], which carries with it a degree of [prestige|E], [influence|E], and [income|E]."
+ modifier_duchy_legislator: "$duchy_adj$ Legislator"
+ modifier_duchy_legislator_desc: "This character is a member of a $duchy_singular$-level [legislature_cotc|E], which carries with it a degree of [prestige|E], [influence|E], and [income|E]."
+ modifier_kingdom_legislator: "$kingdom_adj$ Legislator"
+ modifier_kingdom_legislator_desc: "This character is a member of a $kingdom_singular$-level [legislature_cotc|E], which carries with it a degree of [prestige|E], [influence|E], and [income|E]."
+ modifier_empire_legislator: "$empire_adj$ Legislator"
+ modifier_empire_legislator_desc: "This character is a member of a $empire_singular$-level [legislature_cotc|E], which carries with it a degree of [prestige|E], [influence|E], and [income|E]."
+ modifier_hegemony_legislator: "$hegemony_adj$ Legislator"
+ modifier_hegemony_legislator_desc: "This character is a member of a $hegemony_singular$-level [legislature_cotc|E], which carries with it a degree of [prestige|E], [influence|E], and [income|E]."
  
  opinion_voted_for_my_bill: "Voted For My Bill"
  opinion_voted_against_my_bill: "Voted Against My Bill"

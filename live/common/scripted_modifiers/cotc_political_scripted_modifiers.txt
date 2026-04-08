@@ -1,0 +1,87 @@
+﻿is_most_favored_candidate_modifier = {
+	modifier = {
+		add = {
+			value = 0
+			
+			# What do we know about the candidates?
+			scope:recipient = {
+				add_to_temporary_list = temp_candidates
+				random_scheme = {
+					limit = {
+						scheme_type = $CAMPAIGN_TYPE$
+						has_variable = rival_campaigns
+					}
+					every_in_list ?= {
+						variable = rival_campaigns
+						scheme_owner = { add_to_temporary_list = temp_candidates }
+					}
+					scheme_target_title = { save_temporary_scope_as = temp_riding }
+					var:legislature ?= { save_temporary_scope_as = temp_legislature }
+					if = {
+						limit = { exists = scope:temp_legislature }
+						ordered_in_list = {
+							name = temp_candidates
+							order_by = legislator_base_score
+							max = 2
+							add_to_temporary_list = temp_top_candidates
+						}
+					}
+				}
+			}
+			scope:actor = { save_temporary_scope_as = target_character }
+			ordered_in_list = {
+				list = temp_candidates
+				order_by = faith.reverse_opinion_of_faith
+				faith = { save_temporary_scope_as = most_preferred_faith }
+			}
+			every_in_list = {
+				list = temp_candidates
+				limit = { faith = scope:most_preferred_faith }
+				add_to_temporary_list = temp_politically_allied_candidates
+			}
+			
+			# Is this candidate the most preferred candidate overall?
+			ordered_in_list = {
+				name = temp_candidates
+				order_by = "reverse_opinion(scope:actor)"
+				if = {
+					limit = { this = scope:recipient }
+					add = 50
+				}
+			}
+			# Is this candidate our most preferred candidate of our most preferred faith?
+			ordered_in_list ?= {
+				name = temp_politically_allied_candidates
+				order_by = "reverse_opinion(scope:actor)"
+				if = {
+					limit = { this = scope:recipient }
+					add = 25
+				}
+			}
+			# Is this candidate our most preferred candidate among the top candidates?
+			ordered_in_list ?= {
+				name = temp_top_candidates
+				order_by = "reverse_opinion(scope:actor)"
+				if = {
+					limit = { this = scope:recipient }
+					add = 25
+				}
+			}
+			# Does this candidate have a hook on me?
+			if = {
+				limit = { scope:recipient = { has_usable_hook = scope:actor } }
+				add = 25
+			}
+			# Is this candidate not part of our most preferred faith at all?
+			if = {
+				limit = { scope:recipient.faith != scope:most_preferred_faith }
+				subtract = 25
+			}
+			# Is this candidate losing the race badly?
+			if = {
+				limit = { NOT = { any_in_list = { list = temp_top_candidates this = scope:recipient } } }
+				subtract = 25
+			}
+		}
+	}
+}

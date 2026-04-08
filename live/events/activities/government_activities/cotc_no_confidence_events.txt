@@ -2532,7 +2532,7 @@ cotc_no_confidence_events.211 = { # Incumbent
 			CHARACTER = scope:challenger
 			OPINION = -40
 		}
-		negative_vengefulness_stress_gain_effect = yes
+		negative_vengefulness_stress_gain_effect = { SCALE = 1 }
 		ai_chance = {
 			base = 50
 			modifier = { add = ai_vengefulness }
@@ -2546,7 +2546,7 @@ cotc_no_confidence_events.211 = { # Incumbent
 			value = -25
 			multiply = scope:title.tier
 		}
-		positive_vengefulness_stress_gain_effect = yes
+		positive_vengefulness_stress_gain_effect = { SCALE = 1 }
 		ai_chance = {
 			base = 50
 			modifier = { add = ai_vengefulness }
@@ -2814,7 +2814,7 @@ cotc_no_confidence_events.220 = { # Successful motion
 			CHARACTER = scope:challenger
 			OPINION = -40
 		}
-		negative_vengefulness_stress_gain_effect = yes
+		negative_vengefulness_stress_gain_effect = { SCALE = 1 }
 		ai_chance = {
 			base = 50
 			modifier = { add = ai_vengefulness }
@@ -2828,7 +2828,7 @@ cotc_no_confidence_events.220 = { # Successful motion
 			value = -25
 			multiply = scope:title.tier
 		}
-		positive_vengefulness_stress_gain_effect = yes
+		positive_vengefulness_stress_gain_effect = { SCALE = 1 }
 		ai_chance = {
 			base = 50
 			modifier = { add = ai_vengefulness }
@@ -5748,7 +5748,7 @@ cotc_no_confidence_events.328 = {
 		cotc_prime_minister_vote_for_challenger_debate = yes
 		if = {
 			limit = { faith = scope:opponent.faith }
-			positive_zeal_stress_gain_effect = yes
+			positive_zeal_stress_gain_effect = { SCALE = 1 }
 		}
 		hidden_effect = {
 			set_variable = { name = vote_strength value = scope:activity.var:challenger.learning }
@@ -5796,7 +5796,7 @@ cotc_no_confidence_events.328 = {
 		cotc_prime_minister_vote_for_incumbent_debate = yes
 		if = {
 			limit = { faith = scope:actor.faith }
-			positive_zeal_stress_gain_effect = yes
+			positive_zeal_stress_gain_effect = { SCALE = 1 }
 		}
 		hidden_effect = {
 			set_variable = { name = vote_strength value = scope:activity.var:incumbent.learning }
@@ -7572,7 +7572,7 @@ cotc_no_confidence_events.351 = {
 			}
 			trigger_else = { NOT = { is_in_guest_subset = { name = bill_opponents } } }
 		}
-		positive_honor_stress_gain_effect = yes
+		positive_honor_stress_gain_effect = { SCALE = 1 }
 		ai_chance = {
 			base = 0
 			modifier = { add = var:vote_strength }
@@ -7617,7 +7617,7 @@ cotc_no_confidence_events.352 = {
 			OPINION = 0
 		}
 		custom_tooltip = cotc_no_confidence_events.300.cares_about_secret_crime_desc
-		negative_vengefulness_stress_gain_effect = yes
+		negative_vengefulness_stress_gain_effect = { SCALE = 1 }
 		ai_chance = {
 			base = 50
 			modifier = { add = ai_vengefulness }
@@ -7626,7 +7626,7 @@ cotc_no_confidence_events.352 = {
 	option = {
 		name = cotc_no_confidence_events.352.b
 		custom_tooltip = cotc_no_confidence_events.300.cares_about_secret_crime_desc
-		positive_vengefulness_stress_gain_effect = yes
+		positive_vengefulness_stress_gain_effect = { SCALE = 1 }
 		ai_chance = { base = 10 }
 	}
 }
@@ -7715,7 +7715,7 @@ cotc_no_confidence_events.353 = {
 			}
 			trigger_else = { NOT = { is_in_guest_subset = { name = bill_opponents } } }
 		}
-		positive_honor_stress_gain_effect = yes
+		positive_honor_stress_gain_effect = { SCALE = 1 }
 		ai_chance = {
 			base = 0
 			modifier = { add = var:vote_strength }

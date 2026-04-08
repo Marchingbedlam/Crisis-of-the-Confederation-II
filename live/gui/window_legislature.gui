@@ -1,5 +1,5 @@
 ﻿######################################################
-##################### SITUATION ######################
+#################### LEGISLATURE #####################
 ######################################################
 window = {
 	name = "window_legislature"
@@ -24,6 +24,8 @@ window = {
 		using = Window_Position_MainTab
 		on_start = "[PdxGuiTabs.RemoveTab( 'legislature_status' )]"
 		on_start = "[PdxGuiTabs.AddTab( 'legislature_status' )]"
+		on_start = "[PdxGuiTabs.RemoveTab( 'legislature_districts' )]"
+		on_start = "[PdxGuiTabs.AddTab( 'legislature_districts' )]"
 		on_start = "[PdxGuiTabs.RemoveTab( 'legislature_legislators' )]"
 		on_start = "[PdxGuiTabs.AddTab( 'legislature_legislators' )]"
 	}
@@ -273,6 +275,16 @@ window = {
 										layoutpolicy_horizontal = expanding
 
 										text = "SITUATION_CURRENT_PHASE_ENDS"
+										visible = "[Not( SituationSubRegion.GetCurrentPhase.GetType.HasParameter( 'display_time_until_election' ) )]"
+										default_format = "#Weak"
+										align = nobaseline
+									}
+
+									text_single = {
+										layoutpolicy_horizontal = expanding
+
+										text = "SITUATION_CURRENT_SESSION_ENDS"
+										visible = "[SituationSubRegion.GetCurrentPhase.GetType.HasParameter( 'display_time_until_election' )]"
 										default_format = "#Weak"
 										align = nobaseline
 									}
@@ -318,6 +330,7 @@ window = {
 								layoutpolicy_horizontal = expanding
 								layoutpolicy_vertical = expanding
 								margin_top = 15
+								visible = "[Not( SituationSubRegion.GetCurrentPhase.GetType.HasParameter( 'display_time_until_election' ) )]"
 
 								widget = {
 									allow_outside = yes
@@ -404,58 +417,58 @@ window = {
 							expand = {}
 
 							### LOCATION EFFECTS & PREDICITON ###
-							text_single = {
-								margin_top = 10
-								layoutpolicy_horizontal = expanding
+							# text_single = {
+								# margin_top = 10
+								# layoutpolicy_horizontal = expanding
 
-								text = "SITUATION_WINDOW_PHASE_EFFECTS"
-								align = nobaseline
-							}
+								# text = "SITUATION_WINDOW_PHASE_EFFECTS"
+								# align = nobaseline
+							# }
 
-							hbox = {
-								layoutpolicy_horizontal = expanding
+							# hbox = {
+								# layoutpolicy_horizontal = expanding
 
-								fixedgridbox = {
-									name = "named_effect_sets"
-									layoutpolicy_horizontal = expanding
+								# fixedgridbox = {
+									# name = "named_effect_sets"
+									# layoutpolicy_horizontal = expanding
 
-									addcolumn = 48
-									addrow = 48
-									setitemsizefromcell = yes
-									datamodel_wrap = 6
-									maxhorizontalslots = 6
-									maxverticalslots = 2
-									flipdirection = yes
-									layoutanchor = topleft
+									# addcolumn = 48
+									# addrow = 48
+									# setitemsizefromcell = yes
+									# datamodel_wrap = 6
+									# maxhorizontalslots = 6
+									# maxverticalslots = 2
+									# flipdirection = yes
+									# layoutanchor = topleft
 
-									datamodel = "[SituationSubRegion.GetCurrentPhase.GetType.GetModifierNamedSets]"
-									item = {
-										button_phase_named_set_item = {}
-									}
-								}
+									# datamodel = "[SituationSubRegion.GetCurrentPhase.GetType.GetModifierNamedSets]"
+									# item = {
+										# button_phase_named_set_item = {}
+									# }
+								# }
 
-								expand = {}
+								# expand = {}
 
-								fixedgridbox = {
-									name = "leading_named_effect_sets"
+								# fixedgridbox = {
+									# name = "leading_named_effect_sets"
 
-									addcolumn = 48
-									addrow = 48
-									setitemsizefromcell = yes
-									datamodel_wrap = 6
-									maxhorizontalslots = 6
-									maxverticalslots = 1
-									flipdirection = yes
-									layoutanchor = topleft
+									# addcolumn = 48
+									# addrow = 48
+									# setitemsizefromcell = yes
+									# datamodel_wrap = 6
+									# maxhorizontalslots = 6
+									# maxverticalslots = 1
+									# flipdirection = yes
+									# layoutanchor = topleft
 
-									datamodel = "[SituationWindow.GetSelectedOrLeadingFuturePhaseType.GetModifierNamedSets]"
-									item = {
-										button_phase_named_set_item = {
-											enabled = yes
-										}
-									}
-								}
-							}
+									# datamodel = "[SituationWindow.GetSelectedOrLeadingFuturePhaseType.GetModifierNamedSets]"
+									# item = {
+										# button_phase_named_set_item = {
+											# enabled = yes
+										# }
+									# }
+								# }
+							# }
 						}
 
 						vbox = {
@@ -530,7 +543,7 @@ window = {
 															layoutpolicy_horizontal = preferred
 															layoutpolicy_vertical = expanding
 
-															visible = "[FutureSituationPhase.HasPointsTakeoverType]"
+															visible = "[And( FutureSituationPhase.HasPointsTakeoverType, Not( SituationPhase.GetType.HasParameter( 'display_time_until_election' ) ) )]"
 
 															text = "SITUATION_WINDOW_PHASE_TAKEOVER_POINTS"
 															align = nobaseline
@@ -538,7 +551,7 @@ window = {
 
 														widget = {
 															size = { 80 25 }
-															visible = "[FutureSituationPhase.HasPointsTakeoverType]"
+															visible = "[And( FutureSituationPhase.HasPointsTakeoverType, Not( SituationPhase.GetType.HasParameter( 'display_time_until_election' ) ) )]"
 
 															progressbar_standard = {
 																parentanchor = center
@@ -559,8 +572,8 @@ window = {
 													text_single = {
 														layoutpolicy_horizontal = expanding
 														layoutpolicy_vertical = expanding
-
-														visible = "[FutureSituationPhase.HasDurationTakeoverType]"
+														
+														visible = "[And( FutureSituationPhase.HasDurationTakeoverType, Not( SituationPhase.GetType.HasParameter( 'display_time_until_election' ) ) )]"
 
 														autoresize = no
 
@@ -584,15 +597,292 @@ window = {
 							}
 						}
 					}
+					
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = expanding
+						
+						datacontext = "[SituationWindow.GetSelectedSubRegion]"
+						datacontext = "[SituationSubRegion.GetCurrentPhase]"
+						datacontext = "[Situation.MakeScope.Var('legislature_title').Title]"
+						datacontext = "[Title.GetHolder]"
+						
+						visible = "[SituationPhase.GetType.HasParameter( 'display_time_until_election' )]"
+						
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = expanding
+							
+							margin = { 15 15 }
+							margin_top = 10
+							
+							background = {
+								using = Background_Area
+							}
+							
+							vbox = {
+								name = "legislature_information_area"
 
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+
+								text_label_center = {
+									layoutpolicy_horizontal = expanding
+									text = "SITUATION_WINDOW_LEGISLATURE_BREAKDOWN_HEADER"
+								}
+								
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = expanding
+									
+									max_height = 40
+									
+									visible = "[Character.GetGovernment.HasRule( 'state_faith' )]"
+													
+									text_multi = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										text = "STATE_IDEOLOGY_LABEL"
+										autoresize = no
+										align = left|nobaseline
+										max_width = 400
+										margin = { 10 5 }
+									}
+									
+									text_multi = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										text = "[Title.GetStateFaith.GetName]"
+										autoresize = no
+										align = right|nobaseline
+										max_width = 400
+										margin = { 10 5 }
+									}
+								}
+								
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = expanding
+									
+									max_height = 40
+									
+									visible = "[Character.GetGovernment.HasRule( 'state_faith' )]"
+													
+									text_multi = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										text = "PARTY_LEGALITY_LABEL"
+										autoresize = no
+										align = left|nobaseline
+										max_width = 400
+										margin = { 10 5 }
+									}
+									
+									text_multi = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										visible = "[Character.HasRealmLaw('single_party_law')]"
+										text = "SINGLE_PARTY_LABEL"
+										autoresize = no
+										align = right|nobaseline
+										max_width = 400
+										margin = { 10 5 }
+									}
+									
+									text_multi = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										visible = "[Character.HasRealmLaw('restricted_parties_law')]"
+										text = "RESTRICTED_PARTIES_LABEL"
+										autoresize = no
+										align = right|nobaseline
+										max_width = 400
+										margin = { 10 5 }
+									}
+									
+									text_multi = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										visible = "[Character.HasRealmLaw('extremists_banned_law')]"
+										text = "EXTREMISTS_BANNED_LABEL"
+										autoresize = no
+										align = right|nobaseline
+										max_width = 400
+										margin = { 10 5 }
+									}
+									
+									text_multi = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										visible = "[Character.HasRealmLaw('freedom_of_thought_law')]"
+										text = "FREEDOM_OF_THOUGHT_LABEL"
+										autoresize = no
+										align = right|nobaseline
+										max_width = 400
+										margin = { 10 5 }
+									}
+								}
+								
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									layoutpolicy_vertical = expanding
+									
+									max_height = 40
+													
+									text_multi = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										text = "TERM_LENGTH_LABEL"
+										autoresize = no
+										align = left|nobaseline
+										max_width = 400
+										margin = { 10 5 }
+									}
+									
+									text_multi = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										text = "TWO_YEAR_TERMS_LABEL"
+										visible = "[Character.HasRealmLaw('two_year_terms_law')]"
+										autoresize = no
+										align = right|nobaseline
+										max_width = 400
+										margin = { 10 5 }
+									}
+									
+									text_multi = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										text = "FOUR_YEAR_TERMS_LABEL"
+										visible = "[Character.HasRealmLaw('four_year_terms_law')]"
+										autoresize = no
+										align = right|nobaseline
+										max_width = 400
+										margin = { 10 5 }
+									}
+									
+									text_multi = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										text = "SIX_YEAR_TERMS_LABEL"
+										visible = "[Character.HasRealmLaw('six_year_terms_law')]"
+										autoresize = no
+										align = right|nobaseline
+										max_width = 400
+										margin = { 10 5 }
+									}
+									
+									text_multi = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										text = "EIGHT_YEAR_TERMS_LABEL"
+										visible = "[Character.HasRealmLaw('eight_year_terms_law')]"
+										autoresize = no
+										align = right|nobaseline
+										max_width = 400
+										margin = { 10 5 }
+									}
+									
+									text_multi = {
+										layoutpolicy_horizontal = expanding
+										layoutpolicy_vertical = expanding
+										text = "TEN_YEAR_TERMS_LABEL"
+										visible = "[Character.HasRealmLaw('ten_year_terms_law')]"
+										autoresize = no
+										align = right|nobaseline
+										max_width = 400
+										margin = { 10 5 }
+									}
+								}
+
+								scrollbox = {
+									layoutpolicy_vertical = expanding
+									layoutpolicy_horizontal = expanding
+
+									blockoverride "scrollbox_background" {}
+									blockoverride "scrollbox_background_fade" {}
+									blockoverride "scrollbox_margins" {}
+
+									blockoverride "scrollbox_content"
+									{
+										vbox = {
+											name = "legislature_information"
+											
+											datamodel = "[Situation.MakeScope.GetList( 'parties' )]"
+
+											layoutpolicy_vertical = expanding
+											layoutpolicy_horizontal = expanding
+
+											maximumsize = { 1000 50 }
+											
+											hbox = {
+												layoutpolicy_horizontal = expanding
+												margin_bottom = 10
+												spacing = 40
+
+												text_label_center = {
+													min_width = 240
+													layoutpolicy_horizontal = expanding
+													text = "PARTIES_HEADER"
+												}
+
+												text_label_center = {
+													min_width = 240
+													layoutpolicy_horizontal = expanding
+
+													text = "SEATS_HEADER"
+												}
+											}
+
+											item = {
+												hbox = {
+													datacontext = "[Scope.Faith]"
+													layoutpolicy_vertical = expanding
+													layoutpolicy_horizontal = expanding
+													
+													icon = {
+														name = "faith_icon"
+														texture = "[Faith.GetIcon]"
+														size = { 60 60 }
+													}
+													
+													text_multi = {
+														layoutpolicy_horizontal = expanding
+														layoutpolicy_vertical = expanding
+														text = "[Faith.GetAdjective]"
+														autoresize = no
+														align = left|nobaseline
+														max_width = 400
+														margin = { 10 5 }
+													}
+													
+													text_multi = {
+														layoutpolicy_horizontal = expanding
+														layoutpolicy_vertical = expanding
+														text = "[GuiScope.SetRoot( Faith.MakeScope ).AddScope( 'party_legislature', SituationWindow.GetSituation.MakeScope ).ScriptValue('ideology_represented_in_legislature')]"
+														autoresize = no
+														align = right|nobaseline
+														max_width = 400
+														margin = { 10 5 }
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
 
 					vbox = {
 						layoutpolicy_horizontal = expanding
 						layoutpolicy_vertical = expanding
 
+						datacontext = "[SituationWindow.GetSelectedSubRegion]"
+						datacontext = "[SituationSubRegion.GetCurrentPhase]"
 						datacontext = "[SituationWindow.GetSelectedOrLeadingFuturePhaseType]"
 
-						visible = "[Not( IsDataModelEmpty( SituationWindow.GetCatalystsForSelectedPhase ) )]"
+						visible = "[And( Not( IsDataModelEmpty( SituationWindow.GetCatalystsForSelectedPhase ) ), Not( SituationPhase.GetType.HasParameter( 'display_time_until_election' ) ) )]"
 
 						vbox = {
 							layoutpolicy_horizontal = expanding
@@ -745,6 +1035,98 @@ window = {
 				}
 				
 				vbox = {
+					name = "legislature_districts"
+					widgetid = "legislature_districts"
+					visible = "[PdxGuiTabs.IsTabSet( 'legislature_districts' )]"
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = expanding
+
+					margin_top = 10
+					margin_bottom = 15
+					
+					state = {
+						name = _show
+						on_start = "[GetScriptedGui( 'sort_legislature_candidates' ).Execute(  GuiScope.SetRoot(SituationWindow.GetSituation.MakeScope ).End ) ]"
+					}
+					
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						layoutpolicy_vertical = expanding
+						
+						vbox = {
+							layoutpolicy_horizontal = expanding
+							layoutpolicy_vertical = expanding
+							
+							margin = { 15 15 }
+							margin_top = 10
+							
+							background = {
+								using = Background_Area
+							}
+							
+							vbox = {
+								name = "ridings_list_area"
+
+								layoutpolicy_horizontal = expanding
+								layoutpolicy_vertical = expanding
+
+								scrollbox = {
+									layoutpolicy_vertical = expanding
+									layoutpolicy_horizontal = expanding
+
+									blockoverride "scrollbox_background" {}
+									blockoverride "scrollbox_background_fade" {}
+									blockoverride "scrollbox_margins" {}
+
+									blockoverride "scrollbox_content"
+									{
+										vbox = {
+											name = "ridings_list"
+											
+											datamodel = "[Situation.MakeScope.GetList( 'ridings' )]"
+
+											layoutpolicy_vertical = expanding
+											layoutpolicy_horizontal = expanding
+
+											maximumsize = { 1000 50 }
+
+											item = {
+												vbox = {
+													layoutpolicy_vertical = expanding
+													layoutpolicy_horizontal = expanding
+													min_width = 524
+													max_width = 524
+													widget_legislature_district_info = {
+														datacontext = "[Scope.Title]"
+														visible = "[GetScriptedGui( 'gui_is_kingdom_legislature' ).IsShown(  GuiScope.SetRoot(SituationWindow.GetSituation.MakeScope ).End ) ]"
+														blockoverride "incumbent_datacontext"
+														{
+															datacontext = "[Title.MakeScope.Var('kingdom_gui_incumbent').Char]"
+														}
+														blockoverride "no_candidates_visible"
+														{
+															visible = "[IsDataModelEmpty( Title.MakeScope.GetList('kingdom_sorted_candidates') )]"
+														}
+														blockoverride "leading_candidates_visible"
+														{
+															visible = "[Not( IsDataModelEmpty( Title.MakeScope.GetList('kingdom_sorted_candidates') ) )]"
+														}
+														blockoverride "leading_candidates_datamodel"
+														{
+															datamodel = "[Title.MakeScope.GetList('kingdom_sorted_candidates')]"
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				
+				vbox = {
 					name = "legislature_legislators"
 					widgetid = "legislature_legislators"
 					visible = "[PdxGuiTabs.IsTabSet( 'legislature_legislators' )]"
@@ -883,283 +1265,198 @@ window = {
 	}
 }
 
-types Situation
+types LegislatureWindowTypes
 {
-	type button_situation_subregion = button_standard {
-		minimumsize = { 527 50 }
-
+	type widget_legislature_district_info = vbox {
+		layoutpolicy_vertical = expanding
 		layoutpolicy_horizontal = expanding
+		
+		block "incumbent_datacontext"
+		{
+		}
+		
+		hbox = {
+			layoutpolicy_horizontal = expanding
+			margin_left = 5
+			margin_right = 10
+			margin_top = 10
+			spacing = 7
+			
+			coa_title_tiny = {}
 
-		onclick = "[SituationWindow.SetSelectedSubRegion( SituationSubRegion.Self )]"
-		down = "[ObjectsEqual( SituationWindow.GetSelectedSubRegion.Self, SituationSubRegion.Self )]"
-
+			text_label_left = {
+				layoutpolicy_horizontal = expanding
+				text = "[Title.GetName]"
+				max_width = 250
+				using = Font_Size_Medium
+			}
+			
+			expand = {}
+		}
+		
+		hbox = {
+			layoutpolicy_horizontal = expanding
+			margin_left = 5
+			margin_right = 10
+			margin_top = 10
+			spacing = 7
+			
+			expand = {}
+		}
+		
 		hbox = {
 			layoutpolicy_vertical = expanding
 			layoutpolicy_horizontal = expanding
-
-			margin = { 4 0 }
-			margin_right = 16
-			spacing = 5
-
-			icon = {
-				size = { 40 40 }
-				texture = "[SituationSubRegion.GetIcon]"
+			
+			vbox = {
+				layoutpolicy_vertical = expanding
+				
+				portrait_head = {}
+				
+				expand = { }
 			}
-
+			
 			vbox = {
 				layoutpolicy_vertical = expanding
 				layoutpolicy_horizontal = expanding
-
-				spacing = -3
-				minimumsize = { 150 -1 }
-
-				expand = {}
-
-				text_single = {
-					layoutpolicy_horizontal = expanding
-
-					text = "[SituationSubRegion.GetNameNoTooltip]"
-					default_format = "#clickable"
-					align = nobaseline
-				}
-
-				text_single = {
-					layoutpolicy_horizontal = expanding
-
-					text = "SITUATION_WINDOW_SUB_GROUP_SUBTITLE"
-					align = nobaseline
-				}
-
-				expand = {}
-			}
-
-
-
-			widget = {
-				size = { 40 40 }
-
-				widget_level_marker = {
-					blockoverride "visible_inactive" {
-						visible = no
-					}
-
-					icon = {
-						size = { 40 40 }
-						texture = "[SituationSubRegion.GetCurrentPhase.GetType.GetIcon]"
-						parentanchor = center
-					}
-				}
-			}
-
-			text_single = {
-				size = { 30 20 }
-				text = "[SituationSubRegion.GetCurrentPhase.GetRelativeProgress|0%]"
-				autoresize = no
-				align = center|nobaseline
-			}
-
-			widget = {
-				size = { 40 40 }
-
-				widget_level_marker = {
-					blockoverride "highlight_addon" {
-						visible = no
-					}
-
-					icon = {
-						size = { 40 40 }
-						texture = "[SituationSubRegion.GetCurrentPhase.GetLeadingPhaseType.GetIcon]"
-						parentanchor = center
-					}
-				}
-			}
-		}
-	}
-
-	type button_phase_named_set_item = button_round {
-		datacontext = "[GetPlayer]"
-
-		icon = {
-			size = { 100% 100% }
-
-			texture = "gfx/interface/buttons/button_lifestyles_base.dds"
-		}
-
-		icon = {
-			size = { 80% 80% }
-			position = { 0 0 }
-			parentanchor = center
-			alwaystransparent = yes
-			texture = "[SituationModifierNamedSet.GetIcon]"
-		}
-
-		tooltipwidget = {
-			using = situation_modifier_named_set_tooltip
-		}
-	}
-
-	type window_situation_participant_groups = window  {
-		name = "window_situation_participant_groups"
-		widgetanchor = right
-		position = { 30 100 }
-		size = { 740 82% }
-
-		layer = middle
-		movable = yes
-
-		using = Window_Background
-		using = Window_Decoration_Spike
-		using = Window_Size_CharacterList
-
-		state = {
-			name = _show
-			using = Animation_FadeIn_Quick
-		}
-
-		state = {
-			name = _hide
-			using = Animation_FadeOut_Quick
-		}
-
-		vbox = {
-			using = Window_Margins
-
-			header_pattern = {
-				layoutpolicy_horizontal = expanding
-
-				blockoverride "button_close"
-				{
-					onclick = "[SituationParticipantCharacterList.Close]"
-				}
-			}
-
-			hbox = {
-				layoutpolicy_horizontal = expanding
-				margin = { 8 0 }
-				margin_bottom = 4
 				
-				background = {
-					using = Background_Area
-					margin = { 0 4 }
+				text_label_left = {
+					layoutpolicy_horizontal = expanding
+					text = "DISTRICT_LEGISLATOR_NAME"
+					margin = { 4 0 }
+					max_width = 520
+					align = left|top
+					autoresize = no
 				}
+				
+				hbox = {
+					layoutpolicy_vertical = expanding
+					layoutpolicy_horizontal = expanding
+					min_height = 35
+					max_height = 35
+					datacontext = "[Character.GetFaith]"
+					text_label_left = {
+						min_width = 100
+						max_width = 100
+						text = "LEGISLATOR_FAITH_LABEL"
+						align = nobaseline
+					}
+					icon = {
+						texture = "[Faith.GetIcon]"
+						size = { 35 35 }
 
-				flowcontainer = {
-					layoutstretchfactor_horizontal = 50
+						tooltipwidget = {
+							faith_tooltip = {}
+						}
+					}
+					text_single = {
+						min_width = 200
+						max_width = 200
+						text = "[Faith.GetName]"
+						align = nobaseline
+					}
+					expand = { }
+				}
+				
+				hbox = {
+					layoutpolicy_vertical = expanding
+					layoutpolicy_horizontal = expanding
+					min_height = 30
+					max_height = 30
+					datacontext = "[Character.GetCulture]"
+					text_label_left = {
+						min_width = 100
+						max_width = 100
+						text = "LEGISLATOR_CULTURE_LABEL"
+						align = nobaseline
+					}
+					icon = {
+						texture = "gfx/interface/icons/icon_culture.dds"
+						size = { 35 35 }
 
-					datamodel = "[SituationSubRegion.GetParticipantGroups]"
-					spacing = 10
-					margin = { 10 10 }
+						tooltipwidget = {
+							culture_tooltip = {}
+						}
+					}
+					text_single = {
+						min_width = 200
+						max_width = 200
+						text = "[Culture.GetName]"
+						align = nobaseline
+					}
+					expand = { }
+				}
+				
+				expand = { }
+			}
+			
+		}
+				
+		hbox = {
+			layoutpolicy_horizontal = expanding
+			text_label_left = {
+				text = "LEGISLATURE_LEADING_CANDIDATES"
+				align = nobaseline
+			}
+			expand = { }
+		}
+		
+		hbox = {
+			layoutpolicy_horizontal = expanding
+			text_multi = {
+				text = "LEGISLATURE_NO_CANDIDATES"
+				block "no_candidates_visible"
+				{
+				}
+				min_width = 300
+				align = center|vcenter
+				default_format = "#Weak"
+			}
+		}
+		
+		fixedgridbox = {
+			block "leading_candidates_datamodel"
+			{
+			}
+			block "leading_candidates_visible"
+			{
+			}
+			addcolumn = 120
+			addrow = 120
+			flipdirection = yes
+			maxhorizontalslots = 4
+			
+			item = {
+				widget = {
+					datacontext = "[Scope.GetCharacter]"
+					size = { 120 120 }
 
-					item = {
-						button = {
-							size = { 46 46 }
-							visible = "[SituationParticipantGroup.IsValid]"
-							onclick = "[SituationParticipantCharacterList.SetSelectedParticipantGroup( SituationParticipantGroup.Self )]"
-							tooltip = "[SituationParticipantGroup.GetName]"
+					vbox = {
+						portrait_head_small = {}
 
-							icon = {
-								visible = "[SituationParticipantCharacterList.IsParticipantGroupSelected( SituationParticipantGroup.Self )]"
-								parentanchor = center
+						hbox = {
+							layoutpolicy_horizontal = expanding
 
-								texture = "gfx/interface/buttons/button_round_frame.dds"
-								size = { 58 58 }
-								color = { 0.75 0.75 0.65 1 }
+							hbox {
+								margin = { 0 4 }
+								
+								expand = { }
 
-								modify_texture = {
-									texture = "gfx/interface/colors/gold.dds"
-									alpha = 1
+								vote_chance_icon = {}
+
+								text_single = {
+									text = "[Character.MakeScope.Var('current_legislator_base_score').GetValue|0]"
+									align = nobaseline|left
 								}
-							}
-
-							icon_round_button_base = {
-								parentanchor = center
-								size = { 100% 100% }
-								enabled = "[Not( SituationParticipantCharacterList.IsParticipantGroupSelected( SituationParticipantGroup.Self ) )]"
-							}
-
-							icon = {
-								parentanchor = center
-								size = { 36 36 }
-
-								visible = "[SituationParticipantCharacterList.IsParticipantGroupSelected( SituationParticipantGroup.Self )]"
-								texture = "[SituationParticipantGroup.GetType.GetIcon]"
-							}
-
-							icon = {
-								parentanchor = center
-								size = { 36 36 }
-
-								visible = "[Not( SituationParticipantCharacterList.IsParticipantGroupSelected( SituationParticipantGroup.Self ) )]"
-								texture = "[SituationParticipantGroup.GetType.GetIcon]"
-								alpha = "[Select_float(SituationParticipantCharacterList.IsParticipantGroupSelected( SituationParticipantGroup.Self ),'(float)1.0','(float)0.6')]"
-							}
-						}
-					}
-				}
-				expand = {}
-
-				divider_light = {
-					layoutpolicy_vertical = expanding
-				}
-
-				expand = {}
-				
-				vbox_participant_group_summary = {
-					datacontext = "[SituationParticipantCharacterList.GetSelectedParticipantGroup]"
-
-					layoutpolicy_vertical = expanding
-					layoutstretchfactor_horizontal = 50
-				}
-
-				expand = {}
-			}
-
-			vbox_character_list = {
-				layoutpolicy_horizontal = expanding
-				layoutpolicy_vertical = expanding
-
-				blockoverride "sort_buttons"
-				{
-					blockoverride "filters_visible" {
-						visible = no
-					}
-
-					hbox_list_sort_buttons = {
-						layoutpolicy_horizontal = expanding
-
-						blockoverride "skill_sort_buttons" {}
-					}
-				}
-
-				blockoverride "skill_sort_buttons" {}
-
-				blockoverride "scrollbox_empty_visibility"
-				{
-					layoutpolicy_vertical = expanding
-					visible = "[Not( CharacterSelectionList.HasItems )]"
-					text = "SITUATION_PARTICIPANT_WINDOW_PARTICIPANT_EMPTY"
-				}
-
-				blockoverride "container_implementation"
-				{
-					fixedgridbox = {
-						addcolumn = 630
-						addrow = 92
-
-						name = "characters_grid"
-						datamodel_reuse_widgets = yes
-						datamodel = "[CharacterSelectionList.GetList]"
-						visible = "[Not(CharacterSelectionList.IsBuildingList)]"
-
-						item = {
-							widget_character_list_item_finder = {
-								size = { 630 94 }
-								blockoverride "character_relation" {}
+								
+								expand = { }
 							}
 						}
 					}
 				}
 			}
 		}
+		
+		expand = {}
 	}
 }

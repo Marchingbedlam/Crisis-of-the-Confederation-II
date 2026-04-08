@@ -1,0 +1,541 @@
+﻿namespace = cotc_legislative_campaign_events
+
+cotc_legislative_campaign_events.1 = { # Starting a new legislative campaign, inform everyone relevant
+	type = character_event
+	desc = {
+		first_valid = {
+			# This character is the incumbent
+			triggered_desc = {
+				trigger = {
+					scope:candidate = {
+						has_variable = riding
+						var:riding = scope:target
+						has_variable = legislature
+						var:legislature = scope:legislature
+					}
+				}
+				desc = cotc_legislative_campaign_events.1.desc.incumbent
+			}
+			# This character cannot legally run
+			triggered_desc = {
+				trigger = {
+					scope:candidate = {
+						NOT = { legal_legislator_candidate_trigger = { $LEGISLATURE$ = scope:legislature } }
+					}
+				}
+				desc = cotc_legislative_campaign_events.1.desc.illegal_candidate
+			}
+			# Everyone else
+			desc = cotc_legislative_campaign_events.1.desc.other
+		}
+	}
+	
+	theme = realm
+	
+	right_portrait = {
+		character = scope:candidate
+		triggered_animation = {
+			trigger = {
+				scope:candidate = {
+					ai_zeal > ai_honor
+					ai_zeal > ai_greed
+				}
+			}
+			animation = personality_zealous
+		}
+		triggered_animation = {
+			trigger = { scope:candidate = { ai_honor > ai_greed } }
+			animation = personality_honorable
+		}
+		animation = personality_greedy
+	}
+	
+	immediate = { scope:legislature.var:legislature_title ?= { save_scope_as = legislature_title } }
+	
+	# Make a comment based on your feelings about this
+	option = { # We are participating in this election ourselves
+		trigger = {
+			trigger_if = {
+				limit = { scope:legislature.var:legislature_title ?= { tier = tier_county } }
+				scope:target = { is_target_in_variable_list = { name = county_candidates target = ROOT } }
+			}
+			trigger_else_if = {
+				limit = { scope:legislature.var:legislature_title ?= { tier = tier_duchy } }
+				scope:target = { is_target_in_variable_list = { name = duchy_candidates target = ROOT } }
+			}
+			trigger_else_if = {
+				limit = { scope:legislature.var:legislature_title ?= { tier = tier_kingdom } }
+				scope:target = { is_target_in_variable_list = { name = kingdom_candidates target = ROOT } }
+			}
+			trigger_else_if = {
+				limit = { scope:legislature.var:legislature_title ?= { tier = tier_empire } }
+				scope:target = { is_target_in_variable_list = { name = empire_candidates target = ROOT } }
+			}
+			trigger_else_if = {
+				limit = { scope:legislature.var:legislature_title ?= { tier = tier_hegemony } }
+				scope:target = { is_target_in_variable_list = { name = hegemony_candidates target = ROOT } }
+			}
+			trigger_else = { always = yes }
+		}
+		name = cotc_legislative_campaign_events.1.a
+		exclusive = yes
+	}
+	option = { # We like this person
+		trigger = { opinion = { target = scope:candidate value >= 30 } }
+		name = cotc_legislative_campaign_events.1.b
+	}
+	option = { # We are neutral about this person
+		trigger = {
+			opinion = { target = scope:candidate value < 30 }
+			opinion = { target = scope:candidate value > -30 }
+		}
+		name = cotc_legislative_campaign_events.1.c
+	}
+	option = { # We dislike this person
+		trigger = { opinion = { target = scope:candidate value <= -30 } }
+		name = cotc_legislative_campaign_events.1.d
+	}
+}
+
+cotc_legislative_campaign_events.15 = { # Formally withdrawing from the election, inform everyone relevant
+	type = character_event
+	desc = {
+		first_valid = {
+			# This character is the incumbent
+			triggered_desc = {
+				trigger = {
+					scope:candidate = {
+						has_variable = riding
+						var:riding = scope:riding
+						has_variable = legislature
+						var:legislature = scope:legislature
+					}
+				}
+				desc = cotc_legislative_campaign_events.15.desc.incumbent
+			}
+			# Everyone else
+			desc = cotc_legislative_campaign_events.15.desc.other
+		}
+	}
+	
+	theme = realm
+	
+	right_portrait = {
+		character = scope:candidate
+		animation = war_over_loss
+	}
+	
+	immediate = { scope:legislature.var:legislature_title ?= { save_scope_as = legislature_title } }
+	
+	# Make a comment based on your feelings about this
+	option = { # We are participating in this election ourselves
+		trigger = {
+			trigger_if = {
+				limit = { scope:legislature.var:legislature_title ?= { tier = tier_county } }
+				scope:riding = { is_target_in_variable_list = { name = county_candidates target = ROOT } }
+			}
+			trigger_else_if = {
+				limit = { scope:legislature.var:legislature_title ?= { tier = tier_duchy } }
+				scope:riding = { is_target_in_variable_list = { name = duchy_candidates target = ROOT } }
+			}
+			trigger_else_if = {
+				limit = { scope:legislature.var:legislature_title ?= { tier = tier_kingdom } }
+				scope:riding = { is_target_in_variable_list = { name = kingdom_candidates target = ROOT } }
+			}
+			trigger_else_if = {
+				limit = { scope:legislature.var:legislature_title ?= { tier = tier_empire } }
+				scope:riding = { is_target_in_variable_list = { name = empire_candidates target = ROOT } }
+			}
+			trigger_else_if = {
+				limit = { scope:legislature.var:legislature_title ?= { tier = tier_hegemony } }
+				scope:riding = { is_target_in_variable_list = { name = hegemony_candidates target = ROOT } }
+			}
+			trigger_else = { always = yes }
+		}
+		name = cotc_legislative_campaign_events.15.a
+		exclusive = yes
+	}
+	option = { # We like this person
+		trigger = { opinion = { target = scope:candidate value >= 30 } }
+		name = cotc_legislative_campaign_events.15.b
+	}
+	option = { # We are neutral about this person
+		trigger = {
+			opinion = { target = scope:candidate value < 30 }
+			opinion = { target = scope:candidate value > -30 }
+		}
+		name = cotc_legislative_campaign_events.15.c
+	}
+	option = { # We dislike this person
+		trigger = { opinion = { target = scope:candidate value <= -30 } }
+		name = cotc_legislative_campaign_events.15.d
+	}
+}
+
+cotc_legislative_campaign_events.50 = { # AI considers entering a legislative election
+	type = character_event
+	desc = cotc_legislative_campaign_events.50.desc
+	theme = realm
+	
+	right_portrait = {
+		character = ROOT
+		triggered_animation = {
+			trigger = {
+				ROOT = {
+					ai_zeal > ai_honor
+					ai_zeal > ai_greed
+				}
+			}
+			animation = personality_zealous
+		}
+		triggered_animation = {
+			trigger = { ROOT = { ai_honor > ai_greed } }
+			animation = personality_honorable
+		}
+		animation = personality_greedy
+	}
+	
+	trigger = {
+		is_ai = yes
+		NOT = { any_scheme = { scheme_type = legislative_election_campaign } } # Stop evaluation once we've decided to get elected
+		scope:legislature = {
+			exists = yes
+			has_variable = legislature_title
+		}
+		scope:riding = { exists = yes }
+	}
+	
+	immediate = {
+		# Build a list of current candidates and their chances, to compare ourselves against
+		scope:legislature = { save_temporary_scope_as = temp_legislature }
+		scope:riding = {
+			save_temporary_scope_as = temp_riding
+			switch = {
+				trigger = scope:legislature.var:legislature_title.tier
+				tier_county = {
+					every_in_list = {
+						variable = county_candidates
+						set_variable = { name = current_legislator_base_score value = legislator_base_score }
+						add_to_list = candidates
+					}
+				}
+				tier_duchy = {
+					every_in_list = {
+						variable = duchy_candidates
+						set_variable = { name = current_legislator_base_score value = legislator_base_score }
+						add_to_list = candidates
+					}
+				}
+				tier_kingdom = {
+					every_in_list = {
+						variable = kingdom_candidates
+						set_variable = { name = current_legislator_base_score value = legislator_base_score }
+						add_to_list = candidates
+					}
+				}
+				tier_empire = {
+					every_in_list = {
+						variable = empire_candidates
+						set_variable = { name = current_legislator_base_score value = legislator_base_score }
+						add_to_list = candidates
+					}
+				}
+				tier_hegemony = {
+					every_in_list = {
+						variable = county_candidates
+						set_variable = { name = current_legislator_base_score value = legislator_base_score }
+						add_to_list = candidates
+					}
+				}
+			}
+		}
+		
+		every_in_list = {
+			list = candidates
+			save_temporary_scope_as = current_candidate
+		}
+		
+		# Calculate our own legislator base score
+		set_variable = { name = current_legislator_base_score value = legislator_base_score }
+	}
+	
+	option = { # Stand for election, spend influence
+		trigger = {
+			influence >= { value = minor_influence_value multiply = scope:legislature.var:legislature_title.title_basic_cost_multiplier }
+		}
+		name = cotc_legislative_campaign_events.50.a
+		start_legislative_election_campaign_effect = { LEGISLATURE = scope:legislature RIDING = scope:riding }
+		change_influence = {
+			value = minor_influence_value
+			multiply = scope:legislature.var:legislature_title.title_basic_cost_multiplier
+			multiply = -1
+		}
+		ai_chance = {
+			base = 0
+			modifier = { add = { value = ai_political_ambition } }
+			# Your party is illegal
+			modifier = {
+				add = {
+					value = ai_lawfulness
+					multiply = -1
+					max = 0
+				}
+				scope:legislature = { NOT = { party_legal_for_realm_trigger = { FAITH = ROOT.faith } } }
+				NOT = { exists = secret_faith }
+			}
+			# Your chances relative to the current leading candidate
+			modifier = {
+				factor = {
+					value = 0
+					multiply = var:current_legislator_base_score
+					ordered_in_list = {
+						list = candidates
+						order_by = var:current_legislator_base_score
+						divide = {
+							value = var:current_legislator_base_score
+							min = 1
+						}
+					}
+				}
+				any_in_list = { list = candidates exists = yes }
+			}
+			# You would rather pay gold
+			modifier = {
+				factor = 0
+				gold > influence
+			}
+			modifier = {
+				factor = 0
+				has_variable = var:legislature
+				var:legislature ?= { this = scope:legislature }
+			}
+		}
+	}
+	option = { # Stand for election, spend gold
+		trigger = {
+			gold >= { value = minor_gold_value multiply = scope:legislature.var:legislature_title.title_basic_cost_multiplier }
+		}
+		name = cotc_legislative_campaign_events.50.a
+		start_legislative_election_campaign_effect = { LEGISLATURE = scope:legislature RIDING = scope:riding }
+		pay_short_term_gold = {
+			value = minor_gold_value
+			multiply = scope:legislature.var:legislature_title.title_basic_cost_multiplier
+		}
+		ai_chance = {
+			base = 0
+			modifier = { add = { value = ai_political_ambition } }
+			# Your party is illegal
+			modifier = {
+				add = {
+					value = ai_lawfulness
+					multiply = -1
+					max = 0
+				}
+				scope:legislature = { NOT = { party_legal_for_realm_trigger = { FAITH = ROOT.faith } } }
+				NOT = { exists = secret_faith }
+			}
+			# Your chances relative to the current leading candidate
+			modifier = {
+				factor = {
+					value = 0
+					multiply = var:current_legislator_base_score
+					ordered_in_list = {
+						list = candidates
+						order_by = var:current_legislator_base_score
+						divide = {
+							value = var:current_legislator_base_score
+							min = 1
+						}
+					}
+				}
+				any_in_list = { list = candidates exists = yes }
+			}
+			# You would rather pay influence
+			modifier = {
+				factor = 0
+				influence >= gold
+			}
+			modifier = {
+				factor = 0
+				has_variable = var:legislature
+				var:legislature ?= { this = scope:legislature }
+			}
+		}
+	}
+	option = { # Stand for re-election
+		trigger = {
+			has_variable = var:legislature
+			var:legislature ?= { this = scope:legislature }
+		}
+		name = cotc_legislative_campaign_events.50.a
+		start_legislative_election_campaign_effect = { LEGISLATURE = scope:legislature RIDING = scope:riding }
+		ai_chance = {
+			base = 0
+			modifier = { add = { value = ai_political_ambition } }
+			# Your party is illegal
+			modifier = {
+				add = {
+					value = ai_lawfulness
+					multiply = -1
+					max = 0
+				}
+				scope:legislature = { NOT = { party_legal_for_realm_trigger = { FAITH = ROOT.faith } } }
+				NOT = { exists = secret_faith }
+			}
+			# Your chances relative to the current leading candidate
+			modifier = {
+				factor = {
+					value = 0
+					multiply = var:current_legislator_base_score
+					ordered_in_list = {
+						list = candidates
+						order_by = var:current_legislator_base_score
+						divide = {
+							value = var:current_legislator_base_score
+							min = 1
+						}
+					}
+				}
+				any_in_list = { list = candidates exists = yes }
+			}
+		}
+	}
+	option = { # Do not stand for election
+		name = cotc_legislative_campaign_events.50.b
+		ai_chance = {
+			base = 50
+			# Prefer to run for a lower legislature
+			modifier = {
+				factor = {
+					value = 0
+					add = scope:legislature.var:legislature_title.title_leadership_cost_multiplier
+					subtract = prestige_level
+					subtract = influence_level
+					if = {
+						limit = {
+							has_variable = legislature
+							var:legislature ?= { has_variable = legislature_title }
+						}
+						subtract = var:legislature.var:legislature_title.title_leadership_cost_multiplier
+					}
+					min = 1
+				}
+				any_liege_or_above = {
+					has_legislature_trigger = yes
+					highest_held_title_tier < scope:legislature.var:legislature_title.tier
+				}
+			}
+			# Always run for reelection if possible
+			modifier = {
+				factor = 0
+				has_variable = var:legislature
+				var:legislature ?= { this = scope:legislature }
+				ai_political_ambition > 0
+			}
+		}
+	}
+}
+cotc_legislative_campaign_events.100 = { # Your party is banned!
+	type = character_event
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:legislature.var:legislature_title ?= { holder = { has_realm_law = single_party_law } } }
+				desc = cotc_legislative_campaign_events.100.single_party_state
+			}
+			triggered_desc = {
+				trigger = { exists = secret_faith }
+				desc = cotc_legislative_campaign_events.100.secret_faith
+			}
+			desc = cotc_legislative_campaign_events.100.no_secret_faith
+		}
+	}
+	
+	trigger = {
+		scope:legislature.var:legislature_title ?= { NOT = { party_legal_for_realm_trigger = { FAITH = ROOT.faith } } }
+		any_scheme = {
+			scheme_type = legislative_election_campaign
+			has_variable = legislature
+			var:legislature = scope:legislature
+		}
+	}
+	
+	immediate = {
+		# Make a list of every ideology that's legal in the realm
+		every_religion_global = {
+			every_faith = {
+				limit = { scope:legislature = { party_legal_for_realm_trigger = { FAITH = PREV } } }
+				add_to_temporary_list = temp_legal_faiths
+			}
+		}
+		# Find the legal ideology most-liked by ROOT
+		save_temporary_scope_as = target_character
+		ordered_in_list = {
+			list = temp_legal_faiths
+			order_by = reverse_opinion_of_ideology
+			save_scope_as = closest_legal_faith
+		}
+	}
+	
+	option = { # Convert to closest legal faith
+		trigger = { NOT = { exists = secret_faith } }
+		name = cotc_legislative_campaign_events.100.a
+		set_character_faith = scope:closest_legal_faith
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = {
+					value = 0
+					scope:closest_legal_faith = { save_temporary_scope_as = target_faith }
+					add = opinion_of_ideology
+				}
+			}
+			modifier = {
+				add = {
+					value = 0
+					faith = { save_temporary_scope_as = target_faith }
+					subtract = opinion_of_ideology
+				}
+			}
+			modifier = { add = ai_greed }
+		}
+	}
+	option = { # Publicly convert to closest legal faith, but remain a crypto-whatever
+		trigger = { NOT = { exists = secret_faith } }
+		name = cotc_legislative_campaign_events.100.b
+		faith = { save_temporary_scope_as = real_faith }
+		set_character_faith = scope:closest_legal_faith
+		make_character_crypto_religionist_effect = { CRYPTO_RELIGION = scope:real_faith }
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = {
+					value = ai_greed
+					subtract = ai_lawfulness
+				}
+			}
+		}
+	}
+	option = { # Change your publicly professed ideology to the closest legal faith
+		trigger = { exists = secret_faith }
+		name = cotc_legislative_campaign_events.100.c
+		set_character_faith = scope:closest_legal_faith
+		custom_tooltip = will_remain_crypto_desc
+		ai_chance = {
+			base = 1000 # Sure, why not?
+		}
+	}
+	option = { # Drop out of the race
+		name = cotc_legislative_campaign_events.100.d
+		random_scheme = {
+			limit = {
+				scheme_type = legislative_election_campaign
+				has_variable = legislature
+				var:legislature = scope:legislature
+			}
+			save_temporary_scope_as = temp_scheme
+		}
+		end_legislative_election_campaign_effect = { $SCHEME$ = scope:temp_scheme }
+		ai_chance = { base = 100 }
+	}
+}

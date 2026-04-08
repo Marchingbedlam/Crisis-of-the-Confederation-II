@@ -1,0 +1,436 @@
+﻿set_interest_group = {
+	set_variable = { name = interest_group_title value = $TITLE$ days = 5 }
+	if = {
+		limit = { $TITLE$ = { owner = { government_has_flag = government_is_disorganized } } }
+		set_variable = { name = interest_group_title_format value = flag:adjective days = 5 }
+		set_variable = { name = interest_group_name_format value = flag:title_type days = 5 }
+		set_disorganized_interest_group = yes
+	}
+	else = {
+		# Where does the name of the title go?
+		random_list = {
+			1 = { set_variable = { name = interest_group_title_format value = flag:adjective days = 5 } }
+			1 = { set_variable = { name = interest_group_title_format value = flag:name days = 5 } }
+		}
+		# What kind of interest group is endorsing us?
+		random_list = {
+			1 = { # Business interest group
+				modifier = { add = stewardship }
+				modifier = { factor = { value = faith.ideology_interventionism multiply = -1 } }
+				random_list = {
+					1 = {
+						set_variable = { name = interest_group_name_format value = type_group }
+						set_business_interest_group = yes
+					}
+					1 = {
+						set_variable = { name = interest_group_name_format value = group_type }
+						set_business_interest_group = yes
+					}
+					1 = {
+						set_variable = { name = interest_group_name_format value = adjective_type }
+						set_business_interest_group_plural = yes
+					}
+				}
+			}
+			1 = { # Labor interest group
+				modifier = { add = { value = piety_level multiply = 3.5 } }
+				modifier = { factor = { value = faith.ideology_interventionism } }
+				random_list = {
+					1 = {
+						set_variable = { name = interest_group_name_format value = type_group }
+						set_labor_interest_group = yes
+					}
+					1 = {
+						set_variable = { name = interest_group_name_format value = group_type }
+						set_labor_interest_group = yes
+					}
+					1 = {
+						set_variable = { name = interest_group_name_format value = adjective_type }
+						set_labor_interest_group_plural = yes
+					}
+				}
+			}
+			1 = { # Military interest group
+				modifier = { add = martial }
+				modifier = { factor = { value = faith.ideology_hawkishness } }
+				random_list = {
+					1 = {
+						set_variable = { name = interest_group_name_format value = type_group }
+						set_military_interest_group = yes
+					}
+					1 = {
+						set_variable = { name = interest_group_name_format value = group_type }
+						set_military_interest_group = yes
+					}
+				}
+			}
+			1 = { # Pacifist interest group
+				modifier = { add = diplomacy }
+				modifier = { factor = { value = faith.ideology_hawkishness multiply = -1 } }
+				random_list = {
+					1 = {
+						set_variable = { name = interest_group_name_format value = type_group }
+						set_pacifist_interest_group = yes
+					}
+					1 = {
+						set_variable = { name = interest_group_name_format value = group_type }
+						set_pacifist_interest_group = yes
+					}
+				}
+			}
+			1 = { # Academic interest group
+				modifier = { add = learning }
+				modifier = { factor = { value = faith.ideology_intellectualism } }
+				random_list = {
+					1 = {
+						set_variable = { name = interest_group_name_format value = type_group }
+						set_academic_interest_group = yes
+					}
+					1 = {
+						set_variable = { name = interest_group_name_format value = group_type }
+						set_academic_interest_group = yes
+					}
+					1 = {
+						set_variable = { name = interest_group_name_format value = adjective_type }
+						set_academic_interest_group_plural = yes
+					}
+				}
+			}
+			# 1 = { # Transhumanist interest group
+				# trigger = { faith = { is_transhumanist_ideology = yes } }
+				# modifier = { add = learning }
+				# random_list = {
+					# 1 = {
+						# set_variable = { name = interest_group_name_format value = type_group }
+						# set_transhumanist_interest_group = yes
+					# }
+					# 1 = {
+						# set_variable = { name = interest_group_name_format value = group_type }
+						# set_transhumanist_interest_group = yes
+					# }
+				# }
+			# }
+			1 = { # Conservative interest group
+				modifier = { add = { value = piety_level multiply = 3.5 } }
+				modifier = { factor = { value = faith.ideology_intellectualism multiply = -1 } }
+				random_list = {
+					1 = {
+						set_variable = { name = interest_group_name_format value = type_group }
+						set_transhumanist_interest_group = yes
+					}
+					1 = {
+						set_variable = { name = interest_group_name_format value = group_type }
+						set_transhumanist_interest_group = yes
+					}
+				}
+			}
+			1 = { # Religious interest group
+				modifier = { add = { value = piety_level multiply = 3.5 } }
+				modifier = { factor = { value = faith.ideology_mysticism } }
+				random_list = {
+					1 = {
+						set_variable = { name = interest_group_name_format value = type_group }
+						set_religious_interest_group = yes
+					}
+					1 = {
+						set_variable = { name = interest_group_name_format value = group_type }
+						set_religious_interest_group = yes
+					}
+				}
+			}
+			1 = { # Libertarian interest group
+				modifier = { add = { value = piety_level multiply = 3.5 } }
+				modifier = { factor = { value = faith.ideology_authoritarianism multiply = -1 } }
+				random_list = {
+					1 = {
+						set_variable = { name = interest_group_name_format value = type_group }
+						set_libertarian_interest_group = yes
+					}
+					1 = {
+						set_variable = { name = interest_group_name_format value = group_type }
+						set_libertarian_interest_group = yes
+					}
+				}
+			}
+			1 = { # Authoritarian interest group
+				modifier = { add = { value = piety_level multiply = 3.5 } }
+				modifier = { factor = { value = faith.ideology_authoritarianism } }
+				random_list = {
+					1 = {
+						set_variable = { name = interest_group_name_format value = type_group }
+						set_authoritarian_interest_group = yes
+					}
+					1 = {
+						set_variable = { name = interest_group_name_format value = group_type }
+						set_authoritarian_interest_group = yes
+					}
+				}
+			}
+		}
+	}
+}
+set_disorganized_interest_group = {
+	random_list = {
+		1 = { set_variable = { name = interest_group_type value = flag:spacers days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:shipbreakers days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:dockworkers days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:veterans days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:engineering days = 5 } }
+	}
+}
+set_business_interest_group = {
+	random_list = {
+		1 = { set_variable = { name = interest_group_noun value = flag:consortium days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:assocation days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:council days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:federation days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:alliance days = 5 } }
+	}
+	random_list = {
+		1 = { set_variable = { name = interest_group_type value = flag:commercial days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:industrial days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:trade days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:corporate days = 5 } }
+	}
+}
+set_business_interest_group_plural = {
+	random_list = {
+		1 = { set_variable = { name = interest_group_adjective value = flag:united days = 5 } }
+		1 = { set_variable = { name = interest_group_adjective value = flag:associated days = 5 } }
+		1 = { set_variable = { name = interest_group_adjective value = flag:amalgamated days = 5 } }
+	}
+	random_list = {
+		1 = { set_variable = { name = interest_group_type value = flag:industrial days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:trade days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:corporate days = 5 } }
+	}
+}
+set_labor_interest_group = {
+	random_list = {
+		1 = { set_variable = { name = interest_group_noun value = flag:union days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:syndicate days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:guild days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:federation days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:alliance days = 5 } }
+	}
+	random_list = {
+		5 = { set_variable = { name = interest_group_type value = flag:labor days = 5 } }
+		5 = { set_variable = { name = interest_group_type value = flag:workers days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:steelworkers days = 5 } }
+		1 = {
+			trigger = {
+				var:interest_group_title ?= {
+					OR = {
+						tier > tier_barony
+						has_minerals_trigger = yes
+					}
+				}
+			}
+			set_variable = { name = interest_group_type value = flag:miners days = 5 }
+		}
+		1 = { set_variable = { name = interest_group_type value = flag:shipbreakers days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:dockworkers days = 5 } }
+		1 = {
+			trigger = {
+				var:interest_group_title ?= {
+					OR = {
+						tier > tier_barony
+						has_breathable_atmosphere_trigger = yes
+					}
+				}
+			}
+			set_variable = { name = interest_group_type value = flag:farmers days = 5 }
+		}
+	}
+}
+set_labor_interest_group_plural = {
+	random_list = {
+		1 = { set_variable = { name = interest_group_adjective value = flag:federated days = 5 } }
+		1 = { set_variable = { name = interest_group_adjective value = flag:united days = 5 } }
+		1 = { set_variable = { name = interest_group_adjective value = flag:associated days = 5 } }
+		1 = { set_variable = { name = interest_group_adjective value = flag:syndicated days = 5 } }
+	}
+	random_list = {
+		5 = { set_variable = { name = interest_group_type value = flag:workers days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:steelworkers days = 5 } }
+		1 = {
+			trigger = {
+				var:interest_group_title ?= {
+					OR = {
+						tier > tier_barony
+						has_minerals_trigger = yes
+					}
+				}
+			}
+			set_variable = { name = interest_group_type value = flag:miners days = 5 }
+		}
+		1 = { set_variable = { name = interest_group_type value = flag:shipbreakers days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:dockworkers days = 5 } }
+		1 = {
+			trigger = {
+				var:interest_group_title ?= {
+					OR = {
+						tier > tier_barony
+						has_breathable_atmosphere_trigger = yes
+					}
+				}
+			}
+			set_variable = { name = interest_group_type value = flag:farmers days = 5 }
+		}
+	}
+}
+set_military_interest_group = {
+	random_list = {
+		1 = { set_variable = { name = interest_group_noun value = flag:society days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:union days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:league days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:alliance days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:coalition days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:legion days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:order days = 5 } }
+	}
+	random_list = {
+		1 = { set_variable = { name = interest_group_type value = flag:veterans days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:victory days = 5 } }
+		1 = {
+			trigger = { faith = { has_doctrine = tenet_chivalry } }
+			set_variable = { name = interest_group_type value = flag:chivalric days = 5 }
+		}
+		1 = { set_variable = { name = interest_group_type value = flag:military days = 5 } }
+		1 = {
+			trigger = {
+				faith = {
+					NOT = { has_doctrine = doctrine_metroplanetism }
+					NOT = { has_doctrine = doctrine_anti_metroplanetism }
+				}
+			}
+			set_variable = { name = interest_group_type value = flag:patriots days = 5 }
+		}
+	}
+}
+set_pacifist_interest_group = {
+	random_list = {
+		1 = { set_variable = { name = interest_group_noun value = flag:society days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:league days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:alliance days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:coalition days = 5 } }
+	}
+	random_list = {
+		1 = { set_variable = { name = interest_group_type value = flag:peace days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:coexistence days = 5 } }
+		1 = {
+			trigger = { NOT = { faith = { has_doctrine = doctrine_particularism } } }
+			set_variable = { name = interest_group_type value = flag:peace days = 5 }
+		}
+		1 = { set_variable = { name = interest_group_type value = flag:anti_war days = 5 } }
+	}
+}
+set_academic_interest_group = {
+	random_list = {
+		1 = { set_variable = { name = interest_group_noun value = flag:society days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:assocation days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:council days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:foundation days = 5 } }
+	}
+	random_list = {
+		1 = { set_variable = { name = interest_group_type value = flag:science days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:philosophical days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:educational days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:knowledge days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:medical days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:engineering days = 5 } }
+	}
+}
+set_academic_interest_group_plural = {
+	random_list = {
+		1 = { set_variable = { name = interest_group_adjective value = flag:federated days = 5 } }
+		1 = { set_variable = { name = interest_group_adjective value = flag:united days = 5 } }
+	}
+	random_list = {
+		1 = { set_variable = { name = interest_group_type value = flag:science days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:medical days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:engineering days = 5 } }
+	}
+}
+set_transhumanist_interest_group = {
+	random_list = {
+		1 = { set_variable = { name = interest_group_noun value = flag:society days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:union days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:league days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:alliance days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:coalition days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:assocation days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:council days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:foundation days = 5 } }
+	}
+	random_list = {
+		1 = { set_variable = { name = interest_group_type value = flag:transhumanist days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:evolutionary days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:transformative days = 5 } }
+	}
+}
+set_conservative_interest_group = {
+	random_list = {
+		1 = { set_variable = { name = interest_group_noun value = flag:society days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:alliance days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:coalition days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:assocation days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:council days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:foundation days = 5 } }
+	}
+	random_list = {
+		1 = { set_variable = { name = interest_group_type value = flag:traditionalist days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:puritan days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:family days = 5 } }
+		1 = {
+			trigger = { faith = { has_doctrine = religious_hostility_doctrine } }
+			set_variable = { name = interest_group_type value = flag:orthodox days = 5 }
+		}
+	}
+}
+set_religious_interest_group = {
+	random_list = {
+		1 = { set_variable = { name = interest_group_noun value = flag:society days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:league days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:congregation days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:alliance days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:coalition days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:council days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:foundation days = 5 } }
+	}
+	random_list = {
+		1 = { set_variable = { name = interest_group_type value = flag:spiritual days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:theological days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:holy days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:salvation days = 5 } }
+	}
+}
+set_libertarian_interest_group = {
+	random_list = {
+		1 = { set_variable = { name = interest_group_noun value = flag:society days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:alliance days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:coalition days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:assocation days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:council days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:foundation days = 5 } }
+	}
+	random_list = {
+		1 = { set_variable = { name = interest_group_type value = flag:liberty days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:freedom days = 5 } }
+	}
+}
+set_authoritarian_interest_group = {
+	random_list = {
+		1 = { set_variable = { name = interest_group_noun value = flag:society days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:alliance days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:coalition days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:assocation days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:council days = 5 } }
+		1 = { set_variable = { name = interest_group_noun value = flag:foundation days = 5 } }
+	}
+	random_list = {
+		1 = { set_variable = { name = interest_group_type value = flag:peace days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:harmony days = 5 } }
+		1 = { set_variable = { name = interest_group_type value = flag:stability days = 5 } }
+	}
+}
