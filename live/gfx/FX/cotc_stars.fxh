@@ -27,7 +27,7 @@ PixelShader = {
 		static const float COTC_STARS_MAX_CAMERA_PITCH_COS  = 1.0f;
 		static const float COTC_STARS_FULL_CAMERA_PITCH_COS = 0.9f;
 
-		static const float COTC_STARS_CEILING_Y = 5.0f;
+		static const float COTC_STARS_CEILING_Y = 6.0f;
 		static const float COTC_STARS_FLOOR_Y   = -50.0f;
 
 		static const float COTC_STARS_SOFT_CEILING_Y = 1.0f;
@@ -40,7 +40,7 @@ PixelShader = {
 		static const float COTC_STARS_LAYER_TILE_SIZE_SMALL = 150.0f;
 		static const float COTC_STARS_LAYER_TILE_SIZE_Y = 300.0f;
 
-		static const int COTC_STARS_LAYERS_COUNT = 5;
+		static const int COTC_STARS_LAYERS_COUNT = 2;
 
 		static const float2 COTC_STARS_LAYER_UV_OFFSET_STEP = float2(0.35f, -0.15f);
 
@@ -77,7 +77,7 @@ PixelShader = {
 		// Interface
 		//
 
-		void COTC_ApplyStars(inout float3 Color, inout float Alpha, float3 WorldSpacePos)
+		void COTC_ApplyStars(inout float3 Color, inout float Alpha, float3 WorldSpacePos, int StarLayerMult)
 		{
 			float WinterSeverity = GetWinterSeverityValue(WorldSpacePos.xz*WorldSpaceToTerrain0To1);
 			float CameraPitchCos = COTC_GetCameraPitchCosStars();
@@ -89,9 +89,9 @@ PixelShader = {
 			float2 FloorParallaxWorldSpacePosXZ   = (WorldSpacePos + FloorParallaxDistance*ToCameraNorm).xz;
 
 			float StarAlpha = 0.0f;
+			float StarLayers = float(COTC_STARS_LAYERS_COUNT) * StarLayerMult;
 
-			COTC_UNROLL_EXACT(COTC_STARS_LAYERS_COUNT)
-			for (int i = 0; i < COTC_STARS_LAYERS_COUNT; i++)
+			for (int i = 0; i < StarLayers; i++)
 			{
 				float  LayerRelativeHeight            = 1.0f - frac(COTC_STARS_VERTICAL_SPEED_MULTIPLIER*GlobalTime + float(i)*COTC_STARS_LAYER_RELATIVE_TIME_SHIFT_STEP);
 				float2 CurrentParallaxWorldSpacePosXZ = lerp(FloorParallaxWorldSpacePosXZ, CeilingParallaxWorldSpacePosXZ, LayerRelativeHeight);

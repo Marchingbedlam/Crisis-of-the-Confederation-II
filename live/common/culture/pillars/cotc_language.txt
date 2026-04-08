@@ -13,7 +13,7 @@
 		}
 	}
 	
-	color = dark_blue
+	color = { 81 136 255 }
 }
 language_cotc_arabic = {
 	type = language
@@ -185,6 +185,40 @@ language_cotc_russian = {
 	
 	color = russian
 }
+language_cotc_polish = {
+	type = language
+	is_shown = {
+		language_is_shown_trigger = {
+			LANGUAGE = language_cotc_serbian
+		}
+	}
+	ai_will_do = {
+		value = 10
+		if = {
+			limit = { has_cultural_pillar = language_cotc_polish }
+			multiply = 10
+		}
+	}
+	
+	color = { 255 152 139 }
+}
+language_cotc_serbian = {
+	type = language
+	is_shown = {
+		language_is_shown_trigger = {
+			LANGUAGE = language_cotc_serbian
+		}
+	}
+	ai_will_do = {
+		value = 10
+		if = {
+			limit = { has_cultural_pillar = language_cotc_serbian }
+			multiply = 10
+		}
+	}
+	
+	color = { 114 110 97 }
+}
 language_cotc_spanish = {
 	type = language
 	is_shown = {
@@ -200,7 +234,7 @@ language_cotc_spanish = {
 		}
 	}
 	
-	color = castilian
+	color = { 218 219 79 }
 }
 language_cotc_portuguese = {
 	type = language
@@ -217,7 +251,7 @@ language_cotc_portuguese = {
 		}
 	}
 	
-	color = { 0.75 0.67 0.07 }
+	color = { 109 104 72 }
 }
 language_cotc_swahili = {
 	type = language

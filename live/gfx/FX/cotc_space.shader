@@ -219,10 +219,15 @@ PixelShader =
 		Output = "PDX_COLOR"
 		Code
 		[[
+			#ifndef DIFFUSE_UV_SET
+				#define DIFFUSE_UV_SET Input.UV0
+			#endif
+
 			PDX_MAIN
 			{
 				float2 ColorMapCoords =  Input.WorldSpacePos.xz *  WorldSpaceToTerrain0To1;
-				float ProvinceStrength = COTC_GetHeightBasedAlpha();
+				float HeightFactor = COTC_GetHeightBasedAlpha();
+				float ProvinceStrength = 1.0f - HeightFactor;
 
 				float3 ProvinceOverlayColor;
 				float PreLightingBlend;
@@ -230,21 +235,76 @@ PixelShader =
 				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend );
 				float2 DetailCoordinates = Input.WorldSpacePos.xz * WorldSpaceToDetail;
 				DetailCoordinates.y = 1.0f - DetailCoordinates.y;
-				float3 PlaneMask = PdxTex2DLod0( COTC_Plane_Mask, DetailCoordinates );
+				float4 PlaneMask = PdxTex2DLod0( COTC_Plane_Mask, DetailCoordinates );
 
-				float Alpha = lerp(PlaneMask.r, 0.0f, 1.0f - ProvinceStrength);
-				float3 Color;
-				if( ProvinceOverlayColor.r > 0.0f )
+				int StarLayerMult = 2;
+				float Alpha = lerp(PlaneMask.a / 3, 0.0f, ProvinceStrength);
+				float3 Color = lerp(ProvinceOverlayColor, 0.0f, ProvinceStrength);
+				float CloudMaskValue = PlaneMask.r;
+				float SystemMaskValue = PlaneMask.g;
+				float SectorMaskValue = PlaneMask.b;
+
+				if ( CloudMaskValue > 0.0f )
 				{
-					Color = ProvinceOverlayColor;
-					COTC_ApplyHighlightColor(Color, ColorMapCoords);
+					Color = float3(0.1f, 0.1f, 0.15f);
+				}
+
+				if(HeightFactor == 1.0)
+				{
+					if ( SystemMaskValue > 0.0f )
+					{
+						StarLayerMult = 8;
+					}
+
+					if ( SectorMaskValue > 0.0f )
+					{
+						StarLayerMult = 3;
+					}
 				}
 				else
 				{
-					Color = PlaneMask;
+					StarLayerMult = 2;
 				}
 
-				COTC_ApplyBackgroundEffects( Color, Alpha, Input.WorldSpacePos );
+				COTC_ApplyHighlightColor(Color, ColorMapCoords);
+				COTC_ApplyBackgroundEffects( Color, Alpha, Input.WorldSpacePos, StarLayerMult );
+
+				return float4(Color, Alpha);
+			}
+		]]
+	}
+	MainCode COTC_PS_background
+	{
+		Input = "VS_OUTPUT"
+		Output = "PDX_COLOR"
+		Code
+		[[
+			#ifndef DIFFUSE_UV_SET
+				#define DIFFUSE_UV_SET Input.UV0
+			#endif
+
+			PDX_MAIN
+			{
+				float2 DetailCoordinates = Input.WorldSpacePos.xz * WorldSpaceToDetail;
+				DetailCoordinates.y = 1.0f - DetailCoordinates.y;
+				float4 PlaneMask = PdxTex2DLod0( COTC_Plane_Mask, DetailCoordinates );
+				float2 ColorMapCoords =  Input.WorldSpacePos.xz *  WorldSpaceToTerrain0To1;
+				float HeightFactor = COTC_GetHeightBasedAlpha();
+				float ProvinceStrength = 1.0f - HeightFactor;
+				int StarLayerMult = 2;
+
+				float4 Diffuse = PdxTex2D( DiffuseMap, DIFFUSE_UV_SET );
+				float3 Color = Diffuse.rgb;
+				float Alpha = Diffuse.a - 0.1;
+				float CloudMaskValue = PlaneMask.r;
+				float SystemMaskValue = PlaneMask.g;
+				float SectorMaskValue = PlaneMask.b;
+
+				if(PlaneMask.a > 0.0)
+				{
+					Alpha = lerp(Alpha, 0.0f, PlaneMask.a);
+				}
+
 
 				return float4(Color, Alpha);
 			}
@@ -448,6 +508,27 @@ Effect cotc_standard_selection_mapobject
 	BlendState = "alpha_to_coverage"
 	Defines = { "COTC_NO_SHADOW" }
 	DepthStencilState = DepthStencilState
+}
+
+Effect cotc_background
+{
+	VertexShader = "COTC_VS_standard"
+	PixelShader = "COTC_PS_background"
+	BlendState = "alpha_to_coverage"
+}
+
+Effect cotc_background_mapobject
+{
+	VertexShader = "COTC_VS_mapobject"
+	PixelShader = "COTC_PS_background"
+	BlendState = "alpha_to_coverage"
+}
+
+Effect cotc_background_selection_mapobject
+{
+	VertexShader = "COTC_VS_mapobject"
+	PixelShader = "COTC_PS_background"
+	BlendState = "alpha_to_coverage"
 }
 
 Effect cotc_hex
