@@ -1,0 +1,309 @@
+# Use these instead of gender checks to accomodate non-standard gender identities
+is_female_cotc = {
+	is_female = yes
+}
+is_male_cotc = {
+	is_male = yes
+}
+# Use this to determine if major events in a character's life are automatically newsworthy for THIS
+cares_about_character_trigger = {
+	OR = {
+		# We care about them personally
+		has_relation_rival = $TARGET$
+		has_relation_nemesis = $TARGET$
+		has_relation_friend = $TARGET$
+		has_relation_best_friend = $TARGET$
+		has_relation_lover = $TARGET$
+		has_relation_soulmate = $TARGET$
+		has_relation_elder = $TARGET$
+		has_relation_disciple = $TARGET$
+		has_relation_blood_brother = $TARGET$
+		is_close_family_of = $TARGET$
+		is_spouse_of_even_if_dead = $TARGET$
+		# They're our head of faith
+		faith = { religious_head = $TARGET$ }
+		# They're our liege or suzerain
+		target_is_liege_or_above = $TARGET$
+		is_tributary_of = $TARGET$
+		# They're on our council
+		is_councillor_of = $TARGET$
+		is_diarch_of_target = $TARGET$
+		# We're they're direct liege or suzerain
+		$TARGET$ = { is_vassal_of = PREV }
+		$TARGET$ = { is_tributary_of = PREV }
+		# They're an independent ruler we should care about...
+		AND = {
+			$TARGET$ = {
+				is_independent_ruler = yes
+				OR = {
+					# ...because they're just important in general
+					primary_title = { tier >= tier_kingdom }
+					# ...because they're a neighbor
+					character_is_realm_neighbor = $TARGET$
+					# ...because we're at war with them
+					is_at_war_with = $TARGET$
+					$TARGET$ = { any_liege_or_above = { is_at_war_with = ROOT } }
+					# ...because we're allied with them
+					is_allied_to = PREV
+					$TARGET$ = { any_liege_or_above = { is_allied_to = ROOT } }
+					# ...because we're on the same side in a war
+					is_allied_in_war = PREV
+					$TARGET$ = { any_liege_or_above = { is_allied_in_war = PREV } }
+				}
+			}
+		}
+	}
+}
+# And this to do the same for titles
+cares_about_title_trigger = {
+	OR = {
+		# We own it
+		any_held_title = { this = $TARGET$ }
+		# We are heir to it
+		any_heir_title = { this = $TARGET$ }
+		# We have a claim to it
+		any_claim = { this = $TARGET$ }
+		# We live there
+		character_lives_in_de_jure_title = { TITLE = $TARGET$ }
+		character_lives_in_de_facto_title = { TITLE = $TARGET$ }
+	}
+}
+character_lives_in_de_jure_title = {
+	trigger_if = {
+		limit = { exists = capital_province }
+		capital_province = { location_is_in_de_jure_title = { TITLE = $TITLE$ } }
+	}
+	trigger_else_if = {
+		limit = { NOT = { exists = capital_province } }
+		trigger_if = { 
+			limit = { exists = host.capital_province }
+			host.capital_province = { location_is_in_de_jure_title = { TITLE = $TITLE$ } }
+		}
+		trigger_else_if = {
+			limit = { exists = liege.capital_province }
+			liege.capital_province = { location_is_in_de_jure_title = { TITLE = $TITLE$ } }
+		}
+		trigger_else_if = {
+			limit = { exists = location.province_owner.capital_province }
+			liege.province_owner.capital_province = { location_is_in_de_jure_title = { TITLE = $TITLE$ } }
+		}
+		trigger_else = { always = no }
+	}
+	trigger_else = { always = no }
+}
+character_lives_in_de_facto_title = {
+	trigger_if = {
+		limit = { exists = capital_province }
+		capital_province = { location_is_in_de_facto_title = { TITLE = $TITLE$ } }
+	}
+	trigger_else_if = {
+		limit = { NOT = { exists = capital_province } }
+		trigger_if = { 
+			limit = { exists = host.capital_province }
+			host.capital_province = { location_is_in_de_facto_title = { TITLE = $TITLE$ } }
+		}
+		trigger_else_if = {
+			limit = { exists = liege.capital_province }
+			liege.capital_province = { location_is_in_de_facto_title = { TITLE = $TITLE$ } }
+		}
+		trigger_else_if = {
+			limit = { exists = location.province_owner.capital_province }
+			liege.province_owner.capital_province = { location_is_in_de_facto_title = { TITLE = $TITLE$ } }
+		}
+		trigger_else = { always = no }
+	}
+	trigger_else = { always = no }
+}
+lives_in_capital_trigger = {
+	court_owner ?= { capital_province ?= { county ?= { this = $TARGET$.capital_county } } }
+}
+character_is_military_trigger = {
+	OR = {
+		government_has_flag = government_is_military
+		has_court_position = councillor_marshal
+		is_knight = yes
+	}
+}
+character_is_commercial_trigger = {
+	OR = {
+		government_has_flag = government_is_commercial
+		has_court_position = councillor_steward
+	}
+}
+character_is_technocratic_trigger = {
+	government_has_flag = government_is_technocratic
+}
+character_is_theocratic_trigger = {
+	OR = {
+		government_has_flag = government_is_theocratic
+		is_clergy = yes
+	}
+}
+court_is_federal_trigger = {
+	trigger_if = {
+		limit = { is_ruler = yes }
+		government_has_flag = government_is_federal
+	}
+	trigger_else = {
+		liege = { government_has_flag = government_is_federal }
+	}
+}
+court_is_democratic_trigger = {
+	trigger_if = {
+		limit = { is_ruler = yes }
+		government_has_flag = government_is_democratic
+	}
+	trigger_else = {
+		liege = { government_has_flag = government_is_democratic }
+	}
+}
+court_is_aristocratic_trigger = {
+	trigger_if = {
+		limit = { is_ruler = yes }
+		government_has_flag = government_is_aristocratic
+	}
+	trigger_else = {
+		liege = { government_has_flag = government_is_aristocratic }
+	}
+}
+court_is_meritocratic_trigger = {
+	trigger_if = {
+		limit = { is_ruler = yes }
+		government_has_flag = government_is_meritocratic
+	}
+	trigger_else = {
+		liege = { government_has_flag = government_is_meritocratic }
+	}
+}
+court_is_military_trigger = {
+	trigger_if = {
+		limit = { is_ruler = yes }
+		government_has_flag = government_is_military
+	}
+	trigger_else = {
+		liege = { government_has_flag = government_is_military }
+	}
+}
+court_is_commercial_trigger = {
+	trigger_if = {
+		limit = { is_ruler = yes }
+		government_has_flag = government_is_commercial
+	}
+	trigger_else = {
+		liege = { government_has_flag = government_is_commercial }
+	}
+}
+court_is_administrative_trigger = {
+	OR = {
+		court_is_technocratic_trigger = yes
+		court_is_theocratic_trigger = yes
+	}
+}
+court_is_technocratic_trigger = {
+	trigger_if = {
+		limit = { is_ruler = yes }
+		government_has_flag = government_is_technocratic
+	}
+	trigger_else = {
+		liege = { government_has_flag = government_is_technocratic }
+	}
+}
+court_is_theocratic_trigger = {
+	trigger_if = {
+		limit = { is_ruler = yes }
+		government_has_flag = government_is_theocratic
+	}
+	trigger_else = {
+		liege = { government_has_flag = government_is_theocratic }
+	}
+}
+court_is_despotic_trigger = {
+	trigger_if = {
+		limit = { is_ruler = yes }
+		government_has_flag = government_is_despotic
+	}
+	trigger_else = {
+		liege = { government_has_flag = government_is_despotic }
+	}
+}
+court_is_dictatorial_trigger = {
+	trigger_if = {
+		limit = { is_ruler = yes }
+		government_has_flag = government_is_dictatorial
+	}
+	trigger_else = {
+		liege = { government_has_flag = government_is_dictatorial }
+	}
+}
+court_is_presidential_trigger = {
+	trigger_if = {
+		limit = { is_ruler = yes }
+		government_has_flag = government_is_presidential
+	}
+	trigger_else = {
+		liege = { government_has_flag = government_is_presidential }
+	}
+}
+court_is_parliamentary_trigger = {
+	trigger_if = {
+		limit = { is_ruler = yes }
+		government_has_flag = government_is_parliamentary
+	}
+	trigger_else = {
+		liege = { government_has_flag = government_is_parliamentary }
+	}
+}
+court_has_legislature_trigger = {
+	trigger_if = {
+		limit = { is_ruler = yes }
+		government_has_flag = government_has_legislature
+	}
+	trigger_else = {
+		liege = { government_has_flag = government_has_legislature }
+	}
+}
+court_is_criminal_trigger = {
+	trigger_if = {
+		limit = { is_ruler = yes }
+		government_has_flag = government_is_criminal
+	}
+	trigger_else = {
+		liege = { government_has_flag = government_is_criminal }
+	}
+}
+# Checks whether we should consider a character's interests as being opposed to our own
+character_is_hostile_trigger = {
+	$CHARACTER$ = { save_temporary_scope = loyalty_target }
+	OR = {
+		AND = {
+			opinion = { target = $CHARACTER$ value <= -50 }
+			court_is_despotic_trigger = yes
+			ai_honor < 0
+		}
+		AND = {
+			opinion = { target = $CHARACTER$ value <= -50 }
+			court_is_despotic_trigger = no
+			ai_lawfulness < 0
+		}
+		any_scheme = {
+			scheme_target = $CHARACTER$
+			is_hostile = yes
+		}
+		character_is_war_enemy_trigger = { CHARACTER = $CHARACTER$ }
+	}
+}
+# Checks whether we are enemies in a war, regardless of whose war it technically is
+character_is_war_enemy_trigger = {
+	save_temporary_scope = evaluated_enemy
+	OR = {
+		is_at_war_with = $CHARACTER$
+		$CHARACTER$ = { any_liege_or_above = { is_at_war_with = scope:evaluated_enemy } }
+		any_liege_or_above = {
+			save_temporary_scope = evaluated_enemy
+			OR = {
+				is_at_war_with = $CHARACTER$
+				$CHARACTER$ = { any_liege_or_above = { is_at_war_with = scope:evaluated_enemy } }
+			}
+		}
+	}
+}

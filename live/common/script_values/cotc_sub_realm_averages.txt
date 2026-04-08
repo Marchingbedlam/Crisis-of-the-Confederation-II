@@ -1,0 +1,65 @@
+﻿counties_in_sub_realm = {
+	value = 0
+	every_sub_realm_county = { add = 1 }
+	min = 1
+}
+average_sub_realm_hostility_to_temp_faith = {
+	value = 0
+	every_sub_realm_county = { faith = { add = "faith_hostility_level(scope:temp_faith)" } }
+	divide = counties_in_sub_realm
+}
+average_sub_realm_county_opinion = {
+	value = 0
+	every_sub_realm_county = { add = county_opinion }
+	divide = counties_in_sub_realm
+}
+average_sub_realm_county_election_score = {
+	value = 0
+	every_sub_realm_county = { add = county_election_score }
+	divide = counties_in_sub_realm
+}
+average_sub_realm_economic_anxiety = {
+	value = 0
+	every_sub_realm_county = { add = county_economic_anxiety }
+	divide = counties_in_sub_realm
+}
+average_sub_realm_security_anxiety = {
+	value = 0
+	every_sub_realm_county = { add = county_security_anxiety }
+	divide = counties_in_sub_realm
+}
+average_sub_realm_authoritarianism = {
+	value = 0
+	every_sub_realm_county = { faith = { add = ideology_authoritarianism } }
+	divide = counties_in_sub_realm
+}
+average_sub_realm_hawkishness = {
+	value = 0
+	every_sub_realm_county = { faith = { add = ideology_hawkishness } }
+	divide = counties_in_sub_realm
+}
+average_sub_realm_interventionism = {
+	value = 0
+	every_sub_realm_county = { faith = { add = ideology_interventionism } }
+	divide = counties_in_sub_realm
+}
+average_sub_realm_interventionism = {
+	value = 0
+	every_sub_realm_county = { faith = { add = ideology_intellectualism } }
+	divide = counties_in_sub_realm
+}
+average_sub_realm_lawfulness = {
+	value = 0
+	every_sub_realm_county = { faith = { add = ideology_lawfulness } }
+	divide = counties_in_sub_realm
+}
+average_sub_realm_parochialism = {
+	value = 0
+	every_sub_realm_county = { faith = { add = ideology_parochialism } }
+	divide = counties_in_sub_realm
+}
+average_sub_realm_mysticism = {
+	value = 0
+	every_sub_realm_county = { faith = { add = ideology_mysticism } }
+	divide = counties_in_sub_realm
+}

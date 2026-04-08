@@ -1,0 +1,360 @@
+provincial_taxes = {
+	display_mode = tree
+	icon = treasury_icon
+	can_be_changed = { scope:liege = { NOT = { legislature_blocks_law_trigger = yes } } }
+	obligation_levels = {
+		provincial_tax_exempt = {
+			position = { 0 0 }
+
+			tax = { value = 0.75 }
+			subject_opinion = 10
+
+			ai_liege_desire = 1
+			ai_subject_desire = 5
+			score = 2
+			
+			subject_modifier = {
+				# Vassals get Treasury income that is this percentage less than their taxes to their liege
+				monthly_treasury_from_liege_mult = 0
+			}
+			
+			flag = has_provincial_taxes
+		}
+		provincial_tax_low = {
+			parent = provincial_tax_exempt
+			position = { 1 0 }
+
+			tax = { value = 0.75 }
+			subject_opinion = 5
+
+			ai_liege_desire = 2
+			ai_subject_desire = 4
+			score = 1
+			
+			subject_modifier = {
+				# Vassals get Treasury income that is this percentage less than their taxes to their liege
+				monthly_treasury_from_liege_mult = -0.05
+			}
+			
+			flag = has_provincial_taxes
+		}
+		provincial_tax_normal = {
+			default = yes
+			parent = provincial_tax_low
+			position = { 2 0 }
+
+			tax = { value = 0.75 }
+
+			ai_liege_desire = 3
+			ai_subject_desire = 3
+			score = 0
+			
+			subject_modifier = {
+				# Vassals get Treasury income that is this percentage less than their taxes to their liege
+				monthly_treasury_from_liege_mult = -0.1
+			}
+			
+			flag = has_provincial_taxes
+		}
+		provincial_tax_high = {
+			parent = provincial_tax_normal
+			position = { 3 0 }
+			
+			tax = { value = 0.75 }
+			subject_opinion = -15
+
+			ai_liege_desire = 5
+			ai_subject_desire = 2
+			score = -2
+			
+			subject_modifier = {
+				# Vassals get Treasury income that is this percentage less than their taxes to their liege
+				monthly_treasury_from_liege_mult = -0.15
+			}
+			
+			flag = has_provincial_taxes
+			flag = obligation_high_taxes
+		}
+		provincial_tax_extortionate = {
+			parent = provincial_tax_high
+			position = { 4 0 }
+			
+			tax = { value = 0.75 }
+			subject_opinion = -25
+
+			ai_liege_desire = 6
+			ai_subject_desire = 1
+			score = -3
+			
+			subject_modifier = {
+				# Vassals get Treasury income that is this percentage less than their taxes to their liege
+				monthly_treasury_from_liege_mult = -0.2
+			}
+			
+			flag = has_provincial_taxes
+			flag = obligation_high_taxes
+		}
+	}
+}
+military_levies = {
+	display_mode = tree
+	icon = soldier_icon
+	obligation_levels = {
+		military_levies_exempt = {
+			position = { 0 0 }
+
+			levies = 0
+			subject_opinion = 10
+
+			ai_liege_desire = 1
+			ai_subject_desire = 5
+			score = 2
+		}
+		military_levies_low = {
+			parent = military_levies_exempt
+			position = { 1 0 }
+
+			levies = 0.1
+			subject_opinion = 5
+
+			ai_liege_desire = 2
+			ai_subject_desire = 4
+			score = 1
+		}
+		military_levies_normal = {
+			default = yes
+			parent = military_levies_low
+			position = { 2 0 }
+
+			levies = 0.25
+
+			ai_liege_desire = 3
+			ai_subject_desire = 3
+			score = 0
+		}
+		military_levies_high = {
+			parent = military_levies_normal
+			position = { 3 0 }
+			
+			levies = 0.35
+			subject_opinion = -15
+
+			ai_liege_desire = 4
+			ai_subject_desire = 2
+			score = -1
+			flag = obligation_high_levies
+		}
+		military_levies_extortionate = {
+			parent = military_levies_high
+			position = { 4 0 }
+			
+			levies = 0.5
+			subject_opinion = -25
+
+			ai_liege_desire = 5
+			ai_subject_desire = 1
+			score = -2
+			flag = obligation_high_levies
+		}
+	}
+}
+civilian_levies = {
+	display_mode = tree
+	icon = soldier_icon
+	obligation_levels = {
+		civilian_levies_exempt = {
+			position = { 0 0 }
+
+			levies = 0
+			subject_opinion = 10
+
+			ai_liege_desire = 1
+			ai_subject_desire = 5
+			score = 2
+		}
+		civilian_levies_low = {
+			parent = civilian_levies_exempt
+			position = { 1 0 }
+
+			levies = 0.05
+			subject_opinion = 5
+
+			ai_liege_desire = 2
+			ai_subject_desire = 4
+			score = 1
+		}
+		civilian_levies_normal = {
+			default = yes
+			parent = civilian_levies_low
+			position = { 2 0 }
+
+			levies = 0.1
+
+			ai_liege_desire = 3
+			ai_subject_desire = 3
+			score = 0
+		}
+		civilian_levies_high = {
+			parent = civilian_levies_normal
+			position = { 3 0 }
+			
+			levies = 0.15
+			subject_opinion = -15
+
+			ai_liege_desire = 4
+			ai_subject_desire = 2
+			score = -1
+			flag = obligation_high_levies
+		}
+		civilian_levies_extortionate = {
+			parent = civilian_levies_high
+			position = { 4 0 }
+			
+			levies = 0.2
+			subject_opinion = -25
+
+			ai_liege_desire = 5
+			ai_subject_desire = 1
+			score = -2
+			flag = obligation_high_levies
+		}
+	}
+}
+military_budget_share = {
+	display_mode = tree
+	icon = treasury_icon
+	obligation_levels = {
+		military_budget_share_very_high = {
+			position = { 4 0 }
+
+			subject_opinion = 10
+
+			ai_liege_desire = 1
+			ai_subject_desire = 5
+			score = 2
+			
+			subject_modifier = { monthly_treasury_from_military_budget_base = 2 }
+		}
+		military_budget_share_high = {
+			parent = military_budget_share_very_high
+			position = { 3 0 }
+			subject_opinion = 5
+
+			ai_liege_desire = {
+				value = 2
+			}
+			ai_subject_desire = 4
+			score = 1
+			
+			subject_modifier = { monthly_treasury_from_military_budget_base = 1.5 }
+		}
+		military_budget_share_normal = {
+			default = yes
+			parent = military_budget_share_high
+			position = { 2 0 }
+
+			ai_liege_desire = {
+				value = 3
+			}
+			ai_subject_desire = 3
+			score = 0
+			
+			subject_modifier = { monthly_treasury_from_military_budget_base = 1 }
+		}
+		military_budget_share_low = {
+			parent = military_budget_share_normal
+			position = { 1 0 }
+			
+			subject_opinion = -15
+
+			ai_liege_desire = {
+				value = 5
+			}
+			ai_subject_desire = 2
+			score = -2
+			
+			subject_modifier = { monthly_treasury_from_military_budget_base = 0.5 }
+		}
+		military_budget_share_none = {
+			parent = military_budget_share_low
+			position = { 0 0 }
+			
+			subject_opinion = -25
+
+			ai_liege_desire = {
+				value = 6
+			}
+			ai_subject_desire = 1
+			score = -3
+		}
+	}
+}
+administrative_budget_share = {
+	display_mode = tree
+	icon = treasury_icon
+	obligation_levels = {
+		administrative_budget_share_very_high = {
+			position = { 4 0 }
+
+			subject_opinion = 10
+
+			ai_liege_desire = 1
+			ai_subject_desire = 5
+			score = 2
+			
+			subject_modifier = { monthly_treasury_from_ministry_budget_base = 2 }
+		}
+		administrative_budget_share_high = {
+			parent = administrative_budget_share_very_high
+			position = { 3 0 }
+			subject_opinion = 5
+
+			ai_liege_desire = {
+				value = 2
+			}
+			ai_subject_desire = 4
+			score = 1
+			
+			subject_modifier = { monthly_treasury_from_ministry_budget_base = 1.5 }
+		}
+		administrative_budget_share_normal = {
+			default = yes
+			parent = administrative_budget_share_high
+			position = { 2 0 }
+
+			ai_liege_desire = {
+				value = 3
+			}
+			ai_subject_desire = 3
+			score = 0
+			
+			subject_modifier = { monthly_treasury_from_ministry_budget_base = 1 }
+		}
+		administrative_budget_share_low = {
+			parent = administrative_budget_share_normal
+			position = { 1 0 }
+			
+			subject_opinion = -15
+
+			ai_liege_desire = {
+				value = 5
+			}
+			ai_subject_desire = 2
+			score = -2
+			
+			subject_modifier = { monthly_treasury_from_ministry_budget_base = 0.5 }
+		}
+		administrative_budget_share_none = {
+			parent = administrative_budget_share_low
+			position = { 0 0 }
+			
+			subject_opinion = -25
+
+			ai_liege_desire = {
+				value = 6
+			}
+			ai_subject_desire = 1
+			score = -3
+		}
+	}
+}

@@ -1,0 +1,862 @@
+﻿#################
+# HOOKS TO CODE #
+#################
+on_game_start_after_lobby = { on_actions = { global_government_setup_on_action } }
+on_title_gained = { on_actions = { government_update_on_action } }
+on_title_lost = { on_actions = { government_update_on_action } }
+on_primary_title_change = { on_actions = { government_update_on_action } }
+on_government_change = { on_actions = { government_update_on_action } }
+on_faith_created = { on_actions = { party_change_on_action } }
+on_character_faith_change = { on_actions = { party_change_on_action } }
+on_death = { on_actions = { on_legislator_death_on_action } }
+on_vassal_changed = {
+	on_actions = { government_vassal_change_on_action }
+}
+quarterly_playable_pulse = {
+	on_actions = {
+		quarterly_progress_legislature_on_action
+		plan_budget_on_action
+	}
+}
+random_yearly_everyone_pulse = { on_actions = { plan_legislative_campaign_on_action } }
+on_title_destroyed = { on_actions = { government_destruction_on_action } }
+
+###################
+# ROOT ON_ACTIONS #
+###################
+global_government_setup_on_action = {
+	effect = {
+		every_ruler = { trigger_event = { on_action = government_setup_on_action } }
+	}
+}
+government_setup_on_action = {
+	on_actions = {
+		# Legislatures
+		initialize_starting_legislature_on_action
+		
+		# Laws
+		province_taxes_on_action
+		
+		# Planning
+		plan_budget_on_action
+	}
+}
+government_update_on_action = {
+	on_actions = {
+		# Legislatures
+		initialize_new_legislature_on_action
+		abolish_legislature_on_action
+		reattach_legislature_on_action
+		merge_legislatures_on_action
+		
+		# Laws
+		province_taxes_on_action
+		
+		# Planning
+		plan_budget_on_action
+	}
+}
+government_vassal_change_on_action = {
+	effect = {
+		trigger_event = { on_action = government_update_on_action }
+		trigger_event = { on_action = ridings_vassal_change_on_action }
+		liege ?= {
+			if = {
+				limit = { NOT = { THIS = PREV } }
+				trigger_event = { on_action = government_update_on_action }
+			}
+		}
+	}
+}
+government_destruction_on_action = {
+}
+party_change_on_action = {
+	on_actions = { update_legislator_party_on_action }
+}
+on_legislator_death_on_action = {
+	trigger = { has_variable = legislature }
+	effect = {
+		var:legislature = { save_temporary_scope_as = temp_legislature }
+		remove_from_legislature_effect = yes
+		scope:temp_legislature = { recalc_legislature_parties_effect = yes }
+	}
+}
+
+################
+# LEGISLATURES #
+################
+initialize_starting_legislature_on_action = {
+	trigger = {
+		should_have_legislature_trigger = yes
+		has_legislature_trigger = no
+	}
+	effect = {
+		save_scope_as = ruler
+		start_situation = {
+			type = legislature
+			save_scope_as = situation
+			start_phase = legislature_in_session
+		}
+		every_held_title = {
+			save_temporary_scope_as = temp_title
+			scope:situation.situation_sub_region:legislature_title_region = {
+				add_dejure_title_to_sub_region = scope:temp_title
+			}
+			clear_saved_scope = temp_title
+		}
+		primary_title = {
+			save_scope_as = target_title
+			set_variable = {
+				name = legislature
+				value = scope:situation
+			}
+		}
+		scope:situation ?= {
+			set_situation_center_province = scope:ruler.capital_province
+			set_variable = {
+				name = legislature_title
+				value = scope:target_title
+			}
+			set_variable = { name = months_in_session value = 0 }
+			generate_riding_list_effect = yes
+			# Elect starting legislators
+			every_in_list = {
+				variable = ridings
+				select_initial_legislator_effect = { LEGISLATURE = scope:situation }
+			}
+			every_in_list = {
+				variable = legislators
+				trigger_event = { on_action = plan_legislative_campaign_on_action }
+			}
+			recalc_legislature_parties_effect = yes
+			every_participant_group = {
+				every_situation_group_participant = {
+					recalculate_participant_group = scope:situation
+				}
+			}
+		}
+		trigger_event = { on_action = set_initial_prime_minister }
+	}
+}
+initialize_new_legislature_on_action = {
+	trigger = {
+		should_have_legislature_trigger = yes
+		has_legislature_trigger = no
+	}
+	effect = {
+		save_scope_as = ruler
+		start_situation = {
+			type = legislature
+			save_scope_as = situation
+			start_phase = legislature_election
+		}
+		every_held_title = {
+			limit = { tier = prev.primary_title.tier }
+			save_temporary_scope_as = temp_title
+			scope:situation.situation_sub_region:legislature_title_region = {
+				add_dejure_title_to_sub_region = scope:temp_title
+			}
+			clear_saved_scope = temp_title
+		}
+		primary_title = {
+			save_scope_as = target_title
+			set_variable = {
+				name = legislature
+				value = scope:situation
+			}
+		}
+		scope:situation ?= {
+			set_situation_center_province = scope:ruler.capital_province
+			set_variable = {
+				name = legislature_title
+				value = scope:target_title
+			}
+			generate_riding_list_effect = yes
+		}
+		trigger_event = { on_action = set_initial_prime_minister }
+	}
+}
+quarterly_progress_legislature_on_action = {
+	trigger = {
+		has_legislature_trigger = yes
+		primary_title.var:legislature ?= { situation_current_phase = legislature_in_session }
+	}
+	effect = {
+		trigger_event = { on_action = monthly_progress_legislature_on_action }
+		trigger_event = { on_action = monthly_progress_legislature_on_action months = 1 }
+		trigger_event = { on_action = monthly_progress_legislature_on_action months = 2 }
+	}
+}
+monthly_progress_legislature_on_action = {
+	trigger = {
+		has_legislature_trigger = yes
+		primary_title.var:legislature ?= { situation_current_phase = legislature_in_session }
+	}
+	effect = {
+		# Advance the legislature's term
+		primary_title.var:legislature ?= { change_variable = { name = months_in_session add = 1 } }
+		# If we've hit the term limit, call an election
+		if = {
+			limit = {
+				trigger_if = {
+					limit = { has_realm_law = two_year_terms_law }
+					primary_title.var:legislature ?= { var:months_in_session >= 21 }
+				}
+				trigger_else_if = {
+					limit = { has_realm_law = four_year_terms_law }
+					primary_title.var:legislature ?= { var:months_in_session >= 45 }
+				}
+				trigger_else_if = {
+					limit = { has_realm_law = six_year_terms_law }
+					primary_title.var:legislature ?= { var:months_in_session >= 69 }
+				}
+				trigger_else_if = {
+					limit = { has_realm_law = eight_year_terms_law }
+					primary_title.var:legislators ?= { var:months_in_session >= 93 }
+				}
+				trigger_else_if = {
+					limit = { has_realm_law = ten_year_terms_law }
+					primary_title.var:legislators ?= { var:months_in_session >= 117 }
+				}
+				trigger_else = { always = no }
+			}
+			primary_title.var:legislature ?= { trigger_situation_catalyst = catalyst_term_expired }
+		}
+	}
+}
+abolish_legislature_on_action = {
+	# We're a despot or dictator and don't need a legislature, or are too low-ranking to have one
+	trigger = {
+		has_legislature_trigger = yes
+		should_have_legislature_trigger = no
+	}
+	events = { legislature_events.100 }
+}
+reattach_legislature_on_action = {
+	# We should and do have a legislature but it's attached to the wrong title
+	trigger = {
+		should_have_legislature_trigger = yes
+		primary_title = { NOT = { has_variable = legislature } }
+		any_held_title = { has_variable = legislature }
+	}
+	events = { legislature_events.200 }
+}
+merge_legislatures_on_action = {
+	# We have more than one legislature
+	trigger = {
+		has_legislature_trigger = yes
+		primary_title = { has_variable = legislature }
+		any_held_title = {
+			has_variable = legislature
+			count >= 2
+		}
+	}
+	events = { legislature_events.300 }
+}
+ridings_vassal_change_on_action = {
+	# We were represented in a legislature, but now we aren't!
+	trigger = {
+		exists = scope:old_liege # We were not independent
+		scope:old_liege ?= {
+			add_to_temporary_list = old_lieges
+			any_liege_or_above ?= {
+				count = all
+				add_to_temporary_list = old_lieges
+			}
+		}
+		any_in_list = {
+			list = old_lieges
+			has_legislature_trigger = yes
+			save_temporary_scope_as = temp_old_liege
+			primary_title = {
+				any_in_list = {
+					variable = ridings
+					save_temporary_scope_as = temp_riding
+					NOT = {
+						scope:temp_old_liege = {
+							OR = {
+								any_sub_realm_county = { this = scope:temp_riding }
+								any_sub_realm_duchy = { this = scope:temp_riding }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		# Remove us from the old ridings list and also remove any of our legislators
+		every_sub_realm_county = { add_to_list = ridings_to_remove }
+		every_sub_realm_duchy = { add_to_list = ridings_to_remove }
+		
+		# Build a list of all the lieges we no longer have
+		scope:old_liege = {
+			add_to_list = old_lieges
+			every_liege_or_above = { add_to_list = old_lieges }
+		}
+		
+		every_in_list = {
+			list = old_lieges
+			if = {
+				limit = { has_legislature_trigger = yes }
+				primary_title = {
+					save_temporary_scope_as = temp_old_legislature
+					var:legislature ?= {
+						save_temporary_scope_as = temp_legislature
+						every_in_list = {
+							variable = ridings
+							limit = { is_in_list = ridings_to_remove }
+							
+							# End all ongoing elections
+							switch = {
+								trigger = scope:temp_old_legislature.tier
+								tier_county = { clear_variable_list = county_candidates }
+								tier_duchy = { clear_variable_list = duchy_candidates }
+								tier_kingdom = { clear_variable_list = kingdom_candidates }
+								tier_empire = { clear_variable_list = empire_candidates }
+								tier_hegemony = { clear_variable_list = hegemony_candidates }
+							}
+							
+							save_temporary_scope_as = temp_riding
+							scope:temp_legislature = {
+								# Remove us from the ridings list
+								remove_list_variable = { name = ridings target = scope:temp_riding }
+								# And remove our senator if we have one
+								every_in_list = {
+									variable = legislators
+									limit = { var:riding = scope:temp_riding }
+									remove_from_legislature_effect = yes
+								}
+								# And then recalc parties
+								recalc_legislature_parties_effect = yes
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+update_legislator_party_on_action = {
+	trigger = { has_variable = legislature }
+	effect = { var:legislature = { recalc_legislature_parties_effect = yes } }
+}
+
+###################
+# PRIME MINISTERS #
+###################
+set_initial_prime_minister = {
+	trigger = {
+		government_has_flag = government_is_parliamentary
+		has_legislature_trigger = yes
+		NOT = { has_diarchy_type = cotc_premiership }
+		any_vassal = { count > 0 }
+	}
+	effect = {
+		try_start_diarchy = cotc_premiership
+		ordered_vassal = {
+			order_by = prime_minister_score
+			ROOT = { set_diarch = PREV }
+		}
+	}
+}
+
+########
+# LAWS #
+########
+province_taxes_on_action = {
+	on_actions = {
+		military_province_taxes_0_on_action
+		military_province_taxes_1_on_action
+		military_province_taxes_2_on_action
+		military_province_taxes_3_on_action
+		military_province_taxes_4_on_action
+		commercial_province_taxes_0_on_action
+		commercial_province_taxes_1_on_action
+		commercial_province_taxes_2_on_action
+		commercial_province_taxes_3_on_action
+		commercial_province_taxes_4_on_action
+		technocratic_province_taxes_0_on_action
+		technocratic_province_taxes_1_on_action
+		technocratic_province_taxes_2_on_action
+		technocratic_province_taxes_3_on_action
+		technocratic_province_taxes_4_on_action
+		theocratic_province_taxes_0_on_action
+		theocratic_province_taxes_1_on_action
+		theocratic_province_taxes_2_on_action
+		theocratic_province_taxes_3_on_action
+		theocratic_province_taxes_4_on_action
+	}
+}
+military_province_taxes_0_on_action = {
+	trigger = { has_realm_law = military_province_tax_law_0 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_military
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 0 }
+		}
+		remove_variable = bill_passed
+	}
+}
+military_province_taxes_1_on_action = {
+	trigger = { has_realm_law = military_province_tax_law_1 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_military
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 1 }
+		}
+		remove_variable = bill_passed
+	}
+}
+military_province_taxes_2_on_action = {
+	trigger = { has_realm_law = military_province_tax_law_2 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_military
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 2 }
+		}
+		remove_variable = bill_passed
+	}
+}
+military_province_taxes_3_on_action = {
+	trigger = { has_realm_law = military_province_tax_law_3 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_military
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 3 }
+		}
+		remove_variable = bill_passed
+	}
+}
+military_province_taxes_4_on_action = {
+	trigger = { has_realm_law = military_province_tax_law_4 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_military
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 4 }
+		}
+		remove_variable = bill_passed
+	}
+}
+commercial_province_taxes_0_on_action = {
+	trigger = { has_realm_law = commercial_province_tax_law_0 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_commercial
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 0 }
+		}
+		remove_variable = bill_passed
+	}
+}
+commercial_province_taxes_1_on_action = {
+	trigger = { has_realm_law = commercial_province_tax_law_1 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_commercial
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 1 }
+		}
+		remove_variable = bill_passed
+	}
+}
+commercial_province_taxes_2_on_action = {
+	trigger = { has_realm_law = commercial_province_tax_law_2 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_commercial
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 2 }
+		}
+		remove_variable = bill_passed
+	}
+}
+commercial_province_taxes_3_on_action = {
+	trigger = { has_realm_law = commercial_province_tax_law_3 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_commercial
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 3 }
+		}
+		remove_variable = bill_passed
+	}
+}
+commercial_province_taxes_4_on_action = {
+	trigger = { has_realm_law = commercial_province_tax_law_4 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_commercial
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 4 }
+		}
+		remove_variable = bill_passed
+	}
+}
+technocratic_province_taxes_0_on_action = {
+	trigger = { has_realm_law = technocratic_province_tax_law_0 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_technocratic
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 0 }
+		}
+		remove_variable = bill_passed
+	}
+}
+technocratic_province_taxes_1_on_action = {
+	trigger = { has_realm_law = technocratic_province_tax_law_1 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_technocratic
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 1 }
+		}
+		remove_variable = bill_passed
+	}
+}
+technocratic_province_taxes_2_on_action = {
+	trigger = { has_realm_law = technocratic_province_tax_law_2 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_technocratic
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 2 }
+		}
+		remove_variable = bill_passed
+	}
+}
+technocratic_province_taxes_3_on_action = {
+	trigger = { has_realm_law = technocratic_province_tax_law_3 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_technocratic
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 3 }
+		}
+		remove_variable = bill_passed
+	}
+}
+technocratic_province_taxes_4_on_action = {
+	trigger = { has_realm_law = technocratic_province_tax_law_4 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_technocratic
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 4 }
+		}
+		remove_variable = bill_passed
+	}
+}
+theocratic_province_taxes_0_on_action = {
+	trigger = { has_realm_law = theocratic_province_tax_law_0 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_theocratic
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 0 }
+		}
+		remove_variable = bill_passed
+	}
+}
+theocratic_province_taxes_1_on_action = {
+	trigger = { has_realm_law = theocratic_province_tax_law_1 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_theocratic
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 1 }
+		}
+		remove_variable = bill_passed
+	}
+}
+theocratic_province_taxes_2_on_action = {
+	trigger = { has_realm_law = theocratic_province_tax_law_2 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_theocratic
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 2 }
+		}
+		remove_variable = bill_passed
+	}
+}
+theocratic_province_taxes_3_on_action = {
+	trigger = { has_realm_law = theocratic_province_tax_law_3 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_theocratic
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 3 }
+		}
+		remove_variable = bill_passed
+	}
+}
+theocratic_province_taxes_4_on_action = {
+	trigger = { has_realm_law = theocratic_province_tax_law_4 }
+	effect = {
+		set_variable = bill_passed
+		every_vassal = {
+			limit = {
+				government_has_flag = government_is_theocratic
+				vassal_contract_has_flag = has_provincial_taxes
+			}
+			vassal_contract_set_obligation_level = { type = provincial_taxes level = 4 }
+		}
+		remove_variable = bill_passed
+	}
+}
+############
+# PLANNING #
+############
+plan_legislative_campaign_on_action = {
+	trigger = {
+		is_ai = yes
+		eligible_legislator_candidate_trigger = yes
+		NOT = { any_scheme = { scheme_type = legislative_election_campaign } }
+		ai_political_ambition > 0
+		any_liege_or_above = {
+			has_legislature_trigger = yes
+			primary_title = {
+				save_temporary_scope_as = temp_title
+				ROOT = {
+					# Must live in the sub-realm
+					character_lives_in_de_facto_title = { TITLE = scope:temp_title }
+					# Must be able to 
+					OR = {
+						influence >= { value = minor_influence_value multiply = scope:temp_title.title_basic_cost_multiplier }
+						gold >= { value = minor_gold_value multiply = scope:temp_title.title_basic_cost_multiplier }
+						AND = {
+							has_variable = legislature
+							var:legislature ?= { var:legislature_title ?= { this = scope:temp_title }
+						}
+					}
+				}
+			}
+		}
+	}
+	effect = {
+		# Consider running for each legislature, in descending order of importance
+		ordered_liege_or_above = {
+			limit = {
+				has_legislature_trigger = yes
+				primary_title = {
+					save_temporary_scope_as = temp_title
+					ROOT = {
+						character_lives_in_de_facto_title = { TITLE = scope:temp_title }
+						OR = {
+							influence >= { value = minor_influence_value multiply = scope:temp_title.title_basic_cost_multiplier }
+							gold >= { value = minor_gold_value multiply = scope:temp_title.title_basic_cost_multiplier }
+							AND = {
+								has_variable = legislature
+								var:legislature ?= { var:legislature_title ?= { this = scope:temp_title }
+							}
+						}
+					}
+				}
+			}
+			order_by = { value = highest_held_title_tier multiply = -1 }
+			primary_title = {
+				var:legislature ?= {
+					save_scope_as = legislature
+					# If ROOT is an incumbent, check their existing riding
+					if = {
+						limit = {
+							ROOT = {
+								has_variable = var:riding
+								var:riding ?= { scope:legislature = { is_target_in_variable_list = { name = ridings target = PREV } } }
+							}
+						}
+						ROOT = {
+							var:riding = { save_scope_as = riding }
+							trigger_event = cotc_legislative_campaign_events.50
+						}
+					}
+					# Otherwise, check the riding they live in
+					else = {
+						random_in_list = {
+							variable = ridings
+							limit = {
+								save_temporary_scope_as = temp_riding
+								ROOT = { character_lives_in_de_jure_title = { TITLE = scope:temp_riding } }
+							}
+							save_scope_as = riding
+							ROOT = { trigger_event = cotc_legislative_campaign_events.50 }
+						}
+					}
+				}
+			}
+		}
+	}
+}
+plan_budget_on_action = {
+	trigger = {
+		is_independent_ruler = yes
+		should_have_legislature_trigger = yes
+	}
+	effect = {
+		# Target budgets
+		save_temporary_scope_as = budget_ruler
+		set_variable = { name = planned_military_budget value = target_military_budget }
+		set_variable = { name = planned_ministry_budget value = target_ministry_budget }
+		set_variable = { name = planned_salary_budget value = target_salary_budget }
+		set_variable = { name = planned_budget_surplus value = target_budget_surplus }
+		while = {
+			limit = { planned_total_budget < 100 }
+			random_list = {
+				200 = {
+					modifier = { add = ai_hawkishness }
+					change_variable = { name = planned_military_budget add = 5 }
+				}
+				200 = {
+					modifier = { add = ai_interventionism }
+					change_variable = { name = planned_ministry_budget add = 5 }
+				}
+				200 = {
+					modifier = { add = ai_intellectualism }
+					change_variable = { name = planned_salary_budget add = 5 }
+				}
+				200 = {
+					modifier = { add = ai_greed }
+					change_variable = { name = planned_budget_surplus add = 5 }
+				}
+			}
+		}
+		if = {
+			limit = { planned_total_budget > 100 }
+			set_variable = { name = counter value = planned_total_budget }
+			change_variable = { name = counter subtract = 100 }
+			while = {
+				limit = { var:counter > 0 }
+				change_variable = { name = counter subtract = 5 }
+				random_list = {
+					200 = {
+						modifier = {
+							add = {
+								value = 0
+								subtract = ai_hawkishness
+							}
+						}
+						modifier = {
+							factor = 0
+							var:planned_military_budget <= 0
+						}
+						change_variable = { name = planned_military_budget subtract = 5 }
+					}
+					200 = {
+						modifier = {
+							add = {
+								value = 0
+								subtract = ai_interventionism
+							}
+						}
+						modifier = {
+							factor = 0
+							var:planned_ministry_budget <= 0
+						}
+						change_variable = { name = planned_ministry_budget subtract = 5 }
+					}
+					200 = {
+						modifier = {
+							add = {
+								value = 0
+								subtract = ai_intellectualism
+							}
+						}
+						modifier = {
+							factor = 0
+							var:planned_salary_budget <= 0
+						}
+						change_variable = { name = planned_salary_budget subtract = 5 }
+					}
+					200 = {
+						modifier = {
+							add = {
+								value = 0
+								subtract = ai_greed
+							}
+						}
+						modifier = {
+							factor = 0
+							var:planned_budget_surplus <= 0
+							ai_rationality >= high_positive_ai_value
+						}
+						modifier = {
+							factor = 0
+							var:planned_budget_surplus <= -10
+							ai_rationality >= low_positive_ai_value
+						}
+						modifier = {
+							factor = 0
+							var:planned_budget_surplus <= -20
+						}
+						change_variable = { name = planned_budget_surplus subtract = 5 }
+					}
+				}
+			}
+			remove_variable = counter
+		}
+	}
+}

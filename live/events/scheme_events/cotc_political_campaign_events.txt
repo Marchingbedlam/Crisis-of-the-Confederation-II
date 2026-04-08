@@ -1,0 +1,1525 @@
+﻿namespace = cotc_political_campaign_events
+scripted_effect cotc_announce_political_campaign_progress = {
+	send_interface_toast = {
+		type = msg_political_campaign_good
+		title = cotc_political_campaign_events.$EVENT_TYPE$.toast.title
+		left_icon = scope:candidate
+		custom_tooltip = cotc_political_campaign_events.$EVENT_TYPE$.toast.tt
+	}
+	scope:campaign = {
+		every_in_list = {
+			variable = rival_campaigns
+			scheme_owner ?= {
+				send_interface_message = {
+					type = msg_political_campaign_bad
+					title = cotc_political_campaign_events.$EVENT_TYPE$.notification.title
+					desc = cotc_political_campaign_events.$EVENT_TYPE$.notification.desc
+					left_icon = scope:candidate
+				}
+			}
+		}
+		scheme_target_title ?= {
+			holder = {
+				add_to_temporary_list = temp_interested_parties
+				diarch ?= { add_to_temporary_list = temp_interested_parties }
+			}
+		}
+		var:legislature ?= {
+			var:legislature_title ?= {
+				holder = {
+					add_to_temporary_list = temp_interested_parties
+					diarch ?= { add_to_temporary_list = temp_interested_parties }
+				}
+			}
+		}
+	}
+	scope:location ?= {
+		owner = {
+			add_to_temporary_list = temp_interested_parties
+			diarch ?= { add_to_temporary_list = temp_interested_parties }
+		}
+	}
+	every_in_list = {
+		name = temp_interested_parties
+		send_interface_message = {
+			type = msg_political_campaign_neutral
+			title = cotc_political_campaign_events.$EVENT_TYPE$.notification.title
+			desc = cotc_political_campaign_events.$EVENT_TYPE$.notification.desc
+			left_icon = scope:candidate
+		}
+	}
+}
+scripted_effect cotc_announce_political_campaign_sabotage = {
+	send_interface_toast = {
+		type = msg_political_campaign_good
+		title = cotc_political_campaign_events.$EVENT_TYPE$.toast.title
+		left_icon = scope:candidate
+		right_icon = scope:rival_candidate
+		custom_tooltip = cotc_political_campaign_events.$EVENT_TYPE$.toast.tt
+	}
+	scope:rival_candidate = {
+		send_interface_toast = {
+			type = msg_political_campaign_bad
+			title = cotc_political_campaign_events.$EVENT_TYPE$.toast.title
+			left_icon = scope:candidate
+			right_icon = scope:rival_candidate
+			custom_tooltip = cotc_political_campaign_events.$EVENT_TYPE$.toast.tt
+		}
+	}
+	scope:rival_campaign = {
+		every_in_list = {
+			variable = rival_campaigns
+			limit = { NOT = { this = scope:campaign } }
+			scheme_owner ?= {
+				send_interface_message = {
+					type = msg_political_campaign_good
+					title = cotc_political_campaign_events.$EVENT_TYPE$.notification.title
+					desc = cotc_political_campaign_events.$EVENT_TYPE$.notification.desc
+					left_icon = scope:candidate
+					right_icon = scope:rival_candidate
+				}
+			}
+		}
+		scheme_target_title ?= {
+			holder = {
+				add_to_temporary_list = temp_interested_parties
+				diarch ?= { add_to_temporary_list = temp_interested_parties }
+			}
+		}
+		var:legislature ?= {
+			var:legislature_title ?= {
+				holder = {
+					add_to_temporary_list = temp_interested_parties
+					diarch ?= { add_to_temporary_list = temp_interested_parties }
+				}
+			}
+		}
+	}
+	scope:location ?= {
+		owner = {
+			add_to_temporary_list = temp_interested_parties
+			diarch ?= { add_to_temporary_list = temp_interested_parties }
+		}
+	}
+	every_in_list = {
+		name = temp_interested_parties
+		send_interface_message = {
+			type = msg_political_campaign_neutral
+			title = cotc_political_campaign_events.$EVENT_TYPE$.notification.title
+			desc = cotc_political_campaign_events.$EVENT_TYPE$.notification.desc
+			left_icon = scope:candidate
+			right_icon = scope:rival_candidate
+		}
+	}
+}
+scripted_effect cotc_hold_campaign_rally = {
+	negative_sociability_stress_gain_effect = { SCALE = 1 }
+	duel = {
+		skill = diplomacy
+		value = scope:rally_difficulty
+		15 = { # Huge rally
+			compare_modifier = {
+				value = scope:duel_value
+				multiplier = 3.5
+				min = -49
+			}
+			min = 5
+			desc = moderate_election_campaign_strength_gain_desc
+			scope:campaign = { change_variable = { name = public_campaign_strength add = moderate_campaign_strength_change } }
+			cotc_announce_political_campaign_progress = { EVENT_TYPE = huge_rally }
+		}
+		50 = { # Large rally
+			desc = minor_election_campaign_strength_gain_desc
+			scope:campaign = { change_variable = { name = public_campaign_strength add = minor_campaign_strength_change } }
+			cotc_announce_political_campaign_progress = { EVENT_TYPE = large_rally }
+		}
+		5 = { # Modest rally
+			compare_modifier = {
+				value = scope:duel_value
+				multiplier = -3.5
+				min = -49
+			}
+			min = 5
+			desc = miniscule_election_campaign_strength_gain_desc
+			scope:campaign = { change_variable = { name = public_campaign_strength add = miniscule_campaign_strength_change } }
+			cotc_announce_political_campaign_progress = { EVENT_TYPE = modest_rally }
+		}
+	}
+}
+cotc_political_campaign_events.100 = { # Hold a campaign rally
+	type = character_event
+	desc = {
+		triggered_desc = {
+			trigger = {
+				exists = scope:legislature
+				scope:candidate = { NOT = { knows_language_of_culture = scope:location.culture } }
+			}
+			desc = cotc_political_campaign_events.100.legislative.language_barrier
+		}
+		triggered_desc = {
+			trigger = {
+				exists = scope:legislature
+				faith_hostility_level = { target = scope:candidate.faith value >= 3 }
+			}
+			desc = cotc_political_campaign_events.100.legislative.very_hostile_audience
+		}
+		triggered_desc = {
+			trigger = {
+				exists = scope:legislature
+				faith_hostility_level = { target = scope:candidate.faith value >= 2 }
+			}
+			desc = cotc_political_campaign_events.100.legislative.hostile_audience
+		}
+		triggered_desc = {
+			trigger = { exists = scope:legislature }
+			desc = cotc_political_campaign_events.100.legislative
+		}
+		triggered_desc = {
+			trigger = { scope:candidate = { NOT = { knows_language_of_culture = scope:location.culture } } }
+			desc = cotc_political_campaign_events.100.executive.language_barrier
+		}
+		triggered_desc = {
+			trigger = { faith_hostility_level = { target = scope:candidate.faith value >= 3 } }
+			desc = cotc_political_campaign_events.100.executive.very_hostile_audience
+		}
+		triggered_desc = {
+			trigger = { faith_hostility_level = { target = scope:candidate.faith value >= 2 } }
+			desc = cotc_political_campaign_events.100.executive.hostile_audience
+		}
+		desc = cotc_political_campaign_events.100.executive
+	}
+	theme = realm
+	
+	right_portrait = {
+		character = ROOT
+		triggered_animation = {
+			trigger = {
+				ROOT = {
+					ai_zeal > ai_honor
+					ai_zeal > ai_greed
+				}
+			}
+			animation = personality_zealous
+		}
+		triggered_animation = {
+			trigger = { ROOT = { ai_honor > ai_greed } }
+			animation = personality_honorable
+		}
+		animation = personality_greedy
+	}
+	
+	trigger = { # Make sure we have all the required scopes
+		exists = scope:campaign # The campaign this rally is supposed to advance
+		exists = scope:location # A planet where we can hold the rally
+		exists = scope:candidate # The candidate (should be ROOT)
+		OR = {
+			gold >= { value = 5 multiply = scope:campaign.political_campaign_cost_modifier }
+			influence >= { value = 10 multiply = scope:campaign.political_campaign_cost_modifier }
+		}
+	}
+	weight_multiplier = {
+		base = 1
+		modifier = { add = diplomacy }
+		ai_value_scaled_factor_modifier = { CHARACTER = ROOT AI_VALUE = ai_sociability SCALE = 1 }
+	}
+	
+	immediate = {
+		save_scope_value_as = {
+			name = rally_difficulty
+			value = {
+				value = 10
+				if = {
+					limit = { scope:candidate = { NOT = { knows_language_of_culture = scope:location.culture } } }
+					add = 20
+				}
+				scope:location.faith = {
+					if = {
+						limit = { faith_hostility_level = { target = scope:candidate.faith value >= 3 } }
+						add = 6
+					}
+					else_if = {
+						limit = { faith_hostility_level = { target = scope:candidate.faith value >= 2 } }
+						add = 4
+					}
+					else_if = {
+						limit = { faith_hostility_level = { target = scope:candidate.faith value >= 1 } }
+						add = 2
+					}
+				}
+				min = 5
+			}
+		}
+	}
+	
+	option = { # Spend gold to host the rally
+		name = cotc_political_campaign_events.100.a
+		trigger = { gold >= { value = 5 multiply = scope:campaign.political_campaign_cost_modifier } }
+		remove_short_term_gold = { value = 5 multiply = scope:campaign.political_campaign_cost_modifier }
+		cotc_hold_campaign_rally = yes
+		ai_chance = {
+			base = 0
+			modifier = { add = diplomacy }
+			modifier = {
+				factor = 2
+				short_term_gold > influence
+			}
+			modifier = {
+				factor = 0
+				NOT = { short_term_gold >= { value = 5 multiply = scope:campaign.political_campaign_cost_modifier } }
+			}
+		}
+	}
+	option = { # Spend influence to host the rally
+		name = cotc_political_campaign_events.100.b
+		trigger = { influence >= { value = 10 multiply = scope:campaign.political_campaign_cost_modifier } }
+		change_influence = { value = -10 multiply = scope:campaign.political_campaign_cost_modifier }
+		cotc_hold_campaign_rally = yes
+		ai_chance = {
+			base = 0
+			modifier = { add = diplomacy }
+			modifier = {
+				factor = 2
+				influence > short_term_gold
+			}
+		}
+	}
+	option = { # Do nothing
+		name = cotc_political_campaign_events.100.c
+		ai_chance = {
+			base = 0
+			modifier = { add = scope:rally_difficulty }
+			ai_value_scaled_factor_modifier = { CHARACTER = ROOT AI_VALUE = ai_sociability SCALE = -1 }
+		}
+	}
+}
+scripted_effect = calculate_skill_political_importance = {
+	save_scope_value_as = {
+		name = military_importance
+		value = {
+			value = 1
+			scope:relevant_title.holder ?= {
+				if = {
+					limit = { average_sub_realm_security_anxiety <= -20 }
+					multiply = 0.5
+				}
+				else_if = {
+					limit = { average_sub_realm_security_anxiety <= 0 }
+					multiply = 0.8
+				}
+				else_if = {
+					limit = { average_sub_realm_security_anxiety >= 40 }
+					multiply = 2
+				}
+				else_if = {
+					limit = { average_sub_realm_security_anxiety >= 20 }
+					multiply = 1.25
+				}
+				if = {
+					limit = { average_sub_realm_hawkishness < 0 }
+					multiply = 0.7
+				}
+				else_if = {
+					limit = { average_sub_realm_hawkishness > 1 }
+					multiply = { value = 1 divide = 0.7 }
+				}
+			}
+		}
+	}
+	save_scope_value_as = {
+		name = economic_importance
+		value = {
+			value = 1
+			scope:relevant_title.holder ?= {
+				if = {
+					limit = { average_sub_realm_economic_anxiety <= -20 }
+					multiply = 0.5
+				}
+				else_if = {
+					limit = { average_sub_realm_economic_anxiety <= 0 }
+					multiply = 0.8
+				}
+				else_if = {
+					limit = { average_sub_realm_economic_anxiety >= 40 }
+					multiply = 2
+				}
+				else_if = {
+					limit = { average_sub_realm_economic_anxiety >= 20 }
+					multiply = 1.25
+				}
+			}
+		}
+	}
+	save_scope_value_as = {
+		name = technological_importance
+		value = {
+			value = 1
+			scope:relevant_title.holder ?= {
+				if = {
+					limit = { average_sub_realm_intellectualism <= -1 }
+					multiply = 0.2
+				}
+				else_if = {
+					limit = { average_sub_realm_intellectualism = 0 }
+					multiply = 0.5
+				}
+				else_if = {
+					limit = { average_sub_realm_intellectualism = 2 }
+					multiply = 1.25
+				}
+				else_if = {
+					limit = { average_sub_realm_intellectualism >= 3 }
+					multiply = 2
+				}
+			}
+		}
+	}
+}
+scripted_effect = cotc_diplomatic_ad_campaign = {
+	duel = {
+		skill = diplomacy
+		value = 12
+		10 = { # Very successful ad
+			compare_modifier = {
+				value = scope:duel_value
+				multiplier = 3.5
+				min = -49
+			}
+			min = 5
+			save_scope_value_as = {
+				name = campaign_strength_change
+				value = { value = moderate_campaign_strength_change multiply = 100 }
+			}
+			desc = variable_election_campaign_strength_change
+			scope:campaign = {
+				change_variable = {
+					name = public_campaign_strength
+					add = { value = scope:campaign_strength_change divide = 100 }
+				}
+			}
+			cotc_announce_political_campaign_progress = { EVENT_TYPE = very_successful_diplomacy_ad }
+		}
+		50 = { # Successful ad
+			save_scope_value_as = {
+				name = campaign_strength_change
+				value = { value = minor_campaign_strength_change multiply = 100 }
+			}
+			desc = variable_election_campaign_strength_change
+			scope:campaign = {
+				change_variable = {
+					name = public_campaign_strength
+					add = { value = scope:campaign_strength_change divide = 100 }
+				}
+			}
+			cotc_announce_political_campaign_progress = { EVENT_TYPE = successful_diplomacy_ad }
+		}
+		10 = { # Unsuccessful ad
+			compare_modifier = {
+				value = scope:duel_value
+				multiplier = -3.5
+				min = -49
+			}
+			min = 5
+			save_scope_value_as = {
+				name = campaign_strength_change
+				value = { value = miniscule_campaign_strength_change multiply = 100 }
+			}
+			desc = variable_election_campaign_strength_change
+			scope:campaign = {
+				change_variable = {
+					name = public_campaign_strength
+					add = { value = scope:campaign_strength_change divide = 100 }
+				}
+			}
+			cotc_announce_political_campaign_progress = { EVENT_TYPE = unsuccessful_diplomacy_ad }
+		}
+	}
+}
+scripted_effect = cotc_martial_ad_campaign = {
+	duel = {
+		skill = martial
+		value = 12
+		10 = { # Very successful ad
+			compare_modifier = {
+				value = scope:duel_value
+				multiplier = 3.5
+				min = -49
+			}
+			min = 5
+			save_scope_value_as = {
+				name = campaign_strength_change
+				value = {
+					value = moderate_campaign_strength_change
+					multiply = scope:military_importance
+					multiply = 100
+				}
+			}
+			desc = variable_election_campaign_strength_change
+			scope:campaign = {
+				change_variable = {
+					name = public_campaign_strength
+					add = { value = scope:campaign_strength_change divide = 100 }
+				}
+			}
+			cotc_announce_political_campaign_progress = { EVENT_TYPE = very_successful_martial_ad }
+		}
+		50 = { # Successful ad
+			save_scope_value_as = {
+				name = campaign_strength_change
+				value = {
+					value = minor_campaign_strength_change
+					multiply = scope:military_importance
+					multiply = 100
+				}
+			}
+			desc = variable_election_campaign_strength_change
+			scope:campaign = {
+				change_variable = {
+					name = public_campaign_strength
+					add = { value = scope:campaign_strength_change divide = 100 }
+				}
+			}
+			cotc_announce_political_campaign_progress = { EVENT_TYPE = successful_martial_ad }
+		}
+		10 = { # Unsuccessful ad
+			compare_modifier = {
+				value = scope:duel_value
+				multiplier = -3.5
+				min = -49
+			}
+			min = 5
+			save_scope_value_as = {
+				name = campaign_strength_change
+				value = {
+					value = miniscule_campaign_strength_change
+					multiply = scope:military_importance
+					multiply = 100
+				}
+			}
+			desc = variable_election_campaign_strength_change
+			scope:campaign = {
+				change_variable = {
+					name = public_campaign_strength
+					add = { value = scope:campaign_strength_change divide = 100 }
+				}
+			}
+			cotc_announce_political_campaign_progress = { EVENT_TYPE = unsuccessful_martial_ad }
+		}
+	}
+}
+scripted_effect = cotc_stewardship_ad_campaign = {
+	duel = {
+		skill = stewardship
+		value = 12
+		10 = { # Very successful ad
+			compare_modifier = {
+				value = scope:duel_value
+				multiplier = 3.5
+				min = -49
+			}
+			min = 5
+			save_scope_value_as = {
+				name = campaign_strength_change
+				value = {
+					value = moderate_campaign_strength_change
+					multiply = scope:economic_importance
+					multiply = 100
+				}
+			}
+			desc = variable_election_campaign_strength_change
+			scope:campaign = {
+				change_variable = {
+					name = public_campaign_strength
+					add = { value = scope:campaign_strength_change divide = 100 }
+				}
+			}
+			cotc_announce_political_campaign_progress = { EVENT_TYPE = very_successful_stewardship_ad }
+		}
+		50 = { # Successful ad
+			save_scope_value_as = {
+				name = campaign_strength_change
+				value = {
+					value = minor_campaign_strength_change
+					multiply = scope:economic_importance
+					multiply = 100
+				}
+			}
+			desc = variable_election_campaign_strength_change
+			scope:campaign = {
+				change_variable = {
+					name = public_campaign_strength
+					add = { value = scope:campaign_strength_change divide = 100 }
+				}
+			}
+			cotc_announce_political_campaign_progress = { EVENT_TYPE = successful_stewardship_ad }
+		}
+		10 = { # Unsuccessful ad
+			compare_modifier = {
+				value = scope:duel_value
+				multiplier = -3.5
+				min = -49
+			}
+			min = 5
+			save_scope_value_as = {
+				name = campaign_strength_change
+				value = {
+					value = miniscule_campaign_strength_change
+					multiply = scope:economic_importance
+					multiply = 100
+				}
+			}
+			desc = variable_election_campaign_strength_change
+			scope:campaign = {
+				change_variable = {
+					name = public_campaign_strength
+					add = { value = scope:campaign_strength_change divide = 100 }
+				}
+			}
+			cotc_announce_political_campaign_progress = { EVENT_TYPE = unsuccessful_stewardship_ad }
+		}
+	}
+}
+scripted_effect = cotc_learning_ad_campaign = {
+	duel = {
+		skill = learning
+		value = 12
+		10 = { # Very successful ad
+			compare_modifier = {
+				value = scope:duel_value
+				multiplier = 3.5
+				min = -49
+			}
+			min = 5
+			save_scope_value_as = {
+				name = campaign_strength_change
+				value = {
+					value = moderate_campaign_strength_change
+					multiply = scope:technological_importance
+					multiply = 100
+				}
+			}
+			desc = variable_election_campaign_strength_change
+			scope:campaign = {
+				change_variable = {
+					name = public_campaign_strength
+					add = { value = scope:campaign_strength_change divide = 100 }
+				}
+			}
+			cotc_announce_political_campaign_progress = { EVENT_TYPE = very_successful_learning_ad }
+		}
+		50 = { # Successful ad
+			save_scope_value_as = {
+				name = campaign_strength_change
+				value = {
+					value = minor_campaign_strength_change
+					multiply = scope:technological_importance
+					multiply = 100
+				}
+			}
+			desc = variable_election_campaign_strength_change
+			scope:campaign = {
+				change_variable = {
+					name = public_campaign_strength
+					add = { value = scope:campaign_strength_change divide = 100 }
+				}
+			}
+			cotc_announce_political_campaign_progress = { EVENT_TYPE = successful_learning_ad }
+		}
+		10 = { # Unsuccessful ad
+			compare_modifier = {
+				value = scope:duel_value
+				multiplier = -3.5
+				min = -49
+			}
+			min = 5
+			save_scope_value_as = {
+				name = campaign_strength_change
+				value = {
+					value = miniscule_campaign_strength_change
+					multiply = scope:technological_importance
+					multiply = 100
+				}
+			}
+			desc = variable_election_campaign_strength_change
+			scope:campaign = {
+				change_variable = {
+					name = public_campaign_strength
+					add = { value = scope:campaign_strength_change divide = 100 }
+				}
+			}
+			cotc_announce_political_campaign_progress = { EVENT_TYPE = unsuccessful_learning_ad }
+		}
+	}
+}
+cotc_political_campaign_events.200 = { # Ad campaign
+	type = character_event
+	desc = {
+		triggered_desc = {
+			trigger = { exists = scope:legislature } # This is a legislative campaign
+			desc = cotc_political_campaign_events.200.legislative
+		}
+		desc = cotc_political_campaign_events.200.executive
+	}
+	theme = realm
+	
+	right_portrait = {
+		character = ROOT
+		triggered_animation = {
+			trigger = {
+				ROOT = {
+					ai_zeal > ai_honor
+					ai_zeal > ai_greed
+				}
+			}
+			animation = personality_zealous
+		}
+		triggered_animation = {
+			trigger = { ROOT = { ai_honor > ai_greed } }
+			animation = personality_honorable
+		}
+		animation = personality_greedy
+	}
+	
+	trigger = { # Make sure we have all the required scopes
+		exists = scope:campaign # The campaign this ad is supposed to advance
+		exists = scope:relevant_title # The executive office or legislature title we're campaigning for
+		exists = scope:candidate # The candidate (should be ROOT)
+		OR = {
+			gold >= { value = 10 multiply = scope:campaign.political_campaign_cost_modifier }
+			influence >= { value = 10 multiply = scope:campaign.political_campaign_cost_modifier }
+		}
+	}
+	weight_multiplier = {
+		base = 1
+		modifier = {
+			add = {
+				value = 0
+				if = {
+					limit = {
+						diplomacy >= stewardship
+						diplomacy >= martial
+						diplomacy >= learning
+					}
+					add = diplomacy
+				}
+				else_if = {
+					limit = {
+						stewardship >= martial
+						stewardship >= learning
+					}
+					add = stewardship
+				}
+				else_if = {
+					limit = { martial >= learning }
+					add = martial
+				}
+				else = { add = learning }
+			}
+		}
+	}
+	immediate = { calculate_skill_political_importance = yes }
+	
+	option = { # Spend gold to advertise your diplomacy
+		trigger = { gold >= { value = 10 multiply = scope:campaign.political_campaign_cost_modifier } }
+		name = cotc_political_campaign_events.200.a
+		remove_short_term_gold = { value = 10 multiply = scope:campaign.political_campaign_cost_modifier }
+		cotc_diplomatic_ad_campaign = yes
+		ai_chance = {
+			base = 0
+			modifier = { add = diplomacy }
+			modifier = {
+				factor = 0
+				short_term_gold < { value = -10 multiply = scope:campaign.political_campaign_cost_modifier }
+			}
+			modifier = {
+				factor = 0
+				short_term_gold < influence
+			}
+		}
+	}
+	option = { # Spend influence to advertise your diplomacy
+		trigger = { influence >= { value = 10 multiply = scope:campaign.political_campaign_cost_modifier } }
+		name = cotc_political_campaign_events.200.b
+		change_influence = { value = -10 multiply = scope:campaign.political_campaign_cost_modifier }
+		cotc_diplomatic_ad_campaign = yes
+		ai_chance = {
+			base = 0
+			modifier = { add = diplomacy }
+			modifier = {
+				factor = 0
+				influence < short_term_gold
+			}
+		}
+	}
+	option = { # Spend gold to advertise your stewardship
+		trigger = { gold >= { value = -10 multiply = scope:campaign.political_campaign_cost_modifier } }
+		name = cotc_political_campaign_events.200.c
+		remove_short_term_gold = { value = -10 multiply = scope:campaign.political_campaign_cost_modifier }
+		cotc_stewardship_ad_campaign = yes
+		ai_chance = {
+			base = 0
+			modifier = { add = stewardship }
+			modifier = { factor = scope:economic_importance }
+			modifier = {
+				factor = 0
+				short_term_gold < { value = -10 multiply = scope:campaign.political_campaign_cost_modifier }
+			}
+			modifier = {
+				factor = 0
+				short_term_gold < influence
+			}
+		}
+	}
+	option = { # Spend influence to advertise your stewardship
+		trigger = { influence >= { value = -10 multiply = scope:campaign.political_campaign_cost_modifier } }
+		name = cotc_political_campaign_events.200.d
+		change_influence = { value = -10 multiply = scope:campaign.political_campaign_cost_modifier }
+		cotc_stewardship_ad_campaign = yes
+		ai_chance = {
+			base = 0
+			modifier = { add = stewardship }
+			modifier = { factor = scope:economic_importance }
+			modifier = {
+				factor = 0
+				influence < short_term_gold
+			}
+		}
+	}
+	option = { # Spend gold to advertise your martial
+		trigger = { gold >= { value = -10 multiply = scope:campaign.political_campaign_cost_modifier } }
+		name = cotc_political_campaign_events.200.e
+		remove_short_term_gold = { value = -10 multiply = scope:campaign.political_campaign_cost_modifier }
+		cotc_martial_ad_campaign = yes
+		ai_chance = {
+			base = 0
+			modifier = { add = martial }
+			modifier = { factor = scope:military_importance }
+			modifier = {
+				factor = 0
+				short_term_gold < { value = -10 multiply = scope:campaign.political_campaign_cost_modifier }
+			}
+			modifier = {
+				factor = 0
+				short_term_gold < influence
+			}
+		}
+	}
+	option = { # Spend influence to advertise your martial
+		trigger = { influence >= { value = -10 multiply = scope:campaign.political_campaign_cost_modifier } }
+		name = cotc_political_campaign_events.200.f
+		change_influence = { value = -10 multiply = scope:campaign.political_campaign_cost_modifier }
+		cotc_martial_ad_campaign = yes
+		ai_chance = {
+			base = 0
+			modifier = { add = martial }
+			modifier = { factor = scope:military_importance }
+			modifier = {
+				factor = 0
+				influence < short_term_gold
+			}
+		}
+	}
+	option = { # Spend gold to advertise your learning
+		trigger = { gold >= { value = -10 multiply = scope:campaign.political_campaign_cost_modifier } }
+		name = cotc_political_campaign_events.200.g
+		remove_short_term_gold = { value = -10 multiply = scope:campaign.political_campaign_cost_modifier }
+		cotc_learning_ad_campaign = yes
+		ai_chance = {
+			base = 0
+			modifier = { add = learning }
+			modifier = { factor = scope:technological_importance }
+			modifier = {
+				factor = 0
+				short_term_gold < { value = -10 multiply = scope:campaign.political_campaign_cost_modifier }
+			}
+			modifier = {
+				factor = 0
+				short_term_gold < influence
+			}
+		}
+	}
+	option = { # Spend influence to advertise your learning
+		trigger = { influence >= { value = -10 multiply = scope:campaign.political_campaign_cost_modifier } }
+		name = cotc_political_campaign_events.200.h
+		change_influence = { value = -10 multiply = scope:campaign.political_campaign_cost_modifier }
+		cotc_learning_ad_campaign = yes
+		ai_chance = {
+			base = 0
+			modifier = { add = learning }
+			modifier = { factor = scope:technological_importance }
+			modifier = {
+				factor = 0
+				influence < short_term_gold
+			}
+		}
+	}
+	option = { # No ad campaign
+		name = cotc_political_campaign_events.200.i
+		ai_chance = { base = 0 }
+	}
+}
+scripted_effect = cotc_diplomatic_smear_campaign = {
+	duel = {
+		skill = intrigue
+		value = scope:rival_diplomacy
+		10 = { # Very successful ad
+			compare_modifier = {
+				value = scope:duel_value
+				multiplier = 3.5
+				min = -49
+			}
+			min = 5
+			save_scope_value_as = {
+				name = campaign_strength_change
+				value = { value = moderate_campaign_strength_change multiply = 100 }
+			}
+			desc = variable_election_campaign_strength_loss_desc
+			scope:rival_campaign = {
+				change_variable = {
+					name = public_campaign_strength
+					subtract = { value = scope:campaign_strength_change divide = 100 }
+				}
+			}
+			cotc_announce_political_campaign_sabotage = { EVENT_TYPE = very_successful_diplomacy_smear }
+		}
+		50 = { # Successful ad
+			save_scope_value_as = {
+				name = campaign_strength_change
+				value = { value = minor_campaign_strength_change multiply = 100 }
+			}
+			desc = variable_election_campaign_strength_loss_desc
+			scope:rival_campaign = {
+				change_variable = {
+					name = public_campaign_strength
+					subtract = { value = scope:campaign_strength_change divide = 100 }
+				}
+			}
+			cotc_announce_political_campaign_sabotage = { EVENT_TYPE = successful_diplomacy_smear }
+		}
+		10 = { # Unsuccessful ad
+			compare_modifier = {
+				value = scope:duel_value
+				multiplier = -3.5
+				min = -49
+			}
+			min = 5
+			save_scope_value_as = {
+				name = campaign_strength_change
+				value = { value = miniscule_campaign_strength_change multiply = 100 }
+			}
+			desc = variable_election_campaign_strength_loss_desc
+			scope:rival_campaign = {
+				change_variable = {
+					name = public_campaign_strength
+					subtract = { value = scope:campaign_strength_change divide = 100 }
+				}
+			}
+			cotc_announce_political_campaign_sabotage = { EVENT_TYPE = unsuccessful_diplomacy_smear }
+		}
+	}
+}
+scripted_effect = cotc_martial_smear_campaign = {
+	duel = {
+		skill = intrigue
+		value = scope:rival_martial
+		10 = { # Very successful ad
+			compare_modifier = {
+				value = scope:duel_value
+				multiplier = 3.5
+				min = -49
+			}
+			min = 5
+			save_scope_value_as = {
+				name = campaign_strength_change
+				value = { value = moderate_campaign_strength_change multiply = 100 }
+			}
+			desc = variable_election_campaign_strength_loss_desc
+			scope:rival_campaign = {
+				change_variable = {
+					name = public_campaign_strength
+					subtract = { value = scope:campaign_strength_change divide = 100 }
+				}
+			}
+			cotc_announce_political_campaign_sabotage = { EVENT_TYPE = very_successful_martial_smear }
+		}
+		50 = { # Successful ad
+			save_scope_value_as = {
+				name = campaign_strength_change
+				value = { value = minor_campaign_strength_change multiply = 100 }
+			}
+			desc = variable_election_campaign_strength_loss_desc
+			scope:rival_campaign = {
+				change_variable = {
+					name = public_campaign_strength
+					subtract = { value = scope:campaign_strength_change divide = 100 }
+				}
+			}
+			cotc_announce_political_campaign_sabotage = { EVENT_TYPE = successful_martial_smear }
+		}
+		10 = { # Unsuccessful ad
+			compare_modifier = {
+				value = scope:duel_value
+				multiplier = -3.5
+				min = -49
+			}
+			min = 5
+			save_scope_value_as = {
+				name = campaign_strength_change
+				value = { value = miniscule_campaign_strength_change multiply = 100 }
+			}
+			desc = variable_election_campaign_strength_loss_desc
+			scope:rival_campaign = {
+				change_variable = {
+					name = public_campaign_strength
+					subtract = { value = scope:campaign_strength_change divide = 100 }
+				}
+			}
+			cotc_announce_political_campaign_sabotage = { EVENT_TYPE = unsuccessful_martial_smear }
+		}
+	}
+}
+scripted_effect = cotc_stewardship_smear_campaign = {
+	duel = {
+		skill = intrigue
+		value = scope:rival_stewardship
+		10 = { # Very successful ad
+			compare_modifier = {
+				value = scope:duel_value
+				multiplier = 3.5
+				min = -49
+			}
+			min = 5
+			save_scope_value_as = {
+				name = campaign_strength_change
+				value = { value = moderate_campaign_strength_change multiply = 100 }
+			}
+			desc = variable_election_campaign_strength_loss_desc
+			scope:rival_campaign = {
+				change_variable = {
+					name = public_campaign_strength
+					subtract = { value = scope:campaign_strength_change divide = 100 }
+				}
+			}
+			cotc_announce_political_campaign_sabotage = { EVENT_TYPE = very_successful_stewardship_smear }
+		}
+		50 = { # Successful ad
+			save_scope_value_as = {
+				name = campaign_strength_change
+				value = { value = minor_campaign_strength_change multiply = 100 }
+			}
+			desc = variable_election_campaign_strength_loss_desc
+			scope:rival_campaign = {
+				change_variable = {
+					name = public_campaign_strength
+					subtract = { value = scope:campaign_strength_change divide = 100 }
+				}
+			}
+			cotc_announce_political_campaign_sabotage = { EVENT_TYPE = successful_stewardship_smear }
+		}
+		10 = { # Unsuccessful ad
+			compare_modifier = {
+				value = scope:duel_value
+				multiplier = -3.5
+				min = -49
+			}
+			min = 5
+			save_scope_value_as = {
+				name = campaign_strength_change
+				value = { value = miniscule_campaign_strength_change multiply = 100 }
+			}
+			desc = variable_election_campaign_strength_loss_desc
+			scope:rival_campaign = {
+				change_variable = {
+					name = public_campaign_strength
+					subtract = { value = scope:campaign_strength_change divide = 100 }
+				}
+			}
+			cotc_announce_political_campaign_sabotage = { EVENT_TYPE = unsuccessful_stewardship_smear }
+		}
+	}
+}
+scripted_effect = cotc_learning_smear_campaign = {
+	duel = {
+		skill = intrigue
+		value = scope:rival_learning
+		10 = { # Very successful ad
+			compare_modifier = {
+				value = scope:duel_value
+				multiplier = 3.5
+				min = -49
+			}
+			min = 5
+			save_scope_value_as = {
+				name = campaign_strength_change
+				value = { value = moderate_campaign_strength_change multiply = 100 }
+			}
+			desc = variable_election_campaign_strength_loss_desc
+			scope:rival_campaign = {
+				change_variable = {
+					name = public_campaign_strength
+					subtract = { value = scope:campaign_strength_change divide = 100 }
+				}
+			}
+			cotc_announce_political_campaign_sabotage = { EVENT_TYPE = very_successful_learning_smear }
+		}
+		50 = { # Successful ad
+			save_scope_value_as = {
+				name = campaign_strength_change
+				value = { value = minor_campaign_strength_change multiply = 100 }
+			}
+			desc = variable_election_campaign_strength_loss_desc
+			scope:rival_campaign = {
+				change_variable = {
+					name = public_campaign_strength
+					subtract = { value = scope:campaign_strength_change divide = 100 }
+				}
+			}
+			cotc_announce_political_campaign_sabotage = { EVENT_TYPE = successful_learning_smear }
+		}
+		10 = { # Unsuccessful ad
+			compare_modifier = {
+				value = scope:duel_value
+				multiplier = -3.5
+				min = -49
+			}
+			min = 5
+			save_scope_value_as = {
+				name = campaign_strength_change
+				value = { value = miniscule_campaign_strength_change multiply = 100 }
+			}
+			desc = variable_election_campaign_strength_loss_desc
+			scope:rival_campaign = {
+				change_variable = {
+					name = public_campaign_strength
+					subtract = { value = scope:campaign_strength_change divide = 100 }
+				}
+			}
+			cotc_announce_political_campaign_sabotage = { EVENT_TYPE = unsuccessful_learning_smear }
+		}
+	}
+}
+cotc_political_campaign_events.300 = { # Smear campaign against your biggest rival
+	type = character_event
+	desc = {
+		triggered_desc = {
+			trigger = { exists = scope:legislature } # This is a legislative campaign
+			desc = cotc_political_campaign_events.300.legislative
+		}
+		desc = cotc_political_campaign_events.300.executive
+	}
+	theme = realm
+	
+	right_portrait = {
+		character = ROOT
+		triggered_animation = {
+			trigger = {
+				ROOT = {
+					ai_zeal > ai_honor
+					ai_zeal > ai_greed
+				}
+			}
+			animation = personality_zealous
+		}
+		triggered_animation = {
+			trigger = { ROOT = { ai_honor > ai_greed } }
+			animation = personality_honorable
+		}
+		animation = personality_greedy
+	}
+	
+	left_portrait = {
+		character = scope:rival_candidate
+		triggered_animation = {
+			trigger = {
+				scope:rival_candidate = {
+					ai_zeal > ai_honor
+					ai_zeal > ai_greed
+				}
+			}
+			animation = personality_zealous
+		}
+		triggered_animation = {
+			trigger = { scope:rival_candidate = { ai_honor > ai_greed } }
+			animation = personality_honorable
+		}
+		animation = personality_greedy
+	}
+	
+	trigger = { # Make sure we have all the required scopes
+		exists = scope:campaign # The campaign this ad is supposed to advance
+		exists = scope:relevant_title # The executive office or legislature title we're campaigning for
+		exists = scope:candidate # The candidate (should be ROOT)
+		exists = scope:rival_candidate # The rival candidate being smeared
+		OR = {
+			gold >= { value = -10 multiply = scope:campaign.political_campaign_cost_modifier }
+			influence >= { value = -10 multiply = scope:campaign.political_campaign_cost_modifier }
+		}
+	}
+	weight_multiplier = {
+		base = 1
+		modifier = { add = intrigue }
+	}
+	immediate = {
+		calculate_skill_political_importance = yes
+		scope:rival_candidate = {
+			save_scope_value_as = { name = rival_diplomacy value = diplomacy }
+			save_scope_value_as = { name = rival_martial value = martial }
+			save_scope_value_as = { name = rival_stewardship value = stewardship }
+			save_scope_value_as = { name = rival_learning value = learning }
+			random_scheme = {
+				limit = {
+					is_political_campaign_scheme = yes
+					scheme_target_title ?= { this = scope:campaign.scheme_target_title }
+					trigger_if = {
+						limit = { has_variable = legislature }
+						var:legislature ?= { var:legislature_title = scope:relevant_title }
+					}
+				}
+				save_scope_value_as = rival_campaign
+			}
+		}
+	}
+	option = { # Spend gold to smear your rival's diplomacy
+		trigger = { gold >= { value = -10 multiply = scope:campaign.political_campaign_cost_modifier } }
+		name = cotc_political_campaign_events.300.a
+		remove_short_term_gold = { value = -10 multiply = scope:campaign.political_campaign_cost_modifier }
+		cotc_diplomatic_smear_campaign = yes
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = {
+					value = scope:rival_martial
+					add = scope:rival_stewardship
+					add = scope:rival_learning
+					divide = 3
+				}
+			}
+			modifier = {
+				factor = 0
+				short_term_gold < { value = -10 multiply = scope:campaign.political_campaign_cost_modifier }
+			}
+			modifier = {
+				factor = 0
+				short_term_gold < influence
+			}
+		}
+	}
+	option = { # Spend influence to smear your rival's diplomacy
+		trigger = { influence >= { value = -10 multiply = scope:campaign.political_campaign_cost_modifier } }
+		name = cotc_political_campaign_events.200.b
+		change_influence = { value = -10 multiply = scope:campaign.political_campaign_cost_modifier }
+		cotc_diplomatic_smear_campaign = yes
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = {
+					value = scope:rival_martial
+					add = scope:rival_stewardship
+					add = scope:rival_learning
+					divide = 3
+				}
+			}
+			modifier = {
+				factor = 0
+				influence < short_term_gold
+			}
+		}
+	}
+	option = { # Spend gold to smear your rival's stewardship
+		trigger = { gold >= { value = -10 multiply = scope:campaign.political_campaign_cost_modifier } }
+		name = cotc_political_campaign_events.300.c
+		remove_short_term_gold = { value = -10 multiply = scope:campaign.political_campaign_cost_modifier }
+		cotc_stewardship_smear_campaign = yes
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = {
+					value = scope:rival_martial
+					add = scope:rival_diplomacy
+					add = scope:rival_learning
+					divide = 3
+				}
+			}
+			modifier = { factor = scope:economic_importance }
+			modifier = {
+				factor = 0
+				short_term_gold < { value = -10 multiply = scope:campaign.political_campaign_cost_modifier }
+			}
+			modifier = {
+				factor = 0
+				short_term_gold < influence
+			}
+		}
+	}
+	option = { # Spend influence to smear your rival's stewardship
+		trigger = { influence >= { value = -10 multiply = scope:campaign.political_campaign_cost_modifier } }
+		name = cotc_political_campaign_events.200.d
+		change_influence = { value = -10 multiply = scope:campaign.political_campaign_cost_modifier }
+		cotc_stewardship_smear_campaign = yes
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = {
+					value = scope:rival_martial
+					add = scope:rival_diplomacy
+					add = scope:rival_learning
+					divide = 3
+				}
+			}
+			modifier = { factor = scope:economic_importance }
+			modifier = {
+				factor = 0
+				influence < short_term_gold
+			}
+		}
+	}
+	option = { # Spend gold to smear your rival's martial
+		trigger = { gold >= { value = -10 multiply = scope:campaign.political_campaign_cost_modifier } }
+		name = cotc_political_campaign_events.300.e
+		remove_short_term_gold = { value = -10 multiply = scope:campaign.political_campaign_cost_modifier }
+		cotc_martial_smear_campaign = yes
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = {
+					value = scope:rival_stewardship
+					add = scope:rival_diplomacy
+					add = scope:rival_learning
+					divide = 3
+				}
+			}
+			modifier = { factor = scope:military_importance }
+			modifier = {
+				factor = 0
+				short_term_gold < { value = -10 multiply = scope:campaign.political_campaign_cost_modifier }
+			}
+			modifier = {
+				factor = 0
+				short_term_gold < influence
+			}
+		}
+	}
+	option = { # Spend influence to smear your rival's martial
+		trigger = { influence >= { value = -10 multiply = scope:campaign.political_campaign_cost_modifier } }
+		name = cotc_political_campaign_events.200.f
+		change_influence = { value = -10 multiply = scope:campaign.political_campaign_cost_modifier }
+		cotc_martial_smear_campaign = yes
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = {
+					value = scope:rival_stewardship
+					add = scope:rival_diplomacy
+					add = scope:rival_learning
+					divide = 3
+				}
+			}
+			modifier = { factor = scope:military_importance }
+			modifier = {
+				factor = 0
+				influence < short_term_gold
+			}
+		}
+	}
+	option = { # Spend gold to smear your rival's learning
+		trigger = { gold >= { value = -10 multiply = scope:campaign.political_campaign_cost_modifier } }
+		name = cotc_political_campaign_events.300.g
+		remove_short_term_gold = { value = -10 multiply = scope:campaign.political_campaign_cost_modifier }
+		cotc_learning_smear_campaign = yes
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = {
+					value = scope:rival_stewardship
+					add = scope:rival_diplomacy
+					add = scope:rival_martial
+					divide = 3
+				}
+			}
+			modifier = { factor = scope:technological_importance }
+			modifier = {
+				factor = 0
+				short_term_gold < { value = -10 multiply = scope:campaign.political_campaign_cost_modifier }
+			}
+			modifier = {
+				factor = 0
+				short_term_gold < influence
+			}
+		}
+	}
+	option = { # Spend influence to smear your rival's learning
+		trigger = { influence >= { value = -10 multiply = scope:campaign.political_campaign_cost_modifier } }
+		name = cotc_political_campaign_events.200.h
+		change_influence = { value = -10 multiply = scope:campaign.political_campaign_cost_modifier }
+		cotc_learning_smear_campaign = yes
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = {
+					value = scope:rival_stewardship
+					add = scope:rival_diplomacy
+					add = scope:rival_martial
+					divide = 3
+				}
+			}
+			modifier = { factor = scope:technological_importance }
+			modifier = {
+				factor = 0
+				influence < short_term_gold
+			}
+		}
+	}
+	option = { # No ad campaign
+		name = cotc_political_campaign_events.200.i
+		ai_chance = { base = 0 }
+	}
+}
+cotc_political_campaign_events.400 = { # Endorsement by a major interest group
+	type = character_event
+	desc = {
+		triggered_desc = {
+			trigger = { exists = scope:legislature } # This is a legislative campaign
+			desc = cotc_political_campaign_events.400.legislative
+		}
+		desc = cotc_political_campaign_events.400.executive
+	}
+	theme = realm
+	
+	right_portrait = {
+		character = ROOT
+		triggered_animation = {
+			trigger = {
+				ROOT = {
+					ai_zeal > ai_honor
+					ai_zeal > ai_greed
+				}
+			}
+			animation = personality_zealous
+		}
+		triggered_animation = {
+			trigger = { ROOT = { ai_honor > ai_greed } }
+			animation = personality_honorable
+		}
+		animation = personality_greedy
+	}
+	
+	trigger = { # Make sure we have all the required scopes
+		exists = scope:campaign # The campaign this endorsement is supposed to advance
+		trigger_if = {
+			limit = { exists = scope:legislature }
+			scope:legislature = { exists = var:legislature_title }
+		}
+		trigger_else = { scope:campaign ?= { exists = scheme_target_title } }
+		exists = scope:candidate # The candidate (should be ROOT)
+	}
+	weight_multiplier = {
+		base = -1
+		factor = { add = piety_level }
+		factor = { add = prestige_level }
+	}
+	immediate = {
+		if = {
+			limit = { exists = scope:legislature }
+			set_interest_group = { TITLE = scope:legislature.var:legislature_title }
+		}
+		else = { set_interest_group = { TITLE = scope:campaign.scheme_target_title } }
+	}
+	option = {
+		name = cotc_political_campaign_events.400.a
+		desc = major_election_campaign_strength_gain_desc
+		scope:campaign = { change_variable = { name = public_campaign_strength add = major_campaign_strength_change } }
+		cotc_announce_political_campaign_progress = { EVENT_TYPE = major_interest_group_endorsement }
+	}
+}
+cotc_political_campaign_events.500 = { # Endorsement by a minor interest group
+	type = character_event
+	desc = {
+		triggered_desc = {
+			trigger = { exists = scope:legislature } # This is a legislative campaign
+			desc = cotc_political_campaign_events.500.legislative
+		}
+		desc = cotc_political_campaign_events.500.executive
+	}
+	theme = realm
+	
+	right_portrait = {
+		character = ROOT
+		triggered_animation = {
+			trigger = {
+				ROOT = {
+					ai_zeal > ai_honor
+					ai_zeal > ai_greed
+				}
+			}
+			animation = personality_zealous
+		}
+		triggered_animation = {
+			trigger = { ROOT = { ai_honor > ai_greed } }
+			animation = personality_honorable
+		}
+		animation = personality_greedy
+	}
+	
+	trigger = { # Make sure we have all the required scopes
+		exists = scope:campaign # The campaign this endorsement is supposed to advance
+		exists = scope:location # The location where the endorsing group is based
+		exists = scope:candidate # The candidate (should be ROOT)
+	}
+	weight_multiplier = {
+		base = 10
+	}
+	immediate = { set_interest_group = { TITLE = scope:location } }
+	option = {
+		name = cotc_political_campaign_events.500.a
+		desc = miniscule_election_campaign_strength_gain_desc
+		scope:campaign = { change_variable = { name = public_campaign_strength add = miniscule_campaign_strength_change } }
+		cotc_announce_political_campaign_progress = { EVENT_TYPE = minor_interest_group_endorsement }
+	}
+}
+
+cotc_political_campaign_events.1000 = { # Legislative campaign endorsement accepted
+	type = letter_event
+	opening = { desc = char_interaction.0010.opening }
+	desc = cotc_political_campaign_events.1000.desc
+	
+	sender = scope:recipient
+	
+	immediate = {
+		show_as_tooltip = {
+			scope:recipient = {
+				endorse_legislator_campaign_effect = { CAMPAIGN = scope:campaign ENDORSER = scope:actor }
+				if = {
+					limit = {
+						scope:pay_off_hook = yes
+						has_usable_hook = scope:actor
+					}
+					use_hook = scope:actor
+				}
+			}
+			if = {
+				limit = {
+					scope:gain_favor = yes
+					scope:actor = { can_add_hook = { target = scope:recipient type = favor_hook } }
+				}
+				scope:actor = { add_hook_no_toast = { type = favor_hook target = scope:recipient } }
+			}
+		}
+	}
+
+	option = {
+		name = cotc_political_campaign_events.1000.a
+	}
+}
+char_interaction.1010 = { # Legislative campaign endorsement refused
+	type = letter_event
+	opening = { desc = char_interaction.0001.opening }
+	desc = char_interaction.1010.desc
+		
+	sender = {
+		character = scope:recipient
+		animation = dismissal
+	}
+
+	option = {
+		name = char_interaction.1010.a
+	}
+}

@@ -1,0 +1,147 @@
+﻿legislature = {
+	situation_group_type = legislatures
+	gui_window_name = window_legislature
+	
+	sub_regions = {
+		legislature_title_region = { map_color = rgb{255 0 0} }
+	}
+	participant_groups = {
+		ruler = {
+			icon = "gfx/interface/icons/flat_icons/prestige.dds"
+			require_realm_in_sub_region = yes
+			auto_add_rulers = yes
+			map_color = rgb{ 250 100 0 }
+			is_character_valid = { scope:situation.var:legislature_title.holder ?= { this = ROOT } }
+		}
+		head_of_government = {
+			icon = "gfx/interface/icons/flat_icons/prestige.dds"
+			require_realm_in_sub_region = yes
+			auto_add_landless_rulers = yes
+			auto_add_rulers = yes
+			map_color = rgb{ 100 250 100 }
+			is_character_valid = {
+				scope:situation.var:legislature_title.holder ?= {
+					trigger_if = {
+						limit = { has_diarchy_type = cotc_premiership }
+						diarch = { this = ROOT }
+					}
+					trigger_else = {
+						this = ROOT
+					}
+				}
+			}
+		}
+		vassals = {
+			icon = "gfx/interface/icons/flat_icons/prestige.dds"
+			require_realm_in_sub_region = yes
+			auto_add_rulers = yes
+			auto_add_landless_rulers = yes
+			map_color = rgb{ 150 200 250 }
+			is_character_valid = { scope:situation.var:legislature_title.holder ?= { is_liege_or_above_of = ROOT } }
+		}
+	}
+	start_phase = legislature_election
+	phases = {
+		legislature_election = {
+			future_phases = {
+				legislature_in_session = {
+					takeover_type = duration
+					takeover_duration = { months = 3 }
+				}
+			}
+			
+			on_start = {
+				# Set the timer for the next election
+				set_variable = { name = months_in_session value = 0 }
+				# Generate the list of ridings for this election
+				generate_riding_list_effect = yes
+				# Announce election
+				every_participant_group = { every_situation_group_participant = { trigger_event = legislature_events.1 } }
+				# Everyone who is elible for the election should consider running for it
+				save_scope_as = legislature
+				every_in_list = {
+					variable = ridings
+					save_scope_as = riding
+					scope:legislature = {
+						random_in_list = {
+							variable = legislators
+							limit = { var:riding ?= { this = scope:riding } }
+							trigger_event = { id = cotc_legislative_campaign_events.50 days = { 1 5 } }
+						}
+					}
+					if = {
+						limit = { tier = county }
+						plan_for_general_election_effect = { RIDING = THIS LEGISLATURE = scope:situation }
+					}
+					else = {
+						every_de_jure_county = {
+							limit = { target_is_de_facto_liege_or_above = scope:temp_legislature.var:legislature_title }
+							plan_for_general_election_effect = { RIDING = PREV LEGISLATURE = scope:situation }
+						}
+					}
+				}
+			}
+			on_end = {
+				scope:situation = {
+					# Remember incumbents
+					every_in_list = {
+						variable = legislators
+						add_to_list = incumbents
+					}
+					# Elect new senators
+					clear_variable_list = legislators
+					every_in_list = {
+						variable = ridings
+						hold_legislative_election_effect = { LEGISLATURE = scope:situation }
+					}
+					every_participant_group = {
+						every_situation_group_participant = {
+							recalculate_participant_group = scope:situation
+						}
+					}
+				}
+			}
+		}
+		legislature_in_session = {
+			parameters = {
+				display_time_until_election = yes
+			}
+			future_phases = {
+				legislature_election = {
+					takeover_type = points
+					takeover_points = 1
+					catalysts = {
+						catalyst_term_expired = 1
+						catalyst_no_confidence = 1
+					}
+				}
+				legislature_suspended = {
+					takeover_type = points
+					takeover_points = 1
+					catalysts = {
+						catalyst_coup = 1
+						catalyst_civil_war = 1
+					}
+				}
+			}
+		}
+		legislature_suspended = {
+			future_phases = {
+				legislature_election = {
+					takeover_type = points
+					takeover_points = 1
+					catalysts = {
+						catalyst_elections_forced = 1
+					}
+				}
+				legislature_in_session = {
+					takeover_type = points
+					takeover_points = 1
+					catalysts = {
+						catalyst_legislature_restored = 1
+					}
+				}
+			}
+		}
+	}
+}

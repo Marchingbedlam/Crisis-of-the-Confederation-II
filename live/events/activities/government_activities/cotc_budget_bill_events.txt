@@ -1,0 +1,615 @@
+﻿namespace = cotc_budget_bill_events
+
+# Everyone has arrived for a budget session, let's consider the new budget!
+cotc_budget_bill_events.100 = {
+	type = activity_event
+	desc = cotc_budget_bill_events.100.desc
+	
+	theme = realm
+	override_background = council_chamber
+	
+	right_portrait = {
+		character = ROOT
+		animation = thinking
+	}
+	left_portrait = {
+		character = scope:host
+		animation = idle
+	}
+	
+	immediate = { set_variable = event_did_fire }
+	
+	# Intend to support the bill
+	option = {
+		name = cotc_budget_bill_events.100.a
+		scope:activity = {
+			add_to_guest_subset = {
+				name = bill_supporters
+				target = ROOT
+			}
+		}
+		vote_for_bill_strength_effect = yes
+		hidden_effect = {
+			save_scope_as = voter
+			scope:activity = {
+				add_activity_log_entry = {
+					key = voted_for_bill
+					tags = { positive intent }
+					character = scope:voter
+					custom_tooltip = voted_for_bill_intent_desc
+				}
+			}
+			scope:host = {
+				send_interface_message = {
+					type = msg_vote_change_good
+					title = cotc_budget_bill_events.100.votes_for.tt
+					desc = cotc_budget_bill_events.100.votes_for.desc
+					left_icon = scope:voter
+				}
+			}
+		}
+		ai_chance = {
+			base = 50
+			# This bill does not support the status quo (well, it shouldn't)
+			modifier = {
+				factor = 0
+				has_activity_intent = maintain_status_quo_intent
+			}
+			# I want to hold out for political favors
+			modifier = {
+				factor = 0
+				has_activity_intent = trade_favors_intent
+			}
+			# I just want to block any bills, period
+			modifier = {
+				factor = 0
+				has_activity_intent = block_bill_intent
+			}
+			# I want to balance the budget, and this bill is overspendingg
+			modifier = {
+				factor = 0
+				OR = {
+					has_activity_intent = balance_budget_intent
+					has_activity_intent = balance_budget_maintain_military_intent
+					has_activity_intent = balance_budget_maintain_ministry_intent
+					has_activity_intent = balance_budget_maintain_salary_intent
+				}
+				scope:activity.proposed_total_budget > 100
+			}
+			# This budget makes cuts I don't like
+			modifier = {
+				factor = 0
+				has_activity_intent = balance_budget_maintain_military_intent
+				scope:activity.var:proposed_military_budget < scope:activity.var:ruler.current_military_budget
+			}
+			modifier = {
+				factor = 0
+				has_activity_intent = balance_budget_maintain_ministry_intent
+				scope:activity.var:proposed_ministry_budget < scope:activity.var:ruler.current_ministry_budget
+			}
+			modifier = {
+				factor = 0
+				has_activity_intent = balance_budget_maintain_salary_intent
+				scope:activity.var:proposed_salary_budget < scope:activity.var:ruler.current_salary_budget
+			}
+			# I want spending increases this budget doesn't provide
+			modifier = {
+				factor = 0
+				has_activity_intent = increase_military_budget_intent
+				scope:activity.var:proposed_military_budget <= scope:activity.var:ruler.current_military_budget
+			}
+			modifier = {
+				factor = 0
+				has_activity_intent = increase_ministry_budget_intent
+				scope:activity.var:proposed_ministry_budget <= scope:activity.var:ruler.current_ministry_budget
+			}
+			modifier = {
+				factor = 0
+				has_activity_intent = increase_salary_budget_intent
+				scope:activity.var:proposed_salary_budget <= scope:activity.var:ruler.current_salary_budget
+			}
+		}
+	}
+	# Intend to oppose the bill
+	option = {
+		name = cotc_budget_bill_events.100.b
+		scope:activity = {
+			add_to_guest_subset = {
+				name = bill_opponents
+				target = ROOT
+			}
+		}
+		vote_against_bill_strength_effect = yes
+		hidden_effect = {
+			save_scope_as = voter
+			scope:activity = {
+				add_activity_log_entry = {
+					key = voted_against_bill
+					tags = { negative intent }
+					character = scope:voter
+					custom_tooltip = voted_against_bill_intent_desc
+				}
+			}
+			scope:host = {
+				send_interface_message = {
+					type = msg_vote_change_bad
+					title = cotc_budget_bill_events.100.votes_against.tt
+					desc = cotc_budget_bill_events.100.votes_against.desc
+					left_icon = scope:voter
+				}
+			}
+		}
+		ai_chance = {
+			base = 50
+			# I am a rubber stamp
+			modifier = {
+				factor = 0
+				has_activity_intent = support_bill_intent
+			}
+			# This is a balanced budget
+			modifier = {
+				factor = 0
+				OR = {
+					has_activity_intent = balance_budget_intent
+					has_activity_intent = balance_budget_maintain_military_intent
+					has_activity_intent = balance_budget_maintain_ministry_intent
+					has_activity_intent = balance_budget_maintain_salary_intent
+				}
+				NOR = {
+					has_activity_intent = balance_budget_maintain_military_intent
+					scope:activity.var:proposed_military_budget < scope:activity.var:ruler.current_military_budget
+				}
+				NOR = {
+					has_activity_intent = balance_budget_maintain_ministry_intent
+					scope:activity.var:proposed_ministry_budget < scope:activity.var:ruler.current_ministry_budget
+				}
+				NOR = {
+					has_activity_intent = balance_budget_maintain_salary_intent
+					scope:activity.var:proposed_salary_budget < scope:activity.var:ruler.current_salary_budget
+				}
+				scope:activity.proposed_total_budget <= 100
+			}
+			# This budget increases spending in a way I like
+			modifier = {
+				factor = 0
+				has_activity_intent = increase_military_budget_intent
+				scope:activity.var:proposed_military_budget > scope:activity.var:ruler.current_military_budget
+			}
+			modifier = {
+				factor = 0
+				has_activity_intent = increase_ministry_budget_intent
+				scope:activity.var:proposed_ministry_budget > scope:activity.var:ruler.current_ministry_budget
+			}
+			modifier = {
+				factor = 0
+				has_activity_intent = increase_salary_budget_intent
+				scope:activity.var:proposed_salary_budget > scope:activity.var:ruler.current_salary_budget
+			}
+		}
+	}
+}
+# Your budget bill has successfully passed!
+cotc_budget_bill_events.200 = {
+	type = activity_event
+	desc = cotc_budget_bill_events.200.desc
+	
+	theme = realm
+	override_background = council_chamber
+	
+	right_portrait = {
+		character = ROOT
+		animation = war_over_win
+	}
+	
+	option = {
+		name = cotc_budget_bill_events.200.a
+		add_prestige = {
+			value = 50
+			multiply = scope:ruler.tier_multiplier
+		}
+		hidden_effect = { set_variable = bill_passed }
+		pass_military_budget_effect = yes
+		pass_ministry_budget_effect = yes
+		pass_salary_budget_effect = yes
+		pork_spending_effect = yes
+		hidden_effect = {
+			if = {
+				limit = { var:ai_faith_in_democracy <= 10 }
+				change_variable = { name = ai_faith_in_democracy add = 1 }
+			}
+		}
+	}
+	
+	after = { remove_variable = bill_passed }
+}
+# A bill you voted for has passed!
+cotc_budget_bill_events.210 = {
+	type = activity_event
+	desc = cotc_budget_bill_events.210.desc
+	
+	theme = realm
+	override_background = council_chamber
+	
+	right_portrait = {
+		character = ROOT
+		animation = war_over_win
+	}
+	left_portrait = {
+		character = scope:host
+		animation = war_over_win
+	}
+	
+	immediate = {
+		if = {
+			limit = { budget_passed_voter_intent_trigger = { BUDGET = scope:activity } }
+			complete_activity_intent = yes
+		}
+		if = {
+			limit = { bill_is_ideologically_necessary = { BILL = scope:activity } }
+			change_variable = { name = ai_faith_in_democracy add = 1 }
+		}
+		else_if = {
+			limit = { var:ai_faith_in_democracy <= 10 }
+			change_variable = { name = ai_faith_in_democracy add = 1 }
+		}
+	}
+	
+	option = {
+		name = cotc_budget_bill_events.210.a
+		add_prestige = {
+			value = 5
+			multiply = scope:ruler.tier_multiplier
+		}
+		reverse_add_opinion = { modifier = opinion_voted_for_my_bill target = scope:host }
+		show_as_tooltip = {
+			pass_military_budget_effect = yes
+			pass_ministry_budget_effect = yes
+			pass_salary_budget_effect = yes
+			pork_spending_effect = yes
+		}
+	}
+}
+# A bill you voted against has passed!
+cotc_budget_bill_events.220 = {
+	type = activity_event
+	desc = cotc_budget_bill_events.220.desc
+	
+	theme = realm
+	override_background = council_chamber
+	
+	right_portrait = {
+		character = ROOT
+		animation = war_over_loss
+	}
+	left_portrait = {
+		character = scope:host
+		animation = war_over_win
+	}
+	
+	immediate = {
+		if = {
+			limit = { budget_passed_voter_intent_trigger = { BUDGET = scope:activity } }
+			complete_activity_intent = yes
+		}
+		if = {
+			limit = { bill_is_ideologically_unacceptable = { BILL = scope:activity } }
+			change_variable = { name = ai_faith_in_democracy subtract = 5 }
+		}
+		else = {
+			change_variable = { name = ai_faith_in_democracy subtract = 1 }
+		}
+	}
+	
+	option = {
+		name = cotc_budget_bill_events.220.a
+		add_prestige = {
+			value = -5
+			multiply = scope:ruler.tier_multiplier
+		}
+		reverse_add_opinion = { modifier = opinion_voted_against_my_bill target = scope:host }
+		show_as_tooltip = {
+			pass_military_budget_effect = yes
+			pass_ministry_budget_effect = yes
+			pass_salary_budget_effect = yes
+			pork_spending_effect = yes
+		}
+	}
+}
+# Your liege or suzerain passed a new budget!
+cotc_budget_bill_events.250 = {
+	desc = cotc_budget_bill_events.250.desc
+	
+	theme = realm
+	override_background = council_chamber
+	
+	left_portrait = {
+		character = scope:host
+		animation = war_over_win
+	}
+	
+	option = {
+		name = cotc_budget_bill_events.250.a
+		show_as_tooltip = {
+			pass_military_budget_effect = yes
+			pass_ministry_budget_effect = yes
+			pass_salary_budget_effect = yes
+			pork_spending_effect = yes
+		}
+	}
+}
+# Your budget bill has failed!
+cotc_budget_bill_events.300 = {
+	type = activity_event
+	desc = cotc_budget_bill_events.300.desc
+	
+	theme = realm
+	override_background = council_chamber
+	
+	right_portrait = {
+		character = ROOT
+		animation = war_over_win
+	}
+	
+	option = {
+		name = cotc_budget_bill_events.300.a
+		add_prestige = {
+			value = -50
+			multiply = scope:ruler.tier_multiplier
+		}
+		hidden_effect = { change_variable = { name = ai_faith_in_democracy subtract = 5 } }
+	}
+}
+# A bill you voted for has failed!
+cotc_budget_bill_events.310 = {
+	type = activity_event
+	desc = cotc_budget_bill_events.310.desc
+	
+	theme = realm
+	override_background = council_chamber
+	
+	right_portrait = {
+		character = ROOT
+		animation = war_over_loss
+	}
+	left_portrait = {
+		character = scope:host
+		animation = war_over_loss
+	}
+	
+	immediate = {
+		if = {
+			limit = { budget_failed_voter_intent_trigger = { BUDGET = scope:activity } }
+			complete_activity_intent = yes
+		}
+		if = {
+			limit = { bill_is_ideologically_necessary = { BILL = scope:activity } }
+			change_variable = { name = ai_faith_in_democracy subtract = 5 }
+		}
+		else = { change_variable = { name = ai_faith_in_democracy subtract = 1 } }
+	}
+	
+	option = {
+		name = cotc_budget_bill_events.310.a
+		add_prestige = {
+			value = -5
+			multiply = scope:ruler.tier_multiplier
+		}
+		reverse_add_opinion = { modifier = opinion_voted_for_my_bill target = scope:host }
+	}
+}
+# A bill you voted against has failed!
+cotc_budget_bill_events.320 = {
+	desc = cotc_budget_bill_events.320.desc
+	
+	theme = realm
+	override_background = council_chamber
+	
+	right_portrait = {
+		character = ROOT
+		animation = war_over_loss
+	}
+	left_portrait = {
+		character = scope:host
+		animation = war_over_win
+	}
+	
+	immediate = {
+		if = {
+			limit = { budget_failed_voter_intent_trigger = { BUDGET = scope:activity } }
+			complete_activity_intent = yes
+		}
+		if = {
+			limit = { bill_is_ideologically_unacceptable = { BILL = scope:activity } }
+			change_variable = { name = ai_faith_in_democracy add = 1 }
+		}
+		else_if = {
+			limit = { var:ai_faith_in_democracy <= 10 }
+			change_variable = { name = ai_faith_in_democracy add = 1 }
+		}
+	}
+	
+	option = {
+		name = cotc_budget_bill_events.320.a
+		add_prestige = {
+			value = 5
+			multiply = scope:ruler.tier_multiplier
+		}
+		reverse_add_opinion = { modifier = opinion_voted_against_my_bill target = scope:host }
+	}
+}
+# Someone proposes an amendment!
+cotc_budget_bill_events.400 = {
+	desc = cotc_budget_bill_events.400.desc
+	
+	theme = realm
+	override_background = council_chamber
+	
+	immediate = {
+		ordered_in_list = {
+			variable = supporters_gained
+			order_by = legislative_seniority
+			save_scope_as = representative_opponent
+		}
+		scope:activity = {
+			add_activity_log_entry = {
+				key = proposed_amendment
+				tags = { neutral }
+				character = scope:representative_opponent
+				custom_tooltip = proposed_amendment_desc
+				custom_tooltip = budget_bill_amendment_proposed_desc
+				show_in_conclusion = yes
+			}
+		}
+	}
+	
+	right_portrait = {
+		character = scope:representative_opponent
+		animation = debate
+	}
+	left_portrait = {
+		character = ROOT
+		animation = thinking
+	}
+	
+	# Agree to the amendment
+	option = {
+		name = cotc_budget_bill_events.400.a
+		custom_tooltip = amend_bill_desc
+		custom_tooltip = gain_supporters_desc
+		custom_tooltip = lose_supporters_desc
+		hidden_effect = {
+			scope:activity = {
+				add_activity_log_entry = {
+					key = accepted_amendment
+					tags = { positive }
+					character = scope:host
+					target = scope:representative_opponent
+					custom_tooltip = accepted_amendment_desc
+					show_in_conclusion = yes
+				}
+				set_variable = { name = proposed_military_budget value = ROOT.var:amended_military_budget }
+				set_variable = { name = proposed_ministry_budget value = ROOT.var:amended_ministry_budget }
+				set_variable = { name = proposed_salary_budget value = ROOT.var:amended_salary_budget }
+			}
+			every_in_list = {
+				variable = supporters_gained
+				trigger_event = { id = cotc_bill_events.300 }
+			}
+			every_in_list = {
+				variable = supporters_lost
+				trigger_event = { id = cotc_bill_events.310 }
+			}
+		}
+		ai_chance = {
+			base = 10
+			modifier = {
+				factor = {
+					value = total_supporters_gained
+					subtract = total_supporters_lost
+				}
+			}
+			modifier = {
+				factor = 0
+				scope:activity.total_bill_supporters >= scope:activity.var:legislature.simple_majority
+			}
+		}
+	}
+	
+	# Do not agree to the amendment
+	option = {
+		name = cotc_budget_bill_events.400.b
+		hidden_effect = {
+			scope:activity = {
+				add_activity_log_entry = {
+					key = rejected_amendment
+					tags = { negative }
+					character = scope:host
+					target = scope:representative_opponent
+					custom_tooltip = rejected_amendment_desc
+					show_in_conclusion = yes
+				}
+			}
+			every_in_list = {
+				variable = supporters_gained
+				send_interface_message = {
+					type = msg_vote_change_bad
+					title = cotc_budget_bill_events.400.refused_amendment.tt
+					desc = cotc_budget_bill_events.400.refused_amendment.desc
+					left_icon = scope:legislator
+				}
+			}
+			every_in_list = {
+				variable = supporters_lost
+				send_interface_message = {
+					type = msg_vote_change_good
+					title = cotc_budget_bill_events.400.refused_amendment.tt
+					desc = cotc_budget_bill_events.400.refused_amendment.desc
+					left_icon = scope:legislator
+				}
+			}
+		}
+		ai_chance = {
+			base = 0
+			# How different is the amended bill from the planned bill?
+			modifier = {
+				add = {
+					value = var:amended_military_budget
+					subtract = var:planned_military_budget
+				}
+				var:amended_military_budget > var:planned_military_budget
+			}
+			modifier = {
+				add = {
+					value = var:planned_military_budget
+					subtract = var:amended_military_budget
+				}
+				var:amended_military_budget < var:planned_military_budget
+			}
+			modifier = {
+				add = {
+					value = var:amended_ministry_budget
+					subtract = var:planned_ministry_budget
+				}
+				var:amended_ministry_budget > var:planned_ministry_budget
+			}
+			modifier = {
+				add = {
+					value = var:planned_ministry_budget
+					subtract = var:amended_ministry_budget
+				}
+				var:amended_ministry_budget < var:planned_ministry_budget
+			}
+			modifier = {
+				add = {
+					value = var:amended_salary_budget
+					subtract = var:planned_salary_budget
+				}
+				var:amended_salary_budget > var:planned_salary_budget
+			}
+			modifier = {
+				add = {
+					value = var:planned_salary_budget
+					subtract = var:amended_salary_budget
+				}
+				var:amended_salary_budget < var:planned_salary_budget
+			}
+			# How uncompromising are we?
+			modifier = { add = ai_vengefulness }
+			modifier = {
+				add = {
+					value = ai_boldness
+					max = 0
+				}
+			}
+		}
+	}
+	
+	# Clean up all the now-unnecessary variables
+	after = {
+		remove_variable = amended_military_budget
+		remove_variable = amended_ministry_budget
+		remove_variable = amended_salary_budget
+		clear_variable_list = supporters_gained
+		clear_variable_list = supporters_lost
+	}
+}

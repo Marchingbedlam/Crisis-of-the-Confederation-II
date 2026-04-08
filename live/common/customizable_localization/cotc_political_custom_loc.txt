@@ -1,0 +1,1249 @@
+﻿# Goes on the title attached to the legislature
+GetLegislatureName = {
+	type = landed_title
+	
+	text = {
+		localization_key = "senate_custom_loc"
+	}
+}
+GetLegislatureArticle = {
+	type = landed_title
+	
+	text = {
+		localization_key = "the_prefix_custom_loc"
+	}
+}
+GetDefinitiveLegislatureName = {
+	type = landed_title
+	
+	text = {
+		setup_scope = { save_scope_as = title }
+		localization_key = "definitive_legislature_name_custom_loc"
+	}
+}
+GetLegislatorName = {
+	type = landed_title
+	
+	text = {
+		localization_key = "senator_custom_loc"
+	}
+}
+GetLegislatorNamePlural = {
+	type = landed_title
+	text = {
+		localization_key = "senator_plural_custom_loc"
+	}
+}
+GetBillType = {
+	type = activity
+	text = {
+		trigger = {
+			OR = {
+				has_activity_type = tax_bill_activity
+				has_activity_type = liege_tax_bill_activity
+			}
+		}
+		localization_key = "tax_bill_custom_loc"
+	}
+	text = {
+		trigger = { has_activity_type = budget_bill_activity }
+		localization_key = "budget_bill_custom_loc"
+	}
+	text = {
+		trigger = { has_activity_type = no_confidence_motion_activity }
+		localization_key = "no_confidence_motion_custom_loc"
+	}
+	text = {
+		localization_key = "bill_custom_loc"
+	}
+}
+GetBillProvisions = {
+	type = activity
+	text = {
+		setup_scope = {
+			this = { save_scope_as = bill }
+			var:title = { save_scope_as = bill_title }
+		}
+		trigger = {
+			OR = {
+				has_activity_type = tax_bill_activity
+				has_activity_type = liege_tax_bill_activity
+			}
+		}
+		localization_key = "tax_bill_provisions_custom_loc"
+	}
+	text = {
+		setup_scope = {
+			this = { save_scope_as = bill }
+			var:title = { save_scope_as = bill_title }
+		}
+		trigger = { has_activity_type = budget_bill_activity }
+		localization_key = "budget_bill_provisions_custom_loc"
+	}
+	text = {
+		setup_scope = {
+			this = { save_scope_as = bill }
+			var:title ?= { save_scope_as = bill_title }
+			var:ruler ?= { save_scope_as = bill_ruler }
+			var:incumbent ?= { save_scope_as = bill_incumbent }
+			var:challenger ?= { save_scope_as = bill_challenger }
+		}
+		trigger = { has_activity_type = no_confidence_motion_activity }
+		localization_key = "no_confidence_provisions_custom_loc"
+	}
+}
+GetBillEarmarks = {
+	type = activity
+	text = {
+		setup_scope = { save_scope_value_as = { name = pork_value value = var:pork } }
+		trigger = {
+			trigger_if = {
+				limit = { has_variable = pork }
+				var:pork > 0
+			}
+			trigger_else = {
+				always = no
+			}
+		}
+		localization_key = "bill_earmarks_custom_loc"
+	}
+	text = { localization_key = "blank_custom_loc" }
+}
+GetPostBillEarmarks = {
+	type = character
+	text = {
+		setup_scope = { save_scope_value_as = { name = pork_value value = pork_value } }
+		trigger = {
+			trigger_if = {
+				limit = { exists = scope:pork_value }
+				scope:pork_value > 0
+			}
+			else = { always = no }
+		}
+		localization_key = "bill_post_earmarks_custom_loc"
+	}
+	text = { localization_key = "blank_custom_loc" }
+}
+GetBillSellDifficulty = {
+	type = activity
+	text = {
+		trigger = { bill_sell_difficulty = 10 }
+		localization_key = "very_easy_to_sell_bill_custom_loc"
+	}
+	text = {
+		trigger = { bill_sell_difficulty < 15 }
+		localization_key = "easy_to_sell_bill_custom_loc"
+	}
+	text = {
+		trigger = { bill_sell_difficulty < 20 }
+		localization_key = "moderate_difficulty_to_sell_bill_custom_loc"
+	}
+	text = {
+		trigger = { bill_sell_difficulty < 25 }
+		localization_key = "hard_to_sell_bill_custom_loc"
+	}
+	text = { localization_key = "very_hard_to_sell_bill_custom_loc" }
+}
+GetBillTargetDifficulty = {
+	type = activity
+	text = {
+		trigger = { bill_target_difficulty = 10 }
+		localization_key = "very_hard_to_target_bill_custom_loc"
+	}
+	text = {
+		trigger = { bill_target_difficulty < 15 }
+		localization_key = "hard_to_target_bill_custom_loc"
+	}
+	text = {
+		trigger = { bill_target_difficulty < 20 }
+		localization_key = "moderate_difficulty_to_target_bill_custom_loc"
+	}
+	text = {
+		trigger = { bill_target_difficulty < 25 }
+		localization_key = "easy_to_sell_target_custom_loc"
+	}
+	text = { localization_key = "very_easy_to_target_bill_custom_loc" }
+}
+GetLegislativeIntent = {
+	type = character
+	text = {
+		trigger = { has_activity_intent = maintain_status_quo_intent }
+		localization_key = "maintain_status_quo_intent_custom_loc"
+	}
+	text = {
+		trigger = { has_activity_intent = trade_favors_intent }
+		localization_key = "trade_favors_intent_custom_loc"
+	}
+	text = {
+		setup_scope = { involved_activity = { activity_host = { save_scope_as = sponsor } } }
+		trigger = { has_activity_intent = support_bill_intent }
+		localization_key = "support_bill_intent_custom_loc"
+	}
+	text = {
+		setup_scope = { involved_activity = { activity_host = { save_scope_as = sponsor } } }
+		trigger = { has_activity_intent = block_bill_intent }
+		localization_key = "block_bill_intent_custom_loc"
+	}
+	text = {
+		trigger = { has_activity_intent = balance_budget_intent }
+		localization_key = "balance_budget_intent_custom_loc"
+	}
+	text = {
+		trigger = { has_activity_intent = balance_budget_maintain_military_intent }
+		localization_key = "balance_budget_maintain_military_intent_custom_loc"
+	}
+	text = {
+		trigger = { has_activity_intent = balance_budget_maintain_ministry_intent }
+		localization_key = "balance_budget_maintain_ministry_intent_custom_loc"
+	}
+	text = {
+		trigger = { has_activity_intent = balance_budget_maintain_salary_intent }
+		localization_key = "balance_budget_maintain_salary_intent_custom_loc"
+	}
+	text = {
+		trigger = { has_activity_intent = increase_military_budget_intent }
+		localization_key = "increase_military_budget_intent_custom_loc"
+	}
+	text = {
+		trigger = { has_activity_intent = increase_ministry_budget_intent }
+		localization_key = "increase_ministry_budget_intent_custom_loc"
+	}
+	text = {
+		trigger = { has_activity_intent = increase_salary_budget_intent }
+		localization_key = "increase_salary_budget_intent_custom_loc"
+	}
+	text = {
+		trigger = { has_activity_intent = increase_revenue_intent }
+		localization_key = "increase_revenue_intent_custom_loc"
+	}
+	text = {
+		trigger = { has_activity_intent = increase_revenue_maintain_military_intent }
+		localization_key = "increase_revenue_maintain_military_intent_custom_loc"
+	}
+	text = {
+		trigger = { has_activity_intent = increase_revenue_maintain_commercial_intent }
+		localization_key = "increase_revenue_maintain_commercial_intent_custom_loc"
+	}
+	text = {
+		trigger = { has_activity_intent = increase_revenue_maintain_technocratic_intent }
+		localization_key = "increase_revenue_maintain_technocratic_intent_custom_loc"
+	}
+	text = {
+		trigger = { has_activity_intent = increase_revenue_maintain_theocratic_intent }
+		localization_key = "increase_revenue_maintain_theocratic_intent_custom_loc"
+	}
+	text = {
+		trigger = { has_activity_intent = cut_military_taxes_intent }
+		localization_key = "cut_military_taxes_intent_custom_loc"
+	}
+	text = {
+		trigger = { has_activity_intent = cut_commercial_taxes_intent }
+		localization_key = "cut_commercial_taxes_intent_custom_loc"
+	}
+	text = {
+		trigger = { has_activity_intent = cut_technocratic_taxes_intent }
+		localization_key = "cut_technocratic_taxes_intent_custom_loc"
+	}
+	text = {
+		trigger = { has_activity_intent = cut_theocratic_taxes_intent }
+		localization_key = "cut_theocratic_taxes_intent_custom_loc"
+	}
+	text = {
+		setup_scope = { involved_activity = { var:incumbent ?= { save_scope_as = incumbent } } }
+		trigger = { has_activity_intent = oust_prime_minister_intent }
+		localization_key = "oust_prime_minister_intent_custom_loc"
+	}
+	text = {
+		setup_scope = { involved_activity = { var:challenger ?= { save_scope_as = challenger } } }
+		trigger = { has_activity_intent = keep_challenger_out_intent }
+		localization_key = "keep_challenger_out_intent_custom_loc"
+	}
+	text = {
+		setup_scope = { faith = { save_scope_as = faith } }
+		trigger = { has_activity_intent = support_ideology_intent }
+		localization_key = "support_ideology_intent_custom_loc"
+	}
+	text = {
+		setup_scope = { culture = { save_scope_as = culture } }
+		trigger = { has_activity_intent = support_culture_intent }
+		localization_key = "support_culture_intent_custom_loc"
+	}
+	text = {
+		setup_scope = { intent_target ?= { save_scope_as = patron } }
+		trigger = { has_activity_intent = support_patron_prime_minister_intent }
+		localization_key = "support_patron_prime_minister_intent_custom_loc"
+	}
+	text = {
+		setup_scope = { intent_target ?= { save_scope_as = friend } }
+		trigger = { has_activity_intent = support_friend_prime_minister_intent }
+		localization_key = "support_friend_prime_minister_intent_custom_loc"
+	}
+	text = {
+		setup_scope = { intent_target ?= { save_scope_as = rival } }
+		trigger = { has_activity_intent = oppose_rival_prime_minister_intent }
+		localization_key = "oppose_rival_prime_minister_intent_custom_loc"
+	}
+	text = {
+		trigger = { has_activity_intent = support_most_qualified_prime_minister_intent }
+		localization_key = "support_most_qualified_prime_minister_intent_custom_loc"
+	}
+	text = {
+		trigger = { has_activity_intent = support_most_loyal_prime_minister_intent }
+		localization_key = "support_most_loyal_prime_minister_intent_custom_loc"
+	}
+}
+GetVoteOnBill = {
+	type = character
+	text = {
+		trigger = { is_in_guest_subset = { name = bill_supporters } }
+		localization_key = "vote_for_bill_custom_loc"
+	}
+	text = {
+		trigger = { is_in_guest_subset = { name = bill_opponents } }
+		localization_key = "vote_against_bill_custom_loc"
+	}
+	text = { localization_key = "bill_custom_loc" }
+}
+SenatorsSupport = {
+	type = activity
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = bill_supporters
+				count = 1
+			}
+		}
+		localization_key = "legislator_supports_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = bill_supporters
+				count != 1
+			}
+		}
+		localization_key = "legislators_support_custom_loc"
+	}
+}
+SenatorsSupportNoName = {
+	type = activity
+	text = {
+		trigger = {
+			any_guest_subset = {
+				name = bill_supporters
+				count = 1
+			}
+		}
+		localization_key = "number_supports_custom_loc"
+	}
+	text = {
+		trigger = {
+			any_guest_subset = {
+				name = bill_supporters
+				count != 1
+			}
+		}
+		localization_key = "numbers_support_custom_loc"
+	}
+}
+SenatorsOpposeNoName = {
+	type = activity
+	text = {
+		trigger = {
+			any_guest_subset = {
+				name = bill_opponents
+				count = 1
+			}
+		}
+		localization_key = "number_opposes_custom_loc"
+	}
+	text = {
+		trigger = {
+			any_guest_subset = {
+				name = bill_opponents
+				count != 1
+			}
+		}
+		localization_key = "numbers_oppose_custom_loc"
+	}
+}
+SenatorsUndecidedNoName = {
+	type = activity
+	text = {
+		trigger = {
+			any_guest_subset = {
+				name = undecideds
+				count = 1
+			}
+		}
+		localization_key = "number_is_undecided_custom_loc"
+	}
+	text = {
+		trigger = {
+			any_guest_subset = {
+				name = undecideds
+				count != 1
+			}
+		}
+		localization_key = "numbers_are_undecided_custom_loc"
+	}
+}
+SenatorsCareAboutQualifications = {
+	type = activity
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_attending_character = {
+				legislator_cares_about_qualifications_trigger = yes
+				count = 1
+			}
+		}
+		localization_key = "legislator_cares_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_attending_character = {
+				legislator_cares_about_qualifications_trigger = yes
+				count != 1
+			}
+		}
+		localization_key = "legislators_care_custom_loc"
+	}
+}
+SenatorsSupportNoNameQualifications = {
+	type = activity
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = bill_supporters
+				legislator_cares_about_qualifications_trigger = yes
+				count = 1
+			}
+		}
+		localization_key = "number_supports_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = bill_supporters
+				legislator_cares_about_qualifications_trigger = yes
+				count != 1
+			}
+		}
+		localization_key = "numbers_support_custom_loc"
+	}
+}
+SenatorsOpposeNoNameQualifications = {
+	type = activity
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = bill_opponents
+				legislator_cares_about_qualifications_trigger = yes
+				count = 1
+			}
+		}
+		localization_key = "number_supports_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = bill_opponents
+				legislator_cares_about_qualifications_trigger = yes
+				count != 1
+			}
+		}
+		localization_key = "numbers_support_custom_loc"
+	}
+}
+SenatorsUndecidedNoNameQualifications = {
+	type = activity
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = undecideds
+				legislator_cares_about_qualifications_trigger = yes
+				count = 1
+			}
+		}
+		localization_key = "number_is_undecided_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = undecideds
+				legislator_cares_about_qualifications_trigger = yes
+				count != 1
+			}
+		}
+		localization_key = "numbers_are_undecided_custom_loc"
+	}
+}
+SenatorsCareAboutPurity = {
+	type = activity
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_attending_character = {
+				legislator_cares_about_ideology_trigger = yes
+				faith = scope:activity.activity_host.faith
+				count = 1
+			}
+		}
+		localization_key = "legislator_cares_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_attending_character = {
+				legislator_cares_about_ideology_trigger = yes
+				faith = scope:activity.activity_host.faith
+				count != 1
+			}
+		}
+		localization_key = "legislators_care_custom_loc"
+	}
+}
+SenatorsSupportNoNamePurity = {
+	type = activity
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = bill_supporters
+				legislator_cares_about_ideology_trigger = yes
+				faith = scope:activity.activity_host.faith
+				count = 1
+			}
+		}
+		localization_key = "number_supports_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = bill_supporters
+				legislator_cares_about_ideology_trigger = yes
+				faith = scope:activity.activity_host.faith
+				count != 1
+			}
+		}
+		localization_key = "numbers_support_custom_loc"
+	}
+}
+SenatorsOpposeNoNamePurity = {
+	type = activity
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = bill_opponents
+				legislator_cares_about_ideology_trigger = yes
+				faith = scope:activity.activity_host.faith
+				count = 1
+			}
+		}
+		localization_key = "number_supports_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = bill_opponents
+				legislator_cares_about_ideology_trigger = yes
+				faith = scope:activity.activity_host.faith
+				count != 1
+			}
+		}
+		localization_key = "numbers_support_custom_loc"
+	}
+}
+SenatorsUndecidedNoNamePurity = {
+	type = activity
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = undecideds
+				legislator_cares_about_ideology_trigger = yes
+				faith = scope:activity.activity_host.faith
+				count = 1
+			}
+		}
+		localization_key = "number_is_undecided_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = undecideds
+				legislator_cares_about_ideology_trigger = yes
+				faith = scope:activity.activity_host.faith
+				count != 1
+			}
+		}
+		localization_key = "numbers_are_undecided_custom_loc"
+	}
+}
+SenatorsCareAboutIdeology = {
+	type = activity
+	text = {
+		setup_scope = {
+			save_scope_as = activity
+			var:title = { save_scope_as = title }
+		}
+		trigger = {
+			any_attending_character = {
+				legislator_cares_about_ideology_trigger = yes
+				count = 1
+			}
+		}
+		localization_key = "legislator_cares_custom_loc"
+	}
+	text = {
+		setup_scope = {
+			save_scope_as = activity
+			var:title = { save_scope_as = title }
+		}
+		trigger = {
+			any_attending_character = {
+				legislator_cares_about_ideology_trigger = yes
+				count != 1
+			}
+		}
+		localization_key = "legislators_care_custom_loc"
+	}
+}
+SenatorsSupportNoNameIdeology = {
+	type = activity
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = bill_supporters
+				legislator_cares_about_ideology_trigger = yes
+				count = 1
+			}
+		}
+		localization_key = "number_supports_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = bill_supporters
+				legislator_cares_about_ideology_trigger = yes
+				count != 1
+			}
+		}
+		localization_key = "numbers_support_custom_loc"
+	}
+}
+SenatorsOpposeNoNameIdeology = {
+	type = activity
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = bill_opponents
+				legislator_cares_about_ideology_trigger = yes
+				count = 1
+			}
+		}
+		localization_key = "number_supports_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = bill_opponents
+				legislator_cares_about_ideology_trigger = yes
+				count != 1
+			}
+		}
+		localization_key = "numbers_support_custom_loc"
+	}
+}
+SenatorsUndecidedNoNameIdeology = {
+	type = activity
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = undecideds
+				legislator_cares_about_ideology_trigger = yes
+				count = 1
+			}
+		}
+		localization_key = "number_is_undecided_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = undecideds
+				legislator_cares_about_ideology_trigger = yes
+				count != 1
+			}
+		}
+		localization_key = "numbers_are_undecided_custom_loc"
+	}
+}
+SenatorsCareAboutLoyalty = {
+	type = activity
+	text = {
+		setup_scope = {
+			save_scope_as = activity
+			var:title = { save_scope_as = title }
+		}
+		trigger = {
+			any_attending_character = {
+				legislator_cares_about_loyalty_trigger = yes
+				count = 1
+			}
+		}
+		localization_key = "legislator_cares_custom_loc"
+	}
+	text = {
+		setup_scope = {
+			save_scope_as = activity
+			var:title = { save_scope_as = title }
+		}
+		trigger = {
+			any_attending_character = {
+				legislator_cares_about_loyalty_trigger = yes
+				count != 1
+			}
+		}
+		localization_key = "legislators_care_custom_loc"
+	}
+}
+SenatorsSupportNoNameLoyalty = {
+	type = activity
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = bill_supporters
+				legislator_cares_about_loyalty_trigger = yes
+				count = 1
+			}
+		}
+		localization_key = "number_supports_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = bill_supporters
+				legislator_cares_about_loyalty_trigger = yes
+				count != 1
+			}
+		}
+		localization_key = "numbers_support_custom_loc"
+	}
+}
+SenatorsOpposeNoNameLoyalty = {
+	type = activity
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = bill_opponents
+				legislator_cares_about_loyalty_trigger = yes
+				count = 1
+			}
+		}
+		localization_key = "number_supports_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = bill_opponents
+				legislator_cares_about_loyalty_trigger = yes
+				count != 1
+			}
+		}
+		localization_key = "numbers_support_custom_loc"
+	}
+}
+SenatorsUndecidedNoNameLoyalty = {
+	type = activity
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = undecideds
+				legislator_cares_about_loyalty_trigger = yes
+				count = 1
+			}
+		}
+		localization_key = "number_is_undecided_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = undecideds
+				legislator_cares_about_loyalty_trigger = yes
+				count != 1
+			}
+		}
+		localization_key = "numbers_are_undecided_custom_loc"
+	}
+}
+SenatorsCareAboutEthics = {
+	type = activity
+	text = {
+		setup_scope = {
+			save_scope_as = activity
+			var:title = { save_scope_as = title }
+		}
+		trigger = {
+			any_attending_character = {
+				legislator_cares_about_ethics_trigger = yes
+				count = 1
+			}
+		}
+		localization_key = "legislator_cares_custom_loc"
+	}
+	text = {
+		setup_scope = {
+			save_scope_as = activity
+			var:title = { save_scope_as = title }
+		}
+		trigger = {
+			any_attending_character = {
+				legislator_cares_about_ethics_trigger = yes
+				count != 1
+			}
+		}
+		localization_key = "legislators_care_custom_loc"
+	}
+}
+SenatorsSupportNoNameEthics = {
+	type = activity
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = bill_supporters
+				legislator_cares_about_ethics_trigger = yes
+				count = 1
+			}
+		}
+		localization_key = "number_supports_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = bill_supporters
+				legislator_cares_about_ethics_trigger = yes
+				count != 1
+			}
+		}
+		localization_key = "numbers_support_custom_loc"
+	}
+}
+SenatorsOpposeNoNameEthics = {
+	type = activity
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = bill_opponents
+				legislator_cares_about_ethics_trigger = yes
+				count = 1
+			}
+		}
+		localization_key = "number_supports_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = bill_opponents
+				legislator_cares_about_ethics_trigger = yes
+				count != 1
+			}
+		}
+		localization_key = "numbers_support_custom_loc"
+	}
+}
+SenatorsUndecidedNoNameEthics = {
+	type = activity
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = undecideds
+				legislator_cares_about_ethics_trigger = yes
+				count = 1
+			}
+		}
+		localization_key = "number_is_undecided_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = activity }
+		trigger = {
+			any_guest_subset = {
+				name = undecideds
+				legislator_cares_about_ethics_trigger = yes
+				count != 1
+			}
+		}
+		localization_key = "numbers_are_undecided_custom_loc"
+	}
+}
+SenatorsCareAboutKnownCrime = {
+	type = activity
+	text = {
+		setup_scope = {
+			save_scope_as = activity
+			var:title = { save_scope_as = title }
+			scope:opponent = { save_scope_as = potential_criminal }
+		}
+		trigger = {
+			any_attending_character = {
+				legislator_cares_about_ethics_trigger = yes
+				cares_about_crime_trigger = { CHARACTER = scope:potential_criminal }
+				count = 1
+			}
+		}
+		localization_key = "legislator_cares_custom_loc"
+	}
+	text = {
+		setup_scope = {
+			save_scope_as = activity
+			var:title = { save_scope_as = title }
+			scope:opponent = { save_scope_as = potential_criminal }
+		}
+		trigger = {
+			any_attending_character = {
+				legislator_cares_about_ethics_trigger = yes
+				cares_about_crime_trigger = { CHARACTER = scope:potential_criminal }
+				count != 1
+			}
+		}
+		localization_key = "legislators_care_custom_loc"
+	}
+}
+SenatorsSupportNoNameKnownCrime = {
+	type = activity
+	text = {
+		setup_scope = {
+			save_scope_as = activity
+			scope:opponent = { save_scope_as = potential_criminal }
+		}
+		trigger = {
+			any_guest_subset = {
+				name = bill_supporters
+				legislator_cares_about_ethics_trigger = yes
+				cares_about_crime_trigger = { CHARACTER = scope:potential_criminal }
+				count = 1
+			}
+		}
+		localization_key = "number_supports_custom_loc"
+	}
+	text = {
+		setup_scope = {
+			save_scope_as = activity
+			scope:opponent = { save_scope_as = potential_criminal }
+		}
+		trigger = {
+			any_guest_subset = {
+				name = bill_supporters
+				legislator_cares_about_ethics_trigger = yes
+				cares_about_crime_trigger = { CHARACTER = scope:potential_criminal }
+				count != 1
+			}
+		}
+		localization_key = "numbers_support_custom_loc"
+	}
+}
+SenatorsOpposeNoNameKnownCrime = {
+	type = activity
+	text = {
+		setup_scope = {
+			save_scope_as = activity
+			scope:opponent = { save_scope_as = potential_criminal }
+		}
+		trigger = {
+			any_guest_subset = {
+				name = bill_opponents
+				legislator_cares_about_ethics_trigger = yes
+				cares_about_crime_trigger = { CHARACTER = scope:potential_criminal }
+				count = 1
+			}
+		}
+		localization_key = "number_supports_custom_loc"
+	}
+	text = {
+		setup_scope = {
+			save_scope_as = activity
+			scope:opponent = { save_scope_as = potential_criminal }
+		}
+		trigger = {
+			any_guest_subset = {
+				name = bill_opponents
+				legislator_cares_about_ethics_trigger = yes
+				cares_about_crime_trigger = { CHARACTER = scope:potential_criminal }
+				count != 1
+			}
+		}
+		localization_key = "numbers_support_custom_loc"
+	}
+}
+SenatorsUndecidedNoNameKnownCrime = {
+	type = activity
+	text = {
+		setup_scope = {
+			save_scope_as = activity
+			scope:opponent = { save_scope_as = potential_criminal }
+		}
+		trigger = {
+			any_guest_subset = {
+				name = undecideds
+				legislator_cares_about_ethics_trigger = yes
+				cares_about_crime_trigger = { CHARACTER = scope:potential_criminal }
+				count = 1
+			}
+		}
+		localization_key = "number_is_undecided_custom_loc"
+	}
+	text = {
+		setup_scope = {
+			save_scope_as = activity
+			scope:opponent = { save_scope_as = potential_criminal }
+		}
+		trigger = {
+			any_guest_subset = {
+				name = undecideds
+				legislator_cares_about_ethics_trigger = yes
+				cares_about_crime_trigger = { CHARACTER = scope:potential_criminal }
+				count != 1
+			}
+		}
+		localization_key = "numbers_are_undecided_custom_loc"
+	}
+}
+SenatorsCareAboutSecretCrime = {
+	type = activity
+	text = {
+		setup_scope = {
+			save_scope_as = activity
+			var:title = { save_scope_as = title }
+			scope:criminal_secret = { save_scope_as = target_criminal_secret }
+		}
+		trigger = {
+			any_attending_character = {
+				legislator_cares_about_ethics_trigger = yes
+				scope:target_criminal_secret = { is_shunned_or_criminal_for = PREV }
+				count = 1
+			}
+		}
+		localization_key = "legislator_would_care_custom_loc"
+	}
+	text = {
+		setup_scope = {
+			save_scope_as = activity
+			var:title = { save_scope_as = title }
+			scope:criminal_secret = { save_scope_as = target_criminal_secret }
+		}
+		trigger = {
+			any_attending_character = {
+				legislator_cares_about_ethics_trigger = yes
+				scope:target_criminal_secret = { is_shunned_or_criminal_for = PREV }
+				count != 1
+			}
+		}
+		localization_key = "legislators_would_care_custom_loc"
+	}
+}
+SenatorsSupportNoNameSecretCrime = {
+	type = activity
+	text = {
+		setup_scope = {
+			save_scope_as = activity
+			scope:criminal_secret = { save_scope_as = target_criminal_secret }
+		}
+		trigger = {
+			any_guest_subset = {
+				name = bill_supporters
+				legislator_cares_about_ethics_trigger = yes
+				scope:target_criminal_secret = { is_shunned_or_criminal_for = PREV }
+				count = 1
+			}
+		}
+		localization_key = "number_supports_custom_loc"
+	}
+	text = {
+		setup_scope = {
+			save_scope_as = activity
+			scope:criminal_secret = { save_scope_as = target_criminal_secret }
+		}
+		trigger = {
+			any_guest_subset = {
+				name = bill_supporters
+				legislator_cares_about_ethics_trigger = yes
+				scope:target_criminal_secret = { is_shunned_or_criminal_for = PREV }
+				count != 1
+			}
+		}
+		localization_key = "numbers_support_custom_loc"
+	}
+}
+SenatorsOpposeNoNameSecretCrime = {
+	type = activity
+	text = {
+		setup_scope = {
+			save_scope_as = activity
+			scope:criminal_secret = { save_scope_as = target_criminal_secret }
+		}
+		trigger = {
+			any_guest_subset = {
+				name = bill_opponents
+				legislator_cares_about_ethics_trigger = yes
+				scope:target_criminal_secret = { is_shunned_or_criminal_for = PREV }
+				count = 1
+			}
+		}
+		localization_key = "number_supports_custom_loc"
+	}
+	text = {
+		setup_scope = {
+			save_scope_as = activity
+			scope:criminal_secret = { save_scope_as = target_criminal_secret }
+		}
+		trigger = {
+			any_guest_subset = {
+				name = bill_opponents
+				legislator_cares_about_ethics_trigger = yes
+				scope:target_criminal_secret = { is_shunned_or_criminal_for = PREV }
+				count != 1
+			}
+		}
+		localization_key = "numbers_support_custom_loc"
+	}
+}
+SenatorsUndecidedNoNameSecretCrime = {
+	type = activity
+	text = {
+		setup_scope = {
+			save_scope_as = activity
+			scope:criminal_secret = { save_scope_as = target_criminal_secret }
+		}
+		trigger = {
+			any_guest_subset = {
+				name = undecideds
+				legislator_cares_about_ethics_trigger = yes
+				scope:target_criminal_secret = { is_shunned_or_criminal_for = PREV }
+				count = 1
+			}
+		}
+		localization_key = "number_is_undecided_custom_loc"
+	}
+	text = {
+		setup_scope = {
+			save_scope_as = activity
+			scope:criminal_secret = { save_scope_as = target_criminal_secret }
+		}
+		trigger = {
+			any_guest_subset = {
+				name = undecideds
+				legislator_cares_about_ethics_trigger = yes
+				scope:target_criminal_secret = { is_shunned_or_criminal_for = PREV }
+				count != 1
+			}
+		}
+		localization_key = "numbers_are_undecided_custom_loc"
+	}
+}
+ReasonIdeologyIsBetter = {
+	type = faith
+	random_valid = yes
+	text = {
+		trigger = {
+			trigger_if = {
+				limit = { exists = scope:activity.var:title.state_faith }
+				this = scope:activity.var:title.state_faith
+			}
+			trigger_else = { always = no }
+			has_doctrine = religious_hostility_doctrine
+		}
+		localization_key = "our_national_faith_custom_loc"
+	}
+	text = {
+		setup_scope = { scope:activity.var:title = { save_scope_as = title } }
+		trigger = {
+			trigger_if = {
+				limit = { exists = scope:activity.var:title.state_faith }
+				this = scope:activity.var:title.state_faith
+			}
+			trigger_else = { always = no }
+		}
+		localization_key = "the_bedrock_of_title_custom_loc"
+	}
+	text = {
+		setup_scope = { scope:activity.var:title = { save_scope_as = title } }
+		trigger = {
+			trigger_if = {
+				limit = { exists = scope:activity.var:title.state_faith }
+				this = scope:activity.var:title.state_faith
+			}
+			trigger_else = { always = no }
+		}
+		localization_key = "the_keystone_of_title_custom_loc"
+	}
+	text = {
+		setup_scope = { scope:activity.var:title = { save_scope_as = title } }
+		trigger = {
+			trigger_if = {
+				limit = { exists = scope:activity.var:title.state_faith }
+				this = scope:activity.var:title.state_faith
+			}
+			trigger_else = { always = no }
+		}
+		localization_key = "the_foundation_of_title_custom_loc"
+	}
+	text = {
+		setup_scope = { scope:activity.var:title = { save_scope_as = title } }
+		trigger = {
+			trigger_if = {
+				limit = { exists = scope:activity.var:title.state_faith }
+				this = scope:activity.var:title.state_faith
+			}
+			trigger_else = { always = no }
+		}
+		localization_key = "the_title_way_custom_loc"
+	}
+	text = {
+		setup_scope = { scope:activity.var:ruler = { save_scope_as = ruler } }
+		trigger = { this = scope:ruler.faith }
+		localization_key = "the_rulers_way_custom_loc"
+	}
+	text = {
+		setup_scope = { scope:activity.var:title = { save_scope_as = title } }
+		localization_key = "better_suited_to_title_custom_loc"
+	}
+	text = {
+		trigger = { fervor > 50 }
+		localization_key = "tried_and_tested_custom_loc"
+	}
+	text = {
+		trigger = { fervor > 80 }
+		localization_key "proven_correct_custom_loc"
+	}
+	text = { localization_key = "the_superior_way_custom_loc" }
+}

@@ -1,0 +1,131 @@
+﻿eligible_legislator_candidate_trigger = {
+	is_adult = yes
+	is_alive = yes
+	is_incapable = no
+	#is_landed = no
+}
+
+initial_legislator_candidate_trigger = {
+	NOT = {
+		$LEGISLATURE$ = {
+			is_target_in_variable_list = {
+				name = legislators
+				target = PREV
+			}
+		}
+	}
+	# You are interested in politics
+	ai_political_ambition > 0
+	# This is not a demotion to a lower legislature
+	trigger_if = {
+		limit = { has_variable = legislature }
+		var:legislature.var:legislature_title.holder ?= {
+			tier_difference = {
+				target = scope:situation.var:legislature_title.holder
+				value <= 0
+			}
+		}
+	}
+}
+
+legal_legislator_candidate_trigger = {
+	faith = { save_temporary_scope_as = temp_faith }
+	$LEGISLATURE$.var:legislature_title ?= { party_legal_for_realm_trigger = { FAITH = scope:temp_faith } }
+}
+
+party_legal_for_realm_trigger = {
+	trigger_if = {
+		limit = { holder = { has_realm_law = single_party_law } }
+		state_faith ?= { faith_hostility_level = { target = $FAITH$ value <= 0 } }
+	}
+	trigger_else_if = {
+		limit = { holder = { has_realm_law = restricted_parties_law } }
+		state_faith ?= { faith_hostility_level = { target = $FAITH$ value <= 1 } }
+	}
+	trigger_else_if = {
+		limit = { holder = { has_realm_law = extremists_banned_law } }
+		state_faith ?= { faith_hostility_level = { target = $FAITH$ value <= 2 } }
+	}
+	trigger_else_if = {
+		limit = { holder = { has_realm_law = freedom_of_thought_law } }
+		state_faith ?= { faith_hostility_level = { target = $FAITH$ value <= 3 } }
+	}
+	trigger_else = { always = yes }
+}
+
+should_have_legislature_trigger = {
+	government_has_flag = government_has_legislature
+	highest_held_title_tier >= tier_duchy
+	is_landed = yes
+}
+
+has_legislature_trigger = {
+	custom_tooltip = {
+		text = has_legislature_desc
+		any_held_title = { has_variable = legislature }
+	}
+}
+
+can_run_for_riding_and_legislature = {
+	eligible_legislator_candidate_trigger = yes
+	character_lives_in_de_jure_title = { TITLE = $RIDING$ }
+	character_lives_in_de_facto_title = { TITLE = $LEGISLATURE$.var:legislature_title }
+	$LEGISLATURE$ = { is_target_in_variable_list = { name = ridings target = $RIDING$ } }
+	is_landed = no # For now, landed characters cannot be elected to legislatures at all
+}
+
+is_running_in_riding_for_legislature = {
+	trigger_if = {
+		limit = { $LEGISLATURE$.var:legislature_title.tier = tier_county }
+		$RIDING$ = { is_target_in_variable_list = { name = county_candidates target = PREV } }
+	}
+	trigger_else_if = {
+		limit = { $LEGISLATURE$.var:legislature_title.tier = tier_duchy }
+		$RIDING$ = { is_target_in_variable_list = { name = duchy_candidates target = PREV } }
+	}
+	trigger_else_if = {
+		limit = { $LEGISLATURE$.var:legislature_title.tier = tier_kingdom }
+		$RIDING$ = { is_target_in_variable_list = { name = kingdom_candidates target = PREV } }
+	}
+	trigger_else_if = {
+		limit = { $LEGISLATURE$.var:legislature_title.tier = tier_empire }
+		$RIDING$ = { is_target_in_variable_list = { name = empire_candidates target = PREV } }
+	}
+	trigger_else_if = {
+		limit = { $LEGISLATURE$.var:legislature_title.tier = tier_hegemony }
+		$RIDING$ = { is_target_in_variable_list = { name = hegemony_candidates target = PREV } }
+	}
+}
+
+legislature_blocks_law_trigger = {
+	custom_tooltip = {
+		text = needs_a_bill_desc
+		has_legislature_trigger = yes
+		NOT = { has_variable = bill_passed }
+	}
+}
+
+legislature_in_session_trigger = {
+	any_held_title = {
+		has_variable = legislature
+		var:legislature = { situation_current_phase = legislature_in_session }
+	}
+}
+is_character_in_legislature_trigger = {
+	$LEGISLATURE$ = {
+		any_in_list = {
+			variable = legislators
+			this = $CHARACTER$
+		}
+	}
+}
+is_legislator_of = {
+	trigger_if = {
+		limit = {
+			has_variable = legislature
+			var:legislature ?= { has_variable = legislature_title }
+		}
+		var:legislature.var:legislature_title = $TITLE$
+	}
+	trigger_else = { always = no }
+}

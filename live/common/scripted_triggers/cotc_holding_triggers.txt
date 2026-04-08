@@ -14,25 +14,21 @@ has_large_pop_or_below_trigger = {
 	}
 }
 is_planet_trigger = {
-	title_province = {
-		OR = {
-			terrain = atmospheric
-			terrain = barren
-			terrain = frozen
-			terrain = corrosive
-			terrain = gas_giant
-			terrain = frozen_giant
-		}
+	OR = {
+		terrain = atmospheric
+		terrain = barren
+		terrain = frozen
+		terrain = corrosive
+		terrain = gas_giant
+		terrain = frozen_giant
 	}
 }
 is_terrestrial_planet_trigger = {
-	title_province = {
-		OR = {
-			terrain = atmospheric
-			terrain = barren
-			terrain = frozen
-			terrain = corrosive
-		}
+	OR = {
+		terrain = atmospheric
+		terrain = barren
+		terrain = frozen
+		terrain = corrosive
 	}
 }
 has_water_trigger = {
@@ -60,5 +56,34 @@ has_breathable_atmosphere_trigger = {
 		has_building = no_atmosphere_03
 		has_building = toxic_atmosphere_03
 		has_building = corrosive_atmosphere_03
+	}
+}
+has_minerals_trigger = {
+	OR = {
+		terrain = atmospheric
+		terrain = barren
+		terrain = frozen
+		terrain = corrosive
+		terrain = gas_giant
+		terrain = frozen_giant
+		terrain = asteroids
+	}
+}
+location_is_in_de_jure_title = {
+	OR = {
+		barony ?= { this = $TITLE$ }
+		county ?= { this = $TITLE$ }
+		duchy ?= { this = $TITLE$ }
+		kingdom ?= { this = $TITLE$ }
+		empire ?= { this = $TITLE$ }
+		hegemony ?= { this = $TITLE$ }
+	}
+}
+location_is_in_de_facto_title = {
+	province_owner = {
+		OR = {
+			any_held_title ?= { this = $TITLE$ }
+			any_liege_or_above ?= { any_held_title ?= { this = $TITLE$ } }
+		}
 	}
 }

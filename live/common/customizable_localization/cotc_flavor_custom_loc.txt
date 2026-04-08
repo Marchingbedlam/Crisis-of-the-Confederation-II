@@ -19,9 +19,7 @@ GetFullPersonalName = {
 		localization_key = personal_name_western_custom_loc
 	}
 }
-# Gives us the name of a character and also their highest political office,
-# so that we know why we should care.
-GetCharacterNameWithNewsContext = {
+GetBestName = { # Gives us the name of a character and also their highest political office
 	type = character
 	text = {
 		setup_scope = { save_scope_as = custom_loc_character }
@@ -39,12 +37,19 @@ GetCharacterNameWithNewsContext = {
 		localization_key = title_councillor_of_state_custom_loc
 	}
 	text = {
+		setup_scope = {
+			save_scope_as = custom_loc_character
+			var:legislature ?= { save_scope_as = custom_loc_legislature }
+			var:riding ?= { save_scope_as = custom_loc_riding }
+		}
+		localization_key = title_legislator_of_riding_custom_loc
+	}
+	text = {
 		setup_scope = { save_scope_as = custom_loc_character }
 		localization_key = "[custom_loc_character.Custom('GetFullPersonalName')]"
 	}
 }
-# A brief description of this character's spouse or spouses
-GetSpousesDesc = {
+GetSpousesDesc = { # A brief description of this character's spouse or spouses
 	type = character
 	# One Spouse
 	text = {
@@ -92,8 +97,7 @@ GetSpousesDesc = {
 		localization_key = many_spouses_custom_loc
 	}
 }
-# A brief description of this character's child or children
-GetChildrenDesc = {
+GetChildrenDesc = { # A brief description of this character's child or children
 	type = character
 	# One child
 	text = {
@@ -141,8 +145,7 @@ GetChildrenDesc = {
 		localization_key = many_children_custom_loc
 	}
 }
-# Randomized hour of the day
-GetRandomHour = {
+GetRandomHour = { # Randomized hour of the day
 	type = character
 	random_valid = yes
 	
@@ -159,8 +162,7 @@ GetRandomHour = {
 	text = { localization_key = eleven_custom_loc }
 	text = { localization_key = twelve_custom_loc }
 }
-# Randomized news story lead-in, to make events framed this way a bit less monotonous.
-GetNewsIntro = {
+GetNewsIntro = { # Randomized news story lead-in, to make events framed this way a bit less monotonous.
 	type = character
 	random_valid = yes
 	
@@ -170,8 +172,7 @@ GetNewsIntro = {
 	text = { localization_key = we_interrupt_this_program_custom_loc }
 	text = { localization_key = our_top_story_tonight_custom_loc }
 }
-# Randomized news story source, for the same purpose
-GetNewsSource = {
+GetNewsSource = { # Randomized news story source, for the same purpose
 	type = character
 	random_valid = yes
 	
@@ -182,6 +183,11 @@ GetNewsSource = {
 		setup_scope = { var:news_source_title = { save_scope_as = news_source_title } }
 		trigger = { exists = scope:news_source_title }
 		localization_key = source_title_officials_have_announced_custom_loc
+	}
+	text = {
+		setup_scope = { var:news_source_title = { save_scope_as = news_source_title } }
+		trigger = { exists = scope:news_source_title }
+		localization_key = source_title_an_official_statement_by_custom_loc
 	}
 	text = {
 		setup_scope = { var:news_source_title = { save_scope_as = news_source_title } }
@@ -200,8 +206,35 @@ GetNewsSource = {
 	}
 	text = { localization_key = blank_custom_loc }
 }
-# Randomized news outro, again for the same purpose
-GetNewsOutro = {
+GetNewsSourceTitle = { # Randomized title-as-news-source
+	type = title
+	random_valid = yes
+	text = {
+		setup_scope = { save_scope_as = news_source_title }
+		localization_key = source_title_officials_have_announced_custom_loc
+	}
+	text = {
+		setup_scope = { save_scope_as = news_source_title }
+		localization_key = source_title_an_official_statement_by_custom_loc
+	}
+	text = {
+		setup_scope = { save_scope_as = news_source_title }
+		localization_key = according_to_sources_in_source_title_custom_loc
+	}
+}
+GetNewsSourceCharacter = { # Randomized character-as-news-source
+	type = character
+	random_valid = yes
+	text = {
+		setup_scope = { save_scope_as = news_source_character }
+		localization_key = news_source_character_has_stated_custom_loc
+	}
+	text = {
+		setup_scope = { save_scope_as = news_source_character }
+		localization_key = news_source_character_press_conference_custom_loc
+	}
+}
+GetNewsOutro = { # Randomized news outro, again for the same purpose
 	type = character
 	random_valid = yes
 	
@@ -209,8 +242,7 @@ GetNewsOutro = {
 	text = { localization_key = more_at_later_time_custom_loc }
 	text = { localization_key = we_now_return_custom_loc }
 }
-# Reconstructs a dead character's name from saved variables on ROOT
-GetDeadCharacterName = {
+GetDeadCharacterName = { # Reconstructs a dead character's name from saved variables on ROOT
 	type = character
 	text = {
 		setup_scope = {
@@ -225,8 +257,7 @@ GetDeadCharacterName = {
 		localization_key = dead_character_without_title_custom_loc
 	}
 }
-# Where did the dead character die?
-GetDeadCharacterLocation = {
+GetDeadCharacterLocation = { # Where did the dead character die?
 	type = character
 	# In Deep Space
 	text = {
@@ -249,8 +280,7 @@ GetDeadCharacterLocation = {
 	# Nowhere?
 	text = { localization_key = blank_custom_loc }
 }
-# What happens to this character's family?
-GetDeadCharacterConsequences = {
+GetDeadCharacterConsequences = { # What happens to this character's family?
 	type = character
 	
 	# Who inherits the throne of a monarchy?
@@ -307,8 +337,7 @@ GetDeadCharacterFamily = {
 	# Had no-one
 	text = { localization_key = blank_custom_loc }
 }
-# How will people react to this character's death?
-GetDeadCharacterConsequences = {
+GetDeadCharacterConsequences = { # How will people react to this character's death?
 	type = character
 	# Legendary
 	text = {
@@ -357,4 +386,916 @@ GetDeadCharacterConsequences = {
 	}
 	# Character was a nobody (why are we reporting on this?)
 	text = { localization_key = blank_custom_loc }
+}
+
+GetBadDiplomacyInsult = {
+	type = character
+	random_valid = yes
+	
+	text = {
+		trigger = { ai_vengefulness > 0 }
+		localization_key = "petty_and_spiteful_custom_loc"
+	}
+	text = {
+		trigger = {
+			OR = {
+				ai_vengefulness > 0
+				ai_compassion < 0
+			}
+		}
+		localization_key = "full_of_hate_and_venom_custom_loc"
+	}
+	text = {
+		trigger = { ai_rationality < 0 }
+		localization_key = "a_blundering_fool_custom_loc"
+	}
+	text = {
+		trigger = {
+			ai_rationality < 0
+			OR = {
+				ai_vengefulness > 0
+				ai_compassion < 0
+			}
+		}
+		localization_key = "a_contemptuous_oaf_custom_loc"
+	}
+	text = {
+		trigger = {
+			ai_rationality > 0
+			ai_vengefulness > 0
+		}
+		localization_key = "arrogant_and_pigheaded_custom_loc"
+	}
+	text = {
+		trigger = { diplomacy < 10 }
+		localization_key = "utterly_incompetent_custom_loc"
+	}
+	text = { localization_key = "unfit_for_office_custom_loc" }
+	text = { localization_key = "a_miserable_failure_custom_loc" }
+}
+GetBadMartialInsult = {
+	type = character
+	random_valid = yes
+	text = {
+		trigger = { ai_boldness < 0 }
+		localization_key =  "a_helpless_coward_custom_loc"
+	}
+	text = {
+		trigger = { ai_boldness < 10 }
+		localization_key = "timid_and_indecisive_custom_loc"
+	}
+	text = {
+		trigger = { ai_boldness >= 10 }
+		localization_key = "reckless_and_foolhardy_custom_loc"
+	}
+	text = {
+		trigger = { ai_honor < 0 }
+		localization_key = "a_brutal_butcher_custom_loc"
+	}
+	text = {
+		trigger = { ai_compassion > 0 }
+		localization_key = "soft_and_squeamish_custom_loc"
+	}
+	text = {
+		trigger = { ai_rationality < 0 }
+		localization_key = "a_blundering_fool_custom_loc"
+	}
+	text = {
+		trigger = { martial < 10 }
+		localization_key = "utterly_incompetent_custom_loc"
+	}
+	text = { localization_key = "unfit_for_office_custom_loc" }
+	text = { localization_key = "a_miserable_failure_custom_loc" }
+}
+GetBadStewardshipInsult = {
+	type = character
+	random_valid = yes
+	text = {
+		trigger = { ai_greed > 0 }
+		localization_key = "a_miserly_penny_pincher_custom_loc"
+	}
+	text = {
+		trigger = { ai_greed < 0 }
+		localization_key = "a_wasteful_spendthrift_custom_loc"
+	}
+	text = {
+		trigger = {
+			ai_greed > 0
+			ai_honor < 0
+		}
+		localization_key = "a_greedy_opportunist_custom_loc"
+	}
+	text = {
+		trigger = { ai_rationality < 0 }
+		localization_key = "a_blundering_fool_custom_loc"
+	}
+	text = {
+		trigger = { stewardship < 10 }
+		localization_key = "utterly_incompetent_custom_loc"
+	}
+	text = { localization_key = "a_financial_black_hole_custom_loc" }
+	text = { localization_key = "unfit_for_office_custom_loc" }
+	text = { localization_key = "a_miserable_failure_custom_loc" }
+}
+GetBadAtIdeologyInsult = {
+	type = character
+	random_valid = yes
+	text = {
+		trigger = {
+			faith = { has_doctrine = religious_hostility_doctrine }
+			ai_zeal < 0
+		}
+		localization_key = "a_damnable_heretic_custom_loc"
+	}
+	text = {
+		trigger = {
+			faith = { has_doctrine = religious_hostility_doctrine }
+			ai_zeal < 0
+		}
+		localization_key = "a_heathen_apostate_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = custom_loc_char }
+		trigger = { has_any_shunned_or_criminal_trait_in_faith_trigger = { CHARACTER = scope:custom_loc_character FAITH = scope:custom_loc_character.faith } }
+		localization_key = "a_criminal_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = custom_loc_char }
+		localization_key = "adherent_in_name_only_custom_loc"
+	}
+}
+GetDisloyalInsult = {
+	type = character
+	random_valid = yes
+	text = {
+		trigger = { ai_greed > 0 }
+		localization_key = "a_greedy_opportunist_custom_loc"
+	}
+	text = {
+		trigger = { ai_authoritarianism < 0 }
+		localization_key = "a_deranged_anarchist_custom_loc"
+	}
+	text = {
+		trigger = { ai_lawfulness < 0 }
+		localization_key = "a_lawless_reprobate_custom_loc"
+	}
+	text = {
+		trigger = { ai_zeal > 0 }
+		localization_key = "a_blind_fanatic_custom_loc"
+	}
+	text = {
+		trigger = { intrigue > 12 }
+		localization_key = "a_backstabbing_schemer_custom_loc"
+	}
+	text = {
+		trigger = { diplomacy > 12 }
+		localization_key = "a_silver_tongued_demagogue_custom_loc"
+	}
+	text = {
+		trigger = { diarch_loyalty <= diarch_loyalty_visibly_disloyal_threshold }
+		localization_key = "a_self_interested_traitor_custom_loc"
+	}
+	text = {
+		trigger = { is_a_faction_member = yes }
+		localization_key = "a_self_interested_traitor_custom_loc"
+	}
+	text = { localization_key = "a_self_interested_opportunist_custom_loc" }
+}
+GetIdeologyInsult = {
+	type = faith
+	random_valid = yes
+	text = {
+		trigger = {
+			has_doctrine = religious_hostility_doctrine
+			trigger_if = {
+				limit = { exists = scope:insulting_faith }
+				scope:insulting_faith ?= { NOT = { has_doctrine = religious_hostility_doctrine } }
+			}
+		}
+		localization_key = "a_primitive_superstition_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = insulted_faith }
+		trigger = {
+			has_doctrine = religious_hostility_doctrine
+			trigger_if = {
+				limit = { exists = scope:insulting_faith }
+				scope:insulting_faith ?= {
+					has_doctrine = religious_hostility_doctrine
+					faith_hostility_level = { target = scope:insulted_faith value > 1 }
+				}
+			}
+		}
+		localization_key = "a_demonic_cult_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = insulted_faith }
+		trigger = {
+			has_doctrine = religious_hostility_doctrine
+			trigger_if = {
+				limit = { exists = scope:insulting_faith }
+				scope:insulting_faith ?= {
+					has_doctrine = religious_hostility_doctrine
+					faith_hostility_level = { target = scope:insulted_faith value <= 1 }
+				}
+			}
+		}
+		localization_key = "a_damnable_heresy_custom_loc"
+	}
+	text = {
+		trigger = { has_doctrine = criminal_hostility_doctrine }
+		localization_key = "simple_lawlessness_custom_loc"
+	}
+	text = {
+		trigger = { has_doctrine = criminal_hostility_doctrine }
+		localization_key "a_pathetic_excuse_for_theft_and_murder_custom_loc"
+	}
+	text = {
+		trigger = {
+			has_doctrine = criminal_hostility_doctrine
+			trigger_if = {
+				limit = { exists = scope:insulting_faith }
+				scope:insulting_faith ?= { NOT = { has_doctrine = criminal_hostility_doctrine } }
+			}
+		}
+		localization_key = "literally_organized_crime_custom_loc"
+	}
+	text = {
+		trigger = { has_doctrine = political_hostility_doctrine }
+		localization_key = "political_insanity_custom_loc"
+	}
+	text = {
+		trigger = {
+			has_doctrine = political_hostility_doctrine
+			OR = {
+				has_doctrine = doctrine_despotism
+				has_doctrine = doctrine_dictatorship
+			}
+			trigger_if = {
+				limit = { exists = scope:insulting_faith }
+				scope:insulting_faith ?= {
+					OR = {
+						has_doctrine = doctrine_separation_of_powers
+						has_doctrine = doctrine_parliamentarianism
+						has_doctrine = doctrine_anarchism
+					}
+				}
+			}
+		}
+		localization_key = "unchecked_tyranny_custom_loc"
+	}
+	text = {
+		trigger = {
+			has_doctrine = political_hostility_doctrine
+			OR = {
+				has_doctrine = doctrine_separation_of_powers
+				has_doctrine = doctrine_parliamentarianism
+				has_doctrine = doctrine_anarchism
+			}
+			trigger_if = {
+				limit = { exists = scope:insulting_faith }
+				scope:insulting_faith ?= {
+					OR = {
+						has_doctrine = doctrine_despotism
+						has_doctrine = doctrine_dictatorship
+					}
+				}
+			}
+		}
+		localization_key = "sheer_anarchy_custom_loc"
+	}
+	text = {
+		trigger = {
+			NOR = {
+				has_doctrine = doctrine_anarchism
+				has_doctrine = doctrine_no_legitimacy
+			}
+			trigger_if = {
+				limit = { exists = scope:insulting_faith }
+				scope:insulting_faith ?= {
+					NOR = {
+						has_doctrine = doctrine_anarchism
+						has_doctrine = doctrine_no_legitimacy
+					}
+				}
+			}
+			trigger_else = { always = no }
+		}
+		localization_key = "unchecked_tyranny_custom_loc"
+	}
+	text = {
+		trigger = {
+			OR = {
+				has_doctrine = doctrine_anarchism
+				has_doctrine = doctrine_no_legitimacy
+			}
+			trigger_if = {
+				limit = { exists = scope:insulting_faith }
+				scope:insulting_faith ?= {
+					NOR = {
+						has_doctrine = doctrine_anarchism
+						has_doctrine = doctrine_no_legitimacy
+					}
+				}
+			}
+		}
+		localization_key = "sheer_anarchy_custom_loc"
+	}
+	text = {
+		trigger = {
+			OR = {
+				has_doctrine = doctrine_commonality_pluralism
+				has_doctrine = doctrine_separatism
+			}
+			trigger_if = {
+				limit = { exists = scope:insulting_faith }
+				scope:insulting_faith = {
+					OR = {
+						has_doctrine = doctrine_metroplanetism
+						has_doctrine = doctrine_anti_metroplanetism
+					}
+				}
+			}
+		}
+		localization_key = "repackaged_particularism_custom_loc"
+	}
+	text = {
+		trigger = { has_doctrine = doctrine_particularism }
+		localization_key = "blatant_particularism_custom_loc"
+	}
+	text = {
+		trigger = {
+			OR = {
+				has_doctrine = tenet_cyberneticism
+				has_doctrine = tenet_bio_directionism
+				has_doctrine = tenet_genetic_dynasties
+			}
+			trigger_if = {
+				limit = { exists = scope:insulting_faith }
+				scope:insulting_faith = {
+					NOR = {
+						has_doctrine = tenet_cyberneticism
+						has_doctrine = tenet_bio_directionism
+						has_doctrine = tenet_genetic_dynasties
+					}
+				}
+			}
+		}
+		localization_key = "cold_and_inhuman_custom_loc"
+	}
+	text = {
+		trigger = {
+			OR = {
+				has_doctrine = tenet_cyberneticism
+				has_doctrine = tenet_bio_directionism
+				has_doctrine = tenet_genetic_dynasties
+			}
+			trigger_if = {
+				limit = { exists = scope:insulting_faith }
+				scope:insulting_faith = { has_doctrine = tenet_human_purity }
+			}
+		}
+		localization_key = "desecration_of_the_sacred_human_form_custom_loc"
+	}
+	text = {
+		trigger = { fervor < 50 }
+		localization_key = "a_failed_idea_custom_loc"
+	}
+	text = {
+		trigger = { fervor < 20 }
+		localization_key = "a_legacy_of_failure_custom_loc"
+	}
+}
+GetInterestGroupName = {
+	type = character
+	text = {
+		setup_scope = { var:interest_group_title ?= { save_scope_as = interest_group_title } }
+		trigger = { var:interest_group_name_format ?= flag:title_type }
+		localization_key = "interest_group_name_title_type_custom_loc"
+	}
+	text = {
+		setup_scope = { var:interest_group_title ?= { save_scope_as = interest_group_title } }
+		trigger = {
+			var:interest_group_title_format ?= flag:adjective
+			var:interest_group_name_format ?= flag:type_group
+		}
+		localization_key = "interest_group_name_adjective_type_group_custom_loc"
+	}
+	text = {
+		setup_scope = { var:interest_group_title ?= { save_scope_as = interest_group_title } }
+		trigger = {
+			var:interest_group_title_format ?= flag:adjective
+			var:interest_group_name_format ?= flag:group_type
+		}
+		localization_key = "interest_group_name_adjective_group_type_custom_loc"
+	}
+	text = {
+		setup_scope = { var:interest_group_title ?= { save_scope_as = interest_group_title } }
+		trigger = {
+			var:interest_group_title_format ?= flag:name
+			var:interest_group_name_format ?= flag:type_group
+		}
+		localization_key = "interest_group_name_type_group_name_custom_loc"
+	}
+	text = {
+		setup_scope = { var:interest_group_title ?= { save_scope_as = interest_group_title } }
+		trigger = {
+			var:interest_group_title_format ?= flag:name
+			var:interest_group_name_format ?= flag:group_type
+		}
+		localization_key = "interest_group_name_group_type_name_custom_loc"
+	}
+	text = {
+		setup_scope = { var:interest_group_title ?= { save_scope_as = interest_group_title } }
+		trigger = { var:interest_group_name_format ?= flag:adjective_type }
+		localization_key = "interest_group_name_adjective_type_name_custom_loc"
+	}
+}
+GetInterestGroupTypeInitial = {
+	type = character
+	text = {
+		trigger = { var:interest_group_type ?= flag:commercial }
+		localization_key = "commercial_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:industrial }
+		localization_key = "industrial_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:trade }
+		localization_key = "trade_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:corporate }
+		localization_key = "corporate_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:labor }
+		localization_key = "labor_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:workers }
+		localization_key = "workers_possessive_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:steelworkers }
+		localization_key = "steelworkers_possessive_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:miners }
+		localization_key = "miners_possessive_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:shipbreakers }
+		localization_key = "shipbreakers_possessive_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:dockworkers }
+		localization_key = "dockworkers_possessive_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:farmers }
+		localization_key = "farmers_possessive_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:veterans }
+		localization_key = "veterans_possessive_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:victory }
+		localization_key = "victory_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:chivalric }
+		localization_key = "chivalric_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:military }
+		localization_key = "military_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:patriots }
+		localization_key = "patriots_possessive_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:coexistence }
+		localization_key = "coexistence_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:commonality }
+		localization_key = "commonality_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:anti_war }
+		localization_key = "anti_war_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:science }
+		localization_key = "science_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:philosphical }
+		localization_key = "philosophical_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:educational }
+		localization_key = "educational_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:knowledge }
+		localization_key = "knowledge_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:medical }
+		localization_key = "medical_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:engineering }
+		localization_key = "engineering_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:transhumanist }
+		localization_key = "transhumanist_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:evolutionary }
+		localization_key = "evolutionary_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:transformative }
+		localization_key = "transformative_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:traditionalist }
+		localization_key = "traditionalist_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:puritan }
+		localization_key = "puritan_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:spiritual }
+		localization_key = "spiritual_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:holy }
+		localization_key = "holy_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:salvation }
+		localization_key = "salvation_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:theological }
+		localization_key = "theological_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:orthodox }
+		localization_key = "orthodox_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:family }
+		localization_key = "family_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:liberty }
+		localization_key = "liberty_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:freedom }
+		localization_key = "freedom_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:peace }
+		localization_key = "peace_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:harmony }
+		localization_key = "harmonious_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:stability }
+		localization_key = "stability_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:spacers }
+		localization_key = "spacers_possessive_custom_loc"
+	}
+}
+GetInterestGroupTypeFinal = {
+	type = character
+	text = {
+		trigger = { var:interest_group_type ?= flag:commercial }
+		localization_key = "for_commerce_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:industrial }
+		localization_key = "for_industry_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:trade }
+		localization_key = "for_trade_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:corporate }
+		localization_key = "for_business_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:labor }
+		localization_key = "of_labor_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:workers }
+		localization_key = "of_workers_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:steelworkers }
+		localization_key = "of_steelworkers_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:miners }
+		localization_key = "of_miners_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:shipbreakers }
+		localization_key = "of_shipbreakers_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:dockworkers }
+		localization_key = "of_dockworkers_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:farmers }
+		localization_key = "of_farmers_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:veterans }
+		localization_key = "of_veterans_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:victory }
+		localization_key = "for_victory_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:chivalric }
+		localization_key = "of_chivalry_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:military }
+		localization_key = "for_war_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:patriots }
+		localization_key = "of_patriots_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:coexistence }
+		localization_key = "for_coexistence_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:commonality }
+		localization_key = "for_commonality_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:anti_war }
+		localization_key = "against_war_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:science }
+		localization_key = "of_scientists_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:philosphical }
+		localization_key = "of_philosophers_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:educational }
+		localization_key = "of_educators_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:knowledge }
+		localization_key = "for_knowledge_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:medical }
+		localization_key = "of_doctors_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:engineering }
+		localization_key = "of_engineers_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:transhumanist }
+		localization_key = "for_transhumanism_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:evolutionary }
+		localization_key = "for_human_evolution_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:transformative }
+		localization_key = "for_human_transformation_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:traditionalist }
+		localization_key = "for_tradition_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:puritan }
+		localization_key = "for_purity_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:spiritual }
+		localization_key = "of_the_spirit_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:esoteric }
+		localization_key = "esoterica_custom_loc"
+	}
+	text = {
+		setup_scope = { faith = { save_scope_as = faith_with_god } }
+		trigger = { var:interest_group_type ?= flag:holy }
+		localization_key = "of_high_god_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:salvation }
+		localization_key = "for_salvation_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:theological }
+		localization_key = "of_theologians_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:orthodox }
+		localization_key = "for_orthodoxy_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:family }
+		localization_key = "for_the_family_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:liberty }
+		localization_key = "for_liberty_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:freedom }
+		localization_key = "for_freedom_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:peace }
+		localization_key = "for_peace_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:harmony }
+		localization_key = "for_harmony_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:stability }
+		localization_key = "for_stability_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:spacers }
+		localization_key = "of_spacers_custom_loc"
+	}
+}
+GetInterestGroupAdjective = {
+	type = character
+	text = {
+		trigger = { var:interest_group_adjective ?= flag:federated }
+		localization_key = "federated_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_adjective ?= flag:united }
+		localization_key = "united_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_adjective ?= flag:syndicated }
+		localization_key = "syndicated_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_adjective ?= flag:associated }
+		localization_key = "associated_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_adjective ?= flag:amalgamated }
+		localization_key = "amalgamated_custom_loc"
+	}
+}
+GetInterestGroupSingularNoun = {
+	type = character
+	text = {
+		trigger = { var:interest_group_noun ?= flag:consortium }
+		localization_key = "consortium_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_noun ?= flag:society }
+		localization_key = "society_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_noun ?= flag:association }
+		localization_key = "association_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_noun ?= flag:union }
+		localization_key = "union_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_noun ?= flag:league }
+		localization_key = "league_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_noun ?= flag:federation }
+		localization_key = "federation_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_noun ?= flag:council }
+		localization_key = "council_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_noun ?= flag:syndicate }
+		localization_key = "syndicate_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_noun ?= flag:guild }
+		localization_key = "guild_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_noun ?= flag:alliance }
+		localization_key = "alliance_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_noun ?= flag:coalition }
+		localization_key = "coalition_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_noun ?= flag:legion }
+		localization_key = "legion_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_noun ?= flag:order }
+		localization_key = "order_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_noun ?= flag:congregation }
+		localization_key = "congregation_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_noun ?= flag:foundation }
+		localization_key = "foundation_custom_loc"
+	}
+}
+GetInterestGroupPluralNoun = {
+	type = character
+	text = {
+		trigger = { var:interest_group_type ?= flag:industrial }
+		localization_key = "industries_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:trade }
+		localization_key = "traders_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:corporate }
+		localization_key = "corporations_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:workers }
+		localization_key = "workers_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:steelworkers }
+		localization_key = "steelworkers_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:miners }
+		localization_key = "miners_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:shipbreakers }
+		localization_key = "shipbreakers_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:dockworkers }
+		localization_key = "dockworkers_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:farmers }
+		localization_key = "farmers_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:science }
+		localization_key = "scientists_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:medical }
+		localization_key = "doctors_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:engineering }
+		localization_key = "engineers_custom_loc"
+	}
+	text = {
+		trigger = { var:interest_group_type ?= flag:spacers }
+		localization_key = "spacers_custom_loc"
+	}
 }

@@ -1,0 +1,108 @@
+GetPoliticalCampaignRidingName = {
+	type = character
+	text = {
+		setup_scope = {
+			random_scheme = {
+				limit = { scheme_type = legislative_election_campaign }
+				var:riding ?= { save_scope_as = loc_riding }
+			}
+		}
+		localization_key = "[loc_riding.GetName]"
+	}
+}
+GetPoliticalCampaignRidingNameNoTier = {
+	type = character
+	text = {
+		setup_scope = {
+			random_scheme = {
+				limit = { scheme_type = legislative_election_campaign }
+				var:riding ?= { save_scope_as = loc_riding }
+			}
+		}
+		localization_key = "[loc_riding.GetNameNoTier]"
+	}
+}
+GetPoliticalCampaignRidingNameNoTierNoTooltip = {
+	type = character
+	text = {
+		setup_scope = {
+			random_scheme = {
+				limit = { scheme_type = legislative_election_campaign }
+				var:riding ?= { save_scope_as = loc_riding }
+			}
+		}
+		localization_key = "[loc_riding.GetNameNoTierNoTooltip]"
+	}
+}
+GetCampaignLegislatorName = {
+	type = character
+	text = {
+		setup_scope = {
+			random_scheme = {
+				limit = { scheme_type = legislative_election_campaign }
+				var:legislature ?= { var:legislature_title ?= { save_scope_as = loc_legislature_title } }
+			}
+		}
+		localization_key = "[loc_legislature_title.Custom('GetLegislatorName')]"
+	}
+}
+GetCampaignLegislatureName = {
+	type = character
+	text = {
+		setup_scope = {
+			random_scheme = {
+				limit = { scheme_type = legislative_election_campaign }
+				var:legislature ?= { var:legislature_title ?= { save_scope_as = loc_legislature_title } }
+			}
+		}
+		localization_key = "[loc_legislature_title.Custom('GetLegislatureName')]"
+	}
+}
+GetCampaignDefinitiveLegislatureName = {
+	type = character
+	text = {
+		setup_scope = {
+			random_scheme = {
+				limit = { scheme_type = legislative_election_campaign }
+				var:legislature ?= { var:legislature_title ?= { save_scope_as = loc_legislature_title } }
+			}
+		}
+		localization_key = "[loc_legislature_title.Custom('GetDefinitiveLegislatureName')]"
+	}
+}
+GetCampaignLegislatureTitleName = {
+	type = character
+	text = {
+		setup_scope = {
+			random_scheme = {
+				limit = { scheme_type = legislative_election_campaign }
+				var:legislature ?= { var:legislature_title ?= { save_scope_as = loc_legislature_title } }
+			}
+		}
+		localization_key = "[loc_legislature_title.GetName]"
+	}
+}
+GetCampaignLegislatureTitleNameNoTier = {
+	type = character
+	text = {
+		setup_scope = {
+			random_scheme = {
+				limit = { scheme_type = legislative_election_campaign }
+				var:legislature ?= { var:legislature_title ?= { save_scope_as = loc_legislature_title } }
+			}
+		}
+		localization_key = "[loc_legislature_title.GetNameNoTier]"
+	}
+}
+GetCampaignLegislatureTitleNameNoTierNoTooltip = {
+	type = character
+	text = {
+		setup_scope = {
+			random_scheme = {
+				limit = { scheme_type = legislative_election_campaign }
+				var:legislature ?= { var:legislature_title ?= { save_scope_as = loc_legislature_title } }
+			}
+		}
+		localization_key = "[loc_legislature_title.GetNameNoTierNoTooltip]"
+	}
+}

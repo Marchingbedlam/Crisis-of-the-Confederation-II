@@ -1,0 +1,50 @@
+﻿gui_is_county_legislature = {
+	scope = situation
+	is_shown = { var:legislature_title ?= { tier = tier_county } }
+}
+gui_is_duchy_legislature = {
+	scope = situation
+	is_shown = { var:legislature_title ?= { tier = tier_duchy } }
+}
+gui_is_kingdom_legislature = {
+	scope = situation
+	is_shown = { var:legislature_title ?= { tier = tier_kingdom } }
+}
+gui_is_empire_legislature = {
+	scope = situation
+	is_shown = { var:legislature_title ?= { tier = tier_empire } }
+}
+gui_is_hegemony_legislature = {
+	scope = situation
+	is_shown = { var:legislature_title ?= { tier = tier_hegemony } }
+}
+sort_legislature_candidates = {
+	scope = situation
+	effect = {
+		save_temporary_scope_as = temp_legislature
+		every_in_list = {
+			variable = ridings
+			clear_variable_list = kingdom_sorted_candidates
+			remove_variable = kingdom_gui_incumbent
+			save_temporary_scope_as = temp_riding
+			scope:temp_legislature = {
+				random_in_list ?= {
+					variable = legislators
+					limit = { var:riding ?= { this = scope:temp_riding } }
+					scope:temp_riding = { set_variable = { name = kingdom_gui_incumbent value = PREV } }
+				}
+			}
+			every_in_list = {
+				variable = kingdom_candidates
+				set_variable = { name = current_legislator_base_score value = legislator_base_score }
+			}
+			ordered_in_list = {
+				variable = kingdom_candidates
+				order_by = var:current_legislator_base_score
+				min = 0
+				check_range_bounds = yes
+				scope:temp_riding = { add_to_variable_list = { name = kingdom_sorted_candidates target = PREV } }
+			}
+		}
+	}
+}

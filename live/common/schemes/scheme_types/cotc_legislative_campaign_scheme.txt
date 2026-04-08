@@ -1,0 +1,145 @@
+﻿legislative_election_campaign = {
+	# Basic Setup
+	skill = diplomacy
+	desc = legislative_election_campaign_desc_general
+	success_desc = "LEGISLATIVE_ELECTION_CAMPAIGN_SUCCESS_DESC"
+	icon = icon_scheme_promote
+	illustration = "gfx/interface/illustrations/event_scenes/corridor.dds"
+	target_type = title
+	is_secret = no
+	is_basic = yes
+	category = political
+	
+	# Parameters
+	speed_per_skill_point = -2.5
+	spymaster_speed_per_skill_point = 0
+	uses_resistance = no
+	base_progress_goal = 365
+	base_maximum_success = 95
+	minimum_success = 20
+	
+	# Core Triggers
+	allow = {
+		# General eligibility criteria
+		scope:actor = { eligible_legislator_candidate_trigger = yes }
+		# We are eligible to run in this riding
+		scope:owner = { character_lives_in_de_jure_title = { TITLE = scope:target } }
+		
+		#AI blockers
+	}
+	valid = {
+		# General eligibility criteria
+		scope:owner = { eligible_legislator_candidate_trigger = yes }
+		# We are a reasonable candidate to represent this riding
+		trigger_if = {
+			limit = { scope:scheme = { has_variable = legislature } }
+			scope:owner = {
+				target_is_valid_riding_and_legislature = { RIDING = scope:target LEGISLATURE = scope:scheme.var:legislature }
+			}
+		}
+		trigger_else = { always = yes }
+	}
+
+	odds_prediction = {
+		add = base_odds_prediction_target_is_title_value
+		add = odds_skill_contribution_diplomacy_value
+		min = 0
+	}
+
+	# Base Chances
+	base_success_chance = {
+		base = 30
+		modifier = {
+			add = {
+				value = scope:owner.diplomacy
+				multiply = 2
+				floor = yes
+			}
+			desc = SCHEME_YOUR_DIPLOMACY
+		}
+		modifier = {
+			add = {
+				value = scope:owner.martial
+				multiply = 0.5
+				floor = yes
+			}
+			desc = SCHEME_YOUR_MARTIAL
+		}
+		modifier = {
+			add = {
+				value = scope:owner.stewardship
+				multiply = 0.5
+				floor = yes
+			}
+			desc = SCHEME_YOUR_STEWARDSHIP
+		}
+		modifier = {
+			add = {
+				value = scope:owner.intrigue
+				multiply = 0.5
+				floor = yes
+			}
+			desc = SCHEME_YOUR_INTRIGUE
+		}
+		modifier = {
+			add = {
+				value = scope:owner.learning
+				multiply = 0.5
+				floor = yes
+			}
+			desc = SCHEME_YOUR_LEARNING
+		}
+	}
+
+	# On Actions
+	on_phase_completed = {
+		# Save basic information about the campaign
+		save_scope_as = campaign
+		scheme_owner = { save_scope_as = candidate }
+		var:legislature = { save_scope_as = legislature }
+		scheme_target_title = {
+			if = {
+				limit = { tier = tier_barony }
+				save_scope_as = location
+			}
+			else_if = {
+				limit = { tier = tier_county }
+				random_county_province = { save_scope_as = location }
+			}
+			else = { random_de_jure_county = { random_county_province = { save_scope_as = location } } }
+		}
+		
+		# If we have any rivals, find the best one and save them as a target
+		if = {
+			limit = {
+				exists = var:rival_campaigns
+				exists = var:legislature
+				exists = scheme_target_title
+			}
+			var:legislature = { save_temporary_scope_as = temp_legislature }
+			scheme_target_title = { save_temporary_scope_as = temp_riding }
+			ordered_in_list = {
+				variable = rival_campaigns
+				limit = { exists = scheme_owner }
+				order_by = scheme_owner.legislator_base_score
+				save_scope_as = rival_campaigns
+				scheme_owner = { save_scope_as = rival_candidate }
+			}
+		}
+		
+		# Trigger a progress event
+		scheme_owner = { trigger_event = { on_actions = cotc_political_campaign_scheme_progress } }
+	}
+	on_monthly = {
+		save_scope_as = scheme
+		scheme_owner = { save_scope_as = candidate }
+		scheme_target_title = { save_scope_as = riding }
+		var:legislature = { save_scope_as = legislature }
+		scheme_owner = {
+			# Trigger monthly events
+			trigger_event = { on_action = cotc_legislative_campaign_scheme_ongoing }
+			# Trigger delayed cleanup in case something happens to this scheme unexpectedly
+			trigger_event = { on_action = cotc_legislative_campaign_scheme_cleanup months = 1 }
+		}
+	}
+}

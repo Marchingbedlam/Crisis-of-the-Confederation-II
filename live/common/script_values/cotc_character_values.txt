@@ -1,0 +1,18 @@
+﻿# How good is this character in a fight? This should take over prowess's duties for most non-battlefield purposes
+personal_prowess = {
+	value = unarmed_prowess
+	every_equipped_character_artifact = {
+		if = {
+			limit = { has_variable = var:personal_prowess }
+			add = var:personal_prowess
+		}
+	}
+}
+# How good is this character in a fight WITHOUT their gear?
+unarmed_prowess = {
+	value = 0
+	if = {
+		limit = { has_variable = personal_prowess }
+		add = var:base_personal_prowess
+	}
+}

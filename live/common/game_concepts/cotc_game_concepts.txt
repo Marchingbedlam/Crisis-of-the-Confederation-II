@@ -1,4 +1,4 @@
-county_demand = {
+﻿county_demand = {
 	alias = { demand demand_i }
 	texture = "gfx/interface/icons/council_task_types/task_develop_county.dds"
 }
@@ -7,7 +7,7 @@ population_building = {
 	texture = "gfx/interface/icons/message_feed/building.dds"
 }
 legitimacy_type = {
-	alias = { federal democratic democracy meritocratic meritocracy aristocratic aristocracy }
+	alias = { political_legitimacy cotc_legitimacy legitimacy_types }
 }
 cybernetics = {
 	alias = { augments augmentations implant implants cyborg }
@@ -21,35 +21,132 @@ gene_modding = {
 	alias = { genetic_modification genetic_engineering gene_modification }
 	texture = "gfx/interface/icons/event_types/type_family.dds"
 }
+power_base = {
+	alias = { power_bases base_power }
+	parent = government
+}
 commercial_power_base = {
 	alias = { commercial_power_base_adj }
+	parent = power_base
 	texture = "gfx/interface/icons/government_types/republic_government.dds"
 }
 military_power_base = {
 	alias = { military_power_base_adj }
+	parent = power_base
 	texture = "gfx/interface/icons/government_types/feudal_government.dds"
 }
 technocratic_power_base = {
 	alias = { technocracy_cotc technocracies_cotc technocratic_power_base_adj }
+	parent = administrative_power_base
 	texture = "gfx/interface/icons/government_types/administrative_government.dds"
 }
 theocratic_power_base = {
 	alias = { theocracy_cotc theocratic_power_base_adj }
+	parent = administrative_power_base
 	texture = "gfx/interface/icons/government_types/theocracy_government.dds"
 }
 federation_cotc = {
 	alias = { confederation_cotc confederate_cotc federal_cotc federations_cotc confederations_cotc }
+	parent = legitimacy_type
 	texture = "gfx/interface/icons/government_types/confederation_government.dds"
 }
 democracy_cotc = {
 	alias = { democratic_cotc republic_cotc republics_cotc }
+	parent = legitimacy_type
 	texture = "gfx/interface/icons/government_types/republic_government.dds"
 }
 aristocracy_cotc = {
 	alias = { aristocratic_cotc monarchy_cotc monarchies_cotc }
+	parent = legitimacy_type
 	texture = "gfx/interface/icons/government_types/feudal_government.dds"
 }
 meritocracy_cotc = {
 	alias = { meritocratic_cotc administrative_cotc administration_cotc }
+	parent = legitimacy_type
 	texture = "gfx/interface/icons/government_types/administrative_government.dds"
+}
+authority_type_cotc = {
+	alias = { authority_cotc authority_types_cotc }
+	parent = government
+}
+despotism_cotc = {
+	alias = { despotic_cotc }
+	parent = authority_type_cotc
+}
+dictatorship_cotc = {
+	alias = { dictatorial_cotc }
+	parent = authority_type_cotc
+}
+separation_of_powers_cotc = {
+	alias = { presidential_cotc presidential_system_cotc }
+	parent = authority_type_cotc
+}
+parliamentarianism_cotc = {
+	alias = { parliamentarian_cotc parliamentary_system_cotc }
+	parent = authority_type_cotc
+}
+legislature_cotc = {
+	alias = {
+		legislatures_cotc legislator_cotc legislators_cotc legislative_cotc
+		senate_cotc senates_cotc senator_cotc senators_cotc
+		parliament_cotc parliaments_cotc mp_cotc mps_cotc
+	}
+	parent = situation
+}
+bill_cotc = {
+	alias = { bills_cotc }
+	parent = activity
+}
+special_motion_cotc = {
+	alias = { special_motions_cotc }
+	parent = activity
+}
+bill_supporter_cotc = {
+	alias = { bill_supporters_cotc }
+	parent = activity
+}
+bill_opponent_cotc = {
+	alias = { bill_opponents_cotc }
+	parent = activity
+}
+no_confidence_motion_cotc = {
+	alias = { no_confidence_motions_cotc no_confidence_cotc }
+	parent = special_motions_cotc
+}
+prime_minister_cotc = {
+	alias = {
+		prime_ministers_cotc
+		premier_cotc premiers_cotc
+		premiership_cotc premierships_cotc
+		minister_president_cotc ministers_president_cotc
+		first_minister_cotc first_ministers_cotc
+	}
+	parent = diarchy
+}
+commercial_holding = {
+	alias = { commercial_holdings }
+	parent = holding_type
+	texture = "gfx/interface/icons/icon_holding_city.dds"
+}
+military_holding = {
+	alias = { military_holdings }
+	parent = holding_type
+	texture = "gfx/interface/icons/icon_holding_castle.dds"
+}
+administrative_holding = {
+	alias = { administrative_holdings }
+	parent = holding_type
+	texture = "gfx/interface/icons/icon_holding_temple.dds"
+}
+province_cotc = {
+	alias = { provinces_cotc provincial_cotc }
+	parent = vassal_contract
+}
+subordinate_cotc = {
+	alias = { subordinates_cotc }
+	parent = vassal_contract
+}
+member_state_cotc = {
+	alias = { member_states_cotc members_cotc }
+	parent = vassal_contract
 }

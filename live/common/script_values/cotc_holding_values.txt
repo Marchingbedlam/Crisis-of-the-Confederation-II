@@ -1,10 +1,7 @@
 ﻿# A rough measurement of the economic needs of this system's population
 county_demand = {
-	county = {
-		every_county_province = {
-			add = holding_demand
-		}
-	}
+	value = 0
+	county = { every_county_province = { add = holding_demand } }
 	min = 0
 }
 holding_demand = {
@@ -73,8 +70,32 @@ holding_population = {
 		add = high_demand_tier_5
 	}
 }
-# Returns the difference between the county's Demand and Development. Useful for AI consideration.
-county_development_deficit = {
+county_development_deficit = { # Returns the difference between the county's Demand and Development. Useful for AI consideration.
+	value = 0
 	add = county_demand
 	subtract = development
+}
+county_economic_anxiety = { # How concerned is the population of this county over the economy?
+	value = 0
+	add = county_development_deficit
+	scope:relevant_title ?= {
+		holder = {
+			if = {
+				limit = { debt_level >= 0 }
+				add = {
+					value = debt_level
+					add = 1
+					multiply = 5
+				}
+			}
+		}
+	}
+}
+county_security_anxiety = { # How concerned is the population of this county over their security?
+	value = 0
+	# Security anxiety due to low control
+	add = {
+		value = 100
+		subtract = county_control
+	}
 }

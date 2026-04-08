@@ -1,0 +1,499 @@
+﻿no_confidence_motion_activity = {
+	is_shown = {
+		is_independent_ruler = no # Must have a liege
+		liege = {
+			save_temporary_scope_as = ruler
+			has_diarchy_type = cotc_premiership
+			any_character_situation = {
+				situation_type = legislature
+				situation_participant_group:ruler = { any_situation_group_participant = { this = scope:ruler } }
+			}
+		}
+	}
+	activity_group_type = liege_special_motions
+	sort_order = 30
+	
+	can_start = {
+		liege = {
+			legislature_in_session_trigger = yes
+			primary_title.var:legislature = {
+				custom_tooltip = {
+					NOT = { has_variable = current_motion }
+					text = legislature_not_convened_desc
+				}
+			}
+		}
+		is_diarch = no
+	}
+	
+	can_plan = {
+		liege = { legislature_in_session_trigger = yes }
+		is_diarch = no
+	}
+	
+	cost = {
+		influence = {
+			value = 0
+			save_temporary_scope_as = caller
+			add = {
+				value = 100
+				desc = no_confidence_base_cost_desc
+			}
+			multiply = {
+				value = liege.highest_held_title_tier
+				desc = no_confidence_tier_multiplier_modifier
+			}
+			add = {
+				value = liege.diarch.prime_minister_score
+				desc = incumbent_prime_minister_score_modifier
+			}
+			subtract = {
+				value = ROOT.prime_minister_score
+				desc = challenger_prime_minister_score_modifier
+			}
+		}
+	}
+	
+	ui_predicted_cost = {
+		influence = {
+			value = 0
+			save_temporary_scope_as = caller
+			add = {
+				value = 100
+				desc = no_confidence_base_cost_desc
+			}
+			multiply = {
+				value = liege.highest_held_title_tier
+				desc = no_confidence_tier_multiplier_modifier
+			}
+			add = {
+				value = liege.diarch.prime_minister_score
+				desc = incumbent_prime_minister_score_modifier
+			}
+			subtract = {
+				value = ROOT.prime_minister_score
+				desc = challenger_prime_minister_score_modifier
+			}
+		}
+	}
+	
+	is_valid = {
+		scope:host = {
+			is_alive = yes
+			is_imprisoned = no
+			is_incapable = no
+		}
+		trigger_if = {
+			limit = { has_variable = ruler }
+			var:ruler = { legislature_in_session_trigger = yes }
+		}
+		trigger_if = {
+			limit = { exists = var:incumbent }
+			var:incumbent ?= {
+				liege = {
+					has_diarchy_type = cotc_premiership
+					this = scope:host.liege
+				}
+				is_diarch = yes
+			}
+		}
+		NOT = { has_variable = quorum_not_met }
+	}
+	
+	on_invalidated = {
+		var:legislature = { remove_variable = current_motion }
+		var:title = { save_scope_as = activity_title }
+		var:ruler = { save_scope_as = activity_ruler }
+		scope:host = { save_scope_as = activity_host }
+		every_attending_character = { trigger_event = { on_action = bill_clean_legislators_on_action } }
+		invalidation_imprisoned_effect = yes
+		invalidation_incapable_effect = yes
+		invalidation_unlanded_effect = yes
+		if = {
+			limit = { has_variable = quorum_not_met }
+			every_attending_character = {
+				limit = { NOT = { this = scope:host } }
+				trigger_event = cotc_bill_events.15
+			}
+			scope:host = { trigger_event = cotc_bill_events.10 }
+		}
+		else_if = {
+			limit = { var:ruler = { legislature_in_session_trigger = no } }
+			scope:host = { trigger_event = { id = cotc_bill_events.20 } }
+			every_attending_character = {
+				limit = { NOT = { this = scope:host } }
+				trigger_event = { id = cotc_bill_events.25 }
+			}
+		}
+	}
+	
+	on_host_death = {
+		invalidation_host_death_effect = yes
+	}
+	
+	province_filter = top_realm
+	
+	is_location_valid = {
+		this = scope:host.liege.capital_province
+	}
+	
+	province_score = {
+		value = 0
+		if = {
+			limit = { this = scope:host.liege.capital_province }
+			add = 100
+		}
+	}
+	
+	max_province_icons = 1
+	
+	on_start = {
+		scope:activity = {
+			set_variable = { name = ruler value = scope:host.liege }
+			set_variable = { name = title value = var:ruler.primary_title }
+			set_variable = { name = legislature value = var:ruler.primary_title.var:legislature }
+			set_variable = { name = challenger value = scope:host }
+			set_variable = { name = incumbent value = scope:host.liege.diarch }
+			var:legislature = { set_variable = { name = current_motion value = scope:activity } }
+		}
+	}
+	
+	on_complete = {
+		scope:activity = {
+			var:legislature = { remove_variable = current_motion }
+			var:ruler = { save_scope_as = ruler }
+			var:title = { save_scope_as = title }
+			var:legislature = { save_scope_as = legislature }
+			var:challenger = { save_scope_as = challenger }
+			var:incumbent = { save_scope_as = incumbent }
+			save_scope_value_as = { name = final_supporters value = total_bill_supporters }
+			save_scope_value_as = { name = final_opponents value = total_bill_opponents }
+		}
+		if = {
+			limit = { scope:activity = { has_variable = bill_passed } }
+			if = {
+				limit = { this = scope:challenger }
+				trigger_event = cotc_no_confidence_events.210
+				scope:incumbent = {
+					if = {
+						limit = { NOT = { is_participant_in_activity = scope:activity } }
+						trigger_event = cotc_no_confidence_events.220
+					}
+				}
+			}
+			else_if = {
+				limit = { this = scope:incumbent }
+				trigger_event = cotc_no_confidence_events.211
+			}
+			else_if = {
+				limit = { is_in_guest_subset = { name = bill_supporters } }
+				trigger_event = cotc_no_confidence_events.212
+			}
+			else_if = {
+				limit = { is_in_guest_subset = { name = bill_opponents } }
+				trigger_event = cotc_no_confidence_events.213
+			}
+			else = { trigger_event = cotc_no_confidence_events.214 }
+		}
+		else = {
+			if = {
+				limit = { this = scope:challenger }
+				trigger_event = cotc_no_confidence_events.215
+				scope:incumbent = {
+					if = {
+						limit = { NOT = { is_participant_in_activity = scope:activity } }
+						trigger_event = cotc_no_confidence_events.221
+					}
+				}
+			}
+			else_if = {
+				limit = { this = scope:incumbent }
+				trigger_event = cotc_no_confidence_events.216
+			}
+			else_if = {
+				limit = { is_in_guest_subset = { name = bill_supporters } }
+				trigger_event = cotc_no_confidence_events.217
+			}
+			else_if = {
+				limit = { is_in_guest_subset = { name = bill_opponents } }
+				trigger_event = cotc_no_confidence_events.218
+			}
+			else = { trigger_event = cotc_no_confidence_events.219 }
+		}
+		trigger_event = { on_action = bill_clean_legislators_on_action }
+	}
+	
+	phases = {
+		debate = {
+			order = 1
+			is_predefined = yes
+			
+			is_shown = { always = yes }
+
+			on_enter_phase = {
+				scope:activity = { 
+					progress_activity_phase_after = { days = 1 }
+				}
+			}
+			
+			on_phase_active = {
+				if = {
+					limit = { this = scope:host } # Run only once
+					scope:activity = {
+						# First, check that we've met quorum
+						# For no confidence motions, quorum is a simple majority
+						if = {
+							limit = {
+								any_attending_character = {
+									save_temporary_scope_as = evaluated_character
+									is_character_in_legislature_trigger = { LEGISLATURE = scope:activity.var:legislature CHARACTER = scope:evaluated_character }
+									count < scope:activity.var:legislature.simple_majority
+								}
+							}
+							set_variable = quorum_not_met
+						}
+						# We've met quorum, so collect everyone's initial votes
+						else = {
+							every_attending_character = {
+								limit = {
+									save_temporary_scope_as = evaluated_character
+									is_character_in_legislature_trigger = { LEGISLATURE = scope:activity.var:legislature CHARACTER = scope:evaluated_character }
+								}
+								trigger_event = cotc_no_confidence_events.100
+							}
+							# How long should debate go for?
+							scope:activity.var:incumbent = { trigger_event = { id = cotc_no_confidence_events.110 days = 1 } }
+							scope:host = { trigger_event = { id = cotc_no_confidence_events.120 days = 1 } }
+						}
+					}
+				}
+			}
+			
+			on_weekly_pulse = {
+				if = {
+					limit = { ROOT = scope:host }
+					# Campaign against the incumbent
+					save_scope_as = actor
+					scope:activity.var:incumbent = { save_scope_as = opponent }
+					trigger_event = { id = cotc_no_confidence_events.300 days = { 2 6 } }
+				}
+				else_if = {
+					limit = { ROOT = scope:activity.var:incumbent }
+					# Campaign against the challenger
+					save_scope_as = actor
+					scope:host = { save_scope_as = opponent }
+					trigger_event = { id = cotc_no_confidence_events.300 days = { 2 6 } }
+				}
+				else_if = {
+					limit = { is_character_in_legislature_trigger = { LEGISLATURE = scope:activity.var:legislature CHARACTER = ROOT } }
+					# Attending legislators do things
+					trigger_event = { on_action = bill_debate_pulse_legislator_on_action days = { 2 6 } }
+				}
+			}
+		}
+		voting = {
+			order = 2
+			is_predefined = yes
+			
+			is_shown = { always = yes }
+
+			on_enter_phase = {
+				scope:activity = { 
+					progress_activity_phase_after = { days = 1 } 
+				}		
+			}
+			
+			on_phase_active = {
+				# The final vote! Did we succeed or fail?
+				if = {
+					limit = { ROOT = scope:host }
+					scope:host = {
+						trigger_event = cotc_bill_events.200 # Motion succeeded
+						trigger_event = cotc_bill_events.250 # Motion failed
+					}
+				}
+			}
+		}
+	}
+	
+	max_guest_arrival_delay_time = { months = 2 }
+	
+	cooldown = { years = 2 }
+	
+	is_single_location = yes
+	
+	ai_will_do = {
+		value = 0
+		add = prime_minister_score
+		subtract = liege.diarch.prime_minister_score
+		if = {
+			limit = { wants_to_be_prime_minister_trigger = no }
+			multiply = 0
+		}
+	}
+	ai_check_interval_by_tier = {
+		barony = 24
+		county = 12
+		duchy = 6
+		kingdom = 3
+		empire = 1
+		hegemony = 0
+	}
+	ai_will_select_province = {
+		value = scope:score
+	}
+	
+	max_guests = {
+		value = 500 # Hopefully this will only become a problem with really, really big empires
+	}
+	allow_zero_guest_invites = no
+	guest_invite_rules = {
+		defaults = {
+			1 = activity_invite_rule_liege_legislators
+		}
+	}
+	guest_subsets = { bill_supporters bill_opponents undecideds }
+	special_guests = {
+		head_of_state = {
+			is_shown = { always = yes }
+			is_required = no # The ruler SHOULD show up, but it's not mandatory
+			select_character = { liege = { save_scope_as = character } }
+		}
+		incumbent = {
+			is_shown = { always = yes }
+			is_required = no # The incumbent can't just shut down the vote by refusing to attend
+			select_character = { liege = { diarch = { save_scope_as = character } } }
+		}
+	}
+	
+	host_intents = {
+		intents = { become_prime_minister_intent }
+		default = become_prime_minister_intent
+	}
+	
+	guest_intents = {
+		intents = {
+			maintain_status_quo_intent
+			oust_prime_minister_intent
+			keep_challenger_out_intent
+			support_ideology_intent
+			support_culture_intent
+			support_patron_prime_minister_intent
+			support_friend_prime_minister_intent
+			oppose_rival_prime_minister_intent
+			support_most_qualified_prime_minister_intent
+			support_most_loyal_prime_minister_intent
+			trade_favors_intent
+		}
+		default = maintain_status_quo_intent
+	}
+	
+	guest_join_chance = {
+		base = 100
+		base_activity_modifier = yes
+		modifier = {
+			add = {
+				value = 0
+				add = {
+					value = ai_honor
+					min = 0
+				}
+				add = ai_energy
+			}
+		}
+		modifier = {
+			add = {
+				value = 50
+				add = {
+					value = ai_rationality
+					min = 0
+				}
+			}
+			this = scope:incumbent
+		}
+	}
+	
+	### Plug in widgets
+	activity_window_widgets = {
+		bill_supporter_opponent_widget = "window_activity_contestants_right_bar_container"
+		bill_votes = "activity_plugin_widgets_summary"
+		bill_provisions = "activity_top_layer_idle_widgets"
+	}
+	
+	# These are placeholders, obviously
+	background = {
+		texture = "gfx/interface/illustrations/event_scenes/fp2_throneroom.dds"
+		environment = "environment_event_fp2_throneroom" 
+		ambience = "event:/DLC/EP4/SFX/Events/Event_Backgrounds/tgp_examination_room"
+	}
+	window_characters = {
+		incumbent_supporter = {
+			camera = camera_body_right
+			effect = {
+				ordered_guest_subset = {
+					name = bill_opponents
+					order_by = legislative_seniority
+					add_to_list = characters
+				}
+			}
+			
+			scripted_animation = {
+				animation = debate
+			}
+		}
+		incumbent = {
+			camera = camera_body_right
+			effect = { scope:host.liege.diarch = { add_to_list = characters } }
+			scripted_animation = {
+				triggered_animation = {
+					trigger = { total_bill_supporters > total_bill_opponents }
+					animation = war_over_lost
+				}
+				triggered_animation = {
+					trigger = { total_bill_supporters <= total_bill_opponents }
+					animation = dismissal
+				}
+			}
+		}
+		ruler = {
+			camera = camera_body
+			
+			effect = { scope:host.liege = { add_to_list = characters } }
+			
+			scripted_animation = {
+				animation = idle
+			}
+		}
+		challenger = {
+			camera = camera_body_left
+			effect = { scope:host = { add_to_list = characters } }
+			scripted_animation = {
+				triggered_animation = {
+					trigger = { total_bill_supporters <= total_bill_opponents }
+					animation = debate
+				}
+				triggered_animation = {
+					trigger = { total_bill_supporters > total_bill_opponents }
+					animation = war_over_won
+				}
+			}
+		}
+		challenger_supporter = {
+			camera = camera_body_left
+			effect = {
+				ordered_guest_subset = {
+					name = bill_supporters
+					order_by = legislative_seniority
+					add_to_list = characters
+				}
+			}
+			scripted_animation = { animation = debate }
+		}
+	}
+	
+	# No hangers-on!
+	travel_entourage_selection = {
+		max = 0
+		ai_max = 0
+	}
+}

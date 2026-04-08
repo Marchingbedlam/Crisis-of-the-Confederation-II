@@ -1,0 +1,293 @@
+﻿pass_bill_intent = {
+	icon = extoll_reign_intent
+}
+maintain_status_quo_intent = {
+	ai_will_do = { value = 0 } # Should only be chosen as a backup
+}
+trade_favors_intent = {
+	ai_will_do = {
+		value = 10
+		add = ai_greed
+		add = ai_rationality
+		subtract = ai_lawfulness
+	}
+}
+support_bill_intent = {
+	icon = support_liege_intent
+	ai_will_do = {
+		involved_activity = {
+			save_temporary_scope_as = activity
+			activity_host = { save_temporary_scope_as = host }
+		}
+		value = support_bill_score
+	}
+}
+block_bill_intent = {
+	icon = disrupt_loyalists_intent
+	ai_will_do = {
+		involved_activity = {
+			save_temporary_scope_as = activity
+			activity_host = { save_temporary_scope_as = host }
+		}
+		value = block_bill_score
+	}
+}
+balance_budget_intent = {
+	ai_will_do = {
+		involved_activity = {
+			save_temporary_scope_as = activity
+			activity_host = { save_temporary_scope_as = host }
+		}
+		value = balance_budget_score
+	}
+}
+balance_budget_maintain_military_intent = {
+	ai_will_do = {
+		involved_activity = {
+			save_temporary_scope_as = activity
+			activity_host = { save_temporary_scope_as = host }
+		}
+		value = balance_budget_score
+		add = military_spending_score
+	}
+}
+balance_budget_maintain_ministry_intent = {
+	ai_will_do = {
+		involved_activity = {
+			save_temporary_scope_as = activity
+			activity_host = { save_temporary_scope_as = host }
+		}
+		value = balance_budget_score
+		add = ministry_spending_score
+	}
+}
+balance_budget_maintain_salary_intent = {
+	ai_will_do = {
+		involved_activity = {
+			save_temporary_scope_as = activity
+			activity_host = { save_temporary_scope_as = host }
+		}
+		value = balance_budget_score
+		add = salary_spending_score
+	}
+}
+increase_military_budget_intent = {
+	# It does not make sense to increase a maxed-out military budget
+	is_shown = { involved_activity.var:ruler.current_military_budget < 100 }
+	is_valid = { involved_activity.var:ruler.current_military_budget < 100 }
+	ai_will_do = {
+		involved_activity = {
+			save_temporary_scope_as = activity
+			activity_host = { save_temporary_scope_as = host }
+		}
+		value = increase_military_budget_score
+	}
+}
+increase_ministry_budget_intent = {
+	# It does not make sense to increase a maxed-out ministry budget
+	is_shown = { involved_activity.var:ruler.current_ministry_budget < 100 }
+	is_valid = { involved_activity.var:ruler.current_ministry_budget < 100 }
+	ai_will_do = {
+		involved_activity = {
+			save_temporary_scope_as = activity
+			activity_host = { save_temporary_scope_as = host }
+		}
+		value = increase_ministry_spending_score
+	}
+}
+increase_salary_budget_intent = {
+	# It does not make sense to increase a maxed-out salary budget
+	is_shown = { involved_activity.var:ruler.current_salary_budget < 100 }
+	is_valid = { involved_activity.var:ruler.current_salary_budget < 100 }
+	ai_will_do = {
+		involved_activity = {
+			save_temporary_scope_as = activity
+			activity_host = { save_temporary_scope_as = host }
+		}
+		value = increase_salary_spending_score
+	}
+}
+increase_revenue_intent = {
+	# It does not make sense to increase taxes when they cannot be increased
+	is_shown = { involved_activity.var:ruler.current_total_taxes < 16 }
+	is_valid = { involved_activity.var:ruler.current_total_taxes < 16 }
+	ai_will_do = {
+		involved_activity = {
+			save_temporary_scope_as = activity
+			activity_host = { save_temporary_scope_as = host }
+		}
+		value = increase_revenue_score
+	}
+}
+increase_revenue_maintain_military_intent = {
+	# It does not make sense to increase taxes when they cannot be increased
+	is_shown = {
+		involved_activity = {
+			var:ruler = {
+				current_total_taxes < 16
+				current_commercial_taxes < 4
+				current_technocratic_taxes < 4
+				current_theocratic_taxes < 4
+			}
+		}
+	}
+	is_valid = {
+		involved_activity = {
+			var:ruler = {
+				current_total_taxes < 16
+				current_commercial_taxes < 4
+				current_technocratic_taxes < 4
+				current_theocratic_taxes < 4
+			}
+		}
+	}
+	ai_will_do = {
+		involved_activity = {
+			save_temporary_scope_as = activity
+			activity_host = { save_temporary_scope_as = host }
+		}
+		value = increase_revenue_score
+		add = military_spending_score
+	}
+}
+increase_revenue_maintain_commercial_intent = {
+	# It does not make sense to increase taxes when they cannot be increased
+	is_shown = {
+		involved_activity = {
+			var:ruler = {
+				current_total_taxes < 16
+				current_military_taxes < 4
+				current_technocratic_taxes < 4
+				current_theocratic_taxes < 4
+			}
+		}
+	}
+	is_valid = {
+		involved_activity = {
+			var:ruler = {
+				current_total_taxes < 16
+				current_military_taxes < 4
+				current_technocratic_taxes < 4
+				current_theocratic_taxes < 4
+			}
+		}
+	}
+	ai_will_do = {
+		involved_activity = {
+			save_temporary_scope_as = activity
+			activity_host = { save_temporary_scope_as = host }
+		}
+		value = increase_revenue_score
+		add = ministry_spending_score
+	}
+}
+increase_revenue_maintain_technocratic_intent = {
+	# It does not make sense to increase taxes when they cannot be increased
+	is_shown = {
+		involved_activity = {
+			var:ruler = {
+				current_total_taxes < 16
+				current_military_taxes < 4
+				current_commercial_taxes < 4
+				current_theocratic_taxes < 4
+			}
+		}
+	}
+	is_valid = {
+		involved_activity = {
+			var:ruler = {
+				current_total_taxes < 16
+				current_military_taxes < 4
+				current_commercial_taxes < 4
+				current_theocratic_taxes < 4
+			}
+		}
+	}
+	ai_will_do = {
+		involved_activity = {
+			save_temporary_scope_as = activity
+			activity_host = { save_temporary_scope_as = host }
+		}
+		value = increase_revenue_score
+		add = salary_spending_score
+	}
+}
+increase_revenue_maintain_theocratic_intent = {
+	# It does not make sense to increase taxes when they cannot be increased
+	is_shown = {
+		involved_activity = {
+			var:ruler = {
+				current_total_taxes < 16
+				current_military_taxes < 4
+				current_commercial_taxes < 4
+				current_technocratic_taxes < 4
+			}
+		}
+	}
+	is_valid = {
+		involved_activity = {
+			var:ruler = {
+				current_total_taxes < 16
+				current_military_taxes < 4
+				current_commercial_taxes < 4
+				current_technocratic_taxes < 4
+			}
+		}
+	}
+	ai_will_do = {
+		involved_activity = {
+			save_temporary_scope_as = activity
+			activity_host = { save_temporary_scope_as = host }
+		}
+		value = increase_revenue_score
+		add = salary_spending_score
+	}
+}
+cut_military_taxes_intent = {
+	# It does not make sense to cut taxes when they cannot be cut
+	is_shown = { involved_activity.var:ruler.current_military_taxes > 0 }
+	is_valid = { involved_activity.var:ruler.current_military_taxes > 0 }
+	ai_will_do = {
+		involved_activity = {
+			save_temporary_scope_as = activity
+			activity_host = { save_temporary_scope_as = host }
+		}
+		value = cut_military_taxes_score
+	}
+}
+cut_commercial_taxes_intent = {
+	# It does not make sense to cut taxes when they cannot be cut
+	is_shown = { involved_activity.var:ruler.current_commercial_taxes > 0 }
+	is_valid = { involved_activity.var:ruler.current_commercial_taxes > 0 }
+	ai_will_do = {
+		involved_activity = {
+			save_temporary_scope_as = activity
+			activity_host = { save_temporary_scope_as = host }
+		}
+		value = cut_commercial_taxes_score
+	}
+}
+cut_technocratic_taxes_intent = {
+	# It does not make sense to cut taxes when they cannot be cut
+	is_shown = { involved_activity.var:ruler.current_technocratic_taxes > 0 }
+	is_valid = { involved_activity.var:ruler.current_technocratic_taxes > 0 }
+	ai_will_do = {
+		involved_activity = {
+			save_temporary_scope_as = activity
+			activity_host = { save_temporary_scope_as = host }
+		}
+		value = cut_technocratic_taxes_score
+	}
+}
+cut_theocratic_taxes_intent = {
+	# It does not make sense to cut taxes when they cannot be cut
+	is_shown = { involved_activity.var:ruler.current_theocratic_taxes > 0 }
+	is_valid = { involved_activity.var:ruler.current_theocratic_taxes > 0 }
+	ai_will_do = {
+		involved_activity = {
+			save_temporary_scope_as = activity
+			activity_host = { save_temporary_scope_as = host }
+		}
+		value = cut_theocratic_taxes_score
+	}
+}

@@ -1,0 +1,72 @@
+﻿# This should return an adjectival form of whatever the flavorization of the title's tier is
+GetTierAdjective = {
+	type = landed_title
+	text = {
+		trigger = {
+			holder = {
+				government_has_flag = government_is_democratic
+				is_independent_ruler = yes
+			}
+		}
+		localization_key = "republic_independent_adj"
+	}
+	text = {
+		trigger = {
+			holder = { government_has_flag = government_is_democratic }
+			tier = tier_empire
+		}
+		localization_key = "republic_empire_adj"
+	}
+	text = {
+		trigger = {
+			holder = { government_has_flag = government_is_democratic }
+			tier = tier_kingdom
+		}
+		localization_key = "republic_kingdom_adj"
+	}
+	text = {
+		trigger = {
+			holder = { government_has_flag = government_is_democratic }
+			tier = tier_duchy
+		}
+		localization_key = "republic_duchy_adj"
+	}
+	text = {
+		trigger = {
+			holder = { government_has_flag = government_is_democratic }
+			tier = tier_county
+		}
+		localization_key = "republic_county_adj"
+	}
+	text = {
+		trigger = {
+			holder = { government_has_flag = government_is_democratic }
+			tier = tier_barony
+		}
+		localization_key = "republic_barony_adj"
+	}
+	text = {
+		trigger = { tier = tier_hegemony }
+		localization_key = "hegemony_adj"
+	}
+	text = {
+		trigger = { tier = tier_empire }
+		localization_key = "empire_adj"
+	}
+	text = {
+		trigger = { tier = tier_kingdom }
+		localization_key = "kingdom_adj"
+	}
+	text = {
+		trigger = { tier = tier_duchy }
+		localization_key = "sector_adj"
+	}
+	text = {
+		trigger = { tier = tier_county }
+		localization_key = "county_adj"
+	}
+	text = {
+		trigger = { tier = tier_barony }
+		localization_key = "barony_adj"
+	}
+}
