@@ -42,24 +42,24 @@ scripted_trigger cid_0001_hate_trigger = {
 scripted_effect create_el_cid_story = {
 	create_story = {
 		type = story_el_cid
-		save_scope_as = new_story
+		save_scope_as = story
 	}
 	random_owned_story = {
 		type = story_el_cid
 		save_scope_as = story_el_cid
+		set_variable = {
+			name = cid_enemy
+			value = flag:$ENEMY$
+		}
+		set_variable = {
+			name = cid_liege
+			value = scope:liege
+		}
+		set_variable = {
+			name = cid_loyalty_counter
+			value = 0
+		}
 		story_owner = {
-			set_variable = {
-				name = cid_enemy
-				value = flag:$ENEMY$
-			}
-			set_variable = {
-				name = cid_liege
-				value = scope:liege
-			}
-			set_variable = {
-				name = cid_loyalty_counter
-				value = 0
-			}
 			set_variable = ongoing_cid_story_cycle
 		}
 	}
@@ -74,19 +74,19 @@ cid.0001 = {
 		first_valid = {
 			triggered_desc = {
 				trigger = {
-					var:cid_enemy = flag:alfonso
+					scope:story.var:cid_enemy = flag:alfonso
 				}
 				desc = cid.0001.desc.alfonso
 			}
 			triggered_desc = {
 				trigger = {
-					var:cid_enemy = flag:garcia
+					scope:story.var:cid_enemy = flag:garcia
 				}
 				desc = cid.0001.desc.garcia_ordonez
 			}
 			triggered_desc = {
 				trigger = {
-					var:cid_enemy = flag:liege
+					scope:story.var:cid_enemy = flag:liege
 				}
 				desc = cid.0001.desc.liege_hate
 			}
@@ -264,9 +264,11 @@ cid.0001 = {
 		flavor = cid.0001.a.flavor
 		custom_tooltip = story_el_cid_tt
 		custom_tooltip = cid_loyalty_counter_positive
-		change_variable = {
-			name = cid_loyalty_counter
-			add = 1
+		scope:story = {
+			change_variable = {
+				name = cid_loyalty_counter
+				add = 1
+			}
 		}
 		ai_chance = {
 			base = 1000 # Historically determined
@@ -279,9 +281,11 @@ cid.0001 = {
 		flavor = cid.0001.b.flavor
 		custom_tooltip = story_el_cid_tt
 		custom_tooltip = cid_loyalty_counter_negative
-		change_variable = {
-			name = cid_loyalty_counter
-			add = -1
+		scope:story = {
+			change_variable = {
+				name = cid_loyalty_counter
+				add = -1
+			}
 		}
 		ai_chance = {
 			base = 0 # Historically determined
@@ -354,11 +358,14 @@ cid.1000 = {
 	trigger = {
 		has_government = landless_adventurer_government
 		NOT = { has_variable = had_cid_1000 }
+		is_location_valid_for_travel_event_on_land = yes
 	}
 
 	immediate = {
 		set_variable = had_cid_1000
-		var:cid_liege = { save_scope_as = liege }
+		scope:story = {
+			var:cid_liege = { save_scope_as = liege }
+		}
 		if = {
 			limit = {
 				any_pool_character = {
@@ -389,9 +396,11 @@ cid.1000 = {
 		domicile = {
 			change_provisions = medium_provisions_loss
 		}
-		change_variable = {
-			name = cid_loyalty_counter
-			add = 1
+		scope:story = {
+			change_variable = {
+				name = cid_loyalty_counter
+				add = 1
+			}
 		}
 		ai_chance = {
 			base = 1000 # Historically determined
@@ -410,9 +419,11 @@ cid.1000 = {
 		domicile = {
 			change_provisions = minor_provisions_gain
 		}
-		change_variable = {
-			name = cid_loyalty_counter
-			add = -1
+		scope:story = {
+			change_variable = {
+				name = cid_loyalty_counter
+				add = -1
+			}
 		}
 		ai_chance = {
 			base = 0 # Historically determined
@@ -471,7 +482,9 @@ cid.1010 = {
 
 	immediate = {
 		set_variable = had_cid_1010
-		var:cid_liege = { save_scope_as = liege }
+		scope:story = {
+			var:cid_liege = { save_scope_as = liege }
+		}
 		random_courtier = {
 			limit = { cid_1010_courtier_trigger = yes }
 			weight = {
@@ -600,10 +613,12 @@ cid.1010 = {
 			}
 		}
 		add_gold = medium_gold_value
-		change_variable = {
-			name = cid_loyalty_counter
-			add = -1
-		}		
+		scope:story = {
+			change_variable = {
+				name = cid_loyalty_counter
+				add = -1
+			}		
+		}
 		ai_chance = {
 			base = 1000 # Historically determined
 		}
@@ -640,9 +655,11 @@ cid.1010 = {
 				}
 			}
 		}
-		change_variable = {
-			name = cid_loyalty_counter
-			add = 2
+		scope:story = {
+			change_variable = {
+				name = cid_loyalty_counter
+				add = 2
+			}
 		}
 		ai_chance = {
 			base = 0 # Historically determined
@@ -701,7 +718,9 @@ cid.1020 = {
 
 	immediate = {
 		set_variable = had_cid_1020
-		var:cid_liege = { save_scope_as = liege }
+		scope:story = {
+			var:cid_liege = { save_scope_as = liege }
+		}
 		random_courtier = {
 			limit = { is_spouse_of = root }
 			weight = {
@@ -792,10 +811,11 @@ cid.1020 = {
 			limit = { exists = scope:child_2 }
 			location.county.holder = { add_courtier = scope:child_2 }
 		}
-		
-		change_variable = {
-			name = cid_loyalty_counter
-			add = 1
+		scope:story = {
+			change_variable = {
+				name = cid_loyalty_counter
+				add = 1
+			}
 		}
 		ai_chance = {
 			base = 1000 # Historically determined
@@ -822,9 +842,11 @@ cid.1020 = {
 			modifier = cid_family_good_modifier
 			years = 10
 		}
-		change_variable = {
-			name = cid_loyalty_counter
-			add = -2
+		scope:story = {
+			change_variable = {
+				name = cid_loyalty_counter
+				add = -2
+			}
 		}
 		ai_chance = {
 			base = 0 # Historically determined
@@ -859,7 +881,9 @@ cid.1030 = {
 
 	immediate = {
 		set_variable = had_cid_1030
-		var:cid_liege = { save_scope_as = liege }
+		scope:story = {
+			var:cid_liege = { save_scope_as = liege }
+		}
 		if = {
 			limit = {
 				any_character_artifact = {
@@ -867,6 +891,7 @@ cid.1030 = {
 						rarity = illustrious
 						rarity = famed 
 					}
+					artifact_can_be_gift_to_trigger = { RECIPIENT = scope:liege }
 				}
 			}
 			random_character_artifact = {
@@ -876,6 +901,7 @@ cid.1030 = {
 						rarity = illustrious
 						rarity = famed 
 					}
+					artifact_can_be_gift_to_trigger = { RECIPIENT = scope:liege }
 				}
 				weight = {
 					modifier = {
@@ -903,9 +929,11 @@ cid.1030 = {
 		add_internal_flag = special
 		custom_tooltip = cid_loyalty_counter_positive
 		scope:artifact = { set_owner = scope:liege }
-		change_variable = {
-			name = cid_loyalty_counter
-			add = 1
+		scope:story = {
+			change_variable = {
+				name = cid_loyalty_counter
+				add = 1
+			}
 		}
 		ai_chance = {
 			base = 1000 # Historically determined
@@ -920,9 +948,11 @@ cid.1030 = {
 			target = scope:liege
 			gold = medium_gold_value
 		}
-		change_variable = {
-			name = cid_loyalty_counter
-			add = 1
+		scope:story = {
+			change_variable = {
+				name = cid_loyalty_counter
+				add = 1
+			}
 		}
 		ai_chance = {
 			base = 1000 # Historically determined
@@ -933,11 +963,12 @@ cid.1030 = {
 	option = {
 		name = cid.1030.c
 		custom_tooltip = cid_loyalty_counter_negative
-		
-		change_variable = {
-			name = cid_loyalty_counter
-			add = -1
-		}
+		scope:story = {
+			change_variable = {
+				name = cid_loyalty_counter
+				add = -1
+			}
+		}		
 		ai_chance = {
 			base = 0
 		}
@@ -966,7 +997,9 @@ cid.1040 = {
 
 	immediate = {
 		set_variable = had_cid_1040
-		var:cid_liege = { save_scope_as = liege }
+		scope:story = {
+			var:cid_liege = { save_scope_as = liege }
+		}
 	}
 
 	# You do it in your own camp, dayum
@@ -980,9 +1013,11 @@ cid.1040 = {
 		
 		custom_tooltip = cid_loyalty_counter_very_positive
 		
-		change_variable = {
-			name = cid_loyalty_counter
-			add = 2
+		scope:story = {
+			change_variable = {
+				name = cid_loyalty_counter
+				add = 2
+			}
 		}
 		ai_chance = {
 			base = 1000 # Historically determined
@@ -1076,7 +1111,9 @@ cid.2000 = {
 
 	immediate = {
 		set_variable = had_cid_2000
-		var:cid_liege = { save_scope_as = liege }
+		scope:story = {
+			var:cid_liege = { save_scope_as = liege }
+		}
 		# Create the artifact
 		if = { # Court Artifact
 			limit = { has_royal_court = yes }
@@ -1220,7 +1257,9 @@ cid.2001 = {
 
 	immediate = {
 		set_variable = had_cid_2001
-		var:cid_liege = { save_scope_as = liege }
+		scope:story = {
+			var:cid_liege = { save_scope_as = liege }
+		}
 		# Create the artifact
 		if = { # Court Artifact
 			limit = { has_royal_court = yes }
@@ -1376,13 +1415,15 @@ cid.2010 = {
 		any_courtier = {
 			cid_2010_possible_child_trigger = yes
 		}
-		var:cid_loyalty_counter >= 2
+		scope:story.var:cid_loyalty_counter >= 2
 		NOT = { has_variable = had_cid_2010 }
 	}
 
 	immediate = {
 		set_variable = had_cid_2010
-		var:cid_liege = { save_scope_as = liege }
+		scope:story = {
+			var:cid_liege = { save_scope_as = liege }
+		}
 		if = {
 			limit = {
 				scope:liege = {
@@ -1584,7 +1625,7 @@ cid.2020 = {
 
 	trigger = {
 		#triggered through the story cycle
-		var:cid_liege.primary_title = {
+		scope:story.var:cid_liege.primary_title = {
 			any_de_jure_county = {
 				holder = root.var:cid_liege
 				NOR = {
@@ -1607,7 +1648,7 @@ cid.2020 = {
 			}
 		}
 		set_variable = had_cid_2020
-		var:cid_liege = {
+		scope:story.var:cid_liege = {
 			save_scope_as = liege
 			save_scope_as = defender
 		}
@@ -1735,7 +1776,7 @@ cid.4000 = {
 
 	immediate = {
 		set_variable = had_cid_4000
-		var:cid_liege = { save_scope_as = sender }
+		scope:story.var:cid_liege = { save_scope_as = sender }
 	}
 
 	# Bleh
@@ -1788,12 +1829,12 @@ cid.4010 = {
 
 	trigger = {
 		#triggered through the story cycle <= -5 loyalty
-		var:cid_liege.primary_title = {
+		scope:story.var:cid_liege.primary_title = {
 			any_de_jure_county = {
-				holder = root.var:cid_liege
+				holder = scope:story.var:cid_liege
 				NOR = {
-					root.var:cid_liege.capital_county ?= this
-					root.var:cid_liege.primary_title ?= this
+					scope:story.var:cid_liege.capital_county ?= this
+					scope:story.var:cid_liege.primary_title ?= this
 				}
 			}
 		}
@@ -1802,7 +1843,7 @@ cid.4010 = {
 
 	immediate = {
 		set_variable = had_cid_4010
-		var:cid_liege = {
+		scope:story.var:cid_liege = {
 			save_scope_as = liege
 			save_scope_as = defender
 		}
@@ -1941,6 +1982,10 @@ cid.5000 = {
 	
 	immediate = {
 		location.county.holder.top_liege = { save_scope_as = sender }
+		random_owned_story = {
+			type = story_el_cid
+			save_scope_as = el_cid_story
+		}
 	}
 
 	# Oops

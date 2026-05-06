@@ -617,7 +617,7 @@ on_war_started = {
 				#Ye ain't serene anymore, son
 				if = {
 					limit = {
-						house ?= { has_house_power_parameter = aspect_of_serenity }
+						house ?= { has_house_aspiration_parameter = aspect_of_serenity }
 					}
 					if = {
 						limit = { has_character_modifier = mandala_increments_of_peace_modifier }
@@ -992,6 +992,29 @@ on_war_started = {
 				}
 
 			}
+			#Confederation kingdom join war promise
+			if = {
+				limit = {
+					has_variable_list = confed_vassals_defensive
+					#Is a confederation
+					primary_title = {
+						has_variable = confederation_culture
+					}
+				}
+				every_in_list = {
+					variable = confed_vassals_defensive
+					limit = {
+						is_allied_to = scope:defender
+						is_vassal_of = scope:defender
+						NOT = {
+							is_at_war_with = scope:defender
+						}
+					}
+					scope:war = {
+						add_defender = prev
+					}
+				}
+			}
 		}
 		#Admin governors notice war has been dragging on event
 		fire_governor_long_war_response_events = yes
@@ -1065,6 +1088,25 @@ on_war_started = {
 			}
 		}
 		# TGP situation catalysts
+		scope:defender = {
+			if = {
+				limit = {
+					has_title = title:h_china
+					scope:war = {
+						using_civil_war_cb_trigger = yes
+					}
+				}
+				situation:dynastic_cycle ?= {
+					if = {
+						limit = { situation_top_has_catalyst = catalyst_hegemon_in_civil_war }
+						trigger_situation_catalyst = {
+							catalyst = catalyst_hegemon_in_civil_war
+							character = scope:attacker
+						}
+					}
+				}
+			}
+		}
 		# TGP Blocs
 		scope:attacker = {
 			if = {
@@ -1113,15 +1155,15 @@ on_war_won_attacker = { # As in, won BY attacker. Only one of the two on_actions
 			limit = {
 				scope:attacker = {
 					OR = {
-						this = character:1
-						this = character:1
+						this = character:125501
+						this = character:mpo_mongol_1
 					}
 					has_variable = temujin_jamukha_war_var
 				}
 				scope:defender = {
 					OR = {
-						this = character:1
-						this = character:1
+						this = character:125501
+						this = character:mpo_mongol_1
 					}
 				}
 			}
@@ -1284,6 +1326,31 @@ on_war_won_attacker = { # As in, won BY attacker. Only one of the two on_actions
 		}
 
 		# Struggle Catalysts
+		## Special war checks for the caliph.
+		scope:defender = {
+			if = {
+				limit = {
+					fp3_struggle_scoped_is_the_arabian_caliph_trigger = yes
+					scope:war = {
+						NOT = { has_variable = used_for_struggle_catalyst_on_war_ended }
+						using_civil_war_cb_trigger = yes
+					}
+					exists = struggle:persian_struggle
+				}
+				# Direct scope because this is caliph-specific.
+				struggle:persian_struggle = {
+					if = {
+						limit = { phase_has_catalyst = catalyst_caliph_or_emperor_loses_revolt_war }
+						activate_struggle_catalyst = {
+							catalyst = catalyst_caliph_or_emperor_loses_revolt_war
+							character = scope:defender
+						}
+						scope:war = { set_variable = used_for_struggle_catalyst_on_war_ended }
+						log_debug_variable_for_persian_struggle_effect = { VAR = concession_catalyst_caliph_or_emperor_loses_revolt_war }
+					}
+				}
+			}
+		}
 		## (Mostly) general checks.
 		scope:attacker = {
 			# Win any war in the struggle region.
@@ -1319,7 +1386,115 @@ on_war_won_attacker = { # As in, won BY attacker. Only one of the two on_actions
 			fp3_struggle_apply_catalyst_interloper_uninvolved_gain_struggle_titles = yes
 		}
 		# TGP parameters
+		scope:attacker = {
+			if = {
+				limit = {
+					exists = title:h_china.holder
+					top_participant_group:dynastic_cycle ?= {
+						has_participant_group_parameter = dynastic_cycle_hegemon_legitimacy_from_external_conquest
+					}
+					any_in_list = {
+						list = target_titles
+						tier >= tier_duchy
+						tier <= tier_kingdom
+						count >= 1
+					}
+				}
+				ordered_in_list = {
+					list = target_titles
+					limit = { tier = tier_kingdom }
+					alternative_limit = { tier = tier_duchy }
+					save_scope_as = highest_target_title
+				}
+				# show the outcome to the hegemon
+				title:h_china.holder = {
+					send_interface_message = {
+						type = event_struggle_good
+						title = dynastic_cycle_hegemon_legitimacy_from_external_conquest_title
+						left_icon = scope:defender
+						right_icon = scope:highest_target_title
+						add_legitimacy = {
+							value = minor_legitimacy_gain
+							multiply = scope:highest_target_title.tier
+						}
+					}
+				}
+				# if the hegemon wasn't the attacker, send the message to the attacker too, but don't trigger the effects
+				if = {
+					limit = {
+						title:h_china.holder != scope:attacker
+					}
+					send_interface_message = {
+						type = event_struggle_good
+						title = dynastic_cycle_hegemon_legitimacy_from_external_conquest_title
+						left_icon = scope:defender
+						right_icon = scope:highest_target_title
+						show_as_tooltip = {
+							title:h_china.holder = {
+								add_legitimacy = {
+									value = minor_legitimacy_gain
+									multiply = scope:highest_target_title.tier
+								}
+							}
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					has_title = title:h_china
+				}
+				situation:dynastic_cycle ?= {
+					if = {
+						limit = { situation_top_has_catalyst = catalyst_hegemon_won_war }
+						trigger_situation_catalyst = {
+							catalyst = catalyst_hegemon_won_war
+							character = scope:attacker
+						}
+					}
+				}
+			}
+		}
 		# TGP situation catalysts
+		scope:defender = {
+			if = {
+				limit = {
+					has_title = title:h_china
+				}
+				situation:dynastic_cycle ?= {
+					if = {
+						limit = { situation_top_has_catalyst = catalyst_hegemon_lost_war }
+						trigger_situation_catalyst = {
+							catalyst = catalyst_hegemon_lost_war
+							character = scope:attacker
+						}
+					}
+					if = {
+						limit = {
+							situation_top_has_catalyst = catalyst_hegemon_lost_defensive_territorial_war
+							any_in_list = { list = target_titles }
+						}
+						trigger_situation_catalyst = {
+							catalyst = catalyst_hegemon_lost_defensive_territorial_war
+							character = scope:attacker
+						}
+					}
+					if = {
+						limit = {
+							situation_top_has_catalyst = catalyst_hegemon_lost_capital_in_war
+							any_in_list = {
+								list = target_titles
+								this = scope:defender.capital_county
+							}
+						}
+						trigger_situation_catalyst = {
+							catalyst = catalyst_hegemon_lost_capital_in_war
+							character = scope:attacker
+						}
+					}
+				}
+			}
+		}
 		# Memories
 		scope:attacker = {
 			create_character_memory = {
@@ -1511,8 +1686,35 @@ on_war_won_attacker = { # As in, won BY attacker. Only one of the two on_actions
 			}
 		}
 
+		# EP3 - Echoes of Empire Story Cycle
+		if = {
+			limit = {
+				has_ep3_dlc_trigger = yes
+				any_in_list = {
+					list = target_titles
+					this = title:e_byzantium
+				}
+				scope:winner = {
+					has_title = title:e_byzantium
+					NOT = {
+						any_owned_story = {
+							type = grand_ambitions_story_cycle
+							var:method ?= flag:scheme
+						}
+					}
+				}
+			}
+			scope:winner = {
+				trigger_event = {
+					id = grand_ambitions.0002
+					days = 5
+				}
+			}
+		}
+
 		# EP3 - Become Adventurer - Conquest/Deposition
 		# Previous holders of any contested title, which lost all titles through this war, can become landless adventurers
+		clear_saved_scope = lost_primary_title
 		scope:war.casus_belli = {
 			every_in_list = {
 				list = target_titles
@@ -1534,6 +1736,22 @@ on_war_won_attacker = { # As in, won BY attacker. Only one of the two on_actions
 							trigger_event = ep3_laamps.0002
 						}
 					}
+				}
+			}
+		}
+		# EP3 - Is it valid for a Byzantine triumph?
+		if = {
+			limit = {
+				scope:attacker = {
+					is_roman_emperor_trigger = yes
+					culture = { has_cultural_parameter = holds_triumphs }
+				}
+			}
+			scope:attacker = {
+				set_variable = {
+					name = ep3_valid_triumph_victory
+					value = scope:defender
+					years = 5
 				}
 			}
 		}
@@ -1566,11 +1784,11 @@ on_war_won_attacker = { # As in, won BY attacker. Only one of the two on_actions
 		if = {
 			limit = {
 				scope:attacker = {
-					is_ai = no 
-					this = character:1
+					is_ai = no
+					this = character:223523
 				}
 				scope:defender = {
-					this = character:1
+					this = character:226000
 				}
 			}
 			scope:attacker = {
@@ -1818,9 +2036,65 @@ on_war_won_defender = {
 		}
 
 		# Struggle Catalysts
+		## Special war checks for the caliph.
+		scope:attacker = {
+			if = {
+				limit = {
+					fp3_struggle_scoped_is_the_arabian_caliph_trigger = yes
+					scope:war = {
+						NOT = { has_variable = used_for_struggle_catalyst_on_war_ended }
+						using_civil_war_cb_trigger = yes
+					}
+				}
+				# Direct scope because this is caliph-specific.
+				struggle:persian_struggle = {
+					if = {
+						limit = { phase_has_catalyst = catalyst_caliph_or_emperor_loses_revolt_war }
+						activate_struggle_catalyst = {
+							catalyst = catalyst_caliph_or_emperor_loses_revolt_war
+							character = scope:attacker
+						}
+						scope:war = { set_variable = used_for_struggle_catalyst_on_war_ended }
+						log_debug_variable_for_persian_struggle_effect = { VAR = concession_catalyst_caliph_or_emperor_loses_revolt_war }
+					}
+				}
+			}
+		}
 		## During the Persian Struggle, a supporter wins any war in the region.
 		scope:attacker = { fp3_struggle_apply_supporter_detractor_war_won_catalysts_effect = yes }
 		# TGP situation catalysts
+		scope:attacker = {
+			if = {
+				limit = {
+					has_title = title:h_china
+				}
+				situation:dynastic_cycle ?= {
+					if = {
+						limit = { situation_top_has_catalyst = catalyst_hegemon_lost_war }
+						trigger_situation_catalyst = {
+							catalyst = catalyst_hegemon_lost_war
+							character = scope:defender
+						}
+					}
+				}
+			}
+		}
+		scope:defender = {
+			if = {
+				limit = {
+					has_title = title:h_china
+				}
+				situation:dynastic_cycle ?= {
+					if = {
+						limit = { situation_top_has_catalyst = catalyst_hegemon_won_war }
+						trigger_situation_catalyst = {
+							catalyst = catalyst_hegemon_won_war
+							character = scope:defender
+						}
+					}
+				}
+			}
+		}
 
 		scope:attacker = {
 			create_character_memory = {
@@ -1908,6 +2182,22 @@ on_war_won_defender = {
 			}
 		}
 
+		#Ep3 - Is it valid for a Byzantine triumph?
+		if = {
+			limit = {
+				scope:defender = {
+					is_roman_emperor_trigger = yes
+					culture = { has_cultural_parameter = holds_triumphs }
+				}
+			}
+			scope:defender = {
+				set_variable = {
+					name = ep3_valid_triumph_victory
+					value = scope:attacker
+					years = 5
+				}
+			}
+		}
 		# EP3 - War Group Contracts
 		war_task_contracts_completion_effect = yes
 		# EP3 - LAAMPS hired as mercenaries
@@ -1937,11 +2227,11 @@ on_war_won_defender = {
 		if = {
 			limit = {
 				scope:defender = {
-					is_ai = no 
-					this = character:1
+					is_ai = no
+					this = character:223523
 				}
 				scope:attacker = {
-					this = character:1
+					this = character:226000
 				}
 			}
 			scope:defender = {
@@ -2048,7 +2338,7 @@ on_war_white_peace = {
 			if = {
 				limit = {
 					government_has_flag = government_is_mandala
-					house ?= { has_house_power_parameter = aspect_of_destruction }
+					house ?= { has_house_aspiration_parameter = aspect_of_destruction }
 				}
 				add_piety = {
 					add = minor_piety_loss

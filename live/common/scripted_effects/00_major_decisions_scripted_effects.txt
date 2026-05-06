@@ -1261,6 +1261,86 @@ form_austria_scripted_effect = {
 	}
 }
 
+decision_restore_carantania_effect = {
+	title:d_krain = { add_to_list = carantania_de_jure_list }
+	title:d_carinthia = { add_to_list = carantania_de_jure_list }
+	title:d_steyermark = { add_to_list = carantania_de_jure_list }
+
+	dynasty = { add_dynasty_prestige = monumental_dynasty_prestige_gain }
+	create_title_and_vassal_change = {
+		type = created
+		save_scope_as = title_change
+		add_claim_on_loss = no
+	}
+	title:k_carantania = {
+		change_title_holder = {
+			holder = root
+			change = scope:title_change
+		}
+	}
+	resolve_title_and_vassal_change = scope:title_change
+
+	if = {
+		limit = {
+			NOT = {
+				any_in_list = {
+					list = carantania_de_jure_list
+					is_titular = yes
+				}
+			}
+		}
+		custom_tooltip = decision_restore_carantania_de_jure_regular_tooltip
+		hidden_effect = {
+			title:d_krain = { set_de_jure_liege_title = title:k_carantania }
+			title:d_carinthia = { set_de_jure_liege_title = title:k_carantania }
+			title:d_steyermark = { set_de_jure_liege_title = title:k_carantania }
+		}
+	}
+	else = {
+		every_in_list = {
+			list = carantania_de_jure_list
+			limit = {
+				is_titular = no
+			}
+			set_de_jure_liege_title = title:k_carantania
+		}
+	}
+	every_sub_realm_duchy = {
+		limit = {
+			NOR = {
+				is_in_list = carantania_de_jure_list
+			}
+			any_title_to_title_neighboring_duchy = {
+				is_in_list = carantania_de_jure_list
+			}	
+		}
+		custom_tooltip = decision_restore_carantania_de_jure_tooltip
+		hidden_effect = { set_de_jure_liege_title = title:k_carantania }
+	}
+	if = {
+		limit = {
+			capital_province.duchy = { is_in_list = carantania_de_jure_list }
+			NOT = { title:k_carantania = root.capital_county }
+		}
+		root = { custom_tooltip = decision_restore_carantania_change_capital_tooltip }
+		title:k_carantania = {
+			set_capital_county = root.capital_county
+		}
+	}
+	root.capital_county = {
+		if = {
+			limit = {
+				NOT = {	culture = root.culture }
+			}
+			set_county_culture = root.culture 
+		}
+		add_county_modifier = {
+			modifier = restore_carantania_modifier
+			years = 100
+		}
+	}
+}
+
 form_carolingian_empire_scripted_effect = {
 	save_scope_as = scoped_ruler
 	title:e_hre.holder ?= { save_scope_as = scoped_emperor }
@@ -2213,6 +2293,60 @@ restore_dumnonia_decision_scripted_effect = {
 	custom_tooltip = restore_dumnonia_decision_effects_de_jure_tt
 }
 
+form_cumbria_decision_scripted_effect = {
+	dynasty = { add_dynasty_prestige = monumental_dynasty_prestige_gain }
+	house = { 
+		add_house_modifier = {
+			modifier = form_cumbria_decision_house_modifier
+			years = 100
+		}
+	}
+	create_title_and_vassal_change = {
+		type = created
+		save_scope_as = title_change
+		add_claim_on_loss = no
+	}
+	title:k_cumbria = {
+		change_title_holder = {
+			holder = root
+			change = scope:title_change
+		}
+	}
+	title:d_cumbria = {
+		change_title_holder = {
+			holder = root
+			change = scope:title_change
+		}
+	}
+	resolve_title_and_vassal_change = scope:title_change
+	spawn_army = {
+		location = root.capital_province
+		inheritable = no
+		levies = 500
+		men_at_arms = {
+			type = teulu
+			stacks = 5
+		}
+		men_at_arms = {
+			type = bowmen
+			stacks = 5
+		}
+		men_at_arms = {
+			type = light_footmen
+			stacks = 5
+		}
+		name = cumbrian_loyalists
+	}
+	title:d_galloway = { set_de_jure_liege_title = title:k_cumbria }
+	title:c_lanarkshire = { set_de_jure_liege_title = title:d_galloway }
+	custom_tooltip = form_cumbria_decision_de_jure_duchy
+	hidden_effect = {
+		title:c_westmorland = { set_de_jure_liege_title = title:d_cumbria }
+		title:c_cumberland = { set_de_jure_liege_title = title:d_cumbria }
+		title:c_annandale = { set_de_jure_liege_title = title:d_cumbria }
+	}
+}
+
 revive_armenian_empire_decision_scripted_effect = {
 	save_scope_as = founder
 	create_title_and_vassal_change = {
@@ -2839,7 +2973,10 @@ form_siam_kingdom_decision_scripted_effect = {
 				tier = tier_duchy
 				any_de_jure_county = {
 					title_province = {
-						geographical_region = world_asia_thailand
+						OR = {
+							geographical_region = world_asia_thailand
+							geographical_region = world_asia_malaysia
+						}
 					}
 				}
 				NOT = {
