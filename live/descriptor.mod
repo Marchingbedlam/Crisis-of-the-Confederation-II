@@ -4,7 +4,6 @@ tags={
 }
 name="Crisis of the Confederation"
 replace_path="common/bookmarks"
-replace_path="common/culture/cultures"
 replace_path="common/dynasties"
 replace_path="common/dynasty_houses"
 replace_path="common/landed_titles"
