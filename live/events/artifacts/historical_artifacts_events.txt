@@ -347,8 +347,26 @@ historical_artifacts.0023 = {
 			limit = {
 				has_fp2_dlc_trigger = yes
 				current_date >= 997.1.1
+				current_date <= 1178.1.1
 			}
 			title:c_avalon.holder = {
+				create_artifact_various_aquamanile_santiago = { OWNER = this }
+				# The bells have been morphed once.
+				scope:newly_created_artifact = {
+					set_variable = {
+						name = artefact_santiago_bells
+						value = 1
+					}
+				}
+			}
+		}
+		if = {
+			# If we're after Almanzor's raid, then the bells go to c_toledo's holder.
+			limit = {
+				has_fp2_dlc_trigger = yes
+				current_date >= 1178.1.1
+			}
+			title:c_cordoba.holder = {
 				create_artifact_various_aquamanile_santiago = { OWNER = this }
 				# The bells have been morphed once.
 				scope:newly_created_artifact = {

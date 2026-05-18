@@ -1499,8 +1499,8 @@ birth.1003 = {
 		character = scope:second_adult
 		animation = newborn
 	}
-	lower_left_portrait =  scope:child
-	lower_center_portrait =  scope:child_2
+	lower_center_portrait =  scope:child
+	lower_right_portrait =  scope:child_2
 	trigger = {
 		OR = {
 			scope:father = scope:real_father
@@ -1510,10 +1510,8 @@ birth.1003 = {
 					NOT = {
 						any_known_secret = {
 							secret_owner = scope:mother
-							AND = {
-								secret_type = secret_disputed_heritage
-								secret_target = scope:child
-							}
+							secret_type = secret_disputed_heritage
+							secret_target = scope:child
 						}
 					}
 				}
@@ -3350,7 +3348,6 @@ birth.8011 = {
 							liege_has_co_emperorship_trigger = yes
 						}
 					}
-
 				}
 				AND = {	#Landed rulers can be assumed to make the journey, unless they have some extremely pressing reason not to.
 					is_ruler = yes

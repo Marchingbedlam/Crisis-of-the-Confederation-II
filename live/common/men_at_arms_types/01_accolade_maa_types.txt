@@ -24,13 +24,16 @@ accolade_maa_archers = {
 	type = archers
 
 	can_recruit = {
-		any_active_accolade = { 
-			primary_type = {
-				this = accolade_type:archer_attribute
+		any_accolade = {
+			accolade_attribute_level = {
+				type = archer_attribute
+				level >= 2
 			}
-			accolade_rank >= 3
 		}
+		NOT = { exists = scope:title }
 	}
+
+	max_regiments = 1
 	
 	damage = 30
 	toughness = 15
@@ -51,10 +54,9 @@ accolade_maa_archers = {
 	low_maintenance_cost = { gold = bowmen_low_maint_cost }
 	high_maintenance_cost = { gold = bowmen_high_maint_cost }
 	provision_cost = @provisions_cost_infantry_cheap
-
-	max_sub_regiments = 8
 	
 	stack = 100
+	allowed_in_hired_troops = no
 	ai_quality = {
 		value = culture_ai_weight_archers
 		add = 50
@@ -77,13 +79,16 @@ accolade_maa_skirmishers = {
 	type = skirmishers
 
 	can_recruit = {
-		any_active_accolade = {
-			primary_type = {
-				this = accolade_type:skirmisher_attribute
-			} 
-			accolade_rank >= 3
+		any_accolade = {
+			accolade_attribute_level = {
+				type = skirmisher_attribute
+				level >= 2
+			}
 		}
+		NOT = { exists = scope:title }
 	}
+
+	max_regiments = 1
 	
 	damage = 20
 	toughness = 20
@@ -105,10 +110,9 @@ accolade_maa_skirmishers = {
 	low_maintenance_cost = { gold = skirmisher_low_maint_cost }
 	high_maintenance_cost = { gold = skirmisher_high_maint_cost }
 	provision_cost = @provisions_cost_infantry_cheap
-
-	max_sub_regiments = 8
 	
 	stack = 100
+	allowed_in_hired_troops = no
 	ai_quality = {
 		value = culture_ai_weight_skirmishers
 		add = 50
@@ -131,13 +135,16 @@ accolade_maa_pikes = {
 	type = pikemen
 
 	can_recruit = {
-		any_active_accolade = {
-			primary_type = {
-				this = accolade_type:pike_attribute
-			} 
-			accolade_rank >= 3
+		any_accolade = {
+			accolade_attribute_level = {
+				type = pike_attribute
+				level >= 2
+			}
 		}
+		NOT = { exists = scope:title }
 	}
+
+	max_regiments = 1
 	
 	damage = 30
 	toughness = 30
@@ -161,10 +168,9 @@ accolade_maa_pikes = {
 	low_maintenance_cost = { gold = pikemen_low_maint_cost }
 	high_maintenance_cost = { gold = pikemen_high_maint_cost }
 	provision_cost = @provisions_cost_infantry_cheap
-
-	max_sub_regiments = 6
 	
 	stack = 100
+	allowed_in_hired_troops = no
 	ai_quality = {
 		value = culture_ai_weight_pikemen
 		add = 50
@@ -187,13 +193,16 @@ accolade_maa_outriders = {
 	type = light_cavalry
 
 	can_recruit = {
-		any_active_accolade = {
-			primary_type = {
-				this = accolade_type:outrider_attribute
-			}  
-			accolade_rank >= 3
+		any_accolade = {
+			accolade_attribute_level = {
+				type = outrider_attribute
+				level >= 2
+			}
 		}
+		NOT = { exists = scope:title }
 	}
+
+	max_regiments = 1
 	
 	damage = 30
 	toughness = 20
@@ -222,10 +231,9 @@ accolade_maa_outriders = {
 	low_maintenance_cost = { gold = light_cavalry_low_maint_cost }
 	high_maintenance_cost = { gold = light_cavalry_high_maint_cost }
 	provision_cost = @provisions_cost_cavalry_cheap
-
-	max_sub_regiments = 6
 	
 	stack = 100
+	allowed_in_hired_troops = no
 	ai_quality = {
 		value = culture_ai_weight_light_cavalry
 		add = 50
@@ -248,17 +256,20 @@ accolade_maa_vanguards = {
 	type = heavy_infantry
 
 	can_recruit = {
-		any_active_accolade = {
-			primary_type = {
-				this = accolade_type:vanguard_attribute
+		any_accolade = {
+			accolade_attribute_level = {
+				type = vanguard_attribute
+				level >= 2
 			}
-			accolade_rank >= 3
 		}
 		NOT = {
 			culture = { has_cultural_parameter = strength_in_numbers_heavy_maa_ban }
 		}
+		NOT = { exists = scope:title }
 	}
 
+	max_regiments = 1
+	
 	damage = 45
 	toughness = 35
 	pursuit = 0
@@ -273,10 +284,9 @@ accolade_maa_vanguards = {
 	low_maintenance_cost = { gold = heavy_infantry_low_maint_cost }
 	high_maintenance_cost = { gold = heavy_infantry_high_maint_cost }
 	provision_cost = @provisions_cost_infantry_expensive
-
-	max_sub_regiments = 6
 	
 	stack = 100
+	allowed_in_hired_troops = no
 	ai_quality = {
 		value = culture_ai_weight_heavy_infantry
 		add = 75
@@ -299,13 +309,16 @@ accolade_maa_lancers = {
 	type = heavy_cavalry
 	
 	can_recruit = {
-		any_active_accolade = {
-			primary_type = {
-				this = accolade_type:lancer_attribute
+		any_accolade = {
+			accolade_attribute_level = {
+				type = lancer_attribute
+				level >= 2
 			}
-			accolade_rank >= 3
 		}
+		NOT = { exists = scope:title }
 	}
+
+	max_regiments = 1
 	
 	damage = 200
 	toughness = 70
@@ -335,10 +348,9 @@ accolade_maa_lancers = {
 	low_maintenance_cost = { gold = heavy_cavalry_low_maint_cost }
 	high_maintenance_cost = { gold = heavy_cavalry_high_maint_cost }
 	provision_cost = @provisions_cost_cavalry_expensive
-
-	max_sub_regiments = 6
 	
 	stack = 50
+	allowed_in_hired_troops = no
 	ai_quality = {
 		value = culture_ai_weight_heavy_cavalry
 		add = 100
@@ -361,13 +373,16 @@ accolade_maa_crossbowers = {
 	type = archers
 
 	can_recruit = {
-		any_active_accolade = {
-			primary_type = {
-				this = accolade_type:crossbowmen_attribute
+		any_accolade = {
+			accolade_attribute_level = {
+				type = crossbowmen_attribute
+				level >= 2
 			}
-			accolade_rank >= 3
 		}
+		NOT = { exists = scope:title }
 	}
+
+	max_regiments = 1
 	
 	damage = 60
 	toughness = 30
@@ -391,10 +406,9 @@ accolade_maa_crossbowers = {
 	low_maintenance_cost = { gold = crossbowmen_low_maint_cost }
 	high_maintenance_cost = { gold = crossbowmen_high_maint_cost }
 	provision_cost = @provisions_cost_infantry_moderate
-
-	max_sub_regiments = 6
 	
 	stack = 100
+	allowed_in_hired_troops = no
 	ai_quality = {
 		value = culture_ai_weight_archers
 		add = 100
@@ -415,16 +429,18 @@ accolade_maa_crossbowers = {
 
 accolade_maa_cameliers = {
 	type = camel_cavalry
-	icon = camel_riders
 
 	can_recruit = {
-		any_active_accolade = {
-			primary_type = {
-				this = accolade_type:camelry_attribute
-			} 
-			accolade_rank >= 3
+		any_accolade = {
+			accolade_attribute_level = {
+				type = camelry_attribute
+				level >= 2
+			}
 		}
+		NOT = { exists = scope:title }
 	}
+
+	max_regiments = 1
 	
 	damage = 30
 	toughness = 20
@@ -455,28 +471,32 @@ accolade_maa_cameliers = {
 	low_maintenance_cost = { gold = camel_rider_low_maint_cost }
 	high_maintenance_cost = { gold = camel_rider_high_maint_cost }
 	provision_cost = @provisions_cost_cavalry_moderate
-
-	max_sub_regiments = 6
 	
 	stack = 100
+	allowed_in_hired_troops = no
 	ai_quality = {
 		value = culture_ai_weight_camels
 		add = 75
+	}
+	illustration = {
+		reference = camel_riders
 	}
 }
 
 accolade_maa_elephantiers = {
 	type = elephant_cavalry
-	icon = war_elephants
 
 	can_recruit = {
-		any_active_accolade = {
-			primary_type = {
-				this = accolade_type:elephantry_attribute
-			} 
-			accolade_rank >= 3
+		any_accolade = {
+			accolade_attribute_level = {
+				type = elephantry_attribute
+				level >= 2
+			}
 		}
+		NOT = { exists = scope:title }
 	}
+
+	max_regiments = 1
 	
 	damage = 400
 	toughness = 100
@@ -508,28 +528,32 @@ accolade_maa_elephantiers = {
 	high_maintenance_cost = { gold = war_elephant_high_maint_cost }
 	provision_cost = @provisions_cost_cavalry_bankrupting
 	
-	max_sub_regiments = 4
-	
 	stack = 25
 	hired_stack_size = 10
+	allowed_in_hired_troops = no
 	ai_quality = {
 		value = culture_ai_weight_elephants
 		add = 100
+	}
+	illustration = {
+		reference = war_elephants
 	}
 }
 
 accolade_maa_horse_archers = {
 	type = archer_cavalry
-	icon = horse_archers
 
 	can_recruit = {
-		any_active_accolade = {
-			primary_type = {
-				this = accolade_type:horse_archer_attribute
+		any_accolade = {
+			accolade_attribute_level = {
+				type = horse_archer_attribute
+				level >= 2
 			}
-			accolade_rank >= 3
 		}
+		NOT = { exists = scope:title }
 	}
+
+	max_regiments = 1
 	
 	damage = 45
 	toughness = 20
@@ -556,12 +580,14 @@ accolade_maa_horse_archers = {
 	high_maintenance_cost = { gold = horse_archers_high_maint_cost }
 	provision_cost = @provisions_cost_cavalry_cheap
 	
-	max_sub_regiments = 5
-	
 	stack = 100
+	allowed_in_hired_troops = no
 	ai_quality = {
 		value = @cultural_maa_extra_ai_score
 		add = 100
+	}
+	illustration = {
+		reference = horse_archers
 	}
 }
 
@@ -574,15 +600,18 @@ accolade_maa_handgunners = {
 	screen = 5
 
 	can_recruit = {
-		any_active_accolade = {
-			primary_type = {
-				this = accolade_type:gunpowder_attribute
+		any_accolade = {
+			accolade_attribute_level = {
+				type = gunpowder_attribute
+				level >= 2
 			}
-			accolade_rank >= 3
 		}
 		# no powder magazine requirements for Accolade Handgunners
 		culture = { has_innovation = innovation_gunpowder }
+		NOT = { exists = scope:title }
 	}
+
+	max_regiments = 1
 	
 	terrain_bonus = {
 	}
@@ -595,13 +624,21 @@ accolade_maa_handgunners = {
 	low_maintenance_cost = { gold = handgunner_low_maint_cost }
 	high_maintenance_cost = { gold = handgunner_high_maint_cost }
 	provision_cost = @provisions_cost_infantry_moderate
-
-	max_sub_regiments = 8
 	
 	stack = 100
+	allowed_in_hired_troops = no
 	ai_quality = {
 		value = counter_synergy_ai_weight_gunpowder
 	}
 
-	icon = gunpowder
+	illustration = {
+		trigger = {
+			should_use_asian_maa_graphics = yes
+		}
+
+		reference = fire_lance
+	}
+	illustration = {
+		reference = handgonne
+	}
 }

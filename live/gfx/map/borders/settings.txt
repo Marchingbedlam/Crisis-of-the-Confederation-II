@@ -3,13 +3,13 @@
 # You can overwrite the effect and shader file by doing = { texture = ".dds" shader = ".shader" effect = "effect "}
 # Alternatively you can define the border as vertical = yes in which case it uses settings.vertical_borders to load
 
-water = "border_water.dds"
-province = "border_province.dds"
-county = "border_county.dds"
-domain = "border_domain.dds"
-other_realm = "border_other_realm.dds"
+water = { texture = "border_water.dds" zoom_min = 0 zoom_max = 7 }
+province = { texture = "border_province.dds" zoom_min = 0 zoom_max = 10 }
+county = { texture = "border_county.dds" zoom_min = 0 zoom_max = 15 }
+domain = { texture = "border_domain.dds" zoom_min = 0 zoom_max = 20 }
+other_realm = { texture = "border_other_realm.dds" zoom_min = 0 zoom_max = 15 }
 my_realm = "border_my_realm.dds"
-sub_realm = "border_sub_realm.dds"
+sub_realm = { texture = "border_sub_realm.dds" zoom_min = 0 zoom_max = 9 }
 hovered_realm = "border_hovered_realm.dds"
 hovered_realm_flat_map = "border_hovered_realm_flat_map.dds"
 hovered_unit_destination = "selection_highlight.dds"
@@ -24,7 +24,7 @@ selected_realm_overlord = "border_selected_realm_overlord.dds"
 selected_realm_overlord_flat_map = "border_selected_realm_overlord_flat_map.dds"
 selected_realm_overlord_diplomatic = "border_selected_realm_overlord_diplomatic.dds"
 selected_realm_overlord_diplomatic_flat_map = "border_selected_realm_overlord_diplomatic_flat_map.dds"
-impassable = "border_impassable.dds"
+impassable = { texture = "border_impassable.dds" zoom_min = 0 zoom_max = 20 }
 selected_title = "selection_highlight.dds"
 create_destroy_title = "selection_highlight.dds"
 

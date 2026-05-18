@@ -2261,7 +2261,7 @@
 				mode = add
 				gene = cloaks
 				template = fp4_cloak_western
-				accessory = m_cloaks_sec_fp4_western_era3_nob_02
+				accessory = m_cloaks_sec_fp4_western_era3_nob_02_a
 			}
 			accessory = {
 				mode = add
@@ -2755,4 +2755,75 @@
 			}
 		}
 	}
+
+	henry_of_skalitz = {
+		dna_modifiers = {
+			accessory = {
+				mode = add
+				gene = hairstyles
+				template = scripted_character_hairstyles_01
+				accessory = male_hair_western_09
+			}
+			accessory = {
+				mode = add
+				gene = beards
+				template = no_beard
+				value = 0.11 # Please replace with accessory = accessory_name
+			}
+		}
+		weight = {
+			base = 0
+			modifier = {
+				add = 999
+				exists = this
+				OR = {
+					character:easteregg_henry_of_skalitz ?= this
+					character:easteregg_henry_kobyla ?= this
+					character:easteregg_henry_kobyla_late ?= this
+				}
+			}
+		}
+	}
+
+	laurence_kennedy = {
+		dna_modifiers = {
+			accessory = {
+				mode = add
+				gene = hairstyles
+				template = scripted_character_hairstyles_03
+				accessory = male_hair_fp2_iberian_muslim_01
+			}
+
+			accessory = {
+				mode = add
+				gene = special_headgear_spectacles
+				template = spectacles
+				range = { 0 1 } # For the randomness to work correctly
+			}
+
+			accessory = {
+				mode = add
+				gene = beards
+				template = all_beards
+				accessory = male_beard_mena_04
+			}
+
+			accessory = {
+				mode = add
+				gene = cloaks
+				template = fp4_cloak_western
+				accessory = m_cloaks_sec_fp4_western_era3_nob_02_a
+			}
+		}
+		weight = {
+			base = 0
+			modifier = {
+				add = 999
+				exists = this
+				exists = character:easteregg_laurence_kennedy
+				this = character:easteregg_laurence_kennedy
+			}
+		}
+	}
 }
+
