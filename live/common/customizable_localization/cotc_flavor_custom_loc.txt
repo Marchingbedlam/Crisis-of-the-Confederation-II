@@ -180,27 +180,27 @@ GetNewsSource = { # Randomized news story source, for the same purpose
 	text = { localization_key = we_have_just_confirmed_custom_loc }
 	text = { localization_key = officially_confirmed_custom_loc }
 	text = {
-		setup_scope = { var:news_source_title = { save_scope_as = news_source_title } }
+		setup_scope = { var:news_source_title ?= { save_scope_as = news_source_title } }
 		trigger = { exists = scope:news_source_title }
 		localization_key = source_title_officials_have_announced_custom_loc
 	}
 	text = {
-		setup_scope = { var:news_source_title = { save_scope_as = news_source_title } }
+		setup_scope = { var:news_source_title ?= { save_scope_as = news_source_title } }
 		trigger = { exists = scope:news_source_title }
 		localization_key = source_title_an_official_statement_by_custom_loc
 	}
 	text = {
-		setup_scope = { var:news_source_title = { save_scope_as = news_source_title } }
+		setup_scope = { var:news_source_title ?= { save_scope_as = news_source_title } }
 		trigger = { exists = scope:news_source_title }
 		localization_key = according_to_sources_in_source_title_custom_loc
 	}
 	text = {
-		setup_scope = { var:news_source_character = { save_scope_as = news_source_character } }
+		setup_scope = { var:news_source_character ?= { save_scope_as = news_source_character } }
 		trigger = { exists = scope:news_source_character }
 		localization_key = news_source_character_has_stated_custom_loc
 	}
 	text = {
-		setup_scope = { var:news_source_character = { save_scope_as = news_source_character } }
+		setup_scope = { var:news_source_character ?= { save_scope_as = news_source_character } }
 		trigger = { exists = scope:news_source_character }
 		localization_key = news_source_character_press_conference_custom_loc
 	}

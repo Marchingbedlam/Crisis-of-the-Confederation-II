@@ -9,7 +9,7 @@ cotc_legislative_campaign_events.1 = { # Starting a new legislative campaign, in
 				trigger = {
 					scope:candidate = {
 						has_variable = riding
-						var:riding = scope:target
+						var:riding = scope:riding
 						has_variable = legislature
 						var:legislature = scope:legislature
 					}
@@ -206,6 +206,7 @@ cotc_legislative_campaign_events.50 = { # AI considers entering a legislative el
 	}
 	
 	immediate = {
+		debug_log = "[ROOT.Char.GetFullName] is considering running to represent [riding.GetName] in [legislature.Var('legislature_title').GetName]"
 		# Build a list of current candidates and their chances, to compare ourselves against
 		scope:legislature = { save_temporary_scope_as = temp_legislature }
 		scope:riding = {
@@ -262,7 +263,9 @@ cotc_legislative_campaign_events.50 = { # AI considers entering a legislative el
 	option = { # Stand for election, spend influence
 		trigger = {
 			influence >= { value = minor_influence_value multiply = scope:legislature.var:legislature_title.title_basic_cost_multiplier }
+			debug_log_details = yes
 		}
+		debug_log = "[ROOT.Char.GetFullName] decided to run, spending influence."
 		name = cotc_legislative_campaign_events.50.a
 		start_legislative_election_campaign_effect = { LEGISLATURE = scope:legislature RIDING = scope:riding }
 		change_influence = {
@@ -280,7 +283,7 @@ cotc_legislative_campaign_events.50 = { # AI considers entering a legislative el
 					multiply = -1
 					max = 0
 				}
-				scope:legislature = { NOT = { party_legal_for_realm_trigger = { FAITH = ROOT.faith } } }
+				scope:legislature.var:legislature_title ?= { NOT = { party_legal_for_realm_trigger = { FAITH = ROOT.faith } } }
 				NOT = { exists = secret_faith }
 			}
 			# Your chances relative to the current leading candidate
@@ -306,7 +309,7 @@ cotc_legislative_campaign_events.50 = { # AI considers entering a legislative el
 			}
 			modifier = {
 				factor = 0
-				has_variable = var:legislature
+				has_variable = legislature
 				var:legislature ?= { this = scope:legislature }
 			}
 		}
@@ -314,7 +317,9 @@ cotc_legislative_campaign_events.50 = { # AI considers entering a legislative el
 	option = { # Stand for election, spend gold
 		trigger = {
 			gold >= { value = minor_gold_value multiply = scope:legislature.var:legislature_title.title_basic_cost_multiplier }
+			debug_log_details = yes
 		}
+		debug_log = "[ROOT.Char.GetFullName] decided to run, spending gold."
 		name = cotc_legislative_campaign_events.50.a
 		start_legislative_election_campaign_effect = { LEGISLATURE = scope:legislature RIDING = scope:riding }
 		pay_short_term_gold = {
@@ -331,7 +336,7 @@ cotc_legislative_campaign_events.50 = { # AI considers entering a legislative el
 					multiply = -1
 					max = 0
 				}
-				scope:legislature = { NOT = { party_legal_for_realm_trigger = { FAITH = ROOT.faith } } }
+				scope:legislature.var:legislature_title ?= { NOT = { party_legal_for_realm_trigger = { FAITH = ROOT.faith } } }
 				NOT = { exists = secret_faith }
 			}
 			# Your chances relative to the current leading candidate
@@ -357,16 +362,18 @@ cotc_legislative_campaign_events.50 = { # AI considers entering a legislative el
 			}
 			modifier = {
 				factor = 0
-				has_variable = var:legislature
+				has_variable = legislature
 				var:legislature ?= { this = scope:legislature }
 			}
 		}
 	}
 	option = { # Stand for re-election
 		trigger = {
-			has_variable = var:legislature
+			has_variable = legislature
 			var:legislature ?= { this = scope:legislature }
+			debug_log_details = yes
 		}
+		debug_log = "[ROOT.Char.GetFullName] decided to run, for re-election."
 		name = cotc_legislative_campaign_events.50.a
 		start_legislative_election_campaign_effect = { LEGISLATURE = scope:legislature RIDING = scope:riding }
 		ai_chance = {
@@ -379,7 +386,7 @@ cotc_legislative_campaign_events.50 = { # AI considers entering a legislative el
 					multiply = -1
 					max = 0
 				}
-				scope:legislature = { NOT = { party_legal_for_realm_trigger = { FAITH = ROOT.faith } } }
+				scope:legislature.var:legislature_title ?= { NOT = { party_legal_for_realm_trigger = { FAITH = ROOT.faith } } }
 				NOT = { exists = secret_faith }
 			}
 			# Your chances relative to the current leading candidate
@@ -402,6 +409,7 @@ cotc_legislative_campaign_events.50 = { # AI considers entering a legislative el
 	}
 	option = { # Do not stand for election
 		name = cotc_legislative_campaign_events.50.b
+		debug_log = "[ROOT.Char.GetFullName] decided not to run."
 		ai_chance = {
 			base = 50
 			# Prefer to run for a lower legislature
@@ -428,7 +436,7 @@ cotc_legislative_campaign_events.50 = { # AI considers entering a legislative el
 			# Always run for reelection if possible
 			modifier = {
 				factor = 0
-				has_variable = var:legislature
+				has_variable = legislature
 				var:legislature ?= { this = scope:legislature }
 				ai_political_ambition > 0
 			}
@@ -464,7 +472,7 @@ cotc_legislative_campaign_events.100 = { # Your party is banned!
 		# Make a list of every ideology that's legal in the realm
 		every_religion_global = {
 			every_faith = {
-				limit = { scope:legislature = { party_legal_for_realm_trigger = { FAITH = PREV } } }
+				limit = { scope:legislature.var:legislature_title ?= { party_legal_for_realm_trigger = { FAITH = PREV } } }
 				add_to_temporary_list = temp_legal_faiths
 			}
 		}
