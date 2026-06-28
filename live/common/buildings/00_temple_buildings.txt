@@ -760,11 +760,21 @@ temple_04 = {
 #
 # Temple Buildings
 #
+# CotC Buildings:
+# Pharmaceutical Lab - Normal Tax, Development Growth, Plague Resistance, Small Opinion
+# 	- Requres a pharmaceutical research tech
+#	- Culture bonus to add control
+# Propaganda Network - Control, Piety, Legitimacy
+# 	- Direct Scriptorium reskin
+# 	- Require Culture of oppression tenet
+# Physics Lab - Research speed, Piety
+# Bureaucracy - Control, Tax Mult
+# Diplomatic Corps - Public Opinion, Prestige
 ####
 
-### Scriptorium
+### Propaganda
 
-scriptorium_01 = {
+propaganda_01 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
@@ -773,6 +783,7 @@ scriptorium_01 = {
 			has_building_or_higher = temple_citadel_01
 		}
 		has_dlc_feature = legends
+		# TODO: Add requirement for a culture of oppression or manipulation
 	}
 
 	can_construct_showing_failures_only = {
@@ -798,7 +809,7 @@ scriptorium_01 = {
 		monthly_piety = 0.01
 	}
 	county_culture_modifier = {
-		parameter = block_printing_scriptorium_bonuses
+		parameter = block_printing_propaganda_bonuses
 		monthly_county_control_growth_add = innovation_block_printing_control_growth_value_1
 		development_growth = innovation_block_printing_development_growth_value_1
 	}
@@ -808,10 +819,10 @@ scriptorium_01 = {
 		mandala_built_piety_building_effect = yes
 	}
 
-	next_building = scriptorium_02
+	next_building = propaganda_02
 
 	type_icon = "icon_building_library.dds"
-
+	# TODO: Come back to modifiers once other buildings are done
 	ai_value = {
 		base = 10
 		ai_tier_1_building_modifier = yes
@@ -853,7 +864,7 @@ scriptorium_01 = {
 	}
 }
 
-scriptorium_02 = {
+propaganda_02 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
@@ -878,7 +889,7 @@ scriptorium_02 = {
 		legitimacy_gain_mult = 0.02
 	}
 	county_culture_modifier = {
-		parameter = block_printing_scriptorium_bonuses
+		parameter = block_printing_propaganda_bonuses
 		monthly_county_control_growth_add = innovation_block_printing_control_growth_value_1
 		development_growth = innovation_block_printing_development_growth_value_1
 	}
@@ -900,7 +911,7 @@ scriptorium_02 = {
 		mandala_built_piety_building_effect = yes
 	}
 
-	next_building = scriptorium_03
+	next_building = propaganda_03
 	ai_value = {
 		base = 9
 		ai_general_building_modifier = yes
@@ -913,7 +924,7 @@ scriptorium_02 = {
 	}
 }
 
-scriptorium_03 = {
+propaganda_03 = {
 	construction_time = standard_construction_time
 
 	can_construct = {
@@ -938,7 +949,7 @@ scriptorium_03 = {
 		legitimacy_gain_mult = 0.03
 	}
 	county_culture_modifier = {
-		parameter = block_printing_scriptorium_bonuses
+		parameter = block_printing_propaganda_bonuses
 		monthly_county_control_growth_add = innovation_block_printing_control_growth_value_2
 		development_growth = innovation_block_printing_development_growth_value_2
 	}
@@ -960,7 +971,7 @@ scriptorium_03 = {
 		mandala_built_piety_building_effect = yes
 	}
 
-	next_building = scriptorium_04
+	next_building = propaganda_04
 	ai_value = {
 		base = 8
 		ai_general_building_modifier = yes
@@ -973,7 +984,7 @@ scriptorium_03 = {
 	}
 }
 
-scriptorium_04 = {
+propaganda_04 = {
 	construction_time = standard_construction_time
 
 	can_construct = {
@@ -998,7 +1009,7 @@ scriptorium_04 = {
 		legitimacy_gain_mult = 0.04
 	}
 	county_culture_modifier = {
-		parameter = block_printing_scriptorium_bonuses
+		parameter = block_printing_propaganda_bonuses
 		monthly_county_control_growth_add = innovation_block_printing_control_growth_value_2
 		development_growth = innovation_block_printing_development_growth_value_2
 	}
@@ -1020,7 +1031,7 @@ scriptorium_04 = {
 		mandala_built_piety_building_effect = yes
 	}
 
-	next_building = scriptorium_05
+	next_building = propaganda_05
 	ai_value = {
 		base = 7
 		ai_general_building_modifier = yes
@@ -1033,7 +1044,7 @@ scriptorium_04 = {
 	}
 }
 
-scriptorium_05 = {
+propaganda_05 = {
 	construction_time = standard_construction_time
 
 	can_construct = {
@@ -1058,7 +1069,7 @@ scriptorium_05 = {
 		legitimacy_gain_mult = 0.05
 	}
 	county_culture_modifier = {
-		parameter = block_printing_scriptorium_bonuses
+		parameter = block_printing_propaganda_bonuses
 		monthly_county_control_growth_add = innovation_block_printing_control_growth_value_3
 		development_growth = innovation_block_printing_development_growth_value_3
 	}
@@ -1080,7 +1091,7 @@ scriptorium_05 = {
 		mandala_built_piety_building_effect = yes
 	}
 
-	next_building = scriptorium_06
+	next_building = propaganda_06
 	ai_value = {
 		base = 7
 		ai_general_building_modifier = yes
@@ -1093,7 +1104,7 @@ scriptorium_05 = {
 	}
 }
 
-scriptorium_06 = {
+propaganda_06 = {
 	construction_time = standard_construction_time
 
 	can_construct = {
@@ -1129,7 +1140,7 @@ scriptorium_06 = {
 		monthly_piety = 0.03
 	}
 	county_culture_modifier = {
-		parameter = block_printing_scriptorium_bonuses
+		parameter = block_printing_propaganda_bonuses
 		monthly_county_control_growth_add = innovation_block_printing_control_growth_value_3
 		development_growth = innovation_block_printing_development_growth_value_3
 	}
@@ -1139,7 +1150,7 @@ scriptorium_06 = {
 		mandala_built_piety_building_effect = yes
 	}
 
-	next_building = scriptorium_07
+	next_building = propaganda_07
 	ai_value = {
 		base = 7
 		ai_general_building_modifier = yes
@@ -1152,7 +1163,7 @@ scriptorium_06 = {
 	}
 }
 
-scriptorium_07 = {
+propaganda_07 = {
 	construction_time = standard_construction_time
 
 	can_construct = {
@@ -1189,7 +1200,7 @@ scriptorium_07 = {
 		monthly_piety = 0.04
 	}
 	county_culture_modifier = {
-		parameter = block_printing_scriptorium_bonuses
+		parameter = block_printing_propaganda_bonuses
 		monthly_county_control_growth_add = innovation_block_printing_control_growth_value_4
 		development_growth = innovation_block_printing_development_growth_value_4
 	}
@@ -1199,7 +1210,7 @@ scriptorium_07 = {
 		mandala_built_piety_building_effect = yes
 	}
 
-	next_building = scriptorium_08
+	next_building = propaganda_08
 	ai_value = {
 		base = 7
 		ai_general_building_modifier = yes
@@ -1212,7 +1223,7 @@ scriptorium_07 = {
 	}
 }
 
-scriptorium_08 = {
+propaganda_08 = {
 	construction_time = standard_construction_time
 
 	can_construct = {
@@ -1249,7 +1260,7 @@ scriptorium_08 = {
 		monthly_piety = 0.04
 	}
 	county_culture_modifier = {
-		parameter = block_printing_scriptorium_bonuses
+		parameter = block_printing_propaganda_bonuses
 		monthly_county_control_growth_add = innovation_block_printing_control_growth_value_4
 		development_growth = innovation_block_printing_development_growth_value_4
 	}
@@ -2547,12 +2558,12 @@ megalith_08 = {
 	}
 }
 
-### Breweries (Monks)
-breweries_01 = {
+### Pharmaceuticals (Monks)
+pharmaceuticals_01 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
-		building_breweries_requirement = { NUMBER = 01 }
+		building_pharmaceuticals_requirement = { NUMBER = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2564,16 +2575,20 @@ breweries_01 = {
 	effect_desc = brewery_effect_desc
 
 	county_modifier = {
-		county_opinion_add = 5
-		monthly_county_control_growth_add = 0.05
+		county_opinion_add = 2
 		development_growth_factor = 0.02
 	}
 
 	province_modifier = {
 		monthly_income = poor_building_tax_tier_1
+		epidemic_resistance = 4
+	}
+	character_culture_modifier = {
+		parameter = chemical_pharmaceuticals_control_bonuses
+		monthly_county_control_growth_add = 0.05
 	}
 
-	next_building = breweries_02
+	next_building = pharmaceuticals_02
 
 	type_icon = "icon_building_breweries.dds"
 
@@ -2597,12 +2612,12 @@ breweries_01 = {
 	}
 }
 
-breweries_02 = {
+pharmaceuticals_02 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		culture = { has_innovation = innovation_city_planning }
-		building_breweries_requirement = { NUMBER = 01 }
+		building_pharmaceuticals_requirement = { NUMBER = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2614,16 +2629,20 @@ breweries_02 = {
 	effect_desc = brewery_effect_desc
 
 	county_modifier = {
-		county_opinion_add = 10
-		monthly_county_control_growth_add = 0.1
-		development_growth_factor = 0.04
+		county_opinion_add = 4
+		development_growth_factor = 0.02
 	}
 
 	province_modifier = {
 		monthly_income = poor_building_tax_tier_2
+		epidemic_resistance = 6
+	}
+	character_culture_modifier = {
+		parameter = chemical_pharmaceuticals_control_bonuses
+		monthly_county_control_growth_add = 0.05
 	}
 
-	next_building = breweries_03
+	next_building = pharmaceuticals_03
 
 	ai_value = {
 		base = 10
@@ -2645,12 +2664,12 @@ breweries_02 = {
 	}
 }
 
-breweries_03 = {
+pharmaceuticals_03 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		culture = { has_innovation = innovation_manorialism }
-		building_breweries_requirement = { NUMBER = 02 }
+		building_pharmaceuticals_requirement = { NUMBER = 02 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2671,7 +2690,7 @@ breweries_03 = {
 		monthly_income = poor_building_tax_tier_3
 	}
 
-	next_building = breweries_04
+	next_building = pharmaceuticals_04
 
 	ai_value = {
 		base = 9
@@ -2684,12 +2703,12 @@ breweries_03 = {
 	}
 }
 
-breweries_04 = {
+pharmaceuticals_04 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		culture = { has_innovation = innovation_manorialism }
-		building_breweries_requirement = { NUMBER = 02 }
+		building_pharmaceuticals_requirement = { NUMBER = 02 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2710,7 +2729,7 @@ breweries_04 = {
 		monthly_income = poor_building_tax_tier_4
 	}
 
-	next_building = breweries_05
+	next_building = pharmaceuticals_05
 
 	ai_value = {
 		base = 9
@@ -2723,12 +2742,12 @@ breweries_04 = {
 	}
 }
 
-breweries_05 = {
+pharmaceuticals_05 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		culture = { has_innovation = innovation_windmills }
-		building_breweries_requirement = { NUMBER = 03 }
+		building_pharmaceuticals_requirement = { NUMBER = 03 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2749,7 +2768,7 @@ breweries_05 = {
 		monthly_income = poor_building_tax_tier_5
 	}
 
-	next_building = breweries_06
+	next_building = pharmaceuticals_06
 
 	ai_value = {
 		base = 9
@@ -2762,12 +2781,12 @@ breweries_05 = {
 	}
 }
 
-breweries_06 = {
+pharmaceuticals_06 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		culture = { has_innovation = innovation_windmills }
-		building_breweries_requirement = { NUMBER = 03 }
+		building_pharmaceuticals_requirement = { NUMBER = 03 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2788,7 +2807,7 @@ breweries_06 = {
 		monthly_income = poor_building_tax_tier_6
 	}
 
-	next_building = breweries_07
+	next_building = pharmaceuticals_07
 
 	ai_value = {
 		base = 9
@@ -2801,12 +2820,12 @@ breweries_06 = {
 	}
 }
 
-breweries_07 = {
+pharmaceuticals_07 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		culture = { has_innovation = innovation_cranes }
-		building_breweries_requirement = { NUMBER = 04 }
+		building_pharmaceuticals_requirement = { NUMBER = 04 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2827,7 +2846,7 @@ breweries_07 = {
 		monthly_income = poor_building_tax_tier_7
 	}
 
-	next_building = breweries_08
+	next_building = pharmaceuticals_08
 
 	ai_value = {
 		base = 9
@@ -2840,12 +2859,12 @@ breweries_07 = {
 	}
 }
 
-breweries_08 = {
+pharmaceuticals_08 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		culture = { has_innovation = innovation_cranes }
-		building_breweries_requirement = { NUMBER = 04 }
+		building_pharmaceuticals_requirement = { NUMBER = 04 }
 	}
 
 	can_construct_showing_failures_only = {
