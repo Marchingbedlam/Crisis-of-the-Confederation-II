@@ -767,9 +767,9 @@ temple_04 = {
 # Propaganda Network - Control, Piety, Legitimacy
 # 	- Direct Scriptorium reskin
 # 	- Require Culture of oppression tenet
-# Physics Lab - Research speed, Piety
-# Bureaucracy - Control, Tax Mult
-# Diplomatic Corps - Public Opinion, Prestige
+# Physics Lab - Character Learning, Piety, Learning Lifestyle XP
+# Bureaucracy - Control, Tax Mult, Stress Gain
+# Diplomatic Corps - Public Opinion, Prestige, Personal Scheme Chance
 ####
 
 ### Propaganda
@@ -844,7 +844,7 @@ propaganda_01 = {
 		modifier = {
 			factor = 0
 			NOT = {
-				has_building_or_higher = monastic_schools_01
+				has_building_or_higher = research_labs_01
 			}
 		}
 		modifier = {
@@ -1282,54 +1282,27 @@ propaganda_08 = {
 	}
 }
 
-### Monastic School
+### Research Labs
 
-monastic_schools_01 = {
+research_labs_01 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		OR = {
 			has_building_or_higher = temple_01
 			has_building_or_higher = temple_citadel_01
-			scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type }
 		}
 	}
 
 	can_construct_showing_failures_only = {
-		trigger_if = {
-			limit = {
-				NOT = { scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type } }
-			}
-			building_requirement_tribal = no
-		}
+		building_requirement_tribal = no
 	}
 
-	cost_gold = normal_building_tier_1_cost
+	cost_gold = large_building_tier_1_cost
 
 	character_modifier = {
 		monthly_piety = 0.1
-	}
-	county_modifier = {
-		monthly_county_control_growth_add = 0.1
-	}
-	province_modifier = {
-		monthly_income = poor_building_tax_tier_1
-		epidemic_resistance = 4
-	}
-
-	character_culture_modifier = {
-		parameter = monastic_monastery_learning_bonus
-		monthly_learning_lifestyle_xp_gain_mult = 0.1
-	}
-
-	character_culture_modifier = {
-		parameter = monastery_prowess_martial_bonus
-		prowess = 1
-	}
-
-	character_government_modifier = {
-		parameter = government_is_mandala
-		monthly_piety = 0.01
+		monthly_learning_lifestyle_xp_gain_mult = 0.05
 	}
 
 	on_complete = {
@@ -1337,7 +1310,7 @@ monastic_schools_01 = {
 		mandala_built_piety_building_effect = yes
 	}
 
-	next_building = monastic_schools_02
+	next_building = research_labs_02
 
 	type_icon = "icon_building_monastic_schools.dds"
 
@@ -1364,21 +1337,13 @@ monastic_schools_01 = {
 	}
 }
 
-monastic_schools_02 = {
+research_labs_02 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		OR = {
 			has_building_or_higher = temple_01
 			has_building_or_higher = temple_citadel_01
-			trigger_if = { #Trigger IF for non-confusing tooltip
-				limit = {
-					scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type }
-				}
-				building_requirement_castle_city_church_temple_citadel_tribe = {
-					LEVEL = 01
-				}
-			}
 		}
 		culture = {
 			OR = {
@@ -1389,42 +1354,14 @@ monastic_schools_02 = {
 	}
 
 	can_construct_showing_failures_only = {
-		trigger_if = {
-			limit = {
-				NOT = { scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type } }
-			}
-			building_requirement_tribal = no
-		}
+		building_requirement_tribal = no
 	}
 
-	cost_gold = normal_building_tier_2_cost
+	cost_gold = large_building_tier_2_cost
 
 	character_modifier = {
 		monthly_piety = 0.2
-	}
-	county_modifier = {
-		monthly_county_control_growth_add = 0.2
-	}
-	province_modifier = {
-		monthly_income = poor_building_tax_tier_2
-		epidemic_resistance = 6
-	}
-
-	character_culture_modifier = {
-		parameter = monastic_monastery_learning_bonus
 		monthly_learning_lifestyle_xp_gain_mult = 0.1
-		learning = 1
-	}
-
-	character_culture_modifier = {
-		parameter = monastery_prowess_martial_bonus
-		prowess = 1
-		martial = 1
-	}
-
-	character_government_modifier = {
-		parameter = government_is_mandala
-		monthly_piety = 0.01
 	}
 
 	on_complete = {
@@ -1432,7 +1369,7 @@ monastic_schools_02 = {
 		mandala_built_piety_building_effect = yes
 	}
 
-	next_building = monastic_schools_03
+	next_building = research_labs_03
 	ai_value = {
 		base = 9
 		ai_general_building_modifier = yes
@@ -1446,10 +1383,12 @@ monastic_schools_02 = {
 	}
 }
 
-monastic_schools_03 = {
+research_labs_03 = {
 	construction_time = standard_construction_time
 
 	can_construct = {
+		# Keep cultural parameter for advanced research labs?
+		# TODO: Figure out exact requirements
 		trigger_if = {
 			limit = {
 				NOT = {
@@ -1464,16 +1403,8 @@ monastic_schools_03 = {
 			OR = {
 				has_building_or_higher = temple_02
 				has_building_or_higher = temple_citadel_02
-				trigger_if = { #Trigger IF for non-confusing tooltip
-					limit = {
-						scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type }
-					}
-					building_requirement_castle_city_church_temple_citadel_tribe = {
-						LEVEL = 02
-					}
 				}
 			}
-		}
 		trigger_else = {
 			culture = {
 				has_innovation = innovation_city_planning
@@ -1484,55 +1415,20 @@ monastic_schools_03 = {
 			OR = {
 				has_building_or_higher = temple_01
 				has_building_or_higher = temple_citadel_01
-				trigger_if = { #Trigger IF for non-confusing tooltip
-					limit = {
-						scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type }
-					}
-					building_requirement_castle_city_church_temple_citadel_tribe = {
-						LEVEL = 01
-					}
-				}
 			}
 		}
 	}
 
 	can_construct_showing_failures_only = {
-		trigger_if = {
-			limit = {
-				NOT = { scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type } }
-			}
-			building_requirement_tribal = no
-		}
+		building_requirement_tribal = no
 	}
 
-	cost_gold = normal_building_tier_3_cost
+	cost_gold = large_building_tier_3_cost
 
 	character_modifier = {
-		monthly_piety = 0.3
-	}
-	county_modifier = {
-		monthly_county_control_growth_add = 0.3
-	}
-	province_modifier = {
-		monthly_income = poor_building_tax_tier_3
-		epidemic_resistance = 8
-	}
-
-	character_culture_modifier = {
-		parameter = monastic_monastery_learning_bonus
-		monthly_learning_lifestyle_xp_gain_mult = 0.2
-		learning = 1
-	}
-
-	character_culture_modifier = {
-		parameter = monastery_prowess_martial_bonus
-		prowess = 2
-		martial = 1
-	}
-
-	character_government_modifier = {
-		parameter = government_is_mandala
-		monthly_piety = 0.02
+		monthly_piety = 0.1
+		monthly_learning_lifestyle_xp_gain_mult = 0.1
+		cultural_head_fascination_mult = 0.001  # No idea if this will work
 	}
 
 	on_complete = {
@@ -1540,7 +1436,7 @@ monastic_schools_03 = {
 		mandala_built_piety_building_effect = yes
 	}
 
-	next_building = monastic_schools_04
+	next_building = research_labs_04
 	ai_value = {
 		base = 8
 		ai_general_building_modifier = yes
@@ -1554,7 +1450,7 @@ monastic_schools_03 = {
 	}
 }
 
-monastic_schools_04 = {
+research_labs_04 = {
 	construction_time = standard_construction_time
 
 	can_construct = {
@@ -1574,7 +1470,7 @@ monastic_schools_04 = {
 				has_building_or_higher = temple_citadel_02
 				trigger_if = { #Trigger IF for non-confusing tooltip
 					limit = {
-						scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type }
+						scope:holder.faith = { has_doctrine_parameter = research_labs_allowed_in_every_holding_type }
 					}
 					building_requirement_castle_city_church_temple_citadel_tribe = {
 						LEVEL = 02
@@ -1594,7 +1490,7 @@ monastic_schools_04 = {
 				has_building_or_higher = temple_citadel_01
 				trigger_if = { #Trigger IF for non-confusing tooltip
 					limit = {
-						scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type }
+						scope:holder.faith = { has_doctrine_parameter = research_labs_allowed_in_every_holding_type }
 					}
 					building_requirement_castle_city_church_temple_citadel_tribe = {
 						LEVEL = 01
@@ -1605,42 +1501,14 @@ monastic_schools_04 = {
 	}
 
 	can_construct_showing_failures_only = {
-		trigger_if = {
-			limit = {
-				NOT = { scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type } }
-			}
-			building_requirement_tribal = no
-		}
+		building_requirement_tribal = no
 	}
 
-	cost_gold = normal_building_tier_4_cost
-
+	cost_gold = large_building_tier_4_cost
 	character_modifier = {
-		monthly_piety = 0.4
-	}
-	county_modifier = {
-		monthly_county_control_growth_add = 0.4
-	}
-	province_modifier = {
-		monthly_income = poor_building_tax_tier_4
-		epidemic_resistance = 10
-	}
-
-	character_culture_modifier = {
-		parameter = monastic_monastery_learning_bonus
-		monthly_learning_lifestyle_xp_gain_mult = 0.2
-		learning = 2
-	}
-
-	character_culture_modifier = {
-		parameter = monastery_prowess_martial_bonus
-		prowess = 2
-		martial = 2
-	}
-
-	character_government_modifier = {
-		parameter = government_is_mandala
-		monthly_piety = 0.02
+		monthly_piety = 0.15
+		monthly_learning_lifestyle_xp_gain_mult = 0.15
+		cultural_head_fascination_mult = 0.001  # No idea if this will work
 	}
 
 	on_complete = {
@@ -1648,7 +1516,7 @@ monastic_schools_04 = {
 		mandala_built_piety_building_effect = yes
 	}
 
-	next_building = monastic_schools_05
+	next_building = research_labs_05
 	ai_value = {
 		base = 7
 		ai_general_building_modifier = yes
@@ -1662,7 +1530,7 @@ monastic_schools_04 = {
 	}
 }
 
-monastic_schools_05 = {
+research_labs_05 = {
 	construction_time = standard_construction_time
 
 	can_construct = {
@@ -1682,7 +1550,7 @@ monastic_schools_05 = {
 				has_building_or_higher = temple_citadel_03
 				trigger_if = { #Trigger IF for non-confusing tooltip
 					limit = {
-						scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type }
+						scope:holder.faith = { has_doctrine_parameter = research_labs_allowed_in_every_holding_type }
 					}
 					building_requirement_castle_city_church_temple_citadel_tribe = {
 						LEVEL = 03
@@ -1702,7 +1570,7 @@ monastic_schools_05 = {
 				has_building_or_higher = temple_citadel_02
 				trigger_if = { #Trigger IF for non-confusing tooltip
 					limit = {
-						scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type }
+						scope:holder.faith = { has_doctrine_parameter = research_labs_allowed_in_every_holding_type }
 					}
 					building_requirement_castle_city_church_temple_citadel_tribe = {
 						LEVEL = 02
@@ -1713,42 +1581,16 @@ monastic_schools_05 = {
 	}
 
 	can_construct_showing_failures_only = {
-		trigger_if = {
-			limit = {
-				NOT = { scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type } }
-			}
-			building_requirement_tribal = no
-		}
+		building_requirement_tribal = no
 	}
 
-	cost_gold = normal_building_tier_5_cost
+	cost_gold = large_building_tier_5_cost
 
 	character_modifier = {
-		monthly_piety = 0.5
-	}
-	county_modifier = {
-		monthly_county_control_growth_add = 0.5
-	}
-	province_modifier = {
-		monthly_income = poor_building_tax_tier_5
-		epidemic_resistance = 12
-	}
-
-	character_culture_modifier = {
-		parameter = monastic_monastery_learning_bonus
-		monthly_learning_lifestyle_xp_gain_mult = 0.3
-		learning = 2
-	}
-
-	character_culture_modifier = {
-		parameter = monastery_prowess_martial_bonus
-		prowess = 3
-		martial = 2
-	}
-
-	character_government_modifier = {
-		parameter = government_is_mandala
-		monthly_piety = 0.03
+		monthly_piety = 0.15
+		monthly_learning_lifestyle_xp_gain_mult = 0.15
+		cultural_head_fascination_mult = 0.001  # No idea if this will work
+		learning = 1  # Being able to build learning buildings might be way too strong
 	}
 
 	on_complete = {
@@ -1756,7 +1598,7 @@ monastic_schools_05 = {
 		mandala_built_piety_building_effect = yes
 	}
 
-	next_building = monastic_schools_06
+	next_building = research_labs_06
 	ai_value = {
 		base = 6
 		ai_general_building_modifier = yes
@@ -1770,7 +1612,7 @@ monastic_schools_05 = {
 	}
 }
 
-monastic_schools_06 = {
+research_labs_06 = {
 	construction_time = standard_construction_time
 
 	can_construct = {
@@ -1790,7 +1632,7 @@ monastic_schools_06 = {
 				has_building_or_higher = temple_citadel_03
 				trigger_if = { #Trigger IF for non-confusing tooltip
 					limit = {
-						scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type }
+						scope:holder.faith = { has_doctrine_parameter = research_labs_allowed_in_every_holding_type }
 					}
 					building_requirement_castle_city_church_temple_citadel_tribe = {
 						LEVEL = 03
@@ -1810,7 +1652,7 @@ monastic_schools_06 = {
 				has_building_or_higher = temple_citadel_02
 				trigger_if = { #Trigger IF for non-confusing tooltip
 					limit = {
-						scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type }
+						scope:holder.faith = { has_doctrine_parameter = research_labs_allowed_in_every_holding_type }
 					}
 					building_requirement_castle_city_church_temple_citadel_tribe = {
 						LEVEL = 02
@@ -1821,42 +1663,16 @@ monastic_schools_06 = {
 	}
 
 	can_construct_showing_failures_only = {
-		trigger_if = {
-			limit = {
-				NOT = { scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type } }
-			}
-			building_requirement_tribal = no
-		}
+		building_requirement_tribal = no
 	}
 
-	cost_gold = normal_building_tier_6_cost
+	cost_gold = large_building_tier_6_cost
 
 	character_modifier = {
-		monthly_piety = 0.6
-	}
-	county_modifier = {
-		monthly_county_control_growth_add = 0.6
-	}
-	province_modifier = {
-		monthly_income = poor_building_tax_tier_6
-		epidemic_resistance = 14
-	}
-
-	character_culture_modifier = {
-		parameter = monastic_monastery_learning_bonus
-		monthly_learning_lifestyle_xp_gain_mult = 0.3
-		learning = 3
-	}
-
-	character_culture_modifier = {
-		parameter = monastery_prowess_martial_bonus
-		prowess = 3
-		martial = 3
-	}
-
-	character_government_modifier = {
-		parameter = government_is_mandala
-		monthly_piety = 0.03
+		monthly_piety = 0.15
+		monthly_learning_lifestyle_xp_gain_mult = 0.15
+		cultural_head_fascination_mult = 0.002  # No idea if this will work
+		learning = 1  # Being able to build learning buildings might be way too strong
 	}
 
 	on_complete = {
@@ -1864,7 +1680,7 @@ monastic_schools_06 = {
 		mandala_built_piety_building_effect = yes
 	}
 
-	next_building = monastic_schools_07
+	next_building = research_labs_07
 	ai_value = {
 		base = 5
 		ai_general_building_modifier = yes
@@ -1878,7 +1694,7 @@ monastic_schools_06 = {
 	}
 }
 
-monastic_schools_07 = {
+research_labs_07 = {
 	construction_time = standard_construction_time
 
 	can_construct = {
@@ -1898,7 +1714,7 @@ monastic_schools_07 = {
 				has_building_or_higher = temple_citadel_04
 				trigger_if = { #Trigger IF for non-confusing tooltip
 					limit = {
-						scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type }
+						scope:holder.faith = { has_doctrine_parameter = research_labs_allowed_in_every_holding_type }
 					}
 					building_requirement_castle_city_church_temple_citadel_tribe = {
 						LEVEL = 04
@@ -1918,7 +1734,7 @@ monastic_schools_07 = {
 				has_building_or_higher = temple_citadel_03
 				trigger_if = { #Trigger IF for non-confusing tooltip
 					limit = {
-						scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type }
+						scope:holder.faith = { has_doctrine_parameter = research_labs_allowed_in_every_holding_type }
 					}
 					building_requirement_castle_city_church_temple_citadel_tribe = {
 						LEVEL = 03
@@ -1929,42 +1745,16 @@ monastic_schools_07 = {
 	}
 
 	can_construct_showing_failures_only = {
-		trigger_if = {
-			limit = {
-				NOT = { scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type } }
-			}
-			building_requirement_tribal = no
-		}
+		building_requirement_tribal = no
 	}
 
-	cost_gold = normal_building_tier_7_cost
+	cost_gold = large_building_tier_7_cost
 
 	character_modifier = {
-		monthly_piety = 0.7
-	}
-	county_modifier = {
-		monthly_county_control_growth_add = 0.7
-	}
-	province_modifier = {
-		monthly_income = poor_building_tax_tier_7
-		epidemic_resistance = 16
-	}
-
-	character_culture_modifier = {
-		parameter = monastic_monastery_learning_bonus
-		monthly_learning_lifestyle_xp_gain_mult = 0.4
-		learning = 3
-	}
-
-	character_culture_modifier = {
-		parameter = monastery_prowess_martial_bonus
-		prowess = 4
-		martial = 3
-	}
-
-	character_government_modifier = {
-		parameter = government_is_mandala
-		monthly_piety = 0.04
+		monthly_piety = 0.25
+		monthly_learning_lifestyle_xp_gain_mult = 0.2
+		cultural_head_fascination_mult = 0.002  # No idea if this will work
+		learning = 1  # Being able to build learning buildings might be way too strong
 	}
 
 	on_complete = {
@@ -1972,7 +1762,7 @@ monastic_schools_07 = {
 		mandala_built_piety_building_effect = yes
 	}
 
-	next_building = monastic_schools_08
+	next_building = research_labs_08
 	ai_value = {
 		base = 4
 		ai_general_building_modifier = yes
@@ -1986,7 +1776,7 @@ monastic_schools_07 = {
 	}
 }
 
-monastic_schools_08 = {
+research_labs_08 = {
 	construction_time = standard_construction_time
 
 	can_construct = {
@@ -2006,7 +1796,7 @@ monastic_schools_08 = {
 				has_building_or_higher = temple_citadel_04
 				trigger_if = { #Trigger IF for non-confusing tooltip
 					limit = {
-						scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type }
+						scope:holder.faith = { has_doctrine_parameter = research_labs_allowed_in_every_holding_type }
 					}
 					building_requirement_castle_city_church_temple_citadel_tribe = {
 						LEVEL = 04
@@ -2026,7 +1816,7 @@ monastic_schools_08 = {
 				has_building_or_higher = temple_citadel_03
 				trigger_if = { #Trigger IF for non-confusing tooltip
 					limit = {
-						scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type }
+						scope:holder.faith = { has_doctrine_parameter = research_labs_allowed_in_every_holding_type }
 					}
 					building_requirement_castle_city_church_temple_citadel_tribe = {
 						LEVEL = 03
@@ -2037,42 +1827,16 @@ monastic_schools_08 = {
 	}
 
 	can_construct_showing_failures_only = {
-		trigger_if = {
-			limit = {
-				NOT = { scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type } }
-			}
-			building_requirement_tribal = no
-		}
+		building_requirement_tribal = no
 	}
 
-	cost_gold = normal_building_tier_8_cost
+	cost_gold = large_building_tier_8_cost
 
 	character_modifier = {
-		monthly_piety = 0.8
-	}
-	county_modifier = {
-		monthly_county_control_growth_add = 0.8
-	}
-	province_modifier = {
-		monthly_income = poor_building_tax_tier_8
-		epidemic_resistance = 18
-	}
-
-	character_culture_modifier = {
-		parameter = monastic_monastery_learning_bonus
-		monthly_learning_lifestyle_xp_gain_mult = 0.4
-		learning = 4
-	}
-
-	character_culture_modifier = {
-		parameter = monastery_prowess_martial_bonus
-		prowess = 4
-		martial = 4
-	}
-
-	character_government_modifier = {
-		parameter = government_is_mandala
-		monthly_piety = 0.04
+		monthly_piety = 0.25
+		monthly_learning_lifestyle_xp_gain_mult = 0.2
+		cultural_head_fascination_mult = 0.003  # No idea if this will work
+		learning = 2  # Being able to build learning buildings might be way too strong
 	}
 
 	on_complete = {
@@ -2093,47 +1857,31 @@ monastic_schools_08 = {
 	}
 }
 
-### Megaliths
+### Bureaucracy
 
-megalith_01 = {
+bureaucracy_01 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		OR = {
 			has_building_or_higher = temple_01
 			has_building_or_higher = temple_citadel_01
-		}
-		scope:holder.faith = {
-			has_doctrine_parameter = can_build_megaliths
-		}
 	}
 
 	can_construct_showing_failures_only = {
-		#building_requirement_tribal = no
+		building_requirement_tribal = no
 	}
-
-	is_enabled = {
-		custom_tooltip = {
-			text = province_is_of_a_megalith_faith_tt
-			county.faith = { has_doctrine_parameter = can_build_megaliths }
-		}
-	}
-
-	show_disabled = yes
 
 	cost_gold = normal_building_tier_1_cost
 
 	character_modifier = {
-		monthly_piety = poor_building_tax_tier_1
+		stress_gain_mult = -0.05
 	}
 	county_modifier = {
-		development_growth_factor = 0.02
-		county_opinion_add = 2
+		monthly_county_control_growth_add = 0.1
 	}
-
-	character_government_modifier = {
-		parameter = government_is_mandala
-		monthly_piety = 0.01
+	province_modifier = {
+		tax_mult = normal_building_tax_mult_tier_1
 	}
 
 	on_complete = {
@@ -2141,15 +1889,16 @@ megalith_01 = {
 		mandala_built_piety_building_effect = yes
 	}
 
-	next_building = megalith_02
+	next_building = bureaucracy_02
 
-	type_icon = "icon_megalith.dds"
+	type_icon = "icon_bureaucracy.dds"
 
 	ai_value = {
 		base = 10
 		ai_tier_1_building_modifier = yes
 		ai_tier_1_pious_building_preference_modifier = yes
 		directive_to_build_economy_modifier = yes
+		# TODO: Add weightings for administrative republics
 		modifier = {
 			add = 500
 			scope:holder = {
@@ -2168,16 +1917,13 @@ megalith_01 = {
 	}
 }
 
-megalith_02 = {
+bureaucracy_02 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		OR = {
 			has_building_or_higher = temple_01
 			has_building_or_higher = temple_citadel_01
-		}
-		scope:holder.faith = {
-			has_doctrine_parameter = can_build_megaliths
 		}
 	}
 
@@ -2185,34 +1931,19 @@ megalith_02 = {
 		#building_requirement_tribal = no
 	}
 
-	is_enabled = {
-		custom_tooltip = {
-			text = province_is_of_a_megalith_faith_tt
-			county.faith = { has_doctrine_parameter = can_build_megaliths }
-		}
-	}
-
 	cost_gold = normal_building_tier_2_cost
 
 	character_modifier = {
-		monthly_piety = poor_building_tax_tier_2
+		stress_gain_mult = -0.075
 	}
 	county_modifier = {
-		development_growth_factor = 0.05
-		county_opinion_add = 2
+		monthly_county_control_growth_add = 0.2
 	}
-	
-	character_government_modifier = {
-		parameter = government_is_mandala
-		monthly_piety = 0.01
+	province_modifier = {
+		tax_mult = normal_building_tax_mult_tier_2
 	}
 
-	on_complete = {
-		#Regular Mandala Boon
-		mandala_built_piety_building_effect = yes
-	}
-
-	next_building = megalith_03
+	next_building = bureaucracy_03
 	ai_value = {
 		base = 9
 		directive_to_build_economy_modifier = yes
@@ -2220,7 +1951,7 @@ megalith_02 = {
 	}
 }
 
-megalith_03 = {
+bureaucracy_03 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
@@ -2228,9 +1959,6 @@ megalith_03 = {
 			has_building_or_higher = temple_01
 			has_building_or_higher = temple_citadel_01
 		}
-		scope:holder.faith = {
-			has_doctrine_parameter = can_build_megaliths
-		}
 		culture = {
 			has_innovation = innovation_city_planning
 		}
@@ -2240,34 +1968,19 @@ megalith_03 = {
 		building_requirement_tribal = no
 	}
 
-	is_enabled = {
-		custom_tooltip = {
-			text = province_is_of_a_megalith_faith_tt
-			county.faith = { has_doctrine_parameter = can_build_megaliths }
-		}
-	}
-
 	cost_gold = normal_building_tier_3_cost
 
 	character_modifier = {
-		monthly_piety = poor_building_tax_tier_3
+		stress_gain_mult = -0.1
 	}
 	county_modifier = {
-		development_growth_factor = 0.1
-		county_opinion_add = 4
+		monthly_county_control_growth_add = 0.3
 	}
-	
-	character_government_modifier = {
-		parameter = government_is_mandala
-		monthly_piety = 0.02
+	province_modifier = {
+		tax_mult = normal_building_tax_mult_tier_3
 	}
 
-	on_complete = {
-		#Regular Mandala Boon
-		mandala_built_piety_building_effect = yes
-	}
-
-	next_building = megalith_04
+	next_building = bureaucracy_04
 	ai_value = {
 		base = 8
 		directive_to_build_economy_modifier = yes
@@ -2275,16 +1988,13 @@ megalith_03 = {
 	}
 }
 
-megalith_04 = {
+bureaucracy_04 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		OR = {
 			has_building_or_higher = temple_02
 			has_building_or_higher = temple_citadel_02
-		}
-		scope:holder.faith = {
-			has_doctrine_parameter = can_build_megaliths
 		}
 		culture = {
 			has_innovation = innovation_city_planning
@@ -2295,35 +2005,19 @@ megalith_04 = {
 		building_requirement_tribal = no
 	}
 
-	is_enabled = {
-		custom_tooltip = {
-			text = province_is_of_a_megalith_faith_tt
-			county.faith = { has_doctrine_parameter = can_build_megaliths }
-		}
-	}
-
 	cost_gold = normal_building_tier_4_cost
 
 	character_modifier = {
-		monthly_piety = poor_building_tax_tier_4
+		stress_gain_mult = -0.125
 	}
 	county_modifier = {
-		development_growth_factor = 0.15
-		county_opinion_add = 4
-		development_growth = 0.025
+		monthly_county_control_growth_add = 0.4
 	}
-	
-	character_government_modifier = {
-		parameter = government_is_mandala
-		monthly_piety = 0.02
+	province_modifier = {
+		tax_mult = normal_building_tax_mult_tier_4
 	}
 
-	on_complete = {
-		#Regular Mandala Boon
-		mandala_built_piety_building_effect = yes
-	}
-
-	next_building = megalith_05
+	next_building = bureaucracy_05
 	ai_value = {
 		base = 7
 		directive_to_build_economy_modifier = yes
@@ -2331,16 +2025,13 @@ megalith_04 = {
 	}
 }
 
-megalith_05 = {
+bureaucracy_05 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		OR = {
 			has_building_or_higher = temple_02
 			has_building_or_higher = temple_citadel_02
-		}
-		scope:holder.faith = {
-			has_doctrine_parameter = can_build_megaliths
 		}
 		culture = {
 			has_innovation = innovation_city_planning
@@ -2351,36 +2042,19 @@ megalith_05 = {
 		building_requirement_tribal = no
 	}
 
-	is_enabled = {
-		custom_tooltip = {
-			text = province_is_of_a_megalith_faith_tt
-			county.faith = { has_doctrine_parameter = can_build_megaliths }
-		}
-	}
-
 	cost_gold = normal_building_tier_5_cost
 
 	character_modifier = {
-		monthly_piety = poor_building_tax_tier_5
-		monthly_prestige = poor_building_tax_tier_1
+		stress_gain_mult = -0.15
 	}
 	county_modifier = {
-		development_growth_factor = 0.2
-		county_opinion_add = 6
-		development_growth = 0.025
+		monthly_county_control_growth_add = 0.5
 	}
-	
-	character_government_modifier = {
-		parameter = government_is_mandala
-		monthly_piety = 0.03
+	province_modifier = {
+		tax_mult = normal_building_tax_mult_tier_5
 	}
 
-	on_complete = {
-		#Regular Mandala Boon
-		mandala_built_piety_building_effect = yes
-	}
-
-	next_building = megalith_06
+	next_building = bureaucracy_06
 	ai_value = {
 		base = 6
 		directive_to_build_economy_modifier = yes
@@ -2388,16 +2062,13 @@ megalith_05 = {
 	}
 }
 
-megalith_06 = {
+bureaucracy_06 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		OR = {
-			has_building_or_higher = temple_02
-			has_building_or_higher = temple_citadel_02
-		}
-		scope:holder.faith = {
-			has_doctrine_parameter = can_build_megaliths
+			has_building_or_higher = temple_04
+			has_building_or_higher = temple_citadel_04
 		}
 		culture = {
 			has_innovation = innovation_city_planning
@@ -2408,36 +2079,19 @@ megalith_06 = {
 		building_requirement_tribal = no
 	}
 
-	is_enabled = {
-		custom_tooltip = {
-			text = province_is_of_a_megalith_faith_tt
-			county.faith = { has_doctrine_parameter = can_build_megaliths }
-		}
-	}
-
 	cost_gold = normal_building_tier_5_cost
 
 	character_modifier = {
-		monthly_piety = poor_building_tax_tier_6
-		monthly_prestige = poor_building_tax_tier_2
+		stress_gain_mult = -0.175
 	}
 	county_modifier = {
-		development_growth_factor = 0.25
-		county_opinion_add = 6
-		development_growth = 0.05
+		monthly_county_control_growth_add = 0.6
 	}
-	
-	character_government_modifier = {
-		parameter = government_is_mandala
-		monthly_piety = 0.03
+	province_modifier = {
+		tax_mult = normal_building_tax_mult_tier_6
 	}
 
-	on_complete = {
-		#Regular Mandala Boon
-		mandala_built_piety_building_effect = yes
-	}
-
-	next_building = megalith_07
+	next_building = bureaucracy_07
 	ai_value = {
 		base = 5
 		directive_to_build_economy_modifier = yes
@@ -2445,16 +2099,13 @@ megalith_06 = {
 	}
 }
 
-megalith_07 = {
+bureaucracy_07 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		OR = {
-			has_building_or_higher = temple_02
-			has_building_or_higher = temple_citadel_02
-		}
-		scope:holder.faith = {
-			has_doctrine_parameter = can_build_megaliths
+			has_building_or_higher = temple_04
+			has_building_or_higher = temple_citadel_04
 		}
 		culture = {
 			has_innovation = innovation_city_planning
@@ -2465,36 +2116,19 @@ megalith_07 = {
 		building_requirement_tribal = no
 	}
 
-	is_enabled = {
-		custom_tooltip = {
-			text = province_is_of_a_megalith_faith_tt
-			county.faith = { has_doctrine_parameter = can_build_megaliths }
-		}
-	}
-
 	cost_gold = normal_building_tier_5_cost
 
 	character_modifier = {
-		monthly_piety = poor_building_tax_tier_7
-		monthly_prestige = poor_building_tax_tier_3
+		stress_gain_mult = -0.2
 	}
 	county_modifier = {
-		development_growth_factor = 0.3
-		county_opinion_add = 8
-		development_growth = 0.05
+		monthly_county_control_growth_add = 0.7
 	}
-	
-	character_government_modifier = {
-		parameter = government_is_mandala
-		monthly_piety = 0.04
+	province_modifier = {
+		tax_mult = normal_building_tax_mult_tier_7
 	}
 
-	on_complete = {
-		#Regular Mandala Boon
-		mandala_built_piety_building_effect = yes
-	}
-
-	next_building = megalith_08
+	next_building = bureaucracy_08
 	ai_value = {
 		base = 4
 		directive_to_build_economy_modifier = yes
@@ -2502,16 +2136,13 @@ megalith_07 = {
 	}
 }
 
-megalith_08 = {
+bureaucracy_08 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		OR = {
-			has_building_or_higher = temple_02
-			has_building_or_higher = temple_citadel_02
-		}
-		scope:holder.faith = {
-			has_doctrine_parameter = can_build_megaliths
+			has_building_or_higher = temple_04
+			has_building_or_higher = temple_citadel_04
 		}
 		culture = {
 			has_innovation = innovation_city_planning
@@ -2522,33 +2153,16 @@ megalith_08 = {
 		building_requirement_tribal = no
 	}
 
-	is_enabled = {
-		custom_tooltip = {
-			text = province_is_of_a_megalith_faith_tt
-			county.faith = { has_doctrine_parameter = can_build_megaliths }
-		}
-	}
-
 	cost_gold = normal_building_tier_5_cost
 
 	character_modifier = {
-		monthly_piety = poor_building_tax_tier_8
-		monthly_prestige = poor_building_tax_tier_4
+		stress_gain_mult = -0.25
 	}
 	county_modifier = {
-		development_growth_factor = 0.35
-		county_opinion_add = 8
-		development_growth = 0.075
+		monthly_county_control_growth_add = 0.8
 	}
-	
-	character_government_modifier = {
-		parameter = government_is_mandala
-		monthly_piety = 0.04
-	}
-
-	on_complete = {
-		#Regular Mandala Boon
-		mandala_built_piety_building_effect = yes
+	province_modifier = {
+		tax_mult = normal_building_tax_mult_tier_8
 	}
 
 	ai_value = {
@@ -2558,7 +2172,311 @@ megalith_08 = {
 	}
 }
 
-### Pharmaceuticals (Monks)
+### Diplomatic_corps
+
+diplomatic_corps_01 = {
+	construction_time = standard_construction_time
+
+	can_construct_potential = {
+		OR = {
+			has_building_or_higher = temple_01
+			has_building_or_higher = temple_citadel_01
+	}
+
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+
+	cost_gold = normal_building_tier_1_cost
+
+	character_modifier = {
+		monthly_prestige = 0.05
+		owned_personal_scheme_success_chance_add = 2
+	}
+	county_modifier = {
+		county_opinion_add = 4
+	}
+
+	on_complete = {
+		#Regular Mandala Boon
+		mandala_built_piety_building_effect = yes
+	}
+
+	next_building = diplomatic_corps_02
+
+	type_icon = "icon_diplomatic_corps.dds"
+
+	ai_value = {
+		base = 10
+		ai_tier_1_building_modifier = yes
+		ai_tier_1_pious_building_preference_modifier = yes
+		directive_to_build_economy_modifier = yes
+		# TODO: Add weightings for administrative republics
+		modifier = {
+			add = 500
+			scope:holder = {
+				OR = {
+					highest_held_title_tier = tier_barony
+					government_has_flag = government_is_theocracy
+					government_has_flag = government_is_mandala
+					is_theocratic_lessee = yes
+				}
+			}
+		}
+		modifier = {
+			factor = 2
+			free_building_slots <= 1
+		}
+	}
+}
+
+diplomatic_corps_02 = {
+	construction_time = standard_construction_time
+
+	can_construct_potential = {
+		OR = {
+			has_building_or_higher = temple_01
+			has_building_or_higher = temple_citadel_01
+		}
+	}
+
+	can_construct_showing_failures_only = {
+		#building_requirement_tribal = no
+	}
+
+	cost_gold = normal_building_tier_2_cost
+
+	character_modifier = {
+		monthly_prestige = 0.1
+		owned_personal_scheme_success_chance_add = 4
+	}
+	county_modifier = {
+		county_opinion_add = 8
+	}
+
+	next_building = diplomatic_corps_03
+	ai_value = {
+		base = 9
+		directive_to_build_economy_modifier = yes
+		ai_pious_building_preference_modifier = yes
+	}
+}
+
+diplomatic_corps_03 = {
+	construction_time = standard_construction_time
+
+	can_construct_potential = {
+		OR = {
+			has_building_or_higher = temple_01
+			has_building_or_higher = temple_citadel_01
+		}
+		culture = {
+			has_innovation = innovation_city_planning
+		}
+	}
+
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+
+	cost_gold = normal_building_tier_3_cost
+
+	character_modifier = {
+		monthly_prestige = 0.15
+		owned_personal_scheme_success_chance_add = 6
+	}
+	county_modifier = {
+		county_opinion_add = 12
+	}
+
+	next_building = diplomatic_corps_04
+	ai_value = {
+		base = 8
+		directive_to_build_economy_modifier = yes
+		ai_pious_building_preference_modifier = yes
+	}
+}
+
+diplomatic_corps_04 = {
+	construction_time = standard_construction_time
+
+	can_construct_potential = {
+		OR = {
+			has_building_or_higher = temple_02
+			has_building_or_higher = temple_citadel_02
+		}
+		culture = {
+			has_innovation = innovation_city_planning
+		}
+	}
+
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+
+	cost_gold = normal_building_tier_4_cost
+
+	character_modifier = {
+		monthly_prestige = 0.20
+		owned_personal_scheme_success_chance_add = 8
+		diplomacy = 1
+	}
+	county_modifier = {
+		county_opinion_add = 14
+	}
+
+	next_building = diplomatic_corps_05
+	ai_value = {
+		base = 7
+		directive_to_build_economy_modifier = yes
+		ai_pious_building_preference_modifier = yes
+	}
+}
+
+diplomatic_corps_05 = {
+	construction_time = standard_construction_time
+
+	can_construct_potential = {
+		OR = {
+			has_building_or_higher = temple_02
+			has_building_or_higher = temple_citadel_02
+		}
+		culture = {
+			has_innovation = innovation_city_planning
+		}
+	}
+
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+
+	cost_gold = normal_building_tier_5_cost
+
+	character_modifier = {
+		monthly_prestige = 0.25
+		owned_personal_scheme_success_chance_add = 10
+		diplomacy = 1
+	}
+	county_modifier = {
+		county_opinion_add = 18
+	}
+
+	next_building = diplomatic_corps_06
+	ai_value = {
+		base = 6
+		directive_to_build_economy_modifier = yes
+		ai_pious_building_preference_modifier = yes
+	}
+}
+
+diplomatic_corps_06 = {
+	construction_time = standard_construction_time
+
+	can_construct_potential = {
+		OR = {
+			has_building_or_higher = temple_04
+			has_building_or_higher = temple_citadel_04
+		}
+		culture = {
+			has_innovation = innovation_city_planning
+		}
+	}
+
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+
+	cost_gold = normal_building_tier_5_cost
+
+	character_modifier = {
+		monthly_prestige = 0.30
+		owned_personal_scheme_success_chance_add = 12
+		diplomacy = 1
+	}
+	county_modifier = {
+		county_opinion_add = 22
+	}
+
+	next_building = diplomatic_corps_07
+	ai_value = {
+		base = 5
+		directive_to_build_economy_modifier = yes
+		ai_pious_building_preference_modifier = yes
+	}
+}
+
+diplomatic_corps_07 = {
+	construction_time = standard_construction_time
+
+	can_construct_potential = {
+		OR = {
+			has_building_or_higher = temple_04
+			has_building_or_higher = temple_citadel_04
+		}
+		culture = {
+			has_innovation = innovation_city_planning
+		}
+	}
+
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+
+	cost_gold = normal_building_tier_5_cost
+
+	character_modifier = {
+		monthly_prestige = 0.35
+		owned_personal_scheme_success_chance_add = 14
+		diplomacy = 1
+	}
+	county_modifier = {
+		county_opinion_add = 26
+	}
+
+	next_building = diplomatic_corps_08
+	ai_value = {
+		base = 4
+		directive_to_build_economy_modifier = yes
+		ai_pious_building_preference_modifier = yes
+	}
+}
+
+diplomatic_corps_08 = {
+	construction_time = standard_construction_time
+
+	can_construct_potential = {
+		OR = {
+			has_building_or_higher = temple_04
+			has_building_or_higher = temple_citadel_04
+		}
+		culture = {
+			has_innovation = innovation_city_planning
+		}
+	}
+
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+
+	cost_gold = normal_building_tier_5_cost
+
+	character_modifier = {
+		monthly_prestige = 0.40
+		owned_personal_scheme_success_chance_add = 16
+		diplomacy = 2
+	}
+	county_modifier = {
+		county_opinion_add = 28
+	}
+
+	ai_value = {
+		base = 3
+		directive_to_build_economy_modifier = yes
+		ai_pious_building_preference_modifier = yes
+	}
+}
+
+### Pharmaceuticals (Advanced Med Tech)
 pharmaceuticals_01 = {
 	construction_time = standard_construction_time
 
@@ -2681,13 +2599,17 @@ pharmaceuticals_03 = {
 	effect_desc = brewery_effect_desc
 
 	county_modifier = {
-		county_opinion_add = 15
-		monthly_county_control_growth_add = 0.15
-		development_growth_factor = 0.06
+		county_opinion_add = 4
+		development_growth_factor = 0.04
 	}
 
 	province_modifier = {
 		monthly_income = poor_building_tax_tier_3
+		epidemic_resistance = 8
+	}
+	character_culture_modifier = {
+		parameter = chemical_pharmaceuticals_control_bonuses
+		monthly_county_control_growth_add = 0.10
 	}
 
 	next_building = pharmaceuticals_04
@@ -2720,13 +2642,17 @@ pharmaceuticals_04 = {
 	effect_desc = brewery_effect_desc
 
 	county_modifier = {
-		county_opinion_add = 20
-		monthly_county_control_growth_add = 0.20
-		development_growth_factor = 0.08
+		county_opinion_add = 6
+		development_growth_factor = 0.04
 	}
 
 	province_modifier = {
 		monthly_income = poor_building_tax_tier_4
+		epidemic_resistance = 10
+	}
+	character_culture_modifier = {
+		parameter = chemical_pharmaceuticals_control_bonuses
+		monthly_county_control_growth_add = 0.10
 	}
 
 	next_building = pharmaceuticals_05
@@ -2759,13 +2685,17 @@ pharmaceuticals_05 = {
 	effect_desc = brewery_effect_desc
 
 	county_modifier = {
-		county_opinion_add = 25
-		monthly_county_control_growth_add = 0.25
-		development_growth_factor = 0.10
+		county_opinion_add = 6
+		development_growth_factor = 0.06
 	}
 
 	province_modifier = {
 		monthly_income = poor_building_tax_tier_5
+		epidemic_resistance = 12
+	}
+	character_culture_modifier = {
+		parameter = chemical_pharmaceuticals_control_bonuses
+		monthly_county_control_growth_add = 0.15
 	}
 
 	next_building = pharmaceuticals_06
@@ -2798,13 +2728,17 @@ pharmaceuticals_06 = {
 	effect_desc = brewery_effect_desc
 
 	county_modifier = {
-		county_opinion_add = 30
-		monthly_county_control_growth_add = 0.30
-		development_growth_factor = 0.12
+		county_opinion_add = 8
+		development_growth_factor = 0.06
 	}
 
 	province_modifier = {
 		monthly_income = poor_building_tax_tier_6
+		epidemic_resistance = 14
+	}
+	character_culture_modifier = {
+		parameter = chemical_pharmaceuticals_control_bonuses
+		monthly_county_control_growth_add = 0.15
 	}
 
 	next_building = pharmaceuticals_07
@@ -2837,13 +2771,17 @@ pharmaceuticals_07 = {
 	effect_desc = brewery_effect_desc
 
 	county_modifier = {
-		county_opinion_add = 35
-		monthly_county_control_growth_add = 0.35
-		development_growth_factor = 0.14
+		county_opinion_add = 8
+		development_growth_factor = 0.08
 	}
 
 	province_modifier = {
 		monthly_income = poor_building_tax_tier_7
+		epidemic_resistance = 16
+	}
+	character_culture_modifier = {
+		parameter = chemical_pharmaceuticals_control_bonuses
+		monthly_county_control_growth_add = 0.20
 	}
 
 	next_building = pharmaceuticals_08
@@ -2876,12 +2814,17 @@ pharmaceuticals_08 = {
 	effect_desc = brewery_effect_desc
 
 	county_modifier = {
-		county_opinion_add = 40
-		monthly_county_control_growth_add = 0.40
-		development_growth_factor = 0.16
+		county_opinion_add = 10
+		development_growth_factor = 0.08
 	}
+
 	province_modifier = {
 		monthly_income = poor_building_tax_tier_8
+		epidemic_resistance = 18
+	}
+	character_culture_modifier = {
+		parameter = chemical_pharmaceuticals_control_bonuses
+		monthly_county_control_growth_add = 0.20
 	}
 
 	ai_value = {
