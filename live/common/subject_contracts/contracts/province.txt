@@ -1,3 +1,110 @@
+federal_status = {
+	display_mode = tree
+	is_shown = { scope:liege = { government_has_flag = government_is_federal } }
+	can_be_changed = { scope:liege = { NOT = { legislature_blocks_law_trigger = yes } } }
+	obligation_levels = {
+		federal_status_territory = {
+			position = { 0 0 }
+			is_shown = { scope:liege = { government_has_flag = government_is_federal } }
+			is_valid = {
+				scope:subject = {
+					OR = {
+						highest_held_title_tier = tier_barony
+						custom_tooltip = {
+							tier_difference = { target = scope:liege value < -1 }
+							text = "federal_status_territory.tt.tier_difference"
+						}
+					}
+				}
+			}
+			
+			ai_liege_desire = {
+				value = 1
+				scope:liege = {
+					if = {
+						limit = { ai_authoritarianism > 0 }
+						add = 2
+					}
+					if = {
+						limit = {
+							scope:subject = { should_be_federal_territory_trigger = { LIEGE = scope:liege } }
+							ai_lawfulness > 0
+						}
+						add = 2
+					}
+					if = {
+						limit = {
+							opinion = { target = scope:subject value < 0 }
+							ai_vengefulness > ai_lawfulness
+						}
+						add = 2
+					}
+					if = {
+						limit = { tier_difference = { target = scope:subject value > 3 } }
+						add = 1
+					}
+					else_if = {
+						limit = { tier_difference = { target = scope:subject value > 2 } }
+						add = 2
+					}
+				}
+			}
+			ai_subject_desire = 1
+			
+			score = 0
+			
+			flag = federal_territory
+		}
+		federal_status_member_state = {
+			parent = federal_status_territory
+			position = { 1 0 }
+			is_shown = { scope:liege = { government_has_flag = government_is_federal } }
+			is_valid = { scope:subject = { highest_held_title_tier > tier_barony } }
+			
+			subject_opinion = 10
+			ai_liege_desire = {
+				value = 1
+				scope:liege = {
+					if = {
+						limit = { ai_authoritarianism < 0 }
+						add = 2
+					}
+					if = {
+						limit = {
+							NOT = { scope:subject = { should_be_federal_territory_trigger = { LIEGE = scope:liege } } }
+							ai_lawfulness > 0
+						}
+						add = 2
+					}
+					if = {
+						limit = {
+							opinion = { target = scope:subject value > 0 }
+							ai_sociability > ai_lawfulness
+						}
+						add = 2
+					}
+				}
+			}
+			ai_subject_desire = 3
+			score = 5
+			
+			flag = federal_member_state
+		}
+		federal_status_unsorted = { # Dummy state for new subjects of the federation; should immediately be sorted into one of the above
+			parent = federal_status_member_state
+			position = { 2 0 }
+			is_shown = { scope:subject = { vassal_contract_has_flag = federal_status_unsorted } }
+			is_valid = { scope:subject = { vassal_contract_has_flag = federal_status_unsorted } }
+			default = yes
+			
+			ai_liege_desire = 0
+			ai_subject_desire = 0
+			
+			flag = federal_status_unsorted
+		}
+	}
+}
+
 provincial_taxes = {
 	display_mode = tree
 	icon = treasury_icon
@@ -221,6 +328,7 @@ civilian_levies = {
 	}
 }
 military_budget_share = {
+	is_shown = { scope:subject = { government_has_flag = government_is_military } }
 	display_mode = tree
 	icon = treasury_icon
 	obligation_levels = {
@@ -289,7 +397,85 @@ military_budget_share = {
 		}
 	}
 }
+commercial_budget_share = {
+	is_shown = { scope:subject = { government_has_flag = government_is_commercial } }
+	display_mode = tree
+	icon = treasury_icon
+	obligation_levels = {
+		commercial_budget_share_very_high = {
+			position = { 4 0 }
+
+			subject_opinion = 10
+
+			ai_liege_desire = 1
+			ai_subject_desire = 5
+			score = 2
+			
+			subject_modifier = { monthly_treasury_from_salary_budget_base = 2 }
+		}
+		commercial_budget_share_high = {
+			parent = commercial_budget_share_very_high
+			position = { 3 0 }
+			subject_opinion = 5
+
+			ai_liege_desire = {
+				value = 2
+			}
+			ai_subject_desire = 4
+			score = 1
+			
+			subject_modifier = { monthly_treasury_from_salary_budget_base = 1.5 }
+		}
+		commercial_budget_share_normal = {
+			default = yes
+			parent = commercial_budget_share_high
+			position = { 2 0 }
+
+			ai_liege_desire = {
+				value = 3
+			}
+			ai_subject_desire = 3
+			score = 0
+			
+			subject_modifier = { monthly_treasury_from_salary_budget_base = 1 }
+		}
+		commercial_budget_share_low = {
+			parent = commercial_budget_share_normal
+			position = { 1 0 }
+			
+			subject_opinion = -15
+
+			ai_liege_desire = {
+				value = 5
+			}
+			ai_subject_desire = 2
+			score = -2
+			
+			subject_modifier = { monthly_treasury_from_salary_budget_base = 0.5 }
+		}
+		commercial_budget_share_none = {
+			parent = commercial_budget_share_low
+			position = { 0 0 }
+			
+			subject_opinion = -25
+
+			ai_liege_desire = {
+				value = 6
+			}
+			ai_subject_desire = 1
+			score = -3
+		}
+	}
+}
 administrative_budget_share = {
+	is_shown = {
+		scope:subject = {
+			OR = {
+				government_has_flag = government_is_technocratic
+				government_has_flag = government_is_theocratic
+			}
+		}
+	}
 	display_mode = tree
 	icon = treasury_icon
 	obligation_levels = {

@@ -1,6 +1,7 @@
 # A self-governing province with a treasury
 military_province = {
 	contracts = {
+		federal_status
 		provincial_taxes
 		military_levies
 		military_budget_share
@@ -16,8 +17,10 @@ military_province = {
 }
 commercial_province = {
 	contracts = {
+		federal_status
 		provincial_taxes
 		civilian_levies
+		commercial_budget_share
 		religious_rights
 		fortification_rights
 		coinage_rights
@@ -30,6 +33,7 @@ commercial_province = {
 }
 administrative_province = {
 	contracts = {
+		federal_status
 		provincial_taxes
 		civilian_levies
 		administrative_budget_share
@@ -44,25 +48,87 @@ administrative_province = {
 	}
 }
 
-member_state = {
-	is_tributary = yes
+# A direct subordinate who has to follow orders
+pirate_subordinate = {
 	contracts = {
-		member_state_government_taxes
-		member_state_government_levies
-		mandala_suzerain_war_participation_guarantee
-		tributary_war_participation_obligation
+		subordinate_type
+		feudal_government_taxes
+		feudal_government_levies
+		special_contract
+		religious_rights
+		fortification_rights
+		coinage_rights
+		succession_rights
+		war_declaration_rights
+		council_rights
+		title_revocation_rights
+		jizya_special_rights
 	}
-	is_valid_tributary_contract = {
-		scope:suzerain = {
-			government_has_flag = government_is_federal # Only federations can have member-states
-			primary_title = { tier > ROOT.primary_title } # Must be a higher tier than the member-state
-		}
+}
+military_subordinate = {
+	contracts = {
+		subordinate_type
+		provincial_taxes
+		military_levies
+		military_budget_share
+		religious_rights
+		fortification_rights
+		coinage_rights
+		succession_rights
+		war_declaration_rights
+		council_rights
+		title_revocation_rights
+		jizya_special_rights
 	}
-	tributary_can_break_free = { always = no }
+}
+
+tributary_pirate_dominion = {
+	is_tributary = yes
+	tributary_can_break_free = {
+		NOT = { has_variable = tributary_has_been_reasserted_recently }
+	}
 	suzerain_line_type = line_suzerain
 	tributary_line_type = line_tributary
 	should_show_as_suzerain_realm_name = yes
 	should_show_as_suzerain_realm_color = yes
 	tributary_heir_succession = yes
 	suzerain_heir_succession = yes
+
+	contracts = {
+		pirate_dominion_status
+		default_tributary_taxes
+		default_tributary_levies
+		default_tributary_prestige
+		suzerain_war_participation_guarantee
+		tributary_war_participation_obligation
+	}
+}
+
+tributary_privateer = {
+	is_tributary = yes
+	tributary_can_break_free = { always = yes }
+	suzerain_line_type = line_suzerain
+	tributary_line_type = line_tributary
+	should_show_as_suzerain_realm_name = no
+	should_show_as_suzerain_realm_color = yes
+	tributary_heir_succession = yes
+	suzerain_heir_succession = yes
+	
+	contracts = {
+		privateer_tribute
+		tributary_war_participation_obligation
+	}
+}
+
+tributary_pirate_extortion = {
+	is_tributary = yes
+	suzerain_line_type = line_suzerain
+	tributary_line_type = line_tributary
+	should_show_as_suzerain_realm_name = no
+	should_show_as_suzerain_realm_color = no
+
+	contracts = {
+		default_tributary_taxes
+		default_tributary_prestige
+	}
 }

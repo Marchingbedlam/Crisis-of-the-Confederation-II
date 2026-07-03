@@ -1,0 +1,146 @@
+pirate_dominion_status = {
+	display_mode = hidden
+	obligation_levels = {
+		default = {
+			# We're a tributary to another pirate lord
+			flag = tributary_pirate_dominion
+		}
+	}
+}
+
+privateer_tribute = {
+	display_mode = tree
+	icon = gold_icon
+	obligation_levels = {
+		privateer_tribute_exempt = {
+			position = { 0 0 }
+
+			tax = exempt_feudal_tax
+			subject_opinion = 10
+
+			ai_liege_desire = 1
+			ai_subject_desire = 5
+			score = 2
+			
+			flag = tributary_privateer
+		}
+		privateer_tribute_low = {
+			parent = privateer_tribute_exempt
+			position = { 1 0 }
+
+			tax = low_feudal_tax
+			subject_opinion = 5
+
+			ai_liege_desire = {
+				value = 2
+				if = {
+					limit = {
+						scope:liege = {
+							ai_should_focus_on_building_in_their_capital = yes
+						}
+						scope:subject = {
+							AND = {
+								government_has_flag = government_is_feudal
+								vassal_contract_obligation_level:feudal_government_taxes <= feudal_tax_exempt_level
+							}
+						}
+					}
+					add = 8
+				}
+			}
+			ai_subject_desire = 4
+			score = 1
+			
+			flag = tributary_privateer
+		}
+		privateer_tribute_normal = {
+			default = yes
+			parent = privateer_tribute_low
+			position = { 2 0 }
+
+			tax = normal_feudal_tax
+
+			ai_liege_desire = {
+				value = 3
+				if = {
+					limit = {
+						scope:liege = {
+							ai_should_focus_on_building_in_their_capital = yes
+						}
+						scope:subject = {
+							AND = {
+								government_has_flag = government_is_feudal
+								vassal_contract_obligation_level:feudal_government_taxes <= feudal_tax_low_level
+							}
+						}
+					}
+					add = 7
+				}
+			}
+			ai_subject_desire = 3
+			score = 0
+			
+			flag = tributary_privateer
+		}
+		privateer_tribute_high = {
+			parent = privateer_tribute_normal
+			position = { 3 0 }
+			
+			tax = high_feudal_tax
+			subject_opinion = -15
+
+			ai_liege_desire = {
+				value = 5
+				if = {
+					limit = {
+						scope:liege = {
+							ai_should_focus_on_building_in_their_capital = yes
+						}
+						scope:subject = {
+							AND = {
+								government_has_flag = government_is_feudal
+								vassal_contract_obligation_level:feudal_government_taxes <= feudal_tax_normal_level
+							}
+						}
+					}
+					add = 6
+				}
+			}
+			ai_subject_desire = 2
+			score = -2
+			
+			flag = tributary_privateer
+			flag = obligation_high_taxes
+		}
+		privateer_tribute_extortionate = {
+			parent = privateer_tribute_high
+			position = { 4 0 }
+			
+			tax = extortionate_feudal_tax
+			subject_opinion = -25
+
+			ai_liege_desire = {
+				value = 6
+				if = {
+					limit = {
+						scope:liege = {
+							ai_should_focus_on_building_in_their_capital = yes
+						}
+						scope:subject = {
+							AND = {
+								government_has_flag = government_is_feudal
+								vassal_contract_obligation_level:feudal_government_taxes <= feudal_tax_high_level
+							}
+						}
+					}
+					add = 5
+				}
+			}
+			ai_subject_desire = 1
+			score = -3
+			
+			flag = tributary_privateer
+			flag = obligation_high_taxes
+		}
+	}
+}

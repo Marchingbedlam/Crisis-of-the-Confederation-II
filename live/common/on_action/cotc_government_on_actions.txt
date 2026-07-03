@@ -31,6 +31,9 @@ global_government_setup_on_action = {
 }
 government_setup_on_action = {
 	on_actions = {
+		# Federations
+		initialize_starting_federation_on_action
+		
 		# Legislatures
 		initialize_starting_legislature_on_action
 		
@@ -42,10 +45,12 @@ government_setup_on_action = {
 	}
 }
 government_update_on_action = {
-	on_actions = {
+	on_actions = {		
 		# Legislatures
 		initialize_new_legislature_on_action
+		
 		abolish_legislature_on_action
+		
 		reattach_legislature_on_action
 		merge_legislatures_on_action
 		
@@ -80,6 +85,14 @@ on_legislator_death_on_action = {
 		remove_from_legislature_effect = yes
 		scope:temp_legislature = { recalc_legislature_parties_effect = yes }
 	}
+}
+
+###############
+# FEDERATIONS #
+###############
+initialize_starting_federation_on_action = { # Run on game start
+	trigger = { government_has_flag = government_is_federal }
+	effect = { every_vassal = { sort_federation_province_effect = yes } }
 }
 
 ################

@@ -1,0 +1,78 @@
+﻿subordinate_type = {
+	display_mode = hidden
+	defaults_to_highest_valid_level = yes
+	
+	obligation_levels = {
+		generic_subordinate = { # This should never happen, ideally
+			score = 0
+		}
+		subordinate_type_military = {
+			parent = subordinate_type_generic
+			is_valid = { scope:subject = { government_has_flag = government_is_military } }
+			
+			score = 1
+			
+			enable_character_maa = no # Military commanders cannot have private regiments
+			
+			flag = subordinate
+			flag = military_subordinate
+		}
+		subordinate_type_commercial = {
+			parent = subordinate_type_military
+			is_valid = { scope:subject = { government_has_flag = government_is_commercial } }
+			
+			score = 2
+			
+			enable_character_maa = no
+			
+			flag = subordinate
+			flag = commercial_subordinate
+		}
+		subordinate_type_technocratic = {
+			parent = subordinate_type_commercial
+			is_valid = { scope:subject = { government_has_flag = government_is_technocratic } }
+			
+			score = 3
+			
+			enable_character_maa = no
+			
+			flag = subordinate
+			flag = technocratic_subordinate
+		}
+		subordinate_type_theocratic = {
+			parent = subordinate_type_technocratic
+			is_valid = { scope:subject = { government_has_flag = government_is_theocratic } }
+			
+			score = 4
+			
+			enable_character_maa = no
+			
+			flag = subordinate
+			flag = theocratic_subordinate
+		}
+		subordinate_type_pirate_invalid = { # This should also probably not happen, but if it ever does, the situation is unstable
+			parent = subordinate_type_theocratic
+			is_valid = {
+				scope:subject = { government_has_flag = government_is_criminal }
+				scope:liege = { NOT = { government_has_flag = government_is_criminal } }
+			}
+			
+			score = 5
+			
+			subject_opinion = -50 # Pirates really don't like following orders
+			liege_opinion = -50
+		}
+		subordinate_type_pirate = {
+			parent = subordinate_type_pirate_invalid
+			is_valid = {
+				scope:subject = { government_has_flag = government_is_criminal }
+				scope:liege = { government_has_flag = government_is_criminal }
+			}
+			
+			score = 6
+			
+			flag = subordinate
+			flag = military_subordinate
+		}
+	}
+}
