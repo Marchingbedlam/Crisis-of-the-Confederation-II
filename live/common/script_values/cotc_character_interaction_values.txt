@@ -1,0 +1,42 @@
+﻿bribe_piety = {
+	value = 0
+	faith = {
+		if = {
+			limit = { NOT = { has_doctrine = criminal_hostility_doctrine } }
+			subtract = 10
+		}
+		if = {
+			limit = { NOT = { has_doctrine = doctrine_despotism } }
+			subtract = 5
+		}
+		if = {
+			limit = { has_doctrine = tenet_legalism }
+			subtract = 5
+		}
+		if = {
+			limit = { has_doctrine = tenet_religious_legal_pronouncements }
+			subtract = 5
+		}
+		if = {
+			limit = { has_doctrine = tenet_pursuit_of_power }
+			add = 5
+		}
+	}
+}
+pork_piety = {
+	value = 0
+	faith = {
+		if = {
+			limit = { has_doctrine = tenet_economic_planning }
+			add = 10
+		}
+		if = {
+			limit = { has_doctrine = tenet_communal_possessions }
+			add = 5
+		}
+		if = {
+			limit = { has_doctrine = tenet_capitalism }
+			subtract = 10
+		}
+	}
+}

@@ -1,4 +1,4 @@
-# These are events intended to report major world events to the player, usually flavored
+﻿# These are events intended to report major world events to the player, usually flavored
 # as some sort of news broadcast. The goal is to keep the player relatively informed of
 # what's going on in the world around them.
 
@@ -15,7 +15,7 @@ cotc_news.0 = {
 			is_ruler = yes
 			is_diarch = yes
 			is_councillor = yes
-			level_of_prestige >= 5
+			prestige_level >= 3
 			is_head_of_faith = yes
 			any_heir_title = { tier >= tier_county }
 		}
@@ -36,7 +36,7 @@ cotc_news.0 = {
 					is_close_family_of = ROOT
 					is_spouse_of_even_if_dead = ROOT
 					# They're our head of faith
-					faith = { head_of_faith = ROOT }
+					faith = { religious_head = ROOT }
 					# They're our liege or suzerain
 					target_is_liege_or_above = ROOT
 					is_tributary_of = ROOT
@@ -56,8 +56,8 @@ cotc_news.0 = {
 								# ...because they're a neighbor
 								character_is_realm_neighbor = PREV
 								# ...because we're at war with them
-								war_with = PREV
-								PREV = { any_liege_or_above = { war_with = ROOT } }
+								is_at_war_with = PREV
+								PREV = { any_liege_or_above = { is_at_war_with = ROOT } }
 								# ...because we're allied with them
 								is_allied_to = PREV
 								PREV = { any_liege_or_above = { is_allied_to = ROOT } }
@@ -97,7 +97,7 @@ cotc_news.1 = {
 				limit = {
 					OR = {
 						is_commanding_army = yes
-						is_traveling = yes
+						is_travelling = yes
 						is_landless_adventurer = yes
 					}
 				}
@@ -115,10 +115,10 @@ cotc_news.1 = {
 						is_councillor = yes
 						is_powerful_vassal = yes
 					}
-					liege ?= { primary_title ?= { ROOT = { set_variable = { name = news_source_title value = PREV } } } }
 				}
+				liege ?= { primary_title ?= { ROOT = { set_variable = { name = news_source_title value = PREV } } } }
 			}
-			ROOT = { set_variable = { name = dead_character_prestige value = PREV.level_of_prestige } }
+			ROOT = { set_variable = { name = dead_character_prestige value = PREV.prestige_level } }
 		}
 	}
 	
@@ -162,5 +162,189 @@ cotc_news.1 = {
 		remove_variable = death_liege_title
 		remove_variable = dead_character_prestige
 		remove_variable = news_source_title
+	}
+}
+# Triggers on war declaration, lets players know there's a big war starting
+cotc_news.10 = {
+	hidden = yes
+	
+	immediate = {
+		every_player = {
+			limit = {
+				# These characters will find out rather more directly
+				NOR = {
+					THIS = scope:attacker
+					THIS = scope:defender
+				}
+				scope:attacker = { top_liege = { save_temp_scope_as = temp_attacker_realm } }
+				scope:defender = { top_liege = { save_temp_scope_as = temp_defender_realm } }
+				top_liege = { save_temp_scope_as = temp_player_realm }
+				# Why is this war worth reporting to the player at all
+				OR = {
+					# We're involved indirectly
+					scope:temp_player_realm = scope:temp_attacker_realm
+					scope:temp_player_realm = scope:temp_defender_realm
+					# We care about the attacker or defender
+					has_relation_rival = scope:attacker
+					has_relation_friend = scope:attacker
+					has_relation_lover = scope:attacker
+					has_relation_soulmate = scope:attacker
+					is_close_family_of = scope:attacker
+					is_spouse_of = scope:attacker
+					has_relation_rival = scope:defender
+					has_relation_friend = scope:defender
+					has_relation_lover = scope:defender
+					has_relation_soulmate = scope:defender
+					is_close_family_of = scope:defender
+					is_spouse_of = scope:defender
+					# This conflict involves multiple great powers
+					AND = {
+						scope:attacker.primary_title = { tier >= tier_kingdom  }
+						scope:defender.primary_title = { tier >= tier_kingdom }
+					}
+					# This is happening right next door to our realm
+					any_sub_realm_county ?= {
+						any_neighboring_county ?= {
+							OR = {
+								holder = scope:attacker
+								holder = scope:defender
+								holder = { target_is_liege_or_above = scope:attacker }
+								holder = { target_is_liege_or_above = scope:defender }
+								holder = { top_liege = { is_tributary_of = scope:attacker } }
+								holder = { top_liege = { is_tributary_of = scope:defender } }
+							}
+						}
+					}
+				}
+			}
+			trigger_event = { id = cotc_news.11 }
+		}
+	}
+}
+cotc_news.11 = {
+	type = character
+	desc = cotc_news.11.desc
+	theme = war # Should probably make a theme specific for news broadcasts
+	
+	left_portrait = {
+		character = scope:attacker
+		animation = war_attacker
+	}
+	right_portrait = {
+		character = scope:defender
+		animation = war_defender
+	}
+	
+	immediate = {
+		# Save attacker so they can be used as a news source
+		set_variable = { name = news_source_title value scope:attacker.primary_title }
+		set_variable = { name = news_source_character value = scope:attacker }
+	}
+	# No special opinion
+	option = {
+		name = cotc_news.11.a
+	}
+	# Hates both
+	option = {
+		trigger = {
+			opinion = { target = scope:attacker value <= -20 }
+			opinion = { target = scope:defender value <= -20 }
+		}
+		exclusive = yes
+		name = cotc_news.11.b
+	}
+	# We're with the attackers, and we approve of this war
+	option = {
+		trigger = {
+			is_liege_or_above = scope:attacker
+			OR = {
+				AND = {
+					opinion = { target = scope:defender value <= -20 }
+					ai_vengefulness >= ai_compassion
+				}
+				AND = {
+					NOT = { faith = scope:defender }
+					ai_zeal >= ai_compassion
+				}
+				AND = {
+					ai_compassion <= -50
+					ai_honor <= -50
+					ai_rationality <= 0
+				}
+			}
+			NOT = {
+				opinion = { target = scope:defender value >= 20 }
+				OR = {
+					ai_compassion >= 0
+					ai_honor >= 0
+				}
+			}
+		}
+		exclusive = yes
+		name = cotc_news.11.c
+	}
+	# We're with the defender, and have a strong positive opinion of the attacker
+	option = {
+		trigger = {
+			is_liege_or_above = scope:defender
+			opinion = { target = scope:attacker value >= 60 }
+			opinion = { target = scope:defender value > 0 }
+		}
+		exclusive = yes
+		name = cotc_news.11.d
+	}
+	# We're with the defender, and have a strong positive opinion of the attacker and a strong negative opinion of the defender
+	option = {
+		trigger = {
+			is_liege_or_above = scope:defender
+			opinion = { target = scope:attacker value >= 60 }
+			opinion = { target = scope:defender value <= 0 }
+			ai_honor <= 0
+		}
+		exclusive = yes
+		name = cotc_news.11.e
+	}
+	option = {
+		trigger = {
+			is_liege_or_above = scope:defender
+			opinion = { target = scope:attacker value >= 60 }
+			opinion = { target = scope:defender value <= 0 }
+			ai_honor > 0
+		}
+		exclusive = yes
+		name = cotc_news.11.f
+	}
+	# We're with the defender, and none of that stuff applies
+	option = {
+		trigger = {
+			is_liege_or_above = scope:defender
+			opinion = { target = scope:attacker value < 60 }
+			ai_boldness > 0
+		}
+		exclusive = yes
+		name = cotc_news_11.g
+	}
+	option = {
+		trigger = {
+			is_liege_or_above = scope:defender
+			opinion = { target = scope:attacker value < 60 }
+			ai_boldness <= 0
+		}
+		exclusive = yes
+		name = cotc_news_11.h
+	}
+	# We're just don't like war in general
+	option = {
+		trigger = {
+			ai_compassion >= 10
+			ai_vengefulness <= 0
+		}
+		exclusive = yes
+		name = cotc_news.11.i
+	}
+	
+	after = {
+		remove_variable = news_source_title
+		remove_variable = news_source_character
 	}
 }

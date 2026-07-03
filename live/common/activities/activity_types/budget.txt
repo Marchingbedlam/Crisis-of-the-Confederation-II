@@ -1,0 +1,2379 @@
+﻿budget_bill_activity = {
+	is_shown = {
+		any_character_situation = {
+			situation_type = legislature
+			situation_participant_group:ruler = { any_situation_group_participant = { this = ROOT } }
+		}
+	}
+	activity_group_type = bills
+	sort_order = 10
+	
+	can_start = {
+		realm_uses_treasury_laws_trigger = yes
+		is_independent_ruler = yes
+		legislature_in_session_trigger = yes
+		primary_title.var:legislature = {
+			custom_tooltip = {
+				NOT = { has_variable = current_motion }
+				text = legislature_not_convened_desc
+			}
+		}
+		trigger_if = {
+			limit = { has_diarchy_type = cotc_premiership }
+			NOT = { has_diarchy_active_parameter = liege_cannot_propose_bills }
+		}
+	}
+	
+	can_plan = {
+		realm_uses_treasury_laws_trigger = yes
+		is_independent_ruler = yes
+		legislature_in_session_trigger = yes
+		trigger_if = {
+			limit = { has_diarchy_type = cotc_premiership }
+			NOT = { has_diarchy_active_parameter = liege_cannot_propose_bills }
+		}
+	}
+	
+	is_valid = {
+		trigger_if = {
+			limit = { has_variable = ruler }
+			var:ruler = { legislature_in_session_trigger = yes }
+		}
+		trigger_if = {
+			limit = {
+				has_variable = ruler
+				has_variable = proposed_military_budget
+				has_variable = proposed_ministry_budget
+				has_variable = proposed_salary_budget
+			}
+			NAND = {
+				var:proposed_military_budget = var:ruler.current_military_budget
+				var:proposed_ministry_budget = var:ruler.current_ministry_budget
+				var:proposed_salary_budget = var:ruler.current_salary_budget
+			}
+		}
+		NOT = { has_variable = quorum_not_met }
+	}
+	
+	on_invalidated = {
+		var:legislature = { remove_variable = current_motion }
+		var:title = { save_scope_as = activity_title }
+		var:ruler = { save_scope_as = activity_ruler }
+		scope:host = { save_scope_as = activity_host }
+		every_attending_character = { trigger_event = { on_action = bill_clean_legislators_on_action } }
+		if = {
+			limit = { has_variable = quorum_not_met }
+			every_attending_character = {
+				limit = { NOT = { this = scope:host } }
+				trigger_event = cotc_bill_events.15
+			}
+			scope:host = { trigger_event = cotc_bill_events.10 }
+		}
+		else_if = {
+			limit = { var:ruler = { legislature_in_session_trigger = no } }
+			scope:host = { trigger_event = { id = cotc_bill_events.20 } }
+			every_attending_character = {
+				limit = { NOT = { this = scope:host } }
+				trigger_event = { id = cotc_bill_events.25 }
+			}
+		}
+		else_if = {
+			limit = {
+				var:proposed_military_budget = var:ruler.current_military_budget
+				var:proposed_ministry_budget = var:ruler.current_ministry_budget
+				var:proposed_salary_budget = var:ruler.current_salary_budget
+			}
+			scope:host = { trigger_event = { id = cotc_bill_events.40 } }
+			every_attending_character = {
+				limit = { NOT = { this = scope:host } }
+				trigger_event = { id = cotc_bill_events.45 }
+			}
+		}
+		else = {
+			scope:host = { trigger_event = { id = cotc_bill_events.30 } }
+			every_attending_character = {
+				limit = { NOT = { this = scope:host } }
+				trigger_event = { id = cotc_bill_events.35 }
+			}
+		}
+	}
+	
+	on_host_death = {
+		# Make the title heir the new host
+		if = {
+			limit = { exists = scope:host.primary_title.current_heir }
+			scope:host.primary_title.current_heir = { save_scope_as = new_host }
+		}
+		# Otherwise pass to primary heir
+		else = {
+			scope:host.primary_heir = { save_scope_as = new_host }
+		}
+
+		# If we have a new host, set them
+		if = {
+			limit = { exists = scope:new_host }
+			set_activity_host = scope:new_host
+			scope:new_host = {
+				trigger_event = { id = activity_system.0080 days = 1 }
+			}
+		}
+	}
+	
+	province_filter = capital
+	
+	is_location_valid = {
+		scope:host = { capital_province = { this = ROOT } }
+	}
+	
+	province_score = {
+		value = 0
+		if = {
+			limit = { this = scope:host.capital_county }
+			add = 100
+		}
+	}
+	
+	max_province_icons = 1
+	
+	options = {
+		proposed_military_budget = {
+			propose_0_military_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 0 } } }
+				default = { current_military_budget = 0 }
+				cost = { influence = current_military_budget }
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { var:planned_military_budget = 0 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_5_military_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 5 } } }
+				default = { current_military_budget = 5 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_military_budget > 5 }
+							add = current_military_budget
+							subtract = 5
+						}
+						else_if = {
+							limit = { current_military_budget < 5 }
+							add = 5
+							subtract = current_military_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { var:planned_military_budget = 5 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_10_military_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 10 } } }
+				default = { current_military_budget = 10 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_military_budget > 10 }
+							add = current_military_budget
+							subtract = 10
+						}
+						else_if = {
+							limit = { current_military_budget < 10 }
+							add = 10
+							subtract = current_military_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { var:planned_military_budget = 10 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_15_military_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 15 } } }
+				default = { current_military_budget = 15 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_military_budget > 15 }
+							add = current_military_budget
+							subtract = 15
+						}
+						else_if = {
+							limit = { current_military_budget < 15 }
+							add = 15
+							subtract = current_military_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { var:planned_military_budget = 15 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_20_military_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 20 } } }
+				default = { current_military_budget = 20 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_military_budget > 20 }
+							add = current_military_budget
+							subtract = 20
+						}
+						else_if = {
+							limit = { current_military_budget < 20 }
+							add = 20
+							subtract = current_military_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { var:planned_military_budget = 20 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_25_military_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 25 } } }
+				default = { current_military_budget = 25 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_military_budget > 25 }
+							add = current_military_budget
+							subtract = 25
+						}
+						else_if = {
+							limit = { current_military_budget < 25 }
+							add = 25
+							subtract = current_military_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { var:planned_military_budget = 25 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_30_military_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 30 } } }
+				default = { current_military_budget = 30 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_military_budget > 30 }
+							add = current_military_budget
+							subtract = 30
+						}
+						else_if = {
+							limit = { current_military_budget < 30 }
+							add = 30
+							subtract = current_military_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { var:planned_military_budget = 30 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_35_military_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 35 } } }
+				default = { current_military_budget = 35 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_military_budget > 35 }
+							add = current_military_budget
+							subtract = 35
+						}
+						else_if = {
+							limit = { current_military_budget < 35 }
+							add = 35
+							subtract = current_military_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { var:planned_military_budget = 35 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_40_military_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 40 } } }
+				default = { current_military_budget = 40 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_military_budget > 40 }
+							add = current_military_budget
+							subtract = 40
+						}
+						else_if = {
+							limit = { current_military_budget < 40 }
+							add = 40
+							subtract = current_military_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { var:planned_military_budget = 40 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_45_military_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 45 } } }
+				default = { current_military_budget = 45 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_military_budget > 45 }
+							add = current_military_budget
+							subtract = 45
+						}
+						else_if = {
+							limit = { current_military_budget < 45 }
+							add = 45
+							subtract = current_military_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { var:planned_military_budget = 45 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_50_military_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 50 } } }
+				default = { current_military_budget = 50 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_military_budget > 50 }
+							add = current_military_budget
+							subtract = 50
+						}
+						else_if = {
+							limit = { current_military_budget < 50 }
+							add = 50
+							subtract = current_military_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { var:planned_military_budget = 50 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_55_military_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 55 } } }
+				default = { current_military_budget = 55 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_military_budget > 55 }
+							add = current_military_budget
+							subtract = 55
+						}
+						else_if = {
+							limit = { current_military_budget < 55 }
+							add = 55
+							subtract = current_military_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { var:planned_military_budget = 55 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_60_military_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 60 } } }
+				default = { current_military_budget = 60 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_military_budget > 60 }
+							add = current_military_budget
+							subtract = 60
+						}
+						else_if = {
+							limit = { current_military_budget < 60 }
+							add = 60
+							subtract = current_military_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { var:planned_military_budget = 60 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_65_military_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 65 } } }
+				default = { current_military_budget = 65 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_military_budget > 65 }
+							add = current_military_budget
+							subtract = 65
+						}
+						else_if = {
+							limit = { current_military_budget < 65 }
+							add = 65
+							subtract = current_military_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { var:planned_military_budget = 65 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_70_military_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 70 } } }
+				default = { current_military_budget = 70 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_military_budget > 70 }
+							add = current_military_budget
+							subtract = 70
+						}
+						else_if = {
+							limit = { current_military_budget < 70 }
+							add = 70
+							subtract = current_military_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { var:planned_military_budget = 70 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_75_military_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 75 } } }
+				default = { current_military_budget = 75 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_military_budget > 75 }
+							add = current_military_budget
+							subtract = 75
+						}
+						else_if = {
+							limit = { current_military_budget < 75 }
+							add = 75
+							subtract = current_military_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { var:planned_military_budget = 75 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_80_military_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 80 } } }
+				default = { current_military_budget = 80 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_military_budget > 80 }
+							add = current_military_budget
+							subtract = 80
+						}
+						else_if = {
+							limit = { current_military_budget < 80 }
+							add = 80
+							subtract = current_military_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { var:planned_military_budget = 80 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_85_military_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 85 } } }
+				default = { current_military_budget = 85 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_military_budget > 85 }
+							add = current_military_budget
+							subtract = 85
+						}
+						else_if = {
+							limit = { current_military_budget < 85 }
+							add = 85
+							subtract = current_military_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { var:planned_military_budget = 85 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_90_military_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 90 } } }
+				default = { current_military_budget = 90 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_military_budget > 90 }
+							add = current_military_budget
+							subtract = 90
+						}
+						else_if = {
+							limit = { current_military_budget < 90 }
+							add = 90
+							subtract = current_military_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { var:planned_military_budget = 90 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_95_military_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 95 } } }
+				default = { current_military_budget = 95 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_military_budget > 95 }
+							add = current_military_budget
+							subtract = 95
+						}
+						else_if = {
+							limit = { current_military_budget < 95 }
+							add = 95
+							subtract = current_military_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { var:planned_military_budget = 95 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_100_military_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_military_budget value = 100 } } }
+				default = { current_military_budget = 100 }
+				cost = {
+					influence = {
+						value = 100
+						subtract = current_military_budget
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_military_budget }
+						if = {
+							limit = { var:planned_military_budget = 100 }
+							add = 100
+						}
+					}
+				}
+			}
+		}
+		proposed_ministry_budget = {
+			propose_0_ministry_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 0 } } }
+				default = { current_ministry_budget = 0 }
+				cost = { influence = current_ministry_budget }
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { var:planned_ministry_budget = 0 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_5_ministry_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 5 } } }
+				default = { current_ministry_budget = 5 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_ministry_budget > 5 }
+							add = current_ministry_budget
+							subtract = 5
+						}
+						else_if = {
+							limit = { current_ministry_budget < 5 }
+							add = 5
+							subtract = current_ministry_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { var:planned_ministry_budget = 5 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_10_ministry_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 10 } } }
+				default = { current_ministry_budget = 10 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_ministry_budget > 10 }
+							add = current_ministry_budget
+							subtract = 10
+						}
+						else_if = {
+							limit = { current_ministry_budget < 10 }
+							add = 10
+							subtract = current_ministry_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { var:planned_ministry_budget = 10 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_15_ministry_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 15 } } }
+				default = { current_ministry_budget = 15 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_ministry_budget > 15 }
+							add = current_ministry_budget
+							subtract = 15
+						}
+						else_if = {
+							limit = { current_ministry_budget < 15 }
+							add = 15
+							subtract = current_ministry_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { var:planned_ministry_budget = 15 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_20_ministry_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 20 } } }
+				default = { current_ministry_budget = 20 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_ministry_budget > 20 }
+							add = current_ministry_budget
+							subtract = 20
+						}
+						else_if = {
+							limit = { current_ministry_budget < 20 }
+							add = 20
+							subtract = current_ministry_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { var:planned_ministry_budget = 20 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_25_ministry_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 25 } } }
+				default = { current_ministry_budget = 25 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_ministry_budget > 25 }
+							add = current_ministry_budget
+							subtract = 25
+						}
+						else_if = {
+							limit = { current_ministry_budget < 25 }
+							add = 25
+							subtract = current_ministry_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { var:planned_ministry_budget = 25 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_30_ministry_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 30 } } }
+				default = { current_ministry_budget = 30 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_ministry_budget > 30 }
+							add = current_ministry_budget
+							subtract = 30
+						}
+						else_if = {
+							limit = { current_ministry_budget < 30 }
+							add = 30
+							subtract = current_ministry_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { var:planned_ministry_budget = 30 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_35_ministry_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 35 } } }
+				default = { current_ministry_budget = 35 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_ministry_budget > 35 }
+							add = current_ministry_budget
+							subtract = 35
+						}
+						else_if = {
+							limit = { current_ministry_budget < 35 }
+							add = 35
+							subtract = current_ministry_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { var:planned_ministry_budget = 35 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_40_ministry_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 40 } } }
+				default = { current_ministry_budget = 40 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_ministry_budget > 40 }
+							add = current_ministry_budget
+							subtract = 40
+						}
+						else_if = {
+							limit = { current_ministry_budget < 40 }
+							add = 40
+							subtract = current_ministry_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { var:planned_ministry_budget = 40 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_45_ministry_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 45 } } }
+				default = { current_ministry_budget = 45 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_ministry_budget > 45 }
+							add = current_ministry_budget
+							subtract = 45
+						}
+						else_if = {
+							limit = { current_ministry_budget < 45 }
+							add = 45
+							subtract = current_ministry_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { var:planned_ministry_budget = 45 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_50_ministry_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 50 } } }
+				default = { current_ministry_budget = 50 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_ministry_budget > 50 }
+							add = current_ministry_budget
+							subtract = 50
+						}
+						else_if = {
+							limit = { current_ministry_budget < 50 }
+							add = 50
+							subtract = current_ministry_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { var:planned_ministry_budget = 50 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_55_ministry_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 55 } } }
+				default = { current_ministry_budget = 55 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_ministry_budget > 55 }
+							add = current_ministry_budget
+							subtract = 55
+						}
+						else_if = {
+							limit = { current_ministry_budget < 55 }
+							add = 55
+							subtract = current_ministry_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { var:planned_ministry_budget = 55 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_60_ministry_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 60 } } }
+				default = { current_ministry_budget = 60 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_ministry_budget > 60 }
+							add = current_ministry_budget
+							subtract = 60
+						}
+						else_if = {
+							limit = { current_ministry_budget < 60 }
+							add = 60
+							subtract = current_ministry_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { var:planned_ministry_budget = 60 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_65_ministry_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 65 } } }
+				default = { current_ministry_budget = 65 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_ministry_budget > 65 }
+							add = current_ministry_budget
+							subtract = 65
+						}
+						else_if = {
+							limit = { current_ministry_budget < 65 }
+							add = 65
+							subtract = current_ministry_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { var:planned_ministry_budget = 65 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_70_ministry_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 70 } } }
+				default = { current_ministry_budget = 70 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_ministry_budget > 70 }
+							add = current_ministry_budget
+							subtract = 70
+						}
+						else_if = {
+							limit = { current_ministry_budget < 70 }
+							add = 70
+							subtract = current_ministry_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { var:planned_ministry_budget = 70 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_75_ministry_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 75 } } }
+				default = { current_ministry_budget = 75 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_ministry_budget > 75 }
+							add = current_ministry_budget
+							subtract = 75
+						}
+						else_if = {
+							limit = { current_ministry_budget < 75 }
+							add = 75
+							subtract = current_ministry_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { var:planned_ministry_budget = 75 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_80_ministry_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 80 } } }
+				default = { current_ministry_budget = 80 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_ministry_budget > 80 }
+							add = current_ministry_budget
+							subtract = 80
+						}
+						else_if = {
+							limit = { current_ministry_budget < 80 }
+							add = 80
+							subtract = current_ministry_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { var:planned_ministry_budget = 80 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_85_ministry_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 85 } } }
+				default = { current_ministry_budget = 85 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_ministry_budget > 85 }
+							add = current_ministry_budget
+							subtract = 85
+						}
+						else_if = {
+							limit = { current_ministry_budget < 85 }
+							add = 85
+							subtract = current_ministry_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { var:planned_ministry_budget = 85 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_90_ministry_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 90 } } }
+				default = { current_ministry_budget = 90 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_ministry_budget > 90 }
+							add = current_ministry_budget
+							subtract = 90
+						}
+						else_if = {
+							limit = { current_ministry_budget < 90 }
+							add = 90
+							subtract = current_ministry_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { var:planned_ministry_budget = 90 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_95_ministry_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 95 } } }
+				default = { current_ministry_budget = 95 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_ministry_budget > 95 }
+							add = current_ministry_budget
+							subtract = 95
+						}
+						else_if = {
+							limit = { current_ministry_budget < 95 }
+							add = 95
+							subtract = current_ministry_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { var:planned_ministry_budget = 95 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_100_ministry_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_ministry_budget value = 100 } } }
+				default = { current_ministry_budget = 100 }
+				cost = {
+					influence = {
+						value = 100
+						subtract = current_ministry_budget
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_ministry_budget }
+						if = {
+							limit = { var:planned_ministry_budget = 100 }
+							add = 100
+						}
+					}
+				}
+			}
+		}
+		proposed_salary_budget = {
+			propose_0_salary_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 0 } } }
+				default = { current_salary_budget = 0 }
+				cost = { influence = current_salary_budget }
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { var:planned_salary_budget = 0 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_5_salary_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 5 } } }
+				default = { current_salary_budget = 5 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_salary_budget > 5 }
+							add = current_salary_budget
+							subtract = 5
+						}
+						else_if = {
+							limit = { current_salary_budget < 5 }
+							add = 5
+							subtract = current_salary_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { var:planned_salary_budget = 5 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_10_salary_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 10 } } }
+				default = { current_salary_budget = 10 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_salary_budget > 10 }
+							add = current_salary_budget
+							subtract = 10
+						}
+						else_if = {
+							limit = { current_salary_budget < 10 }
+							add = 10
+							subtract = current_salary_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { var:planned_salary_budget = 10 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_15_salary_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 15 } } }
+				default = { current_salary_budget = 15 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_salary_budget > 15 }
+							add = current_salary_budget
+							subtract = 15
+						}
+						else_if = {
+							limit = { current_salary_budget < 15 }
+							add = 15
+							subtract = current_salary_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { var:planned_salary_budget = 15 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_20_salary_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 20 } } }
+				default = { current_salary_budget = 20 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_salary_budget > 20 }
+							add = current_salary_budget
+							subtract = 20
+						}
+						else_if = {
+							limit = { current_salary_budget < 20 }
+							add = 20
+							subtract = current_salary_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { var:planned_salary_budget = 20 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_25_salary_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 25 } } }
+				default = { current_salary_budget = 25 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_salary_budget > 25 }
+							add = current_salary_budget
+							subtract = 25
+						}
+						else_if = {
+							limit = { current_salary_budget < 25 }
+							add = 25
+							subtract = current_salary_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { var:planned_salary_budget = 25 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_30_salary_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 30 } } }
+				default = { current_salary_budget = 30 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_salary_budget > 30 }
+							add = current_salary_budget
+							subtract = 30
+						}
+						else_if = {
+							limit = { current_salary_budget < 30 }
+							add = 30
+							subtract = current_salary_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { var:planned_salary_budget = 30 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_35_salary_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 35 } } }
+				default = { current_salary_budget = 35 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_salary_budget > 35 }
+							add = current_salary_budget
+							subtract = 35
+						}
+						else_if = {
+							limit = { current_salary_budget < 35 }
+							add = 35
+							subtract = current_salary_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { var:planned_salary_budget = 35 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_40_salary_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 40 } } }
+				default = { current_salary_budget = 40 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_salary_budget > 40 }
+							add = current_salary_budget
+							subtract = 40
+						}
+						else_if = {
+							limit = { current_salary_budget < 40 }
+							add = 40
+							subtract = current_salary_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { var:planned_salary_budget = 40 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_45_salary_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 45 } } }
+				default = { current_salary_budget = 45 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_salary_budget > 45 }
+							add = current_salary_budget
+							subtract = 45
+						}
+						else_if = {
+							limit = { current_salary_budget < 45 }
+							add = 45
+							subtract = current_salary_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { var:planned_salary_budget = 45 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_50_salary_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 50 } } }
+				default = { current_salary_budget = 50 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_salary_budget > 50 }
+							add = current_salary_budget
+							subtract = 50
+						}
+						else_if = {
+							limit = { current_salary_budget < 50 }
+							add = 50
+							subtract = current_salary_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { var:planned_salary_budget = 50 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_55_salary_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 55 } } }
+				default = { current_salary_budget = 55 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_salary_budget > 55 }
+							add = current_salary_budget
+							subtract = 55
+						}
+						else_if = {
+							limit = { current_salary_budget < 55 }
+							add = 55
+							subtract = current_salary_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { var:planned_salary_budget = 55 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_60_salary_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 60 } } }
+				default = { current_salary_budget = 60 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_salary_budget > 60 }
+							add = current_salary_budget
+							subtract = 60
+						}
+						else_if = {
+							limit = { current_salary_budget < 60 }
+							add = 60
+							subtract = current_salary_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { var:planned_salary_budget = 60 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_65_salary_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 65 } } }
+				default = { current_salary_budget = 65 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_salary_budget > 65 }
+							add = current_salary_budget
+							subtract = 65
+						}
+						else_if = {
+							limit = { current_salary_budget < 65 }
+							add = 65
+							subtract = current_salary_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { var:planned_salary_budget = 65 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_70_salary_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 70 } } }
+				default = { current_salary_budget = 70 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_salary_budget > 70 }
+							add = current_salary_budget
+							subtract = 70
+						}
+						else_if = {
+							limit = { current_salary_budget < 70 }
+							add = 70
+							subtract = current_salary_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { var:planned_salary_budget = 70 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_75_salary_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 75 } } }
+				default = { current_salary_budget = 75 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_salary_budget > 75 }
+							add = current_salary_budget
+							subtract = 75
+						}
+						else_if = {
+							limit = { current_salary_budget < 75 }
+							add = 75
+							subtract = current_salary_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { var:planned_salary_budget = 75 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_80_salary_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 80 } } }
+				default = { current_salary_budget = 80 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_salary_budget > 80 }
+							add = current_salary_budget
+							subtract = 80
+						}
+						else_if = {
+							limit = { current_salary_budget < 80 }
+							add = 80
+							subtract = current_salary_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { var:planned_salary_budget = 80 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_85_salary_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 85 } } }
+				default = { current_salary_budget = 85 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_salary_budget > 85 }
+							add = current_salary_budget
+							subtract = 85
+						}
+						else_if = {
+							limit = { current_salary_budget < 85 }
+							add = 85
+							subtract = current_salary_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { var:planned_salary_budget = 85 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_90_salary_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 90 } } }
+				default = { current_salary_budget = 90 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_salary_budget > 90 }
+							add = current_salary_budget
+							subtract = 90
+						}
+						else_if = {
+							limit = { current_salary_budget < 90 }
+							add = 90
+							subtract = current_salary_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { var:planned_salary_budget = 90 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_95_salary_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 95 } } }
+				default = { current_salary_budget = 95 }
+				cost = {
+					influence = {
+						value = 0
+						if = {
+							limit = { current_salary_budget > 95 }
+							add = current_salary_budget
+							subtract = 95
+						}
+						else_if = {
+							limit = { current_salary_budget < 95 }
+							add = 95
+							subtract = current_salary_budget
+						}
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { var:planned_salary_budget = 95 }
+							add = 100
+						}
+					}
+				}
+			}
+			propose_100_salary_spending = {
+				is_shown = { always = yes }
+				is_valid = { always = yes }
+				on_start = { scope:activity = { set_variable = { name = proposed_salary_budget value = 100 } } }
+				default = { current_salary_budget = 100 }
+				cost = {
+					influence = {
+						value = 100
+						subtract = current_salary_budget
+					}
+				}
+				ai_will_do = {
+					value = 0
+					if = {
+						limit = { has_variable = planned_salary_budget }
+						if = {
+							limit = { var:planned_salary_budget = 100 }
+							add = 100
+						}
+					}
+				}
+			}
+		}
+	on_start = {
+		scope:activity = {
+			set_variable = { name = ruler value = scope:host }
+			set_variable = { name = title value = scope:host.primary_title }
+			set_variable = { name = legislature value = var:ruler.primary_title.var:legislature }
+			set_variable = { name = pork value = 0 }
+			set_variable = simple_majority_bill
+			var:legislature = { set_variable = { name = current_motion value = scope:activity } }
+		}
+		scope:host = { trigger_event = cotc_bill_events.1 }
+	}
+	
+	on_complete = {
+		scope:activity = {
+			var:legislature = { remove_variable = current_motion }
+			var:ruler = { save_scope_as = ruler }
+			var:title = { save_scope_as = title }
+			var:legislature = { save_scope_as = legislature }
+			save_scope_value_as = { name = final_supporters value = total_bill_supporters }
+			save_scope_value_as = { name = final_opponents value = total_bill_opponents }
+			save_scope_value_as = { name = proposed_military_budget value = var:proposed_military_budget }
+			save_scope_value_as = { name = proposed_ministry_budget value = var:proposed_ministry_budget }
+			save_scope_value_as = { name = proposed_salary_budget value = var:proposed_salary_budget }
+			save_scope_value_as = { name = proposed_total_budget value = proposed_total_budget }
+			save_scope_value_as = { name = pork_value value = var:pork }
+			every_in_list = {
+				variable = pork_recipients
+				add_to_list = pork_distribution
+			}
+		}
+		if = {
+			limit = { scope:activity = { has_variable = bill_passed } }
+			if = {
+				limit = { ROOT = scope:host }
+				trigger_event = cotc_budget_bill_events.200
+				every_vassal = { trigger_event = cotc_budget_bill_events.250 }
+				every_tributary = { trigger_event = cotc_budget_bill_events.250 }
+			}
+			else_if = {
+				limit = { is_in_guest_subset = { name = bill_supporters } }
+				trigger_event = cotc_budget_bill_events.210
+			}
+			else_if = {
+				limit = { is_in_guest_subset = { name = bill_opponents } }
+				trigger_event = cotc_budget_bill_events.220
+			}
+		}
+		else = {
+			if = {
+				limit = { ROOT = scope:host }
+				trigger_event = cotc_budget_bill_events.300
+			}
+			else_if = {
+				limit = { is_in_guest_subset = { name = bill_supporters } }
+				trigger_event = cotc_budget_bill_events.310
+			}
+			else_if = {
+				limit = { is_in_guest_subset = { name = bill_opponents } }
+				trigger_event = cotc_budget_bill_events.320
+			}
+		}
+		trigger_event = { on_action = bill_clean_legislators_on_action }
+	}
+	
+	phases = {
+		debate = {
+			order = 1
+			is_predefined = yes
+			
+			is_shown = { always = yes }
+
+			on_enter_phase = {
+				scope:activity = { 
+					progress_activity_phase_after = { days = 1 }
+				}
+			}
+			
+			on_phase_active = {
+				if = {
+					limit = { this = scope:host } # Run only once
+					scope:activity = {
+						# First, check that we've met quorum
+						# For budget bills, quorum is a simple majority
+						if = {
+							limit = {
+								any_attending_character = {
+									save_temporary_scope_as = evaluated_character
+									is_character_in_legislature_trigger = { LEGISLATURE = scope:activity.var:legislature CHARACTER = scope:evaluated_character }
+									count < scope:activity.var:legislature.simple_majority
+								}
+							}
+							set_variable = quorum_not_met
+						}
+						# We've met quorum, so collect everyone's initial votes
+						else = {
+							every_attending_character = {
+								limit = {
+									save_temporary_scope_as = evaluated_character
+									is_character_in_legislature_trigger = { LEGISLATURE = scope:activity.var:legislature CHARACTER = scope:evaluated_character }
+								}
+								trigger_event = cotc_budget_bill_events.100
+							}
+							# Check whether we can proceed directly to the voting phase,
+							# or if further debate is needed
+							scope:host = {
+								trigger_event = { id = cotc_bill_events.100 delayed = yes }
+								trigger_event = { id = cotc_bill_events.150 delayed = yes }
+							}
+						}
+					}
+				}
+			}
+			
+			on_weekly_pulse = {
+				if = {
+					limit = { ROOT = scope:host }
+					# Offer to amend the budget in order to get more supporters
+					trigger_event = { on_action = propose_random_budget_amendment_on_action days = { 2 6 } }
+					# Give someone a chance to give a speech
+					trigger_event = { on_action = bill_debate_pulse_speech_on_action days = { 2 6 } }
+				}
+				else_if = {
+					limit = { is_character_in_legislature_trigger = { LEGISLATURE = scope:activity.var:legislature CHARACTER = ROOT } }
+					# Attending legislators do things
+					trigger_event = { on_action = bill_debate_pulse_legislator_on_action days = { 2 6 } }
+				}
+			}
+		}
+		voting = {
+			order = 2
+			is_predefined = yes
+			
+			is_shown = { always = yes }
+
+			on_enter_phase = {
+				scope:activity = { 
+					progress_activity_phase_after = { days = 1 } 
+				}		
+			}
+			
+			on_phase_active = {
+				# The final vote! Did we succeed or fail?
+				if = {
+					limit = { ROOT = scope:host }
+					scope:host = {
+						trigger_event = cotc_bill_events.200 # Bill passed
+						trigger_event = cotc_bill_events.250 # Bill failed
+					}
+				}
+			}
+		}
+	}
+	
+	max_guest_arrival_delay_time = { months = 1 }
+	
+	cooldown = { years = 1 }
+	
+	is_single_location = yes
+	
+	ai_will_do = {
+		value = 0
+		if = {
+			limit = { has_variable = planned_military_budget }
+			if = {
+				limit = { var:planned_military_budget > current_military_budget }
+				add = {
+					value = var:planned_military_budget
+					subtract = current_military_budget
+				}
+			}
+			else_if = {
+				limit = { var:planned_military_budget < current_military_budget }
+				add = {
+					value = current_military_budget
+					subtract = var:planned_military_budget
+				}
+			}
+		}
+		if = {
+			limit = { has_variable = planned_ministry_budget }
+			if = {
+				limit = { var:planned_ministry_budget > current_ministry_budget }
+				add = {
+					value = var:planned_ministry_budget
+					subtract = current_ministry_budget
+				}
+			}
+			else_if = {
+				limit = { var:planned_ministry_budget < current_ministry_budget }
+				add = {
+					value = current_ministry_budget
+					subtract = var:planned_ministry_budget
+				}
+			}
+		}
+		if = {
+			limit = { has_variable = planned_salary_budget }
+			if = {
+				limit = { var:planned_salary_budget > current_salary_budget }
+				add = {
+					value = var:planned_salary_budget
+					subtract = current_salary_budget
+				}
+			}
+			else_if = {
+				limit = { var:planned_salary_budget < current_salary_budget }
+				add = {
+					value = current_salary_budget
+					subtract = var:planned_salary_budget
+				}
+			}
+		}
+	}
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 0
+		duchy = 1
+		kingdom = 1
+		empire = 1
+		hegemony = 1
+	}
+	ai_will_select_province = {
+		value = scope:score
+	}
+	
+	max_guests = {
+		value = 500 # Hopefully this will only become a problem with really, really big empires
+	}
+	allow_zero_guest_invites = no
+	guest_invite_rules = {
+		defaults = {
+			1 = activity_invite_rule_legislators
+		}
+	}
+	guest_subsets = { bill_supporters bill_opponents bill_abstainers }
+	
+	host_intents = {
+		intents = { pass_bill_intent }
+		default = pass_bill_intent
+	}
+	
+	guest_intents = {
+		intents = {
+			maintain_status_quo_intent
+			trade_favors_intent
+			support_bill_intent
+			block_bill_intent
+			balance_budget_intent
+			balance_budget_maintain_military_intent
+			balance_budget_maintain_ministry_intent
+			balance_budget_maintain_salary_intent
+			increase_military_budget_intent
+			increase_ministry_budget_intent
+			increase_salary_budget_intent
+		}
+		default = maintain_status_quo_intent
+	}
+	
+	guest_join_chance = {
+		base = 100
+		base_activity_modifier = yes
+		modifier = {
+			add = {
+				value = 0
+				add = {
+					value = ai_honor
+					min = 0
+				}
+				add = {
+					value = ai_energy
+					max = 0
+				}
+			}
+		}
+	}
+	
+	### Plug in widgets
+	activity_window_widgets = {
+		bill_supporter_opponent_widget = "window_activity_contestants_right_bar_container"
+		bill_votes = "activity_plugin_widgets_summary"
+		bill_provisions = "activity_top_layer_idle_widgets"
+	}
+	
+	# These are placeholders, obviously
+	background = {
+		texture = "gfx/interface/illustrations/event_scenes/fp2_throneroom.dds"
+		environment = "environment_event_fp2_throneroom" 
+		ambience = "event:/DLC/EP4/SFX/Events/Event_Backgrounds/tgp_examination_room"
+	}
+	window_characters = {
+		ruler = {
+			camera = camera_body
+			
+			effect = { scope:host = { add_to_list = characters } }
+			
+			scripted_animation = {
+				triggered_animation = {
+					trigger = {
+						total_bill_supporters = 0
+						total_bill_opponents = 0
+					}
+					animation = idle
+				}
+				triggered_animation = {
+					trigger = { total_bill_supporters >= var:legislature.simple_majority }
+					animation = admiration
+				}
+				triggered_animation = {
+					trigger = { total_bill_supporters < var:legislature.simple_majority }
+					animation = debate
+				}
+			}
+		}
+		bill_supporter = {
+			camera = camera_body_right
+			
+			effect = {
+				ordered_guest_subset = {
+					name = bill_supporters
+					order_by = legislative_seniority
+					add_to_list = characters
+				}
+			}
+			
+			scripted_animation = {
+				animation = debate
+			}
+		}
+		bill_opponent = {
+			camera = camera_body_left
+			
+			effect = {
+				ordered_guest_subset = {
+					name = bill_opponents
+					order_by = legislative_seniority
+					add_to_list = characters
+				}
+			}
+			
+			scripted_animation = {
+				animation = debate
+			}
+		}
+	}
+	
+	# No hangers-on!
+	travel_entourage_selection = {
+		max = 0
+		ai_max = 0
+	}
+}

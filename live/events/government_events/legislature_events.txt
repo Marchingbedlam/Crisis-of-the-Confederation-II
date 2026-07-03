@@ -1,0 +1,408 @@
+﻿namespace = legislature_events
+
+#############
+# ELECTIONS #
+#############
+legislature_events.1 = { # Inform anyone relevant that the election has begun
+	desc = legislature_events.1.desc
+	
+	theme = news
+	right_portrait = {
+		character = scope:situation.var:legislature_title.holder
+		animation = chancellor
+	}
+	
+	immediate = {
+		set_variable = { name = news_source_title value = scope:situation.var:legislature_title }
+		set_variable = { name = news_source_character value = scope:situation.var:legislature_title.holder }
+	}
+	
+	option = {
+		name = legislature_events.1.a
+		remove_variable = news_source_title
+		remove_variable = news_source_character
+	}
+}
+legislature_events.10 = { # You've been elected as a legislator
+	desc = legislature_events.10.desc
+	
+	theme = realm
+	right_portrait = {
+		character = ROOT
+		animation = war_over_win
+	}
+	left_portrait = {
+		character = scope:situation.var:legislature_title.holder
+		animation = acknowledging
+	}
+	
+	immediate = {
+		save_scope_as = legislator_elect
+		# Start counting our time in the legislature
+		if = {
+			limit = { NOT = { has_variable = years_in_legislature } }
+			set_variable = { name = years_in_legislature value = 0 }
+		}
+		trigger_event = { id = legislature_events.20 years = 1 }
+		# Inform our liege that we've been elected
+		if = {
+			limit = { is_pool_guest = yes }
+			court_owner = {
+				send_interface_message = {
+					type = msg_legislator_elected
+					title = legislature_events.10.legislator_elected.tt
+					desc = legislature_events.10.legislator_elected.desc
+					left_icon = scope:legislator_elect
+				}
+			}
+		}
+		else = {
+			liege = {
+				send_interface_message = {
+					type = msg_legislator_elected
+					title = legislature_events.10.legislator_elected.tt
+					desc = legislature_events.10.legislator_elected.desc
+					left_icon = scope:legislator_elect
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = legislature_events.10.a
+		# If we're not already in the capital system, move there to be available
+		# for senate meetings
+		if = {
+			limit = { is_pool_guest = yes }
+			court_owner = { add_courtier = ROOT }
+		}
+		if = {
+			limit = { NOT = { lives_in_capital_trigger = { TARGET = scope:situation.var:legislature_title.holder } } }
+			visit_random_court_in_capital = { TARGET = scope:situation.var:legislature_title.holder }
+		}
+	}
+}
+legislature_events.11 = { # You've been re-elected
+	desc = legislature_events.11.desc
+	
+	theme = realm
+	right_portrait = {
+		character = ROOT
+		animation = war_over_win
+	}
+	left_portrait = {
+		character = scope:situation.var:legislature_title.holder
+		animation = acknowledging
+	}
+	
+	immediate = {
+		save_scope_as = legislator_elect
+		# Inform our liege that we've been elected
+		if = {
+			limit = { is_pool_guest = yes }
+			court_owner = {
+				send_interface_message = {
+					type = msg_legislator_elected
+					title = legislature_events.11.legislator_elected.tt
+					desc = legislature_events.11.legislator_elected.desc
+					left_icon = scope:legislator_elect
+				}
+			}
+		}
+		else = {
+			liege = {
+				send_interface_message = {
+					type = msg_legislator_elected
+					title = legislature_events.11.legislator_elected.tt
+					desc = legislature_events.11.legislator_elected.desc
+					left_icon = scope:legislator_elect
+				}
+			}
+		}
+	}
+	
+	option = {
+		name = legislature_events.11.a
+		# If we're not already in the capital system, move there to be available
+		# for senate meetings
+		if = {
+			limit = { is_pool_guest = yes }
+			court_owner = { add_courtier = ROOT }
+		}
+		if = {
+			limit = { NOT = { lives_in_capital_trigger = { TARGET = scope:situation.var:legislature_title.holder } } }
+			visit_random_court_in_capital = { TARGET = scope:situation.var:legislature_title.holder }
+		}
+	}
+}
+legislature_events.12 = { # You've lost your re-election
+	desc = legislature_events.12.desc
+	
+	theme = realm
+	right_portrait = {
+		character = ROOT
+		animation = war_over_loss
+	}
+	
+	option = {
+		name = legislature_events.12.a
+		# If we're in the capital system, go home
+		if = {
+			limit = { NOT = { court_owner = { this = ROOT.liege } } }
+			visit_court_of = liege
+		}
+	}
+}
+legislature_events.20 = { # Count years in the legislature
+	hidden = yes
+	trigger = { has_variable = years_in_legislature }
+	immediate = {
+		change_variable = { name = years_in_legislature add = 1 }
+		trigger_event = { id = legislature_events.20 years = 1 }
+	}
+}
+legislature_events.100 = { # Legislature abolished
+	desc = legislature_events.100.desc
+	
+	theme = realm
+	right_portrait = {
+		character = ROOT
+		animation = throne_room_ruler
+	}
+	
+	immediate = {
+		save_scope_as = ruler
+		scope:situation = {
+			situation_participant_group:vassals = { every_situation_group_participant = { trigger_event = { id = legislature_events.101 } } }
+		}
+	}
+	
+	option = {
+		name = legislature_events.100.a
+		scope:situation = { abolish_legislature_effect = { LEGISLATURE_TITLE = scope:situation.var:legislature_title } }
+	}
+}
+legislature_events.101 = {
+	desc = legislature_events.101.desc
+	
+	theme = realm
+	right_portrait = {
+		character = scope:ruler
+		animation = throne_room_ruler
+	}
+	
+	option = { name = legislature_events.101.a }
+}
+scripted_effect cotc_reassign_candidate_to_new_tier = {
+	switch = {
+		trigger = $NEW_TITLE$.tier
+		tier_county = { $RIDING$ = { add_target_to_variable_list = { name = county_candidates target = PREV } } }
+		tier_duchy = { $RIDING$ = { add_target_to_variable_list = { name = duchy_candidates target = PREV } } }
+		tier_kingdom = { $RIDING$ = { add_target_to_variable_list = { name = kingdom_candidates target = PREV } } }
+		tier_empire = { $RIDING$ = { add_target_to_variable_list = { name = empire_candidates target = PREV } } }
+		tier_hegemony = { $RIDING$ = { add_target_to_variable_list = { name = hegemony_candidates target = PREV } } }
+	}
+}
+scripted_effect cotc_reassign_candidates_to_new_tier = {
+	switch = {
+		trigger = $OLD_TITLE$.tier
+		tier_county = {
+			every_in_list = {
+				variable = county_candidates
+				cotc_reassign_candidate_to_new_tier = { RIDING = PREV NEW_TITLE = $NEW_TITLE$ }
+			}
+			clear_variable_list = county_candidates
+		}
+		tier_duchy = {
+			every_in_list = {
+				variable = duchy_candidates
+				cotc_reassign_candidate_to_new_tier = { RIDING = PREV NEW_TITLE = $NEW_TITLE$ }
+			}
+			clear_variable_list = duchy_candidates
+		}
+		tier_kingdom = {
+			every_in_list = {
+				variable = kingdom_candidates
+				cotc_reassign_candidate_to_new_tier = { RIDING = PREV NEW_TITLE = $NEW_TITLE$ }
+			}
+			clear_variable_list = kingdom_candidates
+		}
+		tier_empire = {
+			every_in_list = {
+				variable = empire_candidates
+				cotc_reassign_candidate_to_new_tier = { RIDING = PREV NEW_TITLE = $NEW_TITLE$ }
+			}
+			clear_variable_list = empire_candidates
+		}
+		tier_hegemony = {
+			every_in_list = {
+				variable = hegemony_candidates
+				cotc_reassign_candidate_to_new_tier = { RIDING = PREV NEW_TITLE = $NEW_TITLE$ }
+			}
+			clear_variable_list = hegemony_candidates
+		}
+	}
+}
+scripted_effect cotc_reassign_legislator_to_new_tier = {
+	if = {
+		limit = { has_character_modifier = modifier_county_legislator }
+		remove_character_modifier = modifier_county_legislator
+	}
+	if = {
+		limit = { has_character_modifier = modifier_duchy_legislator }
+		remove_character_modifier = modifier_duchy_legislator
+	}
+	if = {
+		limit = { has_character_modifier = modifier_kingdom_legislator }
+		remove_character_modifier = modifier_kingdom_legislator
+	}
+	if = {
+		limit = { has_character_modifier = modifier_empire_legislator }
+		remove_character_modifier = modifier_empire_legislator
+	}
+	if = {
+		limit = { has_character_modifier = modifier_hegemony_legislator }
+		remove_character_modifier = modifier_hegemony_legislator
+	}
+	switch = {
+		trigger = $NEW_TITLE$.tier
+		tier_county = { add_character_modifier = modifier_county_legislator }
+		tier_duchy = { add_character_modifier = modifier_duchy_legislator }
+		tier_kingdom = { add_character_modifier = modifier_kingdom_legislator }
+		tier_empire = { add_character_modifier = modifier_empire_legislator }
+		tier_hegemony = { add_character_modifier = modifier_hegemony_legislator }
+	}
+}
+legislature_events.200 = { # Legislature promoted
+	desc = legislature_events.200.desc
+	
+	theme = realm
+	right_portrait = {
+		character = ROOT
+		animation = throne_room_ruler
+	}
+	
+	immediate = {
+		save_scope_as = ruler
+		scope:ruler.primary_title = { set_variable = { name = legislature value = scope:situation } }
+		scope:situation = {
+			var:legislature_title = {
+				remove_variable = legislature
+				save_scope_as = old_title
+			}
+			set_variable = { name = legislature_title value = scope:ruler.primary_title }
+			cotc_reassign_candidates_to_new_tier = { OLD_TITLE = scope:old_title NEW_TITLE = scope:ruler.primary_title }
+			situation_participant_group:vassals = { every_situation_group_participant = { trigger_event = { id = legislature_events.201 } } }
+			every_in_list = {
+				list = legislators
+				cotc_reassign_legislator_to_new_tier = { NEW_TITLE = scope:ruler.primary_title }
+				trigger_event = { id = legislature_events.201 }
+			}
+		}
+	}
+	
+	option = { name = legislature_events.200.a }
+}
+legislature_events.201 = {
+	desc = legislature_events.201.desc
+	
+	theme = realm
+	right_portrait = {
+		character = scope:ruler
+		animation = throne_room_ruler
+	}
+	
+	option = {
+		name = legislature_events.201.a
+		# Stay near the capital if possible
+		if = {
+			limit = {
+				is_ruler = no
+				NOT = { lives_in_capital_trigger = { TARGET = scope:ruler } }
+			}
+			visit_random_court_in_capital = { TARGET = scope:ruler }
+		}
+	}
+}
+# Legislatures merged
+legislature_events.300 = {
+	desc = legislature_events.300.desc
+	
+	theme = realm
+	right_portrait = {
+		character = ROOT
+		animation = throne_room_ruler
+	}
+	
+	# Run this only once, for the primary title
+	trigger = { scope:situation.var:legislature_title = { this = ROOT.primary_title } }
+	
+	immediate = {
+		save_scope_as = ruler
+		every_held_title = {
+			limit = {
+				NOT = { this = ROOT.primary_title }
+				has_variable = legislature
+			}
+			save_temporary_scope_as = old_title
+			var:legislature = {
+				every_in_list = {
+					variable = ridings
+					scope:situation = { add_to_variable_list = { name = ridings target = PREV } }
+					if = {
+						limit = { scope:old_title.tier != ROOT.primary_title.tier }
+						cotc_reassign_candidates_to_new_tier = { OLD_TITLE = scope:old_title NEW_TITLE = ROOT.primary_title }
+					}
+				}
+				every_in_list = {
+					variable = legislators
+					remove_from_legislature_effect = yes
+					add_to_legislature_effect = { LEGISLATURE = scope:situation RIDING = var:riding }
+				}
+				recalc_legislature_parties_effect = yes
+				situation_participant_group:vassals = {
+					every_situation_group_participant = {
+						recalculate_participant_group = scope:situation
+					}
+				}
+				abolish_legislature_effect = yes
+			}
+		}
+		scope:situation = {
+			situation_participant_group:vassals = {
+				every_situation_group_participant = {
+					trigger_event = { id = legislature_events.301 }
+				}
+			}
+			every_in_list = {
+				variable = legislators
+				trigger_event = { id = legislature_events.301 }
+			}
+		}
+	}
+	
+	option = {
+		name = legislature_events.300.a
+	}
+}
+legislature_events.301 = {
+	desc = legislature_events.301.desc
+	
+	theme = realm
+	right_portrait = {
+		character = scope:ruler
+		animation = throne_room_ruler
+	}
+	
+	option = {
+		name = legislature_events.301.a
+		# Stay near the capital if possible
+		if = {
+			limit = {
+				is_ruler = no
+				NOT = { lives_in_capital_trigger = { TARGET = scope:ruler } }
+			}
+			visit_random_court_in_capital = { TARGET = scope:ruler }
+		}
+	}
+}

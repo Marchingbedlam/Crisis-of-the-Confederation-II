@@ -1,0 +1,60 @@
+﻿ai_value_scaled_factor_modifier = {
+	modifier = {
+		factor = {
+			value = 1
+			$CHARACTER$ = {
+				if = {
+					limit = { $AI_VALUE$ >= very_high_positive_ai_value }
+					multiply = 10
+				}
+				else_if = {
+					limit = { $AI_VALUE$ >= high_positive_ai_value }
+					multiply = 5
+				}
+				else_if = {
+					limit = { $AI_VALUE$ >= medium_positive_ai_value }
+					multiply = 4
+				}
+				else_if = {
+					limit = { $AI_VALUE$ >= low_positive_ai_value }
+					multiply = 3
+				}
+				else_if = {
+					limit = { $AI_VALUE$ >= very_low_positive_ai_value }
+					multiply = 2
+				}
+			}
+			multiply = $SCALE$
+		}
+		$CHARACTER$.$AI_VALUE$ > 0
+	}
+	modifier = {
+		factor = {
+			value = 1
+			$CHARACTER$ = {
+				if = {
+					limit = { $AI_VALUE$ <= very_high_negative_ai_value }
+					divide = 10
+				}
+				else_if = {
+					limit = { $AI_VALUE$ <= high_negative_ai_value }
+					divide = 5
+				}
+				else_if = {
+					limit = { $AI_VALUE$ <= medium_negative_ai_value }
+					divide = 4
+				}
+				else_if = {
+					limit = { $AI_VALUE$ <= low_negative_ai_value }
+					divide = 3
+				}
+				else_if = {
+					limit = { $AI_VALUE$ <= very_low_negative_ai_value }
+					divide = 2
+				}
+			}
+			multiply = $SCALE$
+		}
+		$CHARACTER$.$AI_VALUE$ < 0
+	}
+}

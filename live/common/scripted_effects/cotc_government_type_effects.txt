@@ -1,0 +1,170 @@
+﻿sort_federation_province_effect = { # Make a province either a territory or a member-state, depending on what makes the most sense
+	if = { # This character has been flagged as a member-state
+		limit = { has_character_flag = new_member_state }
+		vassal_contract_set_obligation_level = { type = federal_status level = federal_status_member_state }
+		remove_character_flag = new_member_state
+	}
+	else_if = { # This character has been flagged as a territory
+		limit = { has_character_flag = new_territory }
+		vassal_contract_set_obligation_level = { type = federal_status level = federal_status_territory }
+		remove_character_flag = new_territory
+	}
+	else_if = { # This character hasn't been flagged and is unsorted
+		limit = { subject_contract_has_flag = federal_status_unsorted }
+		if = { # This character is too low-ranking to be a member-state
+			limit = { highest_held_title_tier = tier_barony }
+			vassal_contract_set_obligation_level = { type = federal_status level = federal_status_territory }
+		}
+		else_if = { # This character is too high-ranking to be a territory
+			limit = { tier_difference = { target = liege value >= -1 } }
+			vassal_contract_set_obligation_level = { type = federal_status level = federal_status_member_state }
+		}
+		else_if = { # This character is a de jure vassal of a federal title
+			limit = {
+				primary_title = { save_temporary_scope_as = temp_province_title }
+				liege = {
+					any_held_title = {
+						tier < holder.highest_held_title_tier
+						is_de_jure_liege_or_above_target = scope:temp_province_title
+					}
+				}
+			}
+			vassal_contract_set_obligation_level = { type = federal_status level = federal_status_territory }
+		}
+		else = { vassal_contract_set_obligation_level = { type = federal_status level = federal_status_member_state } }
+	}
+}
+become_despotic_effect = {
+	if = {
+		limit = { government_has_flag = government_is_military }
+		if = {
+			limit = { government_has_flag = government_is_federal }
+			change_government = despotic_federal_military_government
+		}
+		else_if = {
+			limit = { government_has_flag = government_is_democratic }
+			change_government = despotic_democratic_military_government
+		}
+		else_if = {
+			limit = { government_has_flag = government_is_aristocratic }
+			change_government = despotic_aristocratic_military_government
+		}
+	}
+}
+become_dictatorial_effect = {
+	if = {
+		limit = { government_has_flag = government_is_military }
+		if = {
+			limit = { government_has_flag = government_is_federal }
+			change_government = dictatorial_federal_military_government
+		}
+		else_if = {
+			limit = { government_has_flag = government_is_democratic }
+			change_government = dictatorial_democratic_military_government
+		}
+		else_if = {
+			limit = { government_has_flag = government_is_aristocratic }
+			change_government = dictatorial_aristocratic_military_government
+		}
+	}
+}
+become_presidential_effect = {
+	if = {
+		limit = { government_has_flag = government_is_military }
+		if = {
+			limit = { government_has_flag = government_is_federal }
+			change_government = presidential_federal_military_government
+		}
+		else_if = {
+			limit = { government_has_flag = government_is_democratic }
+			change_government = presidential_democratic_military_government
+		}
+		else_if = {
+			limit = { government_has_flag = government_is_aristocratic }
+			change_government = presidential_aristocratic_military_government
+		}
+	}
+}
+become_parliamentary_effect = {
+	if = {
+		limit = { government_has_flag = government_is_military }
+		if = {
+			limit = { government_has_flag = government_is_federal }
+			change_government = parliamentary_federal_military_government
+		}
+		else_if = {
+			limit = { government_has_flag = government_is_democratic }
+			change_government = parliamentary_democratic_military_government
+		}
+		else_if = {
+			limit = { government_has_flag = government_is_aristocratic }
+			change_government = parliamentary_aristocratic_military_government
+		}
+	}
+}
+become_federal_effect = {
+	if = {
+		limit = { highest_held_title_tier >= tier_duchy }
+		if = {
+			limit = { government_has_flag = government_is_military }
+			if = {
+				limit = { government_has_flag = government_is_despotic }
+				change_government = despotic_federal_military_government
+			}
+			else_if = {
+				limit = { government_has_flag = government_is_dictatorial }
+				change_government = dictatorial_federal_military_government
+			}
+			else_if = {
+				limit = { government_has_flag = government_is_presidential }
+				change_government = presidential_federal_military_government
+			}
+			else_if = {
+				limit = { government_has_flag = government_is_parliamentary }
+				change_government = parliamentary_federal_military_government
+			}
+		}
+	}
+}
+become_democratic_effect = {
+	if = {
+		limit = { government_has_flag = government_is_military }
+		if = {
+			limit = { government_has_flag = government_is_despotic }
+			change_government = despotic_democratic_military_government
+		}
+		else_if = {
+			limit = { government_has_flag = government_is_dictatorial }
+			change_government = dictatorial_democratic_military_government
+		}
+		else_if = {
+			limit = { government_has_flag = government_is_presidential }
+			change_government = presidential_democratic_military_government
+		}
+		else_if = {
+			limit = { government_has_flag = government_is_parliamentary }
+			change_government = parliamentary_democratic_military_government
+		}
+	}
+}
+become_aristocratic_effect = {
+	if = {
+		limit = { government_has_flag = government_is_military }
+		if = {
+			limit = { government_has_flag = government_is_despotic }
+			change_government = despotic_aristocratic_military_government
+		}
+		else_if = {
+			limit = { government_has_flag = government_is_dictatorial }
+			change_government = dictatorial_aristocratic_military_government
+		}
+		else_if = {
+			limit = { government_has_flag = government_is_presidential }
+			change_government = presidential_aristocratic_military_government
+		}
+		else_if = {
+			limit = { government_has_flag = government_is_parliamentary }
+			change_government = parliamentary_aristocratic_military_government
+		}
+	}
+}

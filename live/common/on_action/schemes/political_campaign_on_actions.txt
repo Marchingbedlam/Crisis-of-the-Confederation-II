@@ -1,0 +1,51 @@
+﻿###############################
+# GENERAL POLITICAL CAMPAIGNS #
+###############################
+cotc_political_campaign_scheme_progress = {
+	random_events = {
+		1 = cotc_political_campaign_events.100 # Campaign rally
+		1 = cotc_political_campaign_events.200 # Ad campaign
+		1 = cotc_political_campaign_events.300 # Smear campaign
+		1 = cotc_political_campaign_events.400 # Major interest group endorsement
+		1 = cotc_political_campaign_events.500 # Minor interest group endorsement
+	}
+}
+
+###################################
+# LEGISLATIVE POLITICAL CAMPAIGNS #
+###################################
+cotc_legislative_campaign_scheme_ongoing = {
+	effect = {
+		# Clean up the campaign in case anything goes wrong
+		trigger_event = { on_action = cotc_legislative_campaign_scheme_cleanup months = 1 }
+	}
+	events = {
+		cotc_legislative_campaign_events.100 # Your party is banned, you should deal with that
+	}
+}
+cotc_legislative_campaign_scheme_cleanup = { # Clean up any campaign effects from an aborted scheme
+	trigger = {
+		exists = scope:riding
+		exists = scope:legislature
+		NOT = { exists = scope:scheme }
+	}
+	effect = {
+		if = {
+			limit = { is_running_in_riding_for_legislature = { RIDING = scope:riding LEGISLATURE = scope:legislature } }
+			drop_out_of_legislator_election_effect = { RIDING = scope:riding LEGISLATURE = scope:legislature }
+			# Inform everyone who might be interested in this
+			every_player = { # The AI does not need news events
+				limit = {
+					in_diplomatic_range = scope:candidate
+					OR = {
+						# We care about the candidate
+						cares_about_character_trigger = { TARGET = scope:candidate }
+						# We care about the riding
+						cares_about_title_trigger = { TARGET = scope:riding }
+					}
+				}
+				trigger_event = cotc_legislative_campaign_events.15
+			}
+		}
+	}
+}

@@ -1,0 +1,325 @@
+﻿ai_authoritarianism = { # How much does this character value a firm, strong hand, versus democracy?
+	value = 0
+	add = ai_vengefulness
+	subtract = ai_compassion
+	subtract = var:faith_in_democracy
+	
+	if = {
+		limit = { exists = secret_faith }
+		secret_faith ?= { save_temporary_scope_as = real_ideology }
+	}
+	else = { faith = { save_temporary_scope_as = real_ideology } }
+	add = {
+		value = 10
+		add = ai_zeal
+		min = 0
+		scope:real_ideology ?= {
+			multiply = ideology_authoritarianism
+			multiply = fervor
+			divide = 100
+		}
+	}
+}
+
+ai_lawfulness = { # How much does this character value the rule of law?
+	value = 0
+	add = ai_honor
+	
+	if = {
+		limit = { exists = secret_faith }
+		secret_faith ?= { save_temporary_scope_as = real_ideology }
+	}
+	else = { faith = { save_temporary_scope_as = real_ideology } }
+	add = {
+		value = 10
+		add = ai_zeal
+		min = 0
+		scope:real_ideology ?= {
+			multiply = ideology_lawfulness
+			multiply = fervor
+			divide = 100
+		}
+	}
+}
+ai_hawkishness = { # How does this character feel about war?
+	value = 0
+	add = ai_vengefulness
+	subtract = ai_compassion
+	add = martial
+	subtract = diplomacy
+	
+	if = {
+		limit = { exists = secret_faith }
+		secret_faith ?= { save_temporary_scope_as = real_ideology }
+	}
+	else = { faith = { save_temporary_scope_as = real_ideology } }
+	add = {
+		value = 10
+		add = ai_zeal
+		min = 0
+		scope:real_ideology ?= {
+			multiply = ideology_hawkishness
+			multiply = fervor
+			divide = 100
+		}
+	}
+}
+ai_intellectualism = { # How does this character feel about science and education?
+	value = 0
+	add = {
+		value = ai_rationality
+		multiply = 2
+	}
+	add = learning
+	
+	if = {
+		limit = { exists = secret_faith }
+		secret_faith ?= { save_temporary_scope_as = real_ideology }
+	}
+	else = { faith = { save_temporary_scope_as = real_ideology } }
+	add = {
+		value = 10
+		add = ai_zeal
+		min = 0
+		scope:real_ideology ?= {
+			multiply = ideology_intellectualism
+			multiply = fervor
+			divide = 100
+		}
+	}
+}
+ai_interventionism = { # How does this character feel about government intervention in the economy?
+	value = 0
+	if = {
+		limit = {
+			OR = {
+				is_independent_ruler = yes
+				AND = {
+					exists = scope:activity.var:ruler
+					this = scope:activity.var:ruler
+				}
+				AND = {
+					exists = scope:budget_ruler
+					this = scope:budget_ruler
+				}
+				AND = {
+					exists = scope:tax_ruler
+					this = scope:tax_ruler
+				}
+			}
+		}
+		add = ai_greed
+		add = ai_energy
+	}
+	else = {
+		subtract = ai_greed
+		subtract = ai_energy
+	}
+	add = ai_compassion
+	subtract = ai_vengefulness
+	subtract = stewardship
+	
+	if = {
+		limit = { exists = secret_faith }
+		secret_faith ?= { save_temporary_scope_as = real_ideology }
+	}
+	else = { faith = { save_temporary_scope_as = real_ideology } }
+	add = {
+		value = 10
+		add = ai_zeal
+		min = 0
+		scope:real_ideology ?= {
+			multiply = ideology_interventionism
+			multiply = fervor
+			divide = 100
+		}
+	}
+}
+ai_parochialism = { # How strongly does this character value their own culture over others?
+	value = 0
+	subtract = ai_compassion
+	
+	if = {
+		limit = { exists = secret_faith }
+		secret_faith ?= { save_temporary_scope_as = real_ideology }
+	}
+	else = { faith = { save_temporary_scope_as = real_ideology } }
+	add = {
+		value = 10
+		add = ai_zeal
+		min = 0
+		scope:real_ideology ?= {
+			multiply = ideology_parochialism
+			multiply = fervor
+			divide = 100
+		}
+	}
+}
+ai_mysticism = { # How inclined is this character to mystical and spiritual thinking, as opposed to naturalism/materialism?
+	value = 0
+	
+	if = {
+		limit = { exists = secret_faith }
+		secret_faith ?= { save_temporary_scope_as = real_ideology }
+	}
+	else = { faith = { save_temporary_scope_as = real_ideology } }
+	add = {
+		value = 10
+		add = ai_zeal
+		min = 0
+		scope:real_ideology ?= {
+			multiply = ideology_mysticism
+			multiply = fervor
+			divide = 100
+		}
+	}
+}
+ai_political_ambition = { # How much does this character want to hold political office?
+	value = 0
+	if = {
+		limit = { ai_zeal > ai_greed }
+		add = ai_zeal
+	}
+	else = { add = ai_greed }
+	add = ai_energy
+}
+ai_personal_fear_of = { # How scared is this character of another character, in a personal way?
+	value = 0
+	save_temporary_scope_as = temp_fearer
+	# We know they're currently trying to kill us
+	if = {
+		limit = {
+			scope:fearee = {
+				any_scheme = {
+					type = murder
+					target_character = scope:temp_fearer
+					is_scheme_exposed = yes
+				}
+			}
+			ai_boldness <= ai_rationality
+		}
+		add = {
+			value = ai_rationality
+			multiply = 5
+			min = 0
+		}
+		subtract = {
+			value = ai_boldness
+			multiply = 5
+			max = 0
+		}
+	}
+	# We know they have previously attempted to kill us
+	if = {
+		limit = {
+			any_known_secret = {
+				secret_type = secret_murder_attempt
+				secret_owner = scope:fearee
+				secret_target = scope:temp_fearer
+			}
+			ai_boldness <= ai_rationality
+		}
+		add = {
+			value = ai_rationality
+			multiply = 3
+			min = 0
+		}
+		subtract = {
+			value = ai_boldness
+			multiply = 3
+			max = 0
+		}
+	}
+	# They're a known tyrant
+	if = {
+		limit = { scope:fearee.tyranny >= ai_boldness }
+		add = scope:fearee.tyranny
+	}
+	# We were bullied by them
+	if = {
+		limit = {
+			has_relation_bully = scope:fearee
+			ai_boldness < 50
+		}
+		add = 10
+	}
+	# We have good reason to believe they're no threat to us
+	if = {
+		limit = {
+			OR = {
+				# They love us!
+				reverse_opinion = { target = scope:fearee value >= 50 }
+			}
+			# We think about this stuff rationally
+			ai_rationality >= ai_vengefulness
+			# Sanity check, we should absolutely be afraid of anyone we KNOW is out to get us
+			NOT = {
+				scope:fearee = {
+					any_scheme = {
+						is_hostile = yes
+						is_scheme_exposed = yes
+						target_character = scope:temp_fearer
+					}
+				}
+			}
+		}
+		multiply = 0
+	}
+	# They're harmless
+	if = {
+		limit = {
+			scope:fearee = {
+				OR = {
+					is_alive = no
+					is_incapable = yes
+					is_imprisoned = yes
+				}
+			}
+		}
+		multiply = 0
+	}
+}
+
+ai_bill_cooldown = {
+	value = 1265
+	if = {
+		limit = { ai_energy >= very_high_positive_ai_value }
+		subtract = 900
+	}
+	else_if = {
+		limit = { ai_energy >= high_positive_ai_value }
+		subtract = 720
+	}
+	else_if = {
+		limit = { ai_energy >= medium_positive_ai_value }
+		subtract = 540
+	}
+	else_if = {
+		limit = { ai_energy >= low_positive_ai_value }
+		subtract = 360
+	}
+	else_if = {
+		limit = { ai_energy >= very_low_positive_ai_value }
+		subtract = 180
+	}
+	else_if = {
+		limit = { ai_energy <= very_high_negative_ai_value }
+		add = 900
+	}
+	else_if = {
+		limit = { ai_energy <= high_negative_ai_value }
+		add = 720
+	}
+	else_if = {
+		limit = { ai_energy <= medium_negative_ai_value }
+		add = 540
+	}
+	else_if = {
+		limit = { ai_energy <= low_negative_ai_value }
+		add = 360
+	}
+	else_if = {
+		limit = { ai_energy <= very_low_negative_ai_value }
+		add = 180
+	}
+}

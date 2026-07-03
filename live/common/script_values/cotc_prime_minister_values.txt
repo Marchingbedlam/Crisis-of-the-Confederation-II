@@ -1,0 +1,353 @@
+﻿# This is used to calculate the "default" popularity of a prime minister
+prime_minister_score = {
+	value = legislative_seniority
+	multiply = {
+		value = 0
+		liege = {
+			every_held_title = {
+				limit = { has_variable = legislature }
+				var:legislature ?= {
+					every_in_list = {
+						variable = legislators
+						limit = { faith = { this = ROOT.faith } }
+						add = 1
+					}
+				}
+			}
+		}
+	}
+	# Prime ministers should actually be associated with the legislature and able to pass bills
+	if = {
+		limit = {
+			save_temporary_scope_as = pm_candidate
+			NOT = {
+				liege = {
+					any_held_title = {
+						has_variable = legislature
+						var:legislature ?= {
+							OR = {
+								situation_participant_group:head_of_government = { any_situation_group_participant = { this = scope:pm_candidate } }
+								situation_participant_group:vassals = { any_situation_group_participant = { this = scope:pm_candidate } }
+							}
+						}
+					}
+				}
+			}
+		}
+		multiply = 0
+	}
+}
+total_supporters_that_care_about_qualifications = {
+	value = 0
+	if = {
+		limit = { NOT = { exists = scope:activity } }
+		save_temporary_scope_as = activity
+	}
+	every_guest_subset = {
+		name = bill_supporters
+		limit = { legislator_cares_about_qualifications_trigger = yes }
+		add = 1
+	}
+}
+total_opponents_that_care_about_qualifications = {
+	value = 0
+	if = {
+		limit = { NOT = { exists = scope:activity } }
+		save_temporary_scope_as = activity
+	}
+	every_guest_subset = {
+		name = bill_opponents
+		limit = { legislator_cares_about_qualifications_trigger = yes }
+		add = 1
+	}
+}
+total_undecideds_that_care_about_qualifications = {
+	value = 0
+	if = {
+		limit = { NOT = { exists = scope:activity } }
+		save_temporary_scope_as = activity
+	}
+	every_guest_subset = {
+		name = undecideds
+		limit = { legislator_cares_about_qualifications_trigger = yes }
+		add = 1
+	}
+}
+total_legislators_that_care_about_qualifications = {
+	value = total_supporters_that_care_about_qualifications
+	add = total_opponents_that_care_about_qualifications
+	add = total_undecideds_that_care_about_qualifications
+}
+total_supporters_that_care_about_ideology = {
+	value = 0
+	if = {
+		limit = { NOT = { exists = scope:activity } }
+		save_temporary_scope_as = activity
+	}
+	every_guest_subset = {
+		name = bill_supporters
+		limit = { legislator_cares_about_ideology_trigger = yes }
+		add = 1
+	}
+}
+total_opponents_that_care_about_ideology = {
+	value = 0
+	if = {
+		limit = { NOT = { exists = scope:activity } }
+		save_temporary_scope_as = activity
+	}
+	every_guest_subset = {
+		name = bill_opponents
+		limit = { legislator_cares_about_ideology_trigger = yes }
+		add = 1
+	}
+}
+total_undecideds_that_care_about_ideology = {
+	value = 0
+	if = {
+		limit = { NOT = { exists = scope:activity } }
+		save_temporary_scope_as = activity
+	}
+	every_guest_subset = {
+		name = undecideds
+		limit = { legislator_cares_about_ideology_trigger = yes }
+		add = 1
+	}
+}
+total_legislators_that_care_about_ideology = {
+	value = total_supporters_that_care_about_ideology
+	add = total_opponents_that_care_about_ideology
+	add = total_undecideds_that_care_about_ideology
+}
+total_supporters_that_care_about_purity = {
+	value = 0
+	if = {
+		limit = { NOT = { exists = scope:activity } }
+		save_temporary_scope_as = activity
+	}
+	every_guest_subset = {
+		name = bill_supporters
+		limit = {
+			legislator_cares_about_ideology_trigger = yes
+			faith = scope:activity.activity_host.faith
+		}
+		add = 1
+	}
+}
+total_opponents_that_care_about_purity = {
+	value = 0
+	if = {
+		limit = { NOT = { exists = scope:activity } }
+		save_temporary_scope_as = activity
+	}
+	every_guest_subset = {
+		name = bill_opponents
+		limit = {
+			legislator_cares_about_ideology_trigger = yes
+			faith = scope:activity.activity_host.faith
+		}
+		add = 1
+	}
+}
+total_undecideds_that_care_about_purity = {
+	value = 0
+	if = {
+		limit = { NOT = { exists = scope:activity } }
+		save_temporary_scope_as = activity
+	}
+	every_guest_subset = {
+		name = undecideds
+		limit = {
+			legislator_cares_about_ideology_trigger = yes
+			faith = scope:activity.activity_host.faith
+		}
+		add = 1
+	}
+}
+total_legislators_that_care_about_purity = {
+	value = total_supporters_that_care_about_purity
+	add = total_opponents_that_care_about_purity
+	add = total_undecideds_that_care_about_purity
+}
+total_supporters_that_care_about_loyalty = {
+	value = 0
+	if = {
+		limit = { NOT = { exists = scope:activity } }
+		save_temporary_scope_as = activity
+	}
+	every_guest_subset = {
+		name = bill_supporters
+		limit = { legislator_cares_about_loyalty_trigger = yes }
+		add = 1
+	}
+}
+total_opponents_that_care_about_loyalty = {
+	value = 0
+	if = {
+		limit = { NOT = { exists = scope:activity } }
+		save_temporary_scope_as = activity
+	}
+	every_guest_subset = {
+		name = bill_opponents
+		limit = { legislator_cares_about_loyalty_trigger = yes }
+		add = 1
+	}
+}
+total_undecideds_that_care_about_loyalty = {
+	value = 0
+	if = {
+		limit = { NOT = { exists = scope:activity } }
+		save_temporary_scope_as = activity
+	}
+	every_guest_subset = {
+		name = undecideds
+		limit = { legislator_cares_about_loyalty_trigger = yes }
+		add = 1
+	}
+}
+total_legislators_that_care_about_loyalty = {
+	value = total_supporters_that_care_about_loyalty
+	add = total_opponents_that_care_about_loyalty
+	add = total_undecideds_that_care_about_loyalty
+}
+total_supporters_that_care_about_ethics = {
+	value = 0
+	if = {
+		limit = { NOT = { exists = scope:activity } }
+		save_temporary_scope_as = activity
+	}
+	every_guest_subset = {
+		name = bill_supporters
+		limit = { legislator_cares_about_ethics_trigger = yes }
+		add = 1
+	}
+}
+total_opponents_that_care_about_ethics = {
+	value = 0
+	if = {
+		limit = { NOT = { exists = scope:activity } }
+		save_temporary_scope_as = activity
+	}
+	every_guest_subset = {
+		name = bill_opponents
+		limit = { legislator_cares_about_ethics_trigger = yes }
+		add = 1
+	}
+}
+total_undecideds_that_care_about_ethics = {
+	value = 0
+	if = {
+		limit = { NOT = { exists = scope:activity } }
+		save_temporary_scope_as = activity
+	}
+	every_guest_subset = {
+		name = undecideds
+		limit = { legislator_cares_about_ethics_trigger = yes }
+		add = 1
+	}
+}
+total_legislators_that_care_about_ethics = {
+	value = total_supporters_that_care_about_ethics
+	add = total_opponents_that_care_about_ethics
+	add = total_undecideds_that_care_about_ethics
+}
+total_supporters_that_care_about_known_crime = {
+	value = 0
+	if = {
+		limit = { NOT = { exists = scope:activity } }
+		save_temporary_scope_as = activity
+	}
+	every_guest_subset = {
+		name = bill_supporters
+		limit = {
+			legislator_cares_about_ethics_trigger = yes
+			cares_about_crime_trigger = { CHARACTER = scope:opponent }
+		}
+		add = 1
+	}
+}
+total_opponents_that_care_about_known_crime = {
+	value = 0
+	if = {
+		limit = { NOT = { exists = scope:activity } }
+		save_temporary_scope_as = activity
+	}
+	every_guest_subset = {
+		name = bill_opponents
+		limit = {
+			legislator_cares_about_ethics_trigger = yes
+			cares_about_crime_trigger = { CHARACTER = scope:opponent }
+		}
+		add = 1
+	}
+}
+total_undecideds_that_care_about_known_crime = {
+	value = 0
+	if = {
+		limit = { NOT = { exists = scope:activity } }
+		save_temporary_scope_as = activity
+	}
+	every_guest_subset = {
+		name = undecideds
+		limit = {
+			legislator_cares_about_ethics_trigger = yes
+			cares_about_crime_trigger = { CHARACTER = scope:opponent }
+		}
+		add = 1
+	}
+}
+total_legislators_that_care_about_known_crime = {
+	value = total_supporters_that_care_about_known_crime
+	add = total_opponents_that_care_about_known_crime
+	add = total_undecideds_that_care_about_known_crime
+}
+total_supporters_that_care_about_secret_crime = {
+	value = 0
+	if = {
+		limit = { NOT = { exists = scope:activity } }
+		save_temporary_scope_as = activity
+	}
+	every_guest_subset = {
+		name = bill_supporters
+		limit = {
+			legislator_cares_about_ethics_trigger = yes
+			scope:criminal_secret = { is_shunned_or_criminal_for = PREV }
+		}
+		add = 1
+	}
+}
+total_opponents_that_care_about_secret_crime = {
+	value = 0
+	if = {
+		limit = { NOT = { exists = scope:activity } }
+		save_temporary_scope_as = activity
+	}
+	every_guest_subset = {
+		name = bill_opponents
+		limit = {
+			legislator_cares_about_ethics_trigger = yes
+			scope:criminal_secret = { is_shunned_or_criminal_for = PREV }
+		}
+		add = 1
+	}
+}
+total_undecideds_that_care_about_secret_crime = {
+	value = 0
+	if = {
+		limit = { NOT = { exists = scope:activity } }
+		save_temporary_scope_as = activity
+	}
+	every_guest_subset = {
+		name = undecideds
+		limit = {
+			legislator_cares_about_ethics_trigger = yes
+			scope:criminal_secret = { is_shunned_or_criminal_for = PREV }
+		}
+		add = 1
+	}
+}
+total_legislators_that_care_about_secret_crime = {
+	value = total_supporters_that_care_about_secret_crime
+	add = total_opponents_that_care_about_secret_crime
+	add = total_undecideds_that_care_about_secret_crime
+}

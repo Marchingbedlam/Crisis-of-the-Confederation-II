@@ -967,12 +967,7 @@ can_be_activity_guest = {
 				}
 			}
 		}
-		scope:host.involved_activity.activity_location.county.holder ?= {
-			OR = {
-				this = root.liege
-				any_liege_or_above = { this = root.liege }
-			}
-		}
+		scope:host.top_liege = ROOT.top_liege
 	}
 }
 

@@ -1,0 +1,12 @@
+﻿should_be_federal_territory_trigger = {
+	primary_title = { save_temporary_scope_as = temp_primary_title }
+	$LIEGE$ = {
+		any_held_title = {
+			has_variable_list = federal_titles
+			any_in_list ?= {
+				variable = federal_titles
+				is_de_jure_liege_or_above_target = scope:temp_primary_title
+			}
+		}
+	}
+}

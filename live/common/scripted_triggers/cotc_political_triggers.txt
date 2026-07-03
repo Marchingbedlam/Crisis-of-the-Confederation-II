@@ -1,6 +1,51 @@
-﻿succession_law_allows_campaigning_trigger = {
+﻿is_interested_in_politics_trigger = {
+	NOT = { has_trait = content }
+}
+wants_to_be_prime_minister_trigger = {
+	is_interested_in_politics_trigger = yes
+	is_ai = no # Placeholder for now, will later be tied to political schemes
+}
+
+succession_law_allows_campaigning_trigger = {
 	OR = {
 		has_realm_law = popular_elective_succession_law
+	}
+}
+
+character_is_incumbent_in_title = {
+	trigger_if = {
+		limit = { $TITLE$ = { tier = tier_barony } }
+		OR = {
+			$CHARACTER$ = { var:riding ?= { this = $TITLE$.county } }
+			$CHARACTER$ = { var:riding ?= { this = $TITLE$.duchy } }
+			$TITLE$ = { holder ?= { this = $CHARACTER$ } }
+			$TITLE$ = { holder ?= { any_liege_or_above = { this = $CHARACTER$ } } }
+		}
+	}
+	trigger_else_if = {
+		limit = { $TITLE$ = { tier = tier_county } }
+		OR = {
+			$CHARACTER$ = { var:riding ?= { this = $TITLE$ } }
+			$CHARACTER$ = { var:riding ?= { this = $TITLE$.duchy } }
+			$TITLE$ = { any_county_province ?= { province_owner = $CHARACTER$ } }
+			$TITLE$ = { holder ?= { any_liege_or_above ?= { this = $CHARACTER$ } } }
+		}
+	}
+	trigger_else_if = {
+		limit = { $TITLE$ = { tier = tier_duchy } }
+		OR = {
+			$CHARACTER$ = { var:riding ?= { this = $TITLE$ } }
+			$CHARACTER$ = { var:legislature ?= { var:legislature_title ?= { this = $TITLE$ } } }
+			$TITLE$ = { holder ?= { this = $CHARACTER$ } }
+			$TITLE$ = { holder ?= { any_liege_or_above = { this = $CHARACTER$ } } }
+		}
+	}
+	trigger_else = {
+		OR = {
+			$CHARACTER$ = { var:legislature ?= { var:legislature_title ?= { this = $TITLE$ } } }
+			$TITLE$ = { holder ?= { this = $CHARACTER$ } }
+			$TITLE$ = { holder ?= { any_liege_or_above = { this = $CHARACTER$ } } }
+		}
 	}
 }
 
@@ -9,14 +54,39 @@ valid_political_campaign_province_trigger = {
 		OR = {
 			AND = {
 				succession_law_allows_campaigning_trigger = yes
-				any_held_title = { any_title_heir = scope:host }
+				any_held_title = { any_title_heir = { this = scope:host } }
 			}
 			any_liege_or_above = {
 				AND = {
 					succession_law_allows_campaigning_trigger = yes
-					any_held_title = { any_title_heir = scope:host }
+					any_held_title = { any_title_heir = { this = scope:host } }
 				}
 			}
 		}
 	}
+}
+
+cares_about_crime_trigger = {
+	has_any_shunned_or_criminal_trait_in_faith_trigger = { CHARACTER = $CHARACTER$ FAITH = this.faith }
+}
+
+is_taxable_military_vassal_of = {
+	liege = { this = $LIEGE$ }
+	government_has_flag = government_is_military
+	vassal_contract_has_flag = has_provincial_taxes
+}
+is_taxable_commercial_vassal_of = {
+	liege = { this = $LIEGE$ }
+	government_has_flag = government_is_commercial
+	vassal_contract_has_flag = has_provincial_taxes
+}
+is_taxable_technocratic_vassal_of = {
+	liege = { this = $LIEGE$ }
+	government_has_flag = government_is_technocratic
+	vassal_contract_has_flag = has_provincial_taxes
+}
+is_taxable_theocratic_vassal_of = {
+	liege = { this = $LIEGE$ }
+	government_has_flag = government_is_theocratic
+	vassal_contract_has_flag = has_provincial_taxes
 }

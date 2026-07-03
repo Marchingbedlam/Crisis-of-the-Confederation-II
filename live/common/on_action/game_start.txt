@@ -534,21 +534,6 @@ on_game_start_after_lobby = {
 				add_innovation = innovation_ghilman
 			}
 		}
-		# Custom ruler under the HRE should have lowered feudal obligations
-		if = {
-			limit = { exists = title:e_hre.holder }
-			title:e_hre.holder = {
-				every_vassal = {
-					limit = {
-						is_ai = no
-						vassal_contract_has_modifiable_obligations = yes
-					}
-					vassal_contract_decrease_obligation_level = feudal_government_taxes
-					vassal_contract_decrease_obligation_level = feudal_government_levies
-					set_vassal_contract_modification_blocked = no
-				}
-			}
-		}
 		### CE1 LEGITIMACY SETUP ###
 		every_ruler = {
 			limit = {
@@ -585,67 +570,6 @@ on_game_start_after_lobby = {
 			every_courtier_or_guest = {
 				limit = { is_lowborn = yes }
 				generate_family_name_effect = yes
-			}
-		}
-		
-		# Assign a random prime minister to every parliamentary government that doesn't have one
-		every_ruler = {
-			limit = {
-				tier >= tier_county
-				government_has_flag = government_is_parliamentary
-				NOT = { has_diarchy_active_parameter = diarchy_is_primeministership }
-			}
-			appoint_random_prime_minister_effect = yes
-		}
-
-		# TGP China education track switch
-
-		if = {
-			limit = {
-				exists = title:h_china.holder
-			}
-			title:h_china.holder = {
-				add_to_list = realm_potential_education_flip_list
-			}
-		}
-		if = {
-			limit = {
-				exists = title:e_goryeo.holder
-			}
-			title:e_goryeo.holder = {
-				add_to_list = realm_potential_education_flip_list
-			}
-		}
-		if = {
-			limit = {
-				exists = title:k_dali.holder
-			}
-			title:k_dali.holder = {
-				add_to_list = realm_potential_education_flip_list
-			}
-		}
-		if = {
-			limit = {
-				exists = title:k_viet.holder
-			}
-			title:k_viet.holder = {
-				add_to_list = realm_potential_education_flip_list
-			}
-		}
-		if = {
-			limit = {
-				exists = title:k_xia.holder
-			}
-			title:k_xia.holder = {
-				add_to_list = realm_potential_education_flip_list
-			}
-		}
-		if = {
-			limit = {
-				exists = title:e_andong.holder
-			}
-			title:e_andong.holder = {
-				add_to_list = realm_potential_education_flip_list
 			}
 		}
 

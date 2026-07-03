@@ -1,10 +1,27 @@
-﻿despotic_democratic_military_government = {
+﻿despotic_federal_military_government = {
 	government_rules = {
 		administrative = yes # So that you can participate in elections
 		create_cadet_branches = yes
 		noble_families = yes
 		house_aspirations = yes
+		use_as_base_on_rank_up = yes
+		disable_regnal_numbers = yes
 	}
+	can_get_government = { highest_held_title_tier >= tier_duchy } # Federations need to be a higher tier than their member-states!
+	compatible_government_type_succession = {
+		dictatorial_federal_military_government
+		presidential_federal_military_government
+		parliamentary_federal_military_government
+		despotic_democratic_military_government
+		dictatorial_democratic_military_government
+		presidential_democratic_military_government
+		parliamentary_democratic_military_government
+		despotic_aristocratic_military_government
+		dictatorial_aristocratic_military_government
+		presidential_aristocratic_military_government
+		parliamentary_aristocratic_military_government
+	}
+	
 	mechanic_type = feudal
 	
 	primary_holding = castle_holding
@@ -13,7 +30,7 @@
 	
 	royal_court = any
 	
-	vassal_contract_group = celestial_vassal
+	vassal_contract_group = feudal_vassal
 	
 	domicile_type = estate
 	
@@ -27,26 +44,26 @@
 	
 	ai = { use_great_projects = yes }
 	
-	color = hsv{ 0.1 1 0.2 }
+	color = hsv{ 0.1 0.5 0.4 }
 	realm_mask_offset = { 0.0 0.01 }
 	realm_mask_scale = { 1 1 }
 	
 	flags = {
 		# COTC Government Mechanics
+		government_is_state
 		government_is_military
-		government_is_democratic
+		government_is_federal
 		government_is_despotic
 		
 		# Vanilla Government Mechanics
 		government_is_republic
 		government_is_settled
-		government_uses_crown_authority
 		government_has_powerful_families
 		government_uses_domicile_but_not_adventurer
 		government_uses_domain_limit
 	}
 }
-dictatorial_aristocratic_military_government = {
+dictatorial_federal_military_government = {
 	government_rules = {
 		create_cadet_branches = yes
 		administrative = yes
@@ -56,7 +73,24 @@ dictatorial_aristocratic_military_government = {
 		noble_families = yes
 		house_aspirations = yes
 		replace_gold_cost_by_treasury = yes
+		use_as_base_on_rank_up = yes
+		disable_regnal_numbers = yes
 	}
+	can_get_government = { highest_held_title_tier >= tier_duchy } # Federations need to be a higher tier than their member-states!
+	compatible_government_type_succession = {
+		despotic_federal_military_government
+		presidential_federal_military_government
+		parliamentary_federal_military_government
+		despotic_democratic_military_government
+		dictatorial_democratic_military_government
+		presidential_democratic_military_government
+		parliamentary_democratic_military_government
+		despotic_aristocratic_military_government
+		dictatorial_aristocratic_military_government
+		presidential_aristocratic_military_government
+		parliamentary_aristocratic_military_government
+	}
+	
 	mechanic_type = administrative
 	
 	primary_holding = castle_holding
@@ -65,7 +99,7 @@ dictatorial_aristocratic_military_government = {
 	
 	royal_court = any
 	
-	vassal_contract_group = celestial_vassal
+	vassal_contract_group = military_province
 	
 	domicile_type = estate
 	
@@ -83,9 +117,6 @@ dictatorial_aristocratic_military_government = {
 		title_creation_cost_mult = -0.5
 		mercenary_hire_cost_mult = 2
 		men_at_arms_maintenance = 0.5
-
-		# Vassals get Treasury income that is this percentage less than their taxes to their liege
-		monthly_treasury_from_liege_mult = -0.15
 		
 		# City Penalties
 		city_holding_build_speed = -0.5
@@ -103,12 +134,343 @@ dictatorial_aristocratic_military_government = {
 	
 	ai = { use_great_projects = yes }
 	
-	color = hsv{ 0 1 0.4 }
+	color = hsv{ 0.1 0.5 0.6 }
 	realm_mask_offset = { 0.0 0.01 }
 	realm_mask_scale = { 1 1 }
 	
 	flags = {
 		# COTC Government Mechanics
+		government_is_state
+		government_is_military
+		government_is_federal
+		government_is_dictatorial
+		
+		# Vanilla Government Mechanics
+		government_is_republic
+		government_is_settled
+		government_has_influence
+		government_has_treasury
+		government_has_title_men_at_arms
+		government_has_powerful_families
+		government_is_settled
+		government_uses_domicile_but_not_adventurer
+		government_uses_domain_limit
+		government_uses_admin_province_obligations
+	}
+}
+presidential_federal_military_government = {
+	government_rules = {
+		create_cadet_branches = yes
+		administrative = yes
+		landless_playable = yes
+		treasury = yes
+		sticky_government = yes
+		noble_families = yes
+		house_aspirations = yes
+		replace_gold_cost_by_treasury = yes
+		use_as_base_on_rank_up = yes
+		disable_regnal_numbers = yes
+	}
+	can_get_government = { highest_held_title_tier >= tier_duchy } # Federations need to be a higher tier than their member-states!
+	compatible_government_type_succession = {
+		despotic_federal_military_government
+		dictatorial_federal_military_government
+		parliamentary_federal_military_government
+		despotic_democratic_military_government
+		dictatorial_democratic_military_government
+		presidential_democratic_military_government
+		parliamentary_democratic_military_government
+		despotic_aristocratic_military_government
+		dictatorial_aristocratic_military_government
+		presidential_aristocratic_military_government
+		parliamentary_aristocratic_military_government
+	}
+	
+	mechanic_type = administrative
+	
+	primary_holding = castle_holding
+	valid_holdings = { city_holding temple_citadel_holding }
+	required_county_holdings = { castle_holding city_holding church_holding }
+	
+	royal_court = none
+	
+	vassal_contract_group = military_province
+	
+	domicile_type = estate
+	
+	character_modifier = {
+		levy_size = -0.5
+		feudal_government_tax_contribution_mult = -0.5
+		feudal_government_levy_contribution_mult = -0.5
+		clan_government_tax_contribution_mult = -0.5
+		clan_government_levy_contribution_mult = -0.5
+		men_at_arms_cap = -2
+		men_at_arms_limit = -2
+		knight_limit = -5
+		vassal_limit = 100
+		active_accolades = -1
+		title_creation_cost_mult = -0.5
+		mercenary_hire_cost_mult = 2
+		men_at_arms_maintenance = 0.5
+		
+		# City Penalties
+		city_holding_build_speed = -0.5
+		city_holding_build_gold_cost = 0.5
+		city_holding_build_piety_cost = 0.5
+		city_holding_build_prestige_cost = 0.5
+		
+		# Member-states like autonomy!
+		tributary_opinion = 25
+	}
+
+	top_liege_character_modifier = {
+		# 85% of vassal income goes to the treasury
+		monthly_treasury_from_vassals = 0.85
+		men_at_arms_maintenance = 1.5
+		men_at_arms_recruitment_cost = 1
+	}
+	
+	ai = { use_great_projects = yes }
+	
+	color = hsv{ 0.1 0.5 0.8 }
+	realm_mask_offset = { 0.0 0.01 }
+	realm_mask_scale = { 1 1 }
+	
+	flags = {
+		# COTC Government Mechanics
+		government_is_state
+		government_is_military
+		government_is_federal
+		government_is_presidential
+		government_has_legislature
+		
+		# Vanilla Government Mechanics
+		government_is_republic
+		government_is_settled
+		government_has_influence
+		government_has_treasury
+		government_has_title_men_at_arms
+		government_has_powerful_families
+		government_is_settled
+		government_uses_domicile_but_not_adventurer
+		government_uses_domain_limit
+		government_uses_admin_province_obligations
+	}
+}
+parliamentary_federal_military_government = {
+	government_rules = {
+		create_cadet_branches = yes
+		administrative = yes
+		landless_playable = yes
+		treasury = yes
+		sticky_government = yes
+		noble_families = yes
+		house_aspirations = yes
+		replace_gold_cost_by_treasury = yes
+		use_as_base_on_rank_up = yes
+		disable_regnal_numbers = yes
+	}
+	can_get_government = { highest_held_title_tier >= tier_duchy } # Federations need to be a higher tier than their member-states!
+	compatible_government_type_succession = {
+		despotic_federal_military_government
+		dictatorial_federal_military_government
+		presidential_federal_military_government
+		despotic_democratic_military_government
+		dictatorial_democratic_military_government
+		presidential_democratic_military_government
+		parliamentary_democratic_military_government
+		despotic_aristocratic_military_government
+		dictatorial_aristocratic_military_government
+		presidential_aristocratic_military_government
+		parliamentary_aristocratic_military_government
+	}
+	
+	mechanic_type = administrative
+	
+	primary_holding = castle_holding
+	valid_holdings = { city_holding temple_citadel_holding }
+	required_county_holdings = { castle_holding city_holding church_holding }
+	
+	royal_court = none
+	
+	vassal_contract_group = military_province
+	
+	domicile_type = estate
+	
+	character_modifier = {
+		levy_size = -0.5
+		feudal_government_tax_contribution_mult = -0.5
+		feudal_government_levy_contribution_mult = -0.5
+		clan_government_tax_contribution_mult = -0.5
+		clan_government_levy_contribution_mult = -0.5
+		men_at_arms_cap = -2
+		men_at_arms_limit = -2
+		knight_limit = -5
+		vassal_limit = 100
+		active_accolades = -1
+		title_creation_cost_mult = -0.5
+		mercenary_hire_cost_mult = 2
+		men_at_arms_maintenance = 0.5
+		
+		# City Penalties
+		city_holding_build_speed = -0.5
+		city_holding_build_gold_cost = 0.5
+		city_holding_build_piety_cost = 0.5
+		city_holding_build_prestige_cost = 0.5
+	}
+
+	top_liege_character_modifier = {
+		# 85% of vassal income goes to the treasury
+		monthly_treasury_from_vassals = 0.85
+		men_at_arms_maintenance = 1.5
+		men_at_arms_recruitment_cost = 1
+	}
+	
+	ai = { use_great_projects = yes }
+	
+	color = hsv{ 0.1 0.5 1 }
+	realm_mask_offset = { 0.0 0.01 }
+	realm_mask_scale = { 1 1 }
+	
+	flags = {
+		# COTC Government Mechanics
+		government_is_state
+		government_is_military
+		government_is_federal
+		government_is_parliamentary
+		government_has_legislature
+		
+		# Vanilla Government Mechanics
+		government_is_republic
+		government_is_settled
+		government_has_influence
+		government_has_treasury
+		government_has_title_men_at_arms
+		government_has_powerful_families
+		government_is_settled
+		government_uses_domicile_but_not_adventurer
+		government_uses_domain_limit
+		government_uses_admin_province_obligations
+	}
+}
+despotic_democratic_military_government = {
+	government_rules = {
+		administrative = yes # So that you can participate in elections
+		create_cadet_branches = yes
+		noble_families = yes
+		house_aspirations = yes
+		disable_regnal_numbers = yes
+	}
+	mechanic_type = feudal
+	
+	primary_holding = castle_holding
+	valid_holdings = { city_holding temple_citadel_holding }
+	required_county_holdings = { castle_holding city_holding church_holding }
+	
+	royal_court = any
+	
+	vassal_contract_group = feudal_vassal
+	
+	domicile_type = estate
+	
+	character_modifier = {
+		# City Penalties
+		city_holding_build_speed = -0.5
+		city_holding_build_gold_cost = 0.5
+		city_holding_build_piety_cost = 0.5
+		city_holding_build_prestige_cost = 0.5
+		
+		# People like democracy!
+		county_opinion_add = 10
+	}
+	
+	ai = { use_great_projects = yes }
+	
+	color = hsv{ 0.1 1 0.4 }
+	realm_mask_offset = { 0.0 0.01 }
+	realm_mask_scale = { 1 1 }
+	
+	flags = {
+		# COTC Government Mechanics
+		government_is_state
+		government_is_military
+		government_is_democratic
+		government_is_despotic
+		
+		# Vanilla Government Mechanics
+		government_is_republic
+		government_is_settled
+		government_uses_crown_authority
+		government_has_powerful_families
+		government_uses_domicile_but_not_adventurer
+		government_uses_domain_limit
+	}
+}
+dictatorial_democratic_military_government = {
+	government_rules = {
+		create_cadet_branches = yes
+		administrative = yes
+		landless_playable = yes
+		treasury = yes
+		sticky_government = yes
+		noble_families = yes
+		house_aspirations = yes
+		replace_gold_cost_by_treasury = yes
+		disable_regnal_numbers = yes
+	}
+	mechanic_type = administrative
+	
+	primary_holding = castle_holding
+	valid_holdings = { city_holding temple_citadel_holding }
+	required_county_holdings = { castle_holding city_holding church_holding }
+	
+	royal_court = any
+	
+	vassal_contract_group = military_province
+	
+	domicile_type = estate
+	
+	character_modifier = {
+		levy_size = -0.5
+		feudal_government_tax_contribution_mult = -0.5
+		feudal_government_levy_contribution_mult = -0.5
+		clan_government_tax_contribution_mult = -0.5
+		clan_government_levy_contribution_mult = -0.5
+		men_at_arms_cap = -2
+		men_at_arms_limit = -2
+		knight_limit = -5
+		vassal_limit = 100
+		active_accolades = -1
+		title_creation_cost_mult = -0.5
+		mercenary_hire_cost_mult = 2
+		men_at_arms_maintenance = 0.5
+		
+		# City Penalties
+		city_holding_build_speed = -0.5
+		city_holding_build_gold_cost = 0.5
+		city_holding_build_piety_cost = 0.5
+		city_holding_build_prestige_cost = 0.5
+		
+		# People like democracy!
+		county_opinion_add = 10
+	}
+
+	top_liege_character_modifier = {
+		# 85% of vassal income goes to the treasury
+		monthly_treasury_from_vassals = 0.85
+		men_at_arms_maintenance = 1.5
+		men_at_arms_recruitment_cost = 1
+	}
+	
+	ai = { use_great_projects = yes }
+	
+	color = hsv{ 0.1 1 0.6 }
+	realm_mask_offset = { 0.0 0.01 }
+	realm_mask_scale = { 1 1 }
+	
+	flags = {
+		# COTC Government Mechanics
+		government_is_state
 		government_is_military
 		government_is_democratic
 		government_is_dictatorial
@@ -137,6 +499,7 @@ presidential_democratic_military_government = {
 		noble_families = yes
 		house_aspirations = yes
 		replace_gold_cost_by_treasury = yes
+		disable_regnal_numbers = yes
 	}
 	mechanic_type = administrative
 	
@@ -146,7 +509,7 @@ presidential_democratic_military_government = {
 	
 	royal_court = none
 	
-	vassal_contract_group = celestial_vassal
+	vassal_contract_group = military_province
 	
 	domicile_type = estate
 	
@@ -164,15 +527,15 @@ presidential_democratic_military_government = {
 		title_creation_cost_mult = -0.5
 		mercenary_hire_cost_mult = 2
 		men_at_arms_maintenance = 0.5
-
-		# Vassals get Treasury income that is this percentage less than their taxes to their liege
-		monthly_treasury_from_liege_mult = -0.15
 		
 		# City Penalties
 		city_holding_build_speed = -0.5
 		city_holding_build_gold_cost = 0.5
 		city_holding_build_piety_cost = 0.5
 		city_holding_build_prestige_cost = 0.5
+		
+		# People like democracy!
+		county_opinion_add = 25
 	}
 
 	top_liege_character_modifier = {
@@ -184,12 +547,13 @@ presidential_democratic_military_government = {
 	
 	ai = { use_great_projects = yes }
 	
-	color = hsv{ 0.1 1 0.6 }
+	color = hsv{ 0.1 1 0.8 }
 	realm_mask_offset = { 0.0 0.01 }
 	realm_mask_scale = { 1 1 }
 	
 	flags = {
 		# COTC Government Mechanics
+		government_is_state
 		government_is_military
 		government_is_democratic
 		government_is_presidential
@@ -219,6 +583,7 @@ parliamentary_democratic_military_government = {
 		noble_families = yes
 		house_aspirations = yes
 		replace_gold_cost_by_treasury = yes
+		disable_regnal_numbers = yes
 	}
 	mechanic_type = administrative
 	
@@ -228,7 +593,7 @@ parliamentary_democratic_military_government = {
 	
 	royal_court = none
 	
-	vassal_contract_group = celestial_vassal
+	vassal_contract_group = military_province
 	
 	domicile_type = estate
 	
@@ -246,15 +611,15 @@ parliamentary_democratic_military_government = {
 		title_creation_cost_mult = -0.5
 		mercenary_hire_cost_mult = 2
 		men_at_arms_maintenance = 0.5
-
-		# Vassals get Treasury income that is this percentage less than their taxes to their liege
-		monthly_treasury_from_liege_mult = -0.15
 		
 		# City Penalties
 		city_holding_build_speed = -0.5
 		city_holding_build_gold_cost = 0.5
 		city_holding_build_piety_cost = 0.5
 		city_holding_build_prestige_cost = 0.5
+		
+		# People like democracy!
+		county_opinion_add = 25
 	}
 
 	top_liege_character_modifier = {
@@ -272,6 +637,7 @@ parliamentary_democratic_military_government = {
 	
 	flags = {
 		# COTC Government Mechanics
+		government_is_state
 		government_is_military
 		government_is_democratic
 		government_is_parliamentary
@@ -323,12 +689,13 @@ despotic_aristocratic_military_government = {
 	
 	ai = { use_great_projects = yes }
 	
-	color = hsv{ 0 1 0.2 }
+	color = hsv{ 0 1 0.4 }
 	realm_mask_offset = { 0.0 0.01 }
 	realm_mask_scale = { 1 1 }
 	
 	flags = {
 		# COTC Government Mechanics
+		government_is_state
 		government_is_military
 		government_is_aristocratic
 		government_is_despotic
@@ -364,7 +731,7 @@ dictatorial_aristocratic_military_government = {
 	
 	royal_court = any
 	
-	vassal_contract_group = celestial_vassal
+	vassal_contract_group = military_province
 	
 	domicile_type = estate
 	
@@ -382,9 +749,6 @@ dictatorial_aristocratic_military_government = {
 		title_creation_cost_mult = -0.5
 		mercenary_hire_cost_mult = 2
 		men_at_arms_maintenance = 0.5
-
-		# Vassals get Treasury income that is this percentage less than their taxes to their liege
-		monthly_treasury_from_liege_mult = -0.15
 		
 		# City Penalties
 		city_holding_build_speed = -0.5
@@ -402,12 +766,13 @@ dictatorial_aristocratic_military_government = {
 	
 	ai = { use_great_projects = yes }
 	
-	color = hsv{ 0 1 0.4 }
+	color = hsv{ 0 1 0.6 }
 	realm_mask_offset = { 0.0 0.01 }
 	realm_mask_scale = { 1 1 }
 	
 	flags = {
 		# COTC Government Mechanics
+		government_is_state
 		government_is_military
 		government_is_aristocratic
 		government_is_dictatorial
@@ -448,7 +813,7 @@ presidential_aristocratic_military_government = {
 	
 	royal_court = none
 	
-	vassal_contract_group = celestial_vassal
+	vassal_contract_group = military_province
 	
 	domicile_type = estate
 	
@@ -466,15 +831,15 @@ presidential_aristocratic_military_government = {
 		title_creation_cost_mult = -0.5
 		mercenary_hire_cost_mult = 2
 		men_at_arms_maintenance = 0.5
-
-		# Vassals get Treasury income that is this percentage less than their taxes to their liege
-		monthly_treasury_from_liege_mult = -0.15
 		
 		# City Penalties
 		city_holding_build_speed = -0.5
 		city_holding_build_gold_cost = 0.5
 		city_holding_build_piety_cost = 0.5
 		city_holding_build_prestige_cost = 0.5
+		
+		# People like democracy!
+		county_opinion_add = 10
 	}
 
 	top_liege_character_modifier = {
@@ -486,12 +851,13 @@ presidential_aristocratic_military_government = {
 	
 	ai = { use_great_projects = yes }
 	
-	color = hsv{ 0 1 0.6 }
+	color = hsv{ 0 1 0.8 }
 	realm_mask_offset = { 0.0 0.01 }
 	realm_mask_scale = { 1 1 }
 	
 	flags = {
 		# COTC Government Mechanics
+		government_is_state
 		government_is_military
 		government_is_aristocratic
 		government_is_presidential
@@ -533,7 +899,7 @@ parliamentary_aristocratic_military_government = {
 	
 	royal_court = none
 	
-	vassal_contract_group = celestial_vassal
+	vassal_contract_group = military_province
 	
 	domicile_type = estate
 	
@@ -551,15 +917,15 @@ parliamentary_aristocratic_military_government = {
 		title_creation_cost_mult = -0.5
 		mercenary_hire_cost_mult = 2
 		men_at_arms_maintenance = 0.5
-
-		# Vassals get Treasury income that is this percentage less than their taxes to their liege
-		monthly_treasury_from_liege_mult = -0.15
 		
 		# City Penalties
 		city_holding_build_speed = -0.5
 		city_holding_build_gold_cost = 0.5
 		city_holding_build_piety_cost = 0.5
 		city_holding_build_prestige_cost = 0.5
+		
+		# People like democracy!
+		county_opinion_add = 25
 	}
 
 	top_liege_character_modifier = {
@@ -577,6 +943,7 @@ parliamentary_aristocratic_military_government = {
 	
 	flags = {
 		# COTC Government Mechanics
+		government_is_state
 		government_is_military
 		government_is_aristocratic
 		government_is_parliamentary

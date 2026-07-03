@@ -1,0 +1,24 @@
+﻿overwhelming_military_strength_threshold = {
+	value = max_military_strength
+	multiply = 5
+}
+superior_military_strength_threshold = {
+	value = max_military_strength
+	multiply = 3
+}
+inferior_military_strength_threshold = {
+	value = max_military_strength
+	divide = 3
+}
+pathetic_military_strength_threshold = {
+	value = max_military_strength
+	divide = 5
+}
+threat_to = {
+	value = 0
+	ai_military_threat_modifier_with_cbs = {
+		SENDER = scope:threat_target
+		RECEIVER = THIS
+		MULTIPLIER = 1
+	}
+}
