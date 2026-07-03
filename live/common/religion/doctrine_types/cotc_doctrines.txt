@@ -1,697 +1,656 @@
 # Gives general information on what kind of ideology this is
-doctrine_ideology_type = {
-	group = "main_group"
-	
-	doctrine_political = {
-		piety_cost = { value = 0 } # Should never be able to change this anyway
-		is_shown = { has_doctrine = political_hostility_doctrine } # Unchangeable
-		can_pick = { has_doctrine = political_hostility_doctrine } # Unchangeable
-		parameters = {
-			secular_administrators = yes
-		}
+doctrine_political = {
+	piety_cost = { value = 0 } # Should never be able to change this anyway
+	is_shown = { has_doctrine = political_hostility_doctrine } # Unchangeable
+	can_pick = { has_doctrine = political_hostility_doctrine } # Unchangeable
+	parameters = {
+		secular_administrators = yes
 	}
-	doctrine_religious = {
-		piety_cost = { value = 0 } # Should never be able to change this anyway
-		is_shown = { has_doctrine = religious_hostility_doctrine } # Unchangeable
-		can_pick = { has_doctrine = religious_hostility_doctrine } # Unchangeable
-		parameters = {
-			religious_administrators = yes
-		}
+}
+doctrine_religious = {
+	piety_cost = { value = 0 } # Should never be able to change this anyway
+	is_shown = { has_doctrine = religious_hostility_doctrine } # Unchangeable
+	can_pick = { has_doctrine = religious_hostility_doctrine } # Unchangeable
+	parameters = {
+		religious_administrators = yes
 	}
-	doctrine_criminal = {
-		piety_cost = { value = 0 } # Should never be able to change this anyway
-		is_shown = { has_doctrine = criminal_hostility_doctrine } # Unchangeable
-		can_pick = { has_doctrine = criminal_hostility_doctrine } # Unchangeable
-		parameters = {
-			secular_administrators = yes
-			doctrine_parameter_sanctioned_assassinations = yes
-			unlock_voluntary_laampdom_faith = yes
-			can_form_crime_syndicates = yes
-		}
-		character_modifier = {
-			monthly_piety_gain_per_dread = 0.03
-		}
+}
+doctrine_criminal = {
+	piety_cost = { value = 0 } # Should never be able to change this anyway
+	is_shown = { has_doctrine = criminal_hostility_doctrine } # Unchangeable
+	can_pick = { has_doctrine = criminal_hostility_doctrine } # Unchangeable
+	parameters = {
+		secular_administrators = yes
+		doctrine_parameter_sanctioned_assassinations = yes
+		unlock_voluntary_laampdom_faith = yes
+		can_form_crime_syndicates = yes
+	}
+	character_modifier = {
+		monthly_piety_gain_per_dread = 0.03
 	}
 }
 
 # These determine which top-level succession laws are allowed
-doctrine_legitimacy = {
-	group = "politics"
-	
-	doctrine_democracy = {
-		piety_cost = {
-			value = faith_doctrine_cost_high
-			if = {
-				limit = { has_doctrine = doctrine_democracy }
-				multiply = faith_unchanged_doctrine_cost_mult
-			}
-		}
-		parameters = {
-			prefers_democracy = yes
-			democratic_revolutions = yes
+doctrine_democracy = {
+	piety_cost = {
+		value = faith_doctrine_cost_high
+		if = {
+			limit = { has_doctrine = doctrine_democracy }
+			multiply = faith_unchanged_doctrine_cost_mult
 		}
 	}
-	doctrine_aristocracy = {
-		piety_cost = {
-			value = faith_doctrine_cost_high
-			if = {
-				limit = { has_doctrine = doctrine_aristocracy }
-				multiply = faith_unchanged_doctrine_cost_mult
-			}
-		}
-		parameters = {
-			prefers_aristocracy = yes
-			aristocratic_revolutions = yes
+	parameters = {
+		prefers_democracy = yes
+		democratic_revolutions = yes
+	}
+}
+doctrine_aristocracy = {
+	piety_cost = {
+		value = faith_doctrine_cost_high
+		if = {
+			limit = { has_doctrine = doctrine_aristocracy }
+			multiply = faith_unchanged_doctrine_cost_mult
 		}
 	}
-	doctrine_meritocracy = {
-		piety_cost = {
-			value = faith_doctrine_cost_high
-			if = {
-				limit = { has_doctrine = doctrine_meritocracy }
-				multiply = faith_unchanged_doctrine_cost_mult
-			}
-		}
-		parameters = {
-			prefers_meritocracy = yes
-			meritocratic_revolutions = yes
+	parameters = {
+		prefers_aristocracy = yes
+		aristocratic_revolutions = yes
+	}
+}
+doctrine_meritocracy = {
+	piety_cost = {
+		value = faith_doctrine_cost_high
+		if = {
+			limit = { has_doctrine = doctrine_meritocracy }
+			multiply = faith_unchanged_doctrine_cost_mult
 		}
 	}
-	doctrine_no_legitimacy = {
-		piety_cost = {
-			value = faith_doctrine_cost_high
-			if = {
-				limit = { has_doctrine = doctrine_no_legitimacy }
-				multiply = faith_unchanged_doctrine_cost_mult
-			}
+	parameters = {
+		prefers_meritocracy = yes
+		meritocratic_revolutions = yes
+	}
+}
+doctrine_no_legitimacy = {
+	piety_cost = {
+		value = faith_doctrine_cost_high
+		if = {
+			limit = { has_doctrine = doctrine_no_legitimacy }
+			multiply = faith_unchanged_doctrine_cost_mult
 		}
-		can_pick = {
-			custom_description = {
-				text = incompatible_doctrine_spacer_values_trigger
-				NOT = { doctrine:tenet_spacer_values = { is_in_list = selected_doctrines } }
-			}
+	}
+	can_pick = {
+		custom_description = {
+			text = incompatible_doctrine_spacer_values_trigger
+			NOT = { doctrine:tenet_spacer_values = { is_in_list = selected_doctrines } }
 		}
-		parameters = {
-			neutral_revolutions = yes
-		}
-		character_modifier = {
-			opinion_of_liege = -20
-		}
+	}
+	parameters = {
+		neutral_revolutions = yes
+	}
+	character_modifier = {
+		opinion_of_liege = -20
 	}
 }
 
 # These determine the "best" holding type; rulers of the chosen type will resent reporting to other types of rulers
-doctrine_power_base = {
-	group = "politics"
-	
-	doctrine_commercial_power = {
-		piety_cost = {
-			value = faith_doctrine_cost_high
-			if = {
-				limit = { has_doctrine = doctrine_commercial_power }
-				multiply = faith_unchanged_doctrine_cost_mult
-			}
-		}
-		parameters = {
-			prefers_commercial_power = yes
-			commercial_revolutions = yes
+doctrine_commercial_power = {
+	piety_cost = {
+		value = faith_doctrine_cost_high
+		if = {
+			limit = { has_doctrine = doctrine_commercial_power }
+			multiply = faith_unchanged_doctrine_cost_mult
 		}
 	}
-	doctrine_military_power = {
-		piety_cost = {
-			value = faith_doctrine_cost_high
-			if = {
-				limit = { has_doctrine = doctrine_military_power }
-				multiply = faith_unchanged_doctrine_cost_mult
-			}
-		}
-		parameters = {
-			prefers_military_power = yes
-			military_revolutions = yes
+	parameters = {
+		prefers_commercial_power = yes
+		commercial_revolutions = yes
+	}
+}
+doctrine_military_power = {
+	piety_cost = {
+		value = faith_doctrine_cost_high
+		if = {
+			limit = { has_doctrine = doctrine_military_power }
+			multiply = faith_unchanged_doctrine_cost_mult
 		}
 	}
-	doctrine_administrative_power = {
-		piety_cost = {
-			value = faith_doctrine_cost_high
-			if = {
-				limit = { has_doctrine = doctrine_administrative_power }
-				multiply = faith_unchanged_doctrine_cost_mult
-			}
+	parameters = {
+		prefers_military_power = yes
+		military_revolutions = yes
+	}
+}
+doctrine_administrative_power = {
+	piety_cost = {
+		value = faith_doctrine_cost_high
+		if = {
+			limit = { has_doctrine = doctrine_administrative_power }
+			multiply = faith_unchanged_doctrine_cost_mult
 		}
-		parameters = {
-			prefers_administrative_power = yes
-			administrative_revolutions = yes
-		}
+	}
+	parameters = {
+		prefers_administrative_power = yes
+		administrative_revolutions = yes
 	}
 }
 
 # This determines how much authority rulers are supposed to have
-doctrine_authority = {
-	group = "politics"
-	
-	# The ruler holds absolute power and there is no distinction between ruler and state
-	doctrine_despotism = {
-		piety_cost = {
-			value = faith_doctrine_cost_mid
-			if = {
-				limit = { has_doctrine = doctrine_despotism }
-				multiply = faith_unchanged_doctrine_cost_mult
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_separation_of_powers }
-				multiply = faith_changed_doctrine_cost_mult_two_step
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_parliamentarianism }
-				multiply = faith_changed_doctrine_cost_mult_three_step
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_anarchism }
-				multiply = faith_changed_doctrine_cost_mult_four_step
-			}
+# The ruler holds absolute power and there is no distinction between ruler and state
+doctrine_despotism = {
+	piety_cost = {
+		value = faith_doctrine_cost_mid
+		if = {
+			limit = { has_doctrine = doctrine_despotism }
+			multiply = faith_unchanged_doctrine_cost_mult
 		}
-		parameters = {
+		else_if = {
+			limit = { has_doctrine = doctrine_separation_of_powers }
+			multiply = faith_changed_doctrine_cost_mult_two_step
+		}
+		else_if = {
+			limit = { has_doctrine = doctrine_parliamentarianism }
+			multiply = faith_changed_doctrine_cost_mult_three_step
+		}
+		else_if = {
+			limit = { has_doctrine = doctrine_anarchism }
+			multiply = faith_changed_doctrine_cost_mult_four_step
+		}
+	}
+	parameters = {
 			prefers_despotism = yes
 			opposes_legislature = yes
 			despotic_revolutions = yes
+	}
+	character_modifier = {
+		tyranny_gain_mult = -0.5
+		direct_vassal_opinion = -10
+		opinion_of_liege = 10
+	}
+}
+# The ruler is a dictator but remains part of a greater legal state
+doctrine_dictatorship = {
+	piety_cost = {
+		value = faith_doctrine_cost_mid
+		if = {
+			limit = { has_doctrine = doctrine_dictatorship }
+			multiply = faith_unchanged_doctrine_cost_mult
 		}
-		character_modifier = {
-			tyranny_gain_mult = -0.5
-			direct_vassal_opinion = -10
-			opinion_of_liege = 10
+		else_if = {
+			limit = { has_doctrine = doctrine_parliamentarianism }
+			multiply = faith_changed_doctrine_cost_mult_two_step
+		}
+		else_if = {
+			limit = { has_doctrine = doctrine_anarchism }
+			multiply = faith_changed_doctrine_cost_mult_three_step
 		}
 	}
-	# The ruler is a dictator but remains part of a greater legal state
-	doctrine_dictatorship = {
-		piety_cost = {
-			value = faith_doctrine_cost_mid
-			if = {
-				limit = { has_doctrine = doctrine_dictatorship }
-				multiply = faith_unchanged_doctrine_cost_mult
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_parliamentarianism }
-				multiply = faith_changed_doctrine_cost_mult_two_step
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_anarchism }
-				multiply = faith_changed_doctrine_cost_mult_three_step
-			}
-		}
-		parameters = {
+	parameters = {
 			prefers_dictatorships = yes
 			opposes_legislature = yes
 			dictatorial_revolutions = yes
+	}
+}
+# The ruler is a co-equal governor with some form of parliament
+doctrine_separation_of_powers = {
+	piety_cost = {
+		value = faith_doctrine_cost_mid
+		if = {
+			limit = { has_doctrine = doctrine_separation_of_powers }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+		else_if = {
+			limit = { has_doctrine = doctrine_despotism }
+			multiply = faith_changed_doctrine_cost_mult_two_step
+		}
+		else_if = {
+			limit = { has_doctrine = doctrine_anarchism }
+			multiply = faith_changed_doctrine_cost_mult_two_step
 		}
 	}
-	# The ruler is a co-equal governor with some form of parliament
-	doctrine_separation_of_powers = {
-		piety_cost = {
-			value = faith_doctrine_cost_mid
-			if = {
-				limit = { has_doctrine = doctrine_separation_of_powers }
-				multiply = faith_unchanged_doctrine_cost_mult
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_despotism }
-				multiply = faith_changed_doctrine_cost_mult_two_step
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_anarchism }
-				multiply = faith_changed_doctrine_cost_mult_two_step
-			}
+	can_pick = {
+		custom_description = {
+			text = incompatible_doctrine_spacer_values_trigger
+			NOT = { doctrine:tenet_spacer_values = { is_in_list = selected_doctrines } }
 		}
-		can_pick = {
-			custom_description = {
-				text = incompatible_doctrine_spacer_values_trigger
-				NOT = { doctrine:tenet_spacer_values = { is_in_list = selected_doctrines } }
-			}
-		}
-		parameters = {
+	}
+	parameters = {
 			prefers_presidential_system = yes
 			supports_legislature = yes
 			presidential_revolutions = yes
+	}
+}
+# The ruler must defer to some form of parliament which votes on important decisions; no one rules alone
+doctrine_parliamentarianism = {
+	piety_cost = {
+		value = faith_doctrine_cost_mid
+		if = {
+			limit = { has_doctrine = doctrine_parliamentarianism }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+		else_if = {
+			limit = { has_doctrine = doctrine_despotism }
+			multiply = faith_changed_doctrine_cost_mult_three_step
+		}
+		else_if = {
+			limit = { has_doctrine = doctrine_dictatorship }
+			multiply = faith_changed_doctrine_cost_mult_two_step
 		}
 	}
-	# The ruler must defer to some form of parliament which votes on important decisions; no one rules alone
-	doctrine_parliamentarianism = {
-		piety_cost = {
-			value = faith_doctrine_cost_mid
-			if = {
-				limit = { has_doctrine = doctrine_parliamentarianism }
-				multiply = faith_unchanged_doctrine_cost_mult
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_despotism }
-				multiply = faith_changed_doctrine_cost_mult_three_step
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_dictatorship }
-				multiply = faith_changed_doctrine_cost_mult_two_step
-			}
+	can_pick = {
+		custom_description = {
+			text = incompatible_doctrine_spacer_values_trigger
+			NOT = { doctrine:tenet_spacer_values = { is_in_list = selected_doctrines } }
 		}
-		can_pick = {
-			custom_description = {
-				text = incompatible_doctrine_spacer_values_trigger
-				NOT = { doctrine:tenet_spacer_values = { is_in_list = selected_doctrines } }
-			}
-		}
-		parameters = {
+	}
+	parameters = {
 			prefers_parliamentary_system = yes
 			supports_legislature = yes
 			parliamentary_revolutions = yes
-		}
-		character_modifier = {
-			tyranny_gain_mult = 0.5
-			direct_vassal_opinion = 10
-			county_opinion = -10
-		}
 	}
-	
-	# The ruler should be almost entirely a figurehead, with real power in the hands of the citizens
-	doctrine_anarchism = {
-		piety_cost = {
-			value = faith_doctrine_cost_high
-			if = {
-				limit = { has_doctrine = doctrine_anarchism }
-				multiply = faith_unchanged_doctrine_cost_mult
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_despotism }
-				multiply = faith_changed_doctrine_cost_mult_four_step
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_dictatorship }
-				multiply = faith_changed_doctrine_cost_mult_three_step
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_separation_of_powers }
-				multiply = faith_changed_doctrine_cost_mult_two_step
-			}
-		}
-		can_pick = {
-			custom_description = {
-				text = incompatible_doctrine_spacer_values_trigger
-				NOT = { doctrine:tenet_spacer_values = { is_in_list = selected_doctrines } }
-			}
-			custom_description = {
-				text = incompatible_doctrine_planned_economy_trigger
-				NOT = { doctrine:tenet_planned_economy = { is_in_list = selected_doctrines } }
-			}
-		}
-		parameters = {
-			prefers_anarchy = yes
-			anarchist_revolutions = yes
-		}
-		character_modifier = {
-			tyranny_gain_mult = 1.0
-			direct_vassal_opinion = 25
-			county_opinion = -25
-		}
+	character_modifier = {
+		tyranny_gain_mult = 0.5
+		direct_vassal_opinion = 10
+		county_opinion = -10
 	}
 }
 
-doctrine_commonality = {
-	group = "politics"
-	
-	doctrine_metroplanetism = {
-		piety_cost = {
-			if = {
-				limit = {
-					OR = {
-						religion_tag = separatism_ideology
-						religion_tag = astrism_ideology
-					}
+# The ruler should be almost entirely a figurehead, with real power in the hands of the citizens
+doctrine_anarchism = {
+	piety_cost = {
+		value = faith_doctrine_cost_high
+		if = {
+			limit = { has_doctrine = doctrine_anarchism }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+		else_if = {
+			limit = { has_doctrine = doctrine_despotism }
+			multiply = faith_changed_doctrine_cost_mult_four_step
+		}
+		else_if = {
+			limit = { has_doctrine = doctrine_dictatorship }
+			multiply = faith_changed_doctrine_cost_mult_three_step
+		}
+		else_if = {
+			limit = { has_doctrine = doctrine_separation_of_powers }
+			multiply = faith_changed_doctrine_cost_mult_two_step
+		}
+	}
+	can_pick = {
+		custom_description = {
+			text = incompatible_doctrine_spacer_values_trigger
+			NOT = { doctrine:tenet_spacer_values = { is_in_list = selected_doctrines } }
+		}
+		custom_description = {
+			text = incompatible_doctrine_planned_economy_trigger
+			NOT = { doctrine:tenet_planned_economy = { is_in_list = selected_doctrines } }
+		}
+	}
+	parameters = {
+		prefers_anarchy = yes
+		anarchist_revolutions = yes
+	}
+	character_modifier = {
+		tyranny_gain_mult = 1.0
+		direct_vassal_opinion = 25
+		county_opinion = -25
+	}
+}
+doctrine_metroplanetism = {
+	piety_cost = {
+		if = {
+			limit = {
+				OR = {
+					religion_tag = separatism_ideology
+					religion_tag = astrism_ideology
 				}
-				value = faith_doctrine_cost_massive
 			}
-			else = { value = faith_doctrine_cost_mid }
-			if = {
-				limit = { has_doctrine = doctrine_metroplanetism }
-				multiply = faith_unchanged_doctrine_cost_mult
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_separatism }
-				multiply = faith_changed_doctrine_cost_mult_two_step
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_anti_metroplanetism }
-				multiply = faith_changed_doctrine_cost_mult_two_step
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_particularism }
-				multiply = faith_changed_doctrine_cost_mult_three_step
-			}
-		}
-		parameters = {
-			can_join_the_confederation = yes
-			will_not_secede_from_the_confederation = yes
-			reveres_earth = yes
-			hostility_override_doctrine_particularism = 3
-		}
-	}
-	doctrine_commonality_pluralism = {
-		piety_cost = {
-			value = faith_doctrine_cost_mid
-			if = {
-				limit = { has_doctrine = doctrine_commonality_pluralism }
-				multiply = faith_unchanged_doctrine_cost_mult
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_particularism }
-				multiply = faith_changed_doctrine_cost_mult_four_step
-			}
-		}
-		parameters = {
-			hostility_override_doctrine_particularism = 3
-		}
-	}
-	
-	doctrine_separatism = {
-		piety_cost = {
-			if = {
-				limit = { religion_tag = metroplanetism_ideology }
-				value = faith_doctrine_cost_massive
-			}
-			else = { value = faith_doctrine_cost_mid }
-			if = {
-				limit = { has_doctrine = doctrine_separatism }
-				multiply = faith_unchanged_doctrine_cost_mult
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_metroplanetism }
-				multiply = faith_changed_doctrine_cost_mult_two_step
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_anti_metroplanetism }
-				multiply = faith_changed_doctrine_cost_mult_two_step
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_particularism }
-				multiply = faith_changed_doctrine_cost_mult_two_step
-			}
-		}
-		parameters = {
-			anti_imperialist = yes
-			hostility_override_doctrine_particularism = 3
-		}
-	}
-	
-	doctrine_anti_metroplanetism = {
-		piety_cost = {
-			if = {
-				limit = { religion_tag = metroplanetism_ideology }
-				value = faith_doctrine_cost_massive
-			}
-			else = { value = faith_doctrine_cost_mid }
-			if = {
-				limit = { has_doctrine = doctrine_anti_metroplanetism }
-				multiply = faith_unchanged_doctrine_cost_mult
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_metroplanetism }
-				multiply = faith_changed_doctrine_cost_mult_two_step
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_separatism }
-				multiply = faith_changed_doctrine_cost_mult_two_step
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_particularism }
-				multiply = faith_changed_doctrine_cost_mult_four_step
-			}
-		}
-		parameters = {
-			hates_the_confederation = yes
-			hates_earth = yes
-			hostility_override_doctrine_metroplanetism = 3
-			hostility_override_doctrine_particularism = 3
-		}
-	}
-	doctrine_particularism = {
-		piety_cost = {
 			value = faith_doctrine_cost_massive
-			if = {
-				limit = { has_doctrine = doctrine_particularism }
-				multiply = faith_unchanged_doctrine_cost_mult
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_metroplanetism }
-				multiply = faith_changed_doctrine_cost_mult_four_step
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_commonality_pluralism }
-				multiply = faith_changed_doctrine_cost_mult_three_step
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_anti_metroplanetism }
-				multiply = faith_changed_doctrine_cost_mult_four_step
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_separatism }
-				multiply = faith_changed_doctrine_cost_mult_two_step
-			}
 		}
-		parameters = {
-			can_deport_foreigners = yes
+		else = { value = faith_doctrine_cost_mid }
+		if = {
+			limit = { has_doctrine = doctrine_metroplanetism }
+			multiply = faith_unchanged_doctrine_cost_mult
 		}
-		character_modifier = {
-			opinion_of_different_culture = -25
+		else_if = {
+			limit = { has_doctrine = doctrine_separatism }
+			multiply = faith_changed_doctrine_cost_mult_two_step
 		}
+		else_if = {
+			limit = { has_doctrine = doctrine_anti_metroplanetism }
+			multiply = faith_changed_doctrine_cost_mult_two_step
+		}
+		else_if = {
+			limit = { has_doctrine = doctrine_particularism }
+			multiply = faith_changed_doctrine_cost_mult_three_step
+		}
+	}
+	parameters = {
+		can_join_the_confederation = yes
+		will_not_secede_from_the_confederation = yes
+		reveres_earth = yes
+		hostility_override_doctrine_particularism = 3
+	}
+}
+doctrine_commonality_pluralism = {
+	piety_cost = {
+		value = faith_doctrine_cost_mid
+		if = {
+			limit = { has_doctrine = doctrine_commonality_pluralism }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+		else_if = {
+			limit = { has_doctrine = doctrine_particularism }
+			multiply = faith_changed_doctrine_cost_mult_four_step
+		}
+	}
+	parameters = {
+		hostility_override_doctrine_particularism = 3
+	}
+}
+
+doctrine_separatism = {
+	piety_cost = {
+		if = {
+			limit = { religion_tag = metroplanetism_ideology }
+			value = faith_doctrine_cost_massive
+		}
+		else = { value = faith_doctrine_cost_mid }
+		if = {
+			limit = { has_doctrine = doctrine_separatism }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+		else_if = {
+			limit = { has_doctrine = doctrine_metroplanetism }
+			multiply = faith_changed_doctrine_cost_mult_two_step
+		}
+		else_if = {
+			limit = { has_doctrine = doctrine_anti_metroplanetism }
+			multiply = faith_changed_doctrine_cost_mult_two_step
+		}
+		else_if = {
+			limit = { has_doctrine = doctrine_particularism }
+			multiply = faith_changed_doctrine_cost_mult_two_step
+		}
+	}
+	parameters = {
+		anti_imperialist = yes
+		hostility_override_doctrine_particularism = 3
+	}
+}
+
+doctrine_anti_metroplanetism = {
+	piety_cost = {
+		if = {
+			limit = { religion_tag = metroplanetism_ideology }
+			value = faith_doctrine_cost_massive
+		}
+		else = { value = faith_doctrine_cost_mid }
+		if = {
+			limit = { has_doctrine = doctrine_anti_metroplanetism }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+		else_if = {
+			limit = { has_doctrine = doctrine_metroplanetism }
+			multiply = faith_changed_doctrine_cost_mult_two_step
+		}
+		else_if = {
+			limit = { has_doctrine = doctrine_separatism }
+			multiply = faith_changed_doctrine_cost_mult_two_step
+		}
+		else_if = {
+			limit = { has_doctrine = doctrine_particularism }
+			multiply = faith_changed_doctrine_cost_mult_four_step
+		}
+	}
+	parameters = {
+		hates_the_confederation = yes
+		hates_earth = yes
+		hostility_override_doctrine_metroplanetism = 3
+		hostility_override_doctrine_particularism = 3
+	}
+}
+doctrine_particularism = {
+	piety_cost = {
+		value = faith_doctrine_cost_massive
+		if = {
+			limit = { has_doctrine = doctrine_particularism }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+		else_if = {
+			limit = { has_doctrine = doctrine_metroplanetism }
+			multiply = faith_changed_doctrine_cost_mult_four_step
+		}
+		else_if = {
+			limit = { has_doctrine = doctrine_commonality_pluralism }
+			multiply = faith_changed_doctrine_cost_mult_three_step
+		}
+		else_if = {
+			limit = { has_doctrine = doctrine_anti_metroplanetism }
+			multiply = faith_changed_doctrine_cost_mult_four_step
+		}
+		else_if = {
+			limit = { has_doctrine = doctrine_separatism }
+			multiply = faith_changed_doctrine_cost_mult_two_step
+		}
+	}
+	parameters = {
+		can_deport_foreigners = yes
+	}
+	character_modifier = {
+		opinion_of_different_culture = -25
 	}
 }
 
 # Criminal Activities for criminal ideologies
-doctrine_extortion = {
-	group = "crimes"
-	is_available_on_create = { has_doctrine = doctrine_criminal }
-	
-	doctrine_extortion_allowed = {
-		piety_cost = {
-			value = faith_doctrine_cost_medium
-			if = {
-				limit = { has_doctrine = doctrine_extortion_allowed }
-				multiply = faith_unchanged_doctrine_cost_mult
-			}
-		}
-		parameters = {
-			can_extort_provinces = yes
-			can_extort_rulers = yes
-			can_offer_loans = yes
+doctrine_extortion_allowed = {
+	piety_cost = {
+		value = faith_doctrine_cost_medium
+		if = {
+			limit = { has_doctrine = doctrine_extortion_allowed }
+			multiply = faith_unchanged_doctrine_cost_mult
 		}
 	}
-	doctrine_extortion_forbidden = {
-		piety_cost = {
-			value = faith_doctrine_cost_medium
-			if = {
-				limit = { has_doctrine = doctrine_extortion_forbidden }
-				multiply = faith_unchanged_doctrine_cost_mult
-			}
+	parameters = {
+		can_extort_provinces = yes
+		can_extort_rulers = yes
+		can_offer_loans = yes
+	}
+}
+doctrine_extortion_forbidden = {
+	piety_cost = {
+		value = faith_doctrine_cost_medium
+		if = {
+			limit = { has_doctrine = doctrine_extortion_forbidden }
+			multiply = faith_unchanged_doctrine_cost_mult
 		}
-		can_pick = {
-			custom_description = {
-				text = incompatible_doctrine_must_do_some_crime_trigger
-				OR = {
-					doctrine:doctrine_piracy_encouraged = { is_in_list = selected_doctrines }
-					doctrine:doctrine_piracy_allowed = { is_in_list = selected_doctrines }
-					doctrine:doctrine_smuggling_allowed = { is_in_list = selected_doctrines }
-					doctrine:doctrine_smuggling_restricted = { is_in_list = selected_doctrines }
-					doctrine:doctrine_illegal_technology_allowed = { is_in_list = selected_doctrines }
-				}
+	}
+	can_pick = {
+		custom_description = {
+			text = incompatible_doctrine_must_do_some_crime_trigger
+			OR = {
+				doctrine:doctrine_piracy_encouraged = { is_in_list = selected_doctrines }
+				doctrine:doctrine_piracy_allowed = { is_in_list = selected_doctrines }
+				doctrine:doctrine_smuggling_allowed = { is_in_list = selected_doctrines }
+				doctrine:doctrine_smuggling_restricted = { is_in_list = selected_doctrines }
+				doctrine:doctrine_illegal_technology_allowed = { is_in_list = selected_doctrines }
 			}
 		}
 	}
 }
-doctrine_piracy = {
-	group = "crimes"
-	is_available_on_create = { has_doctrine = doctrine_criminal }
-	
-	doctrine_piracy_encouraged = {
-		piety_cost = {
-			value = faith_doctrine_cost_medium
-			if = {
-				limit = { has_doctrine = doctrine_piracy_encouraged }
-				multiply = faith_unchanged_doctrine_cost_mult
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_piracy_forbidden }
-				multiply = faith_changed_doctrine_cost_mult_two_step
-			}
+doctrine_piracy_encouraged = {
+	piety_cost = {
+		value = faith_doctrine_cost_medium
+		if = {
+			limit = { has_doctrine = doctrine_piracy_encouraged }
+			multiply = faith_unchanged_doctrine_cost_mult
 		}
-		can_pick = {
-			custom_description = {
-				text = incompatible_doctrine_upstanding_citizens_trigger
-				NOT = { doctrine:tenet_upstanding_citizens = { is_in_list = selected_doctrines } }
-			}
-		}
-		parameters = {
-			can_raid = yes
-			conquest_cb_enabled = yes
-			warmonger = yes
-			clergy_can_fight = yes
-		}
-		character_modifier = {
-			nebula_supply_limit_mult = 0.5
-			nebula_travel_danger = -25
+		else_if = {
+			limit = { has_doctrine = doctrine_piracy_forbidden }
+			multiply = faith_changed_doctrine_cost_mult_two_step
 		}
 	}
-	doctrine_piracy_allowed = {
-		piety_cost = {
-			value = faith_doctrine_cost_medium
-			if = {
-				limit = { has_doctrine = doctrine_piracy_allowed }
-				multiply = faith_unchanged_doctrine_cost_mult
-			}
-		}
-		can_pick = {
-			custom_description = {
-				text = incompatible_doctrine_upstanding_citizens_trigger
-				NOT = { doctrine:tenet_upstanding_citizens = { is_in_list = selected_doctrines } }
-			}
-		}
-		parameters = {
-			can_raid = yes
-		}
-		character_modifier = {
-			nebula_supply_limit_mult = 0.5
-			nebula_travel_danger = -25
+	can_pick = {
+		custom_description = {
+			text = incompatible_doctrine_upstanding_citizens_trigger
+			NOT = { doctrine:tenet_upstanding_citizens = { is_in_list = selected_doctrines } }
 		}
 	}
-	doctrine_piracy_forbidden = {
-		piety_cost = {
-			value = faith_doctrine_cost_medium
-			if = {
-				limit = { has_doctrine = doctrine_piracy_forbidden }
-				multiply = faith_unchanged_doctrine_cost_mult
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_piracy_encouraged }
-				multiply = faith_changed_doctrine_cost_mult_two_step
-			}
+	parameters = {
+		can_raid = yes
+		conquest_cb_enabled = yes
+		warmonger = yes
+		clergy_can_fight = yes
+	}
+	character_modifier = {
+		nebula_supply_limit_mult = 0.5
+		nebula_travel_danger = -25
+	}
+}
+doctrine_piracy_allowed = {
+	piety_cost = {
+		value = faith_doctrine_cost_medium
+		if = {
+			limit = { has_doctrine = doctrine_piracy_allowed }
+			multiply = faith_unchanged_doctrine_cost_mult
 		}
-		can_pick = {
-			custom_description = {
-				text = incompatible_doctrine_must_do_some_crime_trigger
-				OR = {
-					doctrine:doctrine_extortion_allowed = { is_in_list = selected_doctrines }
-					doctrine:doctrine_smuggling_allowed = { is_in_list = selected_doctrines }
-					doctrine:doctrine_smuggling_restricted = { is_in_list = selected_doctrines }
-					doctrine:doctrine_illegal_technology_allowed = { is_in_list = selected_doctrines }
-				}
+	}
+	can_pick = {
+		custom_description = {
+			text = incompatible_doctrine_upstanding_citizens_trigger
+			NOT = { doctrine:tenet_upstanding_citizens = { is_in_list = selected_doctrines } }
+		}
+	}
+	parameters = {
+		can_raid = yes
+	}
+	character_modifier = {
+		nebula_supply_limit_mult = 0.5
+		nebula_travel_danger = -25
+	}
+}
+doctrine_piracy_forbidden = {
+	piety_cost = {
+		value = faith_doctrine_cost_medium
+		if = {
+			limit = { has_doctrine = doctrine_piracy_forbidden }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+		else_if = {
+			limit = { has_doctrine = doctrine_piracy_encouraged }
+			multiply = faith_changed_doctrine_cost_mult_two_step
+		}
+	}
+	can_pick = {
+		custom_description = {
+			text = incompatible_doctrine_must_do_some_crime_trigger
+			OR = {
+				doctrine:doctrine_extortion_allowed = { is_in_list = selected_doctrines }
+				doctrine:doctrine_smuggling_allowed = { is_in_list = selected_doctrines }
+				doctrine:doctrine_smuggling_restricted = { is_in_list = selected_doctrines }
+				doctrine:doctrine_illegal_technology_allowed = { is_in_list = selected_doctrines }
 			}
 		}
 	}
 }
-doctrine_smuggling = {
-	group = "crimes"
-	is_available_on_create = { has_doctrine = doctrine_criminal }
-	
-	doctrine_smuggling_allowed = {
-		piety_cost = {
-			value = faith_doctrine_cost_medium
-			if = {
-				limit = { has_doctrine = doctrine_smuggling_allowed }
-				multiply = faith_unchanged_doctrine_cost_mult
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_smuggling_forbidden }
-				multiply = faith_changed_doctrine_cost_mult_two_step
-			}
+doctrine_smuggling_allowed = {
+	piety_cost = {
+		value = faith_doctrine_cost_medium
+		if = {
+			limit = { has_doctrine = doctrine_smuggling_allowed }
+			multiply = faith_unchanged_doctrine_cost_mult
 		}
-		parameters = {
-			can_trade_drugs = yes
-			can_smuggle = yes
+		else_if = {
+			limit = { has_doctrine = doctrine_smuggling_forbidden }
+			multiply = faith_changed_doctrine_cost_mult_two_step
 		}
 	}
-	
-	doctrine_smuggling_restricted = {
-		piety_cost = {
-			value = faith_doctrine_cost_medium
-			if = {
-				limit = { has_doctrine = doctrine_smuggling_restricted }
-				multiply = faith_unchanged_doctrine_cost_mult
-			}
-		}
-		parameters = {
-			can_smuggle = yes
+	parameters = {
+		can_trade_drugs = yes
+		can_smuggle = yes
+	}
+}
+
+doctrine_smuggling_restricted = {
+	piety_cost = {
+		value = faith_doctrine_cost_medium
+		if = {
+			limit = { has_doctrine = doctrine_smuggling_restricted }
+			multiply = faith_unchanged_doctrine_cost_mult
 		}
 	}
-	
-	doctrine_smuggling_forbidden = {
-		piety_cost = {
-			value = faith_doctrine_cost_medium
-			if = {
-				limit = { has_doctrine = doctrine_smuggling_forbidden }
-				multiply = faith_unchanged_doctrine_cost_mult
-			}
-			else_if = {
-				limit = { has_doctrine = doctrine_smuggling_allowed }
-				multiply = faith_changed_doctrine_cost_mult_two_step
-			}
+	parameters = {
+		can_smuggle = yes
+	}
+}
+
+doctrine_smuggling_forbidden = {
+	piety_cost = {
+		value = faith_doctrine_cost_medium
+		if = {
+			limit = { has_doctrine = doctrine_smuggling_forbidden }
+			multiply = faith_unchanged_doctrine_cost_mult
 		}
-		can_pick = {
-			custom_description = {
-				text = incompatible_doctrine_must_do_some_crime_trigger
-				OR = {
-					doctrine:doctrine_extortion_allowed = { is_in_list = selected_doctrines }
-					doctrine:doctrine_piracy_encouraged = { is_in_list = selected_doctrines }
-					doctrine:doctrine_piracy_allowed = { is_in_list = selected_doctrines }
-					doctrine:doctrine_illegal_technology_allowed = { is_in_list = selected_doctrines }
-				}
+		else_if = {
+			limit = { has_doctrine = doctrine_smuggling_allowed }
+			multiply = faith_changed_doctrine_cost_mult_two_step
+		}
+	}
+	can_pick = {
+		custom_description = {
+			text = incompatible_doctrine_must_do_some_crime_trigger
+			OR = {
+				doctrine:doctrine_extortion_allowed = { is_in_list = selected_doctrines }
+				doctrine:doctrine_piracy_encouraged = { is_in_list = selected_doctrines }
+				doctrine:doctrine_piracy_allowed = { is_in_list = selected_doctrines }
+				doctrine:doctrine_illegal_technology_allowed = { is_in_list = selected_doctrines }
 			}
 		}
 	}
 }
-doctrine_illegal_technology = {
-	group = "crimes"
-	is_available_on_create = { has_doctrine = doctrine_criminal }
-	
-	doctrine_illegal_technology_allowed = {
-		piety_cost = {
-			value = faith_doctrine_cost_medium
-			if = {
-				limit = { has_doctrine = doctrine_illegal_technology_allowed }
-				multiply = faith_unchanged_doctrine_cost_mult
-			}
-		}
-		can_pick = {
-			custom_description = {
-				text = incompatible_doctrine_illegal_technology_human_purity_trigger
-				NOT = { doctrine:tenet_human_purity = { is_in_list = selected_doctrines } }
-			}
-		}
-		parameters = {
-			can_perform_illegal_cybersurgery = yes
-			can_perform_illegal_gene_modding = yes
-			can_perform_illegal_cloning = yes
+doctrine_illegal_technology_allowed = {
+	piety_cost = {
+		value = faith_doctrine_cost_medium
+		if = {
+			limit = { has_doctrine = doctrine_illegal_technology_allowed }
+			multiply = faith_unchanged_doctrine_cost_mult
 		}
 	}
-	doctrine_illegal_technology_forbidden = {
-		desc = {
-			use_first_valid = yes
-			triggered_desc = {
-				trigger = { doctrine:tenet_human_purity = { is_in_list = selected_doctrines } }
-				desc = doctrine_illegal_technology_evil_desc
-			}
-			desc = doctrine_illegal_technology_forbidden_desc
+	can_pick = {
+		custom_description = {
+			text = incompatible_doctrine_illegal_technology_human_purity_trigger
+			NOT = { doctrine:tenet_human_purity = { is_in_list = selected_doctrines } }
 		}
-		piety_cost = {
-			value = faith_doctrine_cost_medium
-			if = {
-				limit = { has_doctrine = doctrine_illegal_technology_forbidden }
-				multiply = faith_unchanged_doctrine_cost_mult
-			}
+	}
+	parameters = {
+		can_perform_illegal_cybersurgery = yes
+		can_perform_illegal_gene_modding = yes
+		can_perform_illegal_cloning = yes
+	}
+}
+doctrine_illegal_technology_forbidden = {
+	desc = {
+		use_first_valid = yes
+		triggered_desc = {
+			trigger = { doctrine:tenet_human_purity = { is_in_list = selected_doctrines } }
+			desc = doctrine_illegal_technology_evil_desc
 		}
-		can_pick = {
-			custom_description = {
-				text = incompatible_doctrine_must_do_some_crime_trigger
-				OR = {
-					doctrine:doctrine_extortion_allowed = { is_in_list = selected_doctrines }
-					doctrine:doctrine_piracy_encouraged = { is_in_list = selected_doctrines }
-					doctrine:doctrine_piracy_allowed = { is_in_list = selected_doctrines }
-					doctrine:doctrine_smuggling_allowed = { is_in_list = selected_doctrines }
-					doctrine:doctrine_smuggling_restricted = { is_in_list = selected_doctrines }
-				}
+		desc = doctrine_illegal_technology_forbidden_desc
+	}
+	piety_cost = {
+		value = faith_doctrine_cost_medium
+		if = {
+			limit = { has_doctrine = doctrine_illegal_technology_forbidden }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+	}
+	can_pick = {
+		custom_description = {
+			text = incompatible_doctrine_must_do_some_crime_trigger
+			OR = {
+				doctrine:doctrine_extortion_allowed = { is_in_list = selected_doctrines }
+				doctrine:doctrine_piracy_encouraged = { is_in_list = selected_doctrines }
+				doctrine:doctrine_piracy_allowed = { is_in_list = selected_doctrines }
+				doctrine:doctrine_smuggling_allowed = { is_in_list = selected_doctrines }
+				doctrine:doctrine_smuggling_restricted = { is_in_list = selected_doctrines }
 			}
 		}
 	}
