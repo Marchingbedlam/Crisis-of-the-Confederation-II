@@ -287,14 +287,14 @@ ideology_mysticism = {
 	if = {
 		limit = {
 			OR = {
-				has_doctrine = doctrine_monotheism
-				has_doctrine = doctrine_polytheism
+				has_doctrine = doctrine_monotheist
+				has_doctrine = doctrine_polytheist
 			}
 		}
 		add = 3
 	}
 	else_if = {
-		limit = { has_doctrine = doctrine_atheism }
+		limit = { has_doctrine = doctrine_atheist }
 		subtract = 3
 	}
 	if = {
@@ -330,7 +330,7 @@ ideology_mysticism = {
 		add = 1
 	}
 	if = {
-		limit = { has_doctrine = tenet_adoricism }
+		limit = { has_doctrine = tenet_adoricist }
 		add = 3
 	}
 	if = {

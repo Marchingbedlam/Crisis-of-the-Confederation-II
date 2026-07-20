@@ -1,0 +1,413 @@
+﻿acclamation_pirate = {
+	default_candidates = { holder_close_family landed_vassal holder_councillor holder_court_position }
+	allow_same_tier_candidates = yes
+	allow_children = yes
+	
+	candidate_score = {
+		value = {
+			# AGE
+			if = {
+				limit = { age <= 5 }
+				subtract = {
+					value = 100
+					desc = infant_candidate_desc
+				}
+			}
+			else_if = {
+				limit = { age < 10 }
+				subtract = {
+					value = 50
+					desc = child_candidate_desc
+				}
+			}
+			else_if = {
+				limit = { age < 16 }
+				subtract = {
+					value = 20
+					desc = adolescent_candidate_desc
+				}
+			}
+			else_if = {
+				limit = { age > 60 }
+				subtract = {
+					value = 20
+					desc = geriatric_candidate_desc
+				}
+			}
+
+			# SKILLS
+			add = {
+				value = {
+					add = diplomacy
+					add = learning
+					add = martial
+					add = intrigue
+					add = stewardship
+					multiply = 2
+				}
+				desc = sum_of_skills_desc
+			}
+			
+			# TRAITS
+			if = {
+				limit = {
+					has_trait = disfigured
+					scope:title.holder.culture = { has_cultural_parameter = physical_disfigurement_blocks_inheritance }
+				}
+				subtract = {
+					value = 1000
+					desc = trait_disfigured
+				}
+			}
+			if = {
+				limit = {
+					has_trait = incapable
+					scope:title.holder.culture = { has_cultural_parameter = physical_disfigurement_blocks_inheritance }
+				}
+				subtract = {
+					value = 1000
+					desc = trait_incapable
+				}
+			}
+			if = {
+				limit = {
+					has_trait = blind
+					scope:title.holder.culture = { has_cultural_parameter = physical_disfigurement_blocks_inheritance }
+				}
+				subtract = {
+					value = 1000
+					desc = trait_blind
+				}
+			}
+			if = {
+				limit = {
+					has_trait = eunuch_1
+					scope:title.holder.culture = { has_cultural_parameter = physical_disfigurement_blocks_inheritance }
+				}
+				subtract = {
+					value = 1000
+					desc = trait_eunuch
+				}
+			}
+			if = {
+				limit = {
+					has_trait = beardless_eunuch
+					scope:title.holder.culture = { has_cultural_parameter = physical_disfigurement_blocks_inheritance }
+				}
+				subtract = {
+					value = 1500
+					desc = trait_beardless_eunuch
+				}
+			}
+			if = {
+				limit = { has_trait = disinherited }
+				subtract = {
+					value = 1000
+					desc = trait_disinherited
+				}
+			}
+			if = {
+				limit = { has_trait = gallivanter }
+				subtract = {
+					value = 1000
+					desc = trait_gallivanter
+				}
+			}
+			
+			# CRIMINAL
+			if = {
+				limit = {
+					has_trait = deviant
+					trait_is_criminal_in_faith_trigger = { TRAIT = trait:deviant FAITH = scope:title.holder.faith GENDER_CHARACTER = root }
+				}
+				add = {
+					value = -20
+					desc = "deviant_and_criminal_desc"
+				}
+			}
+			if = {
+				limit = {
+					has_trait = incestuous
+					trait_is_criminal_in_faith_trigger = { TRAIT = trait:incestuous FAITH = scope:title.holder.faith GENDER_CHARACTER = root }
+				}
+				add = {
+					value = -20
+					desc = "incestuous_and_criminal_desc"
+				}
+			}
+			if = {
+				limit = {
+					has_trait = sodomite
+					trait_is_criminal_in_faith_trigger = { TRAIT = trait:sodomite FAITH = scope:title.holder.faith GENDER_CHARACTER = root }
+				}
+				add = {
+					value = -20
+					desc = "sodomite_and_criminal_desc"
+				}
+			}
+			if = {
+				limit = {
+					has_trait = cannibal
+					trait_is_criminal_in_faith_trigger = { TRAIT = trait:cannibal FAITH = scope:title.holder.faith GENDER_CHARACTER = root }
+				}
+				add = {
+					value = -20
+					desc = "cannibal_and_criminal_desc"
+				}
+			}
+			if = {
+				limit = {
+					has_trait = kinslayer_1
+					trait_is_criminal_in_faith_trigger = { TRAIT = trait:kinslayer_1 FAITH = scope:title.holder.faith GENDER_CHARACTER = root }
+				}
+				add = {
+					value = -20
+					desc = "kinslayer_1_and_criminal_desc"
+				}
+			}
+			if = {
+				limit = {
+					has_trait = kinslayer_2
+					trait_is_criminal_in_faith_trigger = { TRAIT = trait:kinslayer_2 FAITH = scope:title.holder.faith GENDER_CHARACTER = root }
+				}
+				add = {
+					value = -20
+					desc = "kinslayer_2_and_criminal_desc"
+				}
+			}
+			if = {
+				limit = {
+					has_trait = kinslayer_3
+					trait_is_criminal_in_faith_trigger = { TRAIT = trait:kinslayer_3 FAITH = scope:title.holder.faith GENDER_CHARACTER = root }
+				}
+				add = {
+					value = -20
+					desc = "kinslayer_3_and_criminal_desc"
+				}
+			}
+			if = {
+				limit = {
+					has_trait = witch
+					trait_is_criminal_in_faith_trigger = { TRAIT = trait:witch FAITH = scope:title.holder.faith GENDER_CHARACTER = root }
+				}
+				add = {
+					value = -20
+					desc = "witch_and_criminal_desc"
+				}
+			}
+			if = {
+				limit = {
+					has_trait = adulterer
+					trait_is_criminal_in_faith_trigger = { TRAIT = trait:adulterer FAITH = scope:title.holder.faith GENDER_CHARACTER = root }
+				}
+				add = {
+					value = -20
+					desc = "adulterer_and_criminal_desc"
+				}
+			}
+			if = {
+				limit = {
+					has_trait = fornicator
+					trait_is_criminal_in_faith_trigger = { TRAIT = trait:fornicator FAITH = scope:title.holder.faith GENDER_CHARACTER = root }
+				}
+				add = {
+					value = -20
+					desc = "fornicator_and_criminal_desc"
+				}
+			}
+
+			# COUNCIL POSITIONS
+			if = {
+				limit = { scope:title.holder ?= { any_councillor ?= { this = root } } }
+				add = {
+					value = 10
+					desc = councillor_position_desc
+				}
+			}
+
+			# COURT POSITIONS
+			if = {
+				limit = { scope:title.holder ?= { any_court_position_holder ?= { this = root } } }
+				add = {
+					value = 5
+					desc = court_position_succession_desc
+				}
+			}
+
+			# CLAIMS
+			if = {
+				limit = { has_strong_claim_on = scope:title }
+				add = {
+					value = 50
+					desc = title_claim_desc
+				}
+			}
+			else_if = {
+				limit = { has_weak_claim_on = scope:title }
+				add = {
+					value = 30
+					desc = title_weak_claim_desc
+				}
+			}
+
+			# LIFESTYLE PERKS
+			if = {
+				limit = { has_perk = dignitas_perk }
+				add = {
+					value = 30
+					desc = dignitas_perk_name
+				}
+			}
+
+			# TITLE TIER
+			if = {
+				limit = {
+					is_landed = yes
+					highest_held_title_tier = tier_duchy
+				}
+				add = {
+					value = 10
+					desc = duchy_tier_desc
+				}
+			}
+			if = {
+				limit = {
+					is_landed = yes
+					highest_held_title_tier = tier_kingdom
+				}
+				add = {
+					value = 20
+					desc = kingdom_tier_desc
+				}
+			}
+
+			# PRESTIGE LEVEL
+			if = {
+				limit = { prestige_level != 1 }
+				add = {
+					value = 20
+					multiply = {
+						value = prestige_level
+						subtract = 1 # Base value should start at 2
+					}
+					desc = "[prestige_level|E]"
+				}
+			}
+
+			# SCHEMES
+			if = {
+				limit = { has_character_modifier = scheme_slandered_modifier }
+				add = {
+					value = slander_acclamation_score_value
+					desc = scheme_slandered_modifier
+				}
+			}
+			if = {
+				limit = { has_character_modifier = scheme_promoted_modifier }
+				add = {
+					value = promote_acclamation_score_value # Keep this balanced if more values are added!
+					desc = scheme_promoted_modifier
+				}
+			}
+
+			# ADJUST BASED ON GENDER LAW - MUST GO AT THE END
+			save_temporary_value_as = pre_gender_law_calc
+			if = { # If the temp value is negative, flip it for the coming calculations
+				limit = { scope:pre_gender_law_calc < 0 }
+				if = {
+					limit = {
+						scope:title.holder = { has_realm_law = male_preference_law }
+						is_male_cotc = no
+					}
+					subtract = {
+						value = scope:pre_gender_law_calc
+						multiply = -1
+						multiply = 0.5
+						desc = male_preference_law
+					}
+				}
+				else_if = {
+					limit = {
+						scope:title.holder = { has_realm_law = male_only_law }
+						is_male_cotc = no
+					}
+					multiply = {
+						value = 0
+						desc = male_only_law
+					}
+				}
+				else_if = {
+					limit = {
+						scope:title.holder = { has_realm_law = female_preference_law }
+						is_female_cotc = no
+					}
+					subtract = {
+						value = scope:pre_gender_law_calc
+						multiply = -1
+						multiply = 0.5
+						desc = female_only_law
+					}
+				}
+				else_if = {
+					limit = {
+						scope:title.holder = { has_realm_law = female_only_law }
+						is_female_cotc = no
+					}
+					multiply = {
+						value = 0
+						desc = female_only_law
+					}
+				}
+			}
+			else = {
+				if = {
+					limit = {
+						scope:title.holder = { has_realm_law = male_preference_law }
+						is_male_cotc = no
+					}
+					subtract = {
+						value = scope:pre_gender_law_calc
+						multiply = 0.5
+						desc = male_preference_law
+					}
+				}
+				else_if = {
+					limit = {
+						scope:title.holder = { has_realm_law = male_only_law }
+						is_male_cotc = no
+					}
+					multiply = {
+						value = 0
+						desc = male_only_law
+					}
+				}
+				else_if = {
+					limit = {
+						scope:title.holder = { has_realm_law = female_preference_law }
+						is_female_cotc = no
+					}
+					subtract = {
+						value = scope:pre_gender_law_calc
+						multiply = 0.5
+						desc = female_only_law
+					}
+				}
+				else_if = {
+					limit = {
+						scope:title.holder = { has_realm_law = female_only_law }
+						is_female_cotc = no
+					}
+					multiply = {
+						value = 0
+						desc = female_only_law
+					}
+				}
+			}
+
+			# ROUND THE NUMBER
+			divide = 1
+			ceiling = yes
+			multiply = 1
+		}
+	}
+}

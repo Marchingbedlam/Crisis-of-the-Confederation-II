@@ -120,6 +120,24 @@ doctrine_military_power = {
 	}
 }
 doctrine_administrative_power = {
+	name = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { has_doctrine = religious_hostility_doctrine }
+				desc = doctrine_administrative_power_religious_name
+			}
+			desc = doctrine_administrative_power_name
+		}
+	}
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { has_doctrine = religious_hostility_doctrine }
+				desc = doctrine_administrative_power_religious_desc
+			}
+			desc = doctrine_administrative_power_desc
+		}
+	}
 	piety_cost = {
 		value = faith_doctrine_cost_high
 		if = {

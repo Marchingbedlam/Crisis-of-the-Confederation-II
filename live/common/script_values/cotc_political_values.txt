@@ -15,7 +15,7 @@ title_political_support = {
 			every_county_province = {
 				limit = {
 					faith = scope:temp_candidate.faith
-					province_owner = { target_is_same_character_or_above = scope:title.holder }
+					province_owner ?= { target_is_same_character_or_above = scope:title.holder }
 				}
 				add = holding_population
 			}

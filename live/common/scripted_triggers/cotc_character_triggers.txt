@@ -307,3 +307,22 @@ character_is_war_enemy_trigger = {
 		}
 	}
 }
+can_be_military_trigger = {
+	save_temporary_scope = temp_potential_military
+	can_be_warrior_trigger = { ARMY_OWNER = $TITLE_OWNER$ }
+	trigger_if = {
+		limit = { exists = primary_title }
+		government_has_flag = government_is_military
+	}
+	OR = {
+		government_has_flag = government_is_military
+		has_education_martial_trigger = yes
+		is_knight = yes
+		any_heir_title ?= {
+			holder ?= {
+				government_has_flag = government_is_military
+				designated_heir ?= { this = scope:temp_potential_military }
+			}
+		}
+	}
+}

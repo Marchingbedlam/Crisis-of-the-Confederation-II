@@ -70,6 +70,10 @@ republic_independent = { # Used by default for independent republics
 		dictatorial_democratic_military_government
 		presidential_democratic_military_government
 		parliamentary_democratic_military_government
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
 	}
 }
 republic_independent_ruler_female = {
@@ -86,6 +90,10 @@ republic_independent_ruler_female = {
 		dictatorial_democratic_military_government
 		presidential_democratic_military_government
 		parliamentary_democratic_military_government
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
 	}
 }
 republic_independent_ruler_male = {
@@ -102,6 +110,10 @@ republic_independent_ruler_male = {
 		dictatorial_democratic_military_government
 		presidential_democratic_military_government
 		parliamentary_democratic_military_government
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
 	}
 }
 republic_socialist_independent = {
@@ -116,6 +128,10 @@ republic_socialist_independent = {
 		dictatorial_democratic_military_government
 		presidential_democratic_military_government
 		parliamentary_democratic_military_government
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
 	}
 	religions = { socialism_ideology }
 }
@@ -132,6 +148,10 @@ republic_member_state = { # Used by republics that are member states of federati
 		dictatorial_democratic_military_government
 		presidential_democratic_military_government
 		parliamentary_democratic_military_government
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
 	}
 	subject_contract_obligation_flags = { federal_member_state }
 }
@@ -150,6 +170,10 @@ republic_member_state_ruler_female = {
 		dictatorial_democratic_military_government
 		presidential_democratic_military_government
 		parliamentary_democratic_military_government
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
 	}
 	subject_contract_obligation_flags = { federal_member_state }
 }
@@ -168,6 +192,10 @@ republic_member_state_ruler_male = {
 		dictatorial_democratic_military_government
 		presidential_democratic_military_government
 		parliamentary_democratic_military_government
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
 	}
 	subject_contract_obligation_flags = { federal_member_state }
 }
@@ -184,6 +212,10 @@ republic_socialist_member_state = {
 		dictatorial_democratic_military_government
 		presidential_democratic_military_government
 		parliamentary_democratic_military_government
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
 	}
 	religions = { socialism_ideology }
 	subject_contract_obligation_flags = { federal_member_state }
@@ -270,6 +302,10 @@ republic_county = {
 		dictatorial_democratic_military_government
 		presidential_democratic_military_government
 		parliamentary_democratic_military_government
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
 	}
 }
 republic_county_ruler_female = {
@@ -292,6 +328,10 @@ republic_county_ruler_female = {
 		dictatorial_democratic_military_government
 		presidential_democratic_military_government
 		parliamentary_democratic_military_government
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
 	}
 }
 republic_county_ruler_male = {
@@ -314,6 +354,10 @@ republic_county_ruler_male = {
 		dictatorial_democratic_military_government
 		presidential_democratic_military_government
 		parliamentary_democratic_military_government
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
 	}
 }
 republic_duchy = {
@@ -330,6 +374,10 @@ republic_duchy = {
 		dictatorial_democratic_military_government
 		presidential_democratic_military_government
 		parliamentary_democratic_military_government
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
 	}
 }
 republic_duchy_ruler_female = {
@@ -352,6 +400,10 @@ republic_duchy_ruler_female = {
 		dictatorial_democratic_military_government
 		presidential_democratic_military_government
 		parliamentary_democratic_military_government
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
 	}
 }
 republic_duchy_ruler_male = {
@@ -374,6 +426,10 @@ republic_duchy_ruler_male = {
 		dictatorial_democratic_military_government
 		presidential_democratic_military_government
 		parliamentary_democratic_military_government
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
 	}
 }
 republic_kingdom = {
@@ -600,6 +656,116 @@ federation_hegemony = {
 		dictatorial_federal_military_government
 		presidential_federal_military_government
 		parliamentary_federal_military_government
+	}
+}
+
+# Standard Dictatorship Titles
+dictatorship_military_barony = {
+	type = title
+	tier = barony
+	priority = 3113
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+dictatorship_military_barony_ruler_female = {
+	type = character
+	gender = female
+	special = holder
+	tier = barony
+	priority = 3113
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+dictatorship_military_barony_ruler_male = {
+	type = character
+	gender = male
+	special = holder
+	tier = barony
+	priority = 3113
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+dictatorship_military_kingdom = {
+	type = title
+	tier = kingdom
+	priority = 3143
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+dictatorship_military_kingdom_ruler_female = {
+	type = character
+	gender = female
+	special = holder
+	tier = kingdom
+	priority = 3143
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+dictatorship_military_kingdom_ruler_male = {
+	type = character
+	gender = male
+	special = holder
+	tier = kingdom
+	priority = 3143
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+dictatorship_military_empire_ruler_female = {
+	type = character
+	gender = female
+	special = holder
+	tier = empire
+	priority = 3153
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+dictatorship_military_empire_ruler_male = {
+	type = character
+	gender = male
+	special = holder
+	tier = county
+	priority = 3153
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
 	}
 }
 
@@ -1148,7 +1314,7 @@ military_county_subordinate_ruler_male = {
 	type = character
 	gender = male
 	special = holder
-	tier = barony
+	tier = county
 	priority = 3320
 	flavourization_rules = {
 		only_vassals = yes
@@ -1326,4 +1492,296 @@ pirate_barony = {
 	priority = 3113
 	flavourization_rules = { top_liege = no }
 	governments = { pirate_monarchy_government }
+}
+
+# COUNCILLOR TITLES
+military_command_chancellor_female = {
+	type = character
+	gender = female
+	special = councillor
+	council_position = councillor_chancellor
+	priority = 1203
+	flavourization_rules = {
+		only_vassals = yes
+		top_liege = no
+	}
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+military_command_chancellor_male = {
+	type = character
+	gender = male
+	special = councillor
+	council_position = councillor_chancellor
+	priority = 1203
+	flavourization_rules = {
+		only_vassals = yes
+		top_liege = no
+	}
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+military_command_steward_female = {
+	type = character
+	gender = female
+	special = councillor
+	council_position = councillor_steward
+	priority = 1203
+	flavourization_rules = {
+		only_vassals = yes
+		top_liege = no
+	}
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+military_command_steward_male = {
+	type = character
+	gender = male
+	special = councillor
+	council_position = councillor_steward
+	priority = 1203
+	flavourization_rules = {
+		only_vassals = yes
+		top_liege = no
+	}
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+military_command_marshal_female = {
+	type = character
+	gender = female
+	special = councillor
+	council_position = councillor_marshal
+	priority = 1203
+	flavourization_rules = {
+		only_vassals = yes
+		top_liege = no
+	}
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+military_command_marshal_male = {
+	type = character
+	gender = male
+	special = councillor
+	council_position = councillor_marshal
+	priority = 1203
+	flavourization_rules = {
+		only_vassals = yes
+		top_liege = no
+	}
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+military_command_spymaster_female = {
+	type = character
+	gender = female
+	special = councillor
+	council_position = councillor_spymaster
+	priority = 1203
+	flavourization_rules = {
+		only_vassals = yes
+		top_liege = no
+	}
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+military_command_spymaster_male = {
+	type = character
+	gender = male
+	special = councillor
+	council_position = councillor_spymaster
+	priority = 1203
+	flavourization_rules = {
+		only_vassals = yes
+		top_liege = no
+	}
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+military_command_court_chaplain_female = {
+	type = character
+	gender = female
+	special = councillor
+	council_position = councillor_court_chaplain
+	priority = 1203
+	flavourization_rules = {
+		only_vassals = yes
+		top_liege = no
+	}
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+military_command_court_chaplain_male = {
+	type = character
+	gender = male
+	special = councillor
+	council_position = councillor_court_chaplain
+	priority = 1203
+	flavourization_rules = {
+		only_vassals = yes
+		top_liege = no
+	}
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+crew_chancellor_female = {
+	type = character
+	gender = female
+	special = councillor
+	council_position = councillor_chancellor
+	priority = 1103
+	
+	governments = {
+		pirate_monarchy_government
+		landless_adventurer_government
+	}
+}
+crew_chancellor_male = {
+	type = character
+	gender = male
+	special = councillor
+	council_position = councillor_chancellor
+	priority = 1103
+	
+	governments = {
+		pirate_monarchy_government
+		landless_adventurer_government
+	}
+}
+crew_steward_female = {
+	type = character
+	gender = female
+	special = councillor
+	council_position = councillor_steward
+	priority = 1103
+	
+	governments = {
+		pirate_monarchy_government
+		landless_adventurer_government
+	}
+}
+crew_steward_male = {
+	type = character
+	gender = male
+	special = councillor
+	council_position = councillor_steward
+	priority = 1103
+	
+	governments = {
+		pirate_monarchy_government
+		landless_adventurer_government
+	}
+}
+crew_marshal_female = {
+	type = character
+	gender = female
+	special = councillor
+	council_position = councillor_marshal
+	priority = 1103
+	
+	governments = {
+		pirate_monarchy_government
+		landless_adventurer_government
+	}
+}
+crew_marshal_male = {
+	type = character
+	gender = male
+	special = councillor
+	council_position = councillor_marshal
+	priority = 1103
+	
+	governments = {
+		pirate_monarchy_government
+		landless_adventurer_government
+	}
+}
+crew_spymaster_female = {
+	type = character
+	gender = female
+	special = councillor
+	council_position = councillor_spymaster
+	priority = 1103
+	
+	governments = {
+		pirate_monarchy_government
+		landless_adventurer_government
+	}
+}
+crew_spymaster_male = {
+	type = character
+	gender = male
+	special = councillor
+	council_position = councillor_spymaster
+	priority = 1103
+	
+	governments = {
+		pirate_monarchy_government
+		landless_adventurer_government
+	}
+}
+crew_court_chaplain_female = {
+	type = character
+	gender = female
+	special = councillor
+	council_position = councillor_court_chaplain
+	priority = 1103
+	
+	governments = {
+		pirate_monarchy_government
+		landless_adventurer_government
+	}
+}
+crew_court_chaplain_male = {
+	type = character
+	gender = male
+	special = councillor
+	council_position = councillor_court_chaplain
+	priority = 1103
+	
+	governments = {
+		pirate_monarchy_government
+		landless_adventurer_government
+	}
 }

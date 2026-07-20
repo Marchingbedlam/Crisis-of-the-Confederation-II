@@ -474,11 +474,11 @@ dictatorial_democratic_military_government = {
 		government_is_military
 		government_is_democratic
 		government_is_dictatorial
+		government_uses_state_capacity
 		
 		# Vanilla Government Mechanics
 		government_is_republic
 		government_is_settled
-		government_uses_crown_authority
 		government_has_influence
 		government_has_treasury
 		government_has_title_men_at_arms
@@ -557,12 +557,12 @@ presidential_democratic_military_government = {
 		government_is_military
 		government_is_democratic
 		government_is_presidential
+		government_uses_state_capacity
 		government_has_legislature
 		
 		# Vanilla Government Mechanics
 		government_is_republic
 		government_is_settled
-		government_uses_crown_authority
 		government_has_influence
 		government_has_treasury
 		government_has_title_men_at_arms
@@ -641,12 +641,321 @@ parliamentary_democratic_military_government = {
 		government_is_military
 		government_is_democratic
 		government_is_parliamentary
+		government_uses_state_capacity
 		government_has_legislature
 		
 		# Vanilla Government Mechanics
 		government_is_republic
 		government_is_settled
+		government_has_influence
+		government_has_treasury
+		government_has_title_men_at_arms
+		government_has_powerful_families
+		government_is_settled
+		government_uses_domicile_but_not_adventurer
+		government_uses_domain_limit
+		government_uses_admin_province_obligations
+	}
+}
+despotic_meritocratic_military_government = {
+	government_rules = {
+		create_cadet_branches = yes
+		rulers_should_have_dynasty = yes
+		noble_families = yes
+		house_aspirations = yes
+	}
+	mechanic_type = feudal
+	
+	primary_holding = castle_holding
+	valid_holdings = { city_holding temple_citadel_holding }
+	required_county_holdings = { castle_holding city_holding church_holding }
+	
+	royal_court = any
+	
+	vassal_contract_group = feudal_vassal
+	
+	domicile_type = estate
+	
+	character_modifier = {
+		# City Penalties
+		city_holding_build_speed = -0.5
+		city_holding_build_gold_cost = 0.5
+		city_holding_build_piety_cost = 0.5
+		city_holding_build_prestige_cost = 0.5
+	}
+	
+	ai = { use_great_projects = yes }
+	
+	color = hsv{ 0 0.5 0.4 }
+	realm_mask_offset = { 0.0 0.01 }
+	realm_mask_scale = { 1 1 }
+	
+	flags = {
+		# COTC Government Mechanics
+		government_is_state
+		government_is_military
+		government_is_meritocratic
+		government_is_despotic
+		vassals_have_military_staff
+		
+		# Vanilla Government Mechanics
+		government_is_feudal
+		government_is_settled
+		may_elevate_co_monarch
 		government_uses_crown_authority
+		government_has_powerful_families
+		government_uses_domicile_but_not_adventurer
+		government_uses_domain_limit
+	}
+}
+dictatorial_meritocratic_military_government = {
+	government_rules = {
+		create_cadet_branches = yes
+		administrative = yes
+		rulers_should_have_dynasty = yes
+		landless_playable = yes
+		treasury = yes
+		sticky_government = yes
+		legitimacy = yes
+		noble_families = yes
+		house_aspirations = yes
+		replace_gold_cost_by_treasury = yes
+	}
+	mechanic_type = administrative
+	
+	primary_holding = castle_holding
+	valid_holdings = { city_holding temple_citadel_holding }
+	required_county_holdings = { castle_holding city_holding church_holding }
+	
+	royal_court = any
+	
+	vassal_contract_group = military_province
+	min_appointment_tier = county
+	
+	domicile_type = estate
+	
+	character_modifier = {
+		levy_size = -0.5
+		feudal_government_tax_contribution_mult = -0.5
+		feudal_government_levy_contribution_mult = -0.5
+		clan_government_tax_contribution_mult = -0.5
+		clan_government_levy_contribution_mult = -0.5
+		men_at_arms_cap = -2
+		men_at_arms_limit = -2
+		knight_limit = -5
+		vassal_limit = 100
+		active_accolades = -1
+		title_creation_cost_mult = -0.5
+		mercenary_hire_cost_mult = 2
+		men_at_arms_maintenance = 0.5
+		
+		# City Penalties
+		city_holding_build_speed = -0.5
+		city_holding_build_gold_cost = 0.5
+		city_holding_build_piety_cost = 0.5
+		city_holding_build_prestige_cost = 0.5
+	}
+
+	top_liege_character_modifier = {
+		# 85% of vassal income goes to the treasury
+		monthly_treasury_from_vassals = 0.85
+		men_at_arms_maintenance = 1.5
+		men_at_arms_recruitment_cost = 1
+	}
+	
+	ai = { use_great_projects = yes }
+	
+	color = hsv{ 0.5 1 0.6 }
+	realm_mask_offset = { 0.0 0.01 }
+	realm_mask_scale = { 1 1 }
+	
+	flags = {
+		# COTC Government Mechanics
+		government_is_state
+		government_is_military
+		government_is_meritocratic
+		government_is_dictatorial
+		government_uses_state_capacity
+		vassals_have_military_staff
+		
+		# Vanilla Government Mechanics
+		government_is_administrative
+		government_is_settled
+		may_elevate_co_monarch
+		government_has_influence
+		government_has_treasury
+		government_has_title_men_at_arms
+		government_has_powerful_families
+		government_is_settled
+		government_uses_domicile_but_not_adventurer
+		government_uses_domain_limit
+		government_uses_admin_province_obligations
+	}
+}
+presidential_meritocratic_military_government = {
+	government_rules = {
+		create_cadet_branches = yes
+		administrative = yes
+		rulers_should_have_dynasty = yes
+		landless_playable = yes
+		treasury = yes
+		sticky_government = yes
+		legitimacy = yes
+		noble_families = yes
+		house_aspirations = yes
+		replace_gold_cost_by_treasury = yes
+	}
+	mechanic_type = administrative
+	
+	primary_holding = castle_holding
+	valid_holdings = { city_holding temple_citadel_holding }
+	required_county_holdings = { castle_holding city_holding church_holding }
+	
+	royal_court = none
+	
+	vassal_contract_group = military_province
+	
+	domicile_type = estate
+	
+	character_modifier = {
+		levy_size = -0.5
+		feudal_government_tax_contribution_mult = -0.5
+		feudal_government_levy_contribution_mult = -0.5
+		clan_government_tax_contribution_mult = -0.5
+		clan_government_levy_contribution_mult = -0.5
+		men_at_arms_cap = -2
+		men_at_arms_limit = -2
+		knight_limit = -5
+		vassal_limit = 100
+		active_accolades = -1
+		title_creation_cost_mult = -0.5
+		mercenary_hire_cost_mult = 2
+		men_at_arms_maintenance = 0.5
+		
+		# City Penalties
+		city_holding_build_speed = -0.5
+		city_holding_build_gold_cost = 0.5
+		city_holding_build_piety_cost = 0.5
+		city_holding_build_prestige_cost = 0.5
+		
+		# People like democracy!
+		county_opinion_add = 10
+	}
+
+	top_liege_character_modifier = {
+		# 85% of vassal income goes to the treasury
+		monthly_treasury_from_vassals = 0.85
+		men_at_arms_maintenance = 1.5
+		men_at_arms_recruitment_cost = 1
+	}
+	
+	ai = { use_great_projects = yes }
+	
+	color = hsv{ 0 0.5 0.8 }
+	realm_mask_offset = { 0.0 0.01 }
+	realm_mask_scale = { 1 1 }
+	
+	flags = {
+		# COTC Government Mechanics
+		government_is_state
+		government_is_military
+		government_is_meritocratic
+		government_is_presidential
+		government_uses_state_capacity
+		government_has_legislature
+		vassals_have_military_staff
+		
+		# Vanilla Government Mechanics
+		government_is_administrative
+		government_is_settled
+		may_elevate_co_monarch
+		government_has_influence
+		government_has_treasury
+		government_has_title_men_at_arms
+		government_has_powerful_families
+		government_is_settled
+		government_uses_domicile_but_not_adventurer
+		government_uses_domain_limit
+		government_uses_admin_province_obligations
+	}
+}
+parliamentary_meritocratic_military_government = {
+	government_rules = {
+		create_cadet_branches = yes
+		administrative = yes
+		rulers_should_have_dynasty = yes
+		landless_playable = yes
+		treasury = yes
+		sticky_government = yes
+		legitimacy = yes
+		noble_families = yes
+		house_aspirations = yes
+		replace_gold_cost_by_treasury = yes
+	}
+	mechanic_type = administrative
+	
+	primary_holding = castle_holding
+	valid_holdings = { city_holding temple_citadel_holding }
+	required_county_holdings = { castle_holding city_holding church_holding }
+	
+	royal_court = none
+	
+	vassal_contract_group = military_province
+	
+	domicile_type = estate
+	
+	character_modifier = {
+		levy_size = -0.5
+		feudal_government_tax_contribution_mult = -0.5
+		feudal_government_levy_contribution_mult = -0.5
+		clan_government_tax_contribution_mult = -0.5
+		clan_government_levy_contribution_mult = -0.5
+		men_at_arms_cap = -2
+		men_at_arms_limit = -2
+		knight_limit = -5
+		vassal_limit = 100
+		active_accolades = -1
+		title_creation_cost_mult = -0.5
+		mercenary_hire_cost_mult = 2
+		men_at_arms_maintenance = 0.5
+		
+		# City Penalties
+		city_holding_build_speed = -0.5
+		city_holding_build_gold_cost = 0.5
+		city_holding_build_piety_cost = 0.5
+		city_holding_build_prestige_cost = 0.5
+		
+		# People like democracy!
+		county_opinion_add = 25
+	}
+
+	top_liege_character_modifier = {
+		# 85% of vassal income goes to the treasury
+		monthly_treasury_from_vassals = 0.85
+		men_at_arms_maintenance = 1.5
+		men_at_arms_recruitment_cost = 1
+	}
+	
+	ai = { use_great_projects = yes }
+	
+	color = hsv{ 0 0.5 1 }
+	realm_mask_offset = { 0.0 0.01 }
+	realm_mask_scale = { 1 1 }
+	
+	flags = {
+		# COTC Government Mechanics
+		government_is_state
+		government_is_military
+		government_is_meritocratic
+		government_is_parliamentary
+		government_uses_state_capacity
+		government_has_legislature
+		vassals_have_military_staff
+		
+		# Vanilla Government Mechanics
+		government_is_administrative
+		government_is_settled
+		may_elevate_co_monarch
 		government_has_influence
 		government_has_treasury
 		government_has_title_men_at_arms
@@ -776,12 +1085,12 @@ dictatorial_aristocratic_military_government = {
 		government_is_military
 		government_is_aristocratic
 		government_is_dictatorial
+		government_uses_state_capacity
 		
 		# Vanilla Government Mechanics
 		government_is_administrative
 		government_is_settled
 		may_elevate_co_monarch
-		government_uses_crown_authority
 		government_has_influence
 		government_has_treasury
 		government_has_title_men_at_arms
@@ -861,13 +1170,13 @@ presidential_aristocratic_military_government = {
 		government_is_military
 		government_is_aristocratic
 		government_is_presidential
+		government_uses_state_capacity
 		government_has_legislature
 		
 		# Vanilla Government Mechanics
 		government_is_administrative
 		government_is_settled
 		may_elevate_co_monarch
-		government_uses_crown_authority
 		government_has_influence
 		government_has_treasury
 		government_has_title_men_at_arms
@@ -947,13 +1256,13 @@ parliamentary_aristocratic_military_government = {
 		government_is_military
 		government_is_aristocratic
 		government_is_parliamentary
+		government_uses_state_capacity
 		government_has_legislature
 		
 		# Vanilla Government Mechanics
 		government_is_administrative
 		government_is_settled
 		may_elevate_co_monarch
-		government_uses_crown_authority
 		government_has_influence
 		government_has_treasury
 		government_has_title_men_at_arms

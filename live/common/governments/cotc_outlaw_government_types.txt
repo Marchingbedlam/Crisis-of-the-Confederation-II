@@ -1,5 +1,6 @@
 ﻿pirate_monarchy_government = {
 	government_rules = {
+		administrative = yes
 		rulers_should_have_dynasty = yes
 		legitimacy = no
 		allow_out_of_realm_inheritance = yes
@@ -14,6 +15,9 @@
 	required_county_holdings = { castle_holding city_holding church_holding }
 	
 	vassal_contract_group = pirate_subordinate
+	min_appointment_tier = county
+
+	house_unity = clan_house_unity
 	
 	character_modifier = {
 		# City Penalties
@@ -36,10 +40,14 @@
 		# COTC Government Mechanics
 		government_is_criminal
 		government_is_military
-		government_is_meritocratic
+		government_is_aristocratic
 		government_is_despotic
 		
+		# Flavor
+		government_is_space_crew
+		
 		# Vanilla Government Mechanics
+		government_is_clan
 		government_is_settled
 		government_uses_domain_limit
 		government_can_raid_rule
