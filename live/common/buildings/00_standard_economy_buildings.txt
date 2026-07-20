@@ -74,6 +74,8 @@ common_tradeberth_01 = {
 	}
 	province_terrain_modifier = {
 		# Double income for trading stations on edges of systems
+		# FIXME: This doesn't work -- nothing is "coastal" for whatever reason
+		# but also need to figure out the parameter part
 		parameter = coastal_tradeberths_bonus
 		is_coastal = yes
 		monthly_income = poor_building_tax_halved_tier_1
@@ -738,7 +740,6 @@ ice_collector_01 = {
 		# ai_ice_collector_improvement_from_culture_modifier = yes
 	}
 }
-
 ice_collector_02 = {
 	construction_time = slow_construction_time
 	effect_desc = logging_camps_desc  # Scientists still figuring out what this does
@@ -772,7 +773,6 @@ ice_collector_02 = {
 		}
 	}
 }
-
 ice_collector_03 = {
 	construction_time = slow_construction_time
 	effect_desc = logging_camps_desc  # Scientists still figuring out what this does
@@ -3058,6 +3058,667 @@ exotic_forges_08 = {
 		ai_economical_building_preference_modifier = yes
 	}
 }
+
+### Xenofauna -- Atmospheric weak economy with bonuses for certain cultures
+
+xenofauna_01 = {
+	construction_time = slow_construction_time
+
+	can_construct_potential = {
+		building_xenofauna_requirement_terrain = yes  # TBD Decide about being more restrictive
+		building_requirement_castle_city_church = { LEVEL = 01 }
+	}
+
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+
+	cost_gold = normal_building_tier_1_cost
+
+	province_modifier = {
+		monthly_income = normal_building_tax_tier_1
+		build_speed = good_building_build_speed_tier_1
+	}
+	county_modifier = {
+		development_growth_factor = 0.05
+	}
+	character_culture_modifier = {
+		parameter = xenofauna_martial_culture_bonuses
+		# TODO: Add parameter to certain martial cultures
+		knight_effectiveness_mult = high_knight_effectiveness_mult_tier_1
+		stationed_maa_pursuit_add = normal_maa_pursuit_tier_1
+		stationed_maa_screen_add = normal_maa_screen_tier_1
+	}
+
+	next_building = xenofauna_02
+
+	type_icon = "icon_building_elephant_pens.dds"
+
+	ai_value = {
+		base = 12 # A little bit higher than normal, they're very handy for further development
+		ai_tier_1_building_modifier = yes
+		ai_tier_1_economical_building_preference_modifier = yes
+		ai_general_building_modifier = yes
+		directive_to_build_economy_modifier = yes
+		modifier = { # Not that good without the cultural bonuses
+			factor = 0.5
+			NOT = {
+				has_cultural_parameter = xenofauna_martial_culture_bonuses
+			}
+		}
+	}
+}
+xenofauna_02 = {
+	construction_time = slow_construction_time
+
+	can_construct_potential = {
+		building_xenofauna_requirement_terrain = yes
+		building_requirement_castle_city_church = { LEVEL = 01 }
+	}
+
+	can_construct_showing_failures_only = {
+		scope:holder.culture = {
+			has_innovation = innovation_crop_rotation
+		}
+		building_requirement_tribal = no
+	}
+
+	cost_gold = normal_building_tier_2_cost
+
+	province_modifier = {
+		monthly_income = normal_building_tax_tier_2
+		build_speed = good_building_build_speed_tier_2
+	}
+	county_modifier = {
+		development_growth_factor = 0.1
+	}
+	character_culture_modifier = {
+		parameter = xenofauna_martial_culture_bonuses
+		# TODO: Add parameter to certain martial cultures
+		knight_effectiveness_mult = high_knight_effectiveness_mult_tier_2
+		stationed_maa_pursuit_add = normal_maa_pursuit_tier_2
+		stationed_maa_screen_add = normal_maa_screen_tier_2
+	}
+
+	next_building = xenofauna_03
+
+	ai_value = {
+		base = 9
+		ai_general_building_modifier = yes
+		directive_to_build_economy_modifier = yes
+		ai_economical_building_preference_modifier = yes
+		modifier = { # Fill all building slots before going for upgrades
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+}
+xenofauna_03 = {
+	construction_time = slow_construction_time
+
+	can_construct_potential = {
+		building_xenofauna_requirement_terrain = yes
+	}
+
+	can_construct = {
+		building_requirement_castle_city_church = { LEVEL = 02 }
+		scope:holder.culture = {
+			has_innovation = innovation_manorialism
+		}
+	}
+
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+
+	cost_gold = normal_building_tier_3_cost
+
+	province_modifier = {
+		monthly_income = normal_building_tax_tier_3
+		build_speed = good_building_build_speed_tier_3
+	}
+	county_modifier = {
+		development_growth_factor = 0.15
+		build_gold_cost = -0.02
+	}
+	character_culture_modifier = {
+		parameter = xenofauna_martial_culture_bonuses
+		knight_effectiveness_mult = high_knight_effectiveness_mult_tier_3
+		stationed_maa_pursuit_add = normal_maa_pursuit_tier_3
+		stationed_maa_screen_add = normal_maa_screen_tier_3
+	}
+
+
+	on_complete = {
+		#Mandala Creator Aspect
+		creator_mandala_built_regular_building_piety_effect = yes
+	}
+
+	next_building = xenofauna_04
+
+	ai_value = {
+		base = 8
+		ai_general_building_modifier = yes
+		directive_to_build_economy_modifier = yes
+		ai_economical_building_preference_modifier = yes
+	}
+}
+xenofauna_04 = {
+	construction_time = slow_construction_time
+
+	can_construct_potential = {
+		building_xenofauna_requirement_terrain = yes
+	}
+
+	can_construct = {
+		building_requirement_castle_city_church = { LEVEL = 02 }
+		scope:holder.culture = {
+			has_innovation = innovation_manorialism
+		}
+	}
+
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+
+	cost_gold = normal_building_tier_4_cost
+
+	province_modifier = {
+		monthly_income = normal_building_tax_tier_4
+		build_speed = good_building_build_speed_tier_4
+	}
+	county_modifier = {
+		development_growth_factor = 0.2
+		build_gold_cost = -0.02
+	}
+	character_culture_modifier = {
+		parameter = xenofauna_martial_culture_bonuses
+		knight_effectiveness_mult = high_knight_effectiveness_mult_tier_4
+		stationed_maa_pursuit_add = normal_maa_pursuit_tier_4
+		stationed_maa_screen_add = normal_maa_screen_tier_4
+	}
+
+	next_building = xenofauna_05
+
+	ai_value = {
+		base = 7
+		ai_general_building_modifier = yes
+		directive_to_build_economy_modifier = yes
+		ai_economical_building_preference_modifier = yes
+	}
+}
+xenofauna_05 = {
+	construction_time = slow_construction_time
+
+	can_construct_potential = {
+		building_xenofauna_requirement_terrain = yes
+	}
+
+	can_construct = {
+		building_requirement_castle_city_church = { LEVEL = 03 }
+		scope:holder.culture = {
+			has_innovation = innovation_guilds
+		}
+	}
+
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+
+	cost_gold = normal_building_tier_5_cost
+
+	province_modifier = {
+		monthly_income = normal_building_tax_tier_5
+		build_speed = good_building_build_speed_tier_5
+	}
+	county_modifier = {
+		development_growth_factor = 0.25
+		build_gold_cost = -0.02
+	}
+	character_culture_modifier = {
+		parameter = xenofauna_martial_culture_bonuses
+		knight_effectiveness_mult = high_knight_effectiveness_mult_tier_5
+		stationed_maa_pursuit_add = normal_maa_pursuit_tier_5
+		stationed_maa_screen_add = normal_maa_screen_tier_5
+		movement_speed = normal_movement_speed_tier_2
+	}
+
+	next_building = xenofauna_06
+
+	ai_value = {
+		base = 6
+		ai_general_building_modifier = yes
+		directive_to_build_economy_modifier = yes
+		ai_economical_building_preference_modifier = yes
+	}
+}
+xenofauna_06 = {
+	construction_time = slow_construction_time
+
+	can_construct_potential = {
+		building_xenofauna_requirement_terrain = yes
+	}
+
+	can_construct = {
+		building_requirement_castle_city_church = { LEVEL = 03 }
+		scope:holder.culture = {
+			has_innovation = innovation_guilds
+		}
+	}
+
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+
+	cost_gold = normal_building_tier_6_cost
+
+	province_modifier = {
+		monthly_income = normal_building_tax_tier_6
+		build_speed = good_building_build_speed_tier_6
+	}
+	county_modifier = {
+		development_growth_factor = 0.3
+		build_gold_cost = -0.02
+	}
+	character_culture_modifier = {
+		parameter = xenofauna_martial_culture_bonuses
+		knight_effectiveness_mult = high_knight_effectiveness_mult_tier_6
+		stationed_maa_pursuit_add = normal_maa_pursuit_tier_6
+		stationed_maa_screen_add = normal_maa_screen_tier_6
+		movement_speed = normal_movement_speed_tier_3
+	}
+
+	next_building = xenofauna_07
+
+	ai_value = {
+		base = 5
+		ai_general_building_modifier = yes
+		directive_to_build_economy_modifier = yes
+		ai_economical_building_preference_modifier = yes
+	}
+}
+xenofauna_07 = {
+	construction_time = slow_construction_time
+
+	can_construct_potential = {
+		building_xenofauna_requirement_terrain = yes
+	}
+
+	can_construct = {
+		building_requirement_castle_city_church = { LEVEL = 04 }
+		scope:holder.culture = {
+			has_innovation = innovation_cranes
+		}
+	}
+
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+
+	cost_gold = normal_building_tier_7_cost
+
+	province_modifier = {
+		monthly_income = normal_building_tax_tier_7
+		build_speed = good_building_build_speed_tier_7
+	}
+	county_modifier = {
+		development_growth_factor = 0.35
+		build_gold_cost = -0.02
+	}
+	character_culture_modifier = {
+		parameter = xenofauna_martial_culture_bonuses
+		knight_effectiveness_mult = high_knight_effectiveness_mult_tier_7
+		stationed_maa_pursuit_add = normal_maa_pursuit_tier_7
+		stationed_maa_screen_add = normal_maa_screen_tier_7
+		movement_speed = normal_movement_speed_tier_4
+	}
+
+	on_complete = {
+		#Mandala Creator Aspect
+		creator_mandala_built_regular_building_piety_effect = yes
+	}
+
+	next_building = xenofauna_08
+
+	ai_value = {
+		base = 4
+		ai_general_building_modifier = yes
+		directive_to_build_economy_modifier = yes
+		ai_economical_building_preference_modifier = yes
+	}
+}
+xenofauna_08 = {
+	construction_time = slow_construction_time
+
+	can_construct_potential = {
+		building_xenofauna_requirement_terrain = yes
+	}
+
+	can_construct = {
+		building_requirement_castle_city_church = { LEVEL = 04 }
+		scope:holder.culture = {
+			has_innovation = innovation_cranes
+		}
+	}
+
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+
+	cost_gold = normal_building_tier_8_cost
+
+
+	province_modifier = {
+		monthly_income = normal_building_tax_tier_8
+		build_speed = good_building_build_speed_tier_8
+	}
+	county_modifier = {
+		development_growth_factor = 0.40
+		build_gold_cost = -0.03
+	}
+	character_culture_modifier = {
+		parameter = xenofauna_martial_culture_bonuses
+		knight_effectiveness_mult = high_knight_effectiveness_mult_tier_8
+		stationed_maa_pursuit_add = normal_maa_pursuit_tier_8
+		stationed_maa_screen_add = normal_maa_screen_tier_8
+		movement_speed = normal_movement_speed_tier_5
+	}
+
+	on_complete = {
+		#Mandala Creator Aspect
+		creator_mandala_built_regular_building_piety_effect = yes
+	}
+
+	ai_value = {
+		base = 3
+		ai_general_building_modifier = yes
+		directive_to_build_economy_modifier = yes
+		ai_economical_building_preference_modifier = yes
+	}
+}
+
+water_collector_01 = {
+	construction_time = slow_construction_time
+	effect_desc = logging_camps_desc  # Scientists still figuring out what this does
+	can_construct_potential = {
+		building_water_collector_requirement_terrain = yes
+		building_requirement_castle_city_church = { LEVEL = 01 }
+	}
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+	cost_gold = normal_building_tier_1_cost
+	province_modifier = {
+		monthly_income = large_building_tax_tier_1
+		development_growth = -0.01
+	}
+	# TODO: Add Cultural and locational bonuses 
+	# province_terrain_modifier = {
+	#	parameter = coastal_agriculture_building_bonuses
+	#	is_coastal = yes
+	#	tax_mult = 0.02
+	#}
+	#county_culture_modifier = {
+	#	parameter = peat_quarries_building_bonuses
+	#	build_speed = -0.02
+	#	build_gold_cost = -0.01
+	#}
+	#
+	#on_complete = {
+	#	#Mandala Creator Aspect
+	#	creator_mandala_built_regular_building_piety_effect = yes
+	#}
+
+	next_building = water_collector_02
+
+	type_icon = "icon_building_peat_quarries.dds"
+
+	ai_value = {
+		base = 9
+		ai_tier_1_building_modifier = yes
+		ai_tier_1_economical_building_preference_modifier = yes
+		ai_general_building_modifier = yes
+		directive_to_build_economy_modifier = yes
+		# ai_water_collector_improvement_from_culture_modifier = yes
+	}
+}
+water_collector_02 = {
+	construction_time = slow_construction_time
+	effect_desc = logging_camps_desc  # Scientists still figuring out what this does
+	can_construct_potential = {
+		building_water_collector_requirement_terrain = yes
+		building_requirement_castle_city_church = { LEVEL = 01 }
+	}
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+		# TODO: Figure out tech requirements
+	}
+	cost_gold = normal_building_tier_2_cost
+	province_modifier = {
+		monthly_income = large_building_tax_tier_2
+		development_growth = -0.01
+		tax_mult = 0.01  # TODO: Create a define with tax mult
+	}
+	county_modifier = {
+		city_holding_build_gold_cost = -0.05
+	}
+
+	next_building = water_collector_03
+
+	type_icon = "icon_building_peat_quarries.dds"
+
+	ai_value = {
+		base = 9
+		ai_economical_building_preference_modifier = yes
+		ai_general_building_modifier = yes
+		directive_to_build_economy_modifier = yes
+		# ai_water_collector_improvement_from_culture_modifier = yes
+		modifier = { # Fill all building slots before going for upgrades
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+}
+water_collector_03 = {
+	construction_time = slow_construction_time
+	effect_desc = logging_camps_desc  # Scientists still figuring out what this does
+	can_construct_potential = {
+		building_water_collector_requirement_terrain = yes
+		building_requirement_castle_city_church = { LEVEL = 02 }
+	}
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+		# TODO: Figure out tech requirements
+	}
+	cost_gold = normal_building_tier_3_cost
+	province_modifier = {
+		monthly_income = large_building_tax_tier_3
+		development_growth = -0.01
+		tax_mult = 0.01  # TODO: Create a define with tax mult
+	}
+	county_modifier = {
+		city_holding_build_gold_cost = -0.075
+	}
+
+	next_building = water_collector_04
+
+	type_icon = "icon_building_peat_quarries.dds"
+
+	ai_value = {
+		base = 8
+		ai_general_building_modifier = yes
+		directive_to_build_economy_modifier = yes
+		ai_economical_building_preference_modifier = yes
+	}
+}
+water_collector_04 = {
+	construction_time = slow_construction_time
+	effect_desc = logging_camps_desc  # Scientists still figuring out what this does
+	can_construct_potential = {
+		building_water_collector_requirement_terrain = yes
+		building_requirement_castle_city_church = { LEVEL = 02 }
+	}
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+		# TODO: Figure out tech requirements
+	}
+	cost_gold = normal_building_tier_4_cost
+	province_modifier = {
+		monthly_income = large_building_tax_tier_4
+		development_growth = -0.01
+		tax_mult = 0.02
+	}
+	county_modifier = {
+		city_holding_build_gold_cost = -0.1
+	}
+
+	next_building = water_collector_05
+
+	type_icon = "icon_building_peat_quarries.dds"
+
+	ai_value = {
+		base = 8
+		ai_general_building_modifier = yes
+		directive_to_build_economy_modifier = yes
+		ai_economical_building_preference_modifier = yes
+	}
+}
+water_collector_05 = {
+	construction_time = slow_construction_time
+	effect_desc = logging_camps_desc  # Scientists still figuring out what this does
+	can_construct_potential = {
+		building_water_collector_requirement_terrain = yes
+		building_requirement_castle_city_church = { LEVEL = 03 }
+	}
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+		# TODO: Figure out tech requirements
+	}
+	cost_gold = normal_building_tier_5_cost
+	province_modifier = {
+		monthly_income = large_building_tax_tier_5
+		development_growth = -0.02
+		tax_mult = 0.02
+	}
+	county_modifier = {
+		city_holding_build_gold_cost = -0.125
+	}
+	character_modifier = {
+		army_maintenance_mult = -0.01
+	}
+	next_building = water_collector_06
+
+	type_icon = "icon_building_peat_quarries.dds"
+
+	ai_value = {
+		base = 8
+		ai_general_building_modifier = yes
+		directive_to_build_economy_modifier = yes
+		ai_economical_building_preference_modifier = yes
+	}
+}
+water_collector_06 = {
+	construction_time = slow_construction_time
+	effect_desc = logging_camps_desc  # Scientists still figuring out what this does
+	can_construct_potential = {
+		building_water_collector_requirement_terrain = yes
+		building_requirement_castle_city_church = { LEVEL = 03 }
+	}
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+		# TODO: Figure out tech requirements
+	}
+	cost_gold = normal_building_tier_6_cost
+	province_modifier = {
+		monthly_income = large_building_tax_tier_6
+		development_growth = -0.02
+		tax_mult = 0.03
+	}
+	county_modifier = {
+		city_holding_build_gold_cost = -0.15
+	}
+	character_modifier = {
+		army_maintenance_mult = -0.02
+	}
+	next_building = water_collector_07
+
+	type_icon = "icon_building_peat_quarries.dds"
+
+	ai_value = {
+		base = 8
+		ai_general_building_modifier = yes
+		directive_to_build_economy_modifier = yes
+		ai_economical_building_preference_modifier = yes
+	}
+}
+water_collector_07 = {
+	construction_time = slow_construction_time
+	effect_desc = logging_camps_desc  # Scientists still figuring out what this does
+	can_construct_potential = {
+		building_water_collector_requirement_terrain = yes
+		building_requirement_castle_city_church = { LEVEL = 04 }
+	}
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+		# TODO: Figure out tech requirements
+	}
+	cost_gold = normal_building_tier_7_cost
+	province_modifier = {
+		monthly_income = large_building_tax_tier_7
+		development_growth = -0.03
+		tax_mult = 0.03
+	}
+	county_modifier = {
+		city_holding_build_gold_cost = -0.175
+	}
+	character_modifier = {
+		army_maintenance_mult = -0.02
+	}
+	next_building = water_collector_08
+
+	type_icon = "icon_building_peat_quarries.dds"
+
+	ai_value = {
+		base = 8
+		ai_general_building_modifier = yes
+		directive_to_build_economy_modifier = yes
+		ai_economical_building_preference_modifier = yes
+	}
+}
+water_collector_08 = {
+	construction_time = slow_construction_time
+	effect_desc = logging_camps_desc  # Scientists still figuring out what this does
+	can_construct_potential = {
+		building_water_collector_requirement_terrain = yes
+		building_requirement_castle_city_church = { LEVEL = 04 }
+	}
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+		# TODO: Figure out tech requirements
+	}
+	cost_gold = normal_building_tier_8_cost
+	province_modifier = {
+		monthly_income = large_building_tax_tier_8
+		development_growth = -0.03
+		tax_mult = 0.04
+	}
+	county_modifier = {
+		city_holding_build_gold_cost = -0.20
+	}
+	character_modifier = {
+		army_maintenance_mult = -0.03
+	}
+
+	type_icon = "icon_building_peat_quarries.dds"
+
+	ai_value = {
+		base = 8
+		ai_general_building_modifier = yes
+		directive_to_build_economy_modifier = yes
+		ai_economical_building_preference_modifier = yes
+	}
+}
+
 
 # End CotC Edits
 #####################################################################
