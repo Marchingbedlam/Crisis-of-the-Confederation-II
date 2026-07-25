@@ -20,6 +20,493 @@
 #travel_point_of_interest_learning = this location will be a learning point of interest
 
 ###########
+# CotC Special Buildings
+
+olympic_yards_01 = {
+	
+	# Someday maybe someone will add assets to places
+	# asset = {
+	# 	type = pdxmesh
+	# 	name = "fp2_building_special_alhambra_01_mesh" 
+	# }
+
+	construction_time = very_slow_construction_time
+
+	type_icon = "icon_structure_alhambra.dds"
+	
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+	
+	cost_gold = 2000
+
+	max_garrison = good_building_max_garrison_tier_1
+	province_modifier = {
+		monthly_income = 1
+		stationed_maa_damage_mult = normal_maa_damage_tier_1
+		stationed_maa_damage_mult = normal_maa_damage_tier_1
+		stationed_maa_toughness_mult = normal_maa_toughness_tier_1
+		stationed_siege_weapon_siege_value_mult = normal_maa_siege_value_tier_1
+		travel_danger = -10
+	}
+	county_modifier = {
+		development_growth = 0.05
+		defender_holding_advantage = normal_building_advantage_tier_1
+	}
+	character_modifier = {
+		men_at_arms_maintenance = -0.10
+		men_at_arms_recruitment_cost = -0.10
+	}
+	
+	next_building = olympic_yards_02
+	
+	ai_value = {
+		base = 100
+		culture_likely_to_fortify_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_martial
+}
+
+olympic_yards_02 = {
+	
+	# Someday maybe someone will add assets to places
+	# asset = {
+	# 	type = pdxmesh
+	# 	name = "fp2_building_special_alhambra_01_mesh" 
+	# }
+
+	construction_time = very_slow_construction_time
+
+	type_icon = "icon_structure_alhambra.dds"
+	
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+	
+	can_construct = {
+		scope:holder.culture = {
+			has_innovation = innovation_hoardings
+		}
+	}
+	
+	cost_gold = 3000
+
+	character_modifier = {
+		monthly_prestige_gain_mult = 0.10
+	}
+	max_garrison = good_building_max_garrison_tier_3
+	province_modifier = {
+		defender_holding_advantage = normal_building_advantage_tier_4
+		fort_level = good_building_fort_level_tier_1
+		monthly_income = 2
+		stationed_maa_damage_mult = normal_maa_damage_tier_4
+		stationed_maa_toughness_mult = normal_maa_toughness_tier_4
+		stationed_siege_weapon_siege_value_mult = normal_maa_siege_value_tier_4
+		travel_danger = -20
+	}
+	county_modifier = {
+		development_growth = 0.3
+		development_growth_factor = 0.25
+		monthly_county_control_growth_add = -0.025
+	}
+	character_modifier = {
+		men_at_arms_maintenance = -0.25
+		men_at_arms_recruitment_cost = -0.25
+	}
+	
+	ai_value = {
+		base = 100
+		culture_likely_to_fortify_modifier = yes
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_martial
+}
+
+dharmaalay_archipelago_01 = {
+
+	construction_time = very_slow_construction_time
+	effect_desc = dharmaalay_archipelago_infrastructure
+	type_icon = "icon_structure_petra.dds"
+	
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+	
+	cost_gold = 3000
+
+	county_modifier = {
+		tax_mult = 0.1
+		supply_limit_mult = 0.25
+		development_growth = 0.2
+		development_growth_factor = 0.15
+	}
+	
+	province_modifier = {
+		monthly_income = good_building_tax_tier_4
+		build_gold_cost = -0.1
+		building_slot_add = 1  # TODO: This doesn't seem to work for buildings in title history.
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_economic
+}
+
+minaean_university_01 = {
+	construction_time = very_slow_construction_time
+	effect_desc = {
+		desc = unlocks_building_desc
+		triggered_desc = {
+			trigger = { has_dlc_feature = tours_and_tournaments }
+			desc = university_toto_effect_desc
+		}
+		triggered_desc = {
+			trigger = { has_dlc_feature = royal_court }
+			desc = university_roco_effect_desc
+		}
+		desc = university_effect_desc
+	}
+
+	type_icon = "icon_structure_al-azhar_university.dds"
+	
+	can_construct_potential = {
+		building_requirement_tribal = no
+		building_university_requirement = yes
+	}
+	
+	can_construct = {
+	}
+	
+	show_disabled = yes
+	
+	cost_gold = 1000
+
+	character_modifier = {
+		learning_per_prestige_level = 1
+		diplomacy_per_prestige_level = 1
+		monthly_diplomacy_lifestyle_xp_gain_mult = 0.1
+		cultural_head_fascination_mult = 0.05
+		monthly_dynasty_prestige = 0.25
+	}
+	
+	county_modifier = {
+		development_growth_factor = 0.2
+		development_growth = 0.3
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_learning
+	flag = special_university
+}
+
+# COTC Cool Wildlife
+wildlife_koloss_01 = {
+
+	construction_time = very_slow_construction_time
+	effect_desc = hunting_grounds_desc
+	type_icon = "icon_structure_petra.dds"
+	
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+	
+	cost_gold = 3000
+
+	county_modifier = {
+		tax_mult = -0.1
+		development_growth_factor = -0.1
+	}
+	
+	province_modifier = {
+		monthly_income = -0.3
+		build_gold_cost = 0.1
+	}
+	character_modifier = {
+		prowess = 1
+		monthly_prestige = 0.2
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+	next_building = wildlife_koloss_02
+
+	flag = travel_point_of_interest_natural_feature
+}
+wildlife_koloss_02 = {
+
+	construction_time = very_slow_construction_time
+	effect_desc = hunting_grounds_desc
+	type_icon = "icon_structure_petra.dds"
+	
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+	
+	cost_gold = 2000
+
+	county_modifier = {
+		tax_mult = 0.1
+		garrison_size = 0.25
+		development_growth = 0.1
+		development_growth_factor = 0.1
+	}
+	
+	province_modifier = {
+		monthly_income = good_building_tax_tier_3
+		build_gold_cost = -0.1
+	}
+	character_modifier = {
+		prowess = 2
+		monthly_prestige = 0.4
+		dread_baseline_add = 10
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_natural_feature
+}
+
+##############################
+# COTC Mines
+# TODO: Move to separate special mines file
+##############################
+
+altair_core_01 = {
+	effect_desc = mines_effect_desc
+
+	asset = {
+		type = pdxmesh
+		name = "building_special_mines_mesh"
+	}
+
+	construction_time = slow_construction_time
+
+	type_icon = "icon_structure_mines.dds"
+
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+
+	can_construct = {
+		building_requirement_castle_city_church = { LEVEL = 01 }
+		culture = {
+			has_innovation = innovation_crop_rotation
+		}
+	}
+	
+	cost_gold = expensive_building_tier_3_cost
+	
+	province_modifier = {
+		monthly_income = gold_mine_generic_building_tax_tier_1
+		stationed_siege_weapon_siege_value_mult = high_maa_siege_value_tier_1
+		build_gold_cost = 0.2
+	}
+	county_modifier = {
+		tax_mult = 0.05
+		levy_size = 0.1
+		development_growth_factor = 0.05
+	}
+	
+	next_building = altair_core_02
+
+	ai_value = {
+		base = 100
+	}
+	
+	type = special
+	
+	flag = travel_point_of_interest_economic
+	flag = special_mine
+	flag = special_mine_iron
+}
+
+altair_core_02 = {
+	effect_desc = mines_effect_desc
+
+	asset = {
+		type = pdxmesh
+		name = "building_special_mines_mesh"
+	}
+
+	construction_time = slow_construction_time
+
+	type_icon = "icon_structure_mines.dds"
+
+	can_construct_potential = {
+		
+		building_requirement_tribal = no
+	}
+	can_construct = {
+		building_requirement_castle_city_church = { LEVEL = 02 }
+		culture = {
+			has_innovation = innovation_manorialism
+		}
+	}
+	
+	cost_gold = expensive_building_tier_4_cost
+	
+	province_modifier = {
+		monthly_income = gold_mine_generic_building_tax_tier_2
+		stationed_siege_weapon_siege_value_mult = high_maa_siege_value_tier_2
+		build_gold_cost = 0.15
+	}
+	county_modifier = {
+		tax_mult = 0.1
+		levy_size = 0.2
+		development_growth_factor = 0.1
+	}
+	
+	next_building = altair_core_03
+
+	ai_value = {
+		base = 100
+	}
+	
+	type = special
+	
+	flag = travel_point_of_interest_economic
+	flag = special_mine
+	flag = special_mine_iron
+}
+
+altair_core_03 = {
+	effect_desc = mines_effect_desc
+
+	asset = {
+		type = pdxmesh
+		name = "building_special_mines_mesh"
+	}
+
+	construction_time = slow_construction_time
+
+	type_icon = "icon_structure_mines.dds"
+
+	can_construct_potential = {
+		
+		building_requirement_tribal = no
+	}
+	can_construct = {
+		building_requirement_castle_city_church = { LEVEL = 03 }
+		culture = {
+			has_innovation = innovation_windmills
+		}
+	}
+	
+	cost_gold = expensive_building_tier_5_cost
+	
+	province_modifier = {
+		monthly_income = gold_mine_generic_building_tax_tier_3
+		stationed_siege_weapon_siege_value_mult = high_maa_siege_value_tier_3
+		build_gold_cost = 0.1
+	}
+	county_modifier = {
+		tax_mult = 0.15
+		levy_size = 0.3
+		development_growth_factor = 0.15
+	}
+	
+	next_building = altair_core_04
+
+	ai_value = {
+		base = 100
+	}
+	
+	type = special
+	
+	flag = travel_point_of_interest_economic
+	flag = special_mine
+	flag = special_mine_iron
+}
+
+altair_core_04 = {
+	effect_desc = mines_effect_desc
+
+	asset = {
+		type = pdxmesh
+		name = "building_special_mines_mesh"
+	}
+
+	construction_time = slow_construction_time
+
+	type_icon = "icon_structure_mines.dds"
+
+	can_construct_potential = {
+		
+		building_requirement_tribal = no
+	}
+	can_construct = {
+		building_requirement_castle_city_church = { LEVEL = 04 }
+		culture = {
+			has_innovation = innovation_cranes
+		}
+	}
+	
+	cost_gold = expensive_building_tier_6_cost
+	
+	province_modifier = {
+		monthly_income = gold_mine_generic_building_tax_tier_4
+		stationed_siege_weapon_siege_value_mult = high_maa_siege_value_tier_4
+		build_gold_cost = 0.05
+	}
+	county_modifier = {
+		tax_mult = 0.20
+		levy_size = 0.4
+		development_growth_factor = 0.2
+	}
+
+	ai_value = {
+		base = 100
+	}
+	
+	type = special
+	
+	flag = travel_point_of_interest_economic
+	flag = special_mine
+	flag = special_mine_iron
+}
+
+###########
 ## Generic Holy Site Buildings
 ###########
 
