@@ -171,7 +171,12 @@ ideology_intellectualism = {
 	}
 	
 	if = {
-		limit = { has_doctrine = doctrine_administrative_power }
+		limit = {
+			OR = {
+				has_doctrine = doctrine_technocratic_power
+				has_doctrine = doctrine_theocratic_power
+			}
+		}
 		add = 1
 	}
 	
@@ -549,12 +554,7 @@ opinion_of_ideology = {
 		}
 	}
 	else_if = { # Ideology supports technocracy
-		limit = {
-			scope:target_faith = {
-				has_doctrine = doctrine_administrative_power
-				NOT = { has_doctrine = religious_hostility_doctrine }
-			}
-		}
+		limit = { scope:target_faith = { has_doctrine = doctrine_technocratic_power } }
 		if = {
 			limit = { character_is_technocratic_trigger = yes }
 			add = {
@@ -577,12 +577,7 @@ opinion_of_ideology = {
 		}
 	}
 	else_if = { # Ideology supports theocracy
-		limit = {
-			scope:target_faith = {
-				has_doctrine = doctrine_administrative_power
-				has_doctrine = religious_hostility_doctrine
-			}
-		}
+		limit = { scope:target_faith = { has_doctrine = doctrine_theocratic_power } }
 		if = {
 			limit = { character_is_theocratic_trigger = yes }
 			add = {

@@ -1,5 +1,5 @@
 ﻿state_capacity = {
-	default = state_capacity_2
+	default = state_capacity_0
 	cumulative = yes
 	flag = realm_law
 	
@@ -65,8 +65,24 @@
 		flag = title_revocation_allowed
 		flag = vassal_retraction_allowed
 		flag = can_change_partition_succession_laws
-		flag = vassal_internal_wars_banned
+		flag = vassal_all_wars_banned
 		flag = diarchs_want_to_subsidise_without_this_flag
+		triggered_flag = {
+			trigger = { NOT = { government_has_flag = government_is_military } }
+			flag = can_set_military_province_governments
+		}
+		triggered_flag = {
+			trigger = { NOT = { government_has_flag = government_is_commercial } }
+			flag = can_set_commercial_province_governments
+		}
+		triggered_flag = {
+			trigger = { NOT = { government_has_flag = government_is_technocratic } }
+			flag = can_set_technocratic_province_governments
+		}
+		triggered_flag = {
+			trigger = { NOT = { government_has_flag = government_is_theocratic } }
+			flag = can_set_theocratic_province_governments
+		}
 
 		can_keep = {
 			realm_law_uses_state_capacity = yes
@@ -102,7 +118,6 @@
 					always = no
 				}
 			}
-			trigger_else = { legitimacy_level >= 1 }
 			custom_description = {
 				text = "no_powerful_vassal_with_negative_opinion"
 				NOT = {
@@ -162,9 +177,25 @@
 		}
 		flag = vassal_refusal_is_treason
 		flag = can_change_succession_laws
-		flag = vassal_all_wars_banned
+		flag = vassal_all_wars_banned_permanent
 		flag = admin_change_vassal_gov_cheaper
 		flag = admin_title_troop_cost_reduction
+		triggered_flag = {
+			trigger = { government_has_flag = government_is_military }
+			flag = can_set_military_province_governments
+		}
+		triggered_flag = {
+			trigger = { government_has_flag = government_is_commercial }
+			flag = can_set_commercial_province_governments
+		}
+		triggered_flag = {
+			trigger = { government_has_flag = government_is_technocratic }
+			flag = can_set_technocratic_province_governments
+		}
+		triggered_flag = {
+			trigger = { government_has_flag = government_is_theocratic }
+			flag = can_set_theocratic_province_governments
+		}
 		
 		can_keep = {
 			realm_law_uses_state_capacity = yes
@@ -201,7 +232,6 @@
 					always = no
 				}
 			}
-			trigger_else = { legitimacy_level >= 2 }
 			custom_description = {
 				text = "no_powerful_vassal_with_negative_opinion"
 				NOT = {
@@ -254,7 +284,6 @@
 			republic_government_tax_contribution_add = 0.05
 			vassal_limit = 200
 		}
-		flag = vassal_all_wars_banned_permanent
 		flag = max_authority_level
 		flag = admin_title_troop_cost_reduction_high
 		
@@ -290,7 +319,6 @@
 					always = no
 				}
 			}
-			trigger_else = { legitimacy_level >= 3 }
 			custom_description = {
 				text = "no_powerful_vassal_with_negative_opinion"
 				NOT = {
@@ -321,6 +349,643 @@
 			}
 			# Remove modifiers.
 			remove_law_related_modifiers_effect = yes
+		}
+	}
+}
+
+military_provinces_laws = {
+	default = military_provinces_self_determined_law
+	cumulative = no
+	flag = imperial_policy
+	
+	military_provinces_self_determined_law = {
+		can_keep = { can_have_vassal_government_laws_trigger = yes }
+		can_have = { can_have_vassal_government_laws_trigger = yes }
+		can_pass = { legislature_blocks_law_trigger = no }
+		on_pass = {
+			set_variable = { name = provincial_law_cooldown years = @admin_law_cooldown_value }
+			pass_vassal_government_law_effect = { POWER_BASE = flag:military LEGITIMACY = flag:free }
+		}
+	}
+	military_provinces_democratic_law = {
+		can_keep = {
+			can_have_vassal_government_laws_trigger = yes
+			has_realm_law_flag = can_set_military_province_governments
+		}
+		should_start_with = {
+			faith = {
+				has_doctrine_parameter = prefers_military_power
+				has_doctrine_parameter = prefers_democracy
+			}
+		}
+		can_have = {
+			can_have_vassal_government_laws_trigger = yes
+			has_realm_law_flag = can_set_military_province_governments
+		}
+		can_pass = {
+			legislature_blocks_law_trigger = no
+			OR = {
+				should_have_legislature_trigger = yes
+				AND = {
+					custom_tooltip = {
+						text = provincial_law_cooldown_desc
+						NOT = { has_variable = provincial_law_cooldown }
+					}
+				}
+			}
+		}
+		pass_cost = { prestige = { add = admin_law_prestige_cost } }
+		on_pass = {
+			set_variable = { name = provincial_law_cooldown years = @admin_law_cooldown_value }
+			pass_vassal_government_law_effect = { POWER_BASE = flag:military LEGITIMACY = flag:democratic }
+		}
+		ai_will_do = {
+			if = { # We want to bring the military in line with our democratic ideals
+				limit = {
+					trigger_if = {
+						limit = { exists = secret_faith }
+						secret_faith = { has_doctrine_parameter = prefers_democracy }
+					}
+					trigger_else = { faith = { has_doctrine_parameter = prefers_democracy } }
+					ai_zeal > ai_rationality
+				}
+				value = 1
+			}
+		}
+	}
+	military_provinces_aristocratic_law = {
+		can_keep = {
+			can_have_vassal_government_laws_trigger = yes
+			has_realm_law_flag = can_set_military_province_governments
+		}
+		should_start_with = {
+			faith = {
+				has_doctrine_parameter = prefers_military_power
+				has_doctrine_parameter = prefers_aristocracy
+			}
+		}
+		can_have = {
+			can_have_vassal_government_laws_trigger = yes
+			has_realm_law_flag = can_set_military_province_governments
+		}
+		can_pass = {
+			legislature_blocks_law_trigger = no
+			OR = {
+				should_have_legislature_trigger = yes
+				AND = {
+					custom_tooltip = {
+						text = provincial_law_cooldown_desc
+						NOT = { has_variable = provincial_law_cooldown }
+					}
+				}
+			}
+		}
+		pass_cost = { prestige = { add = admin_law_prestige_cost } }
+		on_pass = {
+			set_variable = { name = provincial_law_cooldown years = @admin_law_cooldown_value }
+			pass_vassal_government_law_effect = { POWER_BASE = flag:military LEGITIMACY = flag:aristocratic }
+		}
+		ai_will_do = {
+			if = { # We want to bring the military in line with our aristocratic ideals
+				limit = {
+					trigger_if = {
+						limit = { exists = secret_faith }
+						secret_faith = { has_doctrine_parameter = prefers_aristocracy }
+					}
+					trigger_else = { faith = { has_doctrine_parameter = prefers_aristocracy } }
+					ai_zeal > ai_rationality
+				}
+				value = 1
+			}
+		}
+	}
+	military_provinces_meritocratic_law = {
+		can_keep = {
+			can_have_vassal_government_laws_trigger = yes
+			has_realm_law_flag = can_set_military_province_governments
+		}
+		should_start_with = {
+			faith = {
+				OR = {
+					has_doctrine_parameter = prefers_commercial_power
+					has_doctrine_parameter = prefers_administrative_power
+					has_doctrine_parameter = prefers_meritocracy
+				}
+			}
+		}
+		can_have = {
+			can_have_vassal_government_laws_trigger = yes
+			has_realm_law_flag = can_set_military_province_governments
+		}
+		can_pass = {
+			legislature_blocks_law_trigger = no
+			OR = {
+				should_have_legislature_trigger = yes
+				AND = {
+					custom_tooltip = {
+						text = provincial_law_cooldown_desc
+						NOT = { has_variable = provincial_law_cooldown }
+					}
+				}
+			}
+		}
+		pass_cost = { prestige = { add = admin_law_prestige_cost } }
+		on_pass = {
+			set_variable = { name = provincial_law_cooldown years = @admin_law_cooldown_value }
+			pass_vassal_government_law_effect = { POWER_BASE = flag:military LEGITIMACY = flag:meritocratic }
+		}
+		ai_will_do = {
+			if = { # We want to bring the military under tighter control
+				limit = {
+					NOT = { government_has_flag = government_is_military }
+					OR = {
+						trigger_if = {
+							limit = { exists = secret_faith }
+							secret_faith = { has_doctrine_parameter = prefers_meritocracy }
+						}
+						trigger_else = { faith = { has_doctrine_parameter = prefers_meritocracy } }
+						ai_rationality > ai_zeal
+					}
+				}
+				value = 1
+			}
+			if = { # We want to bring the military in line with our meritocratic ideals
+				limit = {
+					trigger_if = {
+						limit = { exists = secret_faith }
+						secret_faith = { has_doctrine_parameter = prefers_meritocracy }
+					}
+					trigger_else = { faith = { has_doctrine_parameter = prefers_meritocracy } }
+				}
+				value = 1
+			}
+		}
+	}
+}
+commercial_provinces_laws = {
+	default = commercial_provinces_self_determined_law
+	cumulative = no
+	flag = imperial_policy
+	
+	commercial_provinces_self_determined_law = {
+		can_keep = { can_have_vassal_government_laws_trigger = yes }
+		can_have = { can_have_vassal_government_laws_trigger = yes }
+		can_pass = { legislature_blocks_law_trigger = no }
+		on_pass = {
+			set_variable = { name = provincial_law_cooldown years = @admin_law_cooldown_value }
+			pass_vassal_government_law_effect = { POWER_BASE = flag:commercial LEGITIMACY = flag:free }
+		}
+	}
+	commercial_provinces_democratic_law = {
+		can_keep = {
+			can_have_vassal_government_laws_trigger = yes
+			has_realm_law_flag = can_set_commercial_province_governments
+		}
+		should_start_with = { faith = { has_doctrine_parameter = prefers_democracy } }
+		can_have = {
+			can_have_vassal_government_laws_trigger = yes
+			has_realm_law_flag = can_set_commercial_province_governments
+		}
+		can_pass = {
+			legislature_blocks_law_trigger = no
+			OR = {
+				should_have_legislature_trigger = yes
+				AND = {
+					custom_tooltip = {
+						text = provincial_law_cooldown_desc
+						NOT = { has_variable = provincial_law_cooldown }
+					}
+				}
+			}
+		}
+		pass_cost = { prestige = { add = admin_law_prestige_cost } }
+		on_pass = {
+			set_variable = { name = provincial_law_cooldown years = @admin_law_cooldown_value }
+			pass_vassal_government_law_effect = { POWER_BASE = flag:commercial LEGITIMACY = flag:democratic }
+		}
+		ai_will_do = {
+			if = { # We want to bring commercial provinces in line with our democratic ideals
+				limit = {
+					trigger_if = {
+						limit = { exists = secret_faith }
+						secret_faith = { has_doctrine_parameter = prefers_democracy }
+					}
+					trigger_else = { faith = { has_doctrine_parameter = prefers_democracy } }
+					ai_zeal > 0
+				}
+				value = 1
+			}
+		}
+	}
+	commercial_provinces_aristocratic_law = {
+		can_keep = {
+			can_have_vassal_government_laws_trigger = yes
+			has_realm_law_flag = can_set_commercial_province_governments
+		}
+		should_start_with = { faith = { has_doctrine_parameter = prefers_aristocracy } }
+		can_have = {
+			can_have_vassal_government_laws_trigger = yes
+			has_realm_law_flag = can_set_commercial_province_governments
+		}
+		can_pass = {
+			legislature_blocks_law_trigger = no
+			OR = {
+				should_have_legislature_trigger = yes
+				AND = {
+					custom_tooltip = {
+						text = provincial_law_cooldown_desc
+						NOT = { has_variable = provincial_law_cooldown }
+					}
+				}
+			}
+		}
+		pass_cost = { prestige = { add = admin_law_prestige_cost } }
+		on_pass = {
+			set_variable = { name = provincial_law_cooldown years = @admin_law_cooldown_value }
+			pass_vassal_government_law_effect = { POWER_BASE = flag:commercial LEGITIMACY = flag:aristocratic }
+		}
+		ai_will_do = {
+			if = { # We want to bring commercial provinces in line with our aristocratic ideals
+				limit = {
+					trigger_if = {
+						limit = { exists = secret_faith }
+						secret_faith = { has_doctrine_parameter = prefers_aristocracy }
+					}
+					trigger_else = { faith = { has_doctrine_parameter = prefers_aristocracy } }
+					ai_zeal > 0
+				}
+				value = 1
+			}
+		}
+	}
+	commercial_provinces_meritocratic_law = {
+		can_keep = {
+			can_have_vassal_government_laws_trigger = yes
+			has_realm_law_flag = can_set_commercial_province_governments
+		}
+		should_start_with = { faith = { has_doctrine_parameter = prefers_meritocracy } }
+		can_have = {
+			can_have_vassal_government_laws_trigger = yes
+			has_realm_law_flag = can_set_commercial_province_governments
+		}
+		can_pass = {
+			legislature_blocks_law_trigger = no
+			OR = {
+				should_have_legislature_trigger = yes
+				AND = {
+					custom_tooltip = {
+						text = provincial_law_cooldown_desc
+						NOT = { has_variable = provincial_law_cooldown }
+					}
+				}
+			}
+		}
+		pass_cost = { prestige = { add = admin_law_prestige_cost } }
+		on_pass = {
+			set_variable = { name = provincial_law_cooldown years = @admin_law_cooldown_value }
+			pass_vassal_government_law_effect = { POWER_BASE = flag:commercial LEGITIMACY = flag:meritocratic }
+		}
+		ai_will_do = {
+			if = { # We want to bring commercial provinces in line with our meritocratic ideals
+				limit = {
+					trigger_if = {
+						limit = { exists = secret_faith }
+						secret_faith = { has_doctrine_parameter = prefers_meritocracy }
+					}
+					trigger_else = { faith = { has_doctrine_parameter = prefers_meritocracy } }
+					ai_zeal > 0
+				}
+				value = 1
+			}
+		}
+	}
+}
+technocratic_provinces_laws = {
+	default = technocratic_provinces_self_determined_law
+	cumulative = no
+	flag = imperial_policy
+	
+	technocratic_provinces_self_determined_law = {
+		can_keep = { can_have_vassal_government_laws_trigger = yes }
+		can_have = { can_have_vassal_government_laws_trigger = yes }
+		can_pass = { legislature_blocks_law_trigger = no }
+		on_pass = {
+			set_variable = { name = provincial_law_cooldown years = @admin_law_cooldown_value }
+			pass_vassal_government_law_effect = { POWER_BASE = flag:technocratic LEGITIMACY = flag:free }
+		}
+	}
+	technocratic_provinces_democratic_law = {
+		can_keep = {
+			can_have_vassal_government_laws_trigger = yes
+			has_realm_law_flag = can_set_technocratic_province_governments
+		}
+		should_start_with = { faith = { has_doctrine_parameter = prefers_democracy } }
+		can_have = {
+			can_have_vassal_government_laws_trigger = yes
+			has_realm_law_flag = can_set_technocratic_province_governments
+		}
+		can_pass = {
+			legislature_blocks_law_trigger = no
+			OR = {
+				should_have_legislature_trigger = yes
+				AND = {
+					custom_tooltip = {
+						text = provincial_law_cooldown_desc
+						NOT = { has_variable = provincial_law_cooldown }
+					}
+				}
+			}
+		}
+		pass_cost = { prestige = { add = admin_law_prestige_cost } }
+		on_pass = {
+			set_variable = { name = provincial_law_cooldown years = @admin_law_cooldown_value }
+			pass_vassal_government_law_effect = { POWER_BASE = flag:technocratic LEGITIMACY = flag:democratic }
+		}
+		ai_will_do = {
+			if = { # We want to bring technocratic provinces in line with our democratic ideals
+				limit = {
+					trigger_if = {
+						limit = { exists = secret_faith }
+						secret_faith = { has_doctrine_parameter = prefers_democracy }
+					}
+					trigger_else = { faith = { has_doctrine_parameter = prefers_democracy } }
+					ai_zeal > 0
+				}
+				value = 1
+			}
+		}
+	}
+	technocratic_provinces_aristocratic_law = {
+		can_keep = {
+			can_have_vassal_government_laws_trigger = yes
+			has_realm_law_flag = can_set_technocratic_province_governments
+		}
+		should_start_with = { faith = { has_doctrine_parameter = prefers_aristocracy } }
+		can_have = {
+			can_have_vassal_government_laws_trigger = yes
+			has_realm_law_flag = can_set_technocratic_province_governments
+		}
+		can_pass = {
+			legislature_blocks_law_trigger = no
+			OR = {
+				should_have_legislature_trigger = yes
+				AND = {
+					custom_tooltip = {
+						text = provincial_law_cooldown_desc
+						NOT = { has_variable = provincial_law_cooldown }
+					}
+				}
+			}
+		}
+		pass_cost = { prestige = { add = admin_law_prestige_cost } }
+		on_pass = {
+			set_variable = { name = provincial_law_cooldown years = @admin_law_cooldown_value }
+			pass_vassal_government_law_effect = { POWER_BASE = flag:technocratic LEGITIMACY = flag:aristocratic }
+		}
+		ai_will_do = {
+			if = { # We want to bring technocratic provinces in line with our aristocratic ideals
+				limit = {
+					trigger_if = {
+						limit = { exists = secret_faith }
+						secret_faith = { has_doctrine_parameter = prefers_aristocracy }
+					}
+					trigger_else = { faith = { has_doctrine_parameter = prefers_aristocracy } }
+					ai_zeal > 0
+				}
+				value = 1
+			}
+		}
+	}
+	technocratic_provinces_meritocratic_law = {
+		can_keep = {
+			can_have_vassal_government_laws_trigger = yes
+			has_realm_law_flag = can_set_technocratic_province_governments
+		}
+		should_start_with = { faith = { has_doctrine_parameter = prefers_meritocracy } }
+		can_have = {
+			can_have_vassal_government_laws_trigger = yes
+			has_realm_law_flag = can_set_technocratic_province_governments
+		}
+		can_pass = {
+			legislature_blocks_law_trigger = no
+			OR = {
+				should_have_legislature_trigger = yes
+				AND = {
+					custom_tooltip = {
+						text = provincial_law_cooldown_desc
+						NOT = { has_variable = provincial_law_cooldown }
+					}
+				}
+			}
+		}
+		pass_cost = { prestige = { add = admin_law_prestige_cost } }
+		on_pass = {
+			set_variable = { name = provincial_law_cooldown years = @admin_law_cooldown_value }
+			pass_vassal_government_law_effect = { POWER_BASE = flag:technocratic LEGITIMACY = flag:meritocratic }
+		}
+		ai_will_do = {
+			if = { # We want to bring technocratic provinces in line with our meritocratic ideals
+				limit = {
+					trigger_if = {
+						limit = { exists = secret_faith }
+						secret_faith = { has_doctrine_parameter = prefers_meritocracy }
+					}
+					trigger_else = { faith = { has_doctrine_parameter = prefers_meritocracy } }
+					ai_zeal > 0
+				}
+				value = 1
+			}
+		}
+	}
+}
+theocratic_provinces_laws = {
+	default = theocratic_provinces_self_determined_law
+	cumulative = no
+	flag = imperial_policy
+	
+	theocratic_provinces_self_determined_law = {
+		can_keep = { can_have_vassal_government_laws_trigger = yes }
+		should_start_with = { faith = { has_doctrine_parameter = separation_of_church_and_state } }
+		can_have = { can_have_vassal_government_laws_trigger = yes }
+		can_pass = { legislature_blocks_law_trigger = no }
+		on_pass = {
+			set_variable = { name = provincial_law_cooldown years = @admin_law_cooldown_value }
+			pass_vassal_government_law_effect = { POWER_BASE = flag:theocratic LEGITIMACY = flag:free }
+		}
+		ai_will_do = {
+			if = { # We want separation of church and state
+				limit = {
+					trigger_if = {
+						limit = { exists = secret_faith }
+						secret_faith = { has_doctrine_parameter = separation_of_church_and_state }
+					}
+					trigger_else = { faith = { has_doctrine_parameter = separation_of_church_and_state } }
+					ai_zeal > 0
+				}
+				value = 1
+			}
+		}
+	}
+	theocratic_provinces_democratic_law = {
+		can_keep = {
+			can_have_vassal_government_laws_trigger = yes
+			has_realm_law_flag = can_set_theocratic_province_governments
+		}
+		should_start_with = {
+			faith = {
+				has_doctrine_parameter = prefers_democracy
+				NOT = { has_doctrine_parameter = separation_of_church_and_state }
+			}
+		}
+		can_have = {
+			can_have_vassal_government_laws_trigger = yes
+			has_realm_law_flag = can_set_theocratic_province_governments
+		}
+		can_pass = {
+			legislature_blocks_law_trigger = no
+			OR = {
+				should_have_legislature_trigger = yes
+				AND = {
+					custom_tooltip = {
+						text = provincial_law_cooldown_desc
+						NOT = { has_variable = provincial_law_cooldown }
+					}
+				}
+			}
+		}
+		pass_cost = { prestige = { add = admin_law_prestige_cost } }
+		on_pass = {
+			set_variable = { name = provincial_law_cooldown years = @admin_law_cooldown_value }
+			pass_vassal_government_law_effect = { POWER_BASE = flag:theocratic LEGITIMACY = flag:democratic }
+		}
+		ai_will_do = {
+			if = { # We want to bring theocratic provinces in line with our democratic ideals
+				limit = {
+					trigger_if = {
+						limit = { exists = secret_faith }
+						secret_faith = {
+							has_doctrine_parameter = prefers_democracy
+							NOT = { has_doctrine_parameter = separation_of_church_and_state }
+						}
+					}
+					trigger_else = {
+						faith = {
+							has_doctrine_parameter = prefers_democracy
+							NOT = { has_doctrine_parameter = separation_of_church_and_state }
+						}
+					}
+					ai_zeal > 0
+				}
+				value = 1
+			}
+		}
+	}
+	theocratic_provinces_aristocratic_law = {
+		can_keep = {
+			can_have_vassal_government_laws_trigger = yes
+			has_realm_law_flag = can_set_theocratic_province_governments
+		}
+		should_start_with = {
+			faith = {
+				has_doctrine_parameter = prefers_aristocracy
+				NOT = { has_doctrine_parameter = separation_of_church_and_state }
+			}
+		}
+		can_have = {
+			can_have_vassal_government_laws_trigger = yes
+			has_realm_law_flag = can_set_theocratic_province_governments
+		}
+		can_pass = {
+			legislature_blocks_law_trigger = no
+			OR = {
+				should_have_legislature_trigger = yes
+				AND = {
+					custom_tooltip = {
+						text = provincial_law_cooldown_desc
+						NOT = { has_variable = provincial_law_cooldown }
+					}
+				}
+			}
+		}
+		pass_cost = { prestige = { add = admin_law_prestige_cost } }
+		on_pass = {
+			set_variable = { name = provincial_law_cooldown years = @admin_law_cooldown_value }
+			pass_vassal_government_law_effect = { POWER_BASE = flag:theocratic LEGITIMACY = flag:aristocratic }
+		}
+		ai_will_do = {
+			if = { # We want to bring theocratic provinces in line with our aristocratic ideals
+				limit = {
+					trigger_if = {
+						limit = { exists = secret_faith }
+						secret_faith = {
+							has_doctrine_parameter = prefers_aristocracy
+							NOT = { has_doctrine_parameter = separation_of_church_and_state }
+						}
+					}
+					trigger_else = {
+						faith = {
+							has_doctrine_parameter = prefers_aristocracy
+							NOT = { has_doctrine_parameter = separation_of_church_and_state }
+						}
+					}
+					ai_zeal > 0
+				}
+				value = 1
+			}
+		}
+	}
+	theocratic_provinces_meritocratic_law = {
+		can_keep = {
+			can_have_vassal_government_laws_trigger = yes
+			has_realm_law_flag = can_set_theocratic_province_governments
+		}
+		should_start_with = {
+			faith = {
+				has_doctrine_parameter = prefers_meritocracy
+				NOT = { has_doctrine_parameter = separation_of_church_and_state }
+			}
+		}
+		can_have = {
+			can_have_vassal_government_laws_trigger = yes
+			has_realm_law_flag = can_set_theocratic_province_governments
+		}
+		can_pass = {
+			legislature_blocks_law_trigger = no
+			OR = {
+				should_have_legislature_trigger = yes
+				AND = {
+					custom_tooltip = {
+						text = provincial_law_cooldown_desc
+						NOT = { has_variable = provincial_law_cooldown }
+					}
+				}
+			}
+		}
+		pass_cost = { prestige = { add = admin_law_prestige_cost } }
+		on_pass = {
+			set_variable = { name = provincial_law_cooldown years = @admin_law_cooldown_value }
+			pass_vassal_government_law_effect = { POWER_BASE = flag:theocratic LEGITIMACY = flag:meritocratic }
+		}
+		ai_will_do = {
+			if = { # We want to bring theocratic provinces in line with our meritocratic ideals
+				limit = {
+					trigger_if = {
+						limit = { exists = secret_faith }
+						secret_faith = {
+							has_doctrine_parameter = prefers_meritocracy
+							NOT = { has_doctrine_parameter = separation_of_church_and_state }
+						}
+					}
+					trigger_else = {
+						faith = {
+							has_doctrine_parameter = prefers_meritocracy
+							NOT = { has_doctrine_parameter = separation_of_church_and_state }
+						}
+					}
+					ai_zeal > 0
+				}
+				value = 1
+			}
 		}
 	}
 }

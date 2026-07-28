@@ -152,6 +152,156 @@
 			}
 		}
 	}
+	commercial_appointment_succession_law = {
+		can_keep = {
+			government_has_flag = government_is_commercial
+			government_has_flag = government_is_meritocratic
+		}
+		can_have = {
+			government_has_flag = government_is_commercial
+			government_has_flag = government_is_meritocratic
+		}
+		can_pass = {
+			government_has_flag = government_is_commercial
+			government_has_flag = government_is_meritocratic
+		}
+		should_start_with = {
+			government_has_flag = government_is_commercial
+			government_has_flag = government_is_meritocratic
+		}
+		succession = {
+			order_of_succession = appointment
+			appointment_type = appointment_commercial
+		}
+		flag = advanced_succession_law
+		flag = appointment_type_succession
+		modifier = {
+			glory_hound_opinion = -10
+			parochial_opinion = -5
+			player_heir_opinion = 20
+			eligible_child_except_player_heir_opinion = -5
+		}
+		pass_cost = { prestige = change_succession_law_prestige_cost }
+		revoke_cost = { prestige = change_succession_law_prestige_cost }
+
+		ai_will_do = {
+			if = {
+				limit = {
+					OR = {
+						has_realm_law = confederate_partition_succession_law
+						has_realm_law = partition_succession_law
+						has_realm_law = high_partition_succession_law
+					}
+				}
+				value = 3
+			}
+		}
+
+		potential = {
+			government_has_flag = government_is_commercial
+			government_has_flag = government_is_meritocratic
+		}
+	}
+	technocratic_appointment_succession_law = {
+		can_keep = {
+			government_has_flag = government_is_technocratic
+			government_has_flag = government_is_meritocratic
+		}
+		can_have = {
+			government_has_flag = government_is_technocratic
+			government_has_flag = government_is_meritocratic
+		}
+		can_pass = {
+			government_has_flag = government_is_technocratic
+			government_has_flag = government_is_meritocratic
+		}
+		should_start_with = {
+			government_has_flag = government_is_technocratic
+			government_has_flag = government_is_meritocratic
+		}
+		succession = {
+			order_of_succession = appointment
+			appointment_type = appointment_technocratic
+		}
+		flag = advanced_succession_law
+		flag = appointment_type_succession
+		modifier = {
+			glory_hound_opinion = -10
+			parochial_opinion = -5
+			player_heir_opinion = 20
+			eligible_child_except_player_heir_opinion = -5
+		}
+		pass_cost = { prestige = change_succession_law_prestige_cost }
+		revoke_cost = { prestige = change_succession_law_prestige_cost }
+
+		ai_will_do = {
+			if = {
+				limit = {
+					OR = {
+						has_realm_law = confederate_partition_succession_law
+						has_realm_law = partition_succession_law
+						has_realm_law = high_partition_succession_law
+					}
+				}
+				value = 3
+			}
+		}
+
+		potential = {
+			government_has_flag = government_is_technocratic
+			government_has_flag = government_is_meritocratic
+		}
+	}
+	theocratic_appointment_succession_law = {
+		can_keep = {
+			government_has_flag = government_is_theocratic
+			government_has_flag = government_is_meritocratic
+		}
+		can_have = {
+			government_has_flag = government_is_theocratic
+			government_has_flag = government_is_meritocratic
+		}
+		can_pass = {
+			government_has_flag = government_is_theocratic
+			government_has_flag = government_is_meritocratic
+		}
+		should_start_with = {
+			government_has_flag = government_is_theocratic
+			government_has_flag = government_is_meritocratic
+		}
+		succession = {
+			order_of_succession = appointment
+			appointment_type = appointment_theocratic
+		}
+		flag = advanced_succession_law
+		flag = appointment_type_succession
+		modifier = {
+			glory_hound_opinion = -10
+			parochial_opinion = -5
+			player_heir_opinion = 20
+			eligible_child_except_player_heir_opinion = -5
+		}
+		pass_cost = { prestige = change_succession_law_prestige_cost }
+		revoke_cost = { prestige = change_succession_law_prestige_cost }
+
+		ai_will_do = {
+			if = {
+				limit = {
+					OR = {
+						has_realm_law = confederate_partition_succession_law
+						has_realm_law = partition_succession_law
+						has_realm_law = high_partition_succession_law
+					}
+				}
+				value = 3
+			}
+		}
+
+		potential = {
+			government_has_flag = government_is_theocratic
+			government_has_flag = government_is_meritocratic
+		}
+	}
 
 	confederate_partition_succession_law = {
 		can_keep = {

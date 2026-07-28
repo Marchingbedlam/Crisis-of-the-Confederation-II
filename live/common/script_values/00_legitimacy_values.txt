@@ -280,7 +280,7 @@ base_legitimacy_value = { # Split into separate values for easy debugging/visibi
 	}
 	
 	# COTC - STATE CAPACITY
-	add = state_capacity_legitimacy_value
+	add = state_capacity_legitimacy_value # Rulers always start with enough legitimacy for their assigned state capacity
 
 	min = 100 # No one starts with Level 0
 	round = yes
@@ -349,7 +349,13 @@ succession_legitimacy_value = { # Split into separate values for easy debugging/
 	}
 	
 	# COTC - STATE CAPACITY
-	add = state_capacity_legitimacy_value
+	add = {
+		value = state_capacity_legitimacy_value
+		multiply = 0.75 # Changing leaders carries some possible disruption to the state
+	}
+	
+	# COTC - INHERENT LEGITIMACY OF THIS GOVERNMENT
+	add = government_legitimacy_value
 
 	min = 0
 	round = yes
@@ -1324,14 +1330,65 @@ max_legitimacy_level_value = {
 state_capacity_legitimacy_value = {
 	if = {
 		limit = { has_realm_law = state_capacity_3 }
-		add = legitimacy_level_3
+		add = legitimacy_level_4
 	}
 	else_if = {
 		limit = { has_realm_law = state_capacity_2 }
-		add = legitimacy_level_2
+		add = legitimacy_level_3
 	}
 	else_if = {
 		limit = { has_realm_law = state_capacity_1 }
-		add = legitimacy_level_1
+		add = legitimacy_level_2
+	}
+}
+government_legitimacy_value = {
+	# Boost for ideologically-appropriate government
+	if = {
+		limit = {
+			OR = {
+				AND = {
+					faith = { has_doctrine_parameter = prefers_aristocracy }
+					government_has_flag = government_is_aristocratic
+				}
+				AND = {
+					faith = { has_doctrine_parameter = prefers_democracy }
+					government_has_flag = government_is_democratic
+				}
+				AND = {
+					faith = { has_doctrine_parameter = prefers_meritocracy }
+					government_has_flag = government_is_meritocratic
+				}
+				AND = {
+					faith = { has_doctrine = tenet_federalism }
+					government_has_flag = government_is_federal
+				}
+			}
+		}
+		faith = { add = fervor }
+	}
+	
+	# Skill boost for power base
+	if = {
+		limit = { government_has_flag = government_is_military }
+		add = {
+			value = martial
+			multiply = 2
+		}
+	}
+	else_if = {
+		limit = { government_has_flag = government_is_commercial }
+		add = stewardship
+	}
+	else_if = {
+		limit = {
+			OR = {
+				government_has_flag = government_is_technocratic
+				government_has_flag = government_is_theocratic
+			}
+		}
+		add = {
+			value = learning
+			multiply = 2
+		}
 	}
 }

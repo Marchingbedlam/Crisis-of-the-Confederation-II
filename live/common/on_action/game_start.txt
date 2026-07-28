@@ -392,19 +392,38 @@ on_game_start = {
 		# FP3 Struggle.
 
 		# UNITY CONFIG
+		
+		# VASSAL LAW CONFIG
+		every_ruler = {
+			limit = {
+				save_temporary_scope_as = temp_ruler
+				any_liege_or_above = {
+					save_temporary_scope_as = temp_liege
+					scope:temp_ruler = { subject_to_vassal_government_laws_trigger = { LIEGE = scope:temp_liege } }
+				}
+			}
+			random_liege_or_above = {
+				limit = {
+					save_temporary_scope_as = temp_liege
+					ROOT = { subject_to_vassal_government_laws_trigger = { LIEGE = scope:temp_liege } }
+				}
+				save_scope_as = scope:relevant_liege
+			}
+			meet_liege_law_government_requirements_effect = { LIEGE = scope:relevant_liege }
+		}
 
 		# LEGITIMACY CONFIG
 		every_ruler = {
-			limit = {
-				exists = dynasty
-				highest_held_title_tier >= tier_county
+			# limit = {
+				# exists = dynasty
+				# highest_held_title_tier >= tier_county
 				# Exclude unplayable for now
-				NOR = {
-					government_has_flag = government_is_republic
-					government_has_flag = government_is_theocracy
-				}
-				is_landed = yes
-			}
+				# NOR = {
+					# government_has_flag = government_is_republic
+					# government_has_flag = government_is_theocracy
+				# }
+				# is_landed = yes
+			# }
 			add_legitimacy = base_legitimacy_value
 		}
 	}

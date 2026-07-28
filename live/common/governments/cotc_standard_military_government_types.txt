@@ -1,4 +1,7 @@
 ﻿despotic_federal_military_government = {
+	can_get_government = {
+		highest_held_title_tier >= tier_duchy # Federations need to be a higher tier than their member-states!
+	}
 	government_rules = {
 		administrative = yes # So that you can participate in elections
 		create_cadet_branches = yes
@@ -6,20 +9,6 @@
 		house_aspirations = yes
 		use_as_base_on_rank_up = yes
 		disable_regnal_numbers = yes
-	}
-	can_get_government = { highest_held_title_tier >= tier_duchy } # Federations need to be a higher tier than their member-states!
-	compatible_government_type_succession = {
-		dictatorial_federal_military_government
-		presidential_federal_military_government
-		parliamentary_federal_military_government
-		despotic_democratic_military_government
-		dictatorial_democratic_military_government
-		presidential_democratic_military_government
-		parliamentary_democratic_military_government
-		despotic_aristocratic_military_government
-		dictatorial_aristocratic_military_government
-		presidential_aristocratic_military_government
-		parliamentary_aristocratic_military_government
 	}
 	
 	mechanic_type = feudal
@@ -64,6 +53,9 @@
 	}
 }
 dictatorial_federal_military_government = {
+	can_get_government = {
+		highest_held_title_tier >= tier_duchy # Federations need to be a higher tier than their member-states!
+	}
 	government_rules = {
 		create_cadet_branches = yes
 		administrative = yes
@@ -75,20 +67,6 @@ dictatorial_federal_military_government = {
 		replace_gold_cost_by_treasury = yes
 		use_as_base_on_rank_up = yes
 		disable_regnal_numbers = yes
-	}
-	can_get_government = { highest_held_title_tier >= tier_duchy } # Federations need to be a higher tier than their member-states!
-	compatible_government_type_succession = {
-		despotic_federal_military_government
-		presidential_federal_military_government
-		parliamentary_federal_military_government
-		despotic_democratic_military_government
-		dictatorial_democratic_military_government
-		presidential_democratic_military_government
-		parliamentary_democratic_military_government
-		despotic_aristocratic_military_government
-		dictatorial_aristocratic_military_government
-		presidential_aristocratic_military_government
-		parliamentary_aristocratic_military_government
 	}
 	
 	mechanic_type = administrative
@@ -159,6 +137,9 @@ dictatorial_federal_military_government = {
 	}
 }
 presidential_federal_military_government = {
+	can_get_government = {
+		highest_held_title_tier >= tier_duchy # Federations need to be a higher tier than their member-states!
+	}
 	government_rules = {
 		create_cadet_branches = yes
 		administrative = yes
@@ -170,20 +151,6 @@ presidential_federal_military_government = {
 		replace_gold_cost_by_treasury = yes
 		use_as_base_on_rank_up = yes
 		disable_regnal_numbers = yes
-	}
-	can_get_government = { highest_held_title_tier >= tier_duchy } # Federations need to be a higher tier than their member-states!
-	compatible_government_type_succession = {
-		despotic_federal_military_government
-		dictatorial_federal_military_government
-		parliamentary_federal_military_government
-		despotic_democratic_military_government
-		dictatorial_democratic_military_government
-		presidential_democratic_military_government
-		parliamentary_democratic_military_government
-		despotic_aristocratic_military_government
-		dictatorial_aristocratic_military_government
-		presidential_aristocratic_military_government
-		parliamentary_aristocratic_military_government
 	}
 	
 	mechanic_type = administrative
@@ -242,7 +209,7 @@ presidential_federal_military_government = {
 		government_is_military
 		government_is_federal
 		government_is_presidential
-		government_has_legislature
+		#government_has_legislature
 		
 		# Vanilla Government Mechanics
 		government_is_republic
@@ -258,6 +225,9 @@ presidential_federal_military_government = {
 	}
 }
 parliamentary_federal_military_government = {
+	can_get_government = {
+		highest_held_title_tier >= tier_duchy # Federations need to be a higher tier than their member-states!
+	}
 	government_rules = {
 		create_cadet_branches = yes
 		administrative = yes
@@ -269,20 +239,6 @@ parliamentary_federal_military_government = {
 		replace_gold_cost_by_treasury = yes
 		use_as_base_on_rank_up = yes
 		disable_regnal_numbers = yes
-	}
-	can_get_government = { highest_held_title_tier >= tier_duchy } # Federations need to be a higher tier than their member-states!
-	compatible_government_type_succession = {
-		despotic_federal_military_government
-		dictatorial_federal_military_government
-		presidential_federal_military_government
-		despotic_democratic_military_government
-		dictatorial_democratic_military_government
-		presidential_democratic_military_government
-		parliamentary_democratic_military_government
-		despotic_aristocratic_military_government
-		dictatorial_aristocratic_military_government
-		presidential_aristocratic_military_government
-		parliamentary_aristocratic_military_government
 	}
 	
 	mechanic_type = administrative
@@ -338,7 +294,7 @@ parliamentary_federal_military_government = {
 		government_is_military
 		government_is_federal
 		government_is_parliamentary
-		government_has_legislature
+		#government_has_legislature
 		
 		# Vanilla Government Mechanics
 		government_is_republic
@@ -558,7 +514,7 @@ presidential_democratic_military_government = {
 		government_is_democratic
 		government_is_presidential
 		government_uses_state_capacity
-		government_has_legislature
+		#government_has_legislature
 		
 		# Vanilla Government Mechanics
 		government_is_republic
@@ -642,7 +598,7 @@ parliamentary_democratic_military_government = {
 		government_is_democratic
 		government_is_parliamentary
 		government_uses_state_capacity
-		government_has_legislature
+		#government_has_legislature
 		
 		# Vanilla Government Mechanics
 		government_is_republic
@@ -765,7 +721,7 @@ dictatorial_meritocratic_military_government = {
 	
 	ai = { use_great_projects = yes }
 	
-	color = hsv{ 0.5 1 0.6 }
+	color = hsv{ 0 1 0.6 }
 	realm_mask_offset = { 0.0 0.01 }
 	realm_mask_scale = { 1 1 }
 	
@@ -862,7 +818,7 @@ presidential_meritocratic_military_government = {
 		government_is_meritocratic
 		government_is_presidential
 		government_uses_state_capacity
-		government_has_legislature
+		#government_has_legislature
 		vassals_have_military_staff
 		
 		# Vanilla Government Mechanics
@@ -949,7 +905,7 @@ parliamentary_meritocratic_military_government = {
 		government_is_meritocratic
 		government_is_parliamentary
 		government_uses_state_capacity
-		government_has_legislature
+		#government_has_legislature
 		vassals_have_military_staff
 		
 		# Vanilla Government Mechanics
@@ -1171,7 +1127,7 @@ presidential_aristocratic_military_government = {
 		government_is_aristocratic
 		government_is_presidential
 		government_uses_state_capacity
-		government_has_legislature
+		#government_has_legislature
 		
 		# Vanilla Government Mechanics
 		government_is_administrative
@@ -1257,7 +1213,7 @@ parliamentary_aristocratic_military_government = {
 		government_is_aristocratic
 		government_is_parliamentary
 		government_uses_state_capacity
-		government_has_legislature
+		#government_has_legislature
 		
 		# Vanilla Government Mechanics
 		government_is_administrative

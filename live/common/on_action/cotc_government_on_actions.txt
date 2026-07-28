@@ -10,10 +10,14 @@ on_faith_created = { on_actions = { party_change_on_action } }
 on_character_faith_change = { on_actions = { party_change_on_action } }
 on_death = { on_actions = { on_legislator_death_on_action } }
 on_vassal_changed = {
-	on_actions = { government_vassal_change_on_action }
+	on_actions = {
+		verify_government_on_action
+		government_vassal_change_on_action
+	}
 }
 quarterly_playable_pulse = {
 	on_actions = {
+		verify_government_on_action
 		quarterly_progress_legislature_on_action
 		plan_budget_on_action
 	}
@@ -85,6 +89,9 @@ on_legislator_death_on_action = {
 		remove_from_legislature_effect = yes
 		scope:temp_legislature = { recalc_legislature_parties_effect = yes }
 	}
+}
+verify_government_on_action = {
+	on_actions = { vassal_government_laws_on_action }
 }
 
 ###############
@@ -377,6 +384,92 @@ set_initial_prime_minister = {
 ########
 # LAWS #
 ########
+vassal_government_laws_on_action = {
+	trigger = {
+		any_liege_or_above = { # We have at least one liege with vassal laws we're subject to
+			save_temporary_scope_as = temp_liege
+			ROOT = {
+				subject_to_vassal_government_laws_trigger = { LIEGE = scope:temp_liege }
+				# We are not in compliance with the relevant law
+				trigger_if = {
+					limit = { government_has_flag = government_is_military }
+					trigger_if = {
+						limit = { scope:temp_liege = { has_realm_law = military_provinces_democratic_law } }
+						NOT = { government_has_flag = government_is_democratic }
+					}
+					trigger_else_if = {
+						limit = { scope:temp_liege = { has_realm_law = military_provinces_aristocratic_law } }
+						NOT = { government_has_flag = government_is_aristocratic }
+					}
+					trigger_else_if = {
+						limit = { scope:temp_liege = { has_realm_law = military_provinces_meritocratic_law } }
+						NOT = { government_has_flag = government_is_meritocratic }
+					}
+					trigger_else = { always = no }
+				}
+				trigger_else_if = {
+					limit = { government_has_flag = government_is_commercial }
+					trigger_if = {
+						limit = { scope:temp_liege = { has_realm_law = commercial_provinces_democratic_law } }
+						NOT = { government_has_flag = government_is_democratic }
+					}
+					trigger_else_if = {
+						limit = { scope:temp_liege = { has_realm_law = commercial_provinces_aristocratic_law } }
+						NOT = { government_has_flag = government_is_aristocratic }
+					}
+					trigger_else_if = {
+						limit = { scope:temp_liege = { has_realm_law = commercial_provinces_meritocratic_law } }
+						NOT = { government_has_flag = government_is_meritocratic }
+					}
+					trigger_else = { always = no }
+				}
+				trigger_else_if = {
+					limit = { government_has_flag = government_is_technocratic }
+					trigger_if = {
+						limit = { scope:temp_liege = { has_realm_law = technocratic_provinces_democratic_law } }
+						NOT = { government_has_flag = government_is_democratic }
+					}
+					trigger_else_if = {
+						limit = { scope:temp_liege = { has_realm_law = technocratic_provinces_aristocratic_law } }
+						NOT = { government_has_flag = government_is_aristocratic }
+					}
+					trigger_else_if = {
+						limit = { scope:temp_liege = { has_realm_law = technocratic_provinces_meritocratic_law } }
+						NOT = { government_has_flag = government_is_meritocratic }
+					}
+					trigger_else = { always = no }
+				}
+				trigger_else_if = {
+					limit = { government_has_flag = government_is_theocratic }
+					trigger_if = {
+						limit = { scope:temp_liege = { has_realm_law = theocratic_provinces_democratic_law } }
+						NOT = { government_has_flag = government_is_democratic }
+					}
+					trigger_else_if = {
+						limit = { scope:temp_liege = { has_realm_law = theocratic_provinces_aristocratic_law } }
+						NOT = { government_has_flag = government_is_aristocratic }
+					}
+					trigger_else_if = {
+						limit = { scope:temp_liege = { has_realm_law = theocratic_provinces_meritocratic_law } }
+						NOT = { government_has_flag = government_is_meritocratic }
+					}
+					trigger_else = { always = no }
+				}
+				trigger_else = { always = no }
+			}
+		}
+	}
+	effect = {
+		random_liege_or_above = {
+			limit = {
+				save_temporary_scope_as = temp_liege
+				ROOT = { subject_to_vassal_government_laws_trigger = { LIEGE = scope:temp_liege } }
+			}
+			save_scope_as = scope:relevant_ruler
+		}
+		trigger_event = government_change_events.110
+	}
+}
 province_taxes_on_action = {
 	on_actions = {
 		military_province_taxes_0_on_action

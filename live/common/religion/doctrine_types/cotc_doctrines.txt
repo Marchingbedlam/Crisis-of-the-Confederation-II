@@ -119,35 +119,42 @@ doctrine_military_power = {
 		military_revolutions = yes
 	}
 }
-doctrine_administrative_power = {
-	name = {
-		first_valid = {
-			triggered_desc = {
-				trigger = { has_doctrine = religious_hostility_doctrine }
-				desc = doctrine_administrative_power_religious_name
-			}
-			desc = doctrine_administrative_power_name
-		}
-	}
-	desc = {
-		first_valid = {
-			triggered_desc = {
-				trigger = { has_doctrine = religious_hostility_doctrine }
-				desc = doctrine_administrative_power_religious_desc
-			}
-			desc = doctrine_administrative_power_desc
-		}
-	}
+doctrine_technocratic_power = {
+	is_shown = { NOT = { has_doctrine = religious_hostility_doctrine } }
 	piety_cost = {
 		value = faith_doctrine_cost_high
 		if = {
-			limit = { has_doctrine = doctrine_administrative_power }
+			limit = {
+				OR = {
+					has_doctrine = doctrine_technocratic_power
+					has_doctrine = doctrine_theocratic_power
+				}
+			}
 			multiply = faith_unchanged_doctrine_cost_mult
 		}
 	}
 	parameters = {
-		prefers_administrative_power = yes
-		administrative_revolutions = yes
+		prefers_technocratic_power = yes
+		technocratic_revolutions = yes
+	}
+}
+doctrine_theocratic_power = {
+	is_shown = { has_doctrine = religious_hostility_doctrine }
+	piety_cost = {
+		value = faith_doctrine_cost_high
+		if = {
+			limit = {
+				OR = {
+					has_doctrine = doctrine_technocratic_power
+					has_doctrine = doctrine_theocratic_power
+				}
+			}
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+	}
+	parameters = {
+		prefers_theocratic_power = yes
+		theocratic_revolutions = yes
 	}
 }
 

@@ -1,0 +1,425 @@
+﻿namespace = government_change_events
+
+government_change_events.100 = { # Government type changed by liege's laws
+	desc = {
+		desc = {
+			first_valid = {
+				triggered_desc = {
+					trigger = {
+						scope:old_legitimacy = flag:free
+						scope:passed_by_legislature = flag:yes
+					}
+					desc = government_change_events.100.intro.was_free.legislature
+				}
+				triggered_desc = {
+					trigger = {
+						scope:old_legitimacy = flag:now_free
+						scope:passed_by_legislature = flag:yes
+					}
+					desc = government_change_events.100.intro.now_free.legislature
+				}
+				triggered_desc = {
+					trigger = { scope:passed_by_legislature = flag:yes }
+					desc = government_change_events.100.intro.other.legislature
+				}
+				triggered_desc = {
+					trigger = { scope:old_legitimacy = flag:free }
+					desc = government_change_events.100.intro.was_free
+				}
+				triggered_desc = {
+					trigger = { scope:legitimacy = flag:free }
+					desc = government_change_events.100.desc.now_free
+				}
+				desc = government_change_events.100.intro.other
+			}
+		}
+		desc = {
+			first_valid = {
+				triggered_desc = {
+					trigger = { scope:legitimacy = flag:democratic }
+					desc = government_change_events.100.desc.democratic
+				}
+				triggered_desc = {
+					trigger = { scope:legitimacy = flag:aristocratic }
+					desc = government_change_events.100.desc.aristocratic
+				}
+				triggered_desc = {
+					trigger = { scope:legitimacy = flag:meritocratic }
+					desc = government_change_events.100.desc.meritocratic
+				}
+			}
+		}
+	}
+	
+	theme = realm
+	right_portrait = {
+		character = scope:enacting_ruler
+		animation = storyteller
+	}
+	
+	trigger = { subject_to_vassal_government_law_change_trigger = { LIEGE = scope:enacting_ruler } } # Make sure the law actually applies to us
+	
+	immediate = { # Actually change the government
+		switch = {
+			trigger = scope:legitimacy
+			flag:democratic = { become_democratic_effect = yes }
+			flag:aristocratic = { become_aristocratic_effect = yes }
+			flag:meritocratic = { become_meritocratic_effect = yes }
+		}
+	}
+	
+	option = { # Dislike it because it's against our ideology
+		trigger = {
+			trigger_if = {
+				limit = {
+					government_has_flag = government_is_theocratic
+					faith = { has_doctrine_parameter = separation_of_church_and_state }
+				}
+				scope:power_base = flag:theocratic
+				scope:old_legitimacy = flag:free
+			}
+			trigger_else_if = {
+				limit = { faith = { has_doctrine_parameter = prefers_democracy } }
+				scope:old_legitimacy = flag:democratic
+			}
+			trigger_else_if = {
+				limit = { faith = { has_doctrine_parameter = prefers_aristocracy } }
+				scope:old_legitimacy = flag:aristocratic
+			}
+			trigger_else_if = {
+				limit = { faith = { has_doctrine_parameter = prefers_meritocracy } }
+				scope:old_legitimacy = flag:meritocratic
+			}
+			trigger_else = { always = no }
+		}
+		name = {
+			trigger = { scope:old_legitimacy = flag:free }
+			text = government_change_events.100.a.free
+		}
+		name = {
+			trigger = { scope:old_legitimacy = flag:democratic }
+			text = government_change_events.100.a.democratic
+		}
+		name = {
+			trigger = { scope:old_legitimacy = flag:aristocratic }
+			text = government_change_events.100.a.aristocratic
+		}
+		name = {
+			trigger = { scope:old_legitimacy = flag:meritocratic }
+			text = government_change_events.100.a.meritocratic
+		}
+		if = {
+			limit = { exists = scope:passed_by }
+			add_opinion = { modifier = opinion_changed_law_bad target = scope:passed_by opinion = -50 }
+		}
+		ai_chance = {
+			base = 100
+			modifier = { add = ai_zeal }
+		}
+	}
+	option = { # Dislike it because it's meddlesome
+		name = government_change_events.100.b
+		if = {
+			limit = { exists = scope:passed_by }
+			add_opinion = { modifier = opinion_changed_law_bad target = scope:passed_by opinion = -20 }
+		}
+		ai_chance = {
+			base = 100
+			modifier = { add = ai_greed }
+		}
+	}
+	option = { # Dislike it because it's stupid
+		trigger = { scope:old_legitimacy = flag:meritocratic }
+		name = government_change_events.100.c
+		if = {
+			limit = { exists = scope:passed_by }
+			add_opinion = { modifier = opinion_changed_law_bad target = scope:passed_by opinion = -10 }
+		}
+		ai_chance = {
+			base = 100
+			modifier = { add = ai_rationality }
+		}
+	}
+	option = { # Like it because it's smart
+		trigger = { scope:legitimacy = flag:meritocratic }
+		name = government_change_events.100.d
+		if = {
+			limit = { exists = scope:passed_by }
+			add_opinion = { modifier = opinion_changed_law_good target = scope:passed_by opinion = 10 }
+		}
+		ai_chance = {
+			base = 100
+			modifier = { add = ai_rationality }
+		}
+	}
+	option = { # Like it because we get autonomy
+		trigger = { scope:legitimacy = flag:free }
+		name = government_change_events.100.e
+		if = {
+			limit = { exists = scope:passed_by }
+			add_opinion = { modifier = opinion_changed_law_good target = scope:passed_by opinion = 20 }
+		}
+		ai_chance = {
+			base = 100
+			modifier = { add = ai_rationality }
+		}
+	}
+	option = { # Like it because it follows our ideology
+		trigger = {
+			trigger_if = {
+				limit = {
+					government_has_flag = government_is_theocratic
+					faith = { has_doctrine_parameter = separation_of_church_and_state }
+				}
+				scope:power_base = flag:theocratic
+				scope:legitimacy = flag:free
+			}
+			trigger_else_if = {
+				limit = { faith = { has_doctrine_parameter = prefers_democracy } }
+				scope:legitimacy = flag:democratic
+			}
+			trigger_else_if = {
+				limit = { faith = { has_doctrine_parameter = prefers_aristocracy } }
+				scope:legitimacy = flag:aristocratic
+			}
+			trigger_else_if = {
+				limit = { faith = { has_doctrine_parameter = prefers_meritocracy } }
+				scope:legitimacy = flag:meritocratic
+			}
+			trigger_else = { always = no }
+		}
+		name = {
+			trigger = { scope:legitimacy = flag:free }
+			text = government_change_events.100.f.free
+		}
+		name = {
+			trigger = { scope:legitimacy = flag:democratic }
+			text = government_change_events.100.f.democratic
+		}
+		name = {
+			trigger = { scope:legitimacy = flag:aristocratic }
+			text = government_change_events.100.f.aristocratic
+		}
+		name = {
+			trigger = { scope:legitimacy = flag:meritocratic }
+			text = government_change_events.100.f.meritocratic
+		}
+		if = {
+			limit = { exists = scope:passed_by }
+			add_opinion = { modifier = opinion_changed_law_good target = scope:passed_by opinion = 40 }
+		}
+		ai_chance = {
+			base = 100
+			modifier = { add = ai_zeal }
+		}
+	}
+	
+	option = { # Neutral
+		name = government_change_events.100.g
+		ai_chance = { base = 50 }
+	}
+}
+government_change_events.101 = { # Other vassals' government type changed by liege's laws
+	desc = {
+		desc = {
+			first_valid = {
+				triggered_desc = {
+					trigger = {
+						scope:old_legitimacy = flag:free
+						scope:passed_by_legislature = flag:yes
+					}
+					desc = government_change_events.101.intro.was_free.legislature
+				}
+				triggered_desc = {
+					trigger = {
+						scope:old_legitimacy = flag:now_free
+						scope:passed_by_legislature = flag:yes
+					}
+					desc = government_change_events.101.intro.now_free.legislature
+				}
+				triggered_desc = {
+					trigger = { scope:passed_by_legislature = flag:yes }
+					desc = government_change_events.101.intro.other.legislature
+				}
+				triggered_desc = {
+					trigger = { scope:old_legitimacy = flag:free }
+					desc = government_change_events.101.intro.was_free
+				}
+				triggered_desc = {
+					trigger = { scope:legitimacy = flag:free }
+					desc = government_change_events.101.desc.now_free
+				}
+				desc = government_change_events.101.intro.other
+			}
+		}
+		desc = {
+			first_valid = {
+				triggered_desc = {
+					trigger = { scope:legitimacy = flag:democratic }
+					desc = government_change_events.101.desc.democratic
+				}
+				triggered_desc = {
+					trigger = { scope:legitimacy = flag:aristocratic }
+					desc = government_change_events.101.desc.aristocratic
+				}
+				triggered_desc = {
+					trigger = { scope:legitimacy = flag:meritocratic }
+					desc = government_change_events.101.desc.meritocratic
+				}
+			}
+		}
+	}
+	
+	theme = realm
+	right_portrait = {
+		character = scope:enacting_ruler
+		animation = storyteller
+	}
+	
+	trigger = { NOT = { subject_to_vassal_government_law_change_trigger = { LIEGE = scope:enacting_ruler } } } # Make sure the law DOES NOT apply to us
+	
+	option = { # Dislike it because it's against our ideology
+		trigger = {
+			trigger_if = {
+				limit = {
+					government_has_flag = government_is_theocratic
+					faith = { has_doctrine_parameter = separation_of_church_and_state }
+				}
+				scope:power_base = flag:theocratic
+				scope:old_legitimacy = flag:free
+			}
+			trigger_else_if = {
+				limit = { faith = { has_doctrine_parameter = prefers_democracy } }
+				scope:old_legitimacy = flag:democratic
+			}
+			trigger_else_if = {
+				limit = { faith = { has_doctrine_parameter = prefers_aristocracy } }
+				scope:old_legitimacy = flag:aristocratic
+			}
+			trigger_else_if = {
+				limit = { faith = { has_doctrine_parameter = prefers_meritocracy } }
+				scope:old_legitimacy = flag:meritocratic
+			}
+			trigger_else = { always = no }
+		}
+		name = {
+			trigger = { scope:old_legitimacy = flag:free }
+			text = government_change_events.100.a.free
+		}
+		name = {
+			trigger = { scope:old_legitimacy = flag:democratic }
+			text = government_change_events.100.a.democratic
+		}
+		name = {
+			trigger = { scope:old_legitimacy = flag:aristocratic }
+			text = government_change_events.100.a.aristocratic
+		}
+		name = {
+			trigger = { scope:old_legitimacy = flag:meritocratic }
+			text = government_change_events.100.a.meritocratic
+		}
+		if = {
+			limit = { exists = scope:passed_by }
+			add_opinion = { modifier = opinion_changed_law_bad target = scope:passed_by opinion = -30 }
+		}
+		ai_chance = {
+			base = 100
+			modifier = { add = ai_zeal }
+		}
+	}
+	option = { # Dislike it because it's stupid
+		trigger = { scope:old_legitimacy = flag:meritocratic }
+		name = government_change_events.100.c
+		if = {
+			limit = { exists = scope:passed_by }
+			add_opinion = { modifier = opinion_changed_law_bad target = scope:passed_by opinion = -10 }
+		}
+		ai_chance = {
+			base = 100
+			modifier = { add = ai_rationality }
+		}
+	}
+	option = { # Like it because it's smart
+		trigger = { scope:legitimacy = flag:meritocratic }
+		name = government_change_events.100.d
+		if = {
+			limit = { exists = scope:passed_by }
+			add_opinion = { modifier = opinion_changed_law_good target = scope:passed_by opinion = 10 }
+		}
+		ai_chance = {
+			base = 100
+			modifier = { add = ai_rationality }
+		}
+	}
+	option = { # Like it because it follows our ideology
+		trigger = {
+			trigger_if = {
+				limit = {
+					government_has_flag = government_is_theocratic
+					faith = { has_doctrine_parameter = separation_of_church_and_state }
+				}
+				scope:power_base = flag:theocratic
+				scope:legitimacy = flag:free
+			}
+			trigger_else_if = {
+				limit = { faith = { has_doctrine_parameter = prefers_democracy } }
+				scope:legitimacy = flag:democratic
+			}
+			trigger_else_if = {
+				limit = { faith = { has_doctrine_parameter = prefers_aristocracy } }
+				scope:legitimacy = flag:aristocratic
+			}
+			trigger_else_if = {
+				limit = { faith = { has_doctrine_parameter = prefers_meritocracy } }
+				scope:legitimacy = flag:meritocratic
+			}
+			trigger_else = { always = no }
+		}
+		name = {
+			trigger = { scope:legitimacy = flag:free }
+			text = government_change_events.100.f.free
+		}
+		name = {
+			trigger = { scope:legitimacy = flag:democratic }
+			text = government_change_events.100.f.democratic
+		}
+		name = {
+			trigger = { scope:legitimacy = flag:aristocratic }
+			text = government_change_events.100.f.aristocratic
+		}
+		name = {
+			trigger = { scope:legitimacy = flag:meritocratic }
+			text = government_change_events.100.f.meritocratic
+		}
+		if = {
+			limit = { exists = scope:passed_by }
+			add_opinion = { modifier = opinion_changed_law_good target = scope:passed_by opinion = 20 }
+		}
+		ai_chance = {
+			base = 100
+			modifier = { add = ai_zeal }
+		}
+	}
+	
+	option = { # Neutral
+		name = government_change_events.100.g
+		ai_chance = { base = 50 }
+	}
+}
+government_change_events.110 = { # Government type needs to conform to liege's laws
+	desc = government_change_events.110.desc
+	theme = realm
+	right_portrait = {
+		character = scope:relevant_ruler
+		animation = storyteller
+	}
+	
+	trigger = { subject_to_vassal_government_law_trigger = { LIEGE = scope:relevant_ruler } } # Make sure the law actually applies to us
+	
+	immediate = { meet_liege_law_government_requirements_effect = { LIEGE = scope:relevant_ruler } }
+	
+	option = { # Neutral
+		name = government_change_events.100.g
+		ai_chance = { base = 50 }
+	}
+}

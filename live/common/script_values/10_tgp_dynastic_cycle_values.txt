@@ -1478,7 +1478,7 @@ border_war_sized_realm_value = {
 	# Dependent on crown authority/state capacity
 	if = {
 		limit = { has_realm_law = state_capacity_3 }
-		value = enormous_realm_size # 250
+		add = enormous_realm_size # 250
 	}
 	else_if = {
 		limit = {
@@ -1487,7 +1487,7 @@ border_war_sized_realm_value = {
 				has_realm_law = crown_authority_3
 			}
 		}
-		value = monumental_realm_size # 160
+		add = monumental_realm_size # 160
 	}
 	else_if = {
 		limit = {
@@ -1496,7 +1496,7 @@ border_war_sized_realm_value = {
 				has_realm_law = crown_authority_2
 			}
 		}
-		value = massive_realm_size # 84
+		add = massive_realm_size # 84
 	}
 	else_if = {
 		limit = {
@@ -1504,10 +1504,10 @@ border_war_sized_realm_value = {
 				has_realm_law = state_capacity_0
 				has_realm_law = crown_authority_1
 			}
-			value = major_realm_size # 40
 		}
+		add = major_realm_size # 40
 	}
-	else = { value = medium_realm_size } # 24
+	else = { add = medium_realm_size } # 24
 }
 
 # has to be the same as ai_accept in find_elder_interaction
