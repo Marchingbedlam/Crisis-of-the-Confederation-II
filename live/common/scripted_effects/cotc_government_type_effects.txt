@@ -106,38 +106,47 @@ pass_vassal_government_law_effect = {
 meet_liege_law_government_requirements_effect = {
 	if = {
 		limit = { subject_to_vassal_government_laws_trigger = { LIEGE = $LIEGE$ } }
+		save_temporary_scope_as = temp_vassal
 		switch = {
 			trigger = government_has_flag
 			government_is_military = {
-				switch = {
-					trigger = $LIEGE$.has_realm_law
-					military_provinces_democratic_law = { become_democratic_effect = yes }
-					military_provinces_aristocratic_law = { become_aristocratic_effect = yes }
-					military_provinces_meritocratic_law = { become_meritocratic_effect = yes }
+				$LIEGE$ = {
+					switch = {
+						trigger = has_realm_law
+						military_provinces_democratic_law = { scope:temp_vassal = { become_democratic_effect = yes } }
+						military_provinces_aristocratic_law = { scope:temp_vassal = { become_aristocratic_effect = yes } }
+						military_provinces_meritocratic_law = { scope:temp_vassal = { become_meritocratic_effect = yes } }
+					}
 				}
 			}
 			government_is_commercial = {
-				switch = {
-					trigger = $LIEGE.has_realm_law
-					commercial_provinces_democratic_law = { become_democratic_effect = yes }
-					commercial_provinces_aristocratic_law = { become_aristocratic_effect = yes }
-					commercial_provinces_meritocratic_law = { become_meritocratic_effect = yes }
+				$LIEGE$ = {
+					switch = {
+						trigger = has_realm_law
+						commercial_provinces_democratic_law = { scope:temp_vassal = { become_democratic_effect = yes } }
+						commercial_provinces_aristocratic_law = { scope:temp_vassal = { become_aristocratic_effect = yes } }
+						commercial_provinces_meritocratic_law = { scope:temp_vassal = { become_meritocratic_effect = yes } }
+					}
 				}
 			}
 			government_is_technocratic = {
-				switch = {
-					trigger = $LIEGE$.has_realm_law
-					technocratic_provinces_democratic_law = { become_democratic_effect = yes }
-					technocratic_provinces_aristocratic_law = { become_aristocratic_effect = yes }
-					technocratic_provinces_meritocratic_law = { become_meritocratic_effect = yes }
+				$LIEGE$ = {
+					switch = {
+						trigger = has_realm_law
+						technocratic_provinces_democratic_law = { scope:temp_vassal = { become_democratic_effect = yes } }
+						technocratic_provinces_aristocratic_law = { scope:temp_vassal = { become_aristocratic_effect = yes } }
+						technocratic_provinces_meritocratic_law = { scope:temp_vassal = { become_meritocratic_effect = yes } }
+					}
 				}
 			}
 			government_is_theocratic = {
-				switch = {
-					trigger = $LIEGE$.has_realm_law
-					theocratic_provinces_democratic_law = { become_democratic_effect = yes }
-					theocratic_provinces_aristocratic_law = { become_aristocratic_effect = yes }
-					theocratic_provinces_meritocratic_law = { become_meritocratic_effect = yes }
+				$LIEGE$ = {
+					switch = {
+						trigger = has_realm_law
+						theocratic_provinces_democratic_law = { scope:temp_vassal = { become_democratic_effect = yes } }
+						theocratic_provinces_aristocratic_law = { scope:temp_vassal = { become_aristocratic_effect = yes } }
+						theocratic_provinces_meritocratic_law = { scope:temp_vassal = { become_meritocratic_effect = yes } }
+					}
 				}
 			}
 		}

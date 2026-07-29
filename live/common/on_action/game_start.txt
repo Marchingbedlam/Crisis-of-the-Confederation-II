@@ -405,11 +405,13 @@ on_game_start = {
 			random_liege_or_above = {
 				limit = {
 					save_temporary_scope_as = temp_liege
-					ROOT = { subject_to_vassal_government_laws_trigger = { LIEGE = scope:temp_liege } }
+					PREV = { subject_to_vassal_government_laws_trigger = { LIEGE = scope:temp_liege } }
 				}
-				save_scope_as = scope:relevant_liege
+				debug_log = "Relevant ruler is [THIS.GetTitledFirstName]"
+				save_scope_as = relevant_ruler
 			}
-			meet_liege_law_government_requirements_effect = { LIEGE = scope:relevant_liege }
+			debug_log = "Configuring local government for [THIS.GetTitledFirstName]"
+			meet_liege_law_government_requirements_effect = { LIEGE = scope:relevant_ruler }
 		}
 
 		# LEGITIMACY CONFIG
