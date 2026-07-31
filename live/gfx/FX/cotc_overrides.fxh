@@ -31,12 +31,19 @@ PixelShader =
 		{
 			float3 H = normalize( ToCameraDir + ToLightDir );
 			float NdotV = saturate( dot( MaterialProps._Normal, ToCameraDir ) ) + 1e-5;
-			float NdotL = lerp(saturate( dot( MaterialProps._Normal, ToLightDir ) ) + 1e-5, 1.0, ShadowStrength);
+			float RawNdotL = dot( MaterialProps._Normal, ToLightDir );
+			float TerminatorSoftness = 0.5f;
+			float NdotL = smoothstep( -TerminatorSoftness, 2.0f, RawNdotL);
 			float NdotH = saturate( dot( MaterialProps._Normal, H ) );
 			float LdotH = saturate( dot( ToLightDir, H ) );
 			
 			float DiffuseBRDF = CalcDiffuseBRDF( NdotV, NdotL, LdotH, MaterialProps._PerceptualRoughness );
-			DiffuseOut = DiffuseBRDF * MaterialProps._DiffuseColor * LightIntensity; // * NdotL No Shadows
+
+			#ifdef COTC_NO_SHADOW
+				NdotL = 1.0f;
+			#endif
+
+			DiffuseOut = DiffuseBRDF * MaterialProps._DiffuseColor * LightIntensity * NdotL;
 				
 			#ifdef PDX_HACK_ToSpecularLightDir
 				float3 H_Spec = normalize( ToCameraDir + PDX_HACK_ToSpecularLightDir );
@@ -137,11 +144,11 @@ PixelShader =
 			return DiffuseLight + SpecularLight + DiffuseIBL + SpecularIBL;
 		}
 
-		SLightingProperties COTC_GetSunLightingProperties( float3 WorldSpacePos, float ShadowTerm )
+		SLightingProperties COTC_GetSunLightingProperties( float3 WorldSpacePos, float3 LightPos, float ShadowTerm )
 		{
 			SLightingProperties LightingProps;
 			LightingProps._ToCameraDir = normalize( CameraPosition - WorldSpacePos );
-			LightingProps._ToLightDir = ToSunDir;
+			LightingProps._ToLightDir = normalize( LightPos - WorldSpacePos );
 			LightingProps._LightIntensity = SunDiffuse * SunIntensity;
 			LightingProps._ShadowTerm = ShadowTerm;
 			LightingProps._CubemapIntensity = CubemapIntensity;
@@ -150,12 +157,11 @@ PixelShader =
 			return LightingProps;
 		}
 		
-		SLightingProperties COTC_GetSunLightingProperties( float3 WorldSpacePos, PdxTextureSampler2DCmp ShadowMap )
+		SLightingProperties COTC_GetSunLightingProperties( float3 WorldSpacePos, float3 LightPos, PdxTextureSampler2DCmp ShadowMap )
 		{
 			float4 ShadowProj = mul( ShadowMapTextureMatrix, float4( WorldSpacePos, 1.0 ) );
 			float ShadowTerm = COTC_CalculateShadow( ShadowProj, ShadowMap );
-			
-			return COTC_GetSunLightingProperties( WorldSpacePos, ShadowTerm );
+			return COTC_GetSunLightingProperties( WorldSpacePos, LightPos, ShadowTerm );
 		}
 	]]
 }
