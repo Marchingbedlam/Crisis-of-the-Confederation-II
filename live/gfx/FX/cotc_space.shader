@@ -406,6 +406,53 @@ PixelShader =
 		]]
 	}
 
+	MainCode COTC_PS_black_hole
+	{
+		Input = "VS_OUTPUT"
+		Output = "PDX_COLOR"
+		Code
+		[[
+			#ifndef DIFFUSE_UV_SET
+				#define DIFFUSE_UV_SET Input.UV0
+			#endif
+
+			PDX_MAIN
+			{
+				float2 ColorMapCoords =  Input.WorldSpacePos.xz *  WorldSpaceToTerrain0To1;
+				float ProvinceStrength = COTC_GetHeightBasedAlpha();
+				float Alpha = 1.0;
+				float3 Color = float3(0,0,0);
+				float3 ProvinceOverlayColor;
+				float PreLightingBlend;
+				float PostLightingBlend;
+				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend );
+
+				#if defined( COTC_OUTER_FRESNEL ) || defined( COTC_INNER_FRESNEL )
+					float4 FresnelColor = PdxTex2D( AtmosphereMap, DIFFUSE_UV_SET );
+					float3 ToCameraDir = normalize( Input.WorldSpacePos.xyz - CameraPosition );
+
+					// Exterior
+					#if defined( COTC_OUTER_FRESNEL )
+						float FresnelFactor = saturate( Fresnel( abs( dot( ToCameraDir, Input.Normal ) ), 0.1f, 0.1f) );
+						Alpha = Alpha - FresnelFactor;
+						Color = lerp( FresnelColor.rgb, ProvinceOverlayColor, ProvinceStrength );
+					#endif
+
+					// Interior
+					#if defined( COTC_INNER_FRESNEL )
+						float FresnelFactor = saturate( Fresnel( abs( dot( ToCameraDir, Input.Normal ) ), 0.1f, 8.0f - ProvinceStrength ) - 0.1 );
+						FresnelColor.rgb = lerp( FresnelColor.rgb, ProvinceOverlayColor, ProvinceStrength );
+						Color = lerp( Color, FresnelColor, FresnelFactor );
+					#endif
+				#endif
+
+				COTC_ApplyHighlightColor(Color, ColorMapCoords);
+
+				return float4( Color, Alpha );
+			}
+		]]
+	}
+
 	MainCode COTC_PS_standard
 	{
 		Input = "VS_OUTPUT"
@@ -506,23 +553,23 @@ PixelShader =
 					Alpha = Alpha * ProvinceStrength;
 				#endif
 
-				#if defined( COTC_OUTER_PLANET_ATMOSPHERE ) || defined( COTC_INNER_PLANET_ATMOSPHERE )
+				#if defined( COTC_OUTER_FRESNEL ) || defined( COTC_INNER_FRESNEL )
 					float4 AtmoColor = PdxTex2D( AtmosphereMap, DIFFUSE_UV_SET );
 
 					float InSun = lerp(saturate( dot( LightingProps._ToLightDir, Input.Normal ) ), 1.0f, ProvinceStrength);
 
 					// Exterior
-					#if defined( COTC_OUTER_PLANET_ATMOSPHERE )
+					#if defined( COTC_OUTER_FRESNEL )
 						float FresnelFactor = saturate( Fresnel( abs( dot( ToCameraDir, Input.Normal ) ), 0.5f, 0.8f) );
 						Alpha = Alpha - FresnelFactor;
 						Color = lerp( AtmoColor, ProvinceOverlayColor, ProvinceStrength );
 					#endif
 
 					// Interior
-					#if defined( COTC_INNER_PLANET_ATMOSPHERE )
+					#if defined( COTC_INNER_FRESNEL )
 						float FresnelFactor = saturate( Fresnel( abs( dot( ToCameraDir, Input.Normal ) ), 0.1f, 2.0f - ProvinceStrength ) * InSun );
-						AtmoColor.rgb = lerp( AtmoColor, ProvinceOverlayColor, ProvinceStrength );
-						Color = lerp( Color, AtmoColor, FresnelFactor );
+						AtmoColor.rgb = lerp( AtmoColor.rgb, ProvinceOverlayColor, ProvinceStrength );
+						Color = lerp( Color, AtmoColor.rgb, FresnelFactor );
 					#endif
 				#endif
 
@@ -552,7 +599,7 @@ Effect cotc_planet
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_standard"
 	BlendState = "alpha_to_coverage"
-	Defines = { "COTC_INNER_PLANET_ATMOSPHERE" }
+	Defines = { "COTC_INNER_FRESNEL" }
 	DepthStencilState = DepthStencilState
 }	
 
@@ -561,7 +608,7 @@ Effect cotc_planet_city
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_standard"
 	BlendState = "alpha_to_coverage"
-	Defines = { "COTC_INNER_PLANET_ATMOSPHERE" "COTC_NO_SHADOW" }
+	Defines = { "COTC_INNER_FRESNEL" "COTC_NO_SHADOW" }
 	DepthStencilState = DepthStencilState
 }	
 
@@ -570,7 +617,7 @@ Effect cotc_planet_atmosphere
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_standard"
 	BlendState = "alpha_to_coverage"
-	Defines = { "COTC_OUTER_PLANET_ATMOSPHERE" "COTC_NO_SHADOW" }
+	Defines = { "COTC_OUTER_FRESNEL" "COTC_NO_SHADOW" }
 	DepthStencilState = DepthStencilState
 }
 
@@ -588,7 +635,25 @@ Effect cotc_star_atmosphere
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_standard"
 	BlendState = "alpha_to_coverage"
-	Defines = { "COTC_OUTER_PLANET_ATMOSPHERE" "COTC_NO_SHADOW" }
+	Defines = { "COTC_OUTER_FRESNEL" "COTC_NO_SHADOW" }
+	DepthStencilState = DepthStencilState
+}
+
+Effect cotc_black_hole
+{
+	VertexShader = "COTC_VS_standard"
+	PixelShader = "COTC_PS_black_hole"
+	BlendState = "alpha_to_coverage"
+	Defines = { "COTC_INNER_FRESNEL" "COTC_NO_SHADOW" }
+	DepthStencilState = DepthStencilState
+}	
+
+Effect cotc_black_hole_outer
+{
+	VertexShader = "COTC_VS_standard"
+	PixelShader = "COTC_PS_black_hole"
+	BlendState = "alpha_to_coverage"
+	Defines = { "COTC_OUTER_FRESNEL" "COTC_NO_SHADOW" }
 	DepthStencilState = DepthStencilState
 }
 
