@@ -240,6 +240,14 @@ PixelShader =
 {
 	Code
 	[[
+		// HDR multiplier applied to self-luminous bodies just before tonemapping.
+		// The lighting path is unclamped and bright_threshold is only 0.2 (see
+		// gfx/map/environment/environment.txt), so a value >1 pushes these pixels well
+		// past the bloom cutoff and the existing bloom pass does the rest. Tune here
+		// rather than bloom_scale, which would bloom planets and the sky layer too.
+		static const float COTC_STAR_EMISSIVE_BOOST       = 4.0f;
+		static const float COTC_BLACK_HOLE_EMISSIVE_BOOST = 5.0f;
+
 		// Pack an 8-bit RGB triple (0-255) into a single 24-bit key.
 		uint PackColorKey( uint3 StarlightRgb )
 		{
@@ -446,6 +454,12 @@ PixelShader =
 					#endif
 				#endif
 
+				// After the fresnel block, because the outer pass replaces Color outright.
+				// Before the highlight, so selection stays a tint instead of a blown-out flare.
+				#if defined( COTC_EMISSIVE_BLACK_HOLE )
+					Color *= COTC_BLACK_HOLE_EMISSIVE_BOOST;
+				#endif
+
 				COTC_ApplyHighlightColor(Color, ColorMapCoords);
 
 				return float4( Color, Alpha );
@@ -573,6 +587,12 @@ PixelShader =
 					#endif
 				#endif
 
+				// After the fresnel block, because the atmosphere pass replaces Color outright.
+				// Before the highlight, so selection stays a tint instead of a blown-out flare.
+				#if defined( COTC_EMISSIVE_STAR )
+					Color *= COTC_STAR_EMISSIVE_BOOST;
+				#endif
+
 				COTC_ApplyHighlightColor(Color, ColorMapCoords);
 
 				return float4( Color, Alpha );
@@ -626,16 +646,16 @@ Effect cotc_star
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_standard"
 	BlendState = "alpha_to_coverage"
-	Defines = { "COTC_NO_SHADOW" }
+	Defines = { "COTC_NO_SHADOW" "COTC_EMISSIVE_STAR" }
 	DepthStencilState = DepthStencilState
-}	
+}
 
 Effect cotc_star_atmosphere
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_standard"
 	BlendState = "alpha_to_coverage"
-	Defines = { "COTC_OUTER_FRESNEL" "COTC_NO_SHADOW" }
+	Defines = { "COTC_OUTER_FRESNEL" "COTC_NO_SHADOW" "COTC_EMISSIVE_STAR" }
 	DepthStencilState = DepthStencilState
 }
 
@@ -644,16 +664,16 @@ Effect cotc_black_hole
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_black_hole"
 	BlendState = "alpha_to_coverage"
-	Defines = { "COTC_INNER_FRESNEL" "COTC_NO_SHADOW" }
+	Defines = { "COTC_INNER_FRESNEL" "COTC_NO_SHADOW" "COTC_EMISSIVE_BLACK_HOLE" }
 	DepthStencilState = DepthStencilState
-}	
+}
 
 Effect cotc_black_hole_outer
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_black_hole"
 	BlendState = "alpha_to_coverage"
-	Defines = { "COTC_OUTER_FRESNEL" "COTC_NO_SHADOW" }
+	Defines = { "COTC_OUTER_FRESNEL" "COTC_NO_SHADOW" "COTC_EMISSIVE_BLACK_HOLE" }
 	DepthStencilState = DepthStencilState
 }
 
