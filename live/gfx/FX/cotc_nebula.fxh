@@ -33,14 +33,26 @@ PixelShader = {
 	Code
 	[[
 		static const int   COTC_NEBULA_LAYERS    = 8;
-		static const float COTC_NEBULA_DENSITY   = 0.65f;
+		static const float COTC_NEBULA_DENSITY   = 0.4f;
 
 		static const float COTC_NEBULA_CEILING_Y = 20.0f;
 		static const float COTC_NEBULA_FLOOR_Y   = -30.0f;
 
-		static const float COTC_NEBULA_CLOUD_TILE_SIZE    = 600.0f;
-		static const float COTC_NEBULA_CLOUD_CONTRAST     = 1.0f;
-		static const float COTC_NEBULA_CLOUD_LAYER_OFFSET = 0.3f;
+		static const float COTC_NEBULA_CLOUD_TILE_SIZE = 600.0f;
+		static const float COTC_NEBULA_CLOUD_CONTRAST  = 2.0f;
+
+		static const float COTC_NEBULA_CLOUD_ROTATION_AMOUNT = 1.0f;
+		static const float COTC_NEBULA_CLOUD_SCALE_JITTER    = 0.25f;
+
+		static const float COTC_NEBULA_TWO_PI = 6.283185307f;
+
+		float4 COTC_NebulaLayerRandom(float LayerIndex)
+		{
+			// +1 dodges the hash's fixed point at zero, which would leave layer 0 unrotated.
+			float4 P = frac((LayerIndex + 1.0f)*float4(0.1031f, 0.1030f, 0.0973f, 0.1099f));
+			P += dot(P, P.wzxy + 33.33f);
+			return frac((P.xxyz + P.yzzw)*P.zywx);
+		}
 
 		void COTC_ApplyNebula(inout float3 Color, inout float Alpha, float3 WorldSpacePos)
 		{
@@ -55,22 +67,26 @@ PixelShader = {
 
 			for (int i = 0; i < COTC_NEBULA_LAYERS; i++)
 			{
-				// Half-step offset so the samples sit at layer centres rather than on the slab edges.
 				float  LayerRelativeHeight            = (float(i) + 0.5f)/float(COTC_NEBULA_LAYERS);
 				float2 CurrentParallaxWorldSpacePosXZ = lerp(FloorParallaxWorldSpacePosXZ, CeilingParallaxWorldSpacePosXZ, LayerRelativeHeight);
 
-				// Same convention as the plane and starlight masks: normalised world XZ, V flipped.
 				float2 MaskUV = CurrentParallaxWorldSpacePosXZ*WorldSpaceToDetail;
 				MaskUV.y = 1.0f - MaskUV.y;
 
-				// Lod0: inside a loop the implicit derivatives are meaningless and would mip-flicker.
 				float4 MaskSample = PdxTex2DLod0(COTC_Nebula_Mask, MaskUV);
 
-				// Cloud detail, tiled in world space so it stays anchored to the map.
-				// The per-layer UV offset keeps the slices from being identical when the
-				// camera looks straight down and the parallax spread collapses to zero.
-				float2 CloudUV = CurrentParallaxWorldSpacePosXZ/COTC_NEBULA_CLOUD_TILE_SIZE
-				               + float(i)*COTC_NEBULA_CLOUD_LAYER_OFFSET;
+				float4 LayerRandom = COTC_NebulaLayerRandom(float(i));
+
+				float  CloudAngle    = LayerRandom.z*COTC_NEBULA_TWO_PI*COTC_NEBULA_CLOUD_ROTATION_AMOUNT;
+				float  CloudAngleSin = sin(CloudAngle);
+				float  CloudAngleCos = cos(CloudAngle);
+				float2 RotatedCloudPosXZ = float2(
+					CloudAngleCos*CurrentParallaxWorldSpacePosXZ.x - CloudAngleSin*CurrentParallaxWorldSpacePosXZ.y,
+					CloudAngleSin*CurrentParallaxWorldSpacePosXZ.x + CloudAngleCos*CurrentParallaxWorldSpacePosXZ.y);
+
+				float CloudTileSize = COTC_NEBULA_CLOUD_TILE_SIZE*(1.0f + COTC_NEBULA_CLOUD_SCALE_JITTER*(2.0f*LayerRandom.w - 1.0f));
+
+				float2 CloudUV         = RotatedCloudPosXZ/CloudTileSize + LayerRandom.xy;
 				float  CloudSample     = PdxTex2DLod0(COTC_Nebula_Cloud, CloudUV).r;
 				float  CloudMultiplier = lerp(1.0f - COTC_NEBULA_CLOUD_CONTRAST, 1.0f + COTC_NEBULA_CLOUD_CONTRAST, CloudSample);
 
@@ -80,8 +96,6 @@ PixelShader = {
 				AccumAlpha += LayerDensity;
 			}
 
-			// Divide by the unclamped weight so the averaged colour stays correct even
-			// where the accumulated density saturates.
 			float3 NebulaColor = AccumColor/max(AccumAlpha, 1e-4f);
 			float  NebulaAlpha = saturate(AccumAlpha);
 

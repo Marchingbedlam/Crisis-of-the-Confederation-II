@@ -240,11 +240,6 @@ PixelShader =
 {
 	Code
 	[[
-		// HDR multiplier applied to self-luminous bodies just before tonemapping.
-		// The lighting path is unclamped and bright_threshold is only 0.2 (see
-		// gfx/map/environment/environment.txt), so a value >1 pushes these pixels well
-		// past the bloom cutoff and the existing bloom pass does the rest. Tune here
-		// rather than bloom_scale, which would bloom planets and the sky layer too.
 		static const float COTC_STAR_EMISSIVE_BOOST       = 4.0f;
 		static const float COTC_BLACK_HOLE_EMISSIVE_BOOST = 5.0f;
 
@@ -254,7 +249,7 @@ PixelShader =
 			return ( StarlightRgb.r << 16 ) | ( StarlightRgb.g << 8 ) | StarlightRgb.b;
 		}
 
-		// Integer hash with good avalanche so distinct colors scatter evenly across the table (Wang-style finalizer)
+		// Wang-style finalizer
 		// MUST stay bit-identical to hash_color_key() in bake_starlight.py
 		uint HashColorKey( uint Key )
 		{
@@ -407,7 +402,6 @@ PixelShader =
 				{
 					Alpha = lerp(Alpha, 0.0f, PlaneMask.a);
 				}
-
 
 				return float4(Color, Alpha);
 			}
