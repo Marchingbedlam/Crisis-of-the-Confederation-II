@@ -40,7 +40,7 @@ PixelShader = {
 		static const float COTC_STARS_LAYER_TILE_SIZE_SMALL = 70.0f;
 		static const float COTC_STARS_LAYER_TILE_SIZE_Y = 300.0f;
 
-		static const int COTC_STARS_LAYERS_COUNT = 2;
+		static const int COTC_STARS_LAYERS_COUNT = 8;
 
 		static const float2 COTC_STARS_LAYER_UV_OFFSET_STEP = float2(0.35f, -0.15f);
 
