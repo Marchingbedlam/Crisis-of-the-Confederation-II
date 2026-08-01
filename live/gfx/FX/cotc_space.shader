@@ -346,7 +346,7 @@ PixelShader =
 				{
 					if ( SystemMaskValue > 0.0f )
 					{
-						StarLayerMult = 6;
+						StarLayerMult = 8;
 					}
 
 					if ( CloudMaskValue > 0.0f )
@@ -356,7 +356,7 @@ PixelShader =
 
 					if ( SectorMaskValue > 0.0f )
 					{
-						StarLayerMult = 3;
+						StarLayerMult = 4;
 					}
 				}
 				else
