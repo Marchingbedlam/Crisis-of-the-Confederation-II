@@ -1,405 +1,587 @@
-﻿# First Digit: Title Type
-	# 1: Councillor
-	# 2: Derived Aristocratic Title
-	# 3: Ruler or Title
-# Second Digit: Independence Status
-	# 1: No Specific Status
-	# 2: Vassal
-	# 3: Contract-Specific
-	# 4: Independent
-# Third Digit: Title Rank
-	# 0: No Specific Rank
-	# 1: Barony
-	# 2: County
-	# 3: Duchy
-	# 4: Kingdom
-	# 5: Empire
-	# 6: Hegemony
-# Fourth Digit: Title Modifiers
-	# 0: No Modifiers
-	# 1: Culture Only
-	# 2: Religion Only
-	# 3: Government Only
-	# 4: Culture + Religion
-	# 5: Culture + Government
-	# 6: Religion + Government
-	# 7: All three
-	
-# Generic Titles
-barony = {
-	type = title
-	tier = barony
-	priority = 3010
-}
-county = {
-	type = title
-	tier = county
-	priority = 3020
-}
-duchy = {
+﻿# Standard Federation Titles
+federation_duchy = {
 	type = title
 	tier = duchy
-	priority = 3030
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_military_government
+		dictatorial_federal_military_government
+		presidential_federal_military_government
+		parliamentary_federal_military_government
+		despotic_federal_commercial_government
+		dictatorial_federal_commercial_government
+		presidential_federal_commercial_government
+		parliamentary_federal_commercial_government
+		despotic_federal_technocratic_government
+		dictatorial_federal_technocratic_government
+		presidential_federal_technocratic_government
+		parliamentary_federal_technocratic_government
+	}
 }
-kingdom = {
+theocratic_federation_duchy = {
+	type = title
+	tier = duchy
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_theocratic_government
+		dictatorial_federal_theocratic_government
+		presidential_federal_theocratic_government
+		parliamentary_federal_theocratic_government
+	}
+}
+military_federation_duchy_ruler_male = {
+	type = character
+	gender = male
+	tier = duchy
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_military_government
+		dictatorial_federal_military_government
+		presidential_federal_military_government
+		parliamentary_federal_military_government
+	}
+}
+military_federation_duchy_ruler_female = {
+	type = character
+	gender = female
+	tier = duchy
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_military_government
+		dictatorial_federal_military_government
+		presidential_federal_military_government
+		parliamentary_federal_military_government
+	}
+}
+commercial_federation_duchy_ruler_male = {
+	type = character
+	gender = male
+	tier = duchy
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_commercial_government
+		dictatorial_federal_commercial_government
+		presidential_federal_commercial_government
+		parliamentary_federal_commercial_government
+	}
+}
+commercial_federation_duchy_ruler_female = {
+	type = character
+	gender = female
+	tier = duchy
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_commercial_government
+		dictatorial_federal_commercial_government
+		presidential_federal_commercial_government
+		parliamentary_federal_commercial_government
+	}
+}
+technocratic_federation_duchy_ruler_male = {
+	type = character
+	gender = male
+	tier = duchy
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_technocratic_government
+		dictatorial_federal_technocratic_government
+		presidential_federal_technocratic_government
+		parliamentary_federal_technocratic_government
+	}
+}
+technocratic_federation_duchy_ruler_female = {
+	type = character
+	gender = female
+	tier = duchy
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_technocratic_government
+		dictatorial_federal_technocratic_government
+		presidential_federal_technocratic_government
+		parliamentary_federal_technocratic_government
+	}
+}
+theocratic_federation_duchy_ruler_male = {
+	type = character
+	gender = male
+	tier = duchy
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_theocratic_government
+		dictatorial_federal_theocratic_government
+		presidential_federal_theocratic_government
+		parliamentary_federal_theocratic_government
+	}
+}
+theocratic_federation_duchy_ruler_female = {
+	type = character
+	gender = female
+	tier = duchy
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_theocratic_government
+		dictatorial_federal_theocratic_government
+		presidential_federal_theocratic_government
+		parliamentary_federal_theocratic_government
+	}
+}
+federation_kingdom = {
 	type = title
 	tier = kingdom
-	priority = 3040
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_military_government
+		dictatorial_federal_military_government
+		presidential_federal_military_government
+		parliamentary_federal_military_government
+		despotic_federal_commercial_government
+		dictatorial_federal_commercial_government
+		presidential_federal_commercial_government
+		parliamentary_federal_commercial_government
+		despotic_federal_technocratic_government
+		dictatorial_federal_technocratic_government
+		presidential_federal_technocratic_government
+		parliamentary_federal_technocratic_government
+	}
 }
-empire = {
+theocratic_federation_kingdom = {
+	type = title
+	tier = kingdom
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_theocratic_government
+		dictatorial_federal_theocratic_government
+		presidential_federal_theocratic_government
+		parliamentary_federal_theocratic_government
+	}
+}
+military_federation_kingdom_ruler_male = {
+	type = character
+	gender = male
+	tier = kingdom
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_military_government
+		dictatorial_federal_military_government
+		presidential_federal_military_government
+		parliamentary_federal_military_government
+	}
+}
+military_federation_kingdom_ruler_female = {
+	type = character
+	gender = female
+	tier = kingdom
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_military_government
+		dictatorial_federal_military_government
+		presidential_federal_military_government
+		parliamentary_federal_military_government
+	}
+}
+commercial_federation_kingdom_ruler_male = {
+	type = character
+	gender = male
+	tier = kingdom
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_commercial_government
+		dictatorial_federal_commercial_government
+		presidential_federal_commercial_government
+		parliamentary_federal_commercial_government
+	}
+}
+commercial_federation_kingdom_ruler_female = {
+	type = character
+	gender = female
+	tier = kingdom
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_commercial_government
+		dictatorial_federal_commercial_government
+		presidential_federal_commercial_government
+		parliamentary_federal_commercial_government
+	}
+}
+technocratic_federation_kingdom_ruler_male = {
+	type = character
+	gender = male
+	tier = kingdom
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_technocratic_government
+		dictatorial_federal_technocratic_government
+		presidential_federal_technocratic_government
+		parliamentary_federal_technocratic_government
+	}
+}
+technocratic_federation_kingdom_ruler_female = {
+	type = character
+	gender = female
+	tier = kingdom
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_technocratic_government
+		dictatorial_federal_technocratic_government
+		presidential_federal_technocratic_government
+		parliamentary_federal_technocratic_government
+	}
+}
+theocratic_federation_kingdom_ruler_male = {
+	type = character
+	gender = male
+	tier = kingdom
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_theocratic_government
+		dictatorial_federal_theocratic_government
+		presidential_federal_theocratic_government
+		parliamentary_federal_theocratic_government
+	}
+}
+theocratic_federation_kingdom_ruler_female = {
+	type = character
+	gender = female
+	tier = kingdom
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_theocratic_government
+		dictatorial_federal_theocratic_government
+		presidential_federal_theocratic_government
+		parliamentary_federal_theocratic_government
+	}
+}
+federation_empire = {
 	type = title
 	tier = empire
-	priority = 3040
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_military_government
+		dictatorial_federal_military_government
+		presidential_federal_military_government
+		parliamentary_federal_military_government
+		despotic_federal_commercial_government
+		dictatorial_federal_commercial_government
+		presidential_federal_commercial_government
+		parliamentary_federal_commercial_government
+		despotic_federal_technocratic_government
+		dictatorial_federal_technocratic_government
+		presidential_federal_technocratic_government
+		parliamentary_federal_technocratic_government
+	}
 }
-hegemony = {
+theocratic_federation_empire = {
+	type = title
+	tier = empire
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_theocratic_government
+		dictatorial_federal_theocratic_government
+		presidential_federal_theocratic_government
+		parliamentary_federal_theocratic_government
+	}
+}
+military_federation_empire_ruler_male = {
+	type = character
+	gender = male
+	tier = empire
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_military_government
+		dictatorial_federal_military_government
+		presidential_federal_military_government
+		parliamentary_federal_military_government
+	}
+}
+military_federation_empire_ruler_female = {
+	type = character
+	gender = female
+	tier = empire
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_military_government
+		dictatorial_federal_military_government
+		presidential_federal_military_government
+		parliamentary_federal_military_government
+	}
+}
+commercial_federation_empire_ruler_male = {
+	type = character
+	gender = male
+	tier = empire
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_commercial_government
+		dictatorial_federal_commercial_government
+		presidential_federal_commercial_government
+		parliamentary_federal_commercial_government
+	}
+}
+commercial_federation_empire_ruler_female = {
+	type = character
+	gender = female
+	tier = empire
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_commercial_government
+		dictatorial_federal_commercial_government
+		presidential_federal_commercial_government
+		parliamentary_federal_commercial_government
+	}
+}
+technocratic_federation_empire_ruler_male = {
+	type = character
+	gender = male
+	tier = empire
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_technocratic_government
+		dictatorial_federal_technocratic_government
+		presidential_federal_technocratic_government
+		parliamentary_federal_technocratic_government
+	}
+}
+technocratic_federation_empire_ruler_female = {
+	type = character
+	gender = female
+	tier = empire
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_technocratic_government
+		dictatorial_federal_technocratic_government
+		presidential_federal_technocratic_government
+		parliamentary_federal_technocratic_government
+	}
+}
+theocratic_federation_empire_ruler_male = {
+	type = character
+	gender = male
+	tier = empire
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_theocratic_government
+		dictatorial_federal_theocratic_government
+		presidential_federal_theocratic_government
+		parliamentary_federal_theocratic_government
+	}
+}
+theocratic_federation_empire_ruler_female = {
+	type = character
+	gender = female
+	tier = empire
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_theocratic_government
+		dictatorial_federal_theocratic_government
+		presidential_federal_theocratic_government
+		parliamentary_federal_theocratic_government
+	}
+}
+federation_hegemony = {
 	type = title
 	tier = hegemony
-	priority = 3050
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_military_government
+		dictatorial_federal_military_government
+		presidential_federal_military_government
+		parliamentary_federal_military_government
+		despotic_federal_commercial_government
+		dictatorial_federal_commercial_government
+		presidential_federal_commercial_government
+		parliamentary_federal_commercial_government
+		despotic_federal_technocratic_government
+		dictatorial_federal_technocratic_government
+		presidential_federal_technocratic_government
+		parliamentary_federal_technocratic_government
+	}
+}
+theocratic_federation_hegemony = {
+	type = title
+	tier = hegemony
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_theocratic_government
+		dictatorial_federal_theocratic_government
+		presidential_federal_theocratic_government
+		parliamentary_federal_theocratic_government
+	}
+}
+military_federation_hegemony_ruler_male = {
+	type = character
+	gender = male
+	tier = hegemony
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_military_government
+		dictatorial_federal_military_government
+		presidential_federal_military_government
+		parliamentary_federal_military_government
+	}
+}
+military_federation_hegemony_ruler_female = {
+	type = character
+	gender = female
+	tier = hegemony
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_military_government
+		dictatorial_federal_military_government
+		presidential_federal_military_government
+		parliamentary_federal_military_government
+	}
+}
+commercial_federation_hegemony_ruler_male = {
+	type = character
+	gender = male
+	tier = hegemony
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_commercial_government
+		dictatorial_federal_commercial_government
+		presidential_federal_commercial_government
+		parliamentary_federal_commercial_government
+	}
+}
+commercial_federation_hegemony_ruler_female = {
+	type = character
+	gender = female
+	tier = hegemony
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_commercial_government
+		dictatorial_federal_commercial_government
+		presidential_federal_commercial_government
+		parliamentary_federal_commercial_government
+	}
+}
+technocratic_federation_hegemony_ruler_male = {
+	type = character
+	gender = male
+	tier = hegemony
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_technocratic_government
+		dictatorial_federal_technocratic_government
+		presidential_federal_technocratic_government
+		parliamentary_federal_technocratic_government
+	}
+}
+technocratic_federation_hegemony_ruler_female = {
+	type = character
+	gender = female
+	tier = hegemony
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_technocratic_government
+		dictatorial_federal_technocratic_government
+		presidential_federal_technocratic_government
+		parliamentary_federal_technocratic_government
+	}
+}
+theocratic_federation_hegemony_ruler_male = {
+	type = character
+	gender = male
+	tier = hegemony
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_theocratic_government
+		dictatorial_federal_theocratic_government
+		presidential_federal_theocratic_government
+		parliamentary_federal_theocratic_government
+	}
+}
+theocratic_federation_hegemony_ruler_female = {
+	type = character
+	gender = female
+	tier = hegemony
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_federal_theocratic_government
+		dictatorial_federal_theocratic_government
+		presidential_federal_theocratic_government
+		parliamentary_federal_theocratic_government
+	}
 }
 
 # Standard Republic Titles
-republic_independent = { # Used by default for independent republics
-	type = title
-	priority = 3403
-	flavourization_rules = {
-		only_independent = yes
-	}
-	governments = {
-		republic_government
-		despotic_democratic_military_government
-		dictatorial_democratic_military_government
-		presidential_democratic_military_government
-		parliamentary_democratic_military_government
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
-		despotic_democratic_commercial_government
-		dictatorial_democratic_commercial_government
-		presidential_democratic_commercial_government
-		parliamentary_democratic_commercial_government
-		despotic_meritocratic_commercial_government
-		dictatorial_meritocratic_commercial_government
-		presidential_meritocratic_commercial_government
-		parliamentary_meritocratic_commercial_government
-		despotic_democratic_technocratic_government
-		dictatorial_democratic_technocratic_government
-		presidential_democratic_technocratic_government
-		parliamentary_democratic_technocratic_government
-	}
-}
-republic_independent_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	priority = 3403
-	flavourization_rules = {
-		only_independent = yes
-	}
-	governments = {
-		republic_government
-		despotic_democratic_military_government
-		dictatorial_democratic_military_government
-		presidential_democratic_military_government
-		parliamentary_democratic_military_government
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
-		despotic_democratic_commercial_government
-		dictatorial_democratic_commercial_government
-		presidential_democratic_commercial_government
-		parliamentary_democratic_commercial_government
-		despotic_meritocratic_commercial_government
-		dictatorial_meritocratic_commercial_government
-		presidential_meritocratic_commercial_government
-		parliamentary_meritocratic_commercial_government
-		despotic_democratic_technocratic_government
-		dictatorial_democratic_technocratic_government
-		presidential_democratic_technocratic_government
-		parliamentary_democratic_technocratic_government
-		despotic_democratic_theocratic_government
-		dictatorial_democratic_theocratic_government
-		presidential_democratic_theocratic_government
-		parliamentary_democratic_theocratic_government
-		despotic_meritocratic_theocratic_government
-		dictatorial_meritocratic_theocratic_government
-		presidential_meritocratic_theocratic_government
-		parliamentary_meritocratic_theocratic_government
-	}
-}
-republic_independent_ruler_male = {
-	type = character
-	gender = male
-	special = holder
-	priority = 3403
-	flavourization_rules = {
-		only_independent = yes
-	}
-	governments = {
-		republic_government
-		despotic_democratic_military_government
-		dictatorial_democratic_military_government
-		presidential_democratic_military_government
-		parliamentary_democratic_military_government
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
-		despotic_democratic_commercial_government
-		dictatorial_democratic_commercial_government
-		presidential_democratic_commercial_government
-		parliamentary_democratic_commercial_government
-		despotic_meritocratic_commercial_government
-		dictatorial_meritocratic_commercial_government
-		presidential_meritocratic_commercial_government
-		parliamentary_meritocratic_commercial_government
-		despotic_democratic_technocratic_government
-		dictatorial_democratic_technocratic_government
-		presidential_democratic_technocratic_government
-		parliamentary_democratic_technocratic_government
-		despotic_democratic_theocratic_government
-		dictatorial_democratic_theocratic_government
-		presidential_democratic_theocratic_government
-		parliamentary_democratic_theocratic_government
-		despotic_meritocratic_theocratic_government
-		dictatorial_meritocratic_theocratic_government
-		presidential_meritocratic_theocratic_government
-		parliamentary_meritocratic_theocratic_government
-	}
-}
-republic_socialist_independent = {
-	type = title
-	priority = 3406
-	flavourization_rules = {
-		only_independent = yes
-	}
-	governments = {
-		republic_government
-		despotic_democratic_military_government
-		dictatorial_democratic_military_government
-		presidential_democratic_military_government
-		parliamentary_democratic_military_government
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
-		despotic_democratic_commercial_government
-		dictatorial_democratic_commercial_government
-		presidential_democratic_commercial_government
-		parliamentary_democratic_commercial_government
-		despotic_meritocratic_commercial_government
-		dictatorial_meritocratic_commercial_government
-		presidential_meritocratic_commercial_government
-		parliamentary_meritocratic_commercial_government
-		despotic_democratic_technocratic_government
-		dictatorial_democratic_technocratic_government
-		presidential_democratic_technocratic_government
-		parliamentary_democratic_technocratic_government
-		despotic_meritocratic_technocratic_government
-		dictatorial_meritocratic_technocratic_government
-		presidential_meritocratic_technocratic_government
-		parliamentary_meritocratic_technocratic_government
-	}
-	religions = { socialism_ideology }
-}
-republic_member_state = { # Used by republics that are member states of federations
-	type = title
-	priority = 3303
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		republic_government
-		despotic_democratic_military_government
-		dictatorial_democratic_military_government
-		presidential_democratic_military_government
-		parliamentary_democratic_military_government
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
-		despotic_democratic_commercial_government
-		dictatorial_democratic_commercial_government
-		presidential_democratic_commercial_government
-		parliamentary_democratic_commercial_government
-		despotic_meritocratic_commercial_government
-		dictatorial_meritocratic_commercial_government
-		presidential_meritocratic_commercial_government
-		parliamentary_meritocratic_commercial_government
-		despotic_democratic_technocratic_government
-		dictatorial_democratic_technocratic_government
-		presidential_democratic_technocratic_government
-		parliamentary_democratic_technocratic_government
-	}
-	subject_contract_obligation_flags = { federal_member_state }
-}
-republic_member_state_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	priority = 3303
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		republic_government
-		despotic_democratic_military_government
-		dictatorial_democratic_military_government
-		presidential_democratic_military_government
-		parliamentary_democratic_military_government
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
-		despotic_democratic_commercial_government
-		dictatorial_democratic_commercial_government
-		presidential_democratic_commercial_government
-		parliamentary_democratic_commercial_government
-		despotic_meritocratic_commercial_government
-		dictatorial_meritocratic_commercial_government
-		presidential_meritocratic_commercial_government
-		parliamentary_meritocratic_commercial_government
-		despotic_democratic_technocratic_government
-		dictatorial_democratic_technocratic_government
-		presidential_democratic_technocratic_government
-		parliamentary_democratic_technocratic_government
-		despotic_democratic_theocratic_government
-		dictatorial_democratic_theocratic_government
-		presidential_democratic_theocratic_government
-		parliamentary_democratic_theocratic_government
-		despotic_meritocratic_theocratic_government
-		dictatorial_meritocratic_theocratic_government
-		presidential_meritocratic_theocratic_government
-		parliamentary_meritocratic_theocratic_government
-	}
-	subject_contract_obligation_flags = { federal_member_state }
-}
-republic_member_state_ruler_male = {
-	type = character
-	gender = male
-	special = holder
-	priority = 3303
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		republic_government
-		despotic_democratic_military_government
-		dictatorial_democratic_military_government
-		presidential_democratic_military_government
-		parliamentary_democratic_military_government
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
-		despotic_democratic_commercial_government
-		dictatorial_democratic_commercial_government
-		presidential_democratic_commercial_government
-		parliamentary_democratic_commercial_government
-		despotic_meritocratic_commercial_government
-		dictatorial_meritocratic_commercial_government
-		presidential_meritocratic_commercial_government
-		parliamentary_meritocratic_commercial_government
-		despotic_democratic_technocratic_government
-		dictatorial_democratic_technocratic_government
-		presidential_democratic_technocratic_government
-		parliamentary_democratic_technocratic_government
-		despotic_democratic_theocratic_government
-		dictatorial_democratic_theocratic_government
-		presidential_democratic_theocratic_government
-		parliamentary_democratic_theocratic_government
-		despotic_meritocratic_theocratic_government
-		dictatorial_meritocratic_theocratic_government
-		presidential_meritocratic_theocratic_government
-		parliamentary_meritocratic_theocratic_government
-	}
-	subject_contract_obligation_flags = { federal_member_state }
-}
-republic_socialist_member_state = {
-	type = title
-	priority = 3306
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		republic_government
-		despotic_democratic_military_government
-		dictatorial_democratic_military_government
-		presidential_democratic_military_government
-		parliamentary_democratic_military_government
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
-		despotic_democratic_commercial_government
-		dictatorial_democratic_commercial_government
-		presidential_democratic_commercial_government
-		parliamentary_democratic_commercial_government
-		despotic_meritocratic_commercial_government
-		dictatorial_meritocratic_commercial_government
-		presidential_meritocratic_commercial_government
-		parliamentary_meritocratic_commercial_government
-		despotic_democratic_technocratic_government
-		dictatorial_democratic_technocratic_government
-		presidential_democratic_technocratic_government
-		parliamentary_democratic_technocratic_government
-		despotic_meritocratic_technocratic_government
-		dictatorial_meritocratic_technocratic_government
-		presidential_meritocratic_technocratic_government
-		parliamentary_meritocratic_technocratic_government
-	}
-	religions = { socialism_ideology }
-	subject_contract_obligation_flags = { federal_member_state }
-}
-republic_theocratic_independent = {
-	type = title
-	priority = 3403
-	flavourization_rules = {
-		only_independent = yes
-	}
-	governments = {
-		despotic_democratic_theocratic_government
-		dictatorial_democratic_theocratic_government
-		presidential_democratic_theocratic_government
-		parliamentary_democratic_theocratic_government
-		despotic_meritocratic_theocratic_government
-		dictatorial_meritocratic_theocratic_government
-		presidential_meritocratic_theocratic_government
-		parliamentary_meritocratic_theocratic_government
-	}
-}
-republic_theocratic_member_state = {
-	type = title
-	priority = 3303
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		despotic_democratic_theocratic_government
-		dictatorial_democratic_theocratic_government
-		presidential_democratic_theocratic_government
-		parliamentary_democratic_theocratic_government
-		despotic_meritocratic_theocratic_government
-		dictatorial_meritocratic_theocratic_government
-		presidential_meritocratic_theocratic_government
-		parliamentary_meritocratic_theocratic_government
-	}
-	subject_contract_obligation_flags = { federal_member_state }
-}
 republic_barony = {
 	type = title
 	tier = barony
-	priority = 3113
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
+	priority = 1100
+	flavourization_rules = { top_liege = no }
 	governments = {
 		republic_government
 		despotic_democratic_military_government
@@ -422,48 +604,6 @@ republic_barony = {
 		dictatorial_democratic_theocratic_government
 		presidential_democratic_theocratic_government
 		parliamentary_democratic_theocratic_government
-		despotic_meritocratic_theocratic_government
-		dictatorial_meritocratic_theocratic_government
-		presidential_meritocratic_theocratic_government
-		parliamentary_meritocratic_theocratic_government
-	}
-}
-republic_barony_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	tier = barony
-	priority = 3113
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		republic_government
-		despotic_democratic_military_government
-		dictatorial_democratic_military_government
-		presidential_democratic_military_government
-		parliamentary_democratic_military_government
-		despotic_democratic_commercial_government
-		dictatorial_democratic_commercial_government
-		presidential_democratic_commercial_government
-		parliamentary_democratic_commercial_government
-		despotic_meritocratic_commercial_government
-		dictatorial_meritocratic_commercial_government
-		presidential_meritocratic_commercial_government
-		parliamentary_meritocratic_commercial_government
-		despotic_democratic_technocratic_government
-		dictatorial_democratic_technocratic_government
-		presidential_democratic_technocratic_government
-		parliamentary_democratic_technocratic_government
-		despotic_democratic_theocratic_government
-		dictatorial_democratic_theocratic_government
-		presidential_democratic_theocratic_government
-		parliamentary_democratic_theocratic_government
-		despotic_meritocratic_theocratic_government
-		dictatorial_meritocratic_theocratic_government
-		presidential_meritocratic_theocratic_government
-		parliamentary_meritocratic_theocratic_government
 	}
 }
 republic_barony_ruler_male = {
@@ -471,11 +611,8 @@ republic_barony_ruler_male = {
 	gender = male
 	special = holder
 	tier = barony
-	priority = 3113
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
+	priority = 1100
+	flavourization_rules = { top_liege = no }
 	governments = {
 		republic_government
 		despotic_democratic_military_government
@@ -498,30 +635,50 @@ republic_barony_ruler_male = {
 		dictatorial_democratic_theocratic_government
 		presidential_democratic_theocratic_government
 		parliamentary_democratic_theocratic_government
-		despotic_meritocratic_theocratic_government
-		dictatorial_meritocratic_theocratic_government
-		presidential_meritocratic_theocratic_government
-		parliamentary_meritocratic_theocratic_government
+	}
+}
+republic_barony_ruler_female = {
+	type = character
+	gender = female
+	special = holder
+	tier = barony
+	priority = 1100
+	flavourization_rules = { top_liege = no }
+	governments = {
+		republic_government
+		despotic_democratic_military_government
+		dictatorial_democratic_military_government
+		presidential_democratic_military_government
+		parliamentary_democratic_military_government
+		despotic_democratic_commercial_government
+		dictatorial_democratic_commercial_government
+		presidential_democratic_commercial_government
+		parliamentary_democratic_commercial_government
+		despotic_meritocratic_commercial_government
+		dictatorial_meritocratic_commercial_government
+		presidential_meritocratic_commercial_government
+		parliamentary_meritocratic_commercial_government
+		despotic_democratic_technocratic_government
+		dictatorial_democratic_technocratic_government
+		presidential_democratic_technocratic_government
+		parliamentary_democratic_technocratic_government
+		despotic_democratic_theocratic_government
+		dictatorial_democratic_theocratic_government
+		presidential_democratic_theocratic_government
+		parliamentary_democratic_theocratic_government
 	}
 }
 republic_county = {
 	type = title
 	tier = county
-	priority = 3123
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
+	priority = 1200
+	flavourization_rules = { top_liege = no }
 	governments = {
 		republic_government
 		despotic_democratic_military_government
 		dictatorial_democratic_military_government
 		presidential_democratic_military_government
 		parliamentary_democratic_military_government
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
 		despotic_democratic_commercial_government
 		dictatorial_democratic_commercial_government
 		presidential_democratic_commercial_government
@@ -538,52 +695,6 @@ republic_county = {
 		dictatorial_democratic_theocratic_government
 		presidential_democratic_theocratic_government
 		parliamentary_democratic_theocratic_government
-		despotic_meritocratic_theocratic_government
-		dictatorial_meritocratic_theocratic_government
-		presidential_meritocratic_theocratic_government
-		parliamentary_meritocratic_theocratic_government
-	}
-}
-republic_county_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	tier = county
-	priority = 3123
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		republic_government
-		despotic_democratic_military_government
-		dictatorial_democratic_military_government
-		presidential_democratic_military_government
-		parliamentary_democratic_military_government
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
-		despotic_democratic_commercial_government
-		dictatorial_democratic_commercial_government
-		presidential_democratic_commercial_government
-		parliamentary_democratic_commercial_government
-		despotic_meritocratic_commercial_government
-		dictatorial_meritocratic_commercial_government
-		presidential_meritocratic_commercial_government
-		parliamentary_meritocratic_commercial_government
-		despotic_democratic_technocratic_government
-		dictatorial_democratic_technocratic_government
-		presidential_democratic_technocratic_government
-		parliamentary_democratic_technocratic_government
-		despotic_democratic_theocratic_government
-		dictatorial_democratic_theocratic_government
-		presidential_democratic_theocratic_government
-		parliamentary_democratic_theocratic_government
-		despotic_meritocratic_theocratic_government
-		dictatorial_meritocratic_theocratic_government
-		presidential_meritocratic_theocratic_government
-		parliamentary_meritocratic_theocratic_government
 	}
 }
 republic_county_ruler_male = {
@@ -591,21 +702,14 @@ republic_county_ruler_male = {
 	gender = male
 	special = holder
 	tier = county
-	priority = 3123
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
+	priority = 1200
+	flavourization_rules = { top_liege = no }
 	governments = {
 		republic_government
 		despotic_democratic_military_government
 		dictatorial_democratic_military_government
 		presidential_democratic_military_government
 		parliamentary_democratic_military_government
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
 		despotic_democratic_commercial_government
 		dictatorial_democratic_commercial_government
 		presidential_democratic_commercial_government
@@ -622,30 +726,50 @@ republic_county_ruler_male = {
 		dictatorial_democratic_theocratic_government
 		presidential_democratic_theocratic_government
 		parliamentary_democratic_theocratic_government
-		despotic_meritocratic_theocratic_government
-		dictatorial_meritocratic_theocratic_government
-		presidential_meritocratic_theocratic_government
-		parliamentary_meritocratic_theocratic_government
+	}
+}
+republic_county_ruler_female = {
+	type = character
+	gender = female
+	special = holder
+	tier = county
+	priority = 1200
+	flavourization_rules = { top_liege = no }
+	governments = {
+		republic_government
+		despotic_democratic_military_government
+		dictatorial_democratic_military_government
+		presidential_democratic_military_government
+		parliamentary_democratic_military_government
+		despotic_democratic_commercial_government
+		dictatorial_democratic_commercial_government
+		presidential_democratic_commercial_government
+		parliamentary_democratic_commercial_government
+		despotic_meritocratic_commercial_government
+		dictatorial_meritocratic_commercial_government
+		presidential_meritocratic_commercial_government
+		parliamentary_meritocratic_commercial_government
+		despotic_democratic_technocratic_government
+		dictatorial_democratic_technocratic_government
+		presidential_democratic_technocratic_government
+		parliamentary_democratic_technocratic_government
+		despotic_democratic_theocratic_government
+		dictatorial_democratic_theocratic_government
+		presidential_democratic_theocratic_government
+		parliamentary_democratic_theocratic_government
 	}
 }
 republic_duchy = {
 	type = title
 	tier = duchy
-	priority = 3133
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
+	priority = 1300
+	flavourization_rules = { top_liege = no }
 	governments = {
 		republic_government
 		despotic_democratic_military_government
 		dictatorial_democratic_military_government
 		presidential_democratic_military_government
 		parliamentary_democratic_military_government
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
 		despotic_democratic_commercial_government
 		dictatorial_democratic_commercial_government
 		presidential_democratic_commercial_government
@@ -662,52 +786,6 @@ republic_duchy = {
 		dictatorial_democratic_theocratic_government
 		presidential_democratic_theocratic_government
 		parliamentary_democratic_theocratic_government
-		despotic_meritocratic_theocratic_government
-		dictatorial_meritocratic_theocratic_government
-		presidential_meritocratic_theocratic_government
-		parliamentary_meritocratic_theocratic_government
-	}
-}
-republic_duchy_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	tier = duchy
-	priority = 3133
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		republic_government
-		despotic_democratic_military_government
-		dictatorial_democratic_military_government
-		presidential_democratic_military_government
-		parliamentary_democratic_military_government
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
-		despotic_democratic_commercial_government
-		dictatorial_democratic_commercial_government
-		presidential_democratic_commercial_government
-		parliamentary_democratic_commercial_government
-		despotic_meritocratic_commercial_government
-		dictatorial_meritocratic_commercial_government
-		presidential_meritocratic_commercial_government
-		parliamentary_meritocratic_commercial_government
-		despotic_democratic_technocratic_government
-		dictatorial_democratic_technocratic_government
-		presidential_democratic_technocratic_government
-		parliamentary_democratic_technocratic_government
-		despotic_democratic_theocratic_government
-		dictatorial_democratic_theocratic_government
-		presidential_democratic_theocratic_government
-		parliamentary_democratic_theocratic_government
-		despotic_meritocratic_theocratic_government
-		dictatorial_meritocratic_theocratic_government
-		presidential_meritocratic_theocratic_government
-		parliamentary_meritocratic_theocratic_government
 	}
 }
 republic_duchy_ruler_male = {
@@ -715,21 +793,14 @@ republic_duchy_ruler_male = {
 	gender = male
 	special = holder
 	tier = duchy
-	priority = 3133
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
+	priority = 1300
+	flavourization_rules = { top_liege = no }
 	governments = {
 		republic_government
 		despotic_democratic_military_government
 		dictatorial_democratic_military_government
 		presidential_democratic_military_government
 		parliamentary_democratic_military_government
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
 		despotic_democratic_commercial_government
 		dictatorial_democratic_commercial_government
 		presidential_democratic_commercial_government
@@ -746,20 +817,44 @@ republic_duchy_ruler_male = {
 		dictatorial_democratic_theocratic_government
 		presidential_democratic_theocratic_government
 		parliamentary_democratic_theocratic_government
-		despotic_meritocratic_theocratic_government
-		dictatorial_meritocratic_theocratic_government
-		presidential_meritocratic_theocratic_government
-		parliamentary_meritocratic_theocratic_government
+	}
+}
+republic_duchy_ruler_female = {
+	type = character
+	gender = female
+	special = holder
+	tier = duchy
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		republic_government
+		despotic_democratic_military_government
+		dictatorial_democratic_military_government
+		presidential_democratic_military_government
+		parliamentary_democratic_military_government
+		despotic_democratic_commercial_government
+		dictatorial_democratic_commercial_government
+		presidential_democratic_commercial_government
+		parliamentary_democratic_commercial_government
+		despotic_meritocratic_commercial_government
+		dictatorial_meritocratic_commercial_government
+		presidential_meritocratic_commercial_government
+		parliamentary_meritocratic_commercial_government
+		despotic_democratic_technocratic_government
+		dictatorial_democratic_technocratic_government
+		presidential_democratic_technocratic_government
+		parliamentary_democratic_technocratic_government
+		despotic_democratic_theocratic_government
+		dictatorial_democratic_theocratic_government
+		presidential_democratic_theocratic_government
+		parliamentary_democratic_theocratic_government
 	}
 }
 republic_kingdom = {
 	type = title
 	tier = kingdom
-	priority = 3143
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
+	priority = 1400
+	flavourization_rules = { top_liege = no }
 	governments = {
 		republic_government
 		despotic_democratic_military_government
@@ -782,48 +877,6 @@ republic_kingdom = {
 		dictatorial_democratic_theocratic_government
 		presidential_democratic_theocratic_government
 		parliamentary_democratic_theocratic_government
-		despotic_meritocratic_theocratic_government
-		dictatorial_meritocratic_theocratic_government
-		presidential_meritocratic_theocratic_government
-		parliamentary_meritocratic_theocratic_government
-	}
-}
-republic_kingdom_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	tier = kingdom
-	priority = 3143
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		republic_government
-		despotic_democratic_military_government
-		dictatorial_democratic_military_government
-		presidential_democratic_military_government
-		parliamentary_democratic_military_government
-		despotic_democratic_commercial_government
-		dictatorial_democratic_commercial_government
-		presidential_democratic_commercial_government
-		parliamentary_democratic_commercial_government
-		despotic_meritocratic_commercial_government
-		dictatorial_meritocratic_commercial_government
-		presidential_meritocratic_commercial_government
-		parliamentary_meritocratic_commercial_government
-		despotic_democratic_technocratic_government
-		dictatorial_democratic_technocratic_government
-		presidential_democratic_technocratic_government
-		parliamentary_democratic_technocratic_government
-		despotic_democratic_theocratic_government
-		dictatorial_democratic_theocratic_government
-		presidential_democratic_theocratic_government
-		parliamentary_democratic_theocratic_government
-		despotic_meritocratic_theocratic_government
-		dictatorial_meritocratic_theocratic_government
-		presidential_meritocratic_theocratic_government
-		parliamentary_meritocratic_theocratic_government
 	}
 }
 republic_kingdom_ruler_male = {
@@ -831,11 +884,8 @@ republic_kingdom_ruler_male = {
 	gender = male
 	special = holder
 	tier = kingdom
-	priority = 3143
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
+	priority = 1400
+	flavourization_rules = { top_liege = no }
 	governments = {
 		republic_government
 		despotic_democratic_military_government
@@ -858,20 +908,44 @@ republic_kingdom_ruler_male = {
 		dictatorial_democratic_theocratic_government
 		presidential_democratic_theocratic_government
 		parliamentary_democratic_theocratic_government
-		despotic_meritocratic_theocratic_government
-		dictatorial_meritocratic_theocratic_government
-		presidential_meritocratic_theocratic_government
-		parliamentary_meritocratic_theocratic_government
+	}
+}
+republic_kingdom_ruler_female = {
+	type = character
+	gender = female
+	special = holder
+	tier = kingdom
+	priority = 1400
+	flavourization_rules = { top_liege = no }
+	governments = {
+		republic_government
+		despotic_democratic_military_government
+		dictatorial_democratic_military_government
+		presidential_democratic_military_government
+		parliamentary_democratic_military_government
+		despotic_democratic_commercial_government
+		dictatorial_democratic_commercial_government
+		presidential_democratic_commercial_government
+		parliamentary_democratic_commercial_government
+		despotic_meritocratic_commercial_government
+		dictatorial_meritocratic_commercial_government
+		presidential_meritocratic_commercial_government
+		parliamentary_meritocratic_commercial_government
+		despotic_democratic_technocratic_government
+		dictatorial_democratic_technocratic_government
+		presidential_democratic_technocratic_government
+		parliamentary_democratic_technocratic_government
+		despotic_democratic_theocratic_government
+		dictatorial_democratic_theocratic_government
+		presidential_democratic_theocratic_government
+		parliamentary_democratic_theocratic_government
 	}
 }
 republic_empire = {
 	type = title
 	tier = empire
-	priority = 3153
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
+	priority = 1500
+	flavourization_rules = { top_liege = no }
 	governments = {
 		republic_government
 		despotic_democratic_military_government
@@ -894,48 +968,6 @@ republic_empire = {
 		dictatorial_democratic_theocratic_government
 		presidential_democratic_theocratic_government
 		parliamentary_democratic_theocratic_government
-		despotic_meritocratic_theocratic_government
-		dictatorial_meritocratic_theocratic_government
-		presidential_meritocratic_theocratic_government
-		parliamentary_meritocratic_theocratic_government
-	}
-}
-republic_empire_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	tier = empire
-	priority = 3153
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		republic_government
-		despotic_democratic_military_government
-		dictatorial_democratic_military_government
-		presidential_democratic_military_government
-		parliamentary_democratic_military_government
-		despotic_democratic_commercial_government
-		dictatorial_democratic_commercial_government
-		presidential_democratic_commercial_government
-		parliamentary_democratic_commercial_government
-		despotic_meritocratic_commercial_government
-		dictatorial_meritocratic_commercial_government
-		presidential_meritocratic_commercial_government
-		parliamentary_meritocratic_commercial_government
-		despotic_democratic_technocratic_government
-		dictatorial_democratic_technocratic_government
-		presidential_democratic_technocratic_government
-		parliamentary_democratic_technocratic_government
-		despotic_democratic_theocratic_government
-		dictatorial_democratic_theocratic_government
-		presidential_democratic_theocratic_government
-		parliamentary_democratic_theocratic_government
-		despotic_meritocratic_theocratic_government
-		dictatorial_meritocratic_theocratic_government
-		presidential_meritocratic_theocratic_government
-		parliamentary_meritocratic_theocratic_government
 	}
 }
 republic_empire_ruler_male = {
@@ -943,11 +975,8 @@ republic_empire_ruler_male = {
 	gender = male
 	special = holder
 	tier = empire
-	priority = 3153
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
+	priority = 1500
+	flavourization_rules = { top_liege = no }
 	governments = {
 		republic_government
 		despotic_democratic_military_government
@@ -970,6 +999,845 @@ republic_empire_ruler_male = {
 		dictatorial_democratic_theocratic_government
 		presidential_democratic_theocratic_government
 		parliamentary_democratic_theocratic_government
+	}
+}
+republic_empire_ruler_female = {
+	type = character
+	gender = female
+	special = holder
+	tier = empire
+	priority = 1500
+	flavourization_rules = { top_liege = no }
+	governments = {
+		republic_government
+		despotic_democratic_military_government
+		dictatorial_democratic_military_government
+		presidential_democratic_military_government
+		parliamentary_democratic_military_government
+		despotic_democratic_commercial_government
+		dictatorial_democratic_commercial_government
+		presidential_democratic_commercial_government
+		parliamentary_democratic_commercial_government
+		despotic_meritocratic_commercial_government
+		dictatorial_meritocratic_commercial_government
+		presidential_meritocratic_commercial_government
+		parliamentary_meritocratic_commercial_government
+		despotic_democratic_technocratic_government
+		dictatorial_democratic_technocratic_government
+		presidential_democratic_technocratic_government
+		parliamentary_democratic_technocratic_government
+		despotic_democratic_theocratic_government
+		dictatorial_democratic_theocratic_government
+		presidential_democratic_theocratic_government
+		parliamentary_democratic_theocratic_government
+	}
+}
+republic_hegemony = {
+	type = title
+	tier = hegemony
+	priority = 1600
+	flavourization_rules = { top_liege = no }
+	governments = {
+		republic_government
+		despotic_democratic_military_government
+		dictatorial_democratic_military_government
+		presidential_democratic_military_government
+		parliamentary_democratic_military_government
+		despotic_democratic_commercial_government
+		dictatorial_democratic_commercial_government
+		presidential_democratic_commercial_government
+		parliamentary_democratic_commercial_government
+		despotic_meritocratic_commercial_government
+		dictatorial_meritocratic_commercial_government
+		presidential_meritocratic_commercial_government
+		parliamentary_meritocratic_commercial_government
+		despotic_democratic_technocratic_government
+		dictatorial_democratic_technocratic_government
+		presidential_democratic_technocratic_government
+		parliamentary_democratic_technocratic_government
+		despotic_democratic_theocratic_government
+		dictatorial_democratic_theocratic_government
+		presidential_democratic_theocratic_government
+		parliamentary_democratic_theocratic_government
+	}
+}
+republic_hegemony_ruler_male = {
+	type = character
+	gender = male
+	special = holder
+	tier = hegemony
+	priority = 1600
+	flavourization_rules = { top_liege = no }
+	governments = {
+		republic_government
+		despotic_democratic_military_government
+		dictatorial_democratic_military_government
+		presidential_democratic_military_government
+		parliamentary_democratic_military_government
+		despotic_democratic_commercial_government
+		dictatorial_democratic_commercial_government
+		presidential_democratic_commercial_government
+		parliamentary_democratic_commercial_government
+		despotic_meritocratic_commercial_government
+		dictatorial_meritocratic_commercial_government
+		presidential_meritocratic_commercial_government
+		parliamentary_meritocratic_commercial_government
+		despotic_democratic_technocratic_government
+		dictatorial_democratic_technocratic_government
+		presidential_democratic_technocratic_government
+		parliamentary_democratic_technocratic_government
+		despotic_democratic_theocratic_government
+		dictatorial_democratic_theocratic_government
+		presidential_democratic_theocratic_government
+		parliamentary_democratic_theocratic_government
+	}
+}
+republic_hegemony_ruler_female = {
+	type = character
+	gender = female
+	special = holder
+	tier = hegemony
+	priority = 1600
+	flavourization_rules = { top_liege = no }
+	governments = {
+		republic_government
+		despotic_democratic_military_government
+		dictatorial_democratic_military_government
+		presidential_democratic_military_government
+		parliamentary_democratic_military_government
+		despotic_democratic_commercial_government
+		dictatorial_democratic_commercial_government
+		presidential_democratic_commercial_government
+		parliamentary_democratic_commercial_government
+		despotic_meritocratic_commercial_government
+		dictatorial_meritocratic_commercial_government
+		presidential_meritocratic_commercial_government
+		parliamentary_meritocratic_commercial_government
+		despotic_democratic_technocratic_government
+		dictatorial_democratic_technocratic_government
+		presidential_democratic_technocratic_government
+		parliamentary_democratic_technocratic_government
+		despotic_democratic_theocratic_government
+		dictatorial_democratic_theocratic_government
+		presidential_democratic_theocratic_government
+		parliamentary_democratic_theocratic_government
+	}
+}
+# Standard Meritocracy Titles
+military_meritocracy_barony = {
+	type = title
+	tier = barony
+	priority = 1100
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+military_meritocracy_barony_ruler_male = {
+	type = character
+	gender = male
+	tier = barony
+	special = holder
+	priority = 1100
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+military_meritocracy_barony_ruler_female = {
+	type = character
+	gender = female
+	tier = barony
+	special = holder
+	priority = 1100
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+military_meritocracy_county = {
+	type = title
+	tier = county
+	priority = 1200
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+military_meritocracy_county_ruler_male = {
+	type = character
+	gender = male
+	tier = county
+	special = holder
+	priority = 1200
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+military_meritocracy_county_ruler_female = {
+	type = character
+	gender = female
+	tier = county
+	special = holder
+	priority = 1200
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+military_meritocracy_duchy = {
+	type = title
+	tier = duchy
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+military_meritocracy_duchy_ruler_male = {
+	type = character
+	gender = male
+	tier = duchy
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+military_meritocracy_duchy_ruler_female = {
+	type = character
+	gender = female
+	tier = duchy
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+military_meritocracy_kingdom = {
+	type = title
+	tier = kingdom
+	priority = 1400
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+military_meritocracy_kingdom_ruler_male = {
+	type = character
+	gender = male
+	tier = kingdom
+	special = holder
+	priority = 1400
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+military_meritocracy_kingdom_ruler_female = {
+	type = character
+	gender = female
+	tier = kingdom
+	special = holder
+	priority = 1400
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+military_meritocracy_empire = {
+	type = title
+	tier = empire
+	priority = 1500
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+military_meritocracy_empire_ruler_male = {
+	type = character
+	gender = male
+	tier = empire
+	special = holder
+	priority = 1500
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+military_meritocracy_empire_ruler_female = {
+	type = character
+	gender = female
+	tier = empire
+	special = holder
+	priority = 1500
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+military_meritocracy_hegemony = {
+	type = title
+	tier = hegemony
+	priority = 1600
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+military_meritocracy_hegemony_ruler_male = {
+	type = character
+	gender = female
+	tier = hegemony
+	special = holder
+	priority = 1600
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+military_meritocracy_hegemony_ruler_female = {
+	type = character
+	gender = female
+	tier = hegemony
+	special = holder
+	priority = 1600
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_military_government
+		dictatorial_meritocratic_military_government
+		presidential_meritocratic_military_government
+		parliamentary_meritocratic_military_government
+	}
+}
+technocratic_meritocracy_barony = {
+	type = title
+	tier = barony
+	priority = 1100
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_technocratic_government
+		dictatorial_meritocratic_technocratic_government
+		presidential_meritocratic_technocratic_government
+		parliamentary_meritocratic_technocratic_government
+	}
+}
+technocratic_meritocracy_barony_ruler_male = {
+	type = character
+	gender = male
+	tier = barony
+	special = holder
+	priority = 1100
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_technocratic_government
+		dictatorial_meritocratic_technocratic_government
+		presidential_meritocratic_technocratic_government
+		parliamentary_meritocratic_technocratic_government
+	}
+}
+technocratic_meritocracy_barony_ruler_female = {
+	type = character
+	gender = female
+	tier = barony
+	special = holder
+	priority = 1100
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_technocratic_government
+		dictatorial_meritocratic_technocratic_government
+		presidential_meritocratic_technocratic_government
+		parliamentary_meritocratic_technocratic_government
+	}
+}
+technocratic_meritocracy_county = {
+	type = title
+	tier = county
+	priority = 1200
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_technocratic_government
+		dictatorial_meritocratic_technocratic_government
+		presidential_meritocratic_technocratic_government
+		parliamentary_meritocratic_technocratic_government
+	}
+}
+technocratic_meritocracy_county_ruler_male = {
+	type = character
+	gender = male
+	tier = county
+	special = holder
+	priority = 1200
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_technocratic_government
+		dictatorial_meritocratic_technocratic_government
+		presidential_meritocratic_technocratic_government
+		parliamentary_meritocratic_technocratic_government
+	}
+}
+technocratic_meritocracy_county_ruler_female = {
+	type = character
+	gender = female
+	tier = county
+	special = holder
+	priority = 1200
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_technocratic_government
+		dictatorial_meritocratic_technocratic_government
+		presidential_meritocratic_technocratic_government
+		parliamentary_meritocratic_technocratic_government
+	}
+}
+technocratic_meritocracy_duchy = {
+	type = title
+	tier = duchy
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_technocratic_government
+		dictatorial_meritocratic_technocratic_government
+		presidential_meritocratic_technocratic_government
+		parliamentary_meritocratic_technocratic_government
+	}
+}
+technocratic_meritocracy_duchy_ruler_male = {
+	type = character
+	gender = male
+	tier = duchy
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_technocratic_government
+		dictatorial_meritocratic_technocratic_government
+		presidential_meritocratic_technocratic_government
+		parliamentary_meritocratic_technocratic_government
+	}
+}
+technocratic_meritocracy_duchy_ruler_female = {
+	type = character
+	gender = female
+	tier = duchy
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_technocratic_government
+		dictatorial_meritocratic_technocratic_government
+		presidential_meritocratic_technocratic_government
+		parliamentary_meritocratic_technocratic_government
+	}
+}
+technocratic_meritocracy_kingdom = {
+	type = title
+	tier = kingdom
+	priority = 1400
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_technocratic_government
+		dictatorial_meritocratic_technocratic_government
+		presidential_meritocratic_technocratic_government
+		parliamentary_meritocratic_technocratic_government
+	}
+}
+technocratic_meritocracy_kingdom_ruler_male = {
+	type = character
+	gender = male
+	tier = kingdom
+	special = holder
+	priority = 1400
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_technocratic_government
+		dictatorial_meritocratic_technocratic_government
+		presidential_meritocratic_technocratic_government
+		parliamentary_meritocratic_technocratic_government
+	}
+}
+technocratic_meritocracy_kingdom_ruler_female = {
+	type = character
+	gender = female
+	tier = kingdom
+	special = holder
+	priority = 1400
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_technocratic_government
+		dictatorial_meritocratic_technocratic_government
+		presidential_meritocratic_technocratic_government
+		parliamentary_meritocratic_technocratic_government
+	}
+}
+technocratic_meritocracy_empire = {
+	type = title
+	tier = empire
+	priority = 1500
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_technocratic_government
+		dictatorial_meritocratic_technocratic_government
+		presidential_meritocratic_technocratic_government
+		parliamentary_meritocratic_technocratic_government
+	}
+}
+technocratic_meritocracy_empire_ruler_male = {
+	type = character
+	gender = male
+	tier = empire
+	special = holder
+	priority = 1500
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_technocratic_government
+		dictatorial_meritocratic_technocratic_government
+		presidential_meritocratic_technocratic_government
+		parliamentary_meritocratic_technocratic_government
+	}
+}
+technocratic_meritocracy_empire_ruler_female = {
+	type = character
+	gender = female
+	tier = empire
+	special = holder
+	priority = 1500
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_technocratic_government
+		dictatorial_meritocratic_technocratic_government
+		presidential_meritocratic_technocratic_government
+		parliamentary_meritocratic_technocratic_government
+	}
+}
+technocratic_meritocracy_hegemony = {
+	type = title
+	tier = hegemony
+	priority = 1600
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_technocratic_government
+		dictatorial_meritocratic_technocratic_government
+		presidential_meritocratic_technocratic_government
+		parliamentary_meritocratic_technocratic_government
+	}
+}
+technocratic_meritocracy_hegemony_ruler_male = {
+	type = character
+	gender = male
+	tier = hegemony
+	special = holder
+	priority = 1600
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_technocratic_government
+		dictatorial_meritocratic_technocratic_government
+		presidential_meritocratic_technocratic_government
+		parliamentary_meritocratic_technocratic_government
+	}
+}
+technocratic_meritocracy_hegemony_ruler_female = {
+	type = character
+	gender = female
+	tier = hegemony
+	special = holder
+	priority = 1600
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_technocratic_government
+		dictatorial_meritocratic_technocratic_government
+		presidential_meritocratic_technocratic_government
+		parliamentary_meritocratic_technocratic_government
+	}
+}
+theocratic_meritocracy_barony = {
+	type = title
+	tier = barony
+	priority = 1100
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_theocratic_government
+		dictatorial_meritocratic_theocratic_government
+		presidential_meritocratic_theocratic_government
+		parliamentary_meritocratic_theocratic_government
+	}
+}
+theocratic_meritocracy_barony_ruler_male = {
+	type = character
+	gender = male
+	tier = barony
+	special = holder
+	priority = 1100
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_theocratic_government
+		dictatorial_meritocratic_theocratic_government
+		presidential_meritocratic_theocratic_government
+		parliamentary_meritocratic_theocratic_government
+	}
+}
+theocratic_meritocracy_barony_ruler_female = {
+	type = character
+	gender = female
+	tier = barony
+	special = holder
+	priority = 1100
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_theocratic_government
+		dictatorial_meritocratic_theocratic_government
+		presidential_meritocratic_theocratic_government
+		parliamentary_meritocratic_theocratic_government
+	}
+}
+theocratic_meritocracy_county = {
+	type = title
+	tier = county
+	priority = 1200
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_theocratic_government
+		dictatorial_meritocratic_theocratic_government
+		presidential_meritocratic_theocratic_government
+		parliamentary_meritocratic_theocratic_government
+	}
+}
+theocratic_meritocracy_county_ruler_male = {
+	type = character
+	gender = male
+	tier = county
+	special = holder
+	priority = 1200
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_theocratic_government
+		dictatorial_meritocratic_theocratic_government
+		presidential_meritocratic_theocratic_government
+		parliamentary_meritocratic_theocratic_government
+	}
+}
+theocratic_meritocracy_county_ruler_female = {
+	type = character
+	gender = female
+	tier = county
+	special = holder
+	priority = 1200
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_theocratic_government
+		dictatorial_meritocratic_theocratic_government
+		presidential_meritocratic_theocratic_government
+		parliamentary_meritocratic_theocratic_government
+	}
+}
+theocratic_meritocracy_duchy = {
+	type = title
+	tier = duchy
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_theocratic_government
+		dictatorial_meritocratic_theocratic_government
+		presidential_meritocratic_theocratic_government
+		parliamentary_meritocratic_theocratic_government
+	}
+}
+theocratic_meritocracy_duchy_ruler_male = {
+	type = character
+	gender = male
+	tier = duchy
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_theocratic_government
+		dictatorial_meritocratic_theocratic_government
+		presidential_meritocratic_theocratic_government
+		parliamentary_meritocratic_theocratic_government
+	}
+}
+theocratic_meritocracy_duchy_ruler_female = {
+	type = character
+	gender = female
+	tier = duchy
+	special = holder
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_theocratic_government
+		dictatorial_meritocratic_theocratic_government
+		presidential_meritocratic_theocratic_government
+		parliamentary_meritocratic_theocratic_government
+	}
+}
+theocratic_meritocracy_kingdom = {
+	type = title
+	tier = kingdom
+	priority = 1400
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_theocratic_government
+		dictatorial_meritocratic_theocratic_government
+		presidential_meritocratic_theocratic_government
+		parliamentary_meritocratic_theocratic_government
+	}
+}
+theocratic_meritocracy_kingdom_ruler_male = {
+	type = character
+	gender = male
+	tier = kingdom
+	special = holder
+	priority = 1400
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_theocratic_government
+		dictatorial_meritocratic_theocratic_government
+		presidential_meritocratic_theocratic_government
+		parliamentary_meritocratic_theocratic_government
+	}
+}
+theocratic_meritocracy_kingdom_ruler_female = {
+	type = character
+	gender = female
+	tier = kingdom
+	special = holder
+	priority = 1400
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_theocratic_government
+		dictatorial_meritocratic_theocratic_government
+		presidential_meritocratic_theocratic_government
+		parliamentary_meritocratic_theocratic_government
+	}
+}
+theocratic_meritocracy_empire = {
+	type = title
+	tier = empire
+	priority = 1500
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_theocratic_government
+		dictatorial_meritocratic_theocratic_government
+		presidential_meritocratic_theocratic_government
+		parliamentary_meritocratic_theocratic_government
+	}
+}
+theocratic_meritocracy_empire_ruler_male = {
+	type = character
+	gender = male
+	tier = empire
+	special = holder
+	priority = 1500
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_theocratic_government
+		dictatorial_meritocratic_theocratic_government
+		presidential_meritocratic_theocratic_government
+		parliamentary_meritocratic_theocratic_government
+	}
+}
+theocratic_meritocracy_empire_ruler_female = {
+	type = character
+	gender = female
+	tier = empire
+	special = holder
+	priority = 1500
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_theocratic_government
+		dictatorial_meritocratic_theocratic_government
+		presidential_meritocratic_theocratic_government
+		parliamentary_meritocratic_theocratic_government
+	}
+}
+theocratic_meritocracy_hegemony = {
+	type = title
+	tier = hegemony
+	priority = 1600
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_theocratic_government
+		dictatorial_meritocratic_theocratic_government
+		presidential_meritocratic_theocratic_government
+		parliamentary_meritocratic_theocratic_government
+	}
+}
+theocratic_meritocracy_hegemony_ruler_male = {
+	type = character
+	gender = male
+	tier = hegemony
+	special = holder
+	priority = 1600
+	flavourization_rules = { top_liege = no }
+	governments = {
+		despotic_meritocratic_theocratic_government
+		dictatorial_meritocratic_theocratic_government
+		presidential_meritocratic_theocratic_government
+		parliamentary_meritocratic_theocratic_government
+	}
+}
+theocratic_meritocracy_hegemony_ruler_female = {
+	type = character
+	gender = female
+	tier = hegemony
+	special = holder
+	priority = 1600
+	flavourization_rules = { top_liege = no }
+	governments = {
 		despotic_meritocratic_theocratic_government
 		dictatorial_meritocratic_theocratic_government
 		presidential_meritocratic_theocratic_government
@@ -977,1057 +1845,12 @@ republic_empire_ruler_male = {
 	}
 }
 
-# Standard Federation Titles
-federation_military_independent_ruler_female = {
-	type = character
-	gender = female
-	priority = 3403
-	flavourization_rules = { only_independent = yes }
-	governments = {
-		despotic_federal_military_government
-		dictatorial_federal_military_government
-		presidential_federal_military_government
-		parliamentary_federal_military_government
-	}
-}
-federation_military_independent_ruler_male = {
-	type = character
-	gender = male
-	priority = 3403
-	flavourization_rules = { only_independent = yes }
-	governments = {
-		despotic_federal_military_government
-		dictatorial_federal_military_government
-		presidential_federal_military_government
-		parliamentary_federal_military_government
-	}
-}
-federation_military_member_state_ruler_female = {
-	type = character
-	gender = female
-	priority = 3303
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		despotic_federal_military_government
-		dictatorial_federal_military_government
-		presidential_federal_military_government
-		parliamentary_federal_military_government
-	}
-	subject_contract_obligation_flags = { federal_member_state }
-}
-federation_military_member_state_ruler_male = {
-	type = character
-	gender = male
-	priority = 3303
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		despotic_federal_military_government
-		dictatorial_federal_military_government
-		presidential_federal_military_government
-		parliamentary_federal_military_government
-	}
-	subject_contract_obligation_flags = { federal_member_state }
-}
-federation_commercial_independent_ruler_female = {
-	type = character
-	gender = female
-	priority = 3403
-	flavourization_rules = { only_independent = yes }
-	governments = {
-		despotic_federal_commercial_government
-		dictatorial_federal_commercial_government
-		presidential_federal_commercial_government
-		parliamentary_federal_commercial_government
-		despotic_federal_theocratic_government
-		dictatorial_federal_theocratic_government
-		presidential_federal_theocratic_government
-		parliamentary_federal_theocratic_government
-	}
-}
-federation_commercial_independent_ruler_male = {
-	type = character
-	gender = male
-	priority = 3403
-	flavourization_rules = { only_independent = yes }
-	governments = {
-		despotic_federal_commercial_government
-		dictatorial_federal_commercial_government
-		presidential_federal_commercial_government
-		parliamentary_federal_commercial_government
-		despotic_federal_theocratic_government
-		dictatorial_federal_theocratic_government
-		presidential_federal_theocratic_government
-		parliamentary_federal_theocratic_government
-	}
-}
-federation_commercial_member_state_ruler_female = {
-	type = character
-	gender = female
-	priority = 3303
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		despotic_federal_commercial_government
-		dictatorial_federal_commercial_government
-		presidential_federal_commercial_government
-		parliamentary_federal_commercial_government
-		despotic_federal_theocratic_government
-		dictatorial_federal_theocratic_government
-		presidential_federal_theocratic_government
-		parliamentary_federal_theocratic_government
-	}
-	subject_contract_obligation_flags = { federal_member_state }
-}
-federation_commercial_member_state_ruler_male = {
-	type = character
-	gender = male
-	priority = 3303
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		despotic_federal_commercial_government
-		dictatorial_federal_commercial_government
-		presidential_federal_commercial_government
-		parliamentary_federal_commercial_government
-		despotic_federal_theocratic_government
-		dictatorial_federal_theocratic_government
-		presidential_federal_theocratic_government
-		parliamentary_federal_theocratic_government
-	}
-	subject_contract_obligation_flags = { federal_member_state }
-}
-federation_technocratic_independent_ruler_female = {
-	type = character
-	gender = female
-	priority = 3403
-	flavourization_rules = { only_independent = yes }
-	governments = {
-		despotic_federal_technocratic_government
-		dictatorial_federal_technocratic_government
-		presidential_federal_technocratic_government
-		parliamentary_federal_technocratic_government
-	}
-}
-federation_technocratic_independent_ruler_male = {
-	type = character
-	gender = male
-	priority = 3403
-	flavourization_rules = { only_independent = yes }
-	governments = {
-		despotic_federal_technocratic_government
-		dictatorial_federal_technocratic_government
-		presidential_federal_technocratic_government
-		parliamentary_federal_technocratic_government
-	}
-}
-federation_technocratic_member_state_ruler_female = {
-	type = character
-	gender = female
-	priority = 3303
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		despotic_federal_technocratic_government
-		dictatorial_federal_technocratic_government
-		presidential_federal_technocratic_government
-		parliamentary_federal_technocratic_government
-	}
-	subject_contract_obligation_flags = { federal_member_state }
-}
-federation_technocratic_member_state_ruler_male = {
-	type = character
-	gender = male
-	priority = 3303
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		despotic_federal_technocratic_government
-		dictatorial_federal_technocratic_government
-		presidential_federal_technocratic_government
-		parliamentary_federal_technocratic_government
-	}
-	subject_contract_obligation_flags = { federal_member_state }
-}
-federation_duchy = {
-	type = title
-	tier = duchy
-	priority = 3033
-	flavourization_rules = { top_liege = no }
-	governments = {
-		despotic_federal_military_government
-		dictatorial_federal_military_government
-		presidential_federal_military_government
-		parliamentary_federal_military_government
-	}
-}
-federation_kingdom = {
-	type = title
-	tier = kingdom
-	priority = 3043
-	flavourization_rules = { top_liege = no }
-	governments = {
-		despotic_federal_military_government
-		dictatorial_federal_military_government
-		presidential_federal_military_government
-		parliamentary_federal_military_government
-	}
-}
-federation_empire = {
-	type = title
-	tier = empire
-	priority = 3053
-	flavourization_rules = { top_liege = no }
-	governments = {
-		despotic_federal_military_government
-		dictatorial_federal_military_government
-		presidential_federal_military_government
-		parliamentary_federal_military_government
-	}
-}
-federation_hegemony = {
-	type = title
-	tier = hegemony
-	priority = 3063
-	flavourization_rules = { top_liege = no }
-	governments = {
-		despotic_federal_military_government
-		dictatorial_federal_military_government
-		presidential_federal_military_government
-		parliamentary_federal_military_government
-	}
-}
-
-# Standard Dictatorship Titles
-dictatorship_technocratic_independent = {
-	type = title
-	priority = 3403
-	flavourization_rules = {
-		only_independent = yes
-	}
-	governments = {
-		despotic_meritocratic_technocratic_government
-		dictatorial_meritocratic_technocratic_government
-		presidential_meritocratic_technocratic_government
-		parliamentary_meritocratic_technocratic_government
-	}
-}
-dictatorship_technocratic_independent_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	priority = 3403
-	flavourization_rules = {
-		only_independent = yes
-	}
-	governments = {
-		despotic_meritocratic_technocratic_government
-		dictatorial_meritocratic_technocratic_government
-		presidential_meritocratic_technocratic_government
-		parliamentary_meritocratic_technocratic_government
-	}
-}
-dictatorship_technocratic_independent_ruler_male = {
-	type = character
-	gender = male
-	special = holder
-	priority = 3403
-	flavourization_rules = {
-		only_independent = yes
-	}
-	governments = {
-		despotic_meritocratic_technocratic_government
-		dictatorial_meritocratic_technocratic_government
-		presidential_meritocratic_technocratic_government
-		parliamentary_meritocratic_technocratic_government
-	}
-}
-dictatorship_technocratic_socialist_independent = {
-	type = title
-	priority = 3406
-	flavourization_rules = {
-		only_independent = yes
-	}
-	governments = {
-		despotic_meritocratic_technocratic_government
-		dictatorial_meritocratic_technocratic_government
-		presidential_meritocratic_technocratic_government
-		parliamentary_meritocratic_technocratic_government
-	}
-	religions = { socialism_ideology }
-}
-dictatorship_technocratic_member_state = {
-	type = title
-	priority = 3303
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		despotic_meritocratic_technocratic_government
-		dictatorial_meritocratic_technocratic_government
-		presidential_meritocratic_technocratic_government
-		parliamentary_meritocratic_technocratic_government
-	}
-	subject_contract_obligation_flags = { federal_member_state }
-}
-dictatorship_technocratic_member_state_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	priority = 3303
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		despotic_meritocratic_technocratic_government
-		dictatorial_meritocratic_technocratic_government
-		presidential_meritocratic_technocratic_government
-		parliamentary_meritocratic_technocratic_government
-	}
-	subject_contract_obligation_flags = { federal_member_state }
-}
-dictatorship_technocratic_member_state_ruler_male = {
-	type = character
-	gender = male
-	special = holder
-	priority = 3303
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		despotic_meritocratic_technocratic_government
-		dictatorial_meritocratic_technocratic_government
-		presidential_meritocratic_technocratic_government
-		parliamentary_meritocratic_technocratic_government
-	}
-	subject_contract_obligation_flags = { federal_member_state }
-}
-dictatorship_technocratic_socialist_member_state = {
-	type = title
-	priority = 3306
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		despotic_meritocratic_technocratic_government
-		dictatorial_meritocratic_technocratic_government
-		presidential_meritocratic_technocratic_government
-		parliamentary_meritocratic_technocratic_government
-	}
-	religions = { socialism_ideology }
-	subject_contract_obligation_flags = { federal_member_state }
-}
-dictatorship_military_barony = {
-	type = title
-	tier = barony
-	priority = 3113
-	flavourization_rules = { top_liege = no }
-	governments = {
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
-	}
-}
-dictatorship_military_barony_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	tier = barony
-	priority = 3113
-	flavourization_rules = { top_liege = no }
-	governments = {
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
-	}
-}
-dictatorship_military_barony_ruler_male = {
-	type = character
-	gender = male
-	special = holder
-	tier = barony
-	priority = 3113
-	flavourization_rules = { top_liege = no }
-	governments = {
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
-	}
-}
-dictatorship_technocratic_barony = {
-	type = title
-	tier = barony
-	priority = 3113
-	flavourization_rules = { top_liege = no }
-	governments = {
-		despotic_meritocratic_technocratic_government
-		dictatorial_meritocratic_technocratic_government
-		presidential_meritocratic_technocratic_government
-		parliamentary_meritocratic_technocratic_government
-	}
-}
-dictatorship_technocratic_barony_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	tier = barony
-	priority = 3113
-	flavourization_rules = { top_liege = no }
-	governments = {
-		despotic_meritocratic_technocratic_government
-		dictatorial_meritocratic_technocratic_government
-		presidential_meritocratic_technocratic_government
-		parliamentary_meritocratic_technocratic_government
-	}
-}
-dictatorship_technocratic_barony_ruler_male = {
-	type = character
-	gender = male
-	special = holder
-	tier = barony
-	priority = 3113
-	flavourization_rules = { top_liege = no }
-	governments = {
-		despotic_meritocratic_technocratic_government
-		dictatorial_meritocratic_technocratic_government
-		presidential_meritocratic_technocratic_government
-		parliamentary_meritocratic_technocratic_government
-	}
-}
-dictatorship_technocratic_county = {
-	type = title
-	tier = county
-	priority = 3123
-	flavourization_rules = { top_liege = no }
-	governments = {
-		despotic_meritocratic_technocratic_government
-		dictatorial_meritocratic_technocratic_government
-		presidential_meritocratic_technocratic_government
-		parliamentary_meritocratic_technocratic_government
-	}
-}
-dictatorship_technocratic_county_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	tier = county
-	priority = 3123
-	flavourization_rules = { top_liege = no }
-	governments = {
-		despotic_meritocratic_technocratic_government
-		dictatorial_meritocratic_technocratic_government
-		presidential_meritocratic_technocratic_government
-		parliamentary_meritocratic_technocratic_government
-	}
-}
-dictatorship_technocratic_county_ruler_male = {
-	type = character
-	gender = male
-	special = holder
-	tier = county
-	priority = 3123
-	flavourization_rules = { top_liege = no }
-	governments = {
-		despotic_meritocratic_technocratic_government
-		dictatorial_meritocratic_technocratic_government
-		presidential_meritocratic_technocratic_government
-		parliamentary_meritocratic_technocratic_government
-	}
-}
-dictatorship_technocratic_duchy = {
-	type = title
-	tier = duchy
-	priority = 3133
-	flavourization_rules = { top_liege = no }
-	governments = {
-		despotic_meritocratic_technocratic_government
-		dictatorial_meritocratic_technocratic_government
-		presidential_meritocratic_technocratic_government
-		parliamentary_meritocratic_technocratic_government
-	}
-}
-dictatorship_technocratic_duchy_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	tier = duchy
-	priority = 3133
-	flavourization_rules = { top_liege = no }
-	governments = {
-		despotic_meritocratic_technocratic_government
-		dictatorial_meritocratic_technocratic_government
-		presidential_meritocratic_technocratic_government
-		parliamentary_meritocratic_technocratic_government
-	}
-}
-dictatorship_technocratic_duchy_ruler_male = {
-	type = character
-	gender = male
-	special = holder
-	tier = duchy
-	priority = 3133
-	flavourization_rules = { top_liege = no }
-	governments = {
-		despotic_meritocratic_technocratic_government
-		dictatorial_meritocratic_technocratic_government
-		presidential_meritocratic_technocratic_government
-		parliamentary_meritocratic_technocratic_government
-	}
-}
-dictatorship_military_kingdom = {
-	type = title
-	tier = kingdom
-	priority = 3143
-	flavourization_rules = { top_liege = no }
-	governments = {
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
-	}
-}
-dictatorship_military_kingdom_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	tier = kingdom
-	priority = 3143
-	flavourization_rules = { top_liege = no }
-	governments = {
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
-	}
-}
-dictatorship_military_kingdom_ruler_male = {
-	type = character
-	gender = male
-	special = holder
-	tier = kingdom
-	priority = 3143
-	flavourization_rules = { top_liege = no }
-	governments = {
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
-	}
-}
-dictatorship_technocratic_kingdom = {
-	type = title
-	tier = kingdom
-	priority = 3143
-	flavourization_rules = { top_liege = no }
-	governments = {
-		despotic_meritocratic_technocratic_government
-		dictatorial_meritocratic_technocratic_government
-		presidential_meritocratic_technocratic_government
-		parliamentary_meritocratic_technocratic_government
-	}
-}
-dictatorship_technocratic_kingdom_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	tier = kingdom
-	priority = 3143
-	flavourization_rules = { top_liege = no }
-	governments = {
-		despotic_meritocratic_technocratic_government
-		dictatorial_meritocratic_technocratic_government
-		presidential_meritocratic_technocratic_government
-		parliamentary_meritocratic_technocratic_government
-	}
-}
-dictatorship_technocratic_kingdom_ruler_male = {
-	type = character
-	gender = male
-	special = holder
-	tier = kingdom
-	priority = 3143
-	flavourization_rules = { top_liege = no }
-	governments = {
-		despotic_meritocratic_technocratic_government
-		dictatorial_meritocratic_technocratic_government
-		presidential_meritocratic_technocratic_government
-		parliamentary_meritocratic_technocratic_government
-	}
-}
-dictatorship_military_empire_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	tier = empire
-	priority = 3153
-	flavourization_rules = { top_liege = no }
-	governments = {
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
-	}
-}
-dictatorship_military_empire_ruler_male = {
-	type = character
-	gender = male
-	special = holder
-	tier = county
-	priority = 3153
-	flavourization_rules = { top_liege = no }
-	governments = {
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
-	}
-}
-dictatorship_technocratic_empire = {
-	type = title
-	tier = empire
-	priority = 3143
-	flavourization_rules = { top_liege = no }
-	governments = {
-		despotic_meritocratic_technocratic_government
-		dictatorial_meritocratic_technocratic_government
-		presidential_meritocratic_technocratic_government
-		parliamentary_meritocratic_technocratic_government
-	}
-}
-dictatorship_technocratic_empire_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	tier = empire
-	priority = 3143
-	flavourization_rules = { top_liege = no }
-	governments = {
-		despotic_meritocratic_technocratic_government
-		dictatorial_meritocratic_technocratic_government
-		presidential_meritocratic_technocratic_government
-		parliamentary_meritocratic_technocratic_government
-	}
-}
-dictatorship_technocratic_empire_ruler_male = {
-	type = character
-	gender = male
-	special = holder
-	tier = empire
-	priority = 3143
-	flavourization_rules = { top_liege = no }
-	governments = {
-		despotic_meritocratic_technocratic_government
-		dictatorial_meritocratic_technocratic_government
-		presidential_meritocratic_technocratic_government
-		parliamentary_meritocratic_technocratic_government
-	}
-}
-
 # Standard Monarchy Titles
-monarchy_independent = { # Used by default for independent monarchies
-	type = title
-	priority = 3403
-	flavourization_rules = {
-		only_independent = yes
-	}
-	governments = {
-		feudal_government
-		despotic_aristocratic_military_government
-		dictatorial_aristocratic_military_government
-		presidential_aristocratic_military_government
-		parliamentary_aristocratic_military_government
-		despotic_aristocratic_commercial_government
-		dictatorial_aristocratic_commercial_government
-		presidential_aristocratic_commercial_government
-		parliamentary_aristocratic_commercial_government
-		despotic_aristocratic_technocratic_government
-		dictatorial_aristocratic_technocratic_government
-		presidential_aristocratic_technocratic_government
-		parliamentary_aristocratic_technocratic_government
-		despotic_aristocratic_theocratic_government
-		dictatorial_aristocratic_theocratic_government
-		presidential_aristocratic_theocratic_government
-		parliamentary_aristocratic_theocratic_government
-	}
-}
-monarchy_independent_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	priority = 3403
-	flavourization_rules = {
-		only_independent = yes
-	}
-	governments = {
-		feudal_government
-		despotic_aristocratic_military_government
-		dictatorial_aristocratic_military_government
-		presidential_aristocratic_military_government
-		parliamentary_aristocratic_military_government
-		despotic_aristocratic_commercial_government
-		dictatorial_aristocratic_commercial_government
-		presidential_aristocratic_commercial_government
-		parliamentary_aristocratic_commercial_government
-		despotic_aristocratic_technocratic_government
-		dictatorial_aristocratic_technocratic_government
-		presidential_aristocratic_technocratic_government
-		parliamentary_aristocratic_technocratic_government
-		despotic_aristocratic_theocratic_government
-		dictatorial_aristocratic_theocratic_government
-		presidential_aristocratic_theocratic_government
-		parliamentary_aristocratic_theocratic_government
-	}
-}
-monarchy_independent_ruler_male = {
-	type = character
-	gender = male
-	special = holder
-	priority = 3403
-	flavourization_rules = {
-		only_independent = yes
-	}
-	governments = {
-		feudal_government
-		despotic_aristocratic_military_government
-		dictatorial_aristocratic_military_government
-		presidential_aristocratic_military_government
-		parliamentary_aristocratic_military_government
-		despotic_aristocratic_commercial_government
-		dictatorial_aristocratic_commercial_government
-		presidential_aristocratic_commercial_government
-		parliamentary_aristocratic_commercial_government
-		despotic_aristocratic_technocratic_government
-		dictatorial_aristocratic_technocratic_government
-		presidential_aristocratic_technocratic_government
-		parliamentary_aristocratic_technocratic_government
-		despotic_aristocratic_theocratic_government
-		dictatorial_aristocratic_theocratic_government
-		presidential_aristocratic_theocratic_government
-		parliamentary_aristocratic_theocratic_government
-	}
-}
-monarchy_empire_independent = { # Used by default for independent empire-tier monarchies
-	type = title
-	tier = empire
-	priority = 3453
-	flavourization_rules = {
-		only_independent = yes
-	}
-	governments = {
-		feudal_government
-		despotic_aristocratic_military_government
-		dictatorial_aristocratic_military_government
-		presidential_aristocratic_military_government
-		parliamentary_aristocratic_military_government
-		despotic_aristocratic_commercial_government
-		dictatorial_aristocratic_commercial_government
-		presidential_aristocratic_commercial_government
-		parliamentary_aristocratic_commercial_government
-		despotic_aristocratic_technocratic_government
-		dictatorial_aristocratic_technocratic_government
-		presidential_aristocratic_technocratic_government
-		parliamentary_aristocratic_technocratic_government
-		despotic_aristocratic_theocratic_government
-		dictatorial_aristocratic_theocratic_government
-		presidential_aristocratic_theocratic_government
-		parliamentary_aristocratic_theocratic_government
-	}
-}
-monarchy_empire_independent_ruler_female = {
-	type = character
-	tier = empire
-	gender = female
-	special = holder
-	priority = 3453
-	flavourization_rules = {
-		only_independent = yes
-	}
-	governments = {
-		feudal_government
-		despotic_aristocratic_military_government
-		dictatorial_aristocratic_military_government
-		presidential_aristocratic_military_government
-		parliamentary_aristocratic_military_government
-		despotic_aristocratic_commercial_government
-		dictatorial_aristocratic_commercial_government
-		presidential_aristocratic_commercial_government
-		parliamentary_aristocratic_commercial_government
-		despotic_aristocratic_technocratic_government
-		dictatorial_aristocratic_technocratic_government
-		presidential_aristocratic_technocratic_government
-		parliamentary_aristocratic_technocratic_government
-		despotic_aristocratic_theocratic_government
-		dictatorial_aristocratic_theocratic_government
-		presidential_aristocratic_theocratic_government
-		parliamentary_aristocratic_theocratic_government
-	}
-}
-monarchy_empire_independent_ruler_male = {
-	type = character
-	tier = empire
-	gender = male
-	special = holder
-	priority = 3453
-	flavourization_rules = {
-		only_independent = yes
-	}
-	governments = {
-		feudal_government
-		despotic_aristocratic_military_government
-		dictatorial_aristocratic_military_government
-		presidential_aristocratic_military_government
-		parliamentary_aristocratic_military_government
-		despotic_aristocratic_commercial_government
-		dictatorial_aristocratic_commercial_government
-		presidential_aristocratic_commercial_government
-		parliamentary_aristocratic_commercial_government
-		despotic_aristocratic_technocratic_government
-		dictatorial_aristocratic_technocratic_government
-		presidential_aristocratic_technocratic_government
-		parliamentary_aristocratic_technocratic_government
-		despotic_aristocratic_theocratic_government
-		dictatorial_aristocratic_theocratic_government
-		presidential_aristocratic_theocratic_government
-		parliamentary_aristocratic_theocratic_government
-	}
-}
-monarchy_member_state = { # Used by default for independent monarchies
-	type = title
-	priority = 3203
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		feudal_government
-		despotic_aristocratic_military_government
-		dictatorial_aristocratic_military_government
-		presidential_aristocratic_military_government
-		parliamentary_aristocratic_military_government
-		despotic_aristocratic_commercial_government
-		dictatorial_aristocratic_commercial_government
-		presidential_aristocratic_commercial_government
-		parliamentary_aristocratic_commercial_government
-		despotic_aristocratic_technocratic_government
-		dictatorial_aristocratic_technocratic_government
-		presidential_aristocratic_technocratic_government
-		parliamentary_aristocratic_technocratic_government
-		despotic_aristocratic_theocratic_government
-		dictatorial_aristocratic_theocratic_government
-		presidential_aristocratic_theocratic_government
-		parliamentary_aristocratic_theocratic_government
-	}
-	subject_contract_obligation_flags = { federal_member_state }
-}
-monarchy_member_state_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	priority = 3203
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		feudal_government
-		despotic_aristocratic_military_government
-		dictatorial_aristocratic_military_government
-		presidential_aristocratic_military_government
-		parliamentary_aristocratic_military_government
-		despotic_aristocratic_commercial_government
-		dictatorial_aristocratic_commercial_government
-		presidential_aristocratic_commercial_government
-		parliamentary_aristocratic_commercial_government
-		despotic_aristocratic_technocratic_government
-		dictatorial_aristocratic_technocratic_government
-		presidential_aristocratic_technocratic_government
-		parliamentary_aristocratic_technocratic_government
-		despotic_aristocratic_theocratic_government
-		dictatorial_aristocratic_theocratic_government
-		presidential_aristocratic_theocratic_government
-		parliamentary_aristocratic_theocratic_government
-	}
-	subject_contract_obligation_flags = { federal_member_state }
-}
-monarchy_member_state_ruler_male = {
-	type = character
-	gender = male
-	special = holder
-	priority = 3203
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		feudal_government
-		despotic_aristocratic_military_government
-		dictatorial_aristocratic_military_government
-		presidential_aristocratic_military_government
-		parliamentary_aristocratic_military_government
-		despotic_aristocratic_commercial_government
-		dictatorial_aristocratic_commercial_government
-		presidential_aristocratic_commercial_government
-		parliamentary_aristocratic_commercial_government
-		despotic_aristocratic_technocratic_government
-		dictatorial_aristocratic_technocratic_government
-		presidential_aristocratic_technocratic_government
-		parliamentary_aristocratic_technocratic_government
-		despotic_aristocratic_theocratic_government
-		dictatorial_aristocratic_theocratic_government
-		presidential_aristocratic_theocratic_government
-		parliamentary_aristocratic_theocratic_government
-	}
-	subject_contract_obligation_flags = { federal_member_state }
-}
-monarchy_empire_member_state = { # Used by default for independent empire-tier monarchies
-	type = title
-	tier = empire
-	priority = 3253
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		feudal_government
-		despotic_aristocratic_military_government
-		dictatorial_aristocratic_military_government
-		presidential_aristocratic_military_government
-		parliamentary_aristocratic_military_government
-		despotic_aristocratic_commercial_government
-		dictatorial_aristocratic_commercial_government
-		presidential_aristocratic_commercial_government
-		parliamentary_aristocratic_commercial_government
-		despotic_aristocratic_technocratic_government
-		dictatorial_aristocratic_technocratic_government
-		presidential_aristocratic_technocratic_government
-		parliamentary_aristocratic_technocratic_government
-		despotic_aristocratic_theocratic_government
-		dictatorial_aristocratic_theocratic_government
-		presidential_aristocratic_theocratic_government
-		parliamentary_aristocratic_theocratic_government
-	}
-	subject_contract_obligation_flags = { federal_member_state }
-}
-monarchy_empire_member_state_ruler_female = {
-	type = character
-	tier = empire
-	gender = female
-	special = holder
-	priority = 3253
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		feudal_government
-		despotic_aristocratic_military_government
-		dictatorial_aristocratic_military_government
-		presidential_aristocratic_military_government
-		parliamentary_aristocratic_military_government
-		despotic_aristocratic_commercial_government
-		dictatorial_aristocratic_commercial_government
-		presidential_aristocratic_commercial_government
-		parliamentary_aristocratic_commercial_government
-		despotic_aristocratic_technocratic_government
-		dictatorial_aristocratic_technocratic_government
-		presidential_aristocratic_technocratic_government
-		parliamentary_aristocratic_technocratic_government
-		despotic_aristocratic_theocratic_government
-		dictatorial_aristocratic_theocratic_government
-		presidential_aristocratic_theocratic_government
-		parliamentary_aristocratic_theocratic_government
-	}
-	subject_contract_obligation_flags = { federal_member_state }
-}
-monarchy_empire_member_state_ruler_male = {
-	type = character
-	tier = empire
-	gender = male
-	special = holder
-	priority = 3253
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		feudal_government
-		despotic_aristocratic_military_government
-		dictatorial_aristocratic_military_government
-		presidential_aristocratic_military_government
-		parliamentary_aristocratic_military_government
-		despotic_aristocratic_commercial_government
-		dictatorial_aristocratic_commercial_government
-		presidential_aristocratic_commercial_government
-		parliamentary_aristocratic_commercial_government
-		despotic_aristocratic_technocratic_government
-		dictatorial_aristocratic_technocratic_government
-		presidential_aristocratic_technocratic_government
-		parliamentary_aristocratic_technocratic_government
-		despotic_aristocratic_theocratic_government
-		dictatorial_aristocratic_theocratic_government
-		presidential_aristocratic_theocratic_government
-		parliamentary_aristocratic_theocratic_government
-	}
-	subject_contract_obligation_flags = { federal_member_state }
-}
 monarchy_barony = {
 	type = title
 	tier = barony
-	priority = 3113
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		feudal_government
-		despotic_aristocratic_military_government
-		dictatorial_aristocratic_military_government
-		presidential_aristocratic_military_government
-		parliamentary_aristocratic_military_government
-		despotic_aristocratic_commercial_government
-		dictatorial_aristocratic_commercial_government
-		presidential_aristocratic_commercial_government
-		parliamentary_aristocratic_commercial_government
-		despotic_aristocratic_technocratic_government
-		dictatorial_aristocratic_technocratic_government
-		presidential_aristocratic_technocratic_government
-		parliamentary_aristocratic_technocratic_government
-		despotic_aristocratic_theocratic_government
-		dictatorial_aristocratic_theocratic_government
-		presidential_aristocratic_theocratic_government
-		parliamentary_aristocratic_theocratic_government
-	}
-}
-monarchy_barony_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	tier = barony
-	priority = 3113
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
+	priority = 1100
+	flavourization_rules = { top_liege = no }
 	governments = {
 		feudal_government
 		despotic_aristocratic_military_government
@@ -2053,11 +1876,35 @@ monarchy_barony_ruler_male = {
 	gender = male
 	special = holder
 	tier = barony
-	priority = 3113
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
+	priority = 1100
+	flavourization_rules = { top_liege = no }
+	governments = {
+		feudal_government
+		despotic_aristocratic_military_government
+		dictatorial_aristocratic_military_government
+		presidential_aristocratic_military_government
+		parliamentary_aristocratic_military_government
+		despotic_aristocratic_commercial_government
+		dictatorial_aristocratic_commercial_government
+		presidential_aristocratic_commercial_government
+		parliamentary_aristocratic_commercial_government
+		despotic_aristocratic_technocratic_government
+		dictatorial_aristocratic_technocratic_government
+		presidential_aristocratic_technocratic_government
+		parliamentary_aristocratic_technocratic_government
+		despotic_aristocratic_theocratic_government
+		dictatorial_aristocratic_theocratic_government
+		presidential_aristocratic_theocratic_government
+		parliamentary_aristocratic_theocratic_government
 	}
+}
+monarchy_barony_ruler_female = {
+	type = character
+	gender = female
+	special = holder
+	tier = barony
+	priority = 1100
+	flavourization_rules = { top_liege = no }
 	governments = {
 		feudal_government
 		despotic_aristocratic_military_government
@@ -2081,41 +1928,8 @@ monarchy_barony_ruler_male = {
 monarchy_county = {
 	type = title
 	tier = county
-	priority = 3123
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		feudal_government
-		despotic_aristocratic_military_government
-		dictatorial_aristocratic_military_government
-		presidential_aristocratic_military_government
-		parliamentary_aristocratic_military_government
-		despotic_aristocratic_commercial_government
-		dictatorial_aristocratic_commercial_government
-		presidential_aristocratic_commercial_government
-		parliamentary_aristocratic_commercial_government
-		despotic_aristocratic_technocratic_government
-		dictatorial_aristocratic_technocratic_government
-		presidential_aristocratic_technocratic_government
-		parliamentary_aristocratic_technocratic_government
-		despotic_aristocratic_theocratic_government
-		dictatorial_aristocratic_theocratic_government
-		presidential_aristocratic_theocratic_government
-		parliamentary_aristocratic_theocratic_government
-	}
-}
-monarchy_county_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	tier = county
-	priority = 3123
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
+	priority = 1200
+	flavourization_rules = { top_liege = no }
 	governments = {
 		feudal_government
 		despotic_aristocratic_military_government
@@ -2141,11 +1955,35 @@ monarchy_county_ruler_male = {
 	gender = male
 	special = holder
 	tier = county
-	priority = 3123
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
+	priority = 1200
+	flavourization_rules = { top_liege = no }
+	governments = {
+		feudal_government
+		despotic_aristocratic_military_government
+		dictatorial_aristocratic_military_government
+		presidential_aristocratic_military_government
+		parliamentary_aristocratic_military_government
+		despotic_aristocratic_commercial_government
+		dictatorial_aristocratic_commercial_government
+		presidential_aristocratic_commercial_government
+		parliamentary_aristocratic_commercial_government
+		despotic_aristocratic_technocratic_government
+		dictatorial_aristocratic_technocratic_government
+		presidential_aristocratic_technocratic_government
+		parliamentary_aristocratic_technocratic_government
+		despotic_aristocratic_theocratic_government
+		dictatorial_aristocratic_theocratic_government
+		presidential_aristocratic_theocratic_government
+		parliamentary_aristocratic_theocratic_government
 	}
+}
+monarchy_county_ruler_female = {
+	type = character
+	gender = female
+	special = holder
+	tier = county
+	priority = 1200
+	flavourization_rules = { top_liege = no }
 	governments = {
 		feudal_government
 		despotic_aristocratic_military_government
@@ -2169,41 +2007,8 @@ monarchy_county_ruler_male = {
 monarchy_duchy = {
 	type = title
 	tier = duchy
-	priority = 3133
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		feudal_government
-		despotic_aristocratic_military_government
-		dictatorial_aristocratic_military_government
-		presidential_aristocratic_military_government
-		parliamentary_aristocratic_military_government
-		despotic_aristocratic_commercial_government
-		dictatorial_aristocratic_commercial_government
-		presidential_aristocratic_commercial_government
-		parliamentary_aristocratic_commercial_government
-		despotic_aristocratic_technocratic_government
-		dictatorial_aristocratic_technocratic_government
-		presidential_aristocratic_technocratic_government
-		parliamentary_aristocratic_technocratic_government
-		despotic_aristocratic_theocratic_government
-		dictatorial_aristocratic_theocratic_government
-		presidential_aristocratic_theocratic_government
-		parliamentary_aristocratic_theocratic_government
-	}
-}
-monarchy_duchy_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	tier = duchy
-	priority = 3133
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
+	priority = 1300
+	flavourization_rules = { top_liege = no }
 	governments = {
 		feudal_government
 		despotic_aristocratic_military_government
@@ -2229,11 +2034,35 @@ monarchy_duchy_ruler_male = {
 	gender = male
 	special = holder
 	tier = duchy
-	priority = 3133
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = {
+		feudal_government
+		despotic_aristocratic_military_government
+		dictatorial_aristocratic_military_government
+		presidential_aristocratic_military_government
+		parliamentary_aristocratic_military_government
+		despotic_aristocratic_commercial_government
+		dictatorial_aristocratic_commercial_government
+		presidential_aristocratic_commercial_government
+		parliamentary_aristocratic_commercial_government
+		despotic_aristocratic_technocratic_government
+		dictatorial_aristocratic_technocratic_government
+		presidential_aristocratic_technocratic_government
+		parliamentary_aristocratic_technocratic_government
+		despotic_aristocratic_theocratic_government
+		dictatorial_aristocratic_theocratic_government
+		presidential_aristocratic_theocratic_government
+		parliamentary_aristocratic_theocratic_government
 	}
+}
+monarchy_duchy_ruler_female = {
+	type = character
+	gender = female
+	special = holder
+	tier = duchy
+	priority = 1300
+	flavourization_rules = { top_liege = no }
 	governments = {
 		feudal_government
 		despotic_aristocratic_military_government
@@ -2257,41 +2086,8 @@ monarchy_duchy_ruler_male = {
 monarchy_kingdom = {
 	type = title
 	tier = kingdom
-	priority = 3143
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		feudal_government
-		despotic_aristocratic_military_government
-		dictatorial_aristocratic_military_government
-		presidential_aristocratic_military_government
-		parliamentary_aristocratic_military_government
-		despotic_aristocratic_commercial_government
-		dictatorial_aristocratic_commercial_government
-		presidential_aristocratic_commercial_government
-		parliamentary_aristocratic_commercial_government
-		despotic_aristocratic_technocratic_government
-		dictatorial_aristocratic_technocratic_government
-		presidential_aristocratic_technocratic_government
-		parliamentary_aristocratic_technocratic_government
-		despotic_aristocratic_theocratic_government
-		dictatorial_aristocratic_theocratic_government
-		presidential_aristocratic_theocratic_government
-		parliamentary_aristocratic_theocratic_government
-	}
-}
-monarchy_kingdom_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	tier = kingdom
-	priority = 3143
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
+	priority = 1400
+	flavourization_rules = { top_liege = no }
 	governments = {
 		feudal_government
 		despotic_aristocratic_military_government
@@ -2317,11 +2113,35 @@ monarchy_kingdom_ruler_male = {
 	gender = male
 	special = holder
 	tier = kingdom
-	priority = 3143
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
+	priority = 1400
+	flavourization_rules = { top_liege = no }
+	governments = {
+		feudal_government
+		despotic_aristocratic_military_government
+		dictatorial_aristocratic_military_government
+		presidential_aristocratic_military_government
+		parliamentary_aristocratic_military_government
+		despotic_aristocratic_commercial_government
+		dictatorial_aristocratic_commercial_government
+		presidential_aristocratic_commercial_government
+		parliamentary_aristocratic_commercial_government
+		despotic_aristocratic_technocratic_government
+		dictatorial_aristocratic_technocratic_government
+		presidential_aristocratic_technocratic_government
+		parliamentary_aristocratic_technocratic_government
+		despotic_aristocratic_theocratic_government
+		dictatorial_aristocratic_theocratic_government
+		presidential_aristocratic_theocratic_government
+		parliamentary_aristocratic_theocratic_government
 	}
+}
+monarchy_kingdom_ruler_female = {
+	type = character
+	gender = female
+	special = holder
+	tier = kingdom
+	priority = 1400
+	flavourization_rules = { top_liege = no }
 	governments = {
 		feudal_government
 		despotic_aristocratic_military_government
@@ -2345,41 +2165,8 @@ monarchy_kingdom_ruler_male = {
 monarchy_empire = {
 	type = title
 	tier = empire
-	priority = 3153
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		feudal_government
-		despotic_aristocratic_military_government
-		dictatorial_aristocratic_military_government
-		presidential_aristocratic_military_government
-		parliamentary_aristocratic_military_government
-		despotic_aristocratic_commercial_government
-		dictatorial_aristocratic_commercial_government
-		presidential_aristocratic_commercial_government
-		parliamentary_aristocratic_commercial_government
-		despotic_aristocratic_technocratic_government
-		dictatorial_aristocratic_technocratic_government
-		presidential_aristocratic_technocratic_government
-		parliamentary_aristocratic_technocratic_government
-		despotic_aristocratic_theocratic_government
-		dictatorial_aristocratic_theocratic_government
-		presidential_aristocratic_theocratic_government
-		parliamentary_aristocratic_theocratic_government
-	}
-}
-monarchy_empire_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	tier = empire
-	priority = 3153
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
+	priority = 1500
+	flavourization_rules = { top_liege = no }
 	governments = {
 		feudal_government
 		despotic_aristocratic_military_government
@@ -2405,11 +2192,35 @@ monarchy_empire_ruler_male = {
 	gender = male
 	special = holder
 	tier = empire
-	priority = 3153
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
+	priority = 1500
+	flavourization_rules = { top_liege = no }
+	governments = {
+		feudal_government
+		despotic_aristocratic_military_government
+		dictatorial_aristocratic_military_government
+		presidential_aristocratic_military_government
+		parliamentary_aristocratic_military_government
+		despotic_aristocratic_commercial_government
+		dictatorial_aristocratic_commercial_government
+		presidential_aristocratic_commercial_government
+		parliamentary_aristocratic_commercial_government
+		despotic_aristocratic_technocratic_government
+		dictatorial_aristocratic_technocratic_government
+		presidential_aristocratic_technocratic_government
+		parliamentary_aristocratic_technocratic_government
+		despotic_aristocratic_theocratic_government
+		dictatorial_aristocratic_theocratic_government
+		presidential_aristocratic_theocratic_government
+		parliamentary_aristocratic_theocratic_government
 	}
+}
+monarchy_empire_ruler_female = {
+	type = character
+	gender = female
+	special = holder
+	tier = empire
+	priority = 1500
+	flavourization_rules = { top_liege = no }
 	governments = {
 		feudal_government
 		despotic_aristocratic_military_government
@@ -2433,33 +2244,8 @@ monarchy_empire_ruler_male = {
 monarchy_hegemony = {
 	type = title
 	tier = hegemony
-	priority = 3163
-	governments = {
-		feudal_government
-		despotic_aristocratic_military_government
-		dictatorial_aristocratic_military_government
-		presidential_aristocratic_military_government
-		parliamentary_aristocratic_military_government
-		despotic_aristocratic_commercial_government
-		dictatorial_aristocratic_commercial_government
-		presidential_aristocratic_commercial_government
-		parliamentary_aristocratic_commercial_government
-		despotic_aristocratic_technocratic_government
-		dictatorial_aristocratic_technocratic_government
-		presidential_aristocratic_technocratic_government
-		parliamentary_aristocratic_technocratic_government
-		despotic_aristocratic_theocratic_government
-		dictatorial_aristocratic_theocratic_government
-		presidential_aristocratic_theocratic_government
-		parliamentary_aristocratic_theocratic_government
-	}
-}
-monarchy_hegemony_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	tier = hegemony
-	priority = 3163
+	priority = 1600
+	flavourization_rules = { top_liege = no }
 	governments = {
 		feudal_government
 		despotic_aristocratic_military_government
@@ -2485,7 +2271,35 @@ monarchy_hegemony_ruler_male = {
 	gender = male
 	special = holder
 	tier = hegemony
-	priority = 3163
+	priority = 1600
+	flavourization_rules = { top_liege = no }
+	governments = {
+		feudal_government
+		despotic_aristocratic_military_government
+		dictatorial_aristocratic_military_government
+		presidential_aristocratic_military_government
+		parliamentary_aristocratic_military_government
+		despotic_aristocratic_commercial_government
+		dictatorial_aristocratic_commercial_government
+		presidential_aristocratic_commercial_government
+		parliamentary_aristocratic_commercial_government
+		despotic_aristocratic_technocratic_government
+		dictatorial_aristocratic_technocratic_government
+		presidential_aristocratic_technocratic_government
+		parliamentary_aristocratic_technocratic_government
+		despotic_aristocratic_theocratic_government
+		dictatorial_aristocratic_theocratic_government
+		presidential_aristocratic_theocratic_government
+		parliamentary_aristocratic_theocratic_government
+	}
+}
+monarchy_hegemony_ruler_female = {
+	type = character
+	gender = female
+	special = holder
+	tier = hegemony
+	priority = 1600
+	flavourization_rules = { top_liege = no }
 	governments = {
 		feudal_government
 		despotic_aristocratic_military_government
@@ -2507,515 +2321,259 @@ monarchy_hegemony_ruler_male = {
 	}
 }
 
-# Subordinate Titles
-military_barony_subordinate_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	tier = barony
-	priority = 3310
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	subject_contract_obligation_flags = { military_subordinate }
-}
-military_barony_subordinate_ruler_male = {
-	type = character
-	gender = male
-	special = holder
-	tier = barony
-	priority = 3310
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	subject_contract_obligation_flags = { military_subordinate }
-}
-military_county_subordinate_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	tier = county
-	priority = 3320
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	subject_contract_obligation_flags = { military_subordinate }
-}
-military_county_subordinate_ruler_male = {
-	type = character
-	gender = male
-	special = holder
-	tier = county
-	priority = 3320
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	subject_contract_obligation_flags = { military_subordinate }
-}
-military_duchy_subordinate_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	tier = duchy
-	priority = 3330
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	subject_contract_obligation_flags = { military_subordinate }
-}
-military_duchy_subordinate_ruler_male = {
-	type = character
-	gender = male
-	special = holder
-	tier = duchy
-	priority = 3330
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	subject_contract_obligation_flags = { military_subordinate }
-}
-military_kingdom_subordinate_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	tier = kingdom
-	priority = 3340
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	subject_contract_obligation_flags = { military_subordinate }
-}
-military_kingdom_subordinate_ruler_male = {
-	type = character
-	gender = male
-	special = holder
-	tier = kingdom
-	priority = 3340
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	subject_contract_obligation_flags = { military_subordinate }
-}
-military_empire_subordinate_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	tier = empire
-	priority = 3350
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	subject_contract_obligation_flags = { military_subordinate }
-}
-military_empire_subordinate_ruler_male = {
-	type = character
-	gender = male
-	special = holder
-	tier = empire
-	priority = 3350
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	subject_contract_obligation_flags = { military_subordinate }
-}
-
 # Pirate Titles
-pirate_monarchy_independent = {
-	type = title
-	priority = 3403
-	flavourization_rules = {
-		only_independent = yes
-	}
-	governments = { pirate_monarchy_government }
-}
-pirate_monarchy_independent_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	priority = 3403
-	flavourization_rules = {
-		only_independent = yes
-	}
-	governments = { pirate_monarchy_government }
-}
-pirate_monarchy_independent_ruler_male = {
-	type = character
-	gender = male
-	special = holder
-	priority = 3403
-	flavourization_rules = {
-		only_independent = yes
-	}
-	governments = { pirate_monarchy_government }
-}
-pirate_monarchy_tributary = {
-	type = title
-	priority = 3303
-	flavourization_rules = {
-		top_liege = no
-	}
-	governments = { pirate_monarchy_government }
-	subject_contract_obligation_flags = { tributary_pirate_dominion }
-}
-pirate_monarchy_tributary_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	priority = 3303
-	flavourization_rules = {
-		top_liege = no
-	}
-	governments = { pirate_monarchy_government }
-	subject_contract_obligation_flags = { tributary_pirate_dominion }
-}
-pirate_monarchy_tributary_ruler_male = {
-	type = character
-	gender = male
-	special = holder
-	priority = 3303
-	flavourization_rules = {
-		top_liege = no
-	}
-	governments = { pirate_monarchy_government }
-	subject_contract_obligation_flags = { tributary_pirate_dominion }
-}
-pirate_monarchy_privateer = {
-	type = title
-	priority = 3303
-	flavourization_rules = {
-		top_liege = no
-	}
-	governments = { pirate_monarchy_government }
-	subject_contract_obligation_flags = { tributary_privateer }
-}
-pirate_monarchy_privateer_ruler_female = {
-	type = character
-	gender = female
-	special = holder
-	priority = 3303
-	flavourization_rules = {
-		top_liege = no
-	}
-	governments = { pirate_monarchy_government }
-	subject_contract_obligation_flags = { tributary_privateer }
-}
-pirate_monarchy_privateer_ruler_male = {
-	type = character
-	gender = male
-	special = holder
-	priority = 3303
-	flavourization_rules = {
-		top_liege = no
-	}
-	governments = { pirate_monarchy_government }
-	subject_contract_obligation_flags = { tributary_privateer }
-}
-pirate_barony = {
+pirate_monarchy_barony = {
 	type = title
 	tier = barony
-	priority = 3113
+	priority = 1100
+	flavourization_rules = { top_liege = no }
+	governments = { pirate_monarchy_government }
+}
+pirate_monarchy_barony_ruler_male = {
+	type = character
+	gender = male
+	tier = barony
+	priority = 1100
+	flavourization_rules = { top_liege = no }
+	governments = { pirate_monarchy_government }
+}
+pirate_monarchy_barony_ruler_female = {
+	type = character
+	gender = female
+	tier = barony
+	priority = 1100
+	flavourization_rules = { top_liege = no }
+	governments = { pirate_monarchy_government }
+}
+pirate_monarchy_county = {
+	type = title
+	tier = county
+	priority = 1200
+	flavourization_rules = { top_liege = no }
+	governments = { pirate_monarchy_government }
+}
+pirate_monarchy_county_ruler_male = {
+	type = character
+	gender = male
+	tier = county
+	priority = 1200
+	flavourization_rules = { top_liege = no }
+	governments = { pirate_monarchy_government }
+}
+pirate_monarchy_county_ruler_female = {
+	type = character
+	gender = female
+	tier = county
+	priority = 1200
+	governments = { pirate_monarchy_government }
+}
+pirate_monarchy_duchy = {
+	type = title
+	tier = duchy
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = { pirate_monarchy_government }
+}
+pirate_monarchy_duchy_ruler_male = {
+	type = character
+	gender = male
+	tier = duchy
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = { pirate_monarchy_government }
+}
+pirate_monarchy_duchy_ruler_female = {
+	type = character
+	gender = female
+	tier = duchy
+	priority = 1300
+	flavourization_rules = { top_liege = no }
+	governments = { pirate_monarchy_government }
+}
+pirate_monarchy_kingdom = {
+	type = title
+	tier = kingdom
+	priority = 1400
+	flavourization_rules = { top_liege = no }
+	governments = { pirate_monarchy_government }
+}
+pirate_monarchy_kingdom_ruler_male = {
+	type = character
+	gender = male
+	tier = kingdom
+	priority = 1400
+	flavourization_rules = { top_liege = no }
+	governments = { pirate_monarchy_government }
+}
+pirate_monarchy_kingdom_ruler_female = {
+	type = character
+	gender = female
+	tier = kingdom
+	priority = 1400
+	flavourization_rules = { top_liege = no }
+	governments = { pirate_monarchy_government }
+}
+pirate_monarchy_empire = {
+	type = title
+	tier = empire
+	priority = 1500
+	flavourization_rules = { top_liege = no }
+	governments = { pirate_monarchy_government }
+}
+pirate_monarchy_empire_ruler_male = {
+	type = character
+	gender = male
+	tier = empire
+	priority = 1500
+	flavourization_rules = { top_liege = no }
+	governments = { pirate_monarchy_government }
+}
+pirate_monarchy_empire_ruler_female = {
+	type = character
+	gender = female
+	tier = empire
+	priority = 1500
+	flavourization_rules = { top_liege = no }
+	governments = { pirate_monarchy_government }
+}
+pirate_monarchy_hegemony = {
+	type = title
+	tier = hegemony
+	priority = 1600
+	flavourization_rules = { top_liege = no }
+	governments = { pirate_monarchy_government }
+}
+pirate_monarchy_hegemony_ruler_male = {
+	type = character
+	gender = male
+	tier = hegemony
+	priority = 1600
+	flavourization_rules = { top_liege = no }
+	governments = { pirate_monarchy_government }
+}
+pirate_monarchy_hegemony_ruler_female = {
+	type = character
+	gender = female
+	tier = hegemony
+	priority = 1600
 	flavourization_rules = { top_liege = no }
 	governments = { pirate_monarchy_government }
 }
 
 # COUNCILLOR TITLES
-military_command_chancellor_female = {
-	type = character
-	gender = female
-	special = councillor
-	council_position = councillor_chancellor
-	priority = 1203
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
-	}
+	
+# Fallback Titles
+barony_cotc = {
+	type = title
+	tier = barony
+	priority = 1000
 }
-military_command_chancellor_male = {
+barony_cotc_ruler_male = {
 	type = character
 	gender = male
-	special = councillor
-	council_position = councillor_chancellor
-	priority = 1203
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
-	}
+	special = holder
+	tier = barony
+	priority = 1000
 }
-military_command_steward_female = {
+barony_cotc_ruler_female = {
 	type = character
 	gender = female
-	special = councillor
-	council_position = councillor_steward
-	priority = 1203
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
-	}
+	special = holder
+	tier = barony
+	priority = 1000
 }
-military_command_steward_male = {
+county_cotc = {
+	type = title
+	tier = county
+	priority = 1001
+}
+county_cotc_ruler_male = {
 	type = character
 	gender = male
-	special = councillor
-	council_position = councillor_steward
-	priority = 1203
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
-	}
+	special = holder
+	tier = county
+	priority = 1001
 }
-military_command_marshal_female = {
+county_cotc_ruler_female = {
 	type = character
 	gender = female
-	special = councillor
-	council_position = councillor_marshal
-	priority = 1203
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
-	}
+	special = holder
+	tier = county
+	priority = 1001
 }
-military_command_marshal_male = {
+duchy_cotc = {
+	type = title
+	tier = duchy
+	priority = 1002
+}
+duchy_cotc_ruler_male = {
 	type = character
 	gender = male
-	special = councillor
-	council_position = councillor_marshal
-	priority = 1203
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
-	}
+	special = holder
+	tier = duchy
+	priority = 1002
 }
-military_command_spymaster_female = {
+duchy_cotc_ruler_female = {
 	type = character
 	gender = female
-	special = councillor
-	council_position = councillor_spymaster
-	priority = 1203
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
-	}
+	special = holder
+	tier = duchy
+	priority = 1002
 }
-military_command_spymaster_male = {
+kingdom_cotc = {
+	type = title
+	tier = kingdom
+	priority = 1003
+}
+kingdom_cotc_ruler_male = {
 	type = character
 	gender = male
-	special = councillor
-	council_position = councillor_spymaster
-	priority = 1203
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
-	}
+	special = holder
+	tier = kingdom
+	priority = 1003
 }
-military_command_court_chaplain_female = {
+kingdom_cotc_ruler_female = {
 	type = character
 	gender = female
-	special = councillor
-	council_position = councillor_court_chaplain
-	priority = 1203
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
-	}
+	special = holder
+	tier = kingdom
+	priority = 1003
 }
-military_command_court_chaplain_male = {
+empire_cotc = {
+	type = title
+	tier = empire
+	priority = 1004
+}
+empire_cotc_ruler_male = {
 	type = character
 	gender = male
-	special = councillor
-	council_position = councillor_court_chaplain
-	priority = 1203
-	flavourization_rules = {
-		only_vassals = yes
-		top_liege = no
-	}
-	governments = {
-		despotic_meritocratic_military_government
-		dictatorial_meritocratic_military_government
-		presidential_meritocratic_military_government
-		parliamentary_meritocratic_military_government
-	}
+	special = holder
+	tier = empire
+	priority = 1004
 }
-crew_chancellor_female = {
-	type = character
-	gender = female
-	special = councillor
-	council_position = councillor_chancellor
-	priority = 1103
-	
-	governments = {
-		pirate_monarchy_government
-		landless_adventurer_government
-	}
-}
-crew_chancellor_male = {
+empire_cotc_ruler_female = {
 	type = character
 	gender = male
-	special = councillor
-	council_position = councillor_chancellor
-	priority = 1103
-	
-	governments = {
-		pirate_monarchy_government
-		landless_adventurer_government
-	}
+	special = holder
+	tier = empire
+	priority = 1004
 }
-crew_steward_female = {
-	type = character
-	gender = female
-	special = councillor
-	council_position = councillor_steward
-	priority = 1103
-	
-	governments = {
-		pirate_monarchy_government
-		landless_adventurer_government
-	}
+hegemony_cotc = {
+	type = title
+	tier = hegemony
+	priority = 1005
 }
-crew_steward_male = {
+hegemony_cotc_ruler_male = {
 	type = character
 	gender = male
-	special = councillor
-	council_position = councillor_steward
-	priority = 1103
-	
-	governments = {
-		pirate_monarchy_government
-		landless_adventurer_government
-	}
+	special = holder
+	tier = hegemony
+	priority = 1005
 }
-crew_marshal_female = {
-	type = character
-	gender = female
-	special = councillor
-	council_position = councillor_marshal
-	priority = 1103
-	
-	governments = {
-		pirate_monarchy_government
-		landless_adventurer_government
-	}
-}
-crew_marshal_male = {
+hegemony_cotc_ruler_female = {
 	type = character
 	gender = male
-	special = councillor
-	council_position = councillor_marshal
-	priority = 1103
-	
-	governments = {
-		pirate_monarchy_government
-		landless_adventurer_government
-	}
-}
-crew_spymaster_female = {
-	type = character
-	gender = female
-	special = councillor
-	council_position = councillor_spymaster
-	priority = 1103
-	
-	governments = {
-		pirate_monarchy_government
-		landless_adventurer_government
-	}
-}
-crew_spymaster_male = {
-	type = character
-	gender = male
-	special = councillor
-	council_position = councillor_spymaster
-	priority = 1103
-	
-	governments = {
-		pirate_monarchy_government
-		landless_adventurer_government
-	}
-}
-crew_court_chaplain_female = {
-	type = character
-	gender = female
-	special = councillor
-	council_position = councillor_court_chaplain
-	priority = 1103
-	
-	governments = {
-		pirate_monarchy_government
-		landless_adventurer_government
-	}
-}
-crew_court_chaplain_male = {
-	type = character
-	gender = male
-	special = councillor
-	council_position = councillor_court_chaplain
-	priority = 1103
-	
-	governments = {
-		pirate_monarchy_government
-		landless_adventurer_government
-	}
+	special = holder
+	tier = hegemony
+	priority = 1005
 }
