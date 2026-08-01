@@ -342,16 +342,16 @@ PixelShader =
 				float SystemMaskValue = PlaneMask.g;
 				float SectorMaskValue = PlaneMask.b;
 
-				if ( CloudMaskValue > 0.0f )
-				{
-					Color = float3(0.1f, 0.1f, 0.15f);
-				}
-
 				if(HeightFactor == 1.0)
 				{
 					if ( SystemMaskValue > 0.0f )
 					{
-						StarLayerMult = 8;
+						StarLayerMult = 6;
+					}
+
+					if ( CloudMaskValue > 0.0f )
+					{
+						StarLayerMult = 1;
 					}
 
 					if ( SectorMaskValue > 0.0f )
