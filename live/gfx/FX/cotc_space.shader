@@ -242,7 +242,7 @@ PixelShader =
 	[[
 		static const float COTC_STAR_EMISSIVE_BOOST			= 4.0f;
 		static const float COTC_BLACK_HOLE_EMISSIVE_BOOST	= 5.0f;
-		static const float COTC_NEUTRON_EMISSIVE_BOOST		= 4.0f;
+		static const float COTC_NEUTRON_EMISSIVE_BOOST		= 3.0f;
 
 		// Pack an 8-bit RGB triple (0-255) into a single 24-bit key.
 		uint PackColorKey( uint3 StarlightRgb )

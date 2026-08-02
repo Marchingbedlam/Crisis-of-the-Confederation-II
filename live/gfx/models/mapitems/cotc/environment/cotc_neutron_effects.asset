@@ -1,0 +1,52 @@
+entity = {
+	name = "cotc_neutron_debris_field_entity"
+
+	locator = { name = "part1" position = { 0 0 0 } }
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 10
+		event = { time = 0 node = "part1" particle = "environment/cotc_neutron_debris_field" trigger_once = yes keep_particle = yes }
+	}
+
+	cull_radius = 110
+}
+
+entity = {
+	name = "cotc_pulsar_beams_entity"
+
+	locator = { name = "part1" position = { 0 0 0 } }
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 10
+		event = { time = 0 node = "part1" particle = "environment/cotc_pulsar_beams" trigger_once = yes keep_particle = yes }
+	}
+
+	cull_radius = 110
+}
+
+entity = {
+	name = "cotc_neutron_core_entity"
+
+	locator = { name = "part1" position = { 0 0 0 } }
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 10
+		event = { time = 0 node = "part1" particle = "environment/cotc_neutron_core" trigger_once = yes keep_particle = yes }
+	}
+
+	cull_radius = 12
+}
+
+entity = {
+	name = "cotc_neutron_pulse_entity"
+
+	locator = { name = "part1" position = { 0 0 0 } }
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 10
+		event = { time = 0 node = "part1" particle = "environment/cotc_neutron_pulse" trigger_once = yes keep_particle = yes }
+	}
+
+	cull_radius = 12
+}
+
