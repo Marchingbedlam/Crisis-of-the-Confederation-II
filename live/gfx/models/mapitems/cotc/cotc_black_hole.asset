@@ -6,10 +6,10 @@ pdxmesh = {
 	meshsettings =
 	{
 		name = "cl_planet_surface_Shape"
-		texture_diffuse = "null_diffuse.dds"
-		texture_normal = "cotc_full_emissive.dds"
+		texture_diffuse = "cotc_black_hole.dds"
+		texture_normal = "null_normal.dds"
 		texture_specular = "null_gloss.dds"
-		texture = { file = "cotc_black_hole_outer.dds" index = 3 }
+		texture = { file = "cotc_white_outer.dds" index = 3 }
 		shader_file = "gfx/FX/cotc_space.shader"
 		shader = cotc_black_hole
 	}
@@ -18,9 +18,9 @@ pdxmesh = {
 	{
 		name = "cl_planet_clouds_Shape"
 		texture_diffuse = "cotc_black_hole.dds"
-		texture_normal = "cotc_full_emissive.dds"
+		texture_normal = "null_normal.dds"
 		texture_specular = "null_gloss.dds"
-		texture = { file = "cotc_black_hole_outer.dds" index = 3 }
+		texture = { file = "cotc_white_outer.dds" index = 3 }
 		shader_file = "gfx/FX/cotc_space.shader"
 		shader = cotc_black_hole
 	}
@@ -28,23 +28,15 @@ pdxmesh = {
 	meshsettings =
 	{
 		name = "cl_planet_atmosphere_Shape"
-		texture_diffuse = "cotc_black_hole_outer.dds"
-		texture_normal = "cotc_full_emissive.dds"
+		texture_diffuse = "cotc_white_outer.dds"
+		texture_normal = "null_normal.dds"
 		texture_specular = "null_gloss.dds"
 		shader_file = "gfx/FX/cotc_space.shader"
 		shader = cotc_black_hole_outer
 	}
-
-	animation = { id = "cotc_planet_anim"		type = "cotc_planet.anim" }
 }
 
 entity = {
 	name = "cotc_black_hole_entity"
 	pdxmesh = "cotc_black_hole_mesh"
-
-	default_state = "cotc_planet_rotation"
-	state = {
-        name = "cotc_planet_rotation"
-        animation = "cotc_planet_anim" looping = yes
-    }
 }

@@ -1,0 +1,39 @@
+entity = {
+	name = "cotc_protoplanetary_disk_entity"
+
+	locator = { name = "part1" position = { 0 0 0 } }
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 10
+		event = { time = 0 node = "part1" particle = "environment/cotc_protoplanetary_disk" trigger_once = yes keep_particle = yes }
+	}
+
+	cull_radius = 90
+}
+
+entity = {
+	name = "cotc_debris_disk_entity"
+
+	locator = { name = "part1" position = { 0 0 0 } }
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 10
+		event = { time = 0 node = "part1" particle = "environment/cotc_debris_disk" trigger_once = yes keep_particle = yes }
+	}
+
+	cull_radius = 90
+}
+
+entity = {
+	name = "cotc_saturn_rings_entity"
+
+	locator = { name = "part1" position = { 0 0 0 } }
+
+	default_state = "idle"
+	state = { name = "idle" state_time = 10
+		event = { time = 0 node = "part1" particle = "environment/cotc_saturn_rings" trigger_once = yes keep_particle = yes }
+	}
+
+	cull_radius = 16
+}
+

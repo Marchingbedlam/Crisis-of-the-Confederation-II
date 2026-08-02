@@ -283,6 +283,7 @@ temple_01 = {
 
 temple_02 = {
 	construction_time = slow_construction_time
+
 	#MOD(COTC)
 	### SPACE ###
 	asset = {
@@ -292,9 +293,182 @@ temple_02 = {
 		soundeffect = { soundeffect = "event:/SFX/Ambience/3DMapEmitters/Holdings/Castle/western_castle" soundparameter = { "Tier" = 0 } }
 	}
 	#END MOD
-	
+
 	can_construct_potential = {
 		building_requirement_tribal = no
+		scope:holder = {
+			NOT = { government_has_flag = government_is_mandala }
+		}
+	}
+	can_construct = {
+		trigger_if = {
+			limit = {
+				NOT = {
+					scope:holder.culture = {
+						has_cultural_parameter = temple_next_level
+					}
+				}
+			}
+			scope:holder.culture = {
+				has_innovation = innovation_manorialism
+			}
+		}
+		trigger_else = {
+			scope:holder.culture = {
+				has_cultural_parameter = temple_next_level
+				has_innovation = innovation_city_planning
+			}
+		}
+	}
+	can_construct_showing_failures_only = { NOT = { scope:holder = { has_character_modifier = tgp_rebuilder_modifier } } }
+	cost_gold = main_building_tier_2_cost
+	next_building = temple_03
+
+	levy = poor_building_levy_tier_3
+	max_garrison = normal_building_max_garrison_tier_3
+	garrison_reinforcement_factor = building_garrison_reinforcement_factor_tier_2
+	province_modifier = {
+		monthly_income = normal_building_tax_tier_5
+		stationed_maa_damage_mult = low_maa_damage_tier_2
+		stationed_maa_toughness_mult = low_maa_toughness_tier_2
+		stationed_siege_weapon_siege_value_mult = low_maa_siege_value_tier_2
+		travel_danger = -12
+	}
+
+	province_terrain_modifier = {
+		parameter = coastal_holding_bonuses
+		is_coastal = yes
+		build_speed = -0.1
+	}
+
+	province_terrain_modifier = {
+		parameter = maritime_mercantilism_coastal_holdings
+		is_coastal = yes
+		tax_mult = maritime_mercantilism_coastal_holdings_value
+	}
+
+	province_terrain_modifier = {
+		parameter = coastal_holdings_give_defensive_bonus
+		is_coastal = yes
+		defender_holding_advantage = 3
+	}
+
+	character_government_modifier = {
+		parameter = government_is_mandala
+		monthly_piety = 0.02
+	}
+
+	flag = temple
+
+	on_complete = {
+		if = {
+			limit = {
+				county.holder.culture = {
+					has_cultural_parameter = renown_from_temple_construction
+				}
+				exists = county.holder.dynasty
+			}
+			county.holder.dynasty = { add_dynasty_prestige = medium_dynasty_prestige_value }
+		}
+		if = {
+			limit = {
+				county.holder.culture = {
+					has_cultural_parameter = more_fervor_on_church_construction
+				}
+			}
+			county.holder.faith = {
+				change_fervor = {
+					value = 2
+					desc = fervor_gain_upgraded_temple_holding_culture_parameter
+				}
+			}
+		}
+		barony.holder = {
+			if = {
+				limit = {
+					any_vassal = {
+						vassal_stance = parochial
+					}
+					save_temporary_scope_as = holder_scope
+				}
+				custom_tooltip = parochial_vassal_approves_holding_upgrade
+				hidden_effect = {
+					every_vassal = {
+						vassal_stance = parochial
+						add_opinion = {
+							target = prev
+							modifier = parochial_approves_holding_upgrade_opinion
+						}
+					}
+				}
+			}
+			if = {
+				limit = {
+					any_vassal = {
+						vassal_stance = zealot
+					}
+					save_temporary_scope_as = holder_scope
+				}
+				custom_tooltip = zealot_vassal_approves_holding_upgrade
+				hidden_effect = {
+					every_vassal = {
+						vassal_stance = zealot
+						add_opinion = {
+							target = prev
+							modifier = zealot_approves_temple_upgrade_opinion
+						}
+					}
+				}
+			}
+		}
+		scope:character = {
+			if = {
+				limit = { government_has_flag = government_is_mandala }
+				mandala_upgraded_temple_holding_effect = yes
+			}
+		}
+	}
+
+	ai_value = {
+		base = 6
+		modifier = {
+			factor = 2
+			scope:holder.capital_province = this
+		}
+		modifier = {
+			factor = 0.1
+			free_building_slots >= 1
+		}
+		modifier = {
+			factor = 0.1
+			combined_building_level <= 10
+			years_from_game_start >= 1
+		}
+		modifier = {
+			factor = 0.3
+			years_from_game_start <= 0.05
+		}
+	}
+}
+
+temple_03 = {
+	construction_time = slow_construction_time
+
+	#MOD(COTC)
+	### SPACE ###
+	asset = {
+		type = entity
+		name = "cotc_marker_entity"
+		illustration = @illustration_christian
+		soundeffect = { soundeffect = "event:/SFX/Ambience/3DMapEmitters/Holdings/Castle/western_castle" soundparameter = { "Tier" = 0 } }
+	}
+	#END MOD
+
+	can_construct_potential = {
+		building_requirement_tribal = no
+		scope:holder = {
+			NOT = { government_has_flag = government_is_mandala }
+		}
 	}
 	can_construct = {
 		trigger_if = {
@@ -323,18 +497,31 @@ temple_02 = {
 	levy = poor_building_levy_tier_5
 	max_garrison = normal_building_max_garrison_tier_5
 	garrison_reinforcement_factor = building_garrison_reinforcement_factor_tier_3
-	effect_desc = temple_03_effect_desc
-	county_modifier = {
-		monthly_county_control_decline_add = mid_control_reduction_tier_3
-	}
 	province_modifier = {
-		building_slot_add = 3
 		monthly_income = normal_building_tax_tier_7
 		stationed_maa_damage_mult = low_maa_damage_tier_3
 		stationed_maa_toughness_mult = low_maa_toughness_tier_3
 		stationed_siege_weapon_siege_value_mult = low_maa_siege_value_tier_3
 		travel_danger = -14
 	}
+	province_terrain_modifier = {
+		parameter = coastal_holding_bonuses
+		is_coastal = yes
+		build_speed = -0.1
+	}
+
+	province_terrain_modifier = {
+		parameter = maritime_mercantilism_coastal_holdings
+		is_coastal = yes
+		tax_mult = maritime_mercantilism_coastal_holdings_value
+	}
+
+	province_terrain_modifier = {
+		parameter = coastal_holdings_give_defensive_bonus
+		is_coastal = yes
+		defender_holding_advantage = 4
+	}
+
 	character_government_modifier = {
 		parameter = government_is_mandala
 		monthly_piety = 0.03
@@ -419,7 +606,7 @@ temple_02 = {
 		}
 		modifier = {
 			factor = 0.2
-			combined_building_level <= 16
+			combined_building_level <= 20
 			years_from_game_start >= 1
 		}
 	}
