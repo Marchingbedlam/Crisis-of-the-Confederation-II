@@ -435,14 +435,14 @@ PixelShader =
 
 					// Exterior
 					#if defined( COTC_OUTER_FRESNEL )
-						float FresnelFactor = saturate( Fresnel( abs( dot( ToCameraDir, Input.Normal ) ), 0.1f, 0.1f) );
+						float FresnelFactor = saturate( Fresnel( saturate( abs( dot( ToCameraDir, Input.Normal ) ) ), 0.1f, 0.1f) );
 						Alpha = Alpha - FresnelFactor;
 						Color = lerp( FresnelColor.rgb, ProvinceOverlayColor, ProvinceStrength );
 					#endif
 
 					// Interior
 					#if defined( COTC_INNER_FRESNEL )
-						float FresnelFactor = saturate( Fresnel( abs( dot( ToCameraDir, Input.Normal ) ), 0.1f, 8.0f - ProvinceStrength ) - 0.1 );
+						float FresnelFactor = saturate( Fresnel( saturate( abs( dot( ToCameraDir, Input.Normal ) ) ), 0.1f, 8.0f - ProvinceStrength ) - 0.1 );
 						FresnelColor.rgb = lerp( FresnelColor.rgb, ProvinceOverlayColor, ProvinceStrength );
 						Color = lerp( Color, FresnelColor, FresnelFactor );
 					#endif
@@ -568,14 +568,14 @@ PixelShader =
 
 					// Exterior
 					#if defined( COTC_OUTER_FRESNEL )
-						float FresnelFactor = saturate( Fresnel( abs( dot( ToCameraDir, Input.Normal ) ), 0.1f, 0.3f) );
+						float FresnelFactor = saturate( Fresnel( saturate( abs( dot( ToCameraDir, Input.Normal ) ) ), 0.1f, 0.3f) );
 						Alpha = Alpha - FresnelFactor;
 						Color = lerp( FresnelColor, ProvinceOverlayColor, ProvinceStrength );
 					#endif
 
 					// Interior
 					#if defined( COTC_INNER_FRESNEL )
-						float FresnelFactor = saturate( Fresnel( abs( dot( ToCameraDir, Input.Normal ) ), 0.1f, 4.0f - ProvinceStrength ) * InSun );
+						float FresnelFactor = saturate( Fresnel( saturate( abs( dot( ToCameraDir, Input.Normal ) ) ), 0.1f, 4.0f - ProvinceStrength ) * InSun );
 						FresnelColor.rgb = lerp( FresnelColor.rgb, ProvinceOverlayColor, ProvinceStrength );
 						Color = lerp( Color, FresnelColor.rgb, FresnelFactor );
 					#endif
