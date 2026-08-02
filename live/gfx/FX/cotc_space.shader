@@ -753,7 +753,6 @@ Effect cotc_standard
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_standard"
 	BlendState = "alpha_to_coverage"
-	Defines = { "COTC_NO_SHADOW" }
 	DepthStencilState = DepthStencilState
 }
 
@@ -762,7 +761,6 @@ Effect cotc_standard_mapobject
 	VertexShader = "COTC_VS_mapobject"
 	PixelShader = "COTC_PS_standard"
 	BlendState = "alpha_to_coverage"
-	Defines = { "COTC_NO_SHADOW" }
 	DepthStencilState = DepthStencilState
 }
 
@@ -771,7 +769,6 @@ Effect cotc_standard_selection_mapobject
 	VertexShader = "COTC_VS_mapobject"
 	PixelShader = "COTC_PS_standard"
 	BlendState = "alpha_to_coverage"
-	Defines = { "COTC_NO_SHADOW" }
 	DepthStencilState = DepthStencilState
 }
 
