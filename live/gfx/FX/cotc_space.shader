@@ -240,8 +240,9 @@ PixelShader =
 {
 	Code
 	[[
-		static const float COTC_STAR_EMISSIVE_BOOST       = 4.0f;
-		static const float COTC_BLACK_HOLE_EMISSIVE_BOOST = 5.0f;
+		static const float COTC_STAR_EMISSIVE_BOOST			= 4.0f;
+		static const float COTC_BLACK_HOLE_EMISSIVE_BOOST	= 5.0f;
+		static const float COTC_NEUTRON_EMISSIVE_BOOST		= 4.0f;
 
 		// Pack an 8-bit RGB triple (0-255) into a single 24-bit key.
 		uint PackColorKey( uint3 StarlightRgb )
@@ -448,10 +449,70 @@ PixelShader =
 					#endif
 				#endif
 
-				// After the fresnel block, because the outer pass replaces Color outright.
-				// Before the highlight, so selection stays a tint instead of a blown-out flare.
 				#if defined( COTC_EMISSIVE_BLACK_HOLE )
 					Color *= COTC_BLACK_HOLE_EMISSIVE_BOOST;
+				#endif
+
+				COTC_ApplyHighlightColor(Color, ColorMapCoords);
+
+				return float4( Color, Alpha );
+			}
+		]]
+	}
+
+	MainCode COTC_PS_neutron
+	{
+		Input = "VS_OUTPUT"
+		Output = "PDX_COLOR"
+		Code
+		[[
+			#ifndef DIFFUSE_UV_SET
+				#define DIFFUSE_UV_SET Input.UV0
+			#endif
+
+			#ifndef PROPERTIES_UV_SET
+				#define PROPERTIES_UV_SET Input.UV0
+			#endif
+
+			PDX_MAIN
+			{
+				float4 Diffuse = PdxTex2D( DiffuseMap, DIFFUSE_UV_SET );
+				float4 Properties = PdxTex2D( PropertiesMap, PROPERTIES_UV_SET );
+				float3 Normal = Input.Normal;
+
+				float ProvinceStrength = COTC_GetHeightBasedAlpha();
+				float Alpha = Diffuse.a;
+				SMaterialProperties MaterialProps = GetMaterialProperties( Diffuse.rgb, Normal, Properties.a, Properties.g, Properties.b );
+				SLightingProperties LightingProps = GetSunLightingProperties( Input.WorldSpacePos, ShadowTexture );
+				float3 Color = COTC_CalculateSunLighting( MaterialProps, LightingProps, EnvironmentMap, ProvinceStrength );
+
+				float2 ColorMapCoords =  Input.WorldSpacePos.xz *  WorldSpaceToTerrain0To1;
+				float3 ProvinceOverlayColor;
+				float PreLightingBlend;
+				float PostLightingBlend;
+				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend );
+
+				#if defined( COTC_OUTER_FRESNEL ) || defined( COTC_INNER_FRESNEL )
+					float4 FresnelColor = PdxTex2D( FresnelMap, DIFFUSE_UV_SET );
+					float3 ToCameraDir = normalize( Input.WorldSpacePos.xyz - CameraPosition );
+
+					// Exterior
+					#if defined( COTC_OUTER_FRESNEL )
+						float FresnelFactor = saturate( Fresnel( saturate( abs( dot( ToCameraDir, Input.Normal ) ) ), 0.1f, 0.1f) );
+						Alpha = Alpha - FresnelFactor;
+						Color = lerp( FresnelColor.rgb, ProvinceOverlayColor, ProvinceStrength );
+					#endif
+
+					// Interior
+					#if defined( COTC_INNER_FRESNEL )
+						float FresnelFactor = saturate( Fresnel( saturate( abs( dot( ToCameraDir, Input.Normal ) ) ), 0.01f, 2.0f - ProvinceStrength ) - 0.1 );
+						FresnelColor.rgb = lerp( FresnelColor.rgb, ProvinceOverlayColor, ProvinceStrength );
+						Color = lerp( Color, FresnelColor, FresnelFactor );
+					#endif
+				#endif
+
+				#if defined( COTC_EMISSIVE_NEUTRON )
+					Color *= COTC_NEUTRON_EMISSIVE_BOOST;
 				#endif
 
 				COTC_ApplyHighlightColor(Color, ColorMapCoords);
@@ -648,6 +709,24 @@ Effect cotc_star_atmosphere
 	PixelShader = "COTC_PS_standard"
 	BlendState = "alpha_to_coverage"
 	Defines = { "COTC_OUTER_FRESNEL" "COTC_NO_SHADOW" "COTC_EMISSIVE_STAR" }
+	DepthStencilState = DepthStencilState
+}
+
+Effect cotc_neutron
+{
+	VertexShader = "COTC_VS_standard"
+	PixelShader = "COTC_PS_neutron"
+	BlendState = "alpha_to_coverage"
+	Defines = { "COTC_INNER_FRESNEL" "COTC_NO_SHADOW" "COTC_EMISSIVE_NEUTRON" }
+	DepthStencilState = DepthStencilState
+}
+
+Effect cotc_neutron_outer
+{
+	VertexShader = "COTC_VS_standard"
+	PixelShader = "COTC_PS_neutron"
+	BlendState = "alpha_to_coverage"
+	Defines = { "COTC_OUTER_FRESNEL" "COTC_NO_SHADOW" "COTC_EMISSIVE_NEUTRON" }
 	DepthStencilState = DepthStencilState
 }
 
