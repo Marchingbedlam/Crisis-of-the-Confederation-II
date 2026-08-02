@@ -659,6 +659,175 @@ become_theocratic_effect = {
 		}
 	}
 }
+set_to_default_non_state_government = { change_government = pirate_monarchy_government }
+set_to_default_state_government = {
+	if = {
+		limit = { $KEEP_CURRENT_POWER_BASE$ = flag:yes }
+		faith ?= { save_temporary_scope_as = temp_faith }
+		capital_province ?= { select_power_base_by_province = { FAITH = scope:temp_faith } }
+	}
+	faith ?= { # Choose all other government values by ideology
+		if = {
+			limit = { NOT = { exists = scope:power_base } }
+			select_ideology_default_power_base = yes
+		}
+		select_ideology_default_legitimacy = yes
+		select_ideology_default_authority = yes
+		save_scope_as = new_state_ideology
+	}
+	if = {
+		limit = {
+			trigger_if = {
+				limit = { exists = scope:legitimacy }
+				scope:legitimacy = flag:federal
+				highest_held_title_tier < tier_duchy
+			}
+		}
+		random_list = {
+			10 = { save_scope_value_as = { name = legitimacy value = flag:democratic } }
+			10 = { save_scope_value_as = { name = legitimacy value = flag:aristocratic } }
+			10 = { save_scope_value_as = { name = legitimacy value = flag:meritocratic } }
+		}
+	}
+	if = {
+		limit = {
+			exists = scope:power_base
+			exists = scope:legitimacy
+			exists = scope:authority
+		}
+		become_specified_state_government = { POWER_BASE = scope:power_base LEGITIMACY = scope:legitimacy AUTHORITY = scope:authority }
+	}
+	else = { debug_log = "Attempted to set default state government for [THIS.Char.Custom('GetBestName')], but failed due to missing specifications." }
+}
+select_power_base_by_province = {
+	switch = {
+		trigger = has_holding_type
+		castle_holding = { save_scope_value_as = { name = power_base value = flag:military } }
+		city_holding = { save_scope_value_as = { name = power_base value = flag:commercial } }
+		church_holding = {
+			if = {
+				limit = { $FAITH$ = { has_doctrine = religious_hostility_doctrine } }
+				save_scope_value_as = { name = power_base value = flag:theocratic }
+			}
+			else = { save_scope_value_as = { name = power_base value = flag:technocratic } }
+		}
+	}
+}
+select_ideology_default_power_base = {
+	switch = {
+		trigger = has_doctrine_parameter
+		military_revolutions = { save_scope_value_as = { name = power_base value = flag:military } }
+		commercial_revolutions = { save_scope_value_as = { name = power_base value = flag:commercial } }
+		technocratic_revolutions = { save_scope_value_as = { name = power_base value = flag:technocratic } }
+		theocratic_revolutions = { save_scope_value_as = { name = power_base value = flag:theocratic } }
+	}
+}
+select_ideology_default_legitimacy = {
+	switch = {
+		trigger = has_doctrine_parameter
+		democratic_revolutions = { save_scope_value_as = { name = legitimacy value = flag:democratic } }
+		aristocratic_revolutions = { save_scope_value_as = { name = legitimacy value = flag:aristocratic } }
+		meritocratic_revolutions = { save_scope_value_as = { name = legitimacy value = flag:meritocratic } }
+		neutral_revolutions = {
+			scope:previous_holder ?= {
+				switch = {
+					trigger = government_has_flag
+					government_is_federal = { save_scope_value_as = { name = legitimacy value = flag:federal } }
+					government_is_democratic = { save_scope_value_as = { name = legitimacy value = flag:democratic } }
+					government_is_aristocratic = { save_scope_value_as = { name = legitimacy value = flag:aristocratic } }
+					government_is_meritocratic = { save_scope_value_as = { name = legitimacy value = flag:meritocratic } }
+				}
+			}
+		}
+	}
+}
+select_ideology_default_authority = {
+	switch = {
+		trigger = has_doctrine_parameter
+		despotic_revolutions = { save_scope_value_as = { name = authority value = flag:despotic } }
+		dictatorial_revolutions = { save_scope_value_as = { name = authority value = flag:dictatorial } }
+		presidential_revolutions = { save_scope_value_as = { name = authority value = flag:presidential } }
+		parliamentary_revolutions = { save_scope_value_as = { name = authority value = flag:parliamentary } }
+	}
+}
+create_noble_family_for_current_government = {
+	switch = {
+		trigger = has_government
+		despotic_federal_military_government = { create_noble_family_for_government = { GOVERNMENT = despotic_federal_military_government } }
+		dictatorial_federal_military_government = { create_noble_family_for_government = { GOVERNMENT = dictatorial_federal_military_government } }
+		presidential_federal_military_government = { create_noble_family_for_government = { GOVERNMENT = presidential_federal_military_government } }
+		parliamentary_federal_military_government = { create_noble_family_for_government = { GOVERNMENT = parliamentary_federal_military_government } }
+		despotic_democratic_military_government = { create_noble_family_for_government = { GOVERNMENT = despotic_democratic_military_government } }
+		dictatorial_democratic_military_government = { create_noble_family_for_government = { GOVERNMENT = dictatorial_democratic_military_government } }
+		presidential_democratic_military_government = { create_noble_family_for_government = { GOVERNMENT = presidential_democratic_military_government } }
+		parliamentary_democratic_military_government = { create_noble_family_for_government = { GOVERNMENT = parliamentary_democratic_military_government } }
+		despotic_aristocratic_military_government = { create_noble_family_for_government = { GOVERNMENT = despotic_aristocratic_military_government } }
+		dictatorial_aristocratic_military_government = { create_noble_family_for_government = { GOVERNMENT = dictatorial_aristocratic_military_government } }
+		presidential_aristocratic_military_government = { create_noble_family_for_government = { GOVERNMENT = presidential_aristocratic_military_government } }
+		parliamentary_aristocratic_military_government = { create_noble_family_for_government = { GOVERNMENT = parliamentary_aristocratic_military_government } }
+		despotic_meritocratic_military_government = { create_noble_family_for_government = { GOVERNMENT = despotic_meritocratic_military_government } }
+		dictatorial_meritocratic_military_government = { create_noble_family_for_government = { GOVERNMENT = dictatorial_meritocratic_military_government } }
+		presidential_meritocratic_military_government = { create_noble_family_for_government = { GOVERNMENT = presidential_meritocratic_military_government } }
+		parliamentary_meritocratic_military_government = { create_noble_family_for_government = { GOVERNMENT = parliamentary_meritocratic_military_government } }
+		despotic_federal_commercial_government = { create_noble_family_for_government = { GOVERNMENT = despotic_federal_commercial_government } }
+		dictatorial_federal_commercial_government = { create_noble_family_for_government = { GOVERNMENT = dictatorial_federal_commercial_government } }
+		presidential_federal_commercial_government = { create_noble_family_for_government = { GOVERNMENT = presidential_federal_commercial_government } }
+		parliamentary_federal_commercial_government = { create_noble_family_for_government = { GOVERNMENT = parliamentary_federal_commercial_government } }
+		despotic_democratic_commercial_government = { create_noble_family_for_government = { GOVERNMENT = despotic_democratic_commercial_government } }
+		dictatorial_democratic_commercial_government = { create_noble_family_for_government = { GOVERNMENT = dictatorial_democratic_commercial_government } }
+		presidential_democratic_commercial_government = { create_noble_family_for_government = { GOVERNMENT = presidential_democratic_commercial_government } }
+		parliamentary_democratic_commercial_government = { create_noble_family_for_government = { GOVERNMENT = parliamentary_democratic_commercial_government } }
+		despotic_aristocratic_commercial_government = { create_noble_family_for_government = { GOVERNMENT = despotic_aristocratic_commercial_government } }
+		dictatorial_aristocratic_commercial_government = { create_noble_family_for_government = { GOVERNMENT = dictatorial_aristocratic_commercial_government } }
+		presidential_aristocratic_commercial_government = { create_noble_family_for_government = { GOVERNMENT = presidential_aristocratic_commercial_government } }
+		parliamentary_aristocratic_commercial_government = { create_noble_family_for_government = { GOVERNMENT = parliamentary_aristocratic_commercial_government } }
+		despotic_meritocratic_commercial_government = { create_noble_family_for_government = { GOVERNMENT = despotic_meritocratic_commercial_government } }
+		dictatorial_meritocratic_commercial_government = { create_noble_family_for_government = { GOVERNMENT = dictatorial_meritocratic_commercial_government } }
+		presidential_meritocratic_commercial_government = { create_noble_family_for_government = { GOVERNMENT = presidential_meritocratic_commercial_government } }
+		parliamentary_meritocratic_commercial_government = { create_noble_family_for_government = { GOVERNMENT = parliamentary_meritocratic_commercial_government } }
+		despotic_federal_technocratic_government = { create_noble_family_for_government = { GOVERNMENT = despotic_federal_technocratic_government } }
+		dictatorial_federal_technocratic_government = { create_noble_family_for_government = { GOVERNMENT = dictatorial_federal_technocratic_government } }
+		presidential_federal_technocratic_government = { create_noble_family_for_government = { GOVERNMENT = presidential_federal_technocratic_government } }
+		parliamentary_federal_technocratic_government = { create_noble_family_for_government = { GOVERNMENT = parliamentary_federal_technocratic_government } }
+		despotic_democratic_technocratic_government = { create_noble_family_for_government = { GOVERNMENT = despotic_democratic_technocratic_government } }
+		dictatorial_democratic_technocratic_government = { create_noble_family_for_government = { GOVERNMENT = dictatorial_democratic_technocratic_government } }
+		presidential_democratic_technocratic_government = { create_noble_family_for_government = { GOVERNMENT = presidential_democratic_technocratic_government } }
+		parliamentary_democratic_technocratic_government = { create_noble_family_for_government = { GOVERNMENT = parliamentary_democratic_technocratic_government } }
+		despotic_aristocratic_technocratic_government = { create_noble_family_for_government = { GOVERNMENT = despotic_aristocratic_technocratic_government } }
+		dictatorial_aristocratic_technocratic_government = { create_noble_family_for_government = { GOVERNMENT = dictatorial_aristocratic_technocratic_government } }
+		presidential_aristocratic_technocratic_government = { create_noble_family_for_government = { GOVERNMENT = presidential_aristocratic_technocratic_government } }
+		parliamentary_aristocratic_technocratic_government = { create_noble_family_for_government = { GOVERNMENT = parliamentary_aristocratic_technocratic_government } }
+		despotic_meritocratic_technocratic_government = { create_noble_family_for_government = { GOVERNMENT = despotic_meritocratic_technocratic_government } }
+		dictatorial_meritocratic_technocratic_government = { create_noble_family_for_government = { GOVERNMENT = dictatorial_meritocratic_technocratic_government } }
+		presidential_meritocratic_technocratic_government = { create_noble_family_for_government = { GOVERNMENT = presidential_meritocratic_technocratic_government } }
+		parliamentary_meritocratic_technocratic_government = { create_noble_family_for_government = { GOVERNMENT = parliamentary_meritocratic_technocratic_government } }
+		despotic_federal_theocratic_government = { create_noble_family_for_government = { GOVERNMENT = despotic_federal_theocratic_government } }
+		dictatorial_federal_theocratic_government = { create_noble_family_for_government = { GOVERNMENT = dictatorial_federal_theocratic_government } }
+		presidential_federal_theocratic_government = { create_noble_family_for_government = { GOVERNMENT = presidential_federal_theocratic_government } }
+		parliamentary_federal_theocratic_government = { create_noble_family_for_government = { GOVERNMENT = parliamentary_federal_theocratic_government } }
+		despotic_democratic_theocratic_government = { create_noble_family_for_government = { GOVERNMENT = despotic_democratic_theocratic_government } }
+		dictatorial_democratic_theocratic_government = { create_noble_family_for_government = { GOVERNMENT = dictatorial_democratic_theocratic_government } }
+		presidential_democratic_theocratic_government = { create_noble_family_for_government = { GOVERNMENT = presidential_democratic_theocratic_government } }
+		parliamentary_democratic_theocratic_government = { create_noble_family_for_government = { GOVERNMENT = parliamentary_democratic_theocratic_government } }
+		despotic_aristocratic_theocratic_government = { create_noble_family_for_government = { GOVERNMENT = despotic_aristocratic_theocratic_government } }
+		dictatorial_aristocratic_theocratic_government = { create_noble_family_for_government = { GOVERNMENT = dictatorial_aristocratic_theocratic_government } }
+		presidential_aristocratic_theocratic_government = { create_noble_family_for_government = { GOVERNMENT = presidential_aristocratic_theocratic_government } }
+		parliamentary_aristocratic_theocratic_government = { create_noble_family_for_government = { GOVERNMENT = parliamentary_aristocratic_theocratic_government } }
+		despotic_meritocratic_theocratic_government = { create_noble_family_for_government = { GOVERNMENT = despotic_meritocratic_theocratic_government } }
+		dictatorial_meritocratic_theocratic_government = { create_noble_family_for_government = { GOVERNMENT = dictatorial_meritocratic_theocratic_government } }
+		presidential_meritocratic_theocratic_government = { create_noble_family_for_government = { GOVERNMENT = presidential_meritocratic_theocratic_government } }
+		parliamentary_meritocratic_theocratic_government = { create_noble_family_for_government = { GOVERNMENT = parliamentary_meritocratic_theocratic_government } }
+	}
+}
+create_noble_family_for_government = {
+	give_noble_family_title = {
+		name = noble_family_name
+		tier = county
+		article = DEFAULT_TITLE_NAME_ARTICLE
+		government = $GOVERNMENT$
+		save_scope_as = new_title
+	}
+}
 become_specified_state_government = {
 	switch = {
 		trigger = $AUTHORITY$
@@ -668,37 +837,37 @@ become_specified_state_government = {
 				flag:federal = {
 					switch = {
 						trigger = $POWER_BASE$
-						flag:military = { change_government = { despotic_federal_military_government } }
-						flag:commercial = { change_government = { despotic_federal_commercial_government } }
-						flag:technocratic = { change_government = { despotic_federal_technocratic_government } }
-						flag:theocratic = { change_government = { despotic_federal_theocratic_government } }
+						flag:military = { change_government = despotic_federal_military_government }
+						flag:commercial = { change_government = despotic_federal_commercial_government }
+						flag:technocratic = { change_government = despotic_federal_technocratic_government }
+						flag:theocratic = { change_government = despotic_federal_theocratic_government }
 					}
 				}
 				flag:democratic = {
 					switch = {
 						trigger = $POWER_BASE$
-						flag:military = { change_government = { despotic_democratic_military_government } }
-						flag:commercial = { change_government = { despotic_democratic_commercial_government } }
-						flag:technocratic = { change_government = { despotic_democratic_technocratic_government } }
-						flag:theocratic = { change_government = { despotic_democratic_theocratic_government } }
+						flag:military = { change_government = despotic_democratic_military_government }
+						flag:commercial = { change_government = despotic_democratic_commercial_government }
+						flag:technocratic = { change_government = despotic_democratic_technocratic_government }
+						flag:theocratic = { change_government = despotic_democratic_theocratic_government }
 					}
 				}
 				flag:aristocratic = {
 					switch = {
 						trigger = $POWER_BASE$
-						flag:military = { change_government = { despotic_aristocratic_military_government } }
-						flag:commercial = { change_government = { despotic_aristocratic_commercial_government } }
-						flag:technocratic = { change_government = { despotic_aristocratic_technocratic_government } }
-						flag:theocratic = { change_government = { despotic_aristocratic_theocratic_government } }
+						flag:military = { change_government = despotic_aristocratic_military_government }
+						flag:commercial = { change_government = despotic_aristocratic_commercial_government }
+						flag:technocratic = { change_government = despotic_aristocratic_technocratic_government }
+						flag:theocratic = { change_government = despotic_aristocratic_theocratic_government }
 					}
 				}
 				flag:meritocratic = {
 					switch = {
 						trigger = $POWER_BASE$
-						flag:military = { change_government = { despotic_meritocratic_military_government } }
-						flag:commercial = { change_government = { despotic_meritocratic_commercial_government } }
-						flag:technocratic = { change_government = { despotic_meritocratic_technocratic_government } }
-						flag:theocratic = { change_government = { despotic_meritocratic_theocratic_government } }
+						flag:military = { change_government = despotic_meritocratic_military_government }
+						flag:commercial = { change_government = despotic_meritocratic_commercial_government }
+						flag:technocratic = { change_government = despotic_meritocratic_technocratic_government }
+						flag:theocratic = { change_government = despotic_meritocratic_theocratic_government }
 					}
 				}
 			}
@@ -709,37 +878,37 @@ become_specified_state_government = {
 				flag:federal = {
 					switch = {
 						trigger = $POWER_BASE$
-						flag:military = { change_government = { dictatorial_federal_military_government } }
-						flag:commercial = { change_government = { dictatorial_federal_commercial_government } }
-						flag:technocratic = { change_government = { dictatorial_federal_technocratic_government } }
-						flag:theocratic = { change_government = { dictatorial_federal_theocratic_government } }
+						flag:military = { change_government = dictatorial_federal_military_government }
+						flag:commercial = { change_government = dictatorial_federal_commercial_government }
+						flag:technocratic = { change_government = dictatorial_federal_technocratic_government }
+						flag:theocratic = { change_government = dictatorial_federal_theocratic_government }
 					}
 				}
 				flag:democratic = {
 					switch = {
 						trigger = $POWER_BASE$
-						flag:military = { change_government = { dictatorial_democratic_military_government } }
-						flag:commercial = { change_government = { dictatorial_democratic_commercial_government } }
-						flag:technocratic = { change_government = { dictatorial_democratic_technocratic_government } }
-						flag:theocratic = { change_government = { dictatorial_democratic_theocratic_government } }
+						flag:military = { change_government = dictatorial_democratic_military_government }
+						flag:commercial = { change_government = dictatorial_democratic_commercial_government }
+						flag:technocratic = { change_government = dictatorial_democratic_technocratic_government }
+						flag:theocratic = { change_government = dictatorial_democratic_theocratic_government }
 					}
 				}
 				flag:aristocratic = {
 					switch = {
 						trigger = $POWER_BASE$
-						flag:military = { change_government = { dictatorial_aristocratic_military_government } }
-						flag:commercial = { change_government = { dictatorial_aristocratic_commercial_government } }
-						flag:technocratic = { change_government = { dictatorial_aristocratic_technocratic_government } }
-						flag:theocratic = { change_government = { dictatorial_aristocratic_theocratic_government } }
+						flag:military = { change_government = dictatorial_aristocratic_military_government }
+						flag:commercial = { change_government = dictatorial_aristocratic_commercial_government }
+						flag:technocratic = { change_government = dictatorial_aristocratic_technocratic_government }
+						flag:theocratic = { change_government = dictatorial_aristocratic_theocratic_government }
 					}
 				}
 				flag:meritocratic = {
 					switch = {
 						trigger = $POWER_BASE$
-						flag:military = { change_government = { dictatorial_meritocratic_military_government } }
-						flag:commercial = { change_government = { dictatorial_meritocratic_commercial_government } }
-						flag:technocratic = { change_government = { dictatorial_meritocratic_technocratic_government } }
-						flag:theocratic = { change_government = { dictatorial_meritocratic_theocratic_government } }
+						flag:military = { change_government = dictatorial_meritocratic_military_government }
+						flag:commercial = { change_government = dictatorial_meritocratic_commercial_government }
+						flag:technocratic = { change_government = dictatorial_meritocratic_technocratic_government }
+						flag:theocratic = { change_government = dictatorial_meritocratic_theocratic_government }
 					}
 				}
 			}
@@ -750,37 +919,37 @@ become_specified_state_government = {
 				flag:federal = {
 					switch = {
 						trigger = $POWER_BASE$
-						flag:military = { change_government = { presidential_federal_military_government } }
-						flag:commercial = { change_government = { presidential_federal_commercial_government } }
-						flag:technocratic = { change_government = { presidential_federal_technocratic_government } }
-						flag:theocratic = { change_government = { presidential_federal_theocratic_government } }
+						flag:military = { change_government = presidential_federal_military_government }
+						flag:commercial = { change_government = presidential_federal_commercial_government }
+						flag:technocratic = { change_government = presidential_federal_technocratic_government }
+						flag:theocratic = { change_government = presidential_federal_theocratic_government }
 					}
 				}
 				flag:democratic = {
 					switch = {
 						trigger = $POWER_BASE$
-						flag:military = { change_government = { presidential_democratic_military_government } }
-						flag:commercial = { change_government = { presidential_democratic_commercial_government } }
-						flag:technocratic = { change_government = { presidential_democratic_technocratic_government } }
-						flag:theocratic = { change_government = { presidential_democratic_theocratic_government } }
+						flag:military = { change_government = presidential_democratic_military_government }
+						flag:commercial = { change_government = presidential_democratic_commercial_government }
+						flag:technocratic = { change_government = presidential_democratic_technocratic_government }
+						flag:theocratic = { change_government = presidential_democratic_theocratic_government }
 					}
 				}
 				flag:aristocratic = {
 					switch = {
 						trigger = $POWER_BASE$
-						flag:military = { change_government = { presidential_aristocratic_military_government } }
-						flag:commercial = { change_government = { presidential_aristocratic_commercial_government } }
-						flag:technocratic = { change_government = { presidential_aristocratic_technocratic_government } }
-						flag:theocratic = { change_government = { presidential_aristocratic_theocratic_government } }
+						flag:military = { change_government = presidential_aristocratic_military_government }
+						flag:commercial = { change_government = presidential_aristocratic_commercial_government }
+						flag:technocratic = { change_government = presidential_aristocratic_technocratic_government }
+						flag:theocratic = { change_government = presidential_aristocratic_theocratic_government }
 					}
 				}
 				flag:meritocratic = {
 					switch = {
 						trigger = $POWER_BASE$
-						flag:military = { change_government = { presidential_meritocratic_military_government } }
-						flag:commercial = { change_government = { presidential_meritocratic_commercial_government } }
-						flag:technocratic = { change_government = { presidential_meritocratic_technocratic_government } }
-						flag:theocratic = { change_government = { presidential_meritocratic_theocratic_government } }
+						flag:military = { change_government = presidential_meritocratic_military_government }
+						flag:commercial = { change_government = presidential_meritocratic_commercial_government }
+						flag:technocratic = { change_government = presidential_meritocratic_technocratic_government }
+						flag:theocratic = { change_government = presidential_meritocratic_theocratic_government }
 					}
 				}
 			}
@@ -791,37 +960,37 @@ become_specified_state_government = {
 				flag:federal = {
 					switch = {
 						trigger = $POWER_BASE$
-						flag:military = { change_government = { parliamentary_federal_military_government } }
-						flag:commercial = { change_government = { parliamentary_federal_commercial_government } }
-						flag:technocratic = { change_government = { parliamentary_federal_technocratic_government } }
-						flag:theocratic = { change_government = { parliamentary_federal_theocratic_government } }
+						flag:military = { change_government = parliamentary_federal_military_government }
+						flag:commercial = { change_government = parliamentary_federal_commercial_government }
+						flag:technocratic = { change_government = parliamentary_federal_technocratic_government }
+						flag:theocratic = { change_government = parliamentary_federal_theocratic_government }
 					}
 				}
 				flag:democratic = {
 					switch = {
 						trigger = $POWER_BASE$
-						flag:military = { change_government = { parliamentary_democratic_military_government } }
-						flag:commercial = { change_government = { parliamentary_democratic_commercial_government } }
-						flag:technocratic = { change_government = { parliamentary_democratic_technocratic_government } }
-						flag:theocratic = { change_government = { parliamentary_democratic_theocratic_government } }
+						flag:military = { change_government = parliamentary_democratic_military_government }
+						flag:commercial = { change_government = parliamentary_democratic_commercial_government }
+						flag:technocratic = { change_government = parliamentary_democratic_technocratic_government }
+						flag:theocratic = { change_government = parliamentary_democratic_theocratic_government }
 					}
 				}
 				flag:aristocratic = {
 					switch = {
 						trigger = $POWER_BASE$
-						flag:military = { change_government = { parliamentary_aristocratic_military_government } }
-						flag:commercial = { change_government = { parliamentary_aristocratic_commercial_government } }
-						flag:technocratic = { change_government = { parliamentary_aristocratic_technocratic_government } }
-						flag:theocratic = { change_government = { parliamentary_aristocratic_theocratic_government } }
+						flag:military = { change_government = parliamentary_aristocratic_military_government }
+						flag:commercial = { change_government = parliamentary_aristocratic_commercial_government }
+						flag:technocratic = { change_government = parliamentary_aristocratic_technocratic_government }
+						flag:theocratic = { change_government = parliamentary_aristocratic_theocratic_government }
 					}
 				}
 				flag:meritocratic = {
 					switch = {
 						trigger = $POWER_BASE$
-						flag:military = { change_government = { parliamentary_meritocratic_military_government } }
-						flag:commercial = { change_government = { parliamentary_meritocratic_commercial_government } }
-						flag:technocratic = { change_government = { parliamentary_meritocratic_technocratic_government } }
-						flag:theocratic = { change_government = { parliamentary_meritocratic_theocratic_government } }
+						flag:military = { change_government = parliamentary_meritocratic_military_government }
+						flag:commercial = { change_government = parliamentary_meritocratic_commercial_government }
+						flag:technocratic = { change_government = parliamentary_meritocratic_technocratic_government }
+						flag:theocratic = { change_government = parliamentary_meritocratic_theocratic_government }
 					}
 				}
 			}
@@ -830,8 +999,8 @@ become_specified_state_government = {
 	if = {
 		limit = {
 			government_allows = state_faith
-			exists = scope:state_ideology
+			exists = scope:new_state_ideology
 		}
-		every_held_title = { set_state_faith = scope:state_ideology }
+		every_held_title = { set_state_faith = scope:new_state_ideology }
 	}
 }

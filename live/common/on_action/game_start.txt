@@ -393,6 +393,16 @@ on_game_start = {
 
 		# UNITY CONFIG
 		
+		# DEFAULT GOVERNMENT CONFIG
+		every_ruler = { trigger_event = { on_action = remove_disallowed_government_on_action } }
+		
+		# NOBLE FAMILY CONFIG
+		every_ruler = {
+			trigger_event = { on_action = make_direct_vassal_noble_family_on_action }
+			trigger_event = { on_action = make_independent_ruler_noble_family_on_action }
+			trigger_event = { on_action = make_landless_noble_direct_vassal_of_top_liege_on_action }
+		}
+		
 		# VASSAL LAW CONFIG
 		every_ruler = {
 			limit = {
@@ -407,10 +417,8 @@ on_game_start = {
 					save_temporary_scope_as = temp_liege
 					PREV = { subject_to_vassal_government_laws_trigger = { LIEGE = scope:temp_liege } }
 				}
-				debug_log = "Relevant ruler is [THIS.GetTitledFirstName]"
 				save_scope_as = relevant_ruler
 			}
-			debug_log = "Configuring local government for [THIS.GetTitledFirstName]"
 			meet_liege_law_government_requirements_effect = { LIEGE = scope:relevant_ruler }
 		}
 
