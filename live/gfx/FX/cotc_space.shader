@@ -58,7 +58,7 @@ PixelShader =
 		SampleModeV = "Wrap"
 	}
 
-	TextureSampler AtmosphereMap
+	TextureSampler FresnelMap
     {
 		Index = 3
         MagFilter = "Linear"
@@ -430,7 +430,7 @@ PixelShader =
 				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend );
 
 				#if defined( COTC_OUTER_FRESNEL ) || defined( COTC_INNER_FRESNEL )
-					float4 FresnelColor = PdxTex2D( AtmosphereMap, DIFFUSE_UV_SET );
+					float4 FresnelColor = PdxTex2D( FresnelMap, DIFFUSE_UV_SET );
 					float3 ToCameraDir = normalize( Input.WorldSpacePos.xyz - CameraPosition );
 
 					// Exterior
@@ -562,22 +562,22 @@ PixelShader =
 				#endif
 
 				#if defined( COTC_OUTER_FRESNEL ) || defined( COTC_INNER_FRESNEL )
-					float4 AtmoColor = PdxTex2D( AtmosphereMap, DIFFUSE_UV_SET );
+					float4 FresnelColor = PdxTex2D( FresnelMap, DIFFUSE_UV_SET );
 
 					float InSun = lerp(saturate( dot( LightingProps._ToLightDir, Input.Normal ) ), 1.0f, ProvinceStrength);
 
 					// Exterior
 					#if defined( COTC_OUTER_FRESNEL )
-						float FresnelFactor = saturate( Fresnel( abs( dot( ToCameraDir, Input.Normal ) ), 0.5f, 0.8f) );
+						float FresnelFactor = saturate( Fresnel( abs( dot( ToCameraDir, Input.Normal ) ), 0.1f, 0.3f) );
 						Alpha = Alpha - FresnelFactor;
-						Color = lerp( AtmoColor, ProvinceOverlayColor, ProvinceStrength );
+						Color = lerp( FresnelColor, ProvinceOverlayColor, ProvinceStrength );
 					#endif
 
 					// Interior
 					#if defined( COTC_INNER_FRESNEL )
-						float FresnelFactor = saturate( Fresnel( abs( dot( ToCameraDir, Input.Normal ) ), 0.1f, 2.0f - ProvinceStrength ) * InSun );
-						AtmoColor.rgb = lerp( AtmoColor.rgb, ProvinceOverlayColor, ProvinceStrength );
-						Color = lerp( Color, AtmoColor.rgb, FresnelFactor );
+						float FresnelFactor = saturate( Fresnel( abs( dot( ToCameraDir, Input.Normal ) ), 0.1f, 4.0f - ProvinceStrength ) * InSun );
+						FresnelColor.rgb = lerp( FresnelColor.rgb, ProvinceOverlayColor, ProvinceStrength );
+						Color = lerp( Color, FresnelColor.rgb, FresnelFactor );
 					#endif
 				#endif
 

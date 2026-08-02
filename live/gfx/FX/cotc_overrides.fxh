@@ -33,7 +33,7 @@ PixelShader =
 			float NdotV = saturate( dot( MaterialProps._Normal, ToCameraDir ) ) + 1e-5;
 			float RawNdotL = dot( MaterialProps._Normal, ToLightDir );
 			float TerminatorSoftness = 0.5f;
-			float NdotL = smoothstep( -TerminatorSoftness, 2.0f, RawNdotL);
+			float NdotL = smoothstep( -TerminatorSoftness, 3.0f, RawNdotL);
 			float NdotH = saturate( dot( MaterialProps._Normal, H ) );
 			float LdotH = saturate( dot( ToLightDir, H ) );
 			
