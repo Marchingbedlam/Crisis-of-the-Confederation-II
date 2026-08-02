@@ -57,18 +57,21 @@
  game_concept_confederations_cotc: "Confederations"
  game_concept_confederate_cotc: "Confederate"
  game_concept_federation_cotc_desc: "$game_concept_federal_cotc$ [governments|E] derive their legitimacy from a formal agreement between member states.\n\n$BULLET$#indent_newline:2 Must be a [duchy|E] or higher\n$BULLET$#indent_newline:2 Can have [member_states_cotc|E]#!\n$BULLET$#indent_newline:2 Can use federal [succession_laws|E]#!\n$BULLET$#indent_newline:2 Has a [federal_territory_cotc|E]" 
+ concept_federal_cotc_custom_loc: "[federal_cotc|E]"
  
  game_concept_aristocracy_cotc: "Aristocracy"
  game_concept_aristocratic_cotc: "Aristocratic"
  game_concept_monarchy_cotc: "Monarchy"
  game_concept_monarchies_cotc: "Monarchies"
  game_concept_aristocracy_cotc_desc: "$game_concept_aristocratic_cotc$ [governments|E] derive their legitimacy from heredity and traditional notions of property rights.\n\n$BULLET$#indent_newline:2 Can use hereditary [succession_laws|E]#!"
+ concept_aristocratic_cotc_custom_loc: "[aristocratic_cotc|E]"
  
  game_concept_democracy_cotc: "Democracy"
  game_concept_democratic_cotc: "Democratic"
  game_concept_republic_cotc: "Republic"
  game_concept_republics_cotc: "Republics"
  game_concept_democracy_cotc_desc: "$game_concept_democratic_cotc$ [governments|E] derive their legitimacy from the consent of the governed.\n\n$BULLET$#indent_newline:2 Can use elective [succession_laws|E]#!"
+ concept_democratic_cotc_custom_loc: "[democratic_cotc|E]"
  
  game_concept_meritocracy_cotc: "Meritocracy"
  game_concept_meritocratic_cotc: "Meritocratic"
@@ -76,6 +79,7 @@
  game_concept_administration_cotc: "Administration"
  game_concept_administrations_cotc: "Administrations"
  game_concept_meritocracy_cotc_desc: "$game_concept_meritocratic_cotc$ [governments|E] derive their legitimacy from a higher authority, or from a long line of chosen successors.\n\n$BULLET$#indent_newline:2 Can use [appointment_succession_laws|E]#!"
+ concept_meritocratic_cotc_custom_loc: "[meritocratic_cotc|E]"
  
  game_concept_power_base: "Power Base"
  game_concept_power_bases: "Power Bases"
@@ -85,18 +89,22 @@
  game_concept_commercial_power_base: "Commercial Government"
  game_concept_commercial_power_base_adj: "Commercial"
  game_concept_commercial_power_base_desc: "$game_concept_commercial_power_base_adj$ [governments|E] [base_power|E] on control of resources and the economy.\n\n$BULLET$#indent_newline:2 Primary [holding_type|E]: [commercial_holding|E]#!\n$BULLET$#indent_newline:2 [commercial_holdings|E] operate at full effiency#!"
+ concept_commercial_power_base_adj_custom_loc: "[commercial_power_base_adj|E]"
  
  game_concept_military_power_base: "Military Government"
  game_concept_military_power_base_adj: "Military"
  game_concept_military_power_base_desc: "$game_concept_military_power_base_adj$ [governments|E] [base_power|E] on control of the armed forces.\n\n$BULLET$#indent_newline:2 Primary [holding_type|E]: [military_holding|E]#!\n$BULLET$#indent_newline:2 May control [city_holdings|E] at reduced efficiency#!\n$BULLET$#indent_newline:2 Can receive [treasury|E] from their [liege|E]'s [treasury_military_budget|E]#!"
+ concept_military_power_base_adj_custom_loc: "[military_power_base_adj|E]"
  
  game_concept_technocratic_power_base: "Technocratic Government"
  game_concept_technocratic_power_base_adj: "Technocratic"
  game_concept_technocratic_power_base_desc: "$game_concept_technocratic_power_base_adj$ [governments|E] [base_power|E] on control through bureaucracy and ideology.\n\n$BULLET$#indent_newline:2 Primary [holding_type|E]: [administrative_holding|E]#!\n$BULLET$#indent_newline:2 May control [city_holdings|E] at reduced efficiency#!\n$BULLET$#indent_newline:2 Can receive [treasury|E] from their [liege|E]'s [treasury_military_budget|E]#!\n$BULLET$#indent_newline:2 Can have a [state_faith|E]#!"
+ concept_technocratic_power_base_adj_custom_loc: "[commercial_power_base_adj|E]"
  
  game_concept_theoocratic_power_base: "Theocratic Government"
  game_concept_theocratic_power_base_adj: "Theocratic"
  game_concept_theocratic_power_base_desc: "$game_concept_theocratic_power_base_adj$ [governments|E] [base_power|E] on control through religion.\n\n$BULLET$#indent_newline:2 Primary [holding_type|E]: [administrative_holding|E]#!\n$BULLET$#indent_newline:2 May control [city_holdings|E] at reduced efficiency#!\n$BULLET$#indent_newline:2 Can receive [treasury|E] from their [liege|E]'s [treasury_military_budget|E]#!\n$BULLET$#indent_newline:2 Can have a [state_faith|E]#!\n$BULLET$#indent_newline:2 Rulers are considered Priests#!"
+ concept_theocratic_power_base_adj_custom_loc: "[commercial_power_base_adj|E]"
  
  game_concept_authority_type_cotc: "Authority Type"
  game_concept_authority_types_cotc: "Authority Types"
@@ -199,4 +207,7 @@
  game_concept_federal_territories_cotc: "Federal Territories"
  game_concept_territory_cotc: "Territory"
  game_concept_territories_cotc: "Territories"
- game_concept_federal_territory_cotc_Desc: "A $game_concept_federal_territory_cotc$ is a [province_cotc|E] of a [federation_cotc|E] that is not a full member state, but rather a possession of the federal government. They do not have voting rights or the legal exemptions of full member states."
+ game_concept_federal_territory_cotc_desc: "A $game_concept_federal_territory_cotc$ is a [province_cotc|E] of a [federation_cotc|E] that is not a full member state, but rather a possession of the federal government. They do not have voting rights or the legal exemptions of full member states."
+ 
+ game_concept_state_capacity_cotc: "State Capacity"
+ game_concept_state_capacity_cotc_desc: "$game_concept_state_capacity_cotc$ is the ability of a non-[despotic_cotc|E] [realm|E] to control its [vassals|E] and govern its territories. Unlike [crown_authority|E], $game_concept_vassals$ cannot form Liberty [factions|E] to reduce $game_concept_state_capacity_cotc$. However, it can never be higher than the [ruler|E]'s [legitimacy_level|E].\n\nOnly the [top_liege|E] can change $game_concept_state_capacity$. Non-$game_concept_despotic_cotc$ $game_concept_vassals$ use the same level as their $game_concept_liege$.\n\nThere are four levels of $game_concept_state_capacity$:\n$EFFECT_LIST_BULLET$$state_capacity_0$\n$EFFECT_LIST_BULLET$$state_capacity_1$\n$EFFECT_LIST_BULLET$$state_capacity_2$\n$EFFECT_LIST_BULLET$$state_capacity_3$\n\nIncreasing $game_concept_state_capacity_cotc$ costs an amount of [prestige|E] depending on [realm_size|E] and the ruler's [learning_skill|E], and requires the unanimous approval of any [powerful_vassals|E]."

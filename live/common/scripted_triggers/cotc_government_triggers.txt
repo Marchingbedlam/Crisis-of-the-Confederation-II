@@ -10,3 +10,56 @@
 		}
 	}
 }
+can_have_vassal_government_laws_trigger = {
+	OR = {
+		top_liege = THIS
+		subject_contract_has_flag = member_state
+	}
+}
+subject_to_vassal_government_laws_trigger = {
+	government_has_flag = government_is_state
+	target_is_liege_or_above = $LIEGE$ # This is our liege
+	NOT = { # We don't have a more immediate liege overriding the law
+		any_liege_or_above = {
+			can_have_vassal_government_laws_trigger = yes
+			tier_difference = { target = $LIEGE$ value < 0 }
+		}
+	}
+	trigger_if = {
+		limit = { government_has_flag = government_is_military }
+		$LIEGE$ = { has_realm_law_flag = can_set_military_province_governments }
+	}
+	trigger_else_if = {
+		limit = { government_has_flag = government_is_commercial }
+		$LIEGE$ = { has_realm_law_flag = can_set_commercial_province_governments }
+	}
+	trigger_else_if = {
+		limit = { government_has_flag = government_is_technocratic }
+		$LIEGE$ = { has_realm_law_flag = can_set_technocratic_province_governments }
+	}
+	trigger_else_if = {
+		limit = { government_has_flag = government_is_theocratic }
+		$LIEGE$ = { has_realm_law_flag = can_set_theocratic_province_governments }
+	}
+	trigger_else = { always = no }
+}
+subject_to_vassal_government_law_change_trigger = {
+	subject_to_vassal_government_laws_trigger = { LIEGE = $LIEGE$ }
+	trigger_if = {
+		limit = { scope:power_base = flag:military }
+		government_has_flag = government_is_military
+	}
+	trigger_else_if = {
+		limit = { scope:power_base = flag:commercial }
+		government_has_flag = government_is_commercial
+	}
+	trigger_else_if = {
+		limit = { scope:power_base = flag:technocratic }
+		government_has_flag = government_is_technocratic
+	}
+	trigger_else_if = {
+		limit = { scope:power_base = flag:theocratic }
+		government_has_flag = government_is_theocratic
+	}
+	trigger_else = { always = no }
+}

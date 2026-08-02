@@ -1,11 +1,3003 @@
-﻿# This should return an adjectival form of whatever the flavorization of the title's tier is
+﻿GenericBaronyRuler = {
+	type = character
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "world_governor_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "world_governor_male_cotc_custom_loc"
+	}
+	text = { localization_key = "world_governor_enby_cotc_custom_loc" }
+}
+GenericCountyRuler = {
+	type = character
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "system_governor_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "system_governor_male_cotc_custom_loc"
+	}
+	text = { localization_key = "system_governor_enby_cotc_custom_loc" }
+}
+GenericDuchyRuler = {
+	type = character
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "sector_governor_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "sector_governor_male_cotc_custom_loc"
+	}
+	text = { localization_key = "sector_governor_enby_cotc_custom_loc" }
+}
+GenericKingdomRuler = {
+	type = character
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "oversector_governor_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "oversector_governor_male_cotc_custom_loc"
+	}
+	text = { localization_key = "oversector_governor_enby_cotc_custom_loc" }
+}
+GenericEmpireRuler = {
+	type = character
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "empire_governor_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "empire_governor_male_cotc_custom_loc"
+	}
+	text = { localization_key = "empire_governor_enby_cotc_custom_loc" }
+}
+GenericHegemonyRuler = {
+	type = character
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "hegemony_governor_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "hegemony_governor_male_cotc_custom_loc"
+	}
+	text = { localization_key = "hegemony_governor_enby_cotc_custom_loc" }
+}
+TechnocraticFederationRuler = {
+	type = character
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "secretary_general_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "secretary_general_male_cotc_custom_loc"
+	}
+	text = { localization_key = "secretary_general_enby_cotc_custom_loc" }
+}
+RepublicBarony = {
+	type = character
+	text = {
+		setup_scope = { save_scope_as = ruler }
+		trigger = {
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "republic_cotc_custom_loc"
+	}
+	text = { localization_key = "prefecture_cotc_custom_loc" }
+}
+RepublicBaronyPlural = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "republic_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "prefecture_plural_cotc_custom_loc" }
+}
+RepublicBaronyAdj = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "republic_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "prefecture_adj_cotc_custom_loc" }
+}
+RepublicBaronyRuler = {
+	type = character
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "president_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "prefect_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "president_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "prefect_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "president_enby_cotc_custom_loc"
+	}
+	text = { localization_key = "prefect_enby_cotc_custom_loc" }
+}
+RepublicCounty = {
+	type = character
+	text = {
+		setup_scope = { save_scope_as = ruler }
+		trigger = {
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "republic_cotc_custom_loc"
+	}
+	text = { localization_key = "system_cotc_custom_loc" }
+}
+RepublicCountyPlural = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "republic_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "system_plural_cotc_custom_loc" }
+}
+RepublicCountyAdj = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "republic_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "system_adj_cotc_custom_loc" }
+}
+RepublicCountyRuler = {
+	type = character
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "president_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "governor_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "president_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "governor_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "president_enby_cotc_custom_loc"
+	}
+	text = { localization_key = "governor_enby_cotc_custom_loc" }
+}
+RepublicDuchy = {
+	type = character
+	text = {
+		setup_scope = { save_scope_as = ruler }
+		trigger = {
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "republic_cotc_custom_loc"
+	}
+	text = { localization_key = "sector_cotc_custom_loc" }
+}
+RepublicDuchyPlural = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "republic_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "sector_plural_cotc_custom_loc" }
+}
+RepublicDuchyAdj = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "republic_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "sector_adj_cotc_custom_loc" }
+}
+RepublicDuchyRuler = {
+	type = character
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "president_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "governor_general_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "president_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "governor_general_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "president_enby_cotc_custom_loc"
+	}
+	text = { localization_key = "governor_general_enby_cotc_custom_loc" }
+}
+RepublicKingdom = {
+	type = character
+	text = {
+		setup_scope = { save_scope_as = ruler }
+		trigger = {
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "republic_cotc_custom_loc"
+	}
+	text = { localization_key = "oversector_cotc_custom_loc" }
+}
+RepublicKingdomPlural = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "republic_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "oversector_plural_cotc_custom_loc" }
+}
+RepublicKingdomAdj = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "republic_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "oversector_adj_cotc_custom_loc" }
+}
+RepublicKingdomRuler = {
+	type = character
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "president_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "proconsul_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "president_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "proconsul_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "president_enby_cotc_custom_loc"
+	}
+	text = { localization_key = "proconsul_enby_cotc_custom_loc" }
+}
+RepublicEmpire = {
+	type = character
+	text = {
+		setup_scope = { save_scope_as = ruler }
+		trigger = {
+			highest_held_title_tier = tier_empire
+			is_politically_autonomous = yes
+		}
+		localization_key = "republic_cotc_custom_loc"
+	}
+	text = { localization_key = "consulate_cotc_custom_loc" }
+}
+RepublicEmpirePlural = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_empire
+			is_politically_autonomous = yes
+		}
+		localization_key = "republic_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "consulate_plural_cotc_custom_loc" }
+}
+RepublicEmpireAdj = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_empire
+			is_politically_autonomous = yes
+		}
+		localization_key = "republic_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "consulate_adj_cotc_custom_loc" }
+}
+RepublicEmpireRuler = {
+	type = character
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_empire
+			is_politically_autonomous = yes
+		}
+		localization_key = "president_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "consul_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_empire
+			is_politically_autonomous = yes
+		}
+		localization_key = "president_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "consul_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_empire
+			is_politically_autonomous = yes
+		}
+		localization_key = "president_enby_cotc_custom_loc"
+	}
+	text = { localization_key = "consul_enby_cotc_custom_loc" }
+}
+RepublicHegemony = {
+	type = character
+	text = {
+		setup_scope = { save_scope_as = ruler }
+		localization_key = "republic_cotc_custom_loc"
+	}
+}
+RepublicHegemonyRuler = {
+	type = character
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "president_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "president_male_cotc_custom_loc"
+	}
+	text = { localization_key = "president_enby_cotc_custom_loc" }
+}
+MonarchyBarony = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "star_kingdom_cotc_custom_loc"
+	}
+	text = { localization_key = "barony_cotc_custom_loc" }
+}
+MonarchyBaronyPlural = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "star_kingdom_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "barony_plural_cotc_custom_loc" }
+}
+MonarchyBaronyAdj = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "star_kingdom_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "barony_adj_cotc_custom_loc" }
+}
+MonarchyBaronyRuler = {
+	type = character
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "queen_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "baroness_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "king_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "baron_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "sovereign_cotc_custom_loc"
+	}
+	text = { localization_key = "baronier_cotc_custom_loc" }
+}
+MonarchyCounty = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "star_kingdom_cotc_custom_loc"
+	}
+	text = { localization_key = "county_cotc_custom_loc" }
+}
+MonarchyCountyPlural = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "star_kingdom_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "county_plural_cotc_custom_loc" }
+}
+MonarchyCountyAdj = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "star_kingdom_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "county_adj_cotc_custom_loc" }
+}
+MonarchyCountyRuler = {
+	type = character
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "queen_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "countess_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "king_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "count_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "sovereign_cotc_custom_loc"
+	}
+	text = { localization_key = "countier_cotc_custom_loc" }
+}
+MonarchyDuchy = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "star_kingdom_cotc_custom_loc"
+	}
+	text = { localization_key = "duchy_cotc_custom_loc" }
+}
+MonarchyDuchyPlural = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "star_kingdom_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "duchy_plural_cotc_custom_loc" }
+}
+MonarchyDuchyAdj = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "star_kingdom_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "duchy_adj_cotc_custom_loc" }
+}
+MonarchyDuchyRuler = {
+	type = character
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "queen_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "duchess_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "king_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "duke_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "sovereign_cotc_custom_loc"
+	}
+	text = { localization_key = "duchier_cotc_custom_loc" }
+}
+MonarchyKingdom = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "star_kingdom_cotc_custom_loc"
+	}
+	text = { localization_key = "kingdom_cotc_custom_loc" }
+}
+MonarchyKingdomPlural = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "star_kingdom_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "kingdom_plural_cotc_custom_loc" }
+}
+MonarchyKingdomAdj = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "star_kingdom_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "kingdom_adj_cotc_custom_loc" }
+}
+MonarchyKingdomRuler = {
+	type = character
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "queen_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "king_cotc_custom_loc"
+	}
+	text = { localization_key = "sovereign_cotc_custom_loc" }
+}
+MonarchyEmpire = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_empire
+			is_politically_autonomous = yes
+		}
+		localization_key = "star_empire_cotc_custom_loc"
+	}
+	text = { localization_key = "empire_cotc_custom_loc" }
+}
+MonarchyEmpirePlural = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_empire
+			is_politically_autonomous = yes
+		}
+		localization_key = "star_empire_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "empire_plural_cotc_custom_loc" }
+}
+MonarchyEmpireAdj = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_empire
+			is_politically_autonomous = yes
+		}
+		localization_key = "star_empire_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "empire_adj_cotc_custom_loc" }
+}
+MonarchyEmpireRuler = {
+	type = character
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_empire
+			is_politically_autonomous = yes
+		}
+		localization_key = "empress_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "high_lady_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_empire
+			is_politically_autonomous = yes
+		}
+		localization_key = "emperor_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "high_lord_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_empire
+			is_politically_autonomous = yes
+		}
+		localization_key = "emperier_cotc_custom_loc"
+	}
+	text = { localization_key = "high_leden_cotc_custom_loc" }
+}
+MonarchyHegemonyRuler = {
+	type = character
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "empress_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "emperor_cotc_custom_loc"
+	}
+	text = { localization_key = "emperier_cotc_custom_loc" }
+}
+MilitaryMeritocracyBarony = {
+	type = character
+	text = {
+		setup_scope = { save_scope_as = ruler }
+		trigger = {
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "state_cotc_custom_loc"
+	}
+	text = { localization_key = "garrison_cotc_custom_loc" }
+}
+MilitaryMeritocracyBaronyPlural = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "state_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "garrison_plural_cotc_custom_loc" }
+}
+MilitaryMeritocracyBaronyAdj = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "state_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "garrison_adj_cotc_custom_loc" }
+}
+MilitaryMeritocracyBaronyRuler = {
+	type = character
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "captain_general_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "rear_admiral_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "captain_general_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "rear_admiral_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "captain_general_enby_cotc_custom_loc"
+	}
+	text = { localization_key = "rear_admiral_enby_cotc_custom_loc" }
+}
+MilitaryMeritocracyCounty = {
+	type = character
+	text = {
+		setup_scope = { save_scope_as = ruler }
+		trigger = {
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "state_cotc_custom_loc"
+	}
+	text = { localization_key = "system_cotc_custom_loc" }
+}
+MilitaryMeritocracyCountyPlural = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "state_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "system_plural_cotc_custom_loc" }
+}
+MilitaryMeritocracyCountyAdj = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "state_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "system_adj_cotc_custom_loc" }
+}
+MilitaryMeritocracyCountyRuler = {
+	type = character
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "captain_general_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "admiral_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "captain_general_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "admiral_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "captain_general_enby_cotc_custom_loc"
+	}
+	text = { localization_key = "admiral_enby_cotc_custom_loc" }
+}
+MilitaryMeritocracyDuchy = {
+	type = character
+	text = {
+		setup_scope = { save_scope_as = ruler }
+		trigger = {
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "state_cotc_custom_loc"
+	}
+	text = { localization_key = "sector_cotc_custom_loc" }
+}
+MilitaryMeritocracyDuchyPlural = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "state_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "sector_plural_cotc_custom_loc" }
+}
+MilitaryMeritocracyDuchyAdj = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "state_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "sector_adj_cotc_custom_loc" }
+}
+MilitaryMeritocracyDuchyRuler = {
+	type = character
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "captain_general_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "fleet_admiral_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "captain_general_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "fleet_admiral_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "captain_general_enby_cotc_custom_loc"
+	}
+	text = { localization_key = "fleet_admiral_enby_cotc_custom_loc" }
+}
+MilitaryMeritocracyKingdom = {
+	type = character
+	text = {
+		setup_scope = { save_scope_as = ruler }
+		trigger = {
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "state_cotc_custom_loc"
+	}
+	text = { localization_key = "oversector_cotc_custom_loc" }
+}
+MilitaryMeritocracyKingdomPlural = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "state_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "oversector_plural_cotc_custom_loc" }
+}
+MilitaryMeritocracyKingdomAdj = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "state_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "oversector_adj_cotc_custom_loc" }
+}
+MilitaryMeritocracyKingdomRuler = {
+	type = character
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "captain_general_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "grand_admiral_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "captain_general_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "grand_admiral_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "captain_general_enby_cotc_custom_loc"
+	}
+	text = { localization_key = "grand_admiral_enby_cotc_custom_loc" }
+}
+MilitaryMeritocracyEmpire = {
+	type = character
+	text = {
+		setup_scope = { save_scope_as = ruler }
+		trigger = {
+			highest_held_title_tier = tier_empire
+			is_politically_autonomous = yes
+		}
+		localization_key = "state_cotc_custom_loc"
+	}
+	text = { localization_key = "strategic_command_cotc_custom_loc" }
+}
+MilitaryMeritocracyEmpirePlural = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_empire
+			is_politically_autonomous = yes
+		}
+		localization_key = "state_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "strategic_command_plural_cotc_custom_loc" }
+}
+MilitaryMeritocracyEmpireAdj = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_empire
+			is_politically_autonomous = yes
+		}
+		localization_key = "state_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "strategic_command_adj_cotc_custom_loc" }
+}
+MilitaryMeritocracyEmpireRuler = {
+	type = character
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_empire
+			is_politically_autonomous = yes
+		}
+		localization_key = "captain_general_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "star_marshal_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_empire
+			is_politically_autonomous = yes
+		}
+		localization_key = "captain_general_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "star_marshal_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_empire
+			is_politically_autonomous = yes
+		}
+		localization_key = "captain_general_enby_cotc_custom_loc"
+	}
+	text = { localization_key = "star_marshal_enby_cotc_custom_loc" }
+}
+MilitaryMeritocracyHegemony = {
+	type = character
+	text = {
+		setup_scope = { save_scope_as = ruler }
+		localization_key = "state_cotc_custom_loc"
+	}
+}
+MilitaryMeritocracyHegemonyRuler = {
+	type = character
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "captain_general_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "captain_general_male_cotc_custom_loc"
+	}
+	text = { localization_key = "captain_general_enby_cotc_custom_loc" }
+}
+TechnocraticMeritocracyBarony = {
+	type = character
+	text = {
+		setup_scope = { save_scope_as = ruler }
+		trigger = {
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "state_cotc_custom_loc"
+	}
+	text = { localization_key = "magistracy_cotc_custom_loc" }
+}
+TechnocraticMeritocracyBaronyPlural = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "state_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "magistracy_plural_cotc_custom_loc" }
+}
+TechnocraticMeritocracyBaronyAdj = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "state_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "magistracy_adj_cotc_custom_loc" }
+}
+TechnocraticMeritocracyBaronyRuler = {
+	type = character
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "director_general_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "magistrate_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "director_general_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "magistrate_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "director_general_enby_cotc_custom_loc"
+	}
+	text = { localization_key = "magistrate_enby_cotc_custom_loc" }
+}
+TechnocraticMeritocracyCounty = {
+	type = character
+	text = {
+		setup_scope = { save_scope_as = ruler }
+		trigger = {
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "state_cotc_custom_loc"
+	}
+	text = { localization_key = "commission_cotc_custom_loc" }
+}
+TechnocraticMeritocracyCountyPlural = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "state_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "commission_plural_cotc_custom_loc" }
+}
+TechnocraticMeritocracyCountyAdj = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "state_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "commission_adj_cotc_custom_loc" }
+}
+TechnocraticMeritocracyCountyRuler = {
+	type = character
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "director_general_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "commissioner_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "director_general_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "commissioner_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "director_general_enby_cotc_custom_loc"
+	}
+	text = { localization_key = "commissioner_enby_cotc_custom_loc" }
+}
+TechnocraticMeritocracyDuchy = {
+	type = character
+	text = {
+		setup_scope = { save_scope_as = ruler }
+		trigger = {
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "state_cotc_custom_loc"
+	}
+	text = { localization_key = "high_commission_cotc_custom_loc" }
+}
+TechnocraticMeritocracyDuchyPlural = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "state_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "high_commission_plural_cotc_custom_loc" }
+}
+TechnocraticMeritocracyDuchyAdj = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "state_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "high_commission_adj_cotc_custom_loc" }
+}
+TechnocraticMeritocracyDuchyRuler = {
+	type = character
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "director_general_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "high_commissioner_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "director_general_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "high_commissioner_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "director_general_enby_cotc_custom_loc"
+	}
+	text = { localization_key = "high_commissioner_enby_cotc_custom_loc" }
+}
+TechnocraticMeritocracyKingdom = {
+	type = character
+	text = {
+		setup_scope = { save_scope_as = ruler }
+		trigger = {
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "state_cotc_custom_loc"
+	}
+	text = { localization_key = "secretariat_cotc_custom_loc" }
+}
+TechnocraticMeritocracyKingdomPlural = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "state_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "secretariat_plural_cotc_custom_loc" }
+}
+TechnocraticMeritocracyKingdomAdj = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "state_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "secretariat_adj_cotc_custom_loc" }
+}
+TechnocraticMeritocracyKingdomRuler = {
+	type = character
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "director_general_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "secretary_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "director_general_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "secretary_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "director_general_enby_cotc_custom_loc"
+	}
+	text = { localization_key = "secretary_enby_cotc_custom_loc" }
+}
+TechnocraticMeritocracyEmpire = {
+	type = character
+	text = {
+		setup_scope = { save_scope_as = ruler }
+		trigger = {
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "directorate_cotc_custom_loc"
+	}
+	text = { localization_key = "subdirectorate_cotc_custom_loc" }
+}
+TechnocraticMeritocracyEmpirePlural = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "directorate_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "subdirectorate_plural_cotc_custom_loc" }
+}
+TechnocraticMeritocracyEmpireAdj = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "directorate_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "subdirectorate_adj_cotc_custom_loc" }
+}
+TechnocraticMeritocracyEmpireRuler = {
+	type = character
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_empire
+			is_politically_autonomous = yes
+		}
+		localization_key = "director_general_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "director_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_empire
+			is_politically_autonomous = yes
+		}
+		localization_key = "director_general_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "director_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_empire
+			is_politically_autonomous = yes
+		}
+		localization_key = "director_general_enby_cotc_custom_loc"
+	}
+	text = { localization_key = "director_enby_cotc_custom_loc" }
+}
+TechnocraticMeritocracyHegemony = {
+	type = character
+	text = {
+		setup_scope = { save_scope_as = ruler }
+		localization_key = "directorate_cotc_custom_loc"
+	}
+}
+TechnocraticMeritocracyHegemonyRuler = {
+	type = character
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "director_general_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "director_general_male_cotc_custom_loc"
+	}
+	text = { localization_key = "director_general_enby_cotc_custom_loc" }
+}
+TheocraticMeritocracyBarony = {
+	type = character
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = { exists = relevant_ideology }
+		localization_key = "shrine_world_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		localization_key = "shrine_world_cotc_custom_loc"
+	}
+}
+TheocraticMeritocracyBaronyPlural = {
+	type = character
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = { exists = relevant_ideology }
+		localization_key = "shrine_world_plural_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		localization_key = "shrine_world_plural_cotc_custom_loc"
+	}
+}
+TheocraticMeritocracyBaronyAdj = {
+	type = character
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = { exists = relevant_ideology }
+		localization_key = "shrine_world_adj_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		localization_key = "shrine_world_adj_cotc_custom_loc"
+	}
+}
+TheocraticMeritocracyBaronyRuler = {
+	type = character
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = {
+			is_female_cotc = yes
+			exists = relevant_ideology
+		}
+		localization_key = "priest_female_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = {
+			is_male_cotc = yes
+			exists = relevant_ideology
+		}
+		localization_key = "priest_male_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = { exists = relevant_ideology }
+		localization_key = "priest_enby_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		trigger = { is_female_cotc = yes }
+		localization_key = "priest_female_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		trigger = { is_male_cotc = yes }
+		localization_key = "priest_male_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		localization_key = "priest_enby_cotc_custom_loc"
+	}
+}
+TheocraticMeritocracyCounty = {
+	type = character
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = { exists = relevant_ideology }
+		localization_key = "theocratic_county_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		localization_key = "theocratic_county_cotc_custom_loc"
+	}
+}
+TheocraticMeritocracyCountyPlural = {
+	type = character
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = { exists = relevant_ideology }
+		localization_key = "theocratic_county_plural_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		localization_key = "theocratic_county_plural_cotc_custom_loc"
+	}
+}
+TheocraticMeritocracyCountyAdj = {
+	type = character
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = { exists = relevant_ideology }
+		localization_key = "theocratic_county_adj_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		localization_key = "theocratic_county_adj_cotc_custom_loc"
+	}
+}
+TheocraticMeritocracyCountyRuler = {
+	type = character
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = {
+			is_female_cotc = yes
+			exists = relevant_ideology
+		}
+		localization_key = "theocratic_county_ruler_female_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = {
+			is_male_cotc = yes
+			exists = relevant_ideology
+		}
+		localization_key = "theocratic_county_ruler_male_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = { exists = relevant_ideology }
+		localization_key = "theocratic_county_ruler_enby_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		trigger = { is_female_cotc = yes }
+		localization_key = "theocratic_county_ruler_female_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		trigger = { is_male_cotc = yes }
+		localization_key = "theocratic_county_ruler_male_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		localization_key = "theocratic_county_ruler_enby_cotc_custom_loc"
+	}
+}
+TheocraticCountyByFaith = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_christian_faith }
+		localization_key = "prince_bishopric_cotc_custom_loc"
+	}
+	text = { localization_key = "system_cotc_custom_loc" }
+}
+TheocraticCountyPluralByFaith = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_christian_faith }
+		localization_key = "prince_bishopric_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "system_plural_cotc_custom_loc" }
+}
+TheocraticCountyAdjByFaith = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_christian_faith }
+		localization_key = "prince_bishopric_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "system_adj_cotc_custom_loc" }
+}
+TheocraticCountyRulerFemale = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_christian_faith }
+		localization_key = "princess_bishop_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = relevant_ideology }
+		localization_key = "bishop_female_cotc_custom_loc"
+	}
+}
+TheocraticCountyRulerMale = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_christian_faith }
+		localization_key = "prince_bishop_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = relevant_ideology }
+		localization_key = "bishop_male_cotc_custom_loc"
+	}
+}
+TheocraticCountyRulerEnby = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_christian_faith }
+		localization_key = "princepier_bishop_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = relevant_ideology }
+		localization_key = "bishop_neuter_cotc_custom_loc"
+	}
+}
+TheocraticMeritocracyDuchy = {
+	type = character
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = { exists = relevant_ideology }
+		localization_key = "theocratic_duchy_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		localization_key = "theocratic_duchy_cotc_custom_loc"
+	}
+}
+TheocraticMeritocracyDuchyPlural = {
+	type = character
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = { exists = relevant_ideology }
+		localization_key = "theocratic_duchy_plural_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		localization_key = "theocratic_duchy_plural_cotc_custom_loc"
+	}
+}
+TheocraticMeritocracyDuchyAdj = {
+	type = character
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = { exists = relevant_ideology }
+		localization_key = "theocratic_duchy_adj_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		localization_key = "theocratic_duchy_adj_cotc_custom_loc"
+	}
+}
+TheocraticMeritocracyDuchyRuler = {
+	type = character
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = {
+			is_female_cotc = yes
+			exists = relevant_ideology
+		}
+		localization_key = "theocratic_duchy_ruler_female_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = {
+			is_male_cotc = yes
+			exists = relevant_ideology
+		}
+		localization_key = "theocratic_duchy_ruler_male_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = { exists = relevant_ideology }
+		localization_key = "theocratic_duchy_ruler_enby_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		trigger = { is_female_cotc = yes }
+		localization_key = "theocratic_duchy_ruler_female_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		trigger = { is_male_cotc = yes }
+		localization_key = "theocratic_duchy_ruler_male_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		localization_key = "theocratic_duchy_ruler_enby_cotc_custom_loc"
+	}
+}
+TheocraticDuchyByFaith = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_christian_faith }
+		localization_key = "prince_archbishopric_cotc_custom_loc"
+	}
+	text = { localization_key = "sector_cotc_custom_loc" }
+}
+TheocraticDuchyPluralByFaith = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_christian_faith }
+		localization_key = "prince_archbishopric_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "sector_plural_cotc_custom_loc" }
+}
+TheocraticDuchyAdjByFaith = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_christian_faith }
+		localization_key = "prince_archbishopric_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "sector_adj_cotc_custom_loc" }
+}
+TheocraticDuchyRulerFemale = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_christian_faith }
+		localization_key = "princess_archbishop_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = relevant_ideology }
+		localization_key = "high_priest_female_cotc_custom_loc"
+	}
+}
+TheocraticDuchyRulerMale = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_christian_faith }
+		localization_key = "prince_archbishop_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = relevant_ideology }
+		localization_key = "high_priest_male_cotc_custom_loc"
+	}
+}
+TheocraticDuchyRulerEnby = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_christian_faith }
+		localization_key = "principier_archbishop_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { save_scope_as = relevant_ideology }
+		localization_key = "high_priest_neuter_cotc_custom_loc"
+	}
+}
+TheocraticMeritocracyKingdom = {
+	type = character
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = { exists = relevant_ideology }
+		localization_key = "theocratic_kingdom_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		localization_key = "theocratic_kingdom_cotc_custom_loc"
+	}
+}
+TheocraticMeritocracyKingdomPlural = {
+	type = character
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = { exists = relevant_ideology }
+		localization_key = "theocratic_kingdom_plural_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		localization_key = "theocratic_kingdom_plural_cotc_custom_loc"
+	}
+}
+TheocraticMeritocracyKingdomAdj = {
+	type = character
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = { exists = relevant_ideology }
+		localization_key = "theocratic_kingdom_adj_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		localization_key = "theocratic_kingdom_adj_cotc_custom_loc"
+	}
+}
+TheocraticMeritocracyKingdomRuler = {
+	type = character
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = {
+			is_female_cotc = yes
+			exists = relevant_ideology
+		}
+		localization_key = "theocratic_kingdom_ruler_female_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = {
+			is_male_cotc = yes
+			exists = relevant_ideology
+		}
+		localization_key = "theocratic_kingdom_ruler_male_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = { exists = relevant_ideology }
+		localization_key = "theocratic_kingdom_ruler_enby_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		trigger = { is_female_cotc = yes }
+		localization_key = "theocratic_kingdom_ruler_female_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		trigger = { is_male_cotc = yes }
+		localization_key = "theocratic_kingdom_ruler_male_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		localization_key = "theocratic_kingdom_ruler_enby_cotc_custom_loc"
+	}
+}
+TheocraticKingdomByFaith = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_islamic_faith }
+		localization_key = "caliphate_cotc_custom_loc"
+	}
+	text = {
+		trigger = { has_doctrine = doctrine_gender_male_dominated }
+		localization_key = "patriarchate_cotc_custom_loc"
+	}
+	text = {
+		trigger = { has_doctrine = doctrine_gender_female_dominated }
+		localization_key = "matriarchate_cotc_custom_loc"
+	}
+	text = { localization_key = "genitarchate_cotc_custom_loc" }
+}
+TheocraticKingdomPluralByFaith = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_islamic_faith }
+		localization_key = "caliphate_plural_cotc_custom_loc"
+	}
+	text = {
+		trigger = { has_doctrine = doctrine_gender_male_dominated }
+		localization_key = "patriarchate_plural_cotc_custom_loc"
+	}
+	text = {
+		trigger = { has_doctrine = doctrine_gender_female_dominated }
+		localization_key = "matriarchate_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "genitarchate_plural_cotc_custom_loc" }
+}
+TheocraticKingdomAdjByFaith = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_islamic_faith }
+		localization_key = "caliphate_adj_cotc_custom_loc"
+	}
+	text = {
+		trigger = { has_doctrine = doctrine_gender_male_dominated }
+		localization_key = "patriarchate_adj_cotc_custom_loc"
+	}
+	text = {
+		trigger = { has_doctrine = doctrine_gender_female_dominated }
+		localization_key = "matriarchate_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "genitarchate_adj_cotc_custom_loc" }
+}
+TheocraticKingdomRulerFemale = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_islamic_faith }
+		localization_key = "calipha_cotc_custom_loc"
+	}
+	text = {
+		trigger = { NOT = { has_doctrine = doctrine_gender_equal } }
+		localization_key = "matriarch_cotc_custom_loc"
+	}
+	text = { localization_key = "genitarch_cotc_custom_loc" }
+}
+TheocraticKingdomRulerMale = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_islamic_faith }
+		localization_key = "caliph_cotc_custom_loc"
+	}
+	text = {
+		trigger = { NOT = { has_doctrine = doctrine_gender_equal } }
+		localization_key = "patriarch_cotc_custom_loc"
+	}
+	text = { localization_key = "genitarch_cotc_custom_loc" }
+}
+TheocraticKingdomRulerEnby = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_islamic_faith }
+		localization_key = "caliph_cotc_custom_loc"
+	}
+	text = { localization_key = "genitarch_cotc_custom_loc" }
+}
+TheocraticMeritocracyEmpire = {
+	type = character
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = { exists = relevant_ideology }
+		localization_key = "theocratic_empire_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		localization_key = "theocratic_empire_cotc_custom_loc"
+	}
+}
+TheocraticMeritocracyEmpirePlural = {
+	type = character
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = { exists = relevant_ideology }
+		localization_key = "theocratic_empire_plural_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		localization_key = "theocratic_empire_plural_cotc_custom_loc"
+	}
+}
+TheocraticMeritocracyEmpireAdj = {
+	type = character
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = { exists = relevant_ideology }
+		localization_key = "theocratic_empire_adj_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		localization_key = "theocratic_empire_adj_cotc_custom_loc"
+	}
+}
+TheocraticMeritocracyEmpireRuler = {
+	type = character
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = {
+			is_female_cotc = yes
+			exists = relevant_ideology
+		}
+		localization_key = "theocratic_empire_ruler_female_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = {
+			is_male_cotc = yes
+			exists = relevant_ideology
+		}
+		localization_key = "theocratic_empire_ruler_male_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = { exists = relevant_ideology }
+		localization_key = "theocratic_empire_ruler_enby_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		trigger = { is_female_cotc = yes }
+		localization_key = "theocratic_empire_ruler_female_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		trigger = { is_male_cotc = yes }
+		localization_key = "theocratic_empire_ruler_male_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		localization_key = "theocratic_empire_ruler_enby_cotc_custom_loc"
+	}
+}
+TheocraticEmpireByFaith = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_islamic_faith }
+		localization_key = "grand_caliphate_cotc_custom_loc"
+	}
+	text = {
+		trigger = { has_doctrine = doctrine_gender_male_dominated }
+		localization_key = "grand_patriarchate_cotc_custom_loc"
+	}
+	text = {
+		trigger = { has_doctrine = doctrine_gender_female_dominated }
+		localization_key = "grand_matriarchate_cotc_custom_loc"
+	}
+	text = { localization_key = "grand_genitarchate_cotc_custom_loc" }
+}
+TheocraticEmpirePluralByFaith = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_islamic_faith }
+		localization_key = "grand_caliphate_plural_cotc_custom_loc"
+	}
+	text = {
+		trigger = { has_doctrine = doctrine_gender_male_dominated }
+		localization_key = "grand_patriarchate_plural_cotc_custom_loc"
+	}
+	text = {
+		trigger = { has_doctrine = doctrine_gender_female_dominated }
+		localization_key = "grand_matriarchate_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "grand_genitarchate_plural_cotc_custom_loc" }
+}
+TheocraticEmpireAdjByFaith = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_islamic_faith }
+		localization_key = "grand_caliphate_adj_cotc_custom_loc"
+	}
+	text = {
+		trigger = { has_doctrine = doctrine_gender_male_dominated }
+		localization_key = "grand_patriarchate_adj_cotc_custom_loc"
+	}
+	text = {
+		trigger = { has_doctrine = doctrine_gender_female_dominated }
+		localization_key = "grand_matriarchate_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "grand_genitarchate_adj_cotc_custom_loc" }
+}
+TheocraticEmpireRulerFemale = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_islamic_faith }
+		localization_key = "grand_calipha_cotc_custom_loc"
+	}
+	text = {
+		trigger = { NOT = { has_doctrine = doctrine_gender_equal } }
+		localization_key = "grand_matriarch_cotc_custom_loc"
+	}
+	text = { localization_key = "grand_genitarch_cotc_custom_loc" }
+}
+TheocraticEmpireRulerMale = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_islamic_faith }
+		localization_key = "grand_caliph_cotc_custom_loc"
+	}
+	text = {
+		trigger = { NOT = { has_doctrine = doctrine_gender_equal } }
+		localization_key = "grand_patriarch_cotc_custom_loc"
+	}
+	text = { localization_key = "grand_genitarch_cotc_custom_loc" }
+}
+TheocraticEmpireRulerEnby = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_islamic_faith }
+		localization_key = "grand_caliph_cotc_custom_loc"
+	}
+	text = { localization_key = "grand_genitarch_cotc_custom_loc" }
+}
+TheocraticMeritocracyHegemony = {
+	type = character
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = { exists = relevant_ideology }
+		localization_key = "theocratic_hegemony_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		localization_key = "theocratic_hegemony_cotc_custom_loc"
+	}
+}
+TheocraticMeritocracyHegemonyPlural = {
+	type = character
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = { exists = relevant_ideology }
+		localization_key = "theocratic_hegemony_plural_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		localization_key = "theocratic_hegemony_plural_cotc_custom_loc"
+	}
+}
+TheocraticMeritocracyHegemonyAdj = {
+	type = character
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = { exists = relevant_ideology }
+		localization_key = "theocratic_hegemony_adj_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		localization_key = "theocratic_hegemony_adj_cotc_custom_loc"
+	}
+}
+TheocraticMeritocracyHegemonyRuler = {
+	type = character
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = {
+			is_female_cotc = yes
+			exists = relevant_ideology
+		}
+		localization_key = "theocratic_hegemony_ruler_female_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = {
+			is_male_cotc = yes
+			exists = relevant_ideology
+		}
+		localization_key = "theocratic_hegemony_ruler_male_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
+		trigger = { exists = relevant_ideology }
+		localization_key = "theocratic_hegemony_ruler_enby_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		trigger = { is_female_cotc = yes }
+		localization_key = "theocratic_hegemony_ruler_female_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		trigger = { is_male_cotc = yes }
+		localization_key = "theocratic_hegemony_ruler_male_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { faith ?= { save_scope_as = relevant_ideology } }
+		localization_key = "theocratic_hegemony_ruler_enby_cotc_custom_loc"
+	}
+}
+TheocraticHegemonyByFaith = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_islamic_faith }
+		localization_key = "supreme_caliphate_cotc_custom_loc"
+	}
+	text = {
+		trigger = { has_doctrine = doctrine_gender_male_dominated }
+		localization_key = "supreme_patriarchate_cotc_custom_loc"
+	}
+	text = {
+		trigger = { has_doctrine = doctrine_gender_female_dominated }
+		localization_key = "supreme_matriarchate_cotc_custom_loc"
+	}
+	text = { localization_key = "supreme_genitarchate_cotc_custom_loc" }
+}
+TheocraticHegemonyPluralByFaith = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_islamic_faith }
+		localization_key = "supreme_caliphate_plural_cotc_custom_loc"
+	}
+	text = {
+		trigger = { has_doctrine = doctrine_gender_male_dominated }
+		localization_key = "supreme_patriarchate_plural_cotc_custom_loc"
+	}
+	text = {
+		trigger = { has_doctrine = doctrine_gender_female_dominated }
+		localization_key = "supreme_matriarchate_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "supreme_genitarchate_plural_cotc_custom_loc" }
+}
+TheocraticHegemonyAdjByFaith = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_islamic_faith }
+		localization_key = "supreme_caliphate_adj_cotc_custom_loc"
+	}
+	text = {
+		trigger = { has_doctrine = doctrine_gender_male_dominated }
+		localization_key = "supreme_patriarchate_adj_cotc_custom_loc"
+	}
+	text = {
+		trigger = { has_doctrine = doctrine_gender_female_dominated }
+		localization_key = "supreme_matriarchate_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "supreme_genitarchate_adj_cotc_custom_loc" }
+}
+TheocraticHegemonyRulerFemale = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_islamic_faith }
+		localization_key = "supreme_calipha_cotc_custom_loc"
+	}
+	text = {
+		trigger = { NOT = { has_doctrine = doctrine_gender_equal } }
+		localization_key = "supreme_matriarch_cotc_custom_loc"
+	}
+	text = { localization_key = "supreme_genitarch_cotc_custom_loc" }
+}
+TheocraticHegemonyRulerMale = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_islamic_faith }
+		localization_key = "supreme_caliph_cotc_custom_loc"
+	}
+	text = {
+		trigger = { NOT = { has_doctrine = doctrine_gender_equal } }
+		localization_key = "supreme_patriarch_cotc_custom_loc"
+	}
+	text = { localization_key = "supreme_genitarch_cotc_custom_loc" }
+}
+TheocraticHegemonyRulerEnby = {
+	type = faith
+	text = {
+		trigger = { has_doctrine = special_doctrine_is_islamic_faith }
+		localization_key = "supreme_caliph_cotc_custom_loc"
+	}
+	text = { localization_key = "supreme_genitarch_cotc_custom_loc" }
+}
+
+StateIdeologyPrefix = {
+	type = character
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = state_ideology } } }
+		trigger = { scope:state_ideology ?= { religion_tag = socialism_ideology } }
+		localization_key = "peoples_prefix_cotc_custom_loc"
+	}
+	text = {
+		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = state_ideology } } }
+		trigger = { scope:state_ideology ?= { has_doctrine = religious_hostility_doctrine } }
+		localization_key = "religious_prefix_cotc_custom_loc"
+	}
+	text = { localization_key = "blank_custom_loc" }
+}
+
+PirateMonarchyBarony = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_barony
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_dominion_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "pirate_kingdom_cotc_custom_loc"
+	}
+	text = { localization_key = "pirate_haven_cotc_custom_loc" }
+}
+PirateMonarchyBaronyPlural = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_barony
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_dominion_plural_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "pirate_kingdom_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "pirate_haven_plural_cotc_custom_loc" }
+}
+PirateMonarchyBaronyAdj = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_barony
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_dominion_adj_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "pirate_kingdom_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "pirate_haven_adj_cotc_custom_loc" }
+}
+PirateMonarchyBaronyRuler = {
+	type = character
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_barony
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_lady_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "pirate_queen_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "captain_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_barony
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_lord_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "pirate_king_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "captain_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "pirate_leden_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_barony
+			is_politically_autonomous = yes
+		}
+		localization_key = "pirate_sovereign_cotc_custom_loc"
+	}
+	text = { localization_key = "captain_enby_cotc_custom_loc" }
+}
+PirateMonarchyCounty = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_county
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_dominion_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "pirate_kingdom_cotc_custom_loc"
+	}
+	text = { localization_key = "system_cotc_custom_loc" }
+}
+PirateMonarchyCountyPlural = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_county
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_dominion_plural_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "pirate_kingdom_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "system_plural_cotc_custom_loc" }
+}
+PirateMonarchyCountyAdj = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_county
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_dominion_adj_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "pirate_kingdom_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "system_adj_cotc_custom_loc" }
+}
+PirateMonarchyCountyRuler = {
+	type = character
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_county
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_lady_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "pirate_queen_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "admiral_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_county
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_lord_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "pirate_king_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "admiral_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_county
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_leden_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_county
+			is_politically_autonomous = yes
+		}
+		localization_key = "pirate_sovereign_cotc_custom_loc"
+	}
+	text = { localization_key = "admiral_enby_cotc_custom_loc" }
+}
+PirateMonarchyDuchy = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_duchy
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_dominion_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "pirate_kingdom_cotc_custom_loc"
+	}
+	text = { localization_key = "sector_cotc_custom_loc" }
+}
+PirateMonarchyDuchyPlural = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_duchy
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_dominion_plural_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "pirate_kingdom_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "sector_plural_cotc_custom_loc" }
+}
+PirateMonarchyDuchyAdj = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_duchy
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_dominion_adj_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "pirate_kingdom_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "sector_adj_cotc_custom_loc" }
+}
+PirateMonarchyDuchyRuler = {
+	type = character
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_duchy
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_lady_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "pirate_queen_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "fleet_admiral_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_duchy
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_lord_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "pirate_king_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "fleet_admiral_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_duchy
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_leden_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_duchy
+			is_politically_autonomous = yes
+		}
+		localization_key = "pirate_sovereign_cotc_custom_loc"
+	}
+	text = { localization_key = "fleet_admiral_enby_cotc_custom_loc" }
+}
+PirateMonarchyKingdom = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_kingdom
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_dominion_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "pirate_kingdom_cotc_custom_loc"
+	}
+	text = { localization_key = "oversector_cotc_custom_loc" }
+}
+PirateMonarchyKingdomPlural = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_kingdom
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_dominion_plural_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "pirate_kingdom_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "oversector_plural_cotc_custom_loc" }
+}
+PirateMonarchyKingdomAdj = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_kingdom
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_dominion_adj_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "pirate_kingdom_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "oversector_adj_cotc_custom_loc" }
+}
+PirateMonarchyKingdomRuler = {
+	type = character
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_kingdom
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_lady_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "pirate_queen_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "grand_admiral_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_kingdom
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_lord_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "pirate_king_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "grand_admiral_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_kingdom
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_leden_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_kingdom
+			is_politically_autonomous = yes
+		}
+		localization_key = "pirate_sovereign_cotc_custom_loc"
+	}
+	text = { localization_key = "grand_admiral_enby_cotc_custom_loc" }
+}
+PirateMonarchyEmpire = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_empire
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_kingdom_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_empire
+			NOT = { subject_contract_has_flag = tributary_pirate_kingdom }
+		}
+		localization_key = "shadow_empire_cotc_custom_loc"
+	}
+	text = { localization_key = "pirate_kingdom_cotc_custom_loc" }
+}
+PirateMonarchyEmpirePlural = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_empire
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_kingdom_plural_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_empire
+			NOT = { subject_contract_has_flag = tributary_pirate_kingdom }
+		}
+		localization_key = "shadow_empire_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "pirate_kingdom_plural_cotc_custom_loc" }
+}
+PirateMonarchyEmpireAdj = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_empire
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_kingdom_adj_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_empire
+			NOT = { subject_contract_has_flag = tributary_pirate_kingdom }
+		}
+		localization_key = "shadow_empire_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "pirate_kingdom_adj_cotc_custom_loc" }
+}
+PirateMonarchyEmpireRuler = {
+	type = character
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_empire
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_princess_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_empire
+			is_politically_autonomous = yes
+		}
+		localization_key = "shadow_empress_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "pirate_princess_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_empire
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_prince_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_empire
+			is_politically_autonomous = yes
+		}
+		localization_key = "shadow_emperor_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "pirate_prince_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_empire
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_principier_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_empire
+			is_politically_autonomous = yes
+		}
+		localization_key = "shadow_emperier_cotc_custom_loc"
+	}
+	text = { localization_key = "pirate_principier_cotc_custom_loc" }
+}
+PirateMonarchyHegemony = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_hegemony
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_dominion_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_hegemony
+			NOT = { subject_contract_has_flag = tributary_pirate_kingdom }
+		}
+		localization_key = "shadow_empire_cotc_custom_loc"
+	}
+	text = { localization_key = "pirate_dominion_cotc_custom_loc" }
+}
+PirateMonarchyHegemonyPlural = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_hegemony
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_dominion_plural_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_hegemony
+			NOT = { subject_contract_has_flag = tributary_pirate_kingdom }
+		}
+		localization_key = "shadow_empire_plural_cotc_custom_loc"
+	}
+	text = { localization_key = "pirate_dominion_plural_cotc_custom_loc" }
+}
+PirateMonarchyHegemonyAdj = {
+	type = character
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_hegemony
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_dominion_adj_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_hegemony
+			NOT = { subject_contract_has_flag = tributary_pirate_kingdom }
+		}
+		localization_key = "shadow_empire_adj_cotc_custom_loc"
+	}
+	text = { localization_key = "pirate_dominion_adj_cotc_custom_loc" }
+}
+PirateMonarchyHegemonyRuler = {
+	type = character
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_hegemony
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_queen_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_female_cotc = yes
+			highest_held_title_tier = tier_hegemony
+			is_politically_autonomous = yes
+		}
+		localization_key = "shadow_empress_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_female_cotc = yes }
+		localization_key = "pirate_queen_female_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_hegemony
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_king_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			is_male_cotc = yes
+			highest_held_title_tier = tier_hegemony
+			is_politically_autonomous = yes
+		}
+		localization_key = "shadow_emperor_cotc_custom_loc"
+	}
+	text = {
+		trigger = { is_male_cotc = yes }
+		localization_key = "pirate_king_male_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_hegemony
+			subject_contract_has_flag = tributary_pirate_dominion
+		}
+		localization_key = "pirate_sovereign_cotc_custom_loc"
+	}
+	text = {
+		trigger = {
+			highest_held_title_tier = tier_hegemony
+			is_politically_autonomous = yes
+		}
+		localization_key = "shadow_emperier_cotc_custom_loc"
+	}
+	text = { localization_key = "pirate_sovereign_enby_cotc_custom_loc" }
+}
+
+# This should return an adjectival form of whatever the flavorization of the title's tier is
 GetTierAdjective = {
 	type = landed_title
 	text = {
 		trigger = {
 			holder = {
 				government_has_flag = government_is_democratic
-				is_independent_ruler = yes
+				is_politically_autonomous = yes
 			}
 		}
 		localization_key = "republic_independent_adj"

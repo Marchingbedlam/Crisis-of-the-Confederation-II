@@ -1327,9 +1327,7 @@ border_wars_laws = {
 	    	#Small realm size
 	    	sub_realm_size < border_war_sized_realm_value
 	    	#Not an antagonitsic house
-	    	house ?= {
-	    		NOT = { has_house_unity_stage = antagonistic }
-	    	}
+	    	house ?= { NOT = { has_house_unity_stage = antagonistic } }
 	    	#Not defending in any civil wars
 	    	NOT = {
 	    		any_character_war = {
@@ -1341,9 +1339,7 @@ border_wars_laws = {
 
 	    modifier = { can_vassals_be_attacked = no }
 
-		ai_will_do = {
-			value = 0
-		}
+		ai_will_do = { value = 0 }
 	}
 
 	top_liege_not_redirected_to_border_wars_law = {
@@ -1362,9 +1358,7 @@ border_wars_laws = {
 			    	#any large realm
 			    	sub_realm_size >= border_war_sized_realm_value
 			    	#antagonistic houses
-			    	house ?= {
-			    		has_house_unity_stage = antagonistic
-			    	}
+			    	house ?= { has_house_unity_stage = antagonistic }
 			    	#defending in a civil war
 		    		any_character_war = {
 		    			primary_defender = root
@@ -1381,9 +1375,7 @@ border_wars_laws = {
 		    	#any large realm
 		    	sub_realm_size >= border_war_sized_realm_value
 		    	#antagonistic houses
-		    	house ?= {
-		    		has_house_unity_stage = antagonistic
-		    	}
+		    	house ?= { has_house_unity_stage = antagonistic }
 		    	#defending in a civil war
 	    		any_character_war = {
 	    			primary_defender = root
@@ -1394,9 +1386,7 @@ border_wars_laws = {
 
 		modifier = { can_vassals_be_attacked = yes }
 
-		ai_will_do = {
-			value = 0
-		}
+		ai_will_do = { value = 0 }
 	}
 }
 

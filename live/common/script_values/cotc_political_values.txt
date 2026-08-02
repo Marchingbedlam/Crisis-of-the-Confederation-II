@@ -15,7 +15,7 @@ title_political_support = {
 			every_county_province = {
 				limit = {
 					faith = scope:temp_candidate.faith
-					province_owner = { target_is_same_character_or_above = scope:title.holder }
+					province_owner ?= { target_is_same_character_or_above = scope:title.holder }
 				}
 				add = holding_population
 			}
@@ -131,7 +131,14 @@ county_election_score = { # Returns scope:temp_candidate's popularity in the sco
 			}
 		}
 		if = {
-			limit = { scope:temp_faith = { has_doctrine = doctrine_administrative_power } }
+			limit = {
+				scope:temp_faith = {
+					OR = {
+						has_doctrine = doctrine_technocratic_power
+						has_doctrine = doctrine_theocratic_power
+					}
+				}
+			}
 			add = {
 				value = learning
 				subtract = 10

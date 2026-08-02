@@ -49,6 +49,36 @@ GetBestName = { # Gives us the name of a character and also their highest politi
 		localization_key = "[custom_loc_character.Custom('GetFullPersonalName')]"
 	}
 }
+GetBestNameNoState = { # The same, but exclude the name of the title itself
+	type = character
+	text = {
+		setup_scope = { save_scope_as = custom_loc_character }
+		trigger = { is_diarch = yes }
+		localization_key = title_diarch_no_state_custom_loc
+	}
+	text = {
+		setup_scope = { save_scope_as = custom_loc_character }
+		trigger = { is_landed = yes }
+		localization_key = title_ruler_no_state_custom_loc
+	}
+	text = {
+		setup_scope = { save_scope_as = custom_loc_character }
+		trigger = { is_councillor = yes }
+		localization_key = title_councillor_no_state_custom_loc
+	}
+	text = {
+		setup_scope = {
+			save_scope_as = custom_loc_character
+			var:legislature ?= { save_scope_as = custom_loc_legislature }
+			var:riding ?= { save_scope_as = custom_loc_riding }
+		}
+		localization_key = title_legislator_no_riding_custom_loc
+	}
+	text = {
+		setup_scope = { save_scope_as = custom_loc_character }
+		localization_key = "[custom_loc_character.Custom('GetFullPersonalName')]"
+	}
+}
 GetSpousesDesc = { # A brief description of this character's spouse or spouses
 	type = character
 	# One Spouse

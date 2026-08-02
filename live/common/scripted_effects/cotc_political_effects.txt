@@ -238,7 +238,7 @@ elect_legislative_election_winner_effect = {
 		}
 	}
 	else = { # If nobody ran, make up a character
-		create_new_politician_effect = { LEGISLATURE = $LEGISLATURE$ }
+		create_new_politician_effect = yes
 		scope:new_politician = { elect_as_legislator_effect = { LEGISLATURE = $LEGISLATURE$ RIDING = $RIDING$ } }
 	}
 }

@@ -1,0 +1,530 @@
+﻿appointment_technocratic = {
+	default_candidates = {
+		holder_close_extended_family
+		landed_vassal
+		landed_vassal_close_extended_family
+		unlanded_noble
+		unlanded_noble_close_extended_family
+		holder_councilor
+		holder_court_position
+	}
+	
+	allow_children = no
+	
+	candidate_score = {
+		value = {
+			# Save important scopes
+			scope:title.holder = {
+				if = {
+					limit = { exists = liege }
+					liege = { save_temporary_scope_as = appointer }
+				}
+				else = { save_temporary_scope_as = appointer }
+			}
+			scope:appointer = {
+				if = {
+					limit = { primary_title = { exists = state_faith } }
+					primary_title.state_faith = { save_temporary_scope_as = relevant_faith }
+				}
+				faith = { save_temporary_scope_as = relevant_faith }
+			}
+			# Base - Based on learning
+			add = {
+				value = learning
+				multiply = 3
+				desc = "[learning_skill|E]"
+			}
+
+			# Traits
+			if = {
+				limit = {
+					OR = {
+						has_trait = incapable
+						has_trait = infirm
+					}
+				}
+				subtract = {
+					value = 50
+					desc = negative_trait_succession
+				}
+			}
+			if = {
+				limit = { has_trait = disinherited }
+				subtract = {
+					value = 200
+					desc = trait_disinherited
+				}
+			}
+			if = {
+				limit = { has_trait = gallivanter }
+				subtract = {
+					value = 200
+					desc = trait_gallivanter
+				}
+			}
+			# CRIMINAL
+			if = {
+				limit = {
+					has_trait = deviant
+					scope:appointer = {
+						OR = {
+							ai_honor >= 0
+							ai_zeal > 0
+						}
+					}
+					trait_is_criminal_in_faith_trigger = { TRAIT = trait:deviant FAITH = scope:relevant_faith GENDER_CHARACTER = root }
+				}
+				add = {
+					value = -30
+					desc = "deviant_and_criminal_desc"
+				}
+			}
+			if = {
+				limit = {
+					has_trait = incestuous
+					scope:appointer = {
+						OR = {
+							ai_honor >= 0
+							ai_zeal > 0
+						}
+					}
+					trait_is_criminal_in_faith_trigger = { TRAIT = trait:incestuous FAITH = scope:relevant_faith GENDER_CHARACTER = root }
+				}
+				add = {
+					value = -30
+					desc = "incestuous_and_criminal_desc"
+				}
+			}
+			if = {
+				limit = {
+					has_trait = sodomite
+					scope:appointer = {
+						OR = {
+							ai_honor >= 0
+							ai_zeal > 0
+						}
+					}
+					trait_is_criminal_in_faith_trigger = { TRAIT = trait:sodomite FAITH = scope:relevant_faith GENDER_CHARACTER = root }
+				}
+				add = {
+					value = -30
+					desc = "sodomite_and_criminal_desc"
+				}
+			}
+			if = {
+				limit = {
+					has_trait = cannibal
+					scope:appointer = {
+						OR = {
+							ai_honor >= 0
+							ai_zeal > 0
+						}
+					}
+					trait_is_criminal_in_faith_trigger = { TRAIT = trait:cannibal FAITH = scope:relevant_faith GENDER_CHARACTER = root }
+				}
+				add = {
+					value = -30
+					desc = "cannibal_and_criminal_desc"
+				}
+			}
+			if = {
+				limit = {
+					has_trait = kinslayer_1
+					scope:appointer = {
+						OR = {
+							ai_honor >= 0
+							ai_zeal > 0
+						}
+					}
+					trait_is_criminal_in_faith_trigger = { TRAIT = trait:kinslayer_1 FAITH = scope:relevant_faith GENDER_CHARACTER = root }
+				}
+				add = {
+					value = -30
+					desc = "kinslayer_1_and_criminal_desc"
+				}
+			}
+			if = {
+				limit = {
+					has_trait = kinslayer_2
+					scope:appointer = {
+						OR = {
+							ai_honor >= 0
+							ai_zeal > 0
+						}
+					}
+					trait_is_criminal_in_faith_trigger = { TRAIT = trait:kinslayer_2 FAITH = scope:relevant_faith GENDER_CHARACTER = root }
+				}
+				add = {
+					value = -30
+					desc = "kinslayer_2_and_criminal_desc"
+				}
+			}
+			if = {
+				limit = {
+					has_trait = kinslayer_3
+					scope:appointer = {
+						OR = {
+							ai_honor >= 0
+							ai_zeal > 0
+						}
+					}
+					trait_is_criminal_in_faith_trigger = { TRAIT = trait:kinslayer_3 FAITH = scope:relevant_faith GENDER_CHARACTER = root }
+				}
+				add = {
+					value = -30
+					desc = "kinslayer_3_and_criminal_desc"
+				}
+			}
+			if = {
+				limit = {
+					has_trait = adulterer
+					scope:appointer = {
+						OR = {
+							ai_honor >= 0
+							ai_zeal > 0
+						}
+					}
+					trait_is_criminal_in_faith_trigger = { TRAIT = trait:adulterer FAITH = scope:relevant_faith GENDER_CHARACTER = root }
+				}
+				add = {
+					value = -30
+					desc = "adulterer_and_criminal_desc"
+				}
+			}
+			if = {
+				limit = {
+					has_trait = fornicator
+					scope:appointer = {
+						OR = {
+							ai_honor >= 0
+							ai_zeal > 0
+						}
+					}
+					trait_is_criminal_in_faith_trigger = { TRAIT = trait:fornicator FAITH = scope:relevant_faith GENDER_CHARACTER = root }
+				}
+				add = {
+					value = -30
+					desc = "fornicator_and_criminal_desc"
+				}
+			}
+			
+			# IN CHAIN OF COMMAND
+			if = {
+				limit = {
+					exists = scope:title.holder
+					liege ?= { this = scope:title.holder }
+				}
+				add = {
+					value = 30
+					desc = in_chain_of_command_of_title_holder_desc
+				}
+			}
+
+			# COUNCIL POSITIONS
+			if = {
+				limit = { scope:title.holder ?= { any_councillor ?= { this = root } } }
+				add = {
+					value = 20
+					desc = councillor_position_governor_desc
+				}
+			}
+			
+			# COURT POSITIONS
+			if = {
+				limit = { scope:title.holder ?= { any_court_position_holder ?= { this = root } } }
+				add = {
+					value = 10
+					desc = court_position_succession_governor_desc
+				}
+			}
+
+			# CLAIMS
+			if = {
+				limit = { has_strong_claim_on = scope:title }
+				add = {
+					value = 25
+					desc = title_claim_desc
+				}
+			}
+			else_if = {
+				limit = { has_weak_claim_on = scope:title }
+				add = {
+					value = 15
+					desc = title_weak_claim_desc
+				}
+			}
+			
+			# DE JURE CLAIMS
+			if = {
+				limit = { any_held_title = { is_de_jure_liege_or_above_target = scope:title } }
+				add = {
+					value = 20
+					desc = de_jure_claim_to_title_desc
+				}
+			}
+			else_if = {
+				limit = { primary_title = { target_is_de_jure_liege_or_above = scope:title } }
+				add = {
+					value = 20
+					desc = is_de_jure_vassal_desc
+				}
+			}
+			
+			# PERKS
+			if = {
+				limit = { has_perk = ducal_conquest_perk }
+				add = {
+					value = 30
+					desc = ducal_conquest_perk_name_desc
+				}
+			}
+
+			# INFLUENCE LEVEL
+			if = {
+				limit = { influence_level = 0 }
+				subtract = {
+					value = 10
+					desc = "[influence_level|E]"
+				}
+			}
+			if = {
+				limit = { influence_level >= 2 }
+				add = {
+					value = 10
+					multiply = {
+						value = influence_level
+						subtract = 1 # Base value should start at 2
+					}
+					desc = "[influence_level|E]"
+				}
+			}
+			
+			# PIETY LEVEL (from admin family attribute)
+			if = {
+				limit = {
+					piety_level >= 1
+					house ?= {
+						OR = {
+							has_house_aspiration_parameter = candidate_score_per_piety_level_1
+							has_house_aspiration_parameter = candidate_score_per_piety_level_2
+							has_house_aspiration_parameter = candidate_score_per_piety_level_3
+						}
+					}
+				}
+				add = {
+					value = 0
+					add = {
+						if = {
+							limit = { house ?= { has_house_aspiration_parameter = candidate_score_per_piety_level_3 } }
+							add = candidate_score_per_piety_level_3_value
+						}
+						else_if = {
+							limit = { house ?= { has_house_aspiration_parameter = candidate_score_per_piety_level_2 } }
+							add = candidate_score_per_piety_level_2_value
+						}
+						else = { add = candidate_score_per_piety_level_1_value }
+					}
+					multiply = piety_level
+					desc = "family_attribute_desc"
+				}
+			}
+
+			# APPOINTER'S PERSONAL OPINION OF CANDIDATE
+			scope:appointer = {
+				if = {
+					limit = {
+						OR = {
+							ai_sociability >= ai_rationality
+							ai_vengefulness >= ai_rationality
+						}
+					}
+					add = {
+						value = "opinion(ROOT)"
+						if = {
+							limit = { this = scope:title.holder }
+							desc = "title_holder_opinion_of_root_desc"
+						}
+						else = { desc = "title_holder_liege_opinion_of_root_desc" }
+					}
+				}
+			}
+			
+			# CANDIDATE'S LOYALTY TO APPOINTER
+			if = {
+				limit = {
+					NOT = { title.holder ?= { this = scope:appointer } }
+					scope:appointer = {
+						0 <= {
+							add = ai_boldness
+							subtract = ai_vengefulness
+							subtract = ai_sociability
+							
+							if = {
+								limit = { reverse_opinion = { target = ROOT value > 0 } }
+								add = ai_rationality
+							}
+							else = { subtract = ai_rationality }
+						}
+					}
+				}
+				add = {
+					value = "opinion(scope:appointer)"
+					desc = "root_opinion_of_title_holder_liege_desc"
+				}
+			}
+
+			# Schemes
+			if = {
+				limit = { has_character_modifier = scheme_slandered_modifier }
+				add = {
+					value = slander_appointment_score_value
+					desc = scheme_slandered_modifier
+				}
+			}
+			if = {
+				limit = { has_character_modifier = scheme_promoted_modifier }
+				add = {
+					value = promote_appointment_score_value	# Keep this balanced if more values are added!
+					desc = scheme_promoted_modifier
+				}
+			}
+
+			# Decisions
+			if = {
+				limit = {
+					has_character_modifier = ep3_integration_promoter_modifier
+					has_variable = integration_promoted_in
+					var:integration_promoted_in.duchy ?= scope:title
+				}
+				add = {
+					value = 30
+					desc = ep3_integration_promoter_modifier
+				}
+			}
+
+			# PETITION
+			if = {
+				limit = { scope:title.var:petition_house_rights ?= house }
+				add = {
+					value = 250
+					desc = petition_liege_house_province_rights_value_desc
+				}
+			}
+
+			# ACH PURGE PRETENDERS OATH
+			if = {
+				limit = { house ?= { has_house_modifier = oath_of_purge_pretenders_house } }
+				add = {
+					value = 50
+					desc = oath_of_purge_pretenders_house
+				}
+			}
+			
+			# EXISTING RANK
+			if = {
+				limit = {
+					is_landed = no
+					scope:title.tier > tier_county
+				}
+				subtract = {
+					value = -2
+					add = scope:title.tier
+					multiply = 20
+					desc = current_rank_too_low_desc
+				}
+			}
+			else_if = {
+				limit = {
+					is_landed = yes
+					scope:title.tier > tier_county
+					highest_held_title_tier < { value = scope:title.tier subtract = 1 }
+				}
+				subtract = {
+					value = -1
+					add = scope:title.tier
+					subtract = highest_held_title_tier
+					multiply = 20
+					desc = current_rank_too_low_desc
+				}
+			} 
+			
+			# MUST BE NOT BE MILITARY, COMMERCIAL, OR THEOCRATIC
+			if = {
+				limit = {
+					OR = {
+						government_has_flag = government_is_military
+						government_has_flag = government_is_commercial
+						government_has_flag = government_is_theocratic
+					}
+				}
+				multiply = {
+					value = 0
+					desc = ineligible_for_technocratic_titles_desc
+				}
+			}
+
+			#ADJUST BASED ON GENDER LAW - MUST GO AT THE END
+			if = {
+				limit = {
+					scope:appointer ?= { has_realm_law = male_preference_law }
+					is_male_cotc = no
+				}
+				multiply = {
+					value = {
+						value = 1
+						subtract = appointment_non_preferred_gender_penalty_value
+					}
+					desc = appointment_male_preference_desc
+				}
+			}
+			else_if = {
+				limit = {
+					scope:appointer ?= { has_realm_law = male_only_law }
+					is_male_cotc = no
+				}
+				multiply = {
+					value = {
+						value = 1
+						subtract = appointment_opposite_gender_penalty_value
+					}
+					desc = appointment_male_only_desc
+				}
+			}
+			else_if = {
+				limit = {
+					scope:appointer ?= { has_realm_law = female_preference_law }
+					is_female_cotc = no
+				}
+				multiply = {
+					value = {
+						value = 1
+						subtract = appointment_non_preferred_gender_penalty_value
+					}
+					desc = appointment_female_preference_desc
+				}
+			}
+			else_if = {
+				limit = {
+					scope:appointer ?= { has_realm_law = female_only_law }
+					is_female_cotc = no
+				}
+				multiply = {
+					value = {
+						value = 1
+						subtract = appointment_opposite_gender_penalty_value
+					}
+					desc = appointment_female_only_desc
+				}
+			}
+
+			# We remove all score from the appointer, to make sure you don't inherit governorships needlessly
+			if = {
+				limit = { scope:appointer = this }
+				multiply = {
+					value = 0
+					desc = appointment_is_top_liege
+				}
+			}
+		}
+	}
+}

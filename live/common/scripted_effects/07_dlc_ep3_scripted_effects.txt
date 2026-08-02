@@ -3343,86 +3343,8 @@ create_noble_family_effect = {
 	}
 	scope:government_giver = {
 		if = {
-			limit = {
-				scope:new_noble_family_holder = {
-					NOT = {
-						any_held_title = { is_noble_family_title = yes }
-					}
-				}
-			}
-			switch = {
-				trigger = has_government
-				japan_administrative_government = { # Japan has count level NFs
-					scope:new_noble_family_holder = {
-						give_noble_family_title = {
-							name = noble_family_name
-							tier = county
-							article = DEFAULT_TITLE_NAME_ARTICLE
-							government = japan_administrative_government
-							save_scope_as = new_title
-						}
-					}
-				}
-				japan_feudal_government = { # Japan has count level NFs
-					scope:new_noble_family_holder = {
-						give_noble_family_title = {
-							name = noble_family_name
-							tier = county
-							article = DEFAULT_TITLE_NAME_ARTICLE
-							government = japan_feudal_government
-							save_scope_as = new_title
-						}
-					}
-				}
-				celestial_government = { # China has different government
-					scope:new_noble_family_holder = {
-						give_noble_family_title = {
-							name = noble_family_name
-							tier = county
-							article = DEFAULT_TITLE_NAME_ARTICLE
-							government = celestial_government
-							save_scope_as = new_title
-						}
-						trigger_event = {
-							id = tgp_china_career.0001
-							days = { 2 5 }
-						}
-					}
-				}
-				meritocratic_government = { # Meritocratic has different government
-					scope:new_noble_family_holder = {
-						give_noble_family_title = {
-							name = noble_family_name
-							tier = county
-							article = DEFAULT_TITLE_NAME_ARTICLE
-							government = meritocratic_government
-							save_scope_as = new_title
-						}
-					}
-				}
-				steppe_admin_government = { # Steppe Admin has different government
-					scope:new_noble_family_holder = {
-						give_noble_family_title = {
-							name = noble_family_name
-							tier = county
-							article = DEFAULT_TITLE_NAME_ARTICLE
-							government = steppe_admin_government
-							save_scope_as = new_title
-						}
-					}
-				}
-				fallback = {
-					scope:new_noble_family_holder = {
-						give_noble_family_title = {
-							name = noble_family_name
-							tier = duchy
-							article = DEFAULT_TITLE_NAME_ARTICLE
-							government = administrative_government
-							save_scope_as = new_title
-						}
-					}
-				}
-			}
+			limit = { scope:new_noble_family_holder = { NOT = { any_held_title = { is_noble_family_title = yes } } } }
+			scope:new_noble_family_holder = { create_noble_family_for_current_government = yes }
 		}
 		scope:new_title.holder ?= {
 			save_scope_as = noble_family_head
@@ -3435,8 +3357,7 @@ create_noble_family_effect = {
 			limit = {
 				top_liege = scope:new_noble_family_holder.top_liege
 				this != scope:new_noble_family_holder
-				# China has hundreds of Noble Families, it gets spammy
-				NOT = { government_allows = merit }
+				highest_held_title_tier <= tier_kingdom # Don't bother keeping big realms informed about every single minor family
 			}
 			trigger_event = {
 				id = ep3_emperor_yearly.2410
