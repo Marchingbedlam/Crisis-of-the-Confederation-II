@@ -32,17 +32,20 @@ PixelShader = {
 
 	Code
 	[[
-		static const int   COTC_NEBULA_LAYERS    = 16;
+		static const int   COTC_NEBULA_LAYERS    = 24;
 		static const float COTC_NEBULA_DENSITY   = 0.4f;
 
-		static const float COTC_NEBULA_CEILING_Y = 10.0f;
-		static const float COTC_NEBULA_FLOOR_Y   = -10.0f;
+		static const float COTC_NEBULA_CEILING_Y = 5.0f;
+		static const float COTC_NEBULA_FLOOR_Y   = -5.0f;
 
 		static const float COTC_NEBULA_CLOUD_TILE_SIZE = 600.0f;
-		static const float COTC_NEBULA_CLOUD_CONTRAST  = 3.0f;
+		static const float COTC_NEBULA_CLOUD_CONTRAST  = 2.0f;
 
 		static const float COTC_NEBULA_CLOUD_ROTATION_AMOUNT = 1.0f;
 		static const float COTC_NEBULA_CLOUD_SCALE_JITTER    = 0.25f;
+
+		static const float COTC_NEBULA_CLOUD_ROTATION_SPEED    = 0.001f;
+		static const float COTC_NEBULA_CLOUD_SPEED_VARIATION   = 0.001f;
 
 		static const float COTC_NEBULA_TWO_PI = 6.283185307f;
 
@@ -77,12 +80,15 @@ PixelShader = {
 
 				float4 LayerRandom = COTC_NebulaLayerRandom(float(i));
 
-				float  CloudAngle    = LayerRandom.z*COTC_NEBULA_TWO_PI*COTC_NEBULA_CLOUD_ROTATION_AMOUNT;
+				float  LayerSpeed = COTC_NEBULA_CLOUD_ROTATION_SPEED*(1.0f + COTC_NEBULA_CLOUD_SPEED_VARIATION*(2.0f*LayerRandom.x - 1.0f));
+
+				float  CloudAngle    = LayerRandom.z*COTC_NEBULA_TWO_PI*COTC_NEBULA_CLOUD_ROTATION_AMOUNT + GlobalTime*LayerSpeed;
 				float  CloudAngleSin = sin(CloudAngle);
 				float  CloudAngleCos = cos(CloudAngle);
-				float2 RotatedCloudPosXZ = float2(
-					CloudAngleCos*CurrentParallaxWorldSpacePosXZ.x - CloudAngleSin*CurrentParallaxWorldSpacePosXZ.y,
-					CloudAngleSin*CurrentParallaxWorldSpacePosXZ.x + CloudAngleCos*CurrentParallaxWorldSpacePosXZ.y);
+
+				float2 MapCentre     = 0.5f/WorldSpaceToDetail;
+				float2 CloudPosXZ    = CurrentParallaxWorldSpacePosXZ - MapCentre;
+				float2 RotatedCloudPosXZ = float2(CloudAngleCos*CloudPosXZ.x - CloudAngleSin*CloudPosXZ.y, CloudAngleSin*CloudPosXZ.x + CloudAngleCos*CloudPosXZ.y);
 
 				float CloudTileSize = COTC_NEBULA_CLOUD_TILE_SIZE*(1.0f + COTC_NEBULA_CLOUD_SCALE_JITTER*(2.0f*LayerRandom.w - 1.0f));
 

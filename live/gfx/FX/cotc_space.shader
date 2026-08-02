@@ -581,8 +581,6 @@ PixelShader =
 					#endif
 				#endif
 
-				// After the fresnel block, because the atmosphere pass replaces Color outright.
-				// Before the highlight, so selection stays a tint instead of a blown-out flare.
 				#if defined( COTC_EMISSIVE_STAR )
 					Color *= COTC_STAR_EMISSIVE_BOOST;
 				#endif
