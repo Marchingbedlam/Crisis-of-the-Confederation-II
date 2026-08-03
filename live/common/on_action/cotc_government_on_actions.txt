@@ -1,7 +1,7 @@
 ﻿#################
 # HOOKS TO CODE #
 #################
-on_game_start_after_lobby = { on_actions = { global_government_setup_on_action } }
+on_game_start = { on_actions = { global_government_setup_on_action } }
 on_title_gain = { on_actions = { government_update_on_action } }
 on_title_lost = { on_actions = { government_update_on_action } }
 on_primary_title_change = { on_actions = { government_update_on_action } }
@@ -30,7 +30,52 @@ on_title_destroyed = { on_actions = { government_destruction_on_action } }
 ###################
 global_government_setup_on_action = {
 	effect = {
+		# GENERAL CONFIG
 		every_ruler = { trigger_event = { on_action = government_setup_on_action } }
+		
+		# DEFAULT GOVERNMENT CONFIG
+		every_ruler = { trigger_event = { on_action = remove_disallowed_government_on_action } }
+		
+		# NOBLE FAMILY CONFIG
+		every_ruler = {
+			trigger_event = { on_action = make_direct_vassal_noble_family_on_action }
+			trigger_event = { on_action = make_independent_ruler_noble_family_on_action }
+			trigger_event = { on_action = make_landless_noble_direct_vassal_of_top_liege_on_action }
+		}
+		
+		# VASSAL LAW CONFIG
+		every_ruler = {
+			limit = {
+				save_temporary_scope_as = temp_ruler
+				any_liege_or_above = {
+					save_temporary_scope_as = temp_liege
+					scope:temp_ruler = { subject_to_vassal_government_laws_trigger = { LIEGE = scope:temp_liege } }
+				}
+			}
+			random_liege_or_above = {
+				limit = {
+					save_temporary_scope_as = temp_liege
+					PREV = { subject_to_vassal_government_laws_trigger = { LIEGE = scope:temp_liege } }
+				}
+				save_scope_as = relevant_ruler
+			}
+			meet_liege_law_government_requirements_effect = { LIEGE = scope:relevant_ruler }
+		}
+
+		# LEGITIMACY CONFIG
+		every_ruler = {
+			# limit = {
+				# exists = dynasty
+				# highest_held_title_tier >= tier_county
+				# Exclude unplayable for now
+				# NOR = {
+					# government_has_flag = government_is_republic
+					# government_has_flag = government_is_theocracy
+				# }
+				# is_landed = yes
+			# }
+			add_legitimacy = base_legitimacy_value
+		}
 	}
 }
 government_setup_on_action = {
@@ -49,6 +94,7 @@ government_setup_on_action = {
 	}
 }
 government_update_on_action = {
+	trigger = { years_from_game_start >= 0 }
 	on_actions = {		
 		# Legislatures
 		initialize_new_legislature_on_action
@@ -200,6 +246,7 @@ initialize_starting_legislature_on_action = {
 		has_legislature_trigger = no
 	}
 	effect = {
+		debug_log = "Initializing starting legislature..."
 		save_scope_as = ruler
 		start_situation = {
 			type = legislature
@@ -253,6 +300,7 @@ initialize_new_legislature_on_action = {
 		has_legislature_trigger = no
 	}
 	effect = {
+		debug_log = "Initializing non-starting legislature..."
 		save_scope_as = ruler
 		start_situation = {
 			type = legislature
