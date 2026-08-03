@@ -17,14 +17,619 @@
 # Defense Network
 #	Gas and Frozen Giants
 
-### ramparts
+### planet_defense
 
-ramparts_01 = {
+planet_defense_01 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
-		building_ramparts_requirement_terrain = yes
+		building_planet_defense_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 01 }
+		building_requirement_space_infrastructure = { LEVEL = 01 }
+	}
+
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+	
+	cost_gold = cheap_building_tier_1_cost
+	
+	max_garrison = normal_building_max_garrison_tier_1
+	province_modifier = {
+		monthly_income = poor_building_tax_tier_1
+		fort_level = normal_building_fort_level_tier_1
+		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_1
+		stationed_heavy_infantry_damage_mult = low_maa_damage_tier_1
+		stationed_heavy_infantry_toughness_mult = low_maa_toughness_tier_1
+		stationed_skirmishers_damage_mult = low_maa_damage_tier_1
+		stationed_skirmishers_toughness_mult = low_maa_toughness_tier_1
+		travel_danger = -1
+	}
+	province_terrain_modifier = {
+		terrain = corrosive
+		fort_level = 2
+	}
+	county_modifier = {
+		supply_limit = 150
+	}
+	next_building = planet_defense_02
+
+	type_icon = "icon_building_curtain_walls.dds"
+	
+	ai_value = {
+		base = 10
+		ai_tier_1_building_modifier = yes
+		ai_tier_1_economical_building_preference_modifier = yes
+		modifier = {
+			add = 1
+			scope:holder = {
+				culture = {
+					has_cultural_parameter = ai_more_likely_to_fortify
+				}
+			}
+		}
+		ai_general_building_modifier = yes
+		directive_to_fortify_modifier = yes
+		modifier = {
+			factor = 5
+			free_building_slots <= 3
+			scope:holder.capital_province = this
+		}
+		modifier = {
+			factor = 5
+			free_building_slots <= 2
+		}
+		modifier = {
+			factor = 5
+			free_building_slots <= 1
+		}
+	}
+}
+
+planet_defense_02 = {
+	construction_time = standard_construction_time
+
+	can_construct_potential = {
+		building_planet_defense_requirement_terrain = yes
+		building_requirement_castle_city_church = { LEVEL = 01 }
+		building_requirement_space_infrastructure = { LEVEL = 01 }
+	}
+
+	can_construct_showing_failures_only = {
+		trigger_if = {
+			limit = {
+				NOT = {
+					culture = {
+						has_cultural_parameter = next_level_fortification
+					}
+				}
+			}
+			scope:holder.culture = {
+				has_innovation = innovation_motte
+			}
+		}
+		trigger_else = {
+			culture = {
+				has_cultural_parameter = next_level_fortification
+			}
+		}
+		building_requirement_tribal = no
+	}
+	
+	cost_gold = cheap_building_tier_2_cost
+	
+	max_garrison = normal_building_max_garrison_tier_2
+	province_modifier = {
+		monthly_income = poor_building_tax_tier_2
+		fort_level = normal_building_fort_level_tier_2
+		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_2
+		stationed_heavy_infantry_damage_mult = low_maa_damage_tier_2
+		stationed_heavy_infantry_toughness_mult = low_maa_toughness_tier_2
+		stationed_skirmishers_damage_mult = low_maa_damage_tier_2
+		stationed_skirmishers_toughness_mult = low_maa_toughness_tier_2
+		travel_danger = -2
+	}
+	province_terrain_modifier = {
+		terrain = corrosive
+		fort_level = 2
+	}
+	
+	county_modifier = {
+		supply_limit = 300
+	}
+
+	
+	next_building = planet_defense_03
+	
+	ai_value = {
+		base = 9
+		modifier = {
+			add = 1
+			scope:holder = {
+				culture = {
+					has_cultural_parameter = ai_more_likely_to_fortify
+				}
+			}
+		}
+		ai_general_building_modifier = yes
+		directive_to_fortify_modifier = yes
+		ai_economical_building_preference_modifier = yes
+		modifier = { # Fill all building slots before going for upgrades
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+}
+
+planet_defense_03 = {
+	construction_time = standard_construction_time
+
+	can_construct_potential = {
+		building_planet_defense_requirement_terrain = yes
+	}
+
+	can_construct = {
+		trigger_if = {
+			limit = {
+				NOT = {
+					culture = {
+						has_cultural_parameter = next_level_fortification
+					}
+				}
+			}
+			building_requirement_castle_city_church = { LEVEL = 02 }
+			scope:holder.culture = {
+				has_innovation = innovation_battlements
+			}
+		}
+		trigger_else = {
+			building_requirement_castle_city_church = { LEVEL = 01 }
+			culture = {
+				has_cultural_parameter = next_level_fortification
+			}
+			scope:holder.culture = {
+				has_innovation = innovation_motte
+			}
+		}
+		building_requirement_space_infrastructure = { LEVEL = 02 }
+	}
+
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+	
+	cost_gold = cheap_building_tier_3_cost
+	
+	max_garrison = normal_building_max_garrison_tier_3
+	province_modifier = {
+		monthly_income = poor_building_tax_tier_3
+		fort_level = normal_building_fort_level_tier_3
+		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_3
+		stationed_heavy_infantry_damage_mult = low_maa_damage_tier_3
+		stationed_heavy_infantry_toughness_mult = low_maa_toughness_tier_3
+		stationed_skirmishers_damage_mult = low_maa_damage_tier_3
+		stationed_skirmishers_toughness_mult = low_maa_toughness_tier_3
+		travel_danger = -3
+	}
+	province_terrain_modifier = {
+		terrain = corrosive
+		fort_level = 2
+	}
+	county_modifier = {
+		supply_limit = 450
+	}
+	next_building = planet_defense_04
+	
+	ai_value = {
+		base = 8
+		modifier = {
+			add = 1
+			scope:holder = {
+				culture = {
+					has_cultural_parameter = ai_more_likely_to_fortify
+				}
+			}
+		}
+		ai_general_building_modifier = yes
+		directive_to_fortify_modifier = yes
+		ai_economical_building_preference_modifier = yes
+	}
+}
+
+planet_defense_04 = {
+	construction_time = standard_construction_time
+
+	can_construct_potential = {
+		building_planet_defense_requirement_terrain = yes
+	}
+
+	can_construct = {
+		trigger_if = {
+			limit = {
+				NOT = {
+					culture = {
+						has_cultural_parameter = next_level_fortification
+					}
+				}
+			}
+			building_requirement_castle_city_church = { LEVEL = 02 }
+			scope:holder.culture = {
+				has_innovation = innovation_battlements
+			}
+		}
+		trigger_else = {
+			building_requirement_castle_city_church = { LEVEL = 01 }
+			culture = {
+				has_cultural_parameter = next_level_fortification
+			}
+			scope:holder.culture = {
+				has_innovation = innovation_motte
+			}
+		}
+		building_requirement_space_infrastructure = { LEVEL = 02 }
+	}
+	province_terrain_modifier = {
+		terrain = corrosive
+		fort_level = 3
+	}
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+	
+	cost_gold = cheap_building_tier_4_cost
+	
+	max_garrison = normal_building_max_garrison_tier_4
+	province_modifier = {
+		monthly_income = poor_building_tax_tier_4
+		fort_level = normal_building_fort_level_tier_4
+		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_4
+		stationed_heavy_infantry_damage_mult = low_maa_damage_tier_4
+		stationed_heavy_infantry_toughness_mult = low_maa_toughness_tier_4
+		stationed_skirmishers_damage_mult = low_maa_damage_tier_4
+		stationed_skirmishers_toughness_mult = low_maa_toughness_tier_4
+		travel_danger = -4
+	}
+	
+	county_modifier = {
+		supply_limit = 300
+	}
+	next_building = planet_defense_05
+	
+	ai_value = {
+		base = 7
+		modifier = {
+			add = 1
+			scope:holder = {
+				culture = {
+					has_cultural_parameter = ai_more_likely_to_fortify
+				}
+			}
+		}
+		ai_general_building_modifier = yes
+		directive_to_fortify_modifier = yes
+		ai_economical_building_preference_modifier = yes
+	}
+}
+
+planet_defense_05 = {
+	construction_time = standard_construction_time
+
+	can_construct_potential = {
+		building_planet_defense_requirement_terrain = yes
+	}
+
+	can_construct = {
+		trigger_if = {
+			limit = {
+				NOT = {
+					culture = {
+						has_cultural_parameter = next_level_fortification
+					}
+				}
+			}
+			building_requirement_castle_city_church = { LEVEL = 03 }
+			scope:holder.culture = {
+				has_innovation = innovation_hoardings
+			}
+		}
+		trigger_else = {
+			building_requirement_castle_city_church = { LEVEL = 02 }
+			culture = {
+				has_cultural_parameter = next_level_fortification
+			}
+			scope:holder.culture = {
+				has_innovation = innovation_battlements
+			}
+		}
+		building_requirement_space_infrastructure = { LEVEL = 03 }
+	}
+	province_terrain_modifier = {
+		terrain = corrosive
+		fort_level = 4
+	}
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+	
+	cost_gold = cheap_building_tier_5_cost
+	
+	max_garrison = normal_building_max_garrison_tier_5
+	province_modifier = {
+		monthly_income = poor_building_tax_tier_5
+		fort_level = normal_building_fort_level_tier_5
+		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_5
+		stationed_heavy_infantry_damage_mult = low_maa_damage_tier_5
+		stationed_heavy_infantry_toughness_mult = low_maa_toughness_tier_5
+		stationed_skirmishers_damage_mult = low_maa_damage_tier_5
+		stationed_skirmishers_toughness_mult = low_maa_toughness_tier_5
+		travel_danger = -5
+		defender_holding_advantage = normal_building_advantage_tier_2
+	}
+	
+	county_modifier = {
+		supply_limit = 300
+	}
+	
+	next_building = planet_defense_06
+	
+	ai_value = {
+		base = 6
+		modifier = {
+			add = 1
+			scope:holder = {
+				culture = {
+					has_cultural_parameter = ai_more_likely_to_fortify
+				}
+			}
+		}
+		ai_general_building_modifier = yes
+		directive_to_fortify_modifier = yes
+		ai_economical_building_preference_modifier = yes
+	}
+}
+
+planet_defense_06 = {
+	construction_time = standard_construction_time
+
+	can_construct_potential = {
+		building_planet_defense_requirement_terrain = yes
+	}
+
+	can_construct = {
+		trigger_if = {
+			limit = {
+				NOT = {
+					culture = {
+						has_cultural_parameter = next_level_fortification
+					}
+				}
+			}
+			building_requirement_castle_city_church = { LEVEL = 03 }
+			scope:holder.culture = {
+				has_innovation = innovation_hoardings
+			}
+		}
+		trigger_else = {
+			building_requirement_castle_city_church = { LEVEL = 02 }
+			culture = {
+				has_cultural_parameter = next_level_fortification
+			}
+			scope:holder.culture = {
+				has_innovation = innovation_battlements
+			}
+		}
+		building_requirement_space_infrastructure = { LEVEL = 03 }
+	}
+	province_terrain_modifier = {
+		terrain = corrosive
+		fort_level = 4
+	}
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+	
+	cost_gold = cheap_building_tier_6_cost
+	
+	max_garrison = normal_building_max_garrison_tier_6
+	province_modifier = {
+		monthly_income = poor_building_tax_tier_6
+		fort_level = normal_building_fort_level_tier_6
+		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_6
+		stationed_heavy_infantry_damage_mult = low_maa_damage_tier_6
+		stationed_heavy_infantry_toughness_mult = low_maa_toughness_tier_6
+		stationed_skirmishers_damage_mult = low_maa_damage_tier_6
+		stationed_skirmishers_toughness_mult = low_maa_toughness_tier_6
+		travel_danger = -6
+		defender_holding_advantage = normal_building_advantage_tier_2
+	}
+	
+	county_modifier = {
+		supply_limit = 300
+		supply_limit_mult = 0.02
+	}
+	
+	next_building = planet_defense_07
+	
+	ai_value = {
+		base = 5
+		modifier = {
+			add = 1
+			scope:holder = {
+				culture = {
+					has_cultural_parameter = ai_more_likely_to_fortify
+				}
+			}
+		}
+		ai_general_building_modifier = yes
+		directive_to_fortify_modifier = yes
+		ai_economical_building_preference_modifier = yes
+	}
+}
+
+planet_defense_07 = {
+	construction_time = standard_construction_time
+
+	can_construct_potential = {
+		building_planet_defense_requirement_terrain = yes
+	}
+
+	can_construct = {
+		trigger_if = {
+			limit = {
+				NOT = {
+					culture = {
+						has_cultural_parameter = next_level_fortification
+					}
+				}
+			}
+			building_requirement_castle_city_church = { LEVEL = 04 }
+			scope:holder.culture = {
+				has_innovation = innovation_machicolations
+			}
+		}
+		trigger_else = {
+			building_requirement_castle_city_church = { LEVEL = 03 }
+			culture = {
+				has_cultural_parameter = next_level_fortification
+			}
+			scope:holder.culture = {
+				has_innovation = innovation_hoardings
+			}
+		}
+		building_requirement_space_infrastructure = { LEVEL = 04 }
+	}
+
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+	
+	cost_gold = cheap_building_tier_7_cost
+	
+	max_garrison = normal_building_max_garrison_tier_7
+	province_modifier = {
+		monthly_income = poor_building_tax_tier_7
+		fort_level = normal_building_fort_level_tier_7
+		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_7
+		stationed_heavy_infantry_damage_mult = low_maa_damage_tier_7
+		stationed_heavy_infantry_toughness_mult = low_maa_toughness_tier_7
+		stationed_skirmishers_damage_mult = low_maa_damage_tier_7
+		stationed_skirmishers_toughness_mult = low_maa_toughness_tier_7
+		travel_danger = -7
+		defender_holding_advantage = normal_building_advantage_tier_2
+	}
+	province_terrain_modifier = {
+		terrain = corrosive
+		fort_level = 4
+	}
+	county_modifier = {
+		supply_limit = 300
+		supply_limit_mult = 0.02
+	}
+	
+	next_building = planet_defense_08
+	
+	ai_value = {
+		base = 4
+		modifier = {
+			add = 1
+			scope:holder = {
+				culture = {
+					has_cultural_parameter = ai_more_likely_to_fortify
+				}
+			}
+		}
+		ai_general_building_modifier = yes
+		directive_to_fortify_modifier = yes
+		ai_economical_building_preference_modifier = yes
+	}
+}
+
+planet_defense_08 = {
+	construction_time = standard_construction_time
+
+	can_construct_potential = {
+		building_planet_defense_requirement_terrain = yes
+	}
+
+	can_construct = {
+		trigger_if = {
+			limit = {
+				NOT = {
+					culture = {
+						has_cultural_parameter = next_level_fortification
+					}
+				}
+			}
+			building_requirement_castle_city_church = { LEVEL = 04 }
+			scope:holder.culture = {
+				has_innovation = innovation_machicolations
+			}
+		}
+		trigger_else = {
+			building_requirement_castle_city_church = { LEVEL = 03 }
+			culture = {
+				has_cultural_parameter = next_level_fortification
+			}
+			scope:holder.culture = {
+				has_innovation = innovation_hoardings
+			}
+		}
+		building_requirement_space_infrastructure = { LEVEL = 04 }
+	}
+
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+	
+	cost_gold = cheap_building_tier_8_cost
+	
+	max_garrison = normal_building_max_garrison_tier_8
+	province_modifier = {
+		monthly_income = poor_building_tax_tier_8
+		fort_level = normal_building_fort_level_tier_8
+		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_8
+		stationed_heavy_infantry_damage_mult = low_maa_damage_tier_8
+		stationed_heavy_infantry_toughness_mult = low_maa_toughness_tier_8
+		stationed_skirmishers_damage_mult = low_maa_damage_tier_8
+		stationed_skirmishers_toughness_mult = low_maa_toughness_tier_8
+		travel_danger = -8
+		defender_holding_advantage = normal_building_advantage_tier_2
+	}
+	province_terrain_modifier = {
+		terrain = corrosive
+		fort_level = 4
+	}
+	county_modifier = {
+		supply_limit = 300
+		supply_limit_mult = 0.02
+	}
+	
+	ai_value = {
+		base = 3
+		modifier = {
+			add = 1
+			scope:holder = {
+				culture = {
+					has_cultural_parameter = ai_more_likely_to_fortify
+				}
+			}
+		}
+		ai_general_building_modifier = yes
+		directive_to_fortify_modifier = yes
+		ai_economical_building_preference_modifier = yes
+	}
+}
+
+
+### defense_network
+
+defense_network_01 = {
+	construction_time = standard_construction_time
+
+	can_construct_potential = {
+		building_defense_network_requirement_terrain = yes
+		building_requirement_castle_city_church = { LEVEL = 01 }
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -36,19 +641,15 @@ ramparts_01 = {
 	levy = normal_building_levy_tier_1
 	max_garrison = normal_building_max_garrison_tier_1
 	province_modifier = {
-		fort_level = normal_building_fort_level_tier_1
-		stationed_archers_damage_mult = low_maa_damage_tier_1
-		stationed_skirmishers_damage_mult = low_maa_damage_tier_1
-		stationed_skirmishers_toughness_mult = normal_maa_toughness_tier_1
+		fort_level = good_building_fort_level_tier_1
+		stationed_heavy_cavalry_toughness_mult = low_maa_toughness_tier_1
+		stationed_light_cavalry_toughness_mult = low_maa_toughness_tier_1
+		stationed_heavy_cavalry_damage_mult = low_maa_damage_tier_1
+		stationed_light_cavalry_damage_mult = low_maa_damage_tier_1
 		travel_danger = -1
 	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
-	}
 	
-	next_building = ramparts_02
+	next_building = defense_network_02
 
 	type_icon = "icon_building_ramparts.dds"
 	
@@ -74,12 +675,13 @@ ramparts_01 = {
 	}
 }
 
-ramparts_02 = {
+defense_network_02 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
-		building_ramparts_requirement_terrain = yes
+		building_defense_network_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 01 }
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -108,20 +710,16 @@ ramparts_02 = {
 	levy = normal_building_levy_tier_2
 	max_garrison = normal_building_max_garrison_tier_2
 	province_modifier = {
-		fort_level = normal_building_fort_level_tier_2
-		tax_mult = 0.02
-		stationed_archers_damage_mult = low_maa_damage_tier_2
-		stationed_skirmishers_damage_mult = low_maa_damage_tier_2
-		stationed_skirmishers_toughness_mult = normal_maa_toughness_tier_2
+		fort_level = good_building_fort_level_tier_2
+		stationed_heavy_cavalry_toughness_mult = low_maa_toughness_tier_2
+		stationed_light_cavalry_toughness_mult = low_maa_toughness_tier_2
+		stationed_heavy_cavalry_damage_mult = low_maa_damage_tier_2
+		stationed_light_cavalry_damage_mult = low_maa_damage_tier_2
 		travel_danger = -2
-	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
+		tax_mult = 0.02
 	}
 	
-	next_building = ramparts_03
+	next_building = defense_network_03
 	
 	ai_value = {
 		base = 9
@@ -142,11 +740,12 @@ ramparts_02 = {
 	}
 }
 
-ramparts_03 = {
+defense_network_03 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
-		building_ramparts_requirement_terrain = yes
+		building_defense_network_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
 	can_construct = {
@@ -183,21 +782,17 @@ ramparts_03 = {
 	levy = normal_building_levy_tier_3
 	max_garrison = normal_building_max_garrison_tier_3
 	province_modifier = {
-		fort_level = normal_building_fort_level_tier_3
-		defender_holding_advantage = normal_building_advantage_tier_1
-		tax_mult = 0.02
-		stationed_archers_damage_mult = low_maa_damage_tier_3
-		stationed_skirmishers_damage_mult = low_maa_damage_tier_3
-		stationed_skirmishers_toughness_mult = normal_maa_toughness_tier_3
+		fort_level = good_building_fort_level_tier_3
+		stationed_heavy_cavalry_toughness_mult = low_maa_toughness_tier_3
+		stationed_light_cavalry_toughness_mult = low_maa_toughness_tier_3
+		stationed_heavy_cavalry_damage_mult = low_maa_damage_tier_3
+		stationed_light_cavalry_damage_mult = low_maa_damage_tier_3
 		travel_danger = -3
-	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
+		tax_mult = 0.02
+		defender_holding_advantage = normal_building_advantage_tier_1
 	}
 	
-	next_building = ramparts_04
+	next_building = defense_network_04
 	
 	ai_value = {
 		base = 8
@@ -214,11 +809,12 @@ ramparts_03 = {
 	}
 }
 
-ramparts_04 = {
+defense_network_04 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
-		building_ramparts_requirement_terrain = yes
+		building_defense_network_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
 	can_construct = {
@@ -255,24 +851,20 @@ ramparts_04 = {
 	levy = normal_building_levy_tier_4
 	max_garrison = normal_building_max_garrison_tier_4
 	province_modifier = {
-		fort_level = normal_building_fort_level_tier_4
-		defender_holding_advantage = normal_building_advantage_tier_1
-		tax_mult = 0.02
-		stationed_archers_damage_mult = low_maa_damage_tier_4
-		stationed_skirmishers_damage_mult = low_maa_damage_tier_4
-		stationed_skirmishers_toughness_mult = normal_maa_toughness_tier_4
+		fort_level = good_building_fort_level_tier_4
+		stationed_heavy_cavalry_toughness_mult = low_maa_toughness_tier_4
+		stationed_light_cavalry_toughness_mult = low_maa_toughness_tier_4
+		stationed_heavy_cavalry_damage_mult = low_maa_damage_tier_4
+		stationed_light_cavalry_damage_mult = low_maa_damage_tier_4
 		travel_danger = -4
+		tax_mult = 0.02
+		defender_holding_advantage = normal_building_advantage_tier_1
 	}
 	county_modifier = {
 		hostile_raid_time = 0.1
 	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
-	}
 	
-	next_building = ramparts_05
+	next_building = defense_network_05
 	
 	ai_value = {
 		base = 7
@@ -289,11 +881,12 @@ ramparts_04 = {
 	}
 }
 
-ramparts_05 = {
+defense_network_05 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
-		building_ramparts_requirement_terrain = yes
+		building_defense_network_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
 	can_construct = {
@@ -330,24 +923,20 @@ ramparts_05 = {
 	levy = normal_building_levy_tier_5
 	max_garrison = normal_building_max_garrison_tier_5
 	province_modifier = {
-		fort_level = normal_building_fort_level_tier_5
-		defender_holding_advantage = normal_building_advantage_tier_1
-		tax_mult = 0.02
-		stationed_archers_damage_mult = low_maa_damage_tier_5
-		stationed_skirmishers_damage_mult = low_maa_damage_tier_5
-		stationed_skirmishers_toughness_mult = normal_maa_toughness_tier_5
+		fort_level = good_building_fort_level_tier_5
+		stationed_heavy_cavalry_toughness_mult = low_maa_toughness_tier_5
+		stationed_light_cavalry_toughness_mult = low_maa_toughness_tier_5
+		stationed_heavy_cavalry_damage_mult = low_maa_damage_tier_5
+		stationed_light_cavalry_damage_mult = low_maa_damage_tier_5
 		travel_danger = -5
+		tax_mult = 0.03
+		defender_holding_advantage = normal_building_advantage_tier_2
 	}
 	county_modifier = {
 		hostile_raid_time = 0.1
 	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
-	}
 	
-	next_building = ramparts_06
+	next_building = defense_network_06
 	
 	ai_value = {
 		base = 6
@@ -364,11 +953,12 @@ ramparts_05 = {
 	}
 }
 
-ramparts_06 = {
+defense_network_06 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
-		building_ramparts_requirement_terrain = yes
+		building_defense_network_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
 	can_construct = {
@@ -405,24 +995,20 @@ ramparts_06 = {
 	levy = normal_building_levy_tier_6
 	max_garrison = normal_building_max_garrison_tier_6
 	province_modifier = {
-		fort_level = normal_building_fort_level_tier_6
-		defender_holding_advantage = normal_building_advantage_tier_2
-		tax_mult = 0.02
-		stationed_archers_damage_mult = low_maa_damage_tier_6
-		stationed_skirmishers_damage_mult = low_maa_damage_tier_6
-		stationed_skirmishers_toughness_mult = normal_maa_toughness_tier_6
+		fort_level = good_building_fort_level_tier_6
+		stationed_heavy_cavalry_toughness_mult = low_maa_toughness_tier_6
+		stationed_light_cavalry_toughness_mult = low_maa_toughness_tier_6
+		stationed_heavy_cavalry_damage_mult = low_maa_damage_tier_6
+		stationed_light_cavalry_damage_mult = low_maa_damage_tier_6
 		travel_danger = -6
+		tax_mult = 0.03
+		defender_holding_advantage = normal_building_advantage_tier_2
 	}
 	county_modifier = {
 		hostile_raid_time = 0.1
 	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
-	}
 	
-	next_building = ramparts_07
+	next_building = defense_network_07
 	
 	ai_value = {
 		base = 5
@@ -439,11 +1025,12 @@ ramparts_06 = {
 	}
 }
 
-ramparts_07 = {
+defense_network_07 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
-		building_ramparts_requirement_terrain = yes
+		building_defense_network_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 
 	can_construct = {
@@ -480,24 +1067,20 @@ ramparts_07 = {
 	levy = normal_building_levy_tier_7
 	max_garrison = normal_building_max_garrison_tier_7
 	province_modifier = {
-		fort_level = normal_building_fort_level_tier_7
-		defender_holding_advantage = normal_building_advantage_tier_2
-		tax_mult = 0.02
-		stationed_archers_damage_mult = low_maa_damage_tier_7
-		stationed_skirmishers_damage_mult = low_maa_damage_tier_7
-		stationed_skirmishers_toughness_mult = normal_maa_toughness_tier_7
+		fort_level = good_building_fort_level_tier_7
+		stationed_heavy_cavalry_toughness_mult = low_maa_toughness_tier_7
+		stationed_light_cavalry_toughness_mult = low_maa_toughness_tier_7
+		stationed_heavy_cavalry_damage_mult = low_maa_damage_tier_7
+		stationed_light_cavalry_damage_mult = low_maa_damage_tier_7
 		travel_danger = -7
+		tax_mult = 0.03
+		defender_holding_advantage = normal_building_advantage_tier_3
 	}
 	county_modifier = {
 		hostile_raid_time = 0.1
 	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
-	}
 	
-	next_building = ramparts_08
+	next_building = defense_network_08
 	
 	ai_value = {
 		base = 4
@@ -514,11 +1097,12 @@ ramparts_07 = {
 	}
 }
 
-ramparts_08 = {
+defense_network_08 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
-		building_ramparts_requirement_terrain = yes
+		building_defense_network_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 
 	can_construct = {
@@ -555,13 +1139,14 @@ ramparts_08 = {
 	levy = normal_building_levy_tier_8
 	max_garrison = normal_building_max_garrison_tier_8
 	province_modifier = {
-		fort_level = normal_building_fort_level_tier_8
-		defender_holding_advantage = normal_building_advantage_tier_2
-		tax_mult = 0.02
-		stationed_archers_damage_mult = low_maa_damage_tier_8
-		stationed_skirmishers_damage_mult = low_maa_damage_tier_8
-		stationed_skirmishers_toughness_mult = normal_maa_toughness_tier_8
+		fort_level = good_building_fort_level_tier_8
+		stationed_heavy_cavalry_toughness_mult = low_maa_toughness_tier_8
+		stationed_light_cavalry_toughness_mult = low_maa_toughness_tier_8
+		stationed_heavy_cavalry_damage_mult = low_maa_damage_tier_8
+		stationed_light_cavalry_damage_mult = low_maa_damage_tier_8
 		travel_danger = -8
+		tax_mult = 0.04
+		defender_holding_advantage = normal_building_advantage_tier_3
 	}
 	county_modifier = {
 		hostile_raid_time = 0.1
@@ -587,14 +1172,15 @@ ramparts_08 = {
 	}
 }
 
-### curtain_walls
+### ds_surveys
 
-curtain_walls_01 = {
+ds_surveys_01 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
-		building_curtain_walls_requirement_terrain = yes
+		building_ds_surveys_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 01 }
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -605,606 +1191,15 @@ curtain_walls_01 = {
 	
 	max_garrison = normal_building_max_garrison_tier_1
 	province_modifier = {
-		monthly_income = poor_building_tax_tier_1
+		defender_holding_advantage = good_building_advantage_tier_1
 		fort_level = normal_building_fort_level_tier_1
-		stationed_heavy_cavalry_damage_mult = low_maa_damage_tier_1
-		stationed_heavy_cavalry_toughness_mult = low_maa_toughness_tier_1
+		stationed_archers_damage_mult = low_maa_damage_tier_1
+		stationed_archers_toughness_mult = low_maa_toughness_tier_1
+		stationed_archer_cavalry_damage_mult = low_maa_damage_tier_1
+		stationed_archer_cavalry_toughness_mult = low_maa_toughness_tier_1
 		travel_danger = -1
 	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
-	}
-	
-	next_building = curtain_walls_02
-
-	type_icon = "icon_building_curtain_walls.dds"
-	
-	ai_value = {
-		base = 10
-		ai_tier_1_building_modifier = yes
-		ai_tier_1_economical_building_preference_modifier = yes
-		modifier = {
-			add = 1
-			scope:holder = {
-				culture = {
-					has_cultural_parameter = ai_more_likely_to_fortify
-				}
-			}
-		}
-		ai_general_building_modifier = yes
-		directive_to_fortify_modifier = yes
-		modifier = {
-			factor = 5
-			free_building_slots <= 3
-			scope:holder.capital_province = this
-		}
-		modifier = {
-			factor = 5
-			free_building_slots <= 2
-		}
-		modifier = {
-			factor = 5
-			free_building_slots <= 1
-		}
-	}
-}
-
-curtain_walls_02 = {
-	construction_time = standard_construction_time
-
-	can_construct_potential = {
-		building_curtain_walls_requirement_terrain = yes
-		building_requirement_castle_city_church = { LEVEL = 01 }
-	}
-
-	can_construct_showing_failures_only = {
-		trigger_if = {
-			limit = {
-				NOT = {
-					culture = {
-						has_cultural_parameter = next_level_fortification
-					}
-				}
-			}
-			scope:holder.culture = {
-				has_innovation = innovation_motte
-			}
-		}
-		trigger_else = {
-			culture = {
-				has_cultural_parameter = next_level_fortification
-			}
-		}
-		building_requirement_tribal = no
-	}
-	
-	cost_gold = cheap_building_tier_2_cost
-	
-	max_garrison = normal_building_max_garrison_tier_2
-	province_modifier = {
-		monthly_income = poor_building_tax_tier_2
-		fort_level = normal_building_fort_level_tier_2
-		stationed_heavy_cavalry_damage_mult = low_maa_damage_tier_2
-		stationed_heavy_cavalry_toughness_mult = low_maa_toughness_tier_2
-		travel_danger = -2
-	}
-	
-	county_modifier = {
-		supply_limit = 300
-	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
-	}
-	
-	next_building = curtain_walls_03
-	
-	ai_value = {
-		base = 9
-		modifier = {
-			add = 1
-			scope:holder = {
-				culture = {
-					has_cultural_parameter = ai_more_likely_to_fortify
-				}
-			}
-		}
-		ai_general_building_modifier = yes
-		directive_to_fortify_modifier = yes
-		ai_economical_building_preference_modifier = yes
-		modifier = { # Fill all building slots before going for upgrades
-			factor = 0
-			free_building_slots > 0
-		}
-	}
-}
-
-curtain_walls_03 = {
-	construction_time = standard_construction_time
-
-	can_construct_potential = {
-		building_curtain_walls_requirement_terrain = yes
-	}
-
-	can_construct = {
-		trigger_if = {
-			limit = {
-				NOT = {
-					culture = {
-						has_cultural_parameter = next_level_fortification
-					}
-				}
-			}
-			building_requirement_castle_city_church = { LEVEL = 02 }
-			scope:holder.culture = {
-				has_innovation = innovation_battlements
-			}
-		}
-		trigger_else = {
-			building_requirement_castle_city_church = { LEVEL = 01 }
-			culture = {
-				has_cultural_parameter = next_level_fortification
-			}
-			scope:holder.culture = {
-				has_innovation = innovation_motte
-			}
-		}
-	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
-	}
-	
-	cost_gold = cheap_building_tier_3_cost
-	
-	max_garrison = normal_building_max_garrison_tier_3
-	province_modifier = {
-		monthly_income = poor_building_tax_tier_3
-		fort_level = normal_building_fort_level_tier_3
-		stationed_heavy_cavalry_damage_mult = low_maa_damage_tier_3
-		stationed_heavy_cavalry_toughness_mult = low_maa_toughness_tier_3
-		travel_danger = -3
-	}
-	
-	county_modifier = {
-		supply_limit = 300
-	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
-	}
-	
-	next_building = curtain_walls_04
-	
-	ai_value = {
-		base = 8
-		modifier = {
-			add = 1
-			scope:holder = {
-				culture = {
-					has_cultural_parameter = ai_more_likely_to_fortify
-				}
-			}
-		}
-		ai_general_building_modifier = yes
-		directive_to_fortify_modifier = yes
-		ai_economical_building_preference_modifier = yes
-	}
-}
-
-curtain_walls_04 = {
-	construction_time = standard_construction_time
-
-	can_construct_potential = {
-		building_curtain_walls_requirement_terrain = yes
-	}
-
-	can_construct = {
-		trigger_if = {
-			limit = {
-				NOT = {
-					culture = {
-						has_cultural_parameter = next_level_fortification
-					}
-				}
-			}
-			building_requirement_castle_city_church = { LEVEL = 02 }
-			scope:holder.culture = {
-				has_innovation = innovation_battlements
-			}
-		}
-		trigger_else = {
-			building_requirement_castle_city_church = { LEVEL = 01 }
-			culture = {
-				has_cultural_parameter = next_level_fortification
-			}
-			scope:holder.culture = {
-				has_innovation = innovation_motte
-			}
-		}
-	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
-	}
-	
-	cost_gold = cheap_building_tier_4_cost
-	
-	max_garrison = normal_building_max_garrison_tier_4
-	province_modifier = {
-		monthly_income = poor_building_tax_tier_4
-		fort_level = normal_building_fort_level_tier_4
-		stationed_heavy_cavalry_damage_mult = low_maa_damage_tier_4
-		stationed_heavy_cavalry_toughness_mult = low_maa_toughness_tier_4
-		travel_danger = -4
-	}
-	
-	county_modifier = {
-		supply_limit = 300
-	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
-	}
-	
-	next_building = curtain_walls_05
-	
-	ai_value = {
-		base = 7
-		modifier = {
-			add = 1
-			scope:holder = {
-				culture = {
-					has_cultural_parameter = ai_more_likely_to_fortify
-				}
-			}
-		}
-		ai_general_building_modifier = yes
-		directive_to_fortify_modifier = yes
-		ai_economical_building_preference_modifier = yes
-	}
-}
-
-curtain_walls_05 = {
-	construction_time = standard_construction_time
-
-	can_construct_potential = {
-		building_curtain_walls_requirement_terrain = yes
-	}
-
-	can_construct = {
-		trigger_if = {
-			limit = {
-				NOT = {
-					culture = {
-						has_cultural_parameter = next_level_fortification
-					}
-				}
-			}
-			building_requirement_castle_city_church = { LEVEL = 03 }
-			scope:holder.culture = {
-				has_innovation = innovation_hoardings
-			}
-		}
-		trigger_else = {
-			building_requirement_castle_city_church = { LEVEL = 02 }
-			culture = {
-				has_cultural_parameter = next_level_fortification
-			}
-			scope:holder.culture = {
-				has_innovation = innovation_battlements
-			}
-		}
-	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
-	}
-	
-	cost_gold = cheap_building_tier_5_cost
-	
-	max_garrison = normal_building_max_garrison_tier_5
-	province_modifier = {
-		monthly_income = poor_building_tax_tier_5
-		fort_level = normal_building_fort_level_tier_5
-		defender_holding_advantage = normal_building_advantage_tier_2
-		stationed_heavy_cavalry_damage_mult = low_maa_damage_tier_5
-		stationed_heavy_cavalry_toughness_mult = low_maa_toughness_tier_5
-		travel_danger = -5
-	}
-	
-	county_modifier = {
-		supply_limit = 300
-	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
-	}
-	
-	next_building = curtain_walls_06
-	
-	ai_value = {
-		base = 6
-		modifier = {
-			add = 1
-			scope:holder = {
-				culture = {
-					has_cultural_parameter = ai_more_likely_to_fortify
-				}
-			}
-		}
-		ai_general_building_modifier = yes
-		directive_to_fortify_modifier = yes
-		ai_economical_building_preference_modifier = yes
-	}
-}
-
-curtain_walls_06 = {
-	construction_time = standard_construction_time
-
-	can_construct_potential = {
-		building_curtain_walls_requirement_terrain = yes
-	}
-
-	can_construct = {
-		trigger_if = {
-			limit = {
-				NOT = {
-					culture = {
-						has_cultural_parameter = next_level_fortification
-					}
-				}
-			}
-			building_requirement_castle_city_church = { LEVEL = 03 }
-			scope:holder.culture = {
-				has_innovation = innovation_hoardings
-			}
-		}
-		trigger_else = {
-			building_requirement_castle_city_church = { LEVEL = 02 }
-			culture = {
-				has_cultural_parameter = next_level_fortification
-			}
-			scope:holder.culture = {
-				has_innovation = innovation_battlements
-			}
-		}
-	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
-	}
-	
-	cost_gold = cheap_building_tier_6_cost
-	
-	max_garrison = normal_building_max_garrison_tier_6
-	province_modifier = {
-		monthly_income = poor_building_tax_tier_6
-		fort_level = normal_building_fort_level_tier_6
-		defender_holding_advantage = normal_building_advantage_tier_2
-		stationed_heavy_cavalry_damage_mult = low_maa_damage_tier_6
-		stationed_heavy_cavalry_toughness_mult = low_maa_toughness_tier_6
-		travel_danger = -6
-	}
-	
-	county_modifier = {
-		supply_limit = 300
-		supply_limit_mult = 0.02
-	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
-	}
-	
-	next_building = curtain_walls_07
-	
-	ai_value = {
-		base = 5
-		modifier = {
-			add = 1
-			scope:holder = {
-				culture = {
-					has_cultural_parameter = ai_more_likely_to_fortify
-				}
-			}
-		}
-		ai_general_building_modifier = yes
-		directive_to_fortify_modifier = yes
-		ai_economical_building_preference_modifier = yes
-	}
-}
-
-curtain_walls_07 = {
-	construction_time = standard_construction_time
-
-	can_construct_potential = {
-		building_curtain_walls_requirement_terrain = yes
-	}
-
-	can_construct = {
-		trigger_if = {
-			limit = {
-				NOT = {
-					culture = {
-						has_cultural_parameter = next_level_fortification
-					}
-				}
-			}
-			building_requirement_castle_city_church = { LEVEL = 04 }
-			scope:holder.culture = {
-				has_innovation = innovation_machicolations
-			}
-		}
-		trigger_else = {
-			building_requirement_castle_city_church = { LEVEL = 03 }
-			culture = {
-				has_cultural_parameter = next_level_fortification
-			}
-			scope:holder.culture = {
-				has_innovation = innovation_hoardings
-			}
-		}
-	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
-	}
-	
-	cost_gold = cheap_building_tier_7_cost
-	
-	max_garrison = normal_building_max_garrison_tier_7
-	province_modifier = {
-		monthly_income = poor_building_tax_tier_7
-		fort_level = normal_building_fort_level_tier_7
-		defender_holding_advantage = normal_building_advantage_tier_2
-		stationed_heavy_cavalry_damage_mult = low_maa_damage_tier_7
-		stationed_heavy_cavalry_toughness_mult = low_maa_toughness_tier_7
-		travel_danger = -7
-	}
-	
-	county_modifier = {
-		supply_limit = 300
-		supply_limit_mult = 0.02
-	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
-	}
-	
-	next_building = curtain_walls_08
-	
-	ai_value = {
-		base = 4
-		modifier = {
-			add = 1
-			scope:holder = {
-				culture = {
-					has_cultural_parameter = ai_more_likely_to_fortify
-				}
-			}
-		}
-		ai_general_building_modifier = yes
-		directive_to_fortify_modifier = yes
-		ai_economical_building_preference_modifier = yes
-	}
-}
-
-curtain_walls_08 = {
-	construction_time = standard_construction_time
-
-	can_construct_potential = {
-		building_curtain_walls_requirement_terrain = yes
-	}
-
-	can_construct = {
-		trigger_if = {
-			limit = {
-				NOT = {
-					culture = {
-						has_cultural_parameter = next_level_fortification
-					}
-				}
-			}
-			building_requirement_castle_city_church = { LEVEL = 04 }
-			scope:holder.culture = {
-				has_innovation = innovation_machicolations
-			}
-		}
-		trigger_else = {
-			building_requirement_castle_city_church = { LEVEL = 03 }
-			culture = {
-				has_cultural_parameter = next_level_fortification
-			}
-			scope:holder.culture = {
-				has_innovation = innovation_hoardings
-			}
-		}
-	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
-	}
-	
-	cost_gold = cheap_building_tier_8_cost
-	
-	max_garrison = normal_building_max_garrison_tier_8
-	province_modifier = {
-		monthly_income = poor_building_tax_tier_8
-		fort_level = normal_building_fort_level_tier_8
-		defender_holding_advantage = normal_building_advantage_tier_2
-		stationed_heavy_cavalry_damage_mult = low_maa_damage_tier_8
-		stationed_heavy_cavalry_toughness_mult = low_maa_toughness_tier_8
-		travel_danger = -8
-	}
-	
-	county_modifier = {
-		supply_limit = 300
-		supply_limit_mult = 0.02
-	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
-	}
-	
-	ai_value = {
-		base = 3
-		modifier = {
-			add = 1
-			scope:holder = {
-				culture = {
-					has_cultural_parameter = ai_more_likely_to_fortify
-				}
-			}
-		}
-		ai_general_building_modifier = yes
-		directive_to_fortify_modifier = yes
-		ai_economical_building_preference_modifier = yes
-	}
-}
-
-### watchtowers
-
-watchtowers_01 = {
-	construction_time = standard_construction_time
-	effect_desc = watchtowers_desc
-
-	can_construct_potential = {
-		building_watchtowers_requirement_terrain = yes
-		building_requirement_castle_city_church = { LEVEL = 01 }
-	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
-	}
-	
-	cost_gold = cheap_building_tier_1_cost
-	
-	max_garrison = normal_building_max_garrison_tier_1
-	province_modifier = {
-		defender_holding_advantage = normal_building_advantage_tier_1
-		fort_level = normal_building_fort_level_tier_1
-		stationed_heavy_infantry_damage_mult = low_maa_damage_tier_1
-		stationed_heavy_infantry_toughness_mult = low_maa_toughness_tier_1
-		stationed_light_cavalry_damage_mult = low_maa_damage_tier_1
-		stationed_light_cavalry_toughness_mult = low_maa_toughness_tier_1
-		travel_danger = -1
-	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
-	}
-	
-	next_building = watchtowers_02
+	next_building = ds_surveys_02
 
 	type_icon = "icon_building_watchtowers.dds"
 	
@@ -1237,13 +1232,13 @@ watchtowers_01 = {
 	}
 }
 
-watchtowers_02 = {
+ds_surveys_02 = {
 	construction_time = standard_construction_time
-	effect_desc = watchtowers_desc
 
 	can_construct_potential = {
-		building_watchtowers_requirement_terrain = yes
+		building_ds_surveys_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 01 }
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -1271,25 +1266,15 @@ watchtowers_02 = {
 	
 	max_garrison = normal_building_max_garrison_tier_2
 	province_modifier = {
-		defender_holding_advantage = normal_building_advantage_tier_2
+		defender_holding_advantage = good_building_advantage_tier_2
 		fort_level = normal_building_fort_level_tier_2
-		stationed_heavy_infantry_damage_mult = low_maa_damage_tier_2
-		stationed_heavy_infantry_toughness_mult = low_maa_toughness_tier_2
-		stationed_light_cavalry_damage_mult = low_maa_damage_tier_2
-		stationed_light_cavalry_toughness_mult = low_maa_toughness_tier_2
+		stationed_archers_damage_mult = low_maa_damage_tier_2
+		stationed_archers_toughness_mult = low_maa_toughness_tier_2
+		stationed_archer_cavalry_damage_mult = low_maa_damage_tier_2
+		stationed_archer_cavalry_toughness_mult = low_maa_toughness_tier_2
 		travel_danger = -2
 	}
-	
-	county_modifier = {
-		hostile_raid_time = 0.1
-	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
-	}
-	
-	next_building = watchtowers_03
+	next_building = ds_surveys_03
 	
 	ai_value = {
 		base = 9
@@ -1310,12 +1295,13 @@ watchtowers_02 = {
 	}
 }
 
-watchtowers_03 = {
+ds_surveys_03 = {
 	construction_time = standard_construction_time
-	effect_desc = watchtowers_desc
+	effect_desc = ds_surveys_desc
 
 	can_construct_potential = {
-		building_watchtowers_requirement_terrain = yes
+		building_ds_surveys_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
 	can_construct = {
@@ -1351,25 +1337,23 @@ watchtowers_03 = {
 	
 	max_garrison = normal_building_max_garrison_tier_3
 	province_modifier = {
-		defender_holding_advantage = normal_building_advantage_tier_3
+		defender_holding_advantage = good_building_advantage_tier_3
 		fort_level = normal_building_fort_level_tier_3
-		stationed_heavy_infantry_damage_mult = low_maa_damage_tier_3
-		stationed_heavy_infantry_toughness_mult = low_maa_toughness_tier_3
-		stationed_light_cavalry_damage_mult = low_maa_damage_tier_3
-		stationed_light_cavalry_toughness_mult = low_maa_toughness_tier_3
+		stationed_archers_damage_mult = low_maa_damage_tier_3
+		stationed_archers_toughness_mult = low_maa_toughness_tier_3
+		stationed_archer_cavalry_damage_mult = low_maa_damage_tier_3
+		stationed_archer_cavalry_toughness_mult = low_maa_toughness_tier_3
 		travel_danger = -3
 	}
-	
-	county_modifier = {
-		hostile_raid_time = 0.1
+	character_modifier = {
+		army_maintenance_mult = -0.01
 	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
+	province_terrain_modifier = {
+		terrain = nebula
+		defender_holding_advantage = 2
 	}
 	
-	next_building = watchtowers_04
+	next_building = ds_surveys_04
 	
 	ai_value = {
 		base = 8
@@ -1386,12 +1370,12 @@ watchtowers_03 = {
 	}
 }
 
-watchtowers_04 = {
+ds_surveys_04 = {
 	construction_time = standard_construction_time
-	effect_desc = watchtowers_desc
 
 	can_construct_potential = {
-		building_watchtowers_requirement_terrain = yes
+		building_ds_surveys_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
 	can_construct = {
@@ -1427,26 +1411,22 @@ watchtowers_04 = {
 	
 	max_garrison = normal_building_max_garrison_tier_4
 	province_modifier = {
-		defender_holding_advantage = normal_building_advantage_tier_4
+		defender_holding_advantage = good_building_advantage_tier_4
 		fort_level = normal_building_fort_level_tier_4
-		supply_limit = 300
-		stationed_heavy_infantry_damage_mult = low_maa_damage_tier_4
-		stationed_heavy_infantry_toughness_mult = low_maa_toughness_tier_4
-		stationed_light_cavalry_damage_mult = low_maa_damage_tier_4
-		stationed_light_cavalry_toughness_mult = low_maa_toughness_tier_4
+		stationed_archers_damage_mult = low_maa_damage_tier_4
+		stationed_archers_toughness_mult = low_maa_toughness_tier_4
+		stationed_archer_cavalry_damage_mult = low_maa_damage_tier_4
+		stationed_archer_cavalry_toughness_mult = low_maa_toughness_tier_4
 		travel_danger = -4
 	}
-	
-	county_modifier = {
-		hostile_raid_time = 0.1
+	character_modifier = {
+		army_maintenance_mult = -0.01
 	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
+	province_terrain_modifier = {
+		terrain = nebula
+		defender_holding_advantage = 2
 	}
-	
-	next_building = watchtowers_05
+	next_building = ds_surveys_05
 	
 	ai_value = {
 		base = 7
@@ -1463,12 +1443,13 @@ watchtowers_04 = {
 	}
 }
 
-watchtowers_05 = {
+ds_surveys_05 = {
 	construction_time = standard_construction_time
-	effect_desc = watchtowers_desc
+	effect_desc = ds_surveys_desc
 
 	can_construct_potential = {
-		building_watchtowers_requirement_terrain = yes
+		building_ds_surveys_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
 	can_construct = {
@@ -1504,27 +1485,22 @@ watchtowers_05 = {
 	
 	max_garrison = normal_building_max_garrison_tier_5
 	province_modifier = {
-		defender_holding_advantage = normal_building_advantage_tier_5
+		defender_holding_advantage = good_building_advantage_tier_5
 		fort_level = normal_building_fort_level_tier_5
-		supply_limit = 300
-		stationed_heavy_infantry_damage_mult = low_maa_damage_tier_5
-		stationed_heavy_infantry_toughness_mult = low_maa_toughness_tier_5
-		stationed_light_cavalry_damage_mult = low_maa_damage_tier_5
-		stationed_light_cavalry_toughness_mult = low_maa_toughness_tier_5
+		stationed_archers_damage_mult = low_maa_damage_tier_5
+		stationed_archers_toughness_mult = low_maa_toughness_tier_5
+		stationed_archer_cavalry_damage_mult = low_maa_damage_tier_5
+		stationed_archer_cavalry_toughness_mult = low_maa_toughness_tier_5
 		travel_danger = -5
-		epidemic_resistance = 5
 	}
-	
-	county_modifier = {
-		hostile_raid_time = 0.15	
+	character_modifier = {
+		army_maintenance_mult = -0.01
 	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
+	province_terrain_modifier = {
+		terrain = nebula
+		defender_holding_advantage = 4
 	}
-	
-	next_building = watchtowers_06
+	next_building = ds_surveys_06
 	
 	ai_value = {
 		base = 6
@@ -1541,12 +1517,13 @@ watchtowers_05 = {
 	}
 }
 
-watchtowers_06 = {
+ds_surveys_06 = {
 	construction_time = standard_construction_time
-	effect_desc = watchtowers_desc
+	effect_desc = ds_surveys_desc
 
 	can_construct_potential = {
-		building_watchtowers_requirement_terrain = yes
+		building_ds_surveys_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
 	can_construct = {
@@ -1582,28 +1559,22 @@ watchtowers_06 = {
 	
 	max_garrison = normal_building_max_garrison_tier_6
 	province_modifier = {
-		defender_holding_advantage = normal_building_advantage_tier_6
+		defender_holding_advantage = good_building_advantage_tier_6
 		fort_level = normal_building_fort_level_tier_6
-		supply_limit = 300
-		stationed_heavy_infantry_damage_mult = low_maa_damage_tier_6
-		stationed_heavy_infantry_toughness_mult = low_maa_toughness_tier_6
-		stationed_light_cavalry_damage_mult = low_maa_damage_tier_6
-		stationed_light_cavalry_toughness_mult = low_maa_toughness_tier_6
+		stationed_archers_damage_mult = low_maa_damage_tier_6
+		stationed_archers_toughness_mult = low_maa_toughness_tier_6
+		stationed_archer_cavalry_damage_mult = low_maa_damage_tier_6
+		stationed_archer_cavalry_toughness_mult = low_maa_toughness_tier_6
 		travel_danger = -6
-		epidemic_resistance = 8
 	}
-	
-	county_modifier = {
-		hostile_raid_time = 0.15
-		supply_limit_mult = 0.05		
+	character_modifier = {
+		army_maintenance_mult = -0.02
 	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
+	province_terrain_modifier = {
+		terrain = nebula
+		defender_holding_advantage = 4
 	}
-	
-	next_building = watchtowers_07
+	next_building = ds_surveys_07
 	
 	ai_value = {
 		base = 5
@@ -1620,12 +1591,13 @@ watchtowers_06 = {
 	}
 }
 
-watchtowers_07 = {
+ds_surveys_07 = {
 	construction_time = standard_construction_time
-	effect_desc = watchtowers_desc
+	effect_desc = ds_surveys_desc
 
 	can_construct_potential = {
-		building_watchtowers_requirement_terrain = yes
+		building_ds_surveys_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 
 	can_construct = {
@@ -1661,28 +1633,22 @@ watchtowers_07 = {
 	
 	max_garrison = normal_building_max_garrison_tier_7
 	province_modifier = {
-		defender_holding_advantage = normal_building_advantage_tier_7
+		defender_holding_advantage = good_building_advantage_tier_7
 		fort_level = normal_building_fort_level_tier_7
-		supply_limit = 600
-		stationed_heavy_infantry_damage_mult = low_maa_damage_tier_7
-		stationed_heavy_infantry_toughness_mult = low_maa_toughness_tier_7
-		stationed_light_cavalry_damage_mult = low_maa_damage_tier_7
-		stationed_light_cavalry_toughness_mult = low_maa_toughness_tier_7
+		stationed_archers_damage_mult = low_maa_damage_tier_7
+		stationed_archers_toughness_mult = low_maa_toughness_tier_7
+		stationed_archer_cavalry_damage_mult = low_maa_damage_tier_7
+		stationed_archer_cavalry_toughness_mult = low_maa_toughness_tier_7
 		travel_danger = -7
-		epidemic_resistance = 10
 	}
-	
-	county_modifier = {
-		hostile_raid_time = 0.15
-		supply_limit_mult = 0.05		
+	character_modifier = {
+		army_maintenance_mult = -0.02
 	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
+	province_terrain_modifier = {
+		terrain = nebula
+		defender_holding_advantage = 6
 	}
-	
-	next_building = watchtowers_08
+	next_building = ds_surveys_08
 	
 	ai_value = {
 		base = 4
@@ -1699,12 +1665,13 @@ watchtowers_07 = {
 	}
 }
 
-watchtowers_08 = {
+ds_surveys_08 = {
 	construction_time = standard_construction_time
-	effect_desc = watchtowers_desc
+	effect_desc = ds_surveys_desc
 
 	can_construct_potential = {
-		building_watchtowers_requirement_terrain = yes
+		building_ds_surveys_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 
 	can_construct = {
@@ -1740,25 +1707,20 @@ watchtowers_08 = {
 	
 	max_garrison = normal_building_max_garrison_tier_8
 	province_modifier = {
-		defender_holding_advantage = normal_building_advantage_tier_8
+		defender_holding_advantage = good_building_advantage_tier_8
 		fort_level = normal_building_fort_level_tier_8
-		supply_limit = 600
-		stationed_heavy_infantry_damage_mult = low_maa_damage_tier_8
-		stationed_heavy_infantry_toughness_mult = low_maa_toughness_tier_8
-		stationed_light_cavalry_damage_mult = low_maa_damage_tier_8
-		stationed_light_cavalry_toughness_mult = low_maa_toughness_tier_8
+		stationed_archers_damage_mult = low_maa_damage_tier_8
+		stationed_archers_toughness_mult = low_maa_toughness_tier_8
+		stationed_archer_cavalry_damage_mult = low_maa_damage_tier_8
+		stationed_archer_cavalry_toughness_mult = low_maa_toughness_tier_8
 		travel_danger = -8
-		epidemic_resistance = 12
 	}
-	
-	county_modifier = {
-		hostile_raid_time = 0.2
-		supply_limit_mult = 0.05	
+	character_modifier = {
+		army_maintenance_mult = -0.02
 	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
+	province_terrain_modifier = {
+		terrain = nebula
+		defender_holding_advantage = 6
 	}
 	
 	ai_value = {
@@ -1776,14 +1738,15 @@ watchtowers_08 = {
 	}
 }
 
-### hill_forts
+### asteroid_ambushes
 
-hill_forts_01 = {
+asteroid_ambushes_01 = {
 	construction_time = slow_construction_time
 
 	can_construct_potential = {
-		building_hill_forts_requirement_terrain = yes
+		building_asteroid_ambushes_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 01 }
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 	
 	can_construct_showing_failures_only = {
@@ -1796,19 +1759,14 @@ hill_forts_01 = {
 	province_modifier = {
 		defender_holding_advantage = normal_building_advantage_tier_1
 		fort_level = good_building_fort_level_tier_1
-		stationed_skirmishers_damage_mult = low_maa_damage_tier_1
-		stationed_skirmishers_toughness_mult = low_maa_toughness_tier_1
+		stationed_siege_weapon_siege_value_mult = low_maa_siege_value_tier_1
 		stationed_pikemen_damage_mult = low_maa_damage_tier_1
 		stationed_pikemen_toughness_mult = low_maa_toughness_tier_1
 		travel_danger = -1
-	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
+		stationed_maa_siege_value_add = 0.02
 	}
 	
-	next_building = hill_forts_02
+	next_building = asteroid_ambushes_02
 
 	type_icon = "icon_building_hill_forts.dds"
 	
@@ -1833,12 +1791,13 @@ hill_forts_01 = {
 	}
 }
 
-hill_forts_02 = {
+asteroid_ambushes_02 = {
 	construction_time = slow_construction_time
 
 	can_construct_potential = {
-		building_hill_forts_requirement_terrain = yes
+		building_asteroid_ambushes_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 01 }
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -1868,23 +1827,18 @@ hill_forts_02 = {
 	province_modifier = {
 		defender_holding_advantage = normal_building_advantage_tier_2
 		fort_level = good_building_fort_level_tier_2
-		stationed_skirmishers_damage_mult = low_maa_damage_tier_2
-		stationed_skirmishers_toughness_mult = low_maa_toughness_tier_2
+		stationed_siege_weapon_siege_value_mult = low_maa_siege_value_tier_2
 		stationed_pikemen_damage_mult = low_maa_damage_tier_2
 		stationed_pikemen_toughness_mult = low_maa_toughness_tier_2
 		travel_danger = -2
+		stationed_maa_siege_value_add = 0.02
 	}
 	county_modifier = {
 		monthly_county_control_growth_factor = 0.1
 		monthly_county_control_decline_factor = -0.1
 	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
-	}
 	
-	next_building = hill_forts_03
+	next_building = asteroid_ambushes_03
 	
 	ai_value = {
 		base = 9
@@ -1897,11 +1851,12 @@ hill_forts_02 = {
 	}
 }
 
-hill_forts_03 = {
+asteroid_ambushes_03 = {
 	construction_time = slow_construction_time
 
 	can_construct_potential = {
-		building_hill_forts_requirement_terrain = yes
+		building_asteroid_ambushes_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
 	can_construct = {
@@ -1939,23 +1894,18 @@ hill_forts_03 = {
 	province_modifier = {
 		defender_holding_advantage = normal_building_advantage_tier_3
 		fort_level = good_building_fort_level_tier_3
-		stationed_skirmishers_damage_mult = low_maa_damage_tier_3
-		stationed_skirmishers_toughness_mult = low_maa_toughness_tier_3
+		stationed_siege_weapon_siege_value_mult = low_maa_siege_value_tier_3
 		stationed_pikemen_damage_mult = low_maa_damage_tier_3
 		stationed_pikemen_toughness_mult = low_maa_toughness_tier_3
 		travel_danger = -3
+		stationed_maa_siege_value_add = 0.04
 	}
 	county_modifier = {
 		monthly_county_control_growth_factor = 0.1
 		monthly_county_control_decline_factor = -0.1
 	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
-	}
 	
-	next_building = hill_forts_04
+	next_building = asteroid_ambushes_04
 	
 	ai_value = {
 		base = 8
@@ -1964,11 +1914,12 @@ hill_forts_03 = {
 	}
 }
 
-hill_forts_04 = {
+asteroid_ambushes_04 = {
 	construction_time = slow_construction_time
 
 	can_construct_potential = {
-		building_hill_forts_requirement_terrain = yes
+		building_asteroid_ambushes_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
 	can_construct = {
@@ -2006,24 +1957,19 @@ hill_forts_04 = {
 	province_modifier = {
 		defender_holding_advantage = normal_building_advantage_tier_4
 		fort_level = good_building_fort_level_tier_4
-		stationed_skirmishers_damage_mult = low_maa_damage_tier_4
-		stationed_skirmishers_toughness_mult = low_maa_toughness_tier_4
+		stationed_siege_weapon_siege_value_mult = low_maa_siege_value_tier_4
 		stationed_pikemen_damage_mult = low_maa_damage_tier_4
 		stationed_pikemen_toughness_mult = low_maa_toughness_tier_4
 		travel_danger = -4
+		stationed_maa_siege_value_add = 0.02
 	}
 	county_modifier = {
 		monthly_county_control_growth_factor = 0.1
 		monthly_county_control_decline_factor = -0.1
 		levy_size = 0.02
 	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
-	}
 	
-	next_building = hill_forts_05
+	next_building = asteroid_ambushes_05
 	
 	ai_value = {
 		base = 7
@@ -2032,11 +1978,12 @@ hill_forts_04 = {
 	}
 }
 
-hill_forts_05 = {
+asteroid_ambushes_05 = {
 	construction_time = slow_construction_time
 
 	can_construct_potential = {
-		building_hill_forts_requirement_terrain = yes
+		building_asteroid_ambushes_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
 	can_construct = {
@@ -2074,24 +2021,19 @@ hill_forts_05 = {
 	province_modifier = {
 		defender_holding_advantage = normal_building_advantage_tier_5
 		fort_level = good_building_fort_level_tier_5
-		stationed_skirmishers_damage_mult = low_maa_damage_tier_5
-		stationed_skirmishers_toughness_mult = low_maa_toughness_tier_5
+		stationed_siege_weapon_siege_value_mult = low_maa_siege_value_tier_5
 		stationed_pikemen_damage_mult = low_maa_damage_tier_5
 		stationed_pikemen_toughness_mult = low_maa_toughness_tier_5
 		travel_danger = -5
+		stationed_maa_siege_value_add = 0.02
 	}
 	county_modifier = {
 		monthly_county_control_growth_factor = 0.15
 		monthly_county_control_decline_factor = -0.15
 		levy_size = 0.02
 	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
-	}
 	
-	next_building = hill_forts_06
+	next_building = asteroid_ambushes_06
 	
 	ai_value = {
 		base = 6
@@ -2100,11 +2042,12 @@ hill_forts_05 = {
 	}
 }
 
-hill_forts_06 = {
+asteroid_ambushes_06 = {
 	construction_time = slow_construction_time
 
 	can_construct_potential = {
-		building_hill_forts_requirement_terrain = yes
+		building_asteroid_ambushes_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
 	can_construct = {
@@ -2142,24 +2085,19 @@ hill_forts_06 = {
 	province_modifier = {
 		defender_holding_advantage = normal_building_advantage_tier_6
 		fort_level = good_building_fort_level_tier_6
-		stationed_skirmishers_damage_mult = low_maa_damage_tier_6
-		stationed_skirmishers_toughness_mult = low_maa_toughness_tier_6
+		stationed_siege_weapon_siege_value_mult = low_maa_siege_value_tier_6
 		stationed_pikemen_damage_mult = low_maa_damage_tier_6
 		stationed_pikemen_toughness_mult = low_maa_toughness_tier_6
 		travel_danger = -6
+		stationed_maa_siege_value_add = 0.02
 	}
 	county_modifier = {
 		monthly_county_control_growth_factor = 0.15
 		monthly_county_control_decline_factor = -0.15
 		levy_size = 0.02
 	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
-	}
 	
-	next_building = hill_forts_07
+	next_building = asteroid_ambushes_07
 	
 	ai_value = {
 		base = 5
@@ -2168,11 +2106,12 @@ hill_forts_06 = {
 	}
 }
 
-hill_forts_07 = {
+asteroid_ambushes_07 = {
 	construction_time = slow_construction_time
 
 	can_construct_potential = {
-		building_hill_forts_requirement_terrain = yes
+		building_asteroid_ambushes_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 
 	can_construct = {
@@ -2210,24 +2149,19 @@ hill_forts_07 = {
 	province_modifier = {
 		defender_holding_advantage = normal_building_advantage_tier_7
 		fort_level = good_building_fort_level_tier_7
-		stationed_skirmishers_damage_mult = low_maa_damage_tier_7
-		stationed_skirmishers_toughness_mult = low_maa_toughness_tier_7
+		stationed_siege_weapon_siege_value_mult = low_maa_siege_value_tier_7
 		stationed_pikemen_damage_mult = low_maa_damage_tier_7
 		stationed_pikemen_toughness_mult = low_maa_toughness_tier_7
 		travel_danger = -7
+		stationed_maa_siege_value_add = 0.02
 	}
 	county_modifier = {
 		monthly_county_control_growth_factor = 0.15
 		monthly_county_control_decline_factor = -0.15
 		levy_size = 0.02
 	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
-	}
 	
-	next_building = hill_forts_08
+	next_building = asteroid_ambushes_08
 	
 	ai_value = {
 		base = 4
@@ -2236,11 +2170,12 @@ hill_forts_07 = {
 	}
 }
 
-hill_forts_08 = {
+asteroid_ambushes_08 = {
 	construction_time = slow_construction_time
 
 	can_construct_potential = {
-		building_hill_forts_requirement_terrain = yes
+		building_asteroid_ambushes_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 
 	can_construct = {
@@ -2278,21 +2213,16 @@ hill_forts_08 = {
 	province_modifier = {
 		defender_holding_advantage = normal_building_advantage_tier_8
 		fort_level = good_building_fort_level_tier_8
-		stationed_skirmishers_damage_mult = low_maa_damage_tier_8
-		stationed_skirmishers_toughness_mult = low_maa_toughness_tier_8
+		stationed_siege_weapon_siege_value_mult = low_maa_siege_value_tier_8
 		stationed_pikemen_damage_mult = low_maa_damage_tier_8
 		stationed_pikemen_toughness_mult = low_maa_toughness_tier_8
 		travel_danger = -8
+		stationed_maa_siege_value_add = 0.02
 	}
 	county_modifier = {
 		monthly_county_control_growth_factor = 0.2
 		monthly_county_control_decline_factor = -0.2
 		levy_size = 0.02
-	}
-
-	on_complete = {
-		#Mandala Creator Aspect
-		creator_mandala_built_regular_building_piety_effect = yes
 	}
 	
 	ai_value = {

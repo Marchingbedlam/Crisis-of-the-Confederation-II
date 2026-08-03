@@ -1,0 +1,274 @@
+#################################
+# CotC Infrastructure Buildings #
+#################################
+
+# Goal is to make it noticeably more difficult to improve Hostile planets than atmospheric ones
+# And more difficult to improve open space than Hostile planets
+# Habitat Infrastructure is for building on corrosive, barren, etc.
+# Orbital Infrastructure is for building on gas giants and open space. 
+# Each level unlocks two levels of normal buildings but costs more
+# Atmospheric planets get free buildings
+# TODO: I created the requirement and the buildings for both orbital and hab
+# TODO: Now just needs to be distributed across the other CotC buildings
+# TODO: Also need to add the building slots and make sure that works correctly
+
+hab_infrastructure_01 = {
+	construction_time = quick_construction_time
+
+	can_construct_potential = {
+		building_requirement_castle_city_church = { LEVEL = 01 }
+        building_hab_infrastructure_requirement_terrain = yes
+	}
+
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+
+	cost_gold = normal_building_tier_1_cost
+
+	province_modifier = {
+		monthly_income = normal_building_tax_negative_tier_1
+	}
+	county_modifier = {
+		development_growth_factor = 0.05
+	}
+
+	next_building = hab_infrastructure_02
+
+	type_icon = "icon_building_tradeport.dds"
+
+	ai_value = {
+		base = 10
+		ai_tier_1_building_modifier = yes
+		ai_tier_1_economical_building_preference_modifier = yes
+		ai_general_building_modifier = yes
+		directive_to_build_economy_modifier = yes
+	}
+}
+
+hab_infrastructure_02 = {
+	construction_time = quick_construction_time
+
+	can_construct_potential = {
+		building_requirement_castle_city_church = { LEVEL = 02 }
+        building_hab_infrastructure_requirement_terrain = yes
+	}
+
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+
+	cost_gold = normal_building_tier_1_cost
+
+	province_modifier = {
+		monthly_income = normal_building_tax_negative_tier_2
+        building_slot_add = 1
+	}
+	county_modifier = {
+		development_growth_factor = 0.05
+	}
+
+    next_building = hab_infrastructure_03
+
+	ai_value = {
+		base = 10
+		ai_tier_1_building_modifier = yes
+		ai_tier_1_economical_building_preference_modifier = yes
+		ai_general_building_modifier = yes
+		directive_to_build_economy_modifier = yes
+	}
+}
+
+hab_infrastructure_03 = {
+	construction_time = quick_construction_time
+
+	can_construct_potential = {
+		building_requirement_castle_city_church = { LEVEL = 03 }
+        building_hab_infrastructure_requirement_terrain = yes
+	}
+
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+
+	cost_gold = normal_building_tier_1_cost
+
+	province_modifier = {
+		monthly_income = normal_building_tax_negative_tier_3
+        building_slot_add = 1
+	}
+	county_modifier = {
+		development_growth_factor = 0.05
+	}
+
+    next_building = hab_infrastructure_04
+
+	ai_value = {
+		base = 10
+		ai_tier_1_building_modifier = yes
+		ai_tier_1_economical_building_preference_modifier = yes
+		ai_general_building_modifier = yes
+		directive_to_build_economy_modifier = yes
+	}
+}
+
+hab_infrastructure_04 = {
+	construction_time = quick_construction_time
+
+	can_construct_potential = {
+		building_requirement_castle_city_church = { LEVEL = 04 }
+        building_hab_infrastructure_requirement_terrain = yes
+	}
+
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+
+	cost_gold = normal_building_tier_1_cost
+
+	province_modifier = {
+		monthly_income = normal_building_tax_negative_tier_4
+        building_slot_add = 1
+	}
+	county_modifier = {
+		development_growth_factor = 0.05
+	}
+
+	ai_value = {
+		base = 10
+		ai_tier_1_building_modifier = yes
+		ai_tier_1_economical_building_preference_modifier = yes
+		ai_general_building_modifier = yes
+		directive_to_build_economy_modifier = yes
+	}
+}
+
+orb_infrastructure_01 = {
+	construction_time = quick_construction_time
+
+	can_construct_potential = {
+		building_requirement_castle_city_church = { LEVEL = 01 }
+        building_orb_infrastructure_requirement_terrain = yes
+	}
+
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+
+	cost_gold = normal_building_tier_1_cost
+
+	province_modifier = {
+		monthly_income = good_building_tax_negative_tier_1
+	}
+	county_modifier = {
+		development_growth_factor = 0.05
+	}
+
+	next_building = orb_infrastructure_02
+
+	type_icon = "icon_building_tradeport.dds"
+
+	ai_value = {
+		base = 10
+		ai_tier_1_building_modifier = yes
+		ai_tier_1_economical_building_preference_modifier = yes
+		ai_general_building_modifier = yes
+		directive_to_build_economy_modifier = yes
+	}
+}
+
+orb_infrastructure_02 = {
+	construction_time = quick_construction_time
+
+	can_construct_potential = {
+		building_requirement_castle_city_church = { LEVEL = 02 }
+        building_orb_infrastructure_requirement_terrain = yes
+	}
+
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+
+	cost_gold = normal_building_tier_1_cost
+
+	province_modifier = {
+		monthly_income = good_building_tax_negative_tier_2
+	}
+	county_modifier = {
+		development_growth_factor = 0.05
+	}
+
+    next_building = orb_infrastructure_03
+
+	ai_value = {
+		base = 10
+		ai_tier_1_building_modifier = yes
+		ai_tier_1_economical_building_preference_modifier = yes
+		ai_general_building_modifier = yes
+		directive_to_build_economy_modifier = yes
+	}
+}
+
+orb_infrastructure_03 = {
+	construction_time = quick_construction_time
+
+	can_construct_potential = {
+		building_requirement_castle_city_church = { LEVEL = 03 }
+        building_orb_infrastructure_requirement_terrain = yes
+	}
+
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+
+	cost_gold = normal_building_tier_1_cost
+
+	province_modifier = {
+		monthly_income = good_building_tax_negative_tier_3
+        building_slot_add = 1
+	}
+	county_modifier = {
+		development_growth_factor = 0.05
+	}
+
+    next_building = orb_infrastructure_04
+
+	ai_value = {
+		base = 10
+		ai_tier_1_building_modifier = yes
+		ai_tier_1_economical_building_preference_modifier = yes
+		ai_general_building_modifier = yes
+		directive_to_build_economy_modifier = yes
+	}
+}
+
+orb_infrastructure_04 = {
+	construction_time = quick_construction_time
+
+	can_construct_potential = {
+		building_requirement_castle_city_church = { LEVEL = 04 }
+        building_orb_infrastructure_requirement_terrain = yes
+	}
+
+	can_construct_showing_failures_only = {
+		building_requirement_tribal = no
+	}
+
+	cost_gold = normal_building_tier_1_cost
+
+	province_modifier = {
+		monthly_income = good_building_tax_negative_tier_4
+        building_slot_add = 1
+	}
+	county_modifier = {
+		development_growth_factor = 0.05
+	}
+
+	ai_value = {
+		base = 10
+		ai_tier_1_building_modifier = yes
+		ai_tier_1_economical_building_preference_modifier = yes
+		ai_general_building_modifier = yes
+		directive_to_build_economy_modifier = yes
+	}
+}

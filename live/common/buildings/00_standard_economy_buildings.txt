@@ -32,9 +32,9 @@
 	# Frozen, Frozen Giant, Asteroid (?)
 # Agriculture - Massive tax, Development -- Farm Estate Direct
 	# Atmospheric + Habs with max infrastructure (TBD)
-# Water Collection - Large tax, Mixed Bonuses -- Farms and Fields - TBD
+# Water Collection - Large tax, Mixed Bonuses -- Farms and Fields -
 	# Atmospheric -- TODO: Remove and make ice collectors better on atmospheric
-# Xenofauna - Normal tax, Mixed + Martial Bonuses -- Elephantries TBD
+# Xenofauna - Normal tax, Mixed + Martial Bonuses -- Elephantries
 	# Atmospheric
 # Refineries - Normal tax, Small Levy, Development, MaA damage -- Orchards
 	# Corrosive
@@ -46,6 +46,8 @@
 	# Atmosperic, Corrosive, Barren, Frozen
 # Exotic Forges - Normal Tax, MaA Offense and Toughness
 	# Astroid Specific Forge Upgrade
+# Trade Berths - Tax, Development
+# Commercial Shipyard - Tax, Levy, Supply Limit
 
 
 
@@ -59,7 +61,9 @@ common_tradeberth_01 = {
 	can_construct_potential = {
 		building_requirement_castle_city_church = { LEVEL = 01 }
 	}
-
+	can_construct = {
+		building_requirement_space_infrastructure = { LEVEL = 01 }
+	}
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
 	}
@@ -132,7 +136,9 @@ common_tradeberth_02 = {
 	can_construct_potential = {
 		building_requirement_castle_city_church = { LEVEL = 01 }
 	}
-
+	can_construct = {
+		building_requirement_space_infrastructure = { LEVEL = 01 }
+	}
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
 	}
@@ -169,6 +175,9 @@ common_tradeberth_03 = {
 
 	can_construct_potential = {
 		building_requirement_castle_city_church = { LEVEL = 02 }
+	}
+	can_construct = {
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -702,6 +711,9 @@ ice_collector_01 = {
 	can_construct_potential = {
 		building_ice_collector_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 01 }
+	}
+	can_construct = {
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
