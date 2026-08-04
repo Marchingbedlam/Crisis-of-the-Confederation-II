@@ -539,18 +539,8 @@ yearly_playable_pulse = {
 				government_allows = administrative
 				is_landed = yes
 			}
-			# Failsafe to ensure we don't get independent admin rulers of too low a rank (i.e. below king)
-			if = {
-				limit = {
-					# Is independent
-					liege = root
-					# Is less than King tier
-					administrative_tier_allows_independence = no
-				}
-				admin_change_government_effect = yes
-			}
 			# Failsafe to ensure we don't have a noble family holding land without other titles - Give any held land to liege
-			else_if = {
+			if = {
 				limit = {
 					# They are a Vassal
 					is_independent_ruler = no

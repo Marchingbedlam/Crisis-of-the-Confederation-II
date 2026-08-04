@@ -28,23 +28,6 @@
 # Does *not* provide scope:transfer_type
 on_title_destroyed = {
 	effect = {
-		# If the title of an independent admin ruler is destroyed, let's make sure we handle any stray admin vassals
-		if = {
-			limit = {
-				government_allows = administrative
-				top_liege = this
-				administrative_counts_can_be_independent = no
-				NOT = {
-					any_held_title = {
-						title_tier >= kingdom
-
-						this != scope:landed_title
-						is_noble_family_title = no
-					}
-				}
-			}
-			admin_change_government_effect = yes
-		}
 		# Adjust the size of the laamps tally.
 		else_if = {
 			limit = {

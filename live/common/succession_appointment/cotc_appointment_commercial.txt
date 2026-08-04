@@ -23,7 +23,7 @@
 			}
 			scope:appointer = {
 				if = {
-					limit = { primary_title = { exists = state_faith } }
+					limit = { primary_title ?= { exists = state_faith } }
 					primary_title.state_faith = { save_temporary_scope_as = relevant_faith }
 				}
 				faith = { save_temporary_scope_as = relevant_faith }
@@ -261,14 +261,14 @@
 			
 			# DE JURE CLAIMS
 			if = {
-				limit = { any_held_title = { is_de_jure_liege_or_above_target = scope:title } }
+				limit = { any_held_title ?= { is_de_jure_liege_or_above_target = scope:title } }
 				add = {
 					value = 20
 					desc = de_jure_claim_to_title_desc
 				}
 			}
 			else_if = {
-				limit = { primary_title = { target_is_de_jure_liege_or_above = scope:title } }
+				limit = { primary_title ?= { target_is_de_jure_liege_or_above = scope:title } }
 				add = {
 					value = 20
 					desc = is_de_jure_vassal_desc
@@ -357,7 +357,7 @@
 			# CANDIDATE'S LOYALTY TO APPOINTER
 			if = {
 				limit = {
-					NOT = { title.holder ?= { this = scope:appointer } }
+					NOT = { scope:title.holder ?= { this = scope:appointer } }
 					scope:appointer = {
 						0 <= {
 							add = ai_boldness
