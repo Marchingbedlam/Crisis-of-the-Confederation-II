@@ -1,0 +1,162 @@
+﻿# DIRECT EVALUATION EFFECTS
+# These effects have to check every tech and therefore need to be kept up to date with the list of techs
+
+# TECH - a specific cultural innovation to apply the effects of
+# TARGET - the type of scope this is being run on (character, county, or province)
+apply_tech = {
+	switch = {
+		trigger = $TECH$
+		culture_innovation:innovation_test = { apply_tech_by_string = { TECH = test TARGET = $TARGET$ } }
+	}
+}
+# TARGET - the type of scope this is being run on (character, county, or province)
+verify_all_tech_modifiers = { # Apply this to a target county, character, or province to verify all tech modifiers
+	apply_tech_by_string = { TECH = test TARGET = $TARGET$ }
+}
+# TECH - a specific cultural innovation to add to the county
+add_tech_to_county = {
+	switch = {
+		trigger = $TECH$
+		culture_innovation:innovation_test = { add_tech_by_string = { TECH = test } }
+	}
+}
+# TECH - a specific cultural innovation to remove from the county
+remove_tech_from_county = {
+	switch = {
+		trigger = $TECH$
+		culture_innovation:innovation_test = { remove_tech_by_string = { TECH = test TARGET = county } }
+	}
+}
+
+# STRING EFFECTS
+# These are modular and will not need as much constant maintenance
+add_tech_by_string = {
+	if = {
+		limit = { NOT = { county_has_tech_by_string = { TECH = $TECH$ } } }
+		add_to_variable_list = { name = county_techs target = culture_innovation:innovation_$TECH$ }
+		
+		# Apply the new tech
+		apply_county_tech_by_string = { TECH = $TECH$ }
+		every_county_province = {
+			province_owner ?= {
+				add_to_temporary_list = county_characters
+				every_courtier ?= { add_to_temporary_list = county_characters }
+				every_pool_character ?= { add_to_temporary_list = county_characters }
+			}
+		}
+		every_in_list = {
+			list = county_characters
+			apply_character_tech_by_string = { TECH = $TECH$ }
+		}
+	}
+}
+remove_tech_by_string = {
+	if = {
+		limit = { county_has_tech_by_string = { TECH = $TECH$ } }
+		remove_list_variable = { name = county_techs target = culture_innovation:innovation_$TECH$ }
+		
+		# Verify the removed tech
+		apply_county_tech_by_string = { TECH = $TECH$ }
+		every_county_province = {
+			province_owner ?= {
+				add_to_temporary_list = county_characters
+				every_courtier ?= { add_to_temporary_list = county_characters }
+				every_pool_character ?= { add_to_temporary_list = county_characters }
+			}
+		}
+		every_in_list = {
+			list = county_characters
+			apply_character_tech_by_string = { TECH = $TECH$ }
+		}
+	}
+}
+apply_tech_to_county = {
+	apply_tech = { TECH = $TECH$ TARGET = flag:county }
+}
+apply_tech_to_character = {
+	apply_tech = { TECH = $TECH$ TARGET = flag:character }
+}
+apply_tech_to_province = {
+	apply_tech = { TECH = $TECH$ TARGET = flag:province }
+}
+apply_tech_by_string = {
+	switch = {
+		trigger = $TARGET$
+		flag:county = { apply_county_tech_by_string = { TECH = $TECH$ } }
+		flag:character = { apply_character_tech_by_string = { TECH = $TECH$ } }
+		flag:province = { apply_province_tech_by_string = { TECH = $TECH$ } }
+	}
+}
+apply_county_tech_by_string = {
+	if = {
+		limit = { has_global_variable = tech_$TECH$_county_modifier_defined }
+		if = {
+			limit = {
+				county_has_tech_by_string = { TECH = $TECH$ }
+				NOT = { has_county_modifier = tech_$TECH$_county_modifier }
+			}
+			add_county_modifier = tech_$TECH$_county_modifier
+		}
+		else_if = {
+			limit = {
+				has_county_modifier = tech_$TECH$_county_modifier
+				NOT = { county_has_tech_by_string = { TECH = $TECH$ } }
+			}
+			remove_all_county_modifier_instances = tech_$TECH$_county_modifier
+		}
+	}
+	if = {
+		limit = { has_global_variable = tech_$TECH$_province_modifier_defined }
+		if = {
+			limit = { county_has_tech_by_string = { TECH = $TECH$ } }
+			every_county_province = {
+				limit = { NOT = { has_province_modifier = tech_$TECH$_province_modifier } }
+				add_province_modifier = tech_$TECH$_province_modifier
+			}
+		}
+		else = {
+			every_county_province = {
+				limit = { has_province_modifier = tech_$TECH$_province_modifier }
+				remove_all_province_modifier_instances = tech_$TECH$_province_modifier
+			}
+		}
+	}
+}
+apply_character_tech_by_string = {
+	if = {
+		limit = { has_global_variable = tech_$TECH$_character_modifier_defined }
+		if = {
+			limit = {
+				character_has_tech_by_string = { TECH = $TECH$ }
+				NOT = { has_character_modifier = tech_$TECH$_character_modifier }
+			}
+			add_character_modifier = tech_$TECH$_character_modifier
+		}
+		else_if = {
+			limit = {
+				has_character_modifier = tech_$TECH$_character_modifier
+				NOT = { character_has_tech_by_string = { TECH = $TECH$ } }
+			}
+			remove_all_character_modifier_instances = tech_$TECH$_character_modifier
+		}
+	}
+}
+apply_province_tech_by_string = {
+	if = {
+		limit = { has_global_variable = tech_$TECH$_province_modifier_defined }
+		if = {
+			limit = {
+				province_has_tech_by_string = { TECH = $TECH$ }
+				NOT = { has_province_modifier = tech_$TECH$_province_modifier }
+			}
+			add_province_modifier = tech_$TECH$_province_modifier
+		}
+		else_if = {
+			limit = {
+				has_province_modifier = tech_$TECH$_province_modifier
+				NOT = { province_has_tech_by_string = { TECH = $TECH$ } }
+			}
+			remove_all_province_modifier_instances = tech_$TECH$_province_modifier
+		}
+	}
+}

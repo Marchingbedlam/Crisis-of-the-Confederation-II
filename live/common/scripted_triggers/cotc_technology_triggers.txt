@@ -1,0 +1,42 @@
+﻿county_has_tech = {
+	$TECH$ = { save_temporary_scope_as = temp_tech }
+	save_temporary_scope_as = temp_county_name
+	is_target_in_variable_list = { name = county_techs target = scope:temp_tech }
+	text = county_has_tech.tt
+}
+character_has_tech = {
+	trigger_if = {
+		limit = { exists = capital_county }
+		capital_county = { county_has_tech = { TECH = $TECH$ } }
+	}
+	trigger_else_if = {
+		limit = { court_owner ?= { exists = capital_county } }
+		court_owner ?= { capital_county ?= { county_has_tech = { TECH = $TECH$ } } }
+	}
+	trigger_else = { culture = { has_innovation = $TECH$ } }
+}
+province_has_tech = {
+	county = { county_has_tech = { TECH = $TECH$ } }
+}
+county_has_tech_by_string = {
+	custom_description = {
+		culture_innovation:innovation_$TECH$ = { save_temporary_scope_as = temp_tech }
+		save_temporary_scope_as = temp_county_name
+		is_target_in_variable_list = { name = county_techs target = scope:temp_tech }
+		text = county_has_tech.tt
+	}
+}
+character_has_tech_by_string = {
+	trigger_if = {
+		limit = { exists = capital_county }
+		capital_county = { county_has_tech_by_string = { TECH = $TECH$ } }
+	}
+	trigger_else_if = {
+		limit = { court_owner ?= { exists = capital_county } }
+		court_owner ?= { capital_county ?= { county_has_tech_by_string = { TECH = $TECH$ } } }
+	}
+	trigger_else = { culture = { has_innovation = culture_innovation:innovation_$TECH$ } }
+}
+province_has_tech_by_string = {
+	county = { county_has_tech_by_string = { TECH = $TECH$ } }
+}
