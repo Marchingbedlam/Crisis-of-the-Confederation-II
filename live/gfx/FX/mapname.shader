@@ -90,31 +90,53 @@ PixelShader =
 				// MOD(COTC)
 				//#define TEXT_COLOR_FLATMAP float3( 0.006f, 0.005f, 0.005f )
 				//#define OUTLINE_COLOR_FLATMAP float3( 0.2f, 0.18f, 0.18f )
-				#define TEXT_COLOR_FLATMAP float3( 1.0f, 1.0f, 1.0f )
-				#define OUTLINE_COLOR_FLATMAP float3( 0.0f, 0.0f, 0.0f )
-				// ENDMOD
 
-				#define TEXT_COLOR_CLEAR float3( 0.018f, 0.014f, 0.014f )
-				#define TEXT_COLOR_FOW float3( 0.006f, 0.006f, 0.012f )
-				#define TEXT_COLOR_CLOUD_SHADOW float3( 0.01f, 0.01f, 0.016f )
+				// #define TEXT_COLOR_CLEAR float3( 0.018f, 0.014f, 0.014f )
+				// #define TEXT_COLOR_FOW float3( 0.006f, 0.006f, 0.012f )
+				// #define TEXT_COLOR_CLOUD_SHADOW float3( 0.01f, 0.01f, 0.016f )
 
-				#define OUTLINE_COLOR_CLEAR float3( 0.3f, 0.25f, 0.25f )
-				#define OUTLINE_COLOR_FOW float3( 0.2f, 0.2f, 0.2f )
-				#define OUTLINE_COLOR_CLOUD_SHADOW float3( 0.07f, 0.07f, 0.1f )
+				// #define OUTLINE_COLOR_CLEAR float3( 0.3f, 0.25f, 0.25f )
+				// #define OUTLINE_COLOR_FOW float3( 0.2f, 0.2f, 0.2f )
+				// #define OUTLINE_COLOR_CLOUD_SHADOW float3( 0.07f, 0.07f, 0.1f )
+
+				// #define OUTLINE_WIDTH 0.4f
+				// #define OUTLINE_SOFT_EDGE_SCALE 2.5f
+				// #define OUTLINE_ALPHA_SCALE 0.2f
+				// #define OUTLINE_NOISE_VARIATION_MIN 0.2f
+				// #define OUTLINE_NOISE_VARIATION_MAX 0.8f 
+
+				#define TEXT_COLOR_FLATMAP float3( 0.7f, 0.7f, 0.7f )
+				#define OUTLINE_COLOR_FLATMAP float3( 0.7f, 0.7f, 0.7f )
+
+				#define TEXT_COLOR_CLEAR float3( 0.7f, 0.7f, 0.7f )
+				#define TEXT_COLOR_FOW float3( 0.7f, 0.7f, 0.7f )
+				#define TEXT_COLOR_CLOUD_SHADOW float3( 0.7f, 0.7f, 0.7f )
+
+				#define OUTLINE_COLOR_CLEAR float3( 0.7f, 0.7f, 0.7f )
+				#define OUTLINE_COLOR_FOW float3( 0.7f, 0.7f, 0.7f )
+				#define OUTLINE_COLOR_CLOUD_SHADOW float3( 0.7f, 0.7f, 0.7f )
 
 				#define OUTLINE_WIDTH 0.4f
 				#define OUTLINE_SOFT_EDGE_SCALE 2.5f
-				#define OUTLINE_ALPHA_SCALE 0.2f
+				#define OUTLINE_ALPHA_SCALE 0.0f
 				#define OUTLINE_NOISE_VARIATION_MIN 0.2f
 				#define OUTLINE_NOISE_VARIATION_MAX 0.8f 
+				// ENDMOD
 
 				float Sample = PdxTex2D( FontAtlas, Input.TexCoord ).r;
 				float2 TextureCoordinate = Input.TexCoord * TextureSize;
 				float Ratio = CalcTexelPixelRatio( TextureCoordinate );
 
-				#define TEXT_WIDTH 0.05f
+				// MOD(COTC)
+				// #define TEXT_WIDTH 0.05f
+				#define TEXT_WIDTH 0.03f
+				// ENDMOD
+
 				// Interior transition
-				float InteriorMid = 0.50f;
+				// MOD(COTC)
+				// float InteriorMid = 0.50f;
+				float InteriorMid = 0.52f;
+				// ENDMOD
 				float InteriorSmoothing = TEXT_WIDTH;
 				float InteriorFactor = smoothstep(
 					InteriorMid - InteriorSmoothing,
@@ -145,42 +167,38 @@ PixelShader =
 				OutlineFactor *= OUTLINE_ALPHA_SCALE;
 
 				float4 MixedColor;
-				// MOD(COTC)
-				// if ( FlatMapLerp != 1.0f )
-				// {
-				// 	float FogOfWarAlphaValue = PdxTex2D( FogOfWarAlpha, 
-				// 		Input.WorldSpacePos.xz * InverseWorldSize ).r;
+				if ( FlatMapLerp != 1.0f )
+				{
+					float FogOfWarAlphaValue = PdxTex2D( FogOfWarAlpha, 
+						Input.WorldSpacePos.xz * InverseWorldSize ).r;
 
-				// 	// Get cloud shadow mask
-				// 	float CloudMask = GetCloudShadowMask( Input.WorldSpacePos.xz, FogOfWarAlphaValue );
+					// Get cloud shadow mask
+					float CloudMask = GetCloudShadowMask( Input.WorldSpacePos.xz, FogOfWarAlphaValue );
 					
-				// 	// Interpolate colors based on FoW
-				// 	float3 TextColor = lerp( TEXT_COLOR_FOW, 
-				// 		TEXT_COLOR_CLEAR, FogOfWarAlphaValue );
-				// 	float3 OutlineColor = lerp( OUTLINE_COLOR_FOW, 
-				// 		OUTLINE_COLOR_CLEAR, FogOfWarAlphaValue );
+					// Interpolate colors based on FoW
+					float3 TextColor = lerp( TEXT_COLOR_FOW, 
+						TEXT_COLOR_CLEAR, FogOfWarAlphaValue );
+					float3 OutlineColor = lerp( OUTLINE_COLOR_FOW, 
+						OUTLINE_COLOR_CLEAR, FogOfWarAlphaValue );
 
-				// 	// Apply cloud shadow color modification
-				// 	TextColor = lerp( TextColor, TEXT_COLOR_CLOUD_SHADOW, CloudMask );
-				// 	OutlineColor = lerp( OutlineColor, OUTLINE_COLOR_CLOUD_SHADOW, CloudMask );
+					// Apply cloud shadow color modification
+					TextColor = lerp( TextColor, TEXT_COLOR_CLOUD_SHADOW, CloudMask );
+					OutlineColor = lerp( OutlineColor, OUTLINE_COLOR_CLOUD_SHADOW, CloudMask );
 
-				// 	// Combine colors
-				// 	MixedColor.rgb = lerp( OutlineColor, TextColor, InteriorFactor );
-				// 	MixedColor.a = max( OutlineFactor, InteriorFactor ) * Transparency;
+					// Combine colors
+					MixedColor.rgb = lerp( OutlineColor, TextColor, InteriorFactor );
+					MixedColor.a = max( OutlineFactor, InteriorFactor ) * Transparency;
 
-				// 	// Apply distance fog
-				// 	MixedColor.rgb = ApplyMapDistanceFogWithoutFoW( MixedColor.rgb, 
-				// 		Input.WorldSpacePos );
-				// }
-				// else
-				// {
-				// 	// Flat map mode - use clear colors
-				// 	MixedColor.rgb = lerp( OUTLINE_COLOR_FLATMAP, TEXT_COLOR_FLATMAP, InteriorFactor );
-				// 	MixedColor.a = max( OutlineFactor, InteriorFactor ) * Transparency;
-				// }
-				MixedColor.rgb = lerp( OUTLINE_COLOR_FLATMAP, TEXT_COLOR_FLATMAP, InteriorFactor );
-				MixedColor.a = max( OutlineFactor, InteriorFactor ) * Transparency;
-				// ENDMOD
+					// Apply distance fog
+					MixedColor.rgb = ApplyMapDistanceFogWithoutFoW( MixedColor.rgb, 
+						Input.WorldSpacePos );
+				}
+				else
+				{
+					// Flat map mode - use clear colors
+					MixedColor.rgb = lerp( OUTLINE_COLOR_FLATMAP, TEXT_COLOR_FLATMAP, InteriorFactor );
+					MixedColor.a = max( OutlineFactor, InteriorFactor ) * Transparency;
+				}
 
 				// Apply overlay blend mode with blend factor
 				float BlendFactor = 0.5f; // Can be adjusted as needed
