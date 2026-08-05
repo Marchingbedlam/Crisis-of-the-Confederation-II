@@ -1,0 +1,70 @@
+﻿#################
+# HOOKS TO CODE #
+#################
+on_game_start = { on_actions = { game_start_technology_on_action } }
+on_county_culture_change = { on_actions = { add_culture_techs_locally } }
+on_character_culture_change = { on_actions = { verify_character_tech_modifiers } }
+quarterly_playable_pulse = { on_actions = { verify_character_tech_modifiers } }
+random_yearly_everyone_pulse = { on_actions = { verify_character_tech_modifiers } }
+yearly_culture_pulse = { on_actions = { yearly_culture_pulse_technology_on_action } }
+
+###############
+# ROOT EVENTS #
+###############
+game_start_technology_on_action = {
+	effect = {
+		# DECLARE DEFINED TECH MODIFIERS
+		set_global_variable = { name = tech_test_character_modifier_defined }
+		set_global_variable = { name = tech_test_county_modifier_defined }
+		
+		# ADD DEFAULT TECHS
+		every_culture_global = { trigger_event = { on_action = add_culture_techs_globally } }
+	}
+}
+yearly_culture_pulse_technology_on_action = {
+	# Run monthly updates for each culture
+	effect = {
+		trigger_event = { on_action = add_culture_techs_globally }
+		trigger_event = { on_action = add_culture_techs_globally months = 1 }
+		trigger_event = { on_action = add_culture_techs_globally months = 2 }
+		trigger_event = { on_action = add_culture_techs_globally months = 3 }
+		trigger_event = { on_action = add_culture_techs_globally months = 4 }
+		trigger_event = { on_action = add_culture_techs_globally months = 5 }
+		trigger_event = { on_action = add_culture_techs_globally months = 6 }
+		trigger_event = { on_action = add_culture_techs_globally months = 7 }
+		trigger_event = { on_action = add_culture_techs_globally months = 8 }
+		trigger_event = { on_action = add_culture_techs_globally months = 9 }
+		trigger_event = { on_action = add_culture_techs_globally months = 10 }
+		trigger_event = { on_action = add_culture_techs_globally months = 11 }
+	}
+}
+
+##########################
+# BASIC TECH MAINTENANCE #
+##########################
+add_culture_techs_globally = { # Run on culture scope
+	trigger = { any_culture_county = { exists = this } } # Don't bother running unless there's at least one county of this culture
+	effect = {
+		save_temporary_scope_as = temp_culture
+		every_known_innovation = {
+			save_temporary_scope_as = temp_innovation
+			scope:temp_culture = { every_culture_county = { add_tech_to_county = { TECH = scope:temp_innovation } } }
+		}
+	}
+}
+add_culture_techs_locally = { # Run on county scope
+	effect = {
+		culture = {
+			every_known_innovation = {
+				save_temporary_scope_as = temp_innovation
+				ROOT = { add_tech_to_county = { TECH = scope:temp_innovation } }
+			}
+		}
+	}
+}
+verify_character_tech_modifiers = {
+	effect = { verify_all_tech_modifiers = { TARGET = flag:character } }
+}
+verify_county_tech_modifiers = {
+	effect = { verify_all_tech_modifiers = { TARGET = flag:county } }
+}
