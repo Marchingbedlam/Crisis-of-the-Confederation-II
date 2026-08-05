@@ -5,58 +5,6 @@
 	WATERLEVEL = 0.0
 }
 
-NMapName = {
-	NAME_DRAW_DISTANCE = 12000.0	# Remove province names beyond this distance
-	LARGE_NAMES_ZOOM_STEP = 20		# At which zoom steps are large map names shown
-	NAME_FONT_NAME = "MapFont"		# Font used for drawing the map names
-	NAME_FONT_SIZE = 30				# Font size used for drawing the map names
-	FADE_SPEED = 1.6				# How fast names fade in/out
-	CROSSFADE_DELAY = 0.7			# For how long should both small and big names be shown when fading between them
-	MIN_OPACITY = 0.85				# minimum opacity. Names hidden by draw distance will still fade to 0
-	MAX_OPACITY = 1.00
-	MIN_OPACITY_DIST = 200		# Camera height at which the names have min opacity
-	MAX_OPACITY_DIST = 1000		# Camera height at which the names have max opacity
-	ZOOM_STEPS_VISIBLE_SCALES = {	# Each map-name has a scale. This list contains min-max values for each zoom step. If a name's scale is outside that range it will not be visible
-		# min (hides names that are too small)
-		# max (hides names when they get to large)
-		0.0		0.0 	#100	0	Closest zoomed in`
-		0.0		0.0 	#125	1
-		0.0		0.0		#146	2
-		0.0		0.0		#165	3
-		0.0		0.0		#183	4
-		0.0		0.0		#204	5
-		0.0		50.0	#229	6
-		0.0		50.0	#260	7
-		0.0		50.0	#300	8
-		0.0		50.0	#350	9
-		0.11	50.0	#405 	10
-		0.12	50.0	#461 	11
-		0.13	50.0	#518 	12
-		0.14	50.0	#578 	13
-		0.15	50.0	#643 	14
-		0.17	50.0	#714 	15
-		0.19	50.0	#793 	16
-		0.21	50.0	#881 	17
-		0.23	50.0	#981 	18
-		0.27	50.0	#1092	19
-		0.29	50.0	#1218	20
-		0.30	50.0	#1360	21 
-		0.32	50.0	#1521	22
-		0.32	50.0	#1703	23
-		0.32	50.0	#1903	24
-		0.32	50.0	#2116	25
-		0.32	50.0	#2341	26
-		0.32	50.0	#2573	27
-		0.32	50.0	#2809	28
-		0.32	50.0	#3047	29
-		0.32	50.0	#3282	30
-		0.32	50.0	#3512	31
-		0.32	50.0	#3733	32
-		0.32	50.0	#5000	33
-		0.32	50.0	#7000	34	Flat map
-	}
-}
-
 NGame = {
 	END_DATE = "3308.1.1"
 	GAME_SPEED_TICKS = {	# how many seconds should a day take in every game speed

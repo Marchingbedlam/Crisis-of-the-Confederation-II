@@ -33,13 +33,13 @@ PixelShader = {
 	Code
 	[[
 		static const int   COTC_NEBULA_LAYERS    = 24;
-		static const float COTC_NEBULA_DENSITY   = 0.6f;
+		static const float COTC_NEBULA_DENSITY   = 0.5f;
 
 		static const float COTC_NEBULA_CEILING_Y = 5.0f;
 		static const float COTC_NEBULA_FLOOR_Y   = -5.0f;
 
 		static const float COTC_NEBULA_CLOUD_TILE_SIZE = 400.0f;
-		static const float COTC_NEBULA_CLOUD_CONTRAST  = 2.0f;
+		static const float COTC_NEBULA_CLOUD_CONTRAST  = 3.0f;
 
 		static const float COTC_NEBULA_CLOUD_ROTATION_AMOUNT = 1.0f;
 		static const float COTC_NEBULA_CLOUD_SCALE_JITTER    = 0.25f;
