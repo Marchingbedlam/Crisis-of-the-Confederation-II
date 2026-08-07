@@ -1,7 +1,7 @@
 ﻿@zoom_step_near = 			4							#zoom step where the near-settings will be at 100%
 @zoom_step_mid = 			20							#zoom step where the hollow map turns into the filled map
 @zoom_step_pre_mid = 		@[zoom_step_mid-1] 			#zoom step before the hollow map disappears
-@zoom_step_far = 			@[zoom_step_flat_map+1]							#zoom step where the terrain detail disappears
+@zoom_step_far = 			26							#zoom step where the terrain detail disappears
 @zoom_step_flat_map = 		34 							# zoom step flat map appears at. Copied from define FLAT_MAP_ZOOM_STEP
 @zoom_step_pre_flat_map = 	@[zoom_step_flat_map-1] 	# zoom step before the flat map
 
@@ -56,39 +56,39 @@
 @filled_mid_after_lighting_blend = 				0.95
 
 # Filled Far
-@filled_far_gradient_alpha_inside = 			1
-@filled_far_gradient_alpha_outside = 			1
-@filled_far_gradient_width = 					@filled_mid_gradient_width
-@filled_far_gradient_color_mult = 				@filled_mid_gradient_color_mult
-@filled_far_edge_width = 						@filled_mid_edge_width
-@filled_far_edge_sharpness = 					0
-@filled_far_edge_alpha = 						@filled_mid_edge_alpha
-@filled_far_edge_color_mult = 					@filled_mid_edge_color_mult
-@filled_far_before_lighting_blend = 			0.5
-@filled_far_after_lighting_blend = 				1
+@filled_far_gradient_alpha_inside = 				0.6
+@filled_far_gradient_alpha_outside = 				1
+@filled_far_gradient_width = 						0.4
+@filled_far_gradient_color_mult = 				1
+@filled_far_edge_width = 							0.05
+@filled_far_edge_sharpness = 						0
+@filled_far_edge_alpha = 							1
+@filled_far_edge_color_mult = 					0.7
+@filled_far_before_lighting_blend = 				0
+@filled_far_after_lighting_blend = 				0.95
 
 # Filled Pre Flat Map
-@pre_flat_map_gradient_alpha_inside = 			@filled_far_gradient_alpha_inside
-@pre_flat_map_gradient_alpha_outside = 			@filled_far_gradient_alpha_outside
-@pre_flat_map_gradient_width = 					@filled_far_gradient_width
-@pre_flat_map_gradient_color_mult = 			@filled_far_gradient_color_mult
-@pre_flat_map_edge_width = 						@filled_far_edge_width
-@pre_flat_map_edge_sharpness = 					@filled_far_edge_sharpness
-@pre_flat_map_edge_alpha = 						@filled_far_edge_alpha
-@pre_flat_map_edge_color_mult = 				@filled_far_edge_color_mult
-@pre_flat_map_before_lighting_blend = 			0
-@pre_flat_map_after_lighting_blend = 			1
+@pre_flat_map_gradient_alpha_inside = 				0.6
+@pre_flat_map_gradient_alpha_outside = 				1
+@pre_flat_map_gradient_width = 						0.4
+@pre_flat_map_gradient_color_mult = 				1
+@pre_flat_map_edge_width = 							0.05
+@pre_flat_map_edge_sharpness = 						0
+@pre_flat_map_edge_alpha = 							1
+@pre_flat_map_edge_color_mult = 					0.7
+@pre_flat_map_before_lighting_blend = 				0
+@pre_flat_map_after_lighting_blend = 				0.95
 
 # Flat Map
 @flat_map_gradient_alpha_inside = 				0.6
-@flat_map_gradient_alpha_outside = 				@pre_flat_map_gradient_alpha_outside
-@flat_map_gradient_width = 						@pre_flat_map_gradient_width
-@flat_map_gradient_color_mult = 				@pre_flat_map_gradient_color_mult
+@flat_map_gradient_alpha_outside = 				1
+@flat_map_gradient_width = 						0.4
+@flat_map_gradient_color_mult = 				1
 @flat_map_edge_width = 							0.05
 @flat_map_edge_sharpness = 						0
 @flat_map_edge_alpha = 							1
 @flat_map_edge_color_mult = 					0.7
-@flat_map_before_lighting_blend = 				@pre_flat_map_before_lighting_blend
+@flat_map_before_lighting_blend = 				0
 @flat_map_after_lighting_blend = 				0.95
 
 # Data map

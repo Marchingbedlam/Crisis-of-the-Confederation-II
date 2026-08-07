@@ -60,10 +60,25 @@ PixelShader =
 		//   5.0 = hard
 		static const float COTC_FILL_DISTANCE_POWER = 3.0f;
 
-		// SEAM KNOBS. Darkens the blend zone between two realms
+		// SEAM KNOBS. Darkens the locus where two realms are equidistant.
 		static const float3 COTC_FILL_SEAM_COLOR = float3( 0.03f, 0.03f, 0.045f );
-		static const float COTC_FILL_SEAM_STRENGTH = 0.45f;
-		static const float COTC_FILL_SEAM_CONTRAST = 2.5f;
+		static const float COTC_FILL_SEAM_STRENGTH = 0.55f;
+
+		// Seam half-width in indirection texels. Distance threshold.
+		static const float COTC_FILL_SEAM_WIDTH = 20.0f;
+
+		// Slightly over one 8-bit step, so bit-identical palette entries compare equal and genuinely different realms never do.
+		static const float COTC_FILL_SEAM_COLOR_EPSILON = 0.0059f;
+
+		// Jitter-free probe ladder. Uniform spacing, because abs(d1 - d2) has to be resolved to
+		// about the seam width - the main gather's geometric shells are far too coarse for that
+		// (6 to 30 texels), and its texel jitter would make the width ragged.
+		#define COTC_FILL_SEAM_PROBE_STEPS 15
+		static const float COTC_FILL_SEAM_PROBE_STEP = 4.0f;
+
+		// Above this anisotropy the gather is clearly dominated from one direction, so no
+		// midpoint is nearby and the probe is skipped.
+		static const float COTC_FILL_SEAM_ANISOTROPY_MAX = 0.75f;
 
 		// Ray stop once the land it has passed through leaves this little light through
 		static const float COTC_FILL_TRANSMITTANCE_EPSILON = 0.002f;
@@ -137,9 +152,66 @@ PixelShader =
 		//  4. Continuous loop exits. Both breaks below test smoothly-varying quantities.
 		//
 		// OwnedSecondary comes back weighted by exactly the same weights as OwnedColor, so
-		// the occupation stripes belong to the same province whose colour
-		// it inherited. Its alpha survives the averaging, so an unoccupied dominant
-		// neighbour yields alpha ~0 and no stripes are drawn.
+		// the occupation stripes belong to the same province whose colour it inherited.
+		bool COTC_SeamColorsMatch( in float3 A, in float3 B )
+		{
+			return all( abs( A - B ) < vec3( COTC_FILL_SEAM_COLOR_EPSILON ) );
+		}
+
+		// Jitter-free probe for the seam
+		//
+		// Deliberately POINT sampled, unlike the gather. Bilinear taps blend two provinces'
+		// palette entries together across a boundary, which would corrupt the exact-equality
+		// test; point taps return an unmixed palette entry. They are also 4x cheaper.
+		//
+		// Deliberately UNJITTERED. The gather jitters its shell positions to break up the
+		// concentric rings that a fixed ladder produces, but that same jitter would move d1 and
+		// d2 by up to a shell width per texel and leave the seam ragged. The two samplings have
+		// opposite requirements, so they are kept separate.
+		float COTC_ProbeSeam( in float2 Coordinate, in float3 LeadColor )
+		{
+			float NearestSelf = 1e6f;
+			float NearestOther = 1e6f;
+
+			for ( int i = 0; i < 16; i += 2 )
+			{
+				const float2 Direction = COTC_FILL_DIRECTIONS[ i ];
+
+				for ( int Step = 1; Step <= COTC_FILL_SEAM_PROBE_STEPS; ++Step )
+				{
+					const float Distance = float( Step ) * COTC_FILL_SEAM_PROBE_STEP;
+					const float2 Offset = saturate( Coordinate + Direction * ( Distance * InvIndirectionMapSize ) );
+
+					float4 Primary;
+					float4 Secondary;
+					float4 Highlight;
+					COTC_SampleProvinceColors( Offset, Primary, Secondary, Highlight );
+
+					if ( Primary.a > 0.5f )
+					{
+						if ( COTC_SeamColorsMatch( Primary.rgb, LeadColor ) )
+						{
+							NearestSelf = min( NearestSelf, Distance );
+						}
+						else
+						{
+							NearestOther = min( NearestOther, Distance );
+						}
+
+						break;
+					}
+				}
+			}
+
+			// No second realm in reach - nothing to separate.
+			if ( NearestOther > 1e5f || NearestSelf > 1e5f )
+			{
+				return 0.0f;
+			}
+
+			return smoothstep( COTC_FILL_SEAM_WIDTH, 0.0f, abs( NearestSelf - NearestOther ) );
+		}
+
 		bool COTC_GatherOwnedColor( in float2 Coordinate, out float3 OwnedColor, out float4 OwnedSecondary, out float4 OwnedHighlight )
 		{
 			OwnedColor = vec3( 0.0f );
@@ -147,10 +219,16 @@ PixelShader =
 			OwnedHighlight = vec4( 0.0f );
 
 			float3 Accumulated = vec3( 0.0f );
-			float3 AccumulatedSquared = vec3( 0.0f );
 			float4 AccumulatedSecondary = vec4( 0.0f );
 			float4 AccumulatedHighlight = vec4( 0.0f );
 			float  TotalWeight = 0.0f;
+
+			// Used to decide whether the seam probe is worth running.
+			float2 DirectionSum = vec2( 0.0f );
+
+			// Colour of the single heaviest tap: the leading realm at this texel
+			float3 LeadColor = vec3( 0.0f );
+			float  LeadWeight = 0.0f;
 
 			// Per-texel jitter offset, stable in MAP space rather than screen space so the
 			// residual noise stays painted on the map instead of swimming as the camera moves.
@@ -196,10 +274,16 @@ PixelShader =
 					const float Weight = Sample.a * Transmittance * DistanceWeight * ShellWidth;
 
 					Accumulated += Sample.rgb * Weight;
-					AccumulatedSquared += Sample.rgb * Sample.rgb * Weight;
 					AccumulatedSecondary += SecondarySample * Weight;
 					AccumulatedHighlight += HighlightSample * Weight;
 					TotalWeight += Weight;
+					DirectionSum += Direction * Weight;
+
+					if ( Weight > LeadWeight )
+					{
+						LeadWeight = Weight;
+						LeadColor = Sample.rgb;
+					}
 
 					Transmittance *= 1.0f - saturate( Sample.a );
 				}
@@ -212,15 +296,20 @@ PixelShader =
 
 			const float3 Mean = Accumulated / TotalWeight;
 
-			// Weighted variance of the gathered colours, per channel. How much do
-			// the contributing provinces disagree. Determines darkening.
-			const float3 MeanSquared = AccumulatedSquared / TotalWeight;
-			const float3 Variance = max( MeanSquared - Mean * Mean, vec3( 0.0f ) );
+			// Cheap colour-free rejection before paying for the probe. Deep inside one realm's
+			// influence the gathered directions all point the same way and this is near 1; near a
+			// midpoint between opposing realms they cancel and it falls toward 0.
+			//
+			// It also falls toward 0 in the middle of an area enclosed by a single realm on all sides.
+			const float Anisotropy = length( DirectionSum ) / TotalWeight;
 
-			// Root of the summed channel variances - the RMS colour spread across the gather.
-			const float Disagreement = saturate( sqrt( Variance.r + Variance.g + Variance.b ) * COTC_FILL_SEAM_CONTRAST );
+			float Seam = 0.0f;
+			if ( Anisotropy < COTC_FILL_SEAM_ANISOTROPY_MAX )
+			{
+				Seam = COTC_ProbeSeam( Coordinate, LeadColor );
+			}
 
-			OwnedColor = lerp( Mean, COTC_FILL_SEAM_COLOR, COTC_FILL_SEAM_STRENGTH * Disagreement );
+			OwnedColor = lerp( Mean, COTC_FILL_SEAM_COLOR, COTC_FILL_SEAM_STRENGTH * Seam );
 			OwnedSecondary = AccumulatedSecondary / TotalWeight;
 			OwnedHighlight = AccumulatedHighlight / TotalWeight;
 			return true;
