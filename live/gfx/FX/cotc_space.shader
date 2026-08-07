@@ -24,7 +24,7 @@ Includes = {
 	"bordercolor.fxh"
 	"cotc_overrides.fxh"
 	"cotc_utilities.fxh"
-	"cotc_province_fill.fxh"
+	"cotc_sector_fill.fxh"
 	"generated/cotc_starlight_coord.fxh"
 	#END MOD
 }
@@ -326,27 +326,33 @@ PixelShader =
 			PDX_MAIN
 			{
 				float2 ColorMapCoords =  Input.WorldSpacePos.xz *  WorldSpaceToTerrain0To1;
-				float HeightFactor = COTC_GetHeightBasedAlpha();
+				float HeightFactor = COTC_GetProvinceColorFade();
 				float ProvinceStrength = 1.0f - HeightFactor;
 
 				float3 ProvinceOverlayColor;
 				float PreLightingBlend;
 				float PostLightingBlend;
 				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend );
-				// MOD(COTC)
-				COTC_ApplySeaZoneFill( ProvinceOverlayColor, ColorMapCoords, HeightFactor );
-				// END MOD
 				float2 DetailCoordinates = Input.WorldSpacePos.xz * WorldSpaceToDetail;
 				DetailCoordinates.y = 1.0f - DetailCoordinates.y;
 				float4 PlaneMask = PdxTex2DLod0( COTC_Plane_Mask, DetailCoordinates );
-
-				int StarLayerMult = 2;
-				float Alpha = lerp(PlaneMask.a / 3, 0.0f, ProvinceStrength);
-				float3 Color = lerp(ProvinceOverlayColor, 0.0f, ProvinceStrength);
 				float CloudMaskValue = PlaneMask.r;
 				float SystemMaskValue = PlaneMask.g;
 				float SectorMaskValue = PlaneMask.b;
+				float SectorFillAmount = 0.0f;
+				if(SectorMaskValue > 0.0f && HeightFactor > 0.0f)
+				{
+					SectorMaskValue = lerp(SectorMaskValue, PlaneMask.a, 1.0);
+					COTC_ApplySectorFill( ProvinceOverlayColor, SectorFillAmount, ColorMapCoords, SectorMaskValue );
+				}
 
+				float Alpha = lerp(PlaneMask.a / 3, 0.0f, ProvinceStrength);
+
+				Alpha = max( Alpha, SectorFillAmount * ( 1.0f - ProvinceStrength ) );
+				// END MOD
+				float3 Color = lerp(ProvinceOverlayColor, 0.0f, ProvinceStrength);
+
+				int StarLayerMult = 2;
 				if(HeightFactor == 1.0)
 				{
 					if ( SystemMaskValue > 0.0f )
@@ -392,7 +398,7 @@ PixelShader =
 				DetailCoordinates.y = 1.0f - DetailCoordinates.y;
 				float4 PlaneMask = PdxTex2DLod0( COTC_Plane_Mask, DetailCoordinates );
 				float2 ColorMapCoords =  Input.WorldSpacePos.xz *  WorldSpaceToTerrain0To1;
-				float HeightFactor = COTC_GetHeightBasedAlpha();
+				float HeightFactor = COTC_GetProvinceColorFade();
 				float ProvinceStrength = 1.0f - HeightFactor;
 				int StarLayerMult = 2;
 
@@ -426,7 +432,7 @@ PixelShader =
 			PDX_MAIN
 			{
 				float2 ColorMapCoords =  Input.WorldSpacePos.xz *  WorldSpaceToTerrain0To1;
-				float ProvinceStrength = COTC_GetHeightBasedAlpha();
+				float ProvinceStrength = COTC_GetProvinceColorFade();
 				float Alpha = 1.0;
 				float3 Color = float3(0,0,0);
 				float3 ProvinceOverlayColor;
@@ -457,8 +463,6 @@ PixelShader =
 					Color *= COTC_BLACK_HOLE_EMISSIVE_BOOST;
 				#endif
 
-				COTC_ApplyHighlightColor(Color, ColorMapCoords);
-
 				return float4( Color, Alpha );
 			}
 		]]
@@ -484,7 +488,7 @@ PixelShader =
 				float4 Properties = PdxTex2D( PropertiesMap, PROPERTIES_UV_SET );
 				float3 Normal = Input.Normal;
 
-				float ProvinceStrength = COTC_GetHeightBasedAlpha();
+				float ProvinceStrength = COTC_GetProvinceColorFade();
 				float Alpha = Diffuse.a;
 				SMaterialProperties MaterialProps = GetMaterialProperties( Diffuse.rgb, Normal, Properties.a, Properties.g, Properties.b );
 				SLightingProperties LightingProps = GetSunLightingProperties( Input.WorldSpacePos, ShadowTexture );
@@ -518,8 +522,6 @@ PixelShader =
 				#if defined( COTC_EMISSIVE_NEUTRON )
 					Color *= COTC_NEUTRON_EMISSIVE_BOOST;
 				#endif
-
-				COTC_ApplyHighlightColor(Color, ColorMapCoords);
 
 				return float4( Color, Alpha );
 			}
@@ -597,7 +599,7 @@ PixelShader =
 				float2 ColorMapCoords =  Input.WorldSpacePos.xz *  WorldSpaceToTerrain0To1;
 
 				SMaterialProperties MaterialProps = GetMaterialProperties( Diffuse.rgb, Normal, Properties.a, Properties.g, Properties.b );
-				float ProvinceStrength = COTC_GetHeightBasedAlpha();
+				float ProvinceStrength = COTC_GetProvinceColorFade();
 				float Alpha = Diffuse.a;
 				float3 Color;
 				SLightingProperties LightingProps;
@@ -649,8 +651,6 @@ PixelShader =
 				#if defined( COTC_EMISSIVE_STAR )
 					Color *= COTC_STAR_EMISSIVE_BOOST;
 				#endif
-
-				COTC_ApplyHighlightColor(Color, ColorMapCoords);
 
 				return float4( Color, Alpha );
 			}
