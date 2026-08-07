@@ -346,34 +346,29 @@ PixelShader =
 					COTC_ApplySectorFill( ProvinceOverlayColor, SectorFillAmount, ColorMapCoords, SectorMaskValue );
 				}
 
-				float Alpha = lerp(PlaneMask.a / 3, 0.0f, ProvinceStrength);
+				float Alpha = max( PlaneMask.a, SectorFillAmount ) / 2.5;
+				Alpha *= 1.0f - ProvinceStrength;
+				Alpha *= COTC_GetSectorOpacity();
 
-				Alpha = max( Alpha, SectorFillAmount * ( 1.0f - ProvinceStrength ) );
-				// END MOD
 				float3 Color = lerp(ProvinceOverlayColor, 0.0f, ProvinceStrength);
 
-				int StarLayerMult = 2;
-				if(HeightFactor == 1.0)
+				float RegionLayerMult = 2.0f;
+				if ( SystemMaskValue > 0.0f )
 				{
-					if ( SystemMaskValue > 0.0f )
-					{
-						StarLayerMult = 8;
-					}
-
-					if ( CloudMaskValue > 0.0f )
-					{
-						StarLayerMult = 1;
-					}
-
-					if ( SectorMaskValue > 0.0f )
-					{
-						StarLayerMult = 4;
-					}
+					RegionLayerMult = 4.0f;
 				}
-				else
+
+				if ( CloudMaskValue > 0.0f )
 				{
-					StarLayerMult = 2;
+					RegionLayerMult = 1.0f;
 				}
+
+				if ( SectorMaskValue > 0.0f )
+				{
+					RegionLayerMult = 2.0f;
+				}
+
+				int StarLayerMult = int( round( lerp( 2.0f, RegionLayerMult, HeightFactor ) ) );
 
 				COTC_ApplyHighlightColor(Color, ColorMapCoords);
 				COTC_ApplyBackgroundEffects( Color, Alpha, Input.WorldSpacePos, StarLayerMult );

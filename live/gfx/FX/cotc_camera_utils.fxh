@@ -18,11 +18,13 @@ PixelShader = {
 		}
 
 		// KEEP THESE IN SYNC with ZOOM_STEPS
-		#define COTC_ZOOM_DISTANCE_NAMES_HIDDEN 100.0f
-		#define COTC_ZOOM_DISTANCE_NAMES_SHOWN 140.0f
+		#define COTC_ZOOM_DISTANCE_PLANETS 100.0f
+		#define COTC_ZOOM_DISTANCE_SYSTEMS 140.0f
+		#define COTC_ZOOM_DISTANCE_SECTORS 1092.0f
+		#define COTC_ZOOM_DISTANCE_REGIONS 1218.0f
 		float COTC_GetMapZoomFade()
 		{
-			return smoothstep( COTC_ZOOM_DISTANCE_NAMES_HIDDEN, COTC_ZOOM_DISTANCE_NAMES_SHOWN, COTC_GetZoomDistance() );
+			return smoothstep( COTC_ZOOM_DISTANCE_PLANETS, COTC_ZOOM_DISTANCE_SYSTEMS, COTC_GetZoomDistance() );
 		}
 
 		// Province colour strength
@@ -30,6 +32,19 @@ PixelShader = {
 		float COTC_GetProvinceColorFade()
 		{
 			return COTC_GetMapZoomFade();
+		}
+
+		// --- Sector opacity ------------------------------------------------------
+		static const float COTC_SECTOR_NEAR_OPACITY = 0.7f;
+
+		float COTC_GetSectorOpacity()
+		{
+			const float Fade = smoothstep(
+				COTC_ZOOM_DISTANCE_SECTORS,
+				COTC_ZOOM_DISTANCE_REGIONS,
+				COTC_GetZoomDistance() );
+
+			return lerp( COTC_SECTOR_NEAR_OPACITY, 1.0f, Fade );
 		}
 	]]
 }

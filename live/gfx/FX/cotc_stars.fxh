@@ -3,6 +3,7 @@ Includes = {
 	"cw/pdxterrain.fxh"
 	"dynamic_masks.fxh"
 	"cotc_camera_utils.fxh"
+	"cotc_compositing.fxh"
 }
 
 PixelShader = {
@@ -123,8 +124,7 @@ PixelShader = {
 				StarAlpha += LayerAlphaMultiplier*PdxTex2D(COTC_StarLayer, AdjustedLayerUV).a;
 			}
 
-			Color = lerp(Color, COTC_STARS_COLOR, saturate(StarAlpha));
-			Alpha = lerp(Alpha, 1.0f, saturate(StarAlpha));
+			COTC_BlendOver( Color, Alpha, COTC_STARS_COLOR, saturate( StarAlpha ) );
 		}
 	]]
 }

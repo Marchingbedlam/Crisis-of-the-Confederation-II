@@ -85,13 +85,6 @@ PixelShader =
 		static const float COTC_FILL_WEIGHT_SATURATED = 0.995f;
 		static const float COTC_FILL_WEIGHT_EPSILON = 0.0001f;
 
-		// --- Hollow / filled -------------------------------------------
-		// Hooks into what makes county interiors go hollow
-		float COTC_GetMapFilledness()
-		{
-			return saturate( GB_GradientAlphaInside );
-		}
-
 		// Matches the ShadowAmount vanilla passes in ApplySecondaryProvinceOverlay.
 		static const float COTC_FILL_STRIPE_SHADOW_AMOUNT = 0.8f;
 
@@ -366,7 +359,7 @@ PixelShader =
 				const float3 Filled = lerp( Striped.rgb, ProvinceOverlayColor, OwnedAlpha );
 
 				ProvinceOverlayColor = lerp( ProvinceOverlayColor, Filled, Strength );
-				SectorFillAmount = Strength * COTC_GetMapFilledness();
+				SectorFillAmount = Strength;
 			}
 		}
 	]]
