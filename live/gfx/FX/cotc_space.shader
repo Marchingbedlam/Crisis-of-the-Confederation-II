@@ -24,6 +24,7 @@ Includes = {
 	"bordercolor.fxh"
 	"cotc_overrides.fxh"
 	"cotc_utilities.fxh"
+	"cotc_province_fill.fxh"
 	"generated/cotc_starlight_coord.fxh"
 	#END MOD
 }
@@ -332,6 +333,9 @@ PixelShader =
 				float PreLightingBlend;
 				float PostLightingBlend;
 				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend );
+				// MOD(COTC)
+				COTC_ApplySeaZoneFill( ProvinceOverlayColor, ColorMapCoords, HeightFactor );
+				// END MOD
 				float2 DetailCoordinates = Input.WorldSpacePos.xz * WorldSpaceToDetail;
 				DetailCoordinates.y = 1.0f - DetailCoordinates.y;
 				float4 PlaneMask = PdxTex2DLod0( COTC_Plane_Mask, DetailCoordinates );
