@@ -5,8 +5,8 @@ jion_0001 = {
 	name = "Ryusei"
 	dynasty = dynn_Sato # Sato
 	
-	culture = atlantean
-	faith = atlantite
+	culture = tengoku
+	religion = mainline_astrist
 	
 	trait = education_intrigue_3
 	trait = gregarious
@@ -25,8 +25,8 @@ jion_0002 = {
 	name = "Jiro"
 	dynasty = dynn_Sato # Sato
 	
-	culture = atlantean
-	faith = atlantite
+	culture = tengoku
+	religion = mainline_astrist
 	
 	trait = intellect_good_1
 	trait = education_martial_4
@@ -50,8 +50,8 @@ jion_0003 = {
 	dynasty = dynn_Sato
 	female = yes
 	
-	culture = atlantean
-	faith = atlantite
+	culture = tengoku
+	religion = mainline_astrist
 	
 	trait = education_martial_2
 	#trait = warship_captain
@@ -81,8 +81,8 @@ jion_0004 = {
 	name = "Kenichi"
 	dynasty = dynn_Sato # Sato
 	
-	culture = atlantean
-	faith = atlantite
+	culture = tengoku
+	religion = mainline_astrist
 	
 	trait = education_learning_4
 	trait = reclusive
@@ -105,8 +105,8 @@ jion_0005 = {
 	dynasty = dynn_Sato # Sato
 	female = yes
 	
-	culture = atlantean
-	faith = atlantite
+	culture = tengoku
+	religion = mainline_astrist
 	
 	trait = physique_good_3
 	trait = education_diplomacy_1
@@ -128,8 +128,8 @@ jion_0006 = {
 	name = "Shiro"
 	dynasty = dynn_Hasegawa # Hasegawa
 	
-	culture = atlantean # All Char clones are required to be blonde by science fiction law
-	faith = atlantite
+	culture = german_frontierfolk # born on the Rim; assimilates at birth below
+	religion = mainline_astrist
 	
 	trait = intellect_good_1
 	trait = education_martial_4
@@ -148,7 +148,7 @@ jion_0006 = {
 	
 	2978.1.1 = { 
 		birth = yes
-		culture = atlantean
+		culture = tengoku
 	}
 	2998.1.1 = {
 		give_nickname = nick_the_scarlet_devil
@@ -161,8 +161,8 @@ jion_0007 = {
 	dynasty = dynn_Hasegawa # Hasegawa
 	female = yes
 	
-	culture = atlantean
-	faith = atlantite
+	culture = tengoku
+	religion = terran_federalist
 	
 	trait = intellect_good_1
 	trait = education_martial_3
@@ -177,7 +177,7 @@ jion_0007 = {
 	
 	2981.1.1 = {
 		birth = yes
-		#employer = 11065 # Vincent Martin
+		employer = confed_0047 # Vincent Martin
 	}
 }
 
@@ -188,8 +188,8 @@ jion_0008 = {
 	dynasty = dynn_Shibata # Shibata
 	female = no
 	
-	culture = atlantean
-	faith = atlantite
+	culture = tengoku
+	religion = terran_federalist
 	
 	
 	2945.1.1 = { birth = yes }
@@ -208,10 +208,10 @@ jion_0009 = {
 	dynasty = dynn_Hasegawa # Hasegawa
 	female = yes
 	
-	culture = atlantean
-	faith = atlantite
+	culture = tengoku
+	religion = terran_federalist
 	
-	father = jion_00112 # Shiro Hasegawa
+	father = jion_0012 # Shiro Hasegawa
 	
 	2942.1.1 = { birth = yes }
 }
@@ -223,15 +223,15 @@ jion_0010 = {
 	dynasty = dynn_Hasegawa # Hasegawa
 	female = no
 	
-	culture = atlantean
-	faith = atlantite
+	culture = tengoku
+	religion = terran_federalist
 	
-	father = jion_00112 # Shiro Hasegawa
+	father = jion_0012 # Shiro Hasegawa
 	
 	2945.1.1 = { birth = yes }
 	2977.1.1 = {
 		add_spouse = jion_0011
-		effect = { set_relation_lover = character:jion_011 }
+		effect = { set_relation_lover = character:jion_0011 }
 	}
 	2997.6.5 = { death = { death_reason = death_murder killer = jion_0001 } } # Assassinated on Ryusei Sato's orders
 }
@@ -242,12 +242,12 @@ jion_0011 = {
 	dynasty = dynn_Avery # Avery
 	female = yes
 	
-	culture = atlantean
-	faith = atlantite
+	culture = american_frontierfolk
+	religion = terran_federalist
 	
 	2945.1.1 = { 
 		birth = yes
-		culture = atlantean
+		culture = tengoku
 	}
 	2997.6.5 = { death = { death_reason = death_murder killer = jion_0001 } } # Died in the same assassination attempt as her husband
 }
@@ -258,12 +258,333 @@ jion_0012 = {
 	dynasty = dynn_Hasegawa # Hasegawa
 	female = no
 	
-	culture = atlantean
-	faith = atlantite
+	culture = tengoku
+	religion = terran_republican
 	
 	trait = education_martial_2
 	#trait = warship_captain
 	
 	2919.1.1 = { birth = yes }
 	2983.1.1 = { death = { death_reason = death_battle killer = jion_0001 } } # Killed in Jionic rebellion
+}
+jion_0013 = {
+	# Husband of Toshiko Sato
+	name = "Takashi"
+	dynasty = dynn_Ozerov
+
+	culture = edemite
+	religion = mainline_astrist
+
+	#trait = charismatic_negotiator
+	trait = content
+	#trait = open_minded
+
+	2971.1.1 = {
+		birth = yes
+		culture = tengoku
+	}
+	2989.1.1 = {
+		add_matrilineal_spouse = jion_0003 # Toshiko Sato
+		effect = { set_relation_lover = character:jion_0003 }
+	}
+}
+
+jion_0014 = {
+	# Son of Toshiko Sato and Takashi Ozerov
+	name = "Mitsuo"
+	dynasty = dynn_Sato
+
+	culture = tengoku
+	religion = mainline_astrist
+
+	father = jion_0013 # Takashi Ozerov
+	mother = jion_0003 # Toshiko Sato
+
+	2990.1.1 = { birth = yes }
+}
+
+jion_0015 = {
+	# Commander, Star System Akasei, 2997 - Present
+	name = "Takashi"
+	dynasty = dynn_Sakamoto
+
+	culture = tengoku
+	religion = liberal_separatist
+
+	#trait = tough_soldier
+	#trait = frigate_pilot
+
+	2962.1.1 = { birth = yes }
+}
+
+jion_0016 = {
+	# Governor of Kojo, 2994 - Present
+	name = "Shinichi"
+	dynasty = dynn_Takada
+
+	culture = tengoku
+	religion = liberal_separatist
+
+	2966.1.1 = { birth = yes }
+}
+
+jion_0017 = {
+	# Governor of Uminoasa, 2996 - Present
+	name = "Hitomi"
+	dynasty = dynn_Miyazaki
+	female = yes
+
+	culture = tengoku
+	religion = liberal_separatist
+
+	2963.1.1 = { birth = yes }
+}
+
+jion_0018 = {
+	# Commander, Star System Saber
+	name = "Minoru"
+	dynasty = dynn_Miura
+
+	culture = tengoku
+	religion = mainline_astrist
+
+	#trait = flamboyant_schemer
+	trait = ambitious
+	#trait = extraverted
+	trait = arrogant
+	#trait = confident
+
+	2967.1.1 = { birth = yes }
+}
+
+jion_0019 = {
+	# Former chancellor of Jion, Hasegawa partisan
+	name = "Junko"
+	dynasty = dynn_Harada
+	female = yes
+
+	culture = tengoku
+	religion = terran_federalist
+
+	#trait = charismatic_negotiator
+	#trait = confident
+	#trait = extraverted
+	#trait = radical
+	trait = content
+
+	2949.1.1 = { birth = yes }
+	2997.5.25 = { death = { death_reason = death_murder killer = jion_0001 } }
+}
+
+jion_0020 = {
+	# Defense Zone Commander, Sector Iogi
+	name = "Rie"
+	dynasty = dynn_Harada
+	female = yes
+
+	culture = tengoku
+	religion = liberal_separatist
+
+	#trait = skilled_tactician
+	#trait = marine_captain
+	trait = brave
+	#trait = confident
+	trait = content
+	#trait = friendly
+	#trait = pragmatic
+
+	mother = jion_0019 # Junko Harada
+
+	2965.1.1 = { birth = yes }
+}
+
+jion_0021 = {
+	# Commander, Star System Fuyuki
+	# Rie Harada's lover
+	name = "Shoji"
+	dynasty = dynn_Kimura
+
+	culture = tengoku
+	religion = liberal_separatist
+
+	#trait = tough_soldier
+	#trait = marine_captain
+	trait = content
+	#trait = confident
+	#trait = friendly
+
+	2966.1.1 = { birth = yes }
+	2998.1.1 = { effect = { set_relation_lover = character:jion_0020 } } # Rie Harada
+}
+
+jion_0022 = {
+	# Governor of Odayakanaumi, 2997 - Present
+	name = "Fumiko"
+	dynasty = dynn_Stepanov
+	female = yes
+
+	culture = strugatskite
+	religion = liberal_separatist
+
+	sexuality = homosexual
+
+	2970.1.1 = {
+		birth = yes
+		culture = tengoku
+	}
+}
+
+jion_0023 = {
+	# Admiral of Defense Zone Hiyokuoka, 2997 - Present, Sato partisan
+	name = "Makoto"
+	dynasty = dynn_MacTavish
+
+	culture = avalonian
+	religion = mainline_astrist
+
+	#trait = tough_soldier
+	#trait = marine_captain
+	#trait = radical
+	trait = content
+
+	2970.1.1 = {
+		birth = yes
+		culture = tengoku
+	}
+}
+
+jion_0024 = {
+	# Governor of Takagi, 2993 - Present
+	name = "Noriko"
+	dynasty = dynn_Sakai
+	female = yes
+
+	culture = tengoku
+	religion = terran_federalist
+
+	sexuality = homosexual
+
+	2956.1.1 = { birth = yes }
+}
+
+jion_0025 = {
+	# Governor-General of Okyoto-Nara, 2995 - Present
+	name = "Sachiko"
+	female = yes
+
+	culture = tengoku
+	religion = liberal_separatist
+
+	sexuality = homosexual
+
+	2961.1.1 = { birth = yes }
+}
+
+jion_0026 = {
+	# Governor of Sabashi, 2983 - Present
+	name = "Koji"
+	dynasty = dynn_Wang
+
+	culture = xingjie
+	religion = terran_federalist
+
+	2950.1.1 = {
+		birth = yes
+		culture = tengoku
+	}
+}
+
+jion_0027 = {
+	# Commander of Mie, 2988 - Present
+	name = "Fumio"
+	dynasty = dynn_Firsov
+
+	culture = edemite
+	religion = mainline_astrist
+
+	#trait = tough_soldier
+	#trait = frigate_pilot
+
+	2961.1.1 = {
+		birth = yes
+		culture = tengoku
+	}
+}
+
+jion_0028 = {
+	# Commander of Shiga, 2966 - Present
+	name = "Hiroshi"
+	dynasty = dynn_Hayashi
+
+	culture = tengoku
+	religion = mainline_astrist
+
+	#trait = elusive_shadow
+	#trait = disciplined
+	trait = reclusive
+	trait = callous
+	#trait = confident
+	trait = content
+	#trait = pragmatic
+
+	2945.1.1 = { birth = yes }
+	2968.1.1 = { add_spouse = jion_0029 } # Emi Kato
+}
+
+jion_0029 = {
+	# Wife of Hiroshi Hayashi
+	name = "Emi"
+	dynasty = dynn_Kato
+	female = yes
+
+	culture = tengoku
+	religion = mainline_astrist
+
+	2947.1.1 = { birth = yes }
+}
+
+jion_0030 = {
+	# Son of Hiroshi Hayashi
+	name = "Hiroshi"
+	dynasty = dynn_Hayashi
+
+	culture = tengoku
+	religion = mainline_astrist
+
+	#trait = twin
+	#trait = intricate_webweaver
+
+	father = jion_0028 # Hiroshi Hayashi
+	mother = jion_0029 # Emi Kato
+
+	2973.1.1 = { birth = yes }
+}
+
+jion_0031 = {
+	# Daughter of Hiroshi Hayashi
+	name = "Hiroko"
+	dynasty = dynn_Hayashi
+	female = yes
+
+	culture = tengoku
+	religion = mainline_astrist
+
+	#trait = twin
+	#trait = intricate_webweaver
+
+	father = jion_0028 # Hiroshi Hayashi
+	mother = jion_0029 # Emi Kato
+
+	2973.1.1 = { birth = yes }
+}
+
+jion_0032 = {
+	# Governor-General of Yurikago
+	name = "Haruki"
+	dynasty = dynn_Mori
+
+	culture = tengoku
+	religion = liberal_separatist
+
+	2964.1.1 = { birth = yes }
 }

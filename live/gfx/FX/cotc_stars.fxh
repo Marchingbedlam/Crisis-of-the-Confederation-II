@@ -28,19 +28,19 @@ PixelShader = {
 		static const float COTC_STARS_FULL_CAMERA_PITCH_COS = 0.9f;
 
 		static const float COTC_STARS_CEILING_Y = 6.0f;
-		static const float COTC_STARS_FLOOR_Y   = -50.0f;
+		static const float COTC_STARS_FLOOR_Y   = -100.0f;
 
 		static const float COTC_STARS_SOFT_CEILING_Y = 1.0f;
-		static const float COTC_STARS_SOFT_FLOOR_Y   = -25.0f;
+		static const float COTC_STARS_SOFT_FLOOR_Y   = -50.0f;
 
 		static const float  COTC_STARS_VERTICAL_SPEED = 0.1f;
 		static const float2 COTC_STARS_WIND_VELOCITY  = float2(-0.2f, -0.2f);
 
-		static const float COTC_STARS_LAYER_TILE_SIZE = 200.0f;
-		static const float COTC_STARS_LAYER_TILE_SIZE_SMALL = 70.0f;
-		static const float COTC_STARS_LAYER_TILE_SIZE_Y = 300.0f;
+		static const float COTC_STARS_LAYER_TILE_SIZE = 100.0f;
+		static const float COTC_STARS_LAYER_TILE_SIZE_SMALL = 50.0f;
+		static const float COTC_STARS_LAYER_TILE_SIZE_Y = 50.0f;
 
-		static const int COTC_STARS_LAYERS_COUNT = 4;
+		static const int COTC_STARS_LAYERS_COUNT = 8;
 
 		// Per-layer randomisation. Every layer samples the one star texture, so
 		// without this they are all the same arrangement and the repeat is obvious.
