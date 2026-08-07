@@ -10,10 +10,21 @@ character_has_tech = {
 		capital_county = { county_has_tech = { TECH = $TECH$ } }
 	}
 	trigger_else_if = {
+		limit = { exists = domicile }
+		domicile = { domicile_has_tech = { TECH = $TECH$ } }
+	}
+	trigger_else_if = {
 		limit = { court_owner ?= { exists = capital_county } }
-		court_owner ?= { capital_county ?= { county_has_tech = { TECH = $TECH$ } } }
+		court_owner ?= { capital_county = { county_has_tech = { TECH = $TECH$ } } }
+	}
+	trigger_else_if = {
+		limit = { court_owner ?= { exists = domicile } }
+		court_owner ?= { domicile = { domicile_has_tech = { TECH = $TECH$ } } }
 	}
 	trigger_else = { culture = { has_innovation = $TECH$ } }
+}
+domicile_has_tech = {
+	domicile_location ?= { province_has_tech = { TECH = $TECH$ } }
 }
 province_has_tech = {
 	county = { county_has_tech = { TECH = $TECH$ } }
@@ -32,10 +43,21 @@ character_has_tech_by_string = {
 		capital_county = { county_has_tech_by_string = { TECH = $TECH$ } }
 	}
 	trigger_else_if = {
+		limit = { exists = domicile }
+		domicile = { domicile_has_tech_by_string = { TECH = $TECH$ } }
+	}
+	trigger_else_if = {
 		limit = { court_owner ?= { exists = capital_county } }
-		court_owner ?= { capital_county ?= { county_has_tech_by_string = { TECH = $TECH$ } } }
+		court_owner ?= { capital_county = { county_has_tech_by_string = { TECH = $TECH$ } } }
+	}
+	trigger_else_if = {
+		limit = { court_owner ?= { exists = domicile } }
+		court_owner ?= { domicile = { domicile_has_tech_by_string = { TECH = $TECH$ } } }
 	}
 	trigger_else = { culture = { has_innovation = culture_innovation:innovation_$TECH$ } }
+}
+domicile_has_tech_by_string = {
+	domicile_location ?= { province_has_tech_by_string = { TECH = $TECH$ } }
 }
 province_has_tech_by_string = {
 	county = { county_has_tech_by_string = { TECH = $TECH$ } }
