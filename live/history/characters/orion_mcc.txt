@@ -107,6 +107,9 @@ orion_mcc_0007 = {
 	#trait = open_minded
 	trait = brave
 	
+	father = orion_mcc_0013 # Tufani Varundra
+	mother = orion_mcc_0014 # Nilana Dravid
+
 	2979.1.1 = { birth = yes }
 }
 
@@ -216,6 +219,8 @@ orion_mcc_0016 = {
 
 	mother = orion_mcc_0015 # Luzhen Zhu
 
+	father = orion_mcc_0079 # Abu-Bakr Haddad
+
 	2958.1.1 = { birth = yes }
 }
 
@@ -231,6 +236,8 @@ orion_mcc_0017 = {
 	#trait = twin
 
 	mother = orion_mcc_0015 # Luzhen Zhu
+
+	father = orion_mcc_0079 # Abu-Bakr Haddad
 
 	2958.1.1 = { birth = yes }
 }
@@ -254,6 +261,9 @@ orion_mcc_0019 = {
 	culture = bianjiang
 	religion = liberal_separatist
 
+	father = orion_mcc_0077 # Ali Ahmadi
+	mother = orion_mcc_0089 # Daozheng Tian
+
 	sexuality = homosexual
 	#trait = skilled_tactician
 	#trait = frigate_pilot
@@ -269,6 +279,9 @@ orion_mcc_0020 = {
 
 	culture = bianjiang
 	religion = liberal_separatist
+
+	father = orion_mcc_0077 # Ali Ahmadi
+	mother = orion_mcc_0089 # Daozheng Tian
 
 	#trait = skilled_tactician
 	#trait = marine_captain
@@ -297,6 +310,9 @@ orion_mcc_0022 = {
 
 	#trait = tough_soldier
 	#trait = marine_captain
+
+	father = orion_0018 # Lucas Ortiz
+	mother = orion_0019 # Camila Cruz
 
 	2958.1.1 = { birth = yes }
 }
@@ -531,6 +547,9 @@ orion_mcc_0040 = {
 	culture = orion
 	religion = independent
 
+	father = orion_mcc_0085 # Christopher Romero
+	mother = orion_mcc_0092 # Catalina Mejia
+
 	2965.1.1 = { birth = yes }
 }
 
@@ -542,6 +561,9 @@ orion_mcc_0041 = {
 
 	culture = orion
 	religion = independent
+
+	father = orion_mcc_0085 # Christopher Romero
+	mother = orion_mcc_0092 # Catalina Mejia
 
 	2968.1.1 = { birth = yes }
 }
@@ -556,7 +578,10 @@ orion_mcc_0042 = {
 	culture = tarkan
 	religion = machine_cult
 
-	2989.1.1 = { birth = yes }
+	father = mukta_0014 # Joaquin Reyes
+	mother = mukta_0008 # Pari Trivedi
+
+	2963.1.1 = { birth = yes }
 }
 
 orion_mcc_0043 = {
@@ -614,6 +639,9 @@ orion_mcc_0047 = {
 	culture = mukta
 	religion = liberal_separatist
 
+	father = orion_mcc_0087 # Hemanth Segura
+	mother = orion_mcc_0086 # Harini Singhal
+
 	2973.1.1 = { birth = yes }
 }
 
@@ -626,7 +654,7 @@ orion_mcc_0048 = {
 	culture = mukta
 	religion = free_fleet
 
-	29461.1 = { birth = yes }
+	2946.1.1 = { birth = yes }
 }
 
 ### MANTICORE
@@ -696,7 +724,7 @@ orion_mcc_0054 = {
 	culture = swahili_angani
 	religion = free_fleet
 
-	2963.1.1 = { birth = yes }
+	2954.1.1 = { birth = yes }
 }
 
 orion_mcc_0055 = {
@@ -717,6 +745,9 @@ orion_mcc_0056 = {
 
 	culture = mukta
 	religion = reaver
+
+	father = orion_mcc_0087 # Hemanth Segura
+	mother = orion_mcc_0086 # Harini Singhal
 
 	2971.1.1 = { birth = yes }
 }
@@ -742,7 +773,8 @@ orion_mcc_0058 = {
 	culture = orion
 	religion = free_fleet
 
-	2964.1.1 = { birth = yes }
+	2932.1.1 = { birth = yes }
+	2994.1.1 = { death = { death_reason = death_murder killer = orion_mcc_0059 } }
 }
 
 orion_mcc_0059 = {
@@ -753,7 +785,13 @@ orion_mcc_0059 = {
 	culture = orion
 	religion = free_fleet
 
-	2994.1.1 = { birth = yes }
+	#trait = clone
+	trait = ambitious
+	trait = callous
+
+	father = orion_mcc_0058 # Samuel Rivas
+
+	2959.1.1 = { birth = yes }
 }
 
 orion_mcc_0060 = {
@@ -764,7 +802,11 @@ orion_mcc_0060 = {
 	culture = orion
 	religion = reaver
 
-	2994.1.1 = { birth = yes }
+	#trait = clone
+
+	father = orion_mcc_0058 # Samuel Rivas
+
+	2957.1.1 = { birth = yes }
 }
 
 orion_mcc_0061 = {
@@ -1126,6 +1168,10 @@ orion_mcc_0085 = {
 	religion = ecumenical
 
 	2942.1.1 = { birth = yes }
+	2964.1.1 = {
+		add_spouse = orion_mcc_0092 # Catalina Mejia
+		effect = { set_relation_lover = character:orion_mcc_0092 }
+	}
 }
 
 orion_mcc_0086 = {
@@ -1170,4 +1216,70 @@ orion_mcc_0088 = {
 	mother = orion_mcc_0057 # Navya Sen
 
 	2972.1.1 = { birth = yes }
+}
+
+orion_mcc_0089 = {
+	# Mother of the Tian admirals
+	name = "Daozheng"
+	dynasty = dynn_Tian
+	female = yes
+
+	culture = bianjiang
+	religion = terran_federalist
+
+	#trait = skilled_tactician
+	#trait = warship_captain
+
+	2924.1.1 = { birth = yes }
+	2945.1.1 = {
+		add_matrilineal_spouse = orion_mcc_0077 # Ali Ahmadi
+		effect = { set_relation_lover = character:orion_mcc_0077 }
+	}
+}
+
+orion_mcc_0090 = {
+	# Clone of Yuan Tian
+	name = "Yuan"
+	dynasty = dynn_Tian
+
+	culture = bianjiang
+	religion = liberal_separatist
+
+	#trait = clone
+	sexuality = homosexual
+
+	father = orion_mcc_0019 # Yuan Tian
+
+	2984.1.1 = { birth = yes }
+}
+
+orion_mcc_0091 = {
+	# Clone of Khushi Trivedi
+	name = "Khushi"
+	dynasty = dynn_Trivedi
+	female = yes
+
+	culture = tarkan
+	religion = machine_cult
+
+	sexuality = homosexual
+	#trait = clone
+	#trait = spiritual
+	#trait = open_minded
+
+	mother = orion_mcc_0042 # Khushi Trivedi
+
+	2988.1.1 = { birth = yes }
+}
+
+orion_mcc_0092 = {
+	# Wife of Christopher Romero, mother of Juana and Antonia
+	name = "Catalina"
+	dynasty = dynn_Mejia
+	female = yes
+
+	culture = orion
+	religion = ecumenical
+
+	2943.1.1 = { birth = yes }
 }
