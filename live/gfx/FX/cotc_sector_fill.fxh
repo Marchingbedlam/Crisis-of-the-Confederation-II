@@ -60,6 +60,11 @@ PixelShader =
 		//   5.0 = hard
 		static const float COTC_FILL_DISTANCE_POWER = 3.0f;
 
+		// SEAM KNOBS. Darkens the blend zone between two realms
+		static const float3 COTC_FILL_SEAM_COLOR = float3( 0.03f, 0.03f, 0.045f );
+		static const float COTC_FILL_SEAM_STRENGTH = 0.45f;
+		static const float COTC_FILL_SEAM_CONTRAST = 2.5f;
+
 		// Ray stop once the land it has passed through leaves this little light through
 		static const float COTC_FILL_TRANSMITTANCE_EPSILON = 0.002f;
 		static const float COTC_FILL_WEIGHT_SATURATED = 0.995f;
@@ -142,6 +147,7 @@ PixelShader =
 			OwnedHighlight = vec4( 0.0f );
 
 			float3 Accumulated = vec3( 0.0f );
+			float3 AccumulatedSquared = vec3( 0.0f );
 			float4 AccumulatedSecondary = vec4( 0.0f );
 			float4 AccumulatedHighlight = vec4( 0.0f );
 			float  TotalWeight = 0.0f;
@@ -190,6 +196,7 @@ PixelShader =
 					const float Weight = Sample.a * Transmittance * DistanceWeight * ShellWidth;
 
 					Accumulated += Sample.rgb * Weight;
+					AccumulatedSquared += Sample.rgb * Sample.rgb * Weight;
 					AccumulatedSecondary += SecondarySample * Weight;
 					AccumulatedHighlight += HighlightSample * Weight;
 					TotalWeight += Weight;
@@ -203,7 +210,17 @@ PixelShader =
 				return false;
 			}
 
-			OwnedColor = Accumulated / TotalWeight;
+			const float3 Mean = Accumulated / TotalWeight;
+
+			// Weighted variance of the gathered colours, per channel. How much do
+			// the contributing provinces disagree. Determines darkening.
+			const float3 MeanSquared = AccumulatedSquared / TotalWeight;
+			const float3 Variance = max( MeanSquared - Mean * Mean, vec3( 0.0f ) );
+
+			// Root of the summed channel variances - the RMS colour spread across the gather.
+			const float Disagreement = saturate( sqrt( Variance.r + Variance.g + Variance.b ) * COTC_FILL_SEAM_CONTRAST );
+
+			OwnedColor = lerp( Mean, COTC_FILL_SEAM_COLOR, COTC_FILL_SEAM_STRENGTH * Disagreement );
 			OwnedSecondary = AccumulatedSecondary / TotalWeight;
 			OwnedHighlight = AccumulatedHighlight / TotalWeight;
 			return true;
