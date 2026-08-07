@@ -1045,6 +1045,14 @@ window = {
 				}
 
 				expand = {}
+
+				button_standard = {
+					name = "see_innovations"
+					text = "INNOVATIONS_LABEL"
+					tooltip = "COUNTY_TECH_TOOLTIP"
+					using = tooltip_nw
+					onclick = "[GetVariableSystem.Toggle( 'show_county_innovation_window' )]"
+				}
 			}
 
 			####################################
@@ -2233,6 +2241,216 @@ window = {
 					}
 				}
 			}
+		}
+	}
+	
+	window = {
+		name = "cotc_county_innovation_window"
+		widgetid = "cotc_county_innovation_window"
+		widgetanchor = top
+		size = { 580 90% } # X Position is taken from the template title_view_window_side_pop_out
+		resizable = no
+		layer = middle
+		visible = "[GetVariableSystem.Exists( 'show_county_innovation_window' )]"
+
+		using = Window_Movable
+		using = title_view_window_side_pop_out
+		using = Window_Decoration
+		using = Window_Background
+		
+		vbox = {
+			margin_top = 15
+			margin_left = 35
+			margin_right = 35
+			name = "title_view_main_tab"
+			
+			datacontext = "[HoldingView.GetProvince]"
+			datacontext = "[Province.GetCounty]"
+			layoutpolicy_horizontal = expanding
+			layoutpolicy_vertical = expanding
+
+			state = {
+				name = _show
+				using = Animation_FadeIn_Quick
+			}
+
+			state = {
+				name = _hide
+				using = Animation_FadeOut_Quick
+			}
+			
+			# Header
+			hbox = {
+				name = "header_area"
+				layoutpolicy_horizontal = expanding
+
+				background = {
+					using = Background_Header
+				}
+
+				background = {
+					using = Background_Header_Pattern
+				}
+
+				vbox = {
+					layoutpolicy_vertical = expanding
+
+					coa_title_medium = {
+						datacontext = "[HoldingView.GetCountyTitle]"
+					}
+
+					expand = {}
+				}
+
+				vbox = {
+					layoutpolicy_horizontal = expanding
+					layoutpolicy_vertical = expanding
+
+					vbox = {
+						ignoreinvisible = yes
+						datacontext = "[HoldingView.GetCountyTitle]"
+						layoutpolicy_horizontal = expanding
+						spacing = 5
+
+						hbox = {
+							layoutpolicy_horizontal = expanding
+
+							vbox = {
+								margin_top = 5
+
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									ignoreinvisible = yes
+									spacing = 5
+
+									text_multi = {
+										text = "INNOVATIONS_IN_COUNTY"
+										default_format = "#high"
+										max_width = 325
+										autoresize = yes
+										using = Font_Size_Medium
+									}
+
+									expand = {}
+								}
+							}
+						}
+					}
+
+					expand = {}
+				}
+			}
+			
+			# Scrollbox
+			scrollbox = {
+				name = "county_innovations_list_view"
+				datacontext = "[HoldingView.GetCountyTitle]"
+				layoutpolicy_horizontal = expanding
+				layoutpolicy_vertical = expanding
+
+				blockoverride "scrollbox_content"
+				{
+					vbox = {
+						layoutpolicy_horizontal = expanding
+						spacing = 10
+						
+						vbox = {
+							name = "county_era_groups"
+							layoutpolicy_horizontal = expanding
+							
+							county_innovation_folder = {
+								blockoverride "groupname"
+								{
+									text = "COLONIAL_MILITARY_LABEL"
+								}
+								blockoverride "datamodel_list"
+								{
+									datamodel = "[HoldingView.GetCountyTitle.MakeScope.GetList( 'colonial_military_techs' )]"
+								}
+							}
+							
+							county_innovation_folder = {
+								blockoverride "groupname"
+								{
+									text = "COLONIAL_CIVIC_LABEL"
+								}
+								blockoverride "datamodel_list"
+								{
+									datamodel = "[HoldingView.GetCountyTitle.MakeScope.GetList( 'colonial_civic_techs' )]"
+								}
+							}
+							
+							county_innovation_folder = {
+								blockoverride "groupname"
+								{
+									text = "CONFEDERATE_MILITARY_LABEL"
+								}
+								blockoverride "datamodel_list"
+								{
+									datamodel = "[HoldingView.GetCountyTitle.MakeScope.GetList( 'confederate_military_techs' )]"
+								}
+							}
+							
+							county_innovation_folder = {
+								blockoverride "groupname"
+								{
+									text = "CONFEDERATE_CIVIC_LABEL"
+								}
+								blockoverride "datamodel_list"
+								{
+									datamodel = "[HoldingView.GetCountyTitle.MakeScope.GetList( 'confederate_civic_techs' )]"
+								}
+							}
+							
+							county_innovation_folder = {
+								blockoverride "groupname"
+								{
+									text = "TRIMILLENNIAL_MILITARY_LABEL"
+								}
+								blockoverride "datamodel_list"
+								{
+									datamodel = "[HoldingView.GetCountyTitle.MakeScope.GetList( 'trimillennial_military_techs' )]"
+								}
+							}
+							
+							county_innovation_folder = {
+								blockoverride "groupname"
+								{
+									text = "TRIMILLENNIAL_CIVIC_LABEL"
+								}
+								blockoverride "datamodel_list"
+								{
+									datamodel = "[HoldingView.GetCountyTitle.MakeScope.GetList( 'trimillennial_civic_techs' )]"
+								}
+							}
+							
+							county_innovation_folder = {
+								blockoverride "groupname"
+								{
+									text = "NEORENAISSANCE_MILITARY_LABEL"
+								}
+								blockoverride "datamodel_list"
+								{
+									datamodel = "[HoldingView.GetCountyTitle.MakeScope.GetList( 'neorenaissance_military_techs' )]"
+								}
+							}
+							
+							county_innovation_folder = {
+								blockoverride "groupname"
+								{
+									text = "NEORENAISSANCE_CIVIC_LABEL"
+								}
+								blockoverride "datamodel_list"
+								{
+									datamodel = "[HoldingView.GetCountyTitle.MakeScope.GetList( 'neorenaissance_civic_techs' )]"
+								}
+							}
+						}
+					}
+				}
+			}
+			
+			expand = {}
 		}
 	}
 }
@@ -3760,6 +3978,123 @@ types CountyViewTypes
 
 						tooltipwidget = {
 							widget_value_breakdown_tooltip = {}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	type county_innovation_folder = vbox
+	{
+		oncreate = "[BindFoldOutContext]"
+        oncreate = "[PdxGuiFoldOut.SetShownBehavior( 'folded' )]"
+
+		layoutpolicy_horizontal = expanding
+		spacing = 10
+
+		# Innovation group foldout name
+		button_expandable_toggle_field = {
+			text_label_left = {
+				layoutpolicy_horizontal = expanding
+				align = left
+				margin_left = 40
+				margin_top = 3
+				block "groupname" {}
+			}
+		}
+
+		dynamicgridbox = {
+			visible = "[PdxGuiFoldOut.IsUnfolded]"
+			block "datamodel_list" {}
+			datamodel_wrap = 2
+			flipdirection = yes
+
+			item = {
+				flowcontainer = {
+					margin_right = 10
+					margin_bottom = 10
+
+					flowcontainer = {
+						datacontext = "[GetCultureInnovationType(Concatenate('innovation_', Scope.GetFlagName))]"
+						direction = horizontal
+
+						allow_outside = yes
+						using = tooltip_es
+						ignoreinvisible = yes
+
+						######### NOT CLICKABLE ######
+						button_standard = {
+							alwaystransparent = yes
+							size = { 150 92 }
+							downframe = 3
+							upframe = 1
+
+							vbox = {
+								hbox = {
+									layoutpolicy_horizontal = expanding
+									margin_left = 8
+									margin_right = 2
+									margin_top = 3
+									margin_bottom = 1
+
+									background = {
+										using = Background_Area_Solid
+									}
+
+									background = {
+										texture = "gfx/interface/colors/black.dds"
+										margin_top = -2
+										margin_left = -2
+										margin_right = -2
+
+										modify_texture = {
+											name = "mask"
+											texture = "gfx/interface/component_masks/mask_fade_horizontal.dds"
+											spriteType = Corneredstretched
+											blend_mode = alphaMultiply
+											mirror = horizontal
+											translate_uv = { 0.3 0 }
+										}
+
+										modify_texture = {
+											texture = "gfx/interface/skinned/mask_pattern.dds"
+											texture_density = 3
+											spriteType = Corneredtiled
+											blend_mode = alphamultiply
+											alpha = 0.15
+										}
+									}
+
+									text_single = {
+										max_width = 160
+										name = "name_unlocked"
+										layoutpolicy_horizontal = expanding
+										text = "LOCAL_INNOVATION_NAME"
+										default_format = "#low"
+										align = nobaseline
+
+									}
+									expand = {}
+								}
+
+								hbox = {
+									ignoreinvisible = yes
+									layoutpolicy_horizontal = expanding
+									background = {
+										using = Background_Area
+										alpha = 0.3
+									}
+									widget = {
+										size = { 90 60 }
+
+										icon_innovation_type_no_context = {
+											parentanchor = center
+										}
+									}
+									expand = {}
+								}
+							}
 						}
 					}
 				}

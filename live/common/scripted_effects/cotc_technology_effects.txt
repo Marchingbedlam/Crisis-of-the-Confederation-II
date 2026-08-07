@@ -24,7 +24,42 @@ add_tech_to_county = {
 remove_tech_from_county = {
 	switch = {
 		trigger = $TECH$
-		culture_innovation:innovation_test = { remove_tech_by_string = { TECH = test TARGET = county } }
+		culture_innovation:innovation_test = { remove_tech_by_string = { TECH = test } }
+	}
+}
+
+# PARAMETER EFFECTS
+# These are more modular, and really only depend on what eras we use and the parameters thereof
+add_tech_to_gui = {
+	save_temporary_scope_as = temp_gui_county
+	culture_innovation:innovation_$TECH$ = {
+		switch = {
+			trigger = has_innovation_parameter
+			colonial_military = { scope:temp_gui_county = { add_to_variable_list = { name = colonial_military_techs target = flag:$TECH$ } } }
+			colonial_civic = { scope:temp_gui_county = { add_to_variable_list = { name = colonial_civic_techs target = flag:$TECH$ } } }
+			confederate_military = { scope:temp_gui_county = { add_to_variable_list = { name = confederate_military_techs target = flag:$TECH$ } } }
+			confederate_civic = { scope:temp_gui_county = { add_to_variable_list = { name = confederate_civic_techs target = flag:$TECH$ } } }
+			trimillennial_military = { scope:temp_gui_county = { add_to_variable_list = { name = trimillennial_military_techs target = flag:$TECH$ } } }
+			trimillennial_civic = { scope:temp_gui_county = { add_to_variable_list = { name = trimillennial_civic_techs target = flag:$TECH$ } } }
+			neorenaissance_military = { scope:temp_gui_county = { add_to_variable_list = { name = neorenaissance_military_techs target = flag:$TECH$ } } }
+			neorenaissance_civic = { scope:temp_gui_county = { add_to_variable_list = { name = neorenaissance_civic_techs target = flag:$TECH$ } } }
+		}
+	}
+}
+remove_tech_from_gui = {
+	save_temporary_scope_as = temp_gui_county
+	culture_innovation:innovation_$TECH$ = {
+		switch = {
+			trigger = has_innovation_parameter
+			colonial_military = { scope:temp_gui_county = { remove_list_variable = { name = colonial_military_techs target = flag:$TECH$ } } }
+			colonial_civic = { scope:temp_gui_county = { remove_list_variable = { name = colonial_civic_techs target = flag:$TECH$ } } }
+			confederate_military = { scope:temp_gui_county = { remove_list_variable = { name = confederate_military_techs target = flag:$TECH$ } } }
+			confederate_civic = { scope:temp_gui_county = { remove_list_variable = { name = confederate_civic_techs target = flag:$TECH$ } } }
+			trimillennial_military = { scope:temp_gui_county = { remove_list_variable = { name = trimillennial_military_techs target = flag:$TECH$ } } }
+			trimillennial_civic = { scope:temp_gui_county = { remove_list_variable = { name = trimillennial_civic_techs target = flag:$TECH$ } } }
+			neorenaissance_military = { scope:temp_gui_county = { remove_list_variable = { name = neorenaissance_military_techs target = flag:$TECH$ } } }
+			neorenaissance_civic = { scope:temp_gui_county = { remove_list_variable = { name = neorenaissance_civic_techs target = flag:$TECH$ } } }
+		}
 	}
 }
 
@@ -34,6 +69,7 @@ add_tech_by_string = {
 	if = {
 		limit = { NOT = { county_has_tech_by_string = { TECH = $TECH$ } } }
 		add_to_variable_list = { name = county_techs target = culture_innovation:innovation_$TECH$ }
+		add_tech_to_gui = { TECH = $TECH$ }
 		
 		# Apply the new tech
 		apply_county_tech_by_string = { TECH = $TECH$ }
@@ -54,6 +90,7 @@ remove_tech_by_string = {
 	if = {
 		limit = { county_has_tech_by_string = { TECH = $TECH$ } }
 		remove_list_variable = { name = county_techs target = culture_innovation:innovation_$TECH$ }
+		remove_tech_from_gui = { TECH = $TECH$ }
 		
 		# Verify the removed tech
 		apply_county_tech_by_string = { TECH = $TECH$ }
