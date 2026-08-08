@@ -2,6 +2,7 @@
 # HOOKS TO CODE #
 #################
 on_game_start = { on_actions = { global_government_setup_on_action } }
+on_game_start_after_lobby = { on_actions = { game_started_variable_on_action } }
 on_title_gain = { on_actions = { government_update_on_action } }
 on_title_lost = { on_actions = { government_update_on_action } }
 on_primary_title_change = { on_actions = { government_update_on_action } }
@@ -28,20 +29,23 @@ on_title_destroyed = { on_actions = { government_destruction_on_action } }
 ###################
 # ROOT ON_ACTIONS #
 ###################
+game_started_variable_on_action = {
+	effect = { set_global_variable = game_started }
+}
 global_government_setup_on_action = {
 	effect = {
-		# GENERAL CONFIG
-		every_ruler = { trigger_event = { on_action = government_setup_on_action } }
+		# LEGITIMACY CONFIG
+		every_ruler = {
+			limit = {
+				exists = dynasty
+				highest_held_title_tier >= tier_county
+				is_landed = yes
+			}
+			add_legitimacy = base_legitimacy_value
+		}
 		
 		# DEFAULT GOVERNMENT CONFIG
 		every_ruler = { trigger_event = { on_action = remove_disallowed_government_on_action } }
-		
-		# NOBLE FAMILY CONFIG
-		every_ruler = {
-			trigger_event = { on_action = make_direct_vassal_noble_family_on_action }
-			trigger_event = { on_action = make_independent_ruler_noble_family_on_action }
-			trigger_event = { on_action = make_landless_noble_direct_vassal_of_top_liege_on_action }
-		}
 		
 		# VASSAL LAW CONFIG
 		every_ruler = {
@@ -61,21 +65,16 @@ global_government_setup_on_action = {
 			}
 			meet_liege_law_government_requirements_effect = { LIEGE = scope:relevant_ruler }
 		}
-
-		# LEGITIMACY CONFIG
+		
+		# NOBLE FAMILY CONFIG
 		every_ruler = {
-			# limit = {
-				# exists = dynasty
-				# highest_held_title_tier >= tier_county
-				# Exclude unplayable for now
-				# NOR = {
-					# government_has_flag = government_is_republic
-					# government_has_flag = government_is_theocracy
-				# }
-				# is_landed = yes
-			# }
-			add_legitimacy = base_legitimacy_value
+			trigger_event = { on_action = make_direct_vassal_noble_family_on_action }
+			trigger_event = { on_action = make_independent_ruler_noble_family_on_action }
+			trigger_event = { on_action = make_landless_noble_direct_vassal_of_top_liege_on_action }
 		}
+		
+		# GENERAL CONFIG
+		every_ruler = { trigger_event = { on_action = government_setup_on_action } }
 	}
 }
 government_setup_on_action = {
@@ -94,7 +93,7 @@ government_setup_on_action = {
 	}
 }
 government_update_on_action = {
-	trigger = { years_from_game_start >= 0 }
+	trigger = { has_global_variable = game_started }
 	on_actions = {
 		# Legislatures
 		initialize_new_legislature_on_action
