@@ -22,6 +22,177 @@
 ###########
 # CotC Special Buildings
 
+homeworld_01 = {
+
+	construction_time = very_slow_construction_time
+	type_icon = "icon_structure_petra.dds"
+	
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+	
+	cost_gold = 3000
+
+	county_modifier = {
+		tax_mult = 0.05
+		supply_limit_mult = 0.1
+		development_growth = 0.1
+		development_growth_factor = 0.10
+	}
+	
+	province_modifier = {
+		monthly_income = good_building_tax_tier_3
+		build_gold_cost = -0.05
+	}
+	
+	next_building = homeworld_02
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_economic
+	flag = travel_point_of_interest_religious
+	flag = travel_point_of_interest_diplomatic
+	flag = travel_point_of_interest_wonder
+}
+
+homeworld_02 = {
+
+	construction_time = very_slow_construction_time
+	type_icon = "icon_structure_petra.dds"
+	
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+	
+	cost_gold = 2000
+
+	county_modifier = {
+		tax_mult = 0.1
+		supply_limit_mult = 0.25
+		development_growth = 0.2
+		development_growth_factor = 0.15
+	}
+	
+	province_modifier = {
+		monthly_income = good_building_tax_tier_6
+		build_gold_cost = -0.1
+		building_slot_add = 1
+	}
+	
+	next_building = homeworld_03
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_economic
+	flag = travel_point_of_interest_religious
+	flag = travel_point_of_interest_diplomatic
+	flag = travel_point_of_interest_wonder
+}
+
+homeworld_03 = {
+
+	construction_time = very_slow_construction_time
+	type_icon = "icon_structure_petra.dds"
+	
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+	
+	cost_gold = 2500
+
+	county_modifier = {
+		tax_mult = 0.15
+		supply_limit_mult = 0.35
+		development_growth = 0.3
+		development_growth_factor = 0.25
+		diplomacy_per_prestige_level = 1
+	}
+	
+	province_modifier = {
+		monthly_income = good_building_tax_tier_8
+		build_gold_cost = -0.15
+		building_slot_add = 1
+	}
+	character_modifier = {
+		diplomacy_per_prestige_level = 1
+	}
+	
+	next_building = homeworld_04
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_economic
+	flag = travel_point_of_interest_religious
+	flag = travel_point_of_interest_diplomatic
+	flag = travel_point_of_interest_wonder
+}
+
+homeworld_04 = {
+
+	construction_time = very_slow_construction_time
+	type_icon = "icon_structure_petra.dds"
+	
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+	
+	cost_gold = 3000
+
+	county_modifier = {
+		tax_mult = 0.2
+		supply_limit_mult = 0.5
+		development_growth = 0.4
+		development_growth_factor = 0.4
+	}
+	
+	province_modifier = {
+		monthly_income = excellent_building_tax_tier_8
+		build_gold_cost = -0.2
+		building_slot_add = 1
+	}
+	character_modifier = {
+		diplomacy_per_prestige_level = 1
+		stewardship_per_prestige_level = 1
+	}
+
+
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_economic
+	flag = travel_point_of_interest_religious
+	flag = travel_point_of_interest_diplomatic
+	flag = travel_point_of_interest_wonder
+}
+
 olympic_yards_01 = {
 	
 	# Someday maybe someone will add assets to places
@@ -129,6 +300,73 @@ olympic_yards_02 = {
 	type = special
 
 	flag = travel_point_of_interest_martial
+}
+
+uranium_keep_01 = {
+
+	construction_time = very_slow_construction_time
+
+	type_icon = "icon_structure_tower_of_london.dds"
+	
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+
+	can_construct = {
+		scope:holder.culture = {
+			has_innovation = innovation_battlements
+		}
+	}
+	
+	cost_gold = 1000
+
+	character_modifier = {
+		dread_gain_mult = 0.3
+		health = -0.5
+		fertility = -0.15
+	}
+	max_garrison = good_building_max_garrison_tier_3
+	province_modifier = {
+		defender_holding_advantage = normal_building_advantage_tier_3
+		fort_level = good_building_fort_level_tier_3
+		stationed_maa_damage_mult = normal_maa_damage_tier_2
+		stationed_maa_toughness_mult = normal_maa_toughness_tier_2
+		stationed_siege_weapon_siege_value_mult = normal_maa_siege_value_tier_2
+		travel_danger = -20
+	}
+	county_modifier = {
+		development_growth = 0.2
+		development_growth_factor = 0.1
+		tax_mult = 0.05
+	}
+	character_faith_modifier = {
+		parameter = machine_cult
+		monthly_piety_gain_mult = 0.2
+		monthly_prestige_gain_mult = 0.2
+		learning_per_piety_level = 1
+	}
+	
+	ai_value = {
+		base = 8
+		culture_likely_to_fortify_modifier = yes
+		modifier = {
+			factor = 5
+			scope:holder = {
+				culture = {
+					has_cultural_parameter = ai_more_likely_to_castle
+				}
+			}
+		}
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_martial
+	flag = travel_point_of_interest_religious
 }
 
 dharmaalay_archipelago_01 = {
