@@ -126,10 +126,28 @@ building_requirement_castle_city_church_temple_citadel_tribe = {
 
 # CotC stellar infrastructure requirements
 building_requirement_space_infrastructure = {
-	OR = {
+	trigger_if = {  # Special Counts as Infrastructure
+		limit = { building_counts_as_infrastructure = yes }
+		always = yes
+	}
+	trigger_if = {  # Hard-space locations
+		limit = { building_orb_infrastructure_requirement_terrain = yes }
 		has_building_or_higher = orb_infrastructure_$LEVEL$
+	}
+	trigger_else_if = {  # Ground-based locations
+		limit = { building_hab_infrastructure_requirement_terrain = yes }
 		has_building_or_higher = hab_infrastructure_$LEVEL$
-		terrain = atmospheric
+	}
+	trigger_else = {  # Atmospheric
+		always = yes
+	}
+}
+
+building_counts_as_infrastructure = {
+	# List of special buildings that count as infrastructure
+	OR = {
+		has_building_or_higher = dharmaalay_archipelago_01
+		has_building_or_higher = uranium_keep_01
 	}
 }
 

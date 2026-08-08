@@ -784,6 +784,7 @@ propaganda_01 = {
 		}
 		has_dlc_feature = legends
 		# TODO: Add requirement for a culture of oppression or manipulation
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -876,6 +877,7 @@ propaganda_02 = {
 			has_innovation = innovation_city_planning
 		}
 		has_dlc_feature = legends
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -936,6 +938,7 @@ propaganda_03 = {
 			has_innovation = innovation_manorialism
 		}
 		has_dlc_feature = legends
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -996,6 +999,7 @@ propaganda_04 = {
 			has_innovation = innovation_manorialism
 		}
 		has_dlc_feature = legends
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -1056,6 +1060,7 @@ propaganda_05 = {
 			has_innovation = innovation_windmills
 		}
 		has_dlc_feature = legends
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -1116,6 +1121,7 @@ propaganda_06 = {
 			has_innovation = innovation_windmills
 		}
 		has_dlc_feature = legends
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -1175,6 +1181,7 @@ propaganda_07 = {
 			has_innovation = innovation_cranes
 		}
 		has_dlc_feature = legends
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -1235,6 +1242,7 @@ propaganda_08 = {
 			has_innovation = innovation_cranes
 		}
 		has_dlc_feature = legends
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -1292,6 +1300,7 @@ research_labs_01 = {
 			has_building_or_higher = temple_01
 			has_building_or_higher = temple_citadel_01
 		}
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -1320,17 +1329,6 @@ research_labs_01 = {
 		ai_tier_1_pious_building_preference_modifier = yes
 		directive_to_build_economy_modifier = yes
 		modifier = {
-			add = 500
-			scope:holder = {
-				OR = {
-					highest_held_title_tier = tier_barony
-					government_has_flag = government_is_theocracy
-					government_has_flag = government_is_mandala
-					is_theocratic_lessee = yes
-				}
-			}
-		}
-		modifier = {
 			factor = 2
 			free_building_slots <= 1
 		}
@@ -1351,6 +1349,7 @@ research_labs_02 = {
 				has_cultural_parameter = next_level_monasteries
 			}
 		}
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -1417,6 +1416,7 @@ research_labs_03 = {
 				has_building_or_higher = temple_citadel_01
 			}
 		}
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -1454,6 +1454,7 @@ research_labs_04 = {
 	construction_time = standard_construction_time
 
 	can_construct = {
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 		trigger_if = {
 			limit = {
 				NOT = {
@@ -1534,6 +1535,7 @@ research_labs_05 = {
 	construction_time = standard_construction_time
 
 	can_construct = {
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 		trigger_if = {
 			limit = {
 				NOT = {
@@ -1616,6 +1618,7 @@ research_labs_06 = {
 	construction_time = standard_construction_time
 
 	can_construct = {
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 		trigger_if = {
 			limit = {
 				NOT = {
@@ -1698,6 +1701,7 @@ research_labs_07 = {
 	construction_time = standard_construction_time
 
 	can_construct = {
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 		trigger_if = {
 			limit = {
 				NOT = {
@@ -1780,6 +1784,7 @@ research_labs_08 = {
 	construction_time = standard_construction_time
 
 	can_construct = {
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 		trigger_if = {
 			limit = {
 				NOT = {
@@ -1867,6 +1872,7 @@ bureaucracy_01 = {
 			has_building_or_higher = temple_01
 			has_building_or_higher = temple_citadel_01
 		}
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -1899,18 +1905,6 @@ bureaucracy_01 = {
 		ai_tier_1_building_modifier = yes
 		ai_tier_1_pious_building_preference_modifier = yes
 		directive_to_build_economy_modifier = yes
-		# TODO: Add weightings for administrative republics
-		modifier = {
-			add = 500
-			scope:holder = {
-				OR = {
-					highest_held_title_tier = tier_barony
-					government_has_flag = government_is_theocracy
-					government_has_flag = government_is_mandala
-					is_theocratic_lessee = yes
-				}
-			}
-		}
 		modifier = {
 			factor = 2
 			free_building_slots <= 1
@@ -1926,6 +1920,7 @@ bureaucracy_02 = {
 			has_building_or_higher = temple_01
 			has_building_or_higher = temple_citadel_01
 		}
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -1963,6 +1958,7 @@ bureaucracy_03 = {
 		culture = {
 			has_innovation = innovation_city_planning
 		}
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2000,6 +1996,7 @@ bureaucracy_04 = {
 		culture = {
 			has_innovation = innovation_city_planning
 		}
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2037,6 +2034,7 @@ bureaucracy_05 = {
 		culture = {
 			has_innovation = innovation_city_planning
 		}
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2074,6 +2072,7 @@ bureaucracy_06 = {
 		culture = {
 			has_innovation = innovation_city_planning
 		}
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2111,6 +2110,7 @@ bureaucracy_07 = {
 		culture = {
 			has_innovation = innovation_city_planning
 		}
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2148,6 +2148,7 @@ bureaucracy_08 = {
 		culture = {
 			has_innovation = innovation_city_planning
 		}
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2183,6 +2184,7 @@ diplomatic_corps_01 = {
 			has_building_or_higher = temple_01
 			has_building_or_higher = temple_citadel_01
 		}
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2215,17 +2217,6 @@ diplomatic_corps_01 = {
 		directive_to_build_economy_modifier = yes
 		# TODO: Add weightings for administrative republics
 		modifier = {
-			add = 500
-			scope:holder = {
-				OR = {
-					highest_held_title_tier = tier_barony
-					government_has_flag = government_is_theocracy
-					government_has_flag = government_is_mandala
-					is_theocratic_lessee = yes
-				}
-			}
-		}
-		modifier = {
 			factor = 2
 			free_building_slots <= 1
 		}
@@ -2240,6 +2231,7 @@ diplomatic_corps_02 = {
 			has_building_or_higher = temple_01
 			has_building_or_higher = temple_citadel_01
 		}
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2275,6 +2267,7 @@ diplomatic_corps_03 = {
 		culture = {
 			has_innovation = innovation_city_planning
 		}
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2310,6 +2303,7 @@ diplomatic_corps_04 = {
 		culture = {
 			has_innovation = innovation_city_planning
 		}
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2346,6 +2340,7 @@ diplomatic_corps_05 = {
 		culture = {
 			has_innovation = innovation_city_planning
 		}
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2382,6 +2377,7 @@ diplomatic_corps_06 = {
 		culture = {
 			has_innovation = innovation_city_planning
 		}
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2418,6 +2414,7 @@ diplomatic_corps_07 = {
 		culture = {
 			has_innovation = innovation_city_planning
 		}
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2454,6 +2451,7 @@ diplomatic_corps_08 = {
 		culture = {
 			has_innovation = innovation_city_planning
 		}
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2483,7 +2481,11 @@ pharmaceuticals_01 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
-		building_pharmaceuticals_requirement = { NUMBER = 01 }
+		OR = {
+			has_building_or_higher = temple_01
+			has_building_or_higher = temple_citadel_01
+		}
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2516,16 +2518,6 @@ pharmaceuticals_01 = {
 		base = 10
 		ai_tier_1_building_modifier = yes
 		modifier = {
-			add = 500
-			scope:holder = {
-				OR = {
-					highest_held_title_tier = tier_barony
-					government_has_flag = government_is_theocracy
-					is_theocratic_lessee = yes
-				}
-			}
-		}
-		modifier = {
 			factor = 2
 			free_building_slots <= 1
 		}
@@ -2537,7 +2529,11 @@ pharmaceuticals_02 = {
 
 	can_construct_potential = {
 		culture = { has_innovation = innovation_city_planning }
-		building_pharmaceuticals_requirement = { NUMBER = 01 }
+		OR = {
+			has_building_or_higher = temple_01
+			has_building_or_higher = temple_citadel_01
+		}
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2589,7 +2585,11 @@ pharmaceuticals_03 = {
 
 	can_construct_potential = {
 		culture = { has_innovation = innovation_manorialism }
-		building_pharmaceuticals_requirement = { NUMBER = 02 }
+		OR = {
+			has_building_or_higher = temple_02
+			has_building_or_higher = temple_citadel_02
+		}
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2632,7 +2632,11 @@ pharmaceuticals_04 = {
 
 	can_construct_potential = {
 		culture = { has_innovation = innovation_manorialism }
-		building_pharmaceuticals_requirement = { NUMBER = 02 }
+		OR = {
+			has_building_or_higher = temple_02
+			has_building_or_higher = temple_citadel_02
+		}
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2675,7 +2679,11 @@ pharmaceuticals_05 = {
 
 	can_construct_potential = {
 		culture = { has_innovation = innovation_windmills }
-		building_pharmaceuticals_requirement = { NUMBER = 03 }
+		OR = {
+			has_building_or_higher = temple_03
+			has_building_or_higher = temple_citadel_03
+		}
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2718,7 +2726,11 @@ pharmaceuticals_06 = {
 
 	can_construct_potential = {
 		culture = { has_innovation = innovation_windmills }
-		building_pharmaceuticals_requirement = { NUMBER = 03 }
+		OR = {
+			has_building_or_higher = temple_03
+			has_building_or_higher = temple_citadel_03
+		}
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2761,7 +2773,11 @@ pharmaceuticals_07 = {
 
 	can_construct_potential = {
 		culture = { has_innovation = innovation_cranes }
-		building_pharmaceuticals_requirement = { NUMBER = 04 }
+		OR = {
+			has_building_or_higher = temple_04
+			has_building_or_higher = temple_citadel_04
+		}
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2804,7 +2820,11 @@ pharmaceuticals_08 = {
 
 	can_construct_potential = {
 		culture = { has_innovation = innovation_cranes }
-		building_pharmaceuticals_requirement = { NUMBER = 04 }
+		OR = {
+			has_building_or_higher = temple_04
+			has_building_or_higher = temple_citadel_04
+		}
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 
 	can_construct_showing_failures_only = {

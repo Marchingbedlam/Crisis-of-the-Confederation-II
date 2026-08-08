@@ -36,8 +36,6 @@ common_tradeberth_01 = {
 
 	can_construct_potential = {
 		building_requirement_castle_city_church = { LEVEL = 01 }
-	}
-	can_construct = {
 		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 	can_construct_showing_failures_only = {
@@ -111,8 +109,6 @@ common_tradeberth_02 = {
 
 	can_construct_potential = {
 		building_requirement_castle_city_church = { LEVEL = 01 }
-	}
-	can_construct = {
 		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 	can_construct_showing_failures_only = {
@@ -151,8 +147,6 @@ common_tradeberth_03 = {
 
 	can_construct_potential = {
 		building_requirement_castle_city_church = { LEVEL = 02 }
-	}
-	can_construct = {
 		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
@@ -190,6 +184,7 @@ common_tradeberth_04 = {
 
 	can_construct_potential = {
 		building_requirement_castle_city_church = { LEVEL = 02 }
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -226,6 +221,7 @@ common_tradeberth_05 = {
 
 	can_construct_potential = {
 		building_requirement_castle_city_church = { LEVEL = 03 }
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -262,6 +258,7 @@ common_tradeberth_06 = {
 
 	can_construct_potential = {
 		building_requirement_castle_city_church = { LEVEL = 03 }
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -299,6 +296,7 @@ common_tradeberth_07 = {
 
 	can_construct_potential = {
 		building_requirement_castle_city_church = { LEVEL = 04 }
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -333,7 +331,8 @@ common_tradeberth_07 = {
 common_tradeberth_08 = {
 	construction_time = quick_construction_time
 	can_construct_potential = {
-		building_requirement_castle_city_church = { LEVEL = 03 }
+		building_requirement_castle_city_church = { LEVEL = 04 }
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -371,6 +370,7 @@ commercial_yards_01 = {
 
 	can_construct_potential = {
 		building_requirement_castle_city_church = { LEVEL = 01 }
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -426,6 +426,7 @@ commercial_yards_02 = {
 
 	can_construct_potential = {
 		building_requirement_castle_city_church = { LEVEL = 01 }
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -459,7 +460,9 @@ commercial_yards_02 = {
 }
 commercial_yards_03 = {
 	construction_time = quick_construction_time
-
+	can_construct_potential = {
+		building_requirement_space_infrastructure = { LEVEL = 02 }
+	}
 	can_construct = {
 		building_requirement_castle_city_church = { LEVEL = 02 }
 		scope:holder.culture = {
@@ -504,6 +507,9 @@ commercial_yards_04 = {
 			has_innovation = innovation_manorialism
 		}
 	}
+	can_construct_potential = {
+		building_requirement_space_infrastructure = { LEVEL = 02 }
+	}
 
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
@@ -540,6 +546,9 @@ commercial_yards_05 = {
 			has_innovation = innovation_guilds
 		}
 	}
+	can_construct_potential = {
+		building_requirement_space_infrastructure = { LEVEL = 03 }
+	}
 
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
@@ -575,6 +584,9 @@ commercial_yards_06 = {
 		scope:holder.culture = {
 			has_innovation = innovation_guilds
 		}
+	}
+	can_construct_potential = {
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -614,7 +626,9 @@ commercial_yards_07 = {
 			has_innovation = innovation_cranes
 		}
 	}
-
+	can_construct_potential = {
+		building_requirement_space_infrastructure = { LEVEL = 04 }
+	}
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
 	}
@@ -652,7 +666,9 @@ commercial_yards_08 = {
 			has_innovation = innovation_cranes
 		}
 	}
-
+	can_construct_potential = {
+		building_requirement_space_infrastructure = { LEVEL = 04 }
+	}
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
 	}
@@ -687,8 +703,6 @@ ice_collector_01 = {
 	can_construct_potential = {
 		building_ice_collector_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 01 }
-	}
-	can_construct = {
 		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 	can_construct_showing_failures_only = {
@@ -733,6 +747,9 @@ ice_collector_02 = {
 	effect_desc = logging_camps_desc  # Scientists still figuring out what this does
 	can_construct_potential = {
 		building_ice_collector_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 01 }
+	}
+	can_construct = {
 		building_requirement_castle_city_church = { LEVEL = 01 }
 	}
 	can_construct_showing_failures_only = {
@@ -767,6 +784,7 @@ ice_collector_03 = {
 	can_construct_potential = {
 		building_ice_collector_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 02 }
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
@@ -798,6 +816,7 @@ ice_collector_04 = {
 	can_construct_potential = {
 		building_ice_collector_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 02 }
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
@@ -829,6 +848,7 @@ ice_collector_05 = {
 	can_construct_potential = {
 		building_ice_collector_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 03 }
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
@@ -862,6 +882,7 @@ ice_collector_06 = {
 	can_construct_potential = {
 		building_ice_collector_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 03 }
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
@@ -895,6 +916,7 @@ ice_collector_07 = {
 	can_construct_potential = {
 		building_ice_collector_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 04 }
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
@@ -928,6 +950,7 @@ ice_collector_08 = {
 	can_construct_potential = {
 		building_ice_collector_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 04 }
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
@@ -1313,6 +1336,7 @@ refinery_01 = {
 	can_construct_potential = {
 		building_refinery_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 01 }
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -1363,6 +1387,7 @@ refinery_02 = {
 	can_construct_potential = {
 		building_refinery_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 01 }
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -1403,6 +1428,7 @@ refinery_03 = {
 
 	can_construct_potential = {
 		building_refinery_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
 	can_construct = {
@@ -1444,6 +1470,7 @@ refinery_04 = {
 
 	can_construct_potential = {
 		building_refinery_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
 	can_construct = {
@@ -1485,6 +1512,7 @@ refinery_05 = {
 
 	can_construct_potential = {
 		building_refinery_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
 	can_construct = {
@@ -1527,6 +1555,7 @@ refinery_06 = {
 
 	can_construct_potential = {
 		building_refinery_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
 	can_construct = {
@@ -1570,6 +1599,7 @@ refinery_07 = {
 
 	can_construct_potential = {
 		building_refinery_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 
 	can_construct = {
@@ -1616,6 +1646,7 @@ refinery_08 = {
 
 	can_construct_potential = {
 		building_refinery_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 
 	can_construct = {
@@ -1663,6 +1694,7 @@ dome_farms_01 = {
 	can_construct_potential = {
 		building_dome_farms_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 01 }
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -1710,6 +1742,7 @@ dome_farms_02 = {
 	can_construct_potential = {
 		building_dome_farms_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 01 }
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -1747,6 +1780,7 @@ dome_farms_03 = {
 
 	can_construct_potential = {
 		building_dome_farms_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
 	can_construct = {
@@ -1787,6 +1821,7 @@ dome_farms_04 = {
 
 	can_construct_potential = {
 		building_dome_farms_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
 	can_construct = {
@@ -1827,6 +1862,7 @@ dome_farms_05 = {
 
 	can_construct_potential = {
 		building_dome_farms_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
 	can_construct = {
@@ -1868,6 +1904,7 @@ dome_farms_06 = {
 
 	can_construct_potential = {
 		building_dome_farms_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
 	can_construct = {
@@ -1910,6 +1947,7 @@ dome_farms_07 = {
 
 	can_construct_potential = {
 		building_dome_farms_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 
 	can_construct = {
@@ -1951,6 +1989,7 @@ dome_farms_08 = {
 
 	can_construct_potential = {
 		building_dome_farms_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 
 	can_construct = {
@@ -1994,6 +2033,7 @@ module_farms_01 = {
 	can_construct_potential = {
 		building_module_farms_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 01 }
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2031,6 +2071,7 @@ module_farms_02 = {
 	can_construct_potential = {
 		building_module_farms_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 01 }
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2074,6 +2115,7 @@ module_farms_03 = {
 
 	can_construct_potential = {
 		building_module_farms_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
 	can_construct = {
@@ -2118,6 +2160,7 @@ module_farms_04 = {
 
 	can_construct_potential = {
 		building_module_farms_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
 	can_construct = {
@@ -2163,6 +2206,7 @@ module_farms_05 = {
 
 	can_construct_potential = {
 		building_module_farms_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
 	can_construct = {
@@ -2209,6 +2253,7 @@ module_farms_06 = {
 
 	can_construct_potential = {
 		building_module_farms_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
 	can_construct = {
@@ -2256,6 +2301,7 @@ module_farms_07 = {
 
 	can_construct_potential = {
 		building_module_farms_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 
 	can_construct = {
@@ -2303,6 +2349,7 @@ module_farms_08 = {
 
 	can_construct_potential = {
 		building_module_farms_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 
 	can_construct = {
@@ -2352,6 +2399,7 @@ forges_01 = {
 	can_construct_potential = {
 		building_forges_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 01 }
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2393,6 +2441,7 @@ forges_02 = {
 	can_construct_potential = {
 		building_forges_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 01 }
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2430,6 +2479,7 @@ forges_03 = {
 
 	can_construct_potential = {
 		building_forges_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
 	can_construct = {
@@ -2470,6 +2520,7 @@ forges_04 = {
 
 	can_construct_potential = {
 		building_forges_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
 	can_construct = {
@@ -2512,6 +2563,7 @@ forges_05 = {
 
 	can_construct_potential = {
 		building_forges_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
 	can_construct = {
@@ -2554,6 +2606,7 @@ forges_06 = {
 
 	can_construct_potential = {
 		building_forges_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
 	can_construct = {
@@ -2597,6 +2650,7 @@ forges_07 = {
 
 	can_construct_potential = {
 		building_forges_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 
 	can_construct = {
@@ -2642,6 +2696,7 @@ forges_08 = {
 
 	can_construct_potential = {
 		building_forges_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 
 	can_construct = {
@@ -2690,6 +2745,7 @@ exotic_forges_01 = {
 	can_construct_potential = {
 		building_exotic_forges_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 01 }
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2737,6 +2793,7 @@ exotic_forges_02 = {
 	can_construct_potential = {
 		building_exotic_forges_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 01 }
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -2777,6 +2834,7 @@ exotic_forges_03 = {
 
 	can_construct_potential = {
 		building_exotic_forges_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
 	can_construct = {
@@ -2820,6 +2878,7 @@ exotic_forges_04 = {
 
 	can_construct_potential = {
 		building_exotic_forges_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
 	can_construct = {
@@ -2866,6 +2925,7 @@ exotic_forges_05 = {
 
 	can_construct_potential = {
 		building_exotic_forges_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
 	can_construct = {
@@ -2912,6 +2972,7 @@ exotic_forges_06 = {
 
 	can_construct_potential = {
 		building_exotic_forges_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
 	can_construct = {
@@ -2959,6 +3020,7 @@ exotic_forges_07 = {
 
 	can_construct_potential = {
 		building_exotic_forges_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 
 	can_construct = {
@@ -3006,6 +3068,7 @@ exotic_forges_08 = {
 
 	can_construct_potential = {
 		building_exotic_forges_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 
 	can_construct = {
@@ -3055,6 +3118,7 @@ xenofauna_01 = {
 	can_construct_potential = {
 		building_xenofauna_requirement_terrain = yes  # TBD Decide about being more restrictive
 		building_requirement_castle_city_church = { LEVEL = 01 }
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -3102,6 +3166,7 @@ xenofauna_02 = {
 	can_construct_potential = {
 		building_xenofauna_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 01 }
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 
 	can_construct_showing_failures_only = {
@@ -3146,6 +3211,7 @@ xenofauna_03 = {
 
 	can_construct_potential = {
 		building_xenofauna_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
 	can_construct = {
@@ -3196,6 +3262,7 @@ xenofauna_04 = {
 
 	can_construct_potential = {
 		building_xenofauna_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
 	can_construct = {
@@ -3240,6 +3307,7 @@ xenofauna_05 = {
 
 	can_construct_potential = {
 		building_xenofauna_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
 	can_construct = {
@@ -3285,6 +3353,7 @@ xenofauna_06 = {
 
 	can_construct_potential = {
 		building_xenofauna_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
 	can_construct = {
@@ -3330,6 +3399,7 @@ xenofauna_07 = {
 
 	can_construct_potential = {
 		building_xenofauna_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 
 	can_construct = {
@@ -3380,6 +3450,7 @@ xenofauna_08 = {
 
 	can_construct_potential = {
 		building_xenofauna_requirement_terrain = yes
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 
 	can_construct = {
@@ -3431,6 +3502,7 @@ water_collector_01 = {
 	can_construct_potential = {
 		building_water_collector_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 01 }
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
@@ -3476,6 +3548,7 @@ water_collector_02 = {
 	can_construct_potential = {
 		building_water_collector_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 01 }
+		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
@@ -3513,6 +3586,7 @@ water_collector_03 = {
 	can_construct_potential = {
 		building_water_collector_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 02 }
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
@@ -3545,6 +3619,7 @@ water_collector_04 = {
 	can_construct_potential = {
 		building_water_collector_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 02 }
+		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
@@ -3577,6 +3652,7 @@ water_collector_05 = {
 	can_construct_potential = {
 		building_water_collector_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 03 }
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
@@ -3611,6 +3687,7 @@ water_collector_06 = {
 	can_construct_potential = {
 		building_water_collector_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 03 }
+		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
@@ -3645,6 +3722,7 @@ water_collector_07 = {
 	can_construct_potential = {
 		building_water_collector_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 04 }
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
@@ -3679,6 +3757,7 @@ water_collector_08 = {
 	can_construct_potential = {
 		building_water_collector_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 04 }
+		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
