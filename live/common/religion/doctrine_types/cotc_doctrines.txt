@@ -1,5 +1,7 @@
 # Gives general information on what kind of ideology this is
 doctrine_political = {
+	icon = "doctrine_political"
+	
 	piety_cost = { value = 0 } # Should never be able to change this anyway
 	is_shown = { has_doctrine = political_hostility_doctrine } # Unchangeable
 	can_pick = { has_doctrine = political_hostility_doctrine } # Unchangeable
@@ -8,6 +10,8 @@ doctrine_political = {
 	}
 }
 doctrine_religious = {
+	icon = "doctrine_religious"
+	
 	piety_cost = { value = 0 } # Should never be able to change this anyway
 	is_shown = { has_doctrine = religious_hostility_doctrine } # Unchangeable
 	can_pick = { has_doctrine = religious_hostility_doctrine } # Unchangeable
@@ -16,6 +20,8 @@ doctrine_religious = {
 	}
 }
 doctrine_criminal = {
+	icon = "doctrine_criminal"
+	
 	piety_cost = { value = 0 } # Should never be able to change this anyway
 	is_shown = { has_doctrine = criminal_hostility_doctrine } # Unchangeable
 	can_pick = { has_doctrine = criminal_hostility_doctrine } # Unchangeable
@@ -32,6 +38,8 @@ doctrine_criminal = {
 
 # These determine which top-level succession laws are allowed
 doctrine_democracy = {
+	icon = "doctrine_democracy"
+	
 	piety_cost = {
 		value = faith_doctrine_cost_high
 		if = {
@@ -45,6 +53,8 @@ doctrine_democracy = {
 	}
 }
 doctrine_aristocracy = {
+	icon = "doctrine_aristocracy"
+	
 	piety_cost = {
 		value = faith_doctrine_cost_high
 		if = {
@@ -58,6 +68,8 @@ doctrine_aristocracy = {
 	}
 }
 doctrine_meritocracy = {
+	icon = "doctrine_meritocracy"
+	
 	piety_cost = {
 		value = faith_doctrine_cost_high
 		if = {
@@ -71,6 +83,8 @@ doctrine_meritocracy = {
 	}
 }
 doctrine_no_legitimacy = {
+	icon = "doctrine_no_legitimacy"
+	
 	piety_cost = {
 		value = faith_doctrine_cost_high
 		if = {
@@ -94,6 +108,8 @@ doctrine_no_legitimacy = {
 
 # These determine the "best" holding type; rulers of the chosen type will resent reporting to other types of rulers
 doctrine_commercial_power = {
+	icon = "doctrine_commercial_power"
+	
 	piety_cost = {
 		value = faith_doctrine_cost_high
 		if = {
@@ -107,6 +123,8 @@ doctrine_commercial_power = {
 	}
 }
 doctrine_military_power = {
+	icon = "doctrine_military_power"
+	
 	piety_cost = {
 		value = faith_doctrine_cost_high
 		if = {
@@ -120,6 +138,8 @@ doctrine_military_power = {
 	}
 }
 doctrine_technocratic_power = {
+	icon = "doctrine_technocratic_power"
+	
 	is_shown = { NOT = { has_doctrine = religious_hostility_doctrine } }
 	piety_cost = {
 		value = faith_doctrine_cost_high
@@ -139,6 +159,8 @@ doctrine_technocratic_power = {
 	}
 }
 doctrine_theocratic_power = {
+	icon = "doctrine_theocratic_power"
+	
 	is_shown = { has_doctrine = religious_hostility_doctrine }
 	piety_cost = {
 		value = faith_doctrine_cost_high
@@ -161,6 +183,8 @@ doctrine_theocratic_power = {
 # This determines how much authority rulers are supposed to have
 # The ruler holds absolute power and there is no distinction between ruler and state
 doctrine_despotism = {
+	icon = "doctrine_despotism"
+	
 	piety_cost = {
 		value = faith_doctrine_cost_mid
 		if = {
@@ -193,6 +217,8 @@ doctrine_despotism = {
 }
 # The ruler is a dictator but remains part of a greater legal state
 doctrine_dictatorship = {
+	icon = "doctrine_dictatorship"
+	
 	piety_cost = {
 		value = faith_doctrine_cost_mid
 		if = {
@@ -216,6 +242,8 @@ doctrine_dictatorship = {
 }
 # The ruler is a co-equal governor with some form of parliament
 doctrine_separation_of_powers = {
+	icon = "doctrine_separation_of_powers"
+	
 	piety_cost = {
 		value = faith_doctrine_cost_mid
 		if = {
@@ -245,6 +273,8 @@ doctrine_separation_of_powers = {
 }
 # The ruler must defer to some form of parliament which votes on important decisions; no one rules alone
 doctrine_parliamentarianism = {
+	icon = "doctrine_parliamentarianism"
+	
 	piety_cost = {
 		value = faith_doctrine_cost_mid
 		if = {
@@ -280,6 +310,8 @@ doctrine_parliamentarianism = {
 
 # The ruler should be almost entirely a figurehead, with real power in the hands of the citizens
 doctrine_anarchism = {
+	icon = "doctrine_anarchism"
+	
 	piety_cost = {
 		value = faith_doctrine_cost_high
 		if = {
@@ -320,6 +352,8 @@ doctrine_anarchism = {
 	}
 }
 doctrine_metroplanetism = {
+	icon = "doctrine_metroplanetism"
+	
 	piety_cost = {
 		if = {
 			limit = {
@@ -356,6 +390,8 @@ doctrine_metroplanetism = {
 	}
 }
 doctrine_commonality_pluralism = {
+	icon = "doctrine_commonality_pluralism"
+	
 	piety_cost = {
 		value = faith_doctrine_cost_mid
 		if = {
@@ -373,6 +409,8 @@ doctrine_commonality_pluralism = {
 }
 
 doctrine_separatism = {
+	icon = "doctrine_separatism"
+	
 	piety_cost = {
 		if = {
 			limit = { religion_tag = metroplanetism_ideology }
@@ -403,6 +441,8 @@ doctrine_separatism = {
 }
 
 doctrine_anti_metroplanetism = {
+	icon = "doctrine_anti_metroplanetism"
+	
 	piety_cost = {
 		if = {
 			limit = { religion_tag = metroplanetism_ideology }
@@ -434,6 +474,8 @@ doctrine_anti_metroplanetism = {
 	}
 }
 doctrine_particularism = {
+	icon = "doctrine_particularism"
+	
 	piety_cost = {
 		value = faith_doctrine_cost_massive
 		if = {
