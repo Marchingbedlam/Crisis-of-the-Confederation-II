@@ -1,0 +1,12 @@
+When creating a new innovation for COTC, remember to do the following:
+
+1. Include a parameter in the format "$ERA$_$TYPE$" (e.g., "confederate_military = yes") so that it will properly appear in the GUI
+2. Define any province, county, or character modifiers in the /modifiers folder, with names of the format "tech_$INNOVATION$_$TYPE$_modifier" (e.g., "tech_lasers_county_modifier"). Remember to define one of each, even the ones that are not used. Do not use the built-in province, county, or character modifiers!
+3. Add the innovation to the following effects, all located in scripted_effects/cotc_technology_effects.txt:
+	- apply_tech
+	- verify_all_tech_modifiers
+	- add_tech_to_county
+	- remove_tech_from_county
+4. Add the innovation to the can_research_any_tech trigger, located in scripted_triggers/cotc_technology_triggers.txt
+5. Add the innovation to the start_research_project_decision decision, locationed in decisions/cotc_technology_decisions.txt
+6. Declare any modifiers for the innovation as well as any research prerequisites in game_start_technology_on_action, located in on_action\cotc_technology_on_actions.txt

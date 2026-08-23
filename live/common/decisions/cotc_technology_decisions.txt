@@ -1,0 +1,377 @@
+﻿start_research_project_decision = {
+	decision_group_type = major
+	sort_order = 100
+	
+	is_shown = { # Must be a landed ruler
+		exists = capital_county
+		highest_held_title_tier >= tier_county
+	}
+	is_valid_showing_failures_only = {
+		NOT = { has_character_flag = starting_research_project }
+		can_research_any_tech = yes
+	}
+	is_valid = {
+		NOT = {
+			custom_description = {
+				any_scheme = {
+					OR = {
+						scheme_type = research_project_public
+						#scheme_type = research_public_secret
+					}
+				}
+				text = HAS_ACTIVE_RESEARCH_PROJECT
+			}
+		}
+	}
+	
+	minimum_cost = {
+		gold = {
+			if = {
+				limit = { has_treasury = no }
+				add = minimum_research_project_cost
+			}
+		}
+		treasury = {
+			if = {
+				limit = { has_treasury = yes }
+				add = minimum_research_project_cost
+			}
+		}
+	}
+	
+	ai_potential = { NOT = { has_character_flag = ai_research_project_cooldown } } # Stop checking for a while if you couldn't find anything to research
+	ai_will_do = {
+		base = 50
+		modifier = { add = ai_intellectualism }
+	}
+	ai_check_interval_by_tier = {
+		barony = 0
+		county = 10
+		duchy = 2
+		kingdom = 1
+		empire = 1
+		hegemony = 1
+	}
+	
+	widget = {
+		gui = "decision_view_widget_option_list_generic"
+		controller = decision_option_list_controller
+		decision_to_second_step_button = "START_RESEARCH_PROJECT_DECISION_NEXT_STEP_BUTTON"
+		
+		item = { # Escape hatch for the AI in case it doesn't like any techs
+			value = ai_escape_hatch
+			is_shown = { is_ai = yes }
+			is_valid = { is_ai = yes }
+			ai_chance = { value = 1 }
+		}
+		item = {
+			value = mass_literacy
+			is_shown = { NOT = { character_has_tech = { TECH = culture_innovation:innovation_mass_literacy } } }
+			is_valid = { can_research_tech_by_string = { TECH = mass_literacy } }
+			localization = start_research_project_mass_literacy
+			current_description = start_research_project_mass_literacy.desc
+			ai_chance = {
+				add = {
+					integer_range = {
+						min = 0
+						max = {
+							add = social_research_project_score
+							min = 0
+						}
+					}
+				}
+			}
+		}
+		item = {
+			value = propaganda
+			is_shown = { NOT = { character_has_tech = { TECH = culture_innovation:innovation_propaganda } } }
+			is_valid = { can_research_tech_by_string = { TECH = propaganda } }
+			localization = start_research_project_propaganda
+			current_description = start_research_project_propaganda.desc
+			ai_chance = {
+				add = {
+					integer_range = {
+						min = 0
+						max = {
+							add = social_research_project_score
+							min = 0
+						}
+					}
+				}
+			}
+		}
+		item = {
+			value = fusion_reactors
+			is_shown = { NOT = { character_has_tech = { TECH = culture_innovation:innovation_fusion_reactors } } }
+			is_valid = { can_research_tech_by_string = { TECH = fusion_reactors } }
+			localization = start_research_project_fusion_reactors
+			current_description = start_research_project_fusion_reactors.desc
+			ai_chance = {
+				add = {
+					integer_range = {
+						min = 0
+						max = {
+							add = economic_research_project_score
+							add = {
+								value = military_research_project_score
+								min = 0
+							}
+							min = 0
+						}
+					}
+				}
+			}
+		}
+		item = {
+			value = modern_medicine
+			is_shown = { NOT = { character_has_tech = { TECH = culture_innovation:innovation_modern_medicine } } }
+			is_valid = { can_research_tech_by_string = { TECH = modern_medicine } }
+			localization = start_research_project_modern_medicine
+			current_description = start_research_project_modern_medicine.desc
+			ai_chance = {
+				add = {
+					integer_range = {
+						min = 0
+						max = {
+							add = medical_research_project_score
+							min = 0
+						}
+					}
+				}
+			}
+		}
+		item = {
+			value = genetic_screening
+			is_shown = { NOT = { character_has_tech = { TECH = culture_innovation:innovation_genetic_screening } } }
+			is_valid = { can_research_tech_by_string = { TECH = genetic_screening } }
+			localization = start_research_project_genetic_screening
+			current_description = start_research_project_genetic_screening.desc
+			ai_chance = {
+				add = {
+					integer_range = {
+						min = 0
+						max = {
+							add = medical_research_project_score
+							add = gene_modding_research_project_score
+							min = 0
+						}
+					}
+				}
+			}
+		}
+		item = {
+			value = cloning
+			is_shown = { NOT = { character_has_tech = { TECH = culture_innovation:innovation_cloning } } }
+			is_valid = { can_research_tech_by_string = { TECH = cloning } }
+			localization = start_research_project_cloning
+			current_description = start_research_project_cloning.desc
+			ai_chance = {
+				add = {
+					integer_range = {
+						min = 0
+						max = {
+							add = cloning_research_project_score
+							min = 0
+						}
+					}
+				}
+			}
+		}
+		item = {
+			value = cybernetics
+			is_shown = { NOT = { character_has_tech = { TECH = culture_innovation:innovation_cybernetics } } }
+			is_valid = { can_research_tech_by_string = { TECH = cybernetics } }
+			localization = start_research_project_cybernetics
+			current_description = start_research_project_cybernetics.desc
+			ai_chance = {
+				add = {
+					integer_range = {
+						min = 0
+						max = {
+							add = cloning_research_project_score
+							min = 0
+						}
+					}
+				}
+			}
+		}
+		item = {
+			value = direct_neural_interface
+			is_shown = { NOT = { character_has_tech = { TECH = culture_innovation:innovation_direct_neural_interface } } }
+			is_valid = { can_research_tech_by_string = { TECH = direct_neural_interface } }
+			localization = start_research_project_direct_neural_interface
+			current_description = start_research_project_direct_neural_interface.desc
+			ai_chance = {
+				add = {
+					integer_range = {
+						min = 0
+						max = {
+							add = cybernetics_research_project_score
+							min = 0
+						}
+					}
+				}
+			}
+		}
+		item = {
+			value = nuclear_missiles
+			is_shown = { NOT = { character_has_tech = { TECH = culture_innovation:innovation_nuclear_missiles } } }
+			is_valid = { can_research_tech_by_string = { TECH = nuclear_missiles } }
+			localization = start_research_project_nuclear_missiles
+			current_description = start_research_project_nuclear_missiles.desc
+			ai_chance = {
+				add = {
+					integer_range = {
+						min = 0
+						max = {
+							add = military_research_project_score
+							min = 0
+						}
+					}
+				}
+			}
+		}
+		item = {
+			value = automatic_weapons
+			is_shown = { NOT = { character_has_tech = { TECH = culture_innovation:innovation_automatic_weapons } } }
+			is_valid = { can_research_tech_by_string = { TECH = automatic_weapons } }
+			localization = start_research_project_automatic_weapons
+			current_description = start_research_project_automatic_weapons.desc
+			ai_chance = {
+				add = {
+					integer_range = {
+						min = 0
+						max = {
+							add = military_research_project_score
+							min = 0
+						}
+					}
+				}
+			}
+		}
+		item = {
+			value = lasers
+			is_shown = { NOT = { character_has_tech = { TECH = culture_innovation:innovation_lasers } } }
+			is_valid = { can_research_tech_by_string = { TECH = lasers } }
+			localization = start_research_project_lasers
+			current_description = start_research_project_lasers.desc
+			ai_chance = {
+				add = {
+					integer_range = {
+						min = 0
+						max = {
+							add = military_research_project_score
+							min = 0
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	effect = {
+		if = {
+			limit = { NOT = { scope:ai_escape_hatch = yes } }
+			switch = {
+				trigger = yes
+				scope:mass_literacy = {
+					culture_innovation:innovation_mass_literacy = { save_scope_as = research_subject }
+					save_scope_value_as = { name = research_project_flag value = flag:mass_literacy }
+					save_scope_value_as = { name = social value = flag:yes }
+					save_scope_value_as = { name = praxis value = flag:yes }
+					save_scope_value_as = { name = max_sociologist_slots value = 5 }
+				}
+				scope:propaganda = {
+					culture_innovation:innovation_propaganda = { save_scope_as = research_subject }
+					save_scope_value_as = { name = research_project_flag value = flag:propaganda }
+					save_scope_value_as = { name = social value = flag:yes }
+					save_scope_value_as = { name = praxis value = flag:yes }
+					save_scope_value_as = { name = max_sociologist_slots value = 5 }
+				}
+				scope:fusion_reactors = {
+					culture_innovation:innovation_fusion_reactors = { save_scope_as = research_subject }
+					save_scope_value_as = { name = research_project_flag value = flag:fusion_reactors }
+					save_scope_value_as = { name = energy value = flag:yes }
+					save_scope_value_as = { name = mechanical value = flag:yes }
+					save_scope_value_as = { name = engineering value = flag:yes }
+					save_scope_value_as = { name = max_physicist_slots value = 2 }
+					save_scope_value_as = { name = max_engineer_slots value = 3 }
+				}
+				scope:modern_medicine = {
+					culture_innovation:innovation_modern_medicine = { save_scope_as = research_subject }
+					save_scope_value_as = { name = research_project_flag value = flag:modern_medicine }
+					save_scope_value_as = { name = medical value = flag:yes }
+					save_scope_value_as = { name = theory value = flag:yes }
+					save_scope_value_as = { name = max_doctor_slots value = 5 }
+				}
+				scope:cloning = {
+					culture_innovation:innovation_cloning = { save_scope_as = research_subject }
+					save_scope_value_as = { name = research_project_flag value = flag:cloning }
+					save_scope_value_as = { name = medical value = flag:yes }
+					save_scope_value_as = { name = transhumanist value = flag:yes }
+					save_scope_value_as = { name = engineering value = flag:yes }
+					save_scope_value_as = { name = max_doctor_slots value = 5 }
+				}
+				scope:genetic_screening = {
+					culture_innovation:innovation_genetic_screening = { save_scope_as = research_subject }
+					save_scope_value_as = { name = research_project_flag value = flag:genetic_screening }
+					save_scope_value_as = { name = medical value = flag:yes }
+					save_scope_value_as = { name = transhumanist value = flag:yes }
+					save_scope_value_as = { name = engineering value = flag:yes }
+					save_scope_value_as = { name = max_doctor_slots value = 5 }
+				}
+				scope:cybernetics = {
+					culture_innovation:innovation_cybernetics = { save_scope_as = research_subject }
+					save_scope_value_as = { name = research_project_flag value = flag:cybernetics }
+					save_scope_value_as = { name = medical value = flag:yes }
+					save_scope_value_as = { name = mechanical value = flag:yes }
+					save_scope_value_as = { name = transhumanist value = flag:yes }
+					save_scope_value_as = { name = engineering value = flag:yes }
+					save_scope_value_as = { name = max_doctor_slots value = 2 }
+					save_scope_value_as = { name = max_engineer_slots value = 3 }
+				}
+				scope:direct_neural_interface = {
+					culture_innovation:innovation_direct_neural_interface = { save_scope_as = research_subject }
+					save_scope_value_as = { name = research_project_flag value = flag:direct_neural_interface }
+					save_scope_value_as = { name = medical value = flag:yes }
+					save_scope_value_as = { name = mechanical value = flag:yes }
+					save_scope_value_as = { name = transhumanist value = flag:yes }
+					save_scope_value_as = { name = engineering value = flag:yes }
+					save_scope_value_as = { name = max_doctor_slots value = 2 }
+					save_scope_value_as = { name = max_engineer_slots value = 3 }
+				}
+				scope:nuclear_missiles = {
+					culture_innovation:innovation_nuclear_missiles = { save_scope_as = research_subject }
+					save_scope_value_as = { name = research_project_flag value = flag:nuclear_missiles }
+					save_scope_value_as = { name = military value = flag:yes }
+					save_scope_value_as = { name = engineering value = flag:yes }
+					save_scope_value_as = { name = max_engineer_slots value = 3 }
+					save_scope_value_as = { name = max_officer_slots value = 2 }
+				}
+				scope:automatic_weapons = {
+					culture_innovation:innovation_automatic_weapons = { save_scope_as = research_subject }
+					save_scope_value_as = { name = research_project_flag value = flag:automatic_weapons }
+					save_scope_value_as = { name = military value = flag:yes }
+					save_scope_value_as = { name = mechanical value = flag:yes }
+					save_scope_value_as = { name = engineering value = flag:yes }
+					save_scope_value_as = { name = max_engineer_slots value = 3 }
+					save_scope_value_as = { name = max_officer_slots value = 2 }
+				}
+				scope:lasers = {
+					culture_innovation:innovation_lasers = { save_scope_as = research_subject }
+					save_scope_value_as = { name = research_project_flag value = flag:lasers }
+					save_scope_value_as = { name = military value = flag:yes }
+					save_scope_value_as = { name = energy value = flag:yes }
+					save_scope_value_as = { name = engineering value = flag:yes }
+					save_scope_value_as = { name = max_engineer_slots value = 3 }
+					save_scope_value_as = { name = max_officer_slots value = 2 }
+				}
+			}
+			custom_tooltip = {
+				trigger_event = cotc_research_project_events.1
+				text = start_new_research_project.tt
+			}
+		}
+		else = { add_character_flag = { flag = ai_research_project_cooldown years = 1 } }
+	}
+}

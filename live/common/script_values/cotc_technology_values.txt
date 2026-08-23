@@ -1,0 +1,178 @@
+﻿# Technology Preferences
+social_research_project_score = {
+	add = diplomacy
+	add = intrigue
+}
+economic_research_project_score = {
+	add = stewardship
+}
+military_research_project_score = {
+	add = ai_warlikeness
+	if = { # Favor military projects when threatened
+		limit = { is_threatened_trigger = yes }
+		add = {
+			value = 100
+			add = ai_rationality
+			divide = 20
+			min = 0
+		}
+	}
+	if = { # Heavily favor military projects in wartime
+		limit = { is_at_war = yes }
+		add = {
+			value = 100
+			add = ai_rationality
+			divide = 10
+			min = 0
+		}
+	}
+}
+learning_research_project_score = {
+	add = ai_intellectualism
+}
+medical_research_project_score = {
+	add = ai_compassion
+	add = {
+		value = 10
+		subtract = health
+		min = 0
+	}
+}
+cloning_research_project_score = {
+	if = {
+		limit = { faith = { has_doctrine_parameter = supports_cloning } }
+		add = { value = ai_zeal min = 0 }
+	}
+	else_if = {
+		limit = { faith = { has_doctrine_parameter = hates_cloning } }
+		subtract = { value = ai_zeal min = 0 }
+	}
+}
+gene_modding_research_project_score = {
+	if = {
+		limit = { faith = { has_doctrine_parameter = supports_gene_modding } }
+		add = {
+			value = 20
+			add = ai_zeal
+			min = 0
+		}
+	}
+	else_if = {
+		limit = { faith = { has_doctrine_parameter = hates_gene_modding } }
+		subtract = { value = ai_zeal min = 0 }
+	}
+}
+cybernetics_research_project_score = {
+	if = {
+		limit = { faith = { has_doctrine_parameter = supports_cybernetics } }
+		add = {
+			value = 20
+			add = ai_zeal
+			min = 0
+		}
+	}
+	else_if = {
+		limit = { faith = { has_doctrine_parameter = hates_cybernetics } }
+		subtract = { value = ai_zeal min = 0 }
+	}
+}
+
+# Research Project Costs
+minimum_research_project_cost = { value = minor_treasury_or_gold_value }
+minor_research_project_cost = { value = medium_treasury_or_gold_value }
+medium_research_project_cost = { value = major_treasury_or_gold_value }
+major_research_project_cost = { value = massive_treasury_or_gold_value }
+
+# Research Project Rewards
+research_project_prestige_reward = {
+	value = 50 # Base reward
+	if = { # Our culture doesn't have this innovation
+		limit = { culture = { NOT = { has_innovation = scope:discovered_innovation } } }
+		add = 100
+	}
+	if = { # Nobody has this innovation
+		limit = { scope:first_ever_discovery ?= flag:yes }
+		add = 100
+	}
+	if = { # Era bonus
+		limit = {
+			scope:discovered_innovation = {
+				OR = {
+					has_innovation_parameter = colonial_civic
+					has_innovation_parameter = colonial_military
+				}
+			}
+			culture = { NOT = { has_cultural_era_or_later = culture_era_early_medieval } }
+		}
+		multiply = 1.25
+	}
+	else_if = {
+		limit = {
+			scope:discovered_innovation = {
+				OR = {
+					has_innovation_parameter = confederate_civic
+					has_innovation_parameter = confederate_military
+				}
+			}
+		}
+		culture = {
+			if = {
+				limit = { NOT = { has_cultural_era_or_later = culture_era_early_medieval } }
+				multiply = 1.5
+			}
+			else_if = {
+				limit = { NOT = { has_cultural_era_or_later = culture_era_high_medieval } }
+				multiply = 1.25
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			scope:discovered_innovation = {
+				OR = {
+					has_innovation_parameter = trimillennial_civic
+					has_innovation_parameter = trimillennial_military
+				}
+			}
+		}
+		culture = {
+			if = {
+				limit = { NOT = { has_cultural_era_or_later = culture_era_early_medieval } }
+				multiply = 1.75
+			}
+			else_if = {
+				limit = { NOT = { has_cultural_era_or_later = culture_era_high_medieval } }
+				multiply = 1.5
+			}
+			else_if = {
+				limit = { NOT = { has_cultural_era_or_later = culture_era_late_medieval } }
+				multiply = 1.25
+			}
+		}
+	}
+	else_if = {
+		limit = {
+			scope:discovered_innovation = {
+				OR = {
+					has_innovation_parameter = neorenaissance_civic
+					has_innovation_parameter = neorenaissance_military
+				}
+			}
+		}
+		culture = {
+			if = {
+				limit = { NOT = { has_cultural_era_or_later = culture_era_early_medieval } }
+				multiply = 2
+			}
+			else_if = {
+				limit = { NOT = { has_cultural_era_or_later = culture_era_high_medieval } }
+				multiply = 1.75
+			}
+			else_if = {
+				limit = { NOT = { has_cultural_era_or_later = culture_era_late_medieval } }
+				multiply = 1.5
+			}
+			else = { multiply = 1.25 }
+		}
+	}
+}

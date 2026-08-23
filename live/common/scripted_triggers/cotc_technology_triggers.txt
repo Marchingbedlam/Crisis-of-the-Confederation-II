@@ -1,8 +1,80 @@
-﻿county_has_tech = {
-	$TECH$ = { save_temporary_scope_as = temp_tech }
+﻿can_research_any_tech = {
+	OR = {
+		can_research_tech_by_string = { TECH = mass_literacy }
+		can_research_tech_by_string = { TECH = propaganda }
+		can_research_tech_by_string = { TECH = fusion_reactors }
+		can_research_tech_by_string = { TECH = modern_medicine }
+		can_research_tech_by_string = { TECH = cloning }
+		can_research_tech_by_string = { TECH = cybernetics }
+		can_research_tech_by_string = { TECH = direct_neural_interface }
+		can_research_tech_by_string = { TECH = nuclear_missiles }
+		can_research_tech_by_string = { TECH = automatic_weapons }
+		can_research_tech_by_string = { TECH = lasers }
+	}
+}
+
+can_research_tech_by_string = {
+	culture_innovation:innovation_$TECH$ = { save_temporary_scope_as = tech }
+	capital_county ?= {
+		# Does not already have the tech
+		NOT = { county_has_tech = { TECH = scope:tech } }
+		
+		# Has the correct cultural era
+		trigger_if = {
+			limit = {
+				scope:tech = {
+					OR = {
+						has_innovation_paramter = confederate_military
+						has_innovation_paramter = confederate_civic
+					}
+				}
+			}
+			culture ?= { has_cultural_era_or_later = culture_era_early_medieval }
+		}
+		trigger_else_if = {
+			limit = {
+				scope:tech = {
+					OR = {
+						has_innovation_paramter = trimillennial_military
+						has_innovation_paramter = trimillennial_civic
+					}
+				}
+			}
+			culture ?= { has_cultural_era_or_later = culture_era_high_medieval }
+		}
+		trigger_else_if = {
+			limit = {
+				scope:tech = {
+					OR = {
+						has_innovation_paramter = neorenaissance_military
+						has_innovation_paramter = neorenaissance_civic
+					}
+				}
+			}
+			culture ?= { has_cultural_era_or_later = culture_era_late_medieval }
+		}
+		trigger_else = { always = yes }
+		
+		save_temporary_scope_as = target_county
+		# Has all prereqs
+		trigger_if = {
+			limit = { has_global_variable = $TECH$_prereq_1 }
+			scope:target_county = { county_has_tech = { TECH = global_var:$TECH$_prereq_1 } }
+		}
+		trigger_if = {
+			limit = { has_global_variable = $TECH$_prereq_2 }
+			scope:target_county = { county_has_tech = { TECH = global_var:$TECH$_prereq_2 } }
+		}
+	}
+}
+
+county_has_tech = {
 	save_temporary_scope_as = temp_county_name
-	is_target_in_variable_list = { name = county_techs target = scope:temp_tech }
-	text = county_has_tech.tt
+	$TECH$ = { save_temporary_scope_as = temp_tech_name }
+	custom_tooltip = {
+		text = county_has_tech.tt
+		is_target_in_variable_list = { name = county_techs target = $TECH$ }
+	}
 }
 character_has_tech = {
 	trigger_if = {
@@ -30,12 +102,8 @@ province_has_tech = {
 	county = { county_has_tech = { TECH = $TECH$ } }
 }
 county_has_tech_by_string = {
-	custom_description = {
-		culture_innovation:innovation_$TECH$ = { save_temporary_scope_as = temp_tech }
-		save_temporary_scope_as = temp_county_name
-		is_target_in_variable_list = { name = county_techs target = scope:temp_tech }
-		text = county_has_tech.tt
-	}
+	culture_innovation:innovation_$TECH$ = { save_temporary_scope_as = temp_tech }
+	county_has_tech = { TECH = scope:temp_tech }
 }
 character_has_tech_by_string = {
 	trigger_if = {

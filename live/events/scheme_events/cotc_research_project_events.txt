@@ -1,0 +1,538 @@
+﻿namespace = cotc_research_project_events
+
+cotc_research_project_events.1 = { # Start a new research project
+	immediate = {
+		if = {
+			limit = { any_character_war = { any_war_defender = { this = ROOT } } }
+			ordered_character_war = {
+				limit = { any_war_defender = { this = ROOT } }
+				order_by = attacker_war_score
+				primary_attacker = { save_scope_as = enemy }
+			}
+		}
+		else_if = {
+			limit = { any_character_war = { any_war_attacker = { this = ROOT } } }
+			ordered_character_war = {
+				limit = { any_war_attacker = { this = ROOT } }
+				order_by = defender_war_score
+				primary_defender = { save_scope_as = enemy }
+			}
+		}
+	}
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { exists = scope:theory }
+				desc = cotc_research_project_events.1.intro.theory
+			}
+			triggered_desc = {
+				trigger = { exists = scope:engineering }
+				desc = cotc_research_project_events.1.intro.engineering
+			}
+			desc = cotc_research_project_events.1.intro.praxis
+		}
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					exists = scope:military
+					exists = scope:enemy
+				}
+				desc = cotc_research_project_events.1.desc.military_war
+			}
+			triggered_desc = {
+				trigger = { exists = scope:military }
+				desc = cotc_research_project_events.1.desc.military_peace
+			}
+			triggered_desc = {
+				trigger = { exists = scope:social }
+				desc = cotc_research_project_events.1.desc.social
+			}
+			triggered_desc = {
+				trigger = { exists = scope:economic }
+				desc = cotc_research_project_events.1.desc.economic
+			}
+			triggered_desc = {
+				trigger = { exists = scope:transhumanist }
+				desc = cotc_research_project_events.1.desc.transhumanist
+			}
+			desc = cotc_research_project_events.1.desc.other
+		}
+		first_valid = {
+			triggered_desc = {
+				trigger = { exists = scope:enemy }
+				desc = cotc_research_project_events.1.outro.war
+			}
+			desc = cotc_research_project_events.1.outro.peace
+		}
+	}
+	theme = research
+	
+	right_portrait = {
+		character = ROOT
+		animation = thinking
+	}
+	
+	option = { # Start a public research project
+		name = cotc_research_project_events.1.a
+		custom_tooltip = {
+			text = cotc_research_project_events.1.a.tt
+			start_scheme = { type = research_project_public }
+		}
+		random_scheme = {
+			limit = { scheme_type = research_project_public }
+			save_scope_as = scheme
+		}
+		ai_chance = {
+			base = 50
+		}
+	}
+	
+	option = { # Wait go back I don't want to do a research project after all
+		name = cotc_research_project_events.1.c
+		ai_chance = { base = 0 }
+	}
+	
+	after = {
+		remove_character_flag = starting_research_project
+		scope:scheme ?= { # Assign research project data
+			set_variable = { name = research_subject value = scope:research_subject }
+			set_variable = { name = research_subject_flag value = scope:research_subject_flag }
+			# Set all project flags
+			if = {
+				limit = { exists = scope:theory }
+				set_variable = theory
+			}
+			if = {
+				limit = { exists = scope:praxis }
+				set_variable = praxis
+			}
+			if = {
+				limit = { exists = scope:engineering }
+				set_variable = engineering
+			}
+			if = {
+				limit = { exists = scope:military }
+				set_variable = military
+			}
+			if = {
+				limit = { exists = scope:economic }
+				set_variable = economic
+			}
+			if = {
+				limit = { exists = scope:social }
+				set_variable = social
+			}
+			if = {
+				limit = { exists = scope:energy }
+				set_variable = energy
+			}
+			if = {
+				limit = { exists = scope:mechanical }
+				set_variable = mechanical
+			}
+			if = {
+				limit = { exists = scope:medical }
+				set_variable = medical
+			}
+			if = {
+				limit = { exists = scope:learning }
+				set_variable = learning
+			}
+			if = {
+				limit = { exists = scope:transhumanist }
+				set_variable = transhumanist
+			}
+			# Set agent type caps
+			if = {
+				limit = { exists = scope:max_economist_slots }
+				set_variable = { name = max_economist_slots value = scope:max_economist_slots }
+			}
+			if = {
+				limit = { exists = scope:max_sociologist_slots }
+				set_variable = { name = max_sociologist_slots value = scope:max_sociologist_slots }
+			}
+			if = {
+				limit = { exists = scope:max_officer_slots }
+				set_variable = { name = max_officer_slots value = scope:max_officer_slots }
+			}
+			if = {
+				limit = { exists = scope:max_doctor_slots }
+				set_variable = { name = max_doctor_slots value = scope:max_doctor_slots }
+			}
+			if = {
+				limit = { exists = scope:max_engineer_slots }
+				set_variable = { name = max_engineer_slots value = scope:max_engineer_slots }
+			}
+			if = {
+				limit = { exists = scope:max_physicist_slots }
+				set_variable = { name = max_physicist_slots value = scope:max_physicist_slots }
+			}
+			
+			# Set difficulty
+			var:research_subject = {
+				switch = {
+					trigger = has_innovation_parameter
+					colonial_civic = { scope:scheme = { add_scheme_modifier = { type = colonial_research_subject_difficulty } } }
+					colonial_military = { scope:scheme = { add_scheme_modifier = { type = colonial_research_subject_difficulty } } }
+					confederate_civic = { scope:scheme = { add_scheme_modifier = { type = confederate_research_subject_difficulty } } }
+					confederate_military = { scope:scheme = { add_scheme_modifier = { type = confederate_research_subject_difficulty } } }
+					trimillennial_civic = { scope:scheme = { add_scheme_modifier = { type = trimillennial_research_subject_difficulty } } }
+					trimillennial_military = { scope:scheme = { add_scheme_modifier = { type = trimillennial_research_subject_difficulty } } }
+					neorenaissance_civic = { scope:scheme = { add_scheme_modifier = { type = neorenaissance_research_subject_difficulty } } }
+					neorenaissance_military = { scope:scheme = { add_scheme_modifier = { type = neorenaissance_research_subject_difficulty } } }
+				}
+			}
+			scheme_owner = {
+				capital_county ?= {
+					culture = {
+						if = {
+							limit = { has_cultural_era_or_later = culture_era_early_medieval }
+							scope:scheme = { add_scheme_modifier = { type = confederate_era_research_bonus } }
+						}
+						if = {
+							limit = { has_cultural_era_or_later = culture_era_high_medieval }
+							scope:scheme = { add_scheme_modifier = { type = trimillennial_era_research_bonus } }
+						}
+						if = {
+							limit = { has_cultural_era_or_later = culture_era_late_medieval }
+							scope:scheme = { add_scheme_modifier = { type = neorenaissance_era_research_bonus } }
+						}
+						every_culture_county = {
+							limit = { county_has_tech = { TECH = scope:scheme.var:research_subject } }
+							scope:scheme = { add_scheme_modifier = { type = culture_research_bonus } }
+						}
+					}
+					every_neighboring_county = {
+						limit = { county_has_tech = { TECH = scope:scheme.var:research_subject } }
+						scope:scheme = { add_scheme_modifier = { type = culture_research_bonus } }
+					}
+				}
+			}
+			
+			# Set Codename
+			generate_research_project_codename = yes
+		}
+		trigger_event = cotc_research_project_events.2
+	}
+}
+cotc_research_project_events.2 = { # Decide on funding for your new research project
+	desc = cotc_research_project_events.2.desc
+	theme = research
+	
+	right_portrait = {
+		character = ROOT
+		animation = thinking
+	}
+	
+	option = {
+		name = cotc_research_project_events.2.a
+		custom_tooltip = {
+			text = cotc_research_project_events.2.a.tt
+			scope:scheme = {
+				set_variable = { name = grant_money value = ROOT.minimum_research_project_cost }
+				set_variable = { name = max_agent_slots value = 2 }
+				add_research_project_agent_slots = yes
+			}
+		}
+		remove_treasury_or_gold = minimum_research_project_cost
+		ai_chance = {
+			base = 80
+			modifier = {
+				add = {
+					value = ai_intellectualism
+					multiply = 0.125
+				}
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { short_term_treasury_or_gold >= minimum_research_project_cost }
+			}
+		}
+	}
+	option = {
+		trigger = { treasury_or_gold >= minor_research_project_cost }
+		name = cotc_research_project_events.2.b
+		custom_tooltip = {
+			text = cotc_research_project_events.2.b.tt
+			scope:scheme = {
+				set_variable = { name = grant_money value = ROOT.minor_research_project_cost }
+				set_variable = { name = max_agent_slots value = 3 }
+				add_research_project_agent_slots = yes
+			}
+		}
+		remove_treasury_or_gold = minor_research_project_cost
+		ai_chance = {
+			base = 60
+			modifier = {
+				add = {
+					value = ai_intellectualism
+					multiply = 0.25
+				}
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { short_term_treasury_or_gold >= minor_research_project_cost }
+			}
+		}
+	}
+	option = {
+		trigger = { treasury_or_gold >= medium_research_project_cost }
+		name = cotc_research_project_events.2.c
+		custom_tooltip = {
+			text = cotc_research_project_events.2.c.tt
+			scope:scheme = {
+				set_variable = { name = grant_money value = ROOT.medium_research_project_cost }
+				set_variable = { name = max_agent_slots value = 4 }
+				add_research_project_agent_slots = yes
+			}
+		}
+		remove_treasury_or_gold = medium_research_project_cost
+		ai_chance = {
+			base = 40
+			modifier = {
+				add = {
+					value = ai_intellectualism
+					multiply = 0.5
+				}
+			}
+			modifier = {
+				factor = 0.5
+				NOT = { short_term_treasury_or_gold >= medium_research_project_cost }
+			}
+		}
+	}
+	option = {
+		trigger = { treasury_or_gold >= major_research_project_cost }
+		name = cotc_research_project_events.2.d
+		custom_tooltip = {
+			text = cotc_research_project_events.2.d.tt
+			scope:scheme = {
+				set_variable = { name = grant_money value = ROOT.major_research_project_cost }
+				set_variable = { name = max_agent_slots value = 5 }
+				add_research_project_agent_slots = yes
+			}
+		}
+		remove_treasury_or_gold = major_research_project_cost
+		ai_chance = {
+			base = 20
+			modifier = { add = { value = ai_intellectualism } }
+			modifier = {
+				factor = 0.5
+				NOT = { short_term_treasury_or_gold >= major_research_project_cost }
+			}
+		}
+	}
+}
+
+cotc_research_project_events.10 = { # Successfully complete the research project
+	desc = {
+		desc = cotc_research_project_events.10.desc.intro
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					exists = scope:first_ever_discovery
+					scope:scheme = { any_scheme_agent_character = { count >= 1 } }
+				}
+				desc = cotc_research_project_events.10.desc.first_ever_discovery_with_team
+			}
+			triggered_desc = {
+				trigger = { exists = scope:first_ever_discovery }
+				desc = cotc_research_project_events.10.desc.first_ever_discovery_no_team
+			}
+			triggered_desc = {
+				trigger = {
+					exists = scope:first_culture_discovery
+					scope:scheme = { any_scheme_agent_character = { count >= 1 } }
+				}
+				desc = cotc_research_project_events.10.desc.first_culture_discovery_with_team
+			}
+			triggered_desc = {
+				trigger = { exists = scope:first_culture_discovery }
+				desc = cotc_research_project_events.10.desc.first_culture_discovery_no_team
+			}
+			triggered_desc = {
+				trigger = { scope:scheme = { any_scheme_agent_character = { count < 1 } } }
+				desc = cotc_research_project_events.10.desc.no_team
+			}
+		}
+	}
+	theme = research
+	
+	immediate = {
+		scope:scheme = {
+			if = {
+				limit = { NOT = { is_target_in_global_variable_list = { name = all_discovered_innovations target = var:research_subject } } }
+				save_scope_value_as = { name = first_ever_discovery value = flag:yes }
+			}
+			if = {
+				limit = { NOT = { capital_county ?= { culture = { is_target_in_variable_list = { name = culture_discovered_innovations target = var:research_subject } } } } }
+				save_scope_value_as = { name = first_culture_discovery value = flag:yes }
+			}
+			var:research_subject = { save_scope_as = discovered_innovation }
+			ordered_scheme_agent_character ?= {
+				order_by = learning
+				position = 1
+				save_scope_as = first_agent
+			}
+			ordered_scheme_agent_character ?= {
+				order_by = learning
+				position = 2
+				save_scope_as = second_agent
+			}
+			ordered_scheme_agent_character ?= {
+				order_by = learning
+				position = 3
+				save_scope_as = third_agent
+			}
+			ordered_scheme_agent_character ?= {
+				order_by = learning
+				position = 4
+				save_scope_as = fourth_agent
+			}
+			if = {
+				limit = { any_scheme_agent_character = { count >= 1 } }
+				save_scope_value_as = { # Divide the remaining grant money among all agents
+					name = agent_payout
+					value = {
+						value = var:grant_money
+						divide = { every_scheme_agent_character = { add = 1 } }
+					}
+				}
+			}
+		}
+	}
+	
+	right_portrait = {
+		character = ROOT
+		animation = idle
+	}
+	left_portrait = {
+		trigger = { exists = scope:first_agent }
+		character = scope:first_agent
+		animation = idle
+	}
+	lower_center_portrait = {
+		trigger = { exists = scope:second_agent }
+		character = scope:second_agent
+	}
+	lower_left_portrait = {
+		trigger = { exists = scope:third_agent }
+		character = scope:third_agent
+	}
+	lower_right_portrait = {
+		trigger = { exists = scope:fourth_agent }
+		character = scope:fourth_agent
+	}
+	
+	option = {
+		name = cotc_research_project_events.10.a
+		capital_county = { add_tech_to_county = { TECH = scope:discovered_innovation } }
+		if = { # You did this all by yourself, gain prestige and get back your investment
+			limit = { NOT = { any_scheme_agent_character = { count >= 1 } } }
+			add_prestige = research_project_prestige_reward
+			add_treasury_or_gold = scope:scheme.var:grant_money
+		}
+		scope:scheme = {
+			every_scheme_agent_character = { cotc_research_project_events.11 }
+			end_scheme = yes
+		}
+	}
+}
+
+cotc_research_project_events.11 = {
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { exists = scope:first_ever_discovery }
+				desc = cotc_research_project_events.11.desc.first_ever_discovery
+			}
+			triggered_desc = {
+				trigger = { exists = scope:first_culture_discovery }
+				desc = cotc_research_project_events.11.desc.first_culture_discovery
+			}
+			desc = cotc_research_project_events.11.desc
+		}
+	}
+	theme = research
+	
+	right_portrait = {
+		character = ROOT
+		animation = idle
+	}
+	left_portrait = {
+		character = scope:patron
+		animation = idle
+	}
+	
+	option = {
+		name = cotc_research_project_events.11.a
+		
+		# Gain rewards in prestige and money
+		add_prestige = research_project_prestige_reward
+		add_treasury_or_gold = scope:agent_payout
+	}
+}
+
+cotc_research_project_events.20 = { # Project failed because we're no longer landed
+	trigger = { NOT = { exists = capital_county } }
+	desc = cotc_research_project_events.20.desc
+	theme = research
+	
+	right_portrait = {
+		character = ROOT
+		animation = idle
+	}
+	
+	option = {
+		name = cotc_research_project_events.20.a
+		add_treasury_or_gold = scope:grant_money
+		every_in_list = { list = project_staff trigger_event = cotc_research_project_events.21 }
+	}
+}
+cotc_research_project_events.21 = {
+	desc = cotc_research_project_events.21.desc
+	theme = research
+	
+	right_portrait = {
+		character = ROOT
+		animation = idle
+	}
+	left_portrait = {
+		character = scope:patron
+		animation = idle
+	}
+	option = { name = cotc_research_project_events.21.a }
+}
+cotc_research_project_events.30 = { # Project failed because we got the tech some other way
+	trigger = {
+		exists = capital_county
+		capital_county ?= { county_has_tech = { TECH = scope:research_subject } }
+	}
+	desc = cotc_research_project_events.30.desc
+	theme = research
+	
+	right_portrait = {
+		character = ROOT
+		animation = idle
+	}
+	
+	option = {
+		name = cotc_research_project_events.30.a
+		add_treasury_or_gold = scope:grant_money
+		every_in_list = { list = project_staff trigger_event = cotc_research_project_events.31 }
+	}
+}
+cotc_research_project_events.31 = {
+	desc = cotc_research_project_events.31.desc
+	theme = research
+	
+	right_portrait = {
+		character = ROOT
+		animation = idle
+	}
+	left_portrait = {
+		character = scope:patron
+		animation = idle
+	}
+	option = { name = cotc_research_project_events.31.a }
+}

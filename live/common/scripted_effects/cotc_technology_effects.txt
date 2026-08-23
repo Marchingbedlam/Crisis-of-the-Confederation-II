@@ -6,25 +6,65 @@
 apply_tech = {
 	switch = {
 		trigger = $TECH$
-		culture_innovation:innovation_test = { apply_tech_by_string = { TECH = test TARGET = $TARGET$ } }
+		culture_innovation:innovation_mass_literacy = { apply_tech_by_string = { TECH = mass_literacy TARGET = $TARGET$ } }
+		culture_innovation:innovation_propaganda = { apply_tech_by_string = { TECH = propaganda TARGET = $TARGET$ } }
+		culture_innovation:innovation_fusion_reactors = { apply_tech_by_string = { TECH = fusion_reactors TARGET = $TARGET$ } }
+		culture_innovation:innovation_modern_medicine = { apply_tech_by_string = { TECH = modern_medicine TARGET = $TARGET$ } }
+		culture_innovation:innovation_cloning = { apply_tech_by_string = { TECH = cloning TARGET = $TARGET$ } }
+		culture_innovation:innovation_genetic_screening = { apply_tech_by_string = { TECH = genetic_screening TARGET = $TARGET$ } }
+		culture_innovation:innovation_cybernetics = { apply_tech_by_string = { TECH = cybernetics TARGET = $TARGET$ } }
+		culture_innovation:innovation_direct_neural_interface = { apply_tech_by_string = { TECH = direct_neural_interface TARGET = $TARGET$ } }
+		culture_innovation:innovation_nuclear_missiles = { apply_tech_by_string = { TECH = nuclear_missiles TARGET = $TARGET$ } }
+		culture_innovation:innovation_automatic_weapons = { apply_tech_by_string = { TECH = automatic_weapons TARGET = $TARGET$ } }
+		culture_innovation:innovation_lasers = { apply_tech_by_string = { TECH = lasers TARGET = $TARGET$ } }
 	}
 }
 # TARGET - the type of scope this is being run on (character, county, or province)
 verify_all_tech_modifiers = { # Apply this to a target county, character, or province to verify all tech modifiers
-	apply_tech_by_string = { TECH = test TARGET = $TARGET$ }
+	apply_tech_by_string = { TECH = mass_literacy TARGET = $TARGET$ }
+	apply_tech_by_string = { TECH = propaganda TARGET = $TARGET$ }
+	apply_tech_by_string = { TECH = fusion_reactors TARGET = $TARGET$ }
+	apply_tech_by_string = { TECH = modern_medicine TARGET = $TARGET$ }
+	apply_tech_by_string = { TECH = cloning TARGET = $TARGET$ }
+	apply_tech_by_string = { TECH = genetic_screening TARGET = $TARGET$ }
+	apply_tech_by_string = { TECH = cybernetics TARGET = $TARGET$ }
+	apply_tech_by_string = { TECH = direct_neural_interface TARGET = $TARGET$ }
+	apply_tech_by_string = { TECH = nuclear_missiles TARGET = $TARGET$ }
+	apply_tech_by_string = { TECH = automatic_weapons TARGET = $TARGET$ }
+	apply_tech_by_string = { TECH = lasers TARGET = $TARGET$ }
 }
 # TECH - a specific cultural innovation to add to the county
 add_tech_to_county = {
 	switch = {
 		trigger = $TECH$
-		culture_innovation:innovation_test = { add_tech_by_string = { TECH = test } }
+		culture_innovation:innovation_mass_literacy = { add_tech_by_string = { TECH = mass_literacy } }
+		culture_innovation:innovation_propaganda = { add_tech_by_string = { TECH = propaganda } }
+		culture_innovation:innovation_fusion_reactors = { add_tech_by_string = { TECH = fusion_reactors } }
+		culture_innovation:innovation_modern_medicine = { add_tech_by_string = { TECH = modern_medicine } }
+		culture_innovation:innovation_cloning = { add_tech_by_string = { TECH = cloning } }
+		culture_innovation:innovation_genetic_screening = { add_tech_by_string = { TECH = genetic_screening } }
+		culture_innovation:innovation_cybernetics = { add_tech_by_string = { TECH = cybernetics } }
+		culture_innovation:innovation_direct_neural_interface = { add_tech_by_string = { TECH = direct_neural_interface } }
+		culture_innovation:innovation_nuclear_missiles = { add_tech_by_string = { TECH = nuclear_missiles } }
+		culture_innovation:innovation_automatic_weapons = { add_tech_by_string = { TECH = automatic_weapons } }
+		culture_innovation:innovation_lasers = { add_tech_by_string = { TECH = lasers } }
 	}
 }
 # TECH - a specific cultural innovation to remove from the county
 remove_tech_from_county = {
 	switch = {
 		trigger = $TECH$
-		culture_innovation:innovation_test = { remove_tech_by_string = { TECH = test } }
+		culture_innovation:innovation_mass_literacy = { remove_tech_by_string = { TECH = mass_literacy } }
+		culture_innovation:innovation_propaganda = { remove_tech_by_string = { TECH = propaganda } }
+		culture_innovation:innovation_fusion_reactors = { remove_tech_by_string = { TECH = fusion_reactors } }
+		culture_innovation:innovation_modern_medicine = { remove_tech_by_string = { TECH = modern_medicine } }
+		culture_innovation:innovation_cloning = { remove_tech_by_string = { TECH = cloning } }
+		culture_innovation:innovation_genetic_screening = { remove_tech_by_string = { TECH = genetic_screening } }
+		culture_innovation:innovation_cybernetics = { remove_tech_by_string = { TECH = cybernetics } }
+		culture_innovation:innovation_direct_neural_interface = { remove_tech_by_string = { TECH = direct_neural_interface } }
+		culture_innovation:innovation_nuclear_missiles = { remove_tech_by_string = { TECH = nuclear_missiles } }
+		culture_innovation:innovation_automatic_weapons = { remove_tech_by_string = { TECH = automatic_weapons } }
+		culture_innovation:innovation_lasers = { remove_tech_by_string = { TECH = lasers } }
 	}
 }
 
@@ -63,26 +103,50 @@ remove_tech_from_gui = {
 	}
 }
 
+# AGENT EFFECTS
+# These will depend on what agent types are defined for research projects
+add_research_project_agent_slots = {
+	while = {
+		limit = { any_scheme_agent_slot = { count < var:max_agent_slots } }
+		add_new_research_project_agent_slot = { TYPE = economist }
+		add_new_research_project_agent_slot = { TYPE = sociologist }
+		add_new_research_project_agent_slot = { TYPE = officer }
+		add_new_research_project_agent_slot = { TYPE = doctor }
+		add_new_research_project_agent_slot = { TYPE = engineer }
+		add_new_research_project_agent_slot = { TYPE = physicist }
+	}
+}
+
 # STRING EFFECTS
 # These are modular and will not need as much constant maintenance
 add_tech_by_string = {
+	save_temporary_scope_as = temp_county_name
+	culture_innovation:innovation_$TECH$ ?= { save_temporary_scope_as = temp_tech }
 	if = {
-		limit = { NOT = { county_has_tech_by_string = { TECH = $TECH$ } } }
-		add_to_variable_list = { name = county_techs target = culture_innovation:innovation_$TECH$ }
-		add_tech_to_gui = { TECH = $TECH$ }
-		
-		# Apply the new tech
-		apply_county_tech_by_string = { TECH = $TECH$ }
-		every_county_province = {
-			province_owner ?= {
-				add_to_temporary_list = county_characters
-				every_courtier ?= { add_to_temporary_list = county_characters }
-				every_pool_character ?= { add_to_temporary_list = county_characters }
-			}
+		limit = {
+			exists = scope:temp_tech
+			NOT = { county_has_tech_by_string = { TECH = $TECH$ } }
 		}
-		every_in_list = {
-			list = county_characters
-			apply_character_tech_by_string = { TECH = $TECH$ }
+		custom_tooltip = {
+			text = add_tech_to_county.tt
+			add_to_variable_list = { name = county_techs target = culture_innovation:innovation_$TECH$ }
+			add_to_global_variable_list = { name = all_discovered_innovations target = culture_innovation:innovation_$TECH$ }
+			culture = { add_to_variable_list = { name = culture_discovered_innovations target = culture_innovation:innovation_$TECH$ } }
+			add_tech_to_gui = { TECH = $TECH$ }
+			
+			# Apply the new tech
+			apply_county_tech_by_string = { TECH = $TECH$ }
+			every_county_province = {
+				province_owner ?= {
+					add_to_temporary_list = county_characters
+					every_courtier = { add_to_temporary_list = county_characters }
+					every_pool_character = { add_to_temporary_list = county_characters }
+				}
+			}
+			every_in_list = {
+				list = county_characters
+				apply_character_tech_by_string = { TECH = $TECH$ }
+			}
 		}
 	}
 }
@@ -97,8 +161,8 @@ remove_tech_by_string = {
 		every_county_province = {
 			province_owner ?= {
 				add_to_temporary_list = county_characters
-				every_courtier ?= { add_to_temporary_list = county_characters }
-				every_pool_character ?= { add_to_temporary_list = county_characters }
+				every_courtier = { add_to_temporary_list = county_characters }
+				every_pool_character = { add_to_temporary_list = county_characters }
 			}
 		}
 		every_in_list = {
@@ -196,4 +260,185 @@ apply_province_tech_by_string = {
 			remove_all_province_modifier_instances = tech_$TECH$_province_modifier
 		}
 	}
+}
+add_new_research_project_agent_slot = {
+	if = {
+		limit = {
+			exists = var:max_$TYPE$_slots
+			any_scheme_agent_slot = { count < var:max_agent_slots }
+		}
+		if = {
+			limit = {
+				any_scheme_agent_slot = {
+					count < var:max_$TYPE$_slots
+					is_agent_slot_type = agent_research_$TYPE$
+				}
+			}
+			add_agent_slot = agent_research_$TYPE$
+		}
+	}
+}
+save_research_project_scopes_effect = { # Run this when it's possible the project will end before some scopes need to be checked
+	var:research_subject = { save_scope_as = research_subject }
+	save_scope_value_as = { name = grant_money value = var:grant_money }
+	scheme_owner = { save_scope_as = patron }
+	every_scheme_agent_character = { add_to_list = project_staff }
+	if = {
+		limit = { has_variable = theory }
+		save_scope_value_as = { name = theory value = flag:yes }
+	}
+	if = {
+		limit = { has_variable = praxis }
+		save_scope_value_as = { name = praxis value = flag:yes }
+	}
+	if = {
+		limit = { has_variable = engineering }
+		save_scope_value_as = { name = engineering value = flag:yes }
+	}
+	if = {
+		limit = { has_variable = military }
+		save_scope_value_as = { name = military value = flag:yes }
+	}
+	if = {
+		limit = { has_variable = economic }
+		save_scope_value_as = { name = economic value = flag:yes }
+	}
+	if = {
+		limit = { has_variable = social }
+		save_scope_value_as = { name = social value = flag:yes }
+	}
+	if = {
+		limit = { has_variable = medical }
+		save_scope_value_as = { name = medical value = flag:yes }
+	}
+	if = {
+		limit = { has_variable = energy }
+		save_scope_value_as = { name = energy value = flag:yes }
+	}
+	if = {
+		limit = { has_variable = mechanical }
+		save_scope_value_as = { name = mechanical value = flag:yes }
+	}
+	if = {
+		limit = { has_variable = industrial }
+		save_scope_value_as = { name = industrial value = flag:yes }
+	}
+	if = {
+		limit = { has_variable = transhumanist }
+		save_scope_value_as = { name = transhumanist value = flag:yes }
+	}
+	if = {
+		limit = { has_variable = learning }
+		save_scope_value_as = { name = learning value = flag:yes }
+	}
+}
+generate_research_project_codename = {
+	random_list = {
+		10 = {
+			set_variable = { name = codename_adjective value = flag:blank }
+			select_research_project_codename_proper_noun = yes
+		}
+		5 = {
+			set_variable = { name = codename_adjective value = flag:blank }
+			select_research_project_codename_noun = yes
+		}
+		10 = {
+			select_research_project_codename_adjective = yes
+			select_research_project_codename_noun = yes
+		}
+	}
+}
+select_research_project_codename_proper_noun = {
+	select_learning_proper_noun = yes
+	random_list = {
+		10 = {
+			trigger = { has_variable = military }
+			select_military_proper_noun = yes
+		}
+		10 = {
+			trigger = { has_variable = economic }
+			select_economic_proper_noun = yes
+		}
+		10 = {
+			trigger = { has_variable = social }
+			select_social_proper_noun = yes
+		}
+		10 = {
+			trigger = { has_variable = medical }
+			select_medical_proper_noun = yes
+		}
+		10 = {
+			trigger = { has_variable = energy }
+			select_energy_proper_noun = yes
+		}
+		10 = {
+			trigger = { has_variable = learning }
+			select_learning_proper_noun = yes
+		}
+	}
+	set_variable = { name = codename_noun value = scope:noun }
+}
+select_research_project_codename_noun = {
+	select_learning_noun = yes
+	random_list = {
+		10 = {
+			trigger = { has_variable = military }
+			select_military_noun = yes
+		}
+		10 = {
+			trigger = { has_variable = economic }
+			select_economic_noun = yes
+		}
+		5 = {
+			trigger = { has_variable = social }
+			select_social_noun = yes
+		}
+		5 = {
+			trigger = { has_variable = social }
+			select_diplomatic_noun = yes
+		}
+		10 = {
+			trigger = { has_variable = medical }
+			select_medical_noun = yes
+		}
+		10 = {
+			trigger = { has_variable = energy }
+			select_energy_noun = yes
+		}
+		10 = {
+			trigger = { has_variable = learning }
+			select_learning_noun = yes
+		}
+	}
+	set_variable = { name = codename_noun value = scope:noun }
+}
+select_research_project_codename_adjective = {
+	select_learning_adjective = yes
+	random_list = {
+		10 = {
+			trigger = { scheme_type = research_project_public }
+			select_impressive_adjective = yes
+		}
+		10 = {
+			trigger = { NOT = { scheme_type = research_project_public } }
+			select_secret_adjective = yes
+		}
+		10 = {
+			trigger = { has_variable = military }
+			select_military_adjective = yes
+		}
+		10 = {
+			trigger = { has_variable = medical }
+			select_medical_adjective = yes
+		}
+		10 = {
+			trigger = { has_variable = energy }
+			select_energy_adjective = yes
+		}
+		10 = {
+			trigger = { has_variable = learning }
+			select_learning_adjective = yes
+		}
+	}
+	set_variable = { name = codename_adjective value = scope:adjective }
 }
