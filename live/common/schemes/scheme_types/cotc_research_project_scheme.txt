@@ -1,0 +1,79 @@
+﻿research_project_public = {
+	skill = learning
+	category = contract # So that it doesn't interfere with other schemes
+	target_type = nothing
+	is_secret = no
+	
+	allow = {
+		highest_held_title_tier >= tier_county
+		exists = capital_county
+	}
+	valid = {
+		scope:owner = {
+			highest_held_title_tier >= tier_county
+			exists = capital_county
+		}
+		trigger_if = {
+			limit = { scope:scheme = { has_variable = research_subject } }
+			scope:owner = { capital_county ?= { NOT = { county_has_tech = { TECH = scope:scheme.var:research_subject } } } }
+		}
+	}
+	
+	base_progress_goal = t3_base_phase_length_value # Research projects take a long time!
+	speed_per_skill_point = -0.01 # Landed rulers are very busy, it should be impractical to progress the project without assistance
+	spymaster_speed_per_skill_point = 0
+	target_spymaster_speed_per_skill_point = 0
+	speed_per_target_skill_point = 0
+	base_maximum_success = 100
+	minimum_success = 0
+	base_success_chance = { base = 0 }
+	
+	odds_prediction = { value = learning multiply = 4 }
+	
+	agent_join_threshold = 25
+	agent_leave_threshold = -24
+	agent_join_chance = {
+		base = 0
+		ai_agent_join_chance_basic_suite_modifier = yes
+		ai_agent_join_chance_personal_general_suite_modifier = yes
+		modifier = { # Laziness
+			add = {
+				value = ai_energy
+				max = 0
+			}
+		}
+		modifier = { # Interest in science
+			add = ai_intellectualism
+		}
+		modifier = { # Interest in money
+			add = {
+				value = ai_greed
+				min = 0
+			}
+		}
+	}
+	valid_agent = {
+		is_valid_agent_standard_trigger = yes
+	}
+	agent_groups_owner_perspective = { sub_realm_characters }
+	
+	on_monthly = { scheme_owner = { trigger_event = { on_action = research_project_monthly_pulse } } }
+	on_phase_completed = {
+		# SUCCESS ROLL
+		random = {
+			chance = scope:scheme.scheme_success_chance
+			save_scope_value_as = {
+				name = scheme_successful
+				value = yes
+			}
+		}
+		### End success roll
+		if = {
+			limit = { exists = scope:scheme_successful }
+			save_research_project_scopes_effect = yes
+			scheme_owner = { trigger_event = cotc_research_project_events.10 }
+		}
+		else = { scheme_owner = { trigger_event = { on_action = research_project_phase_pulse } } }
+	}
+	on_invalidated = { scheme_owner = { trigger_event = { on_action = fail_research_project_on_action_scopes } } }
+}

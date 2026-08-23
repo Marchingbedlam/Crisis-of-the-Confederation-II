@@ -12,3 +12,69 @@ news = {
 		reference = throne_room
 	}
 }
+research = {
+	icon = {
+		reference = "gfx/interface/icons/event_types/type_learning.dds"
+	}
+	header_background = {
+		trigger = {
+			trigger_if = {
+				limit = { exists = scope:scheme }
+				scope:scheme = { has_variable = military }
+			}
+			trigger_else = { exists = scope:military }
+		}
+		reference = "gfx/interface/window_event/event_header_red"
+	}
+	header_background = {
+		trigger = {
+			trigger_if = {
+				limit = { exists = scope:scheme }
+				scope:scheme = { has_variable = social }
+			}
+			trigger_else = { exists = scope:social }
+		}
+		reference = "gfx/interface/window_event/event_header_blue"
+	}
+	header_background = {
+		trigger = {
+			trigger_if = {
+				limit = { exists = scope:scheme }
+				scope:scheme = {
+					OR = {
+						has_variable = economic
+						has_variable = energy
+						has_variable = industrial
+					}
+				}
+			}
+			trigger_else = {
+				OR = {
+					exists = scope:economic
+					exists = scope:energy
+					exists = scope:industrial
+				}
+			}
+		}
+		reference = "gfx/interface/window_event/event_header_green"
+	}
+	header_background = {
+		reference = "gfx/interface/window_event/event_header_grey.dds"
+	}
+	sound = {
+		reference = "event:/SFX/Events/Themes/sfx_event_theme_type_medicine"
+	}
+	background = {
+		trigger = {
+			trigger_if = {
+				limit = { exists = scope:scheme }
+				scope:scheme = { has_variable = theory }
+			}
+			trigger_else = { exists = scope:theory }
+		}
+		reference = study
+	}
+	background = {
+		reference = physicians_study
+	}
+}

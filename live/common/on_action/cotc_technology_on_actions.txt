@@ -14,8 +14,14 @@ yearly_culture_pulse = { on_actions = { yearly_culture_pulse_technology_on_actio
 game_start_technology_on_action = {
 	effect = {
 		# DECLARE DEFINED TECH MODIFIERS
-		set_global_variable = { name = tech_test_character_modifier_defined }
-		set_global_variable = { name = tech_test_county_modifier_defined }
+		set_global_variable = tech_mass_literacy_character_modifier_defined
+		set_global_variable = tech_propaganda_county_modifier_defined
+		set_global_variable = tech_modern_medicine_character_modifier_defined
+		
+		# DECLARE TECH PREREQS
+		set_global_variable = { name = cloning_prereq_1 value = culture_innovation:innovation_modern_medicine }
+		set_global_variable = { name = genetic_screening_prereq_1 value = culture_innovation:innovation_modern_medicine }
+		set_global_variable = { name = direct_neural_interface_prereq_1 value = culture_innovation:innovation_cybernetics }
 		
 		# ADD DEFAULT TECHS
 		every_culture_global = { trigger_event = { on_action = add_culture_techs_globally } }

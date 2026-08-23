@@ -1,6 +1,49 @@
-﻿tech_test_character_modifier = {
-	learning = 1
+﻿# Every tech must have a _county_modifier, _character_modifier, and _province_modifier defined, or the game will crash
+# Unless a modifier is declared to exist in game_start_technology_on_action, it will never actually exist, so there'so
+# no need to actually add any features to these modifiers
+
+# REAL TECH MODIFIERS
+tech_mass_literacy_character_modifier = {
+	hide_effects = yes
+	learning = 2
 }
-tech_test_county_modifier = {
+tech_propaganda_county_modifier = {
+	hide_effects = yes
 	county_opinion_add = 5
 }
+tech_modern_medicine_character_modifier = {
+	hide_effects = yes
+	health = 2
+}
+
+# DUMMY MODIFIERS
+tech_mass_literacy_county_modifier = { }
+tech_mass_literacy_province_modifier = { }
+tech_propaganda_character_modifier = { }
+tech_propaganda_province_modifier = { }
+tech_fusion_reactors_county_modifier = { }
+tech_fusion_reactors_character_modifier = { }
+tech_fusion_reactors_province_modifier = { }
+tech_modern_medicine_county_modifier = { }
+tech_modern_medicine_province_modifier = { }
+tech_cloning_county_modifier = { }
+tech_cloning_character_modifier = { }
+tech_cloning_province_modifier = { }
+tech_genetic_screening_county_modifier = { }
+tech_genetic_screening_character_modifier = { }
+tech_genetic_screening_province_modifier = { }
+tech_cybernetics_county_modifier = { }
+tech_cybernetics_character_modifier = { }
+tech_cybernetics_province_modifier = { }
+tech_direct_neural_interface_county_modifier = { }
+tech_direct_neural_interface_character_modifier = { }
+tech_direct_neural_interface_province_modifier = { }
+tech_nuclear_missiles_county_modifier = { }
+tech_nuclear_missiles_character_modifier = { }
+tech_nuclear_missiles_province_modifier = { }
+tech_automatic_weapons_county_modifier = { }
+tech_automatic_weapons_character_modifier = { }
+tech_automatic_weapons_province_modifier = { }
+tech_lasers_county_modifier = { }
+tech_lasers_character_modifier = { }
+tech_lasers_province_modifier = { }

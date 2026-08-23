@@ -1,0 +1,13 @@
+﻿fail_research_project_on_action_scopes = {
+	effect = {
+		scope:scheme = { save_research_project_scopes_effect = yes }
+		trigger_event = { on_action = fail_research_project_on_action }
+	}
+}
+fail_research_project_on_action = {
+	events = {
+		cotc_research_project_events.20 # Project failed because you no longer have territory
+		cotc_research_project_events.30 # Project failed because you got the tech some other way
+	}
+}
+research_project_monthly_pulse = { }
