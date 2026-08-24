@@ -130,7 +130,7 @@ building_requirement_space_infrastructure = {
 		limit = { building_counts_as_infrastructure = yes }
 		always = yes
 	}
-	trigger_if = {  # Hard-space locations
+	trigger_else_if = {  # Hard-space locations
 		limit = { building_orb_infrastructure_requirement_terrain = yes }
 		has_building_or_higher = orb_infrastructure_$LEVEL$
 	}
@@ -148,6 +148,7 @@ building_counts_as_infrastructure = {
 	OR = {
 		has_building_or_higher = dharmaalay_archipelago_01
 		has_building_or_higher = uranium_keep_01
+		has_building_or_higher = altair_core_01
 	}
 }
 
