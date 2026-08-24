@@ -144,7 +144,7 @@ PixelShader =
 				// Diffuse.rgb = ApplyFogOfWar( Diffuse.rgb, Input.WorldSpacePos, FogOfWarAlpha );
 				// Diffuse.rgb = ApplyMapDistanceFogWithoutFoW( Diffuse.rgb, Input.WorldSpacePos );
 
-				Diffuse.a *= COTC_GetHeightBasedAlpha();
+				Diffuse.a *= COTC_GetProvinceColorFade();
 				// ENDMOD
 
 				return Diffuse;

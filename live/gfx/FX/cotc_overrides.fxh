@@ -5,6 +5,7 @@ Includes = {
 	"jomini/jomini.fxh"
 	"constants.fxh"
 	"cw/random.fxh"
+	"cotc_camera_utils.fxh"
 }
 
 PixelShader = 
@@ -21,10 +22,26 @@ PixelShader =
 			return HighlightColor;
 		}
 
+		static const float COTC_HIGHLIGHT_FADE_KNEE = 0.15f;
+
+		// Applies an already-sampled highlight colour. Split out from COTC_ApplyHighlightColor so
+		// the sea fill can reuse the exact same intensity and fade maths on a highlight colour it
+		// gathered from a neighbouring province rather than from this texel.
+		void COTC_ApplyHighlightColorValue( inout float3 Diffuse, in float4 HighlightColor )
+		{
+			// Faded on the shared zoom step, so the highlight goes with the colours instead of surviving them
+			float ZoomFade = COTC_GetMapZoomFade();
+			ZoomFade = saturate( ( ZoomFade - COTC_HIGHLIGHT_FADE_KNEE ) / ( 1.0f - COTC_HIGHLIGHT_FADE_KNEE ) );
+
+			// Fade applied OUTSIDE the saturate deliberately for proportional fade
+			const float Highlight = saturate( HighlightColor.a * MapHighlightIntensity * 2.0f ) * ZoomFade;
+
+			Diffuse = lerp( Diffuse, HighlightColor.rgb, Highlight );
+		}
+
 		void COTC_ApplyHighlightColor( inout float3 Diffuse, in float2 WorldSpacePosXZ )
 		{
-			float4 HighlightColor = COTC_GetHighlightColor( WorldSpacePosXZ );
-			Diffuse = lerp( Diffuse, HighlightColor.rgb, saturate( HighlightColor.a * 1.0 * MapHighlightIntensity * 2.0 ) );
+			COTC_ApplyHighlightColorValue( Diffuse, COTC_GetHighlightColor( WorldSpacePosXZ ) );
 		}
 
 		void COTC_CalculateLightingFromLight( SMaterialProperties MaterialProps, float3 ToCameraDir, float3 ToLightDir, float3 LightIntensity, float ShadowStrength, out float3 DiffuseOut, out float3 SpecularOut )

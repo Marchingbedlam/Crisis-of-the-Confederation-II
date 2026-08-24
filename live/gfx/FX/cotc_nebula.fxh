@@ -1,6 +1,7 @@
 Includes = {
 	"cw/camera.fxh"
 	"cw/pdxterrain.fxh"
+	"cotc_compositing.fxh"
 }
 
 PixelShader = {
@@ -33,7 +34,7 @@ PixelShader = {
 	Code
 	[[
 		static const int   COTC_NEBULA_LAYERS    = 24;
-		static const float COTC_NEBULA_DENSITY   = 0.5f;
+		static const float COTC_NEBULA_DENSITY   = 0.4f;
 
 		static const float COTC_NEBULA_CEILING_Y = 5.0f;
 		static const float COTC_NEBULA_FLOOR_Y   = -5.0f;
@@ -105,8 +106,7 @@ PixelShader = {
 			float3 NebulaColor = AccumColor/max(AccumAlpha, 1e-4f);
 			float  NebulaAlpha = saturate(AccumAlpha);
 
-			Color = lerp(Color, NebulaColor, NebulaAlpha);
-			Alpha = lerp(Alpha, 1.0f, NebulaAlpha);
+			COTC_BlendOver( Color, Alpha, NebulaColor, NebulaAlpha );
 		}
 	]]
 }
