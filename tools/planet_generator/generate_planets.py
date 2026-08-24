@@ -48,29 +48,33 @@ DEF_SEED = "cotc"
 # terrain -> the file whose object blocks supply that terrain's planet variants.
 # Note the deliberate mismatch: the terrain is "frozen_giant", the art is "ice_giant".
 TERRAIN_FILES = {
+    "carbon": "cotc_planet_barrens.txt",
     "barren": "cotc_planet_barrens.txt",
     "frozen": "cotc_planet_frozens.txt",
     "corrosive": "cotc_planet_corrosives.txt",
     "gas_giant": "cotc_planet_gas_giants.txt",
     "frozen_giant": "cotc_planet_ice_giants.txt",
     "atmospheric": "cotc_planet_atmospherics.txt",
+    "terran": "cotc_planet_atmospherics.txt",
 }
 
 # Size weights taken from the 276 hand-placed planets. Giants and atmospherics are
 # always 1.0 (size is baked into the mesh); only the rocky families vary. The single
 # 1.25 row in cotc_planet_corrosive_02 is a one-off manual tweak and is excluded.
 SCALE_WEIGHTS = {
+    "carbon": ((1.0, 44), (0.75, 25), (0.5, 22)),
     "barren": ((1.0, 44), (0.75, 25), (0.5, 22)),
     "frozen": ((1.0, 19), (0.75, 26), (0.5, 10)),
     "corrosive": ((1.0, 22), (0.75, 13), (0.5, 4)),
     "gas_giant": ((1.0, 1),),
     "frozen_giant": ((1.0, 1),),
     "atmospheric": ((1.0, 1),),
+    "terran": ((1.0, 1),),
 }
 
 # Terrains that legitimately have no planet family, so their provinces are skipped
 # quietly-by-design. Anything outside this set and TERRAIN_FILES is flagged as a typo.
-SKIP_TERRAINS = frozenset({"asteroids", "nebula", "open_space", "hypermatter_stream"})
+SKIP_TERRAINS = frozenset({"asteroids", "nebula", "open_space", "protoplanetary"})
 
 TERRAIN_LINE = re.compile(r"^(\d+)=(.*)$")
 LOCATOR = re.compile(r"id=(\d+)\s*position=\{\s*(\S+)\s+(\S+)\s+(\S+)\s*\}")

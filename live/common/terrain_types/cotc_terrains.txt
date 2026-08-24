@@ -4,15 +4,49 @@
 @provisions_cost_high = 100
 @provisions_cost_extreme = 150
 
+#################################################################
+#########################  HABITABLE  ###########################
+#################################################################
+
+terran = {
+	color = { 0 0 75 } #Deep Blue
+	travel_danger_color = { 0 0 75 }
+	travel_danger_score = terran_danger_value
+	provision_cost = @provisions_cost_minimal
+	county_fertility = 45
+	
+	province_modifier = {
+		supply_limit_mult = 0.6
+		travel_danger = terran_danger_value
+		county_fertility_growth_add = terran_county_fertility_value
+	}
+
+	county_capital_modifier = {
+		development_growth_factor = 0.4
+	}
+
+	defender_combat_effects = {
+		name = combat_terran
+		image = combat_terran
+		advantage = 5
+	}
+	
+	movement_speed = 1.0
+	combat_width = 0.8
+	
+	audio_parameter = 1.0
+}
+
 atmospheric = {
 	color = { 25 25 100 } #Federal Blue
-	#Travel Danger Colours need to be tweaked
-	#travel_danger_color = hsv { 0.1 0.5 0.8 }
+	travel_danger_color = { 25 25 100 }
+	travel_danger_score = atmospheric_danger_value
 	provision_cost = @provisions_cost_minimal
 	county_fertility = 40
 	
 	province_modifier = {
 		supply_limit_mult = 0.5
+		travel_danger = atmospheric_danger_value
 		county_fertility_growth_add = atmospheric_county_fertility_value
 	}
 
@@ -26,22 +60,25 @@ atmospheric = {
 		advantage = 5
 	}
 	
-	#movement_speed = 0.8
-	#combat_width = 0.8
+	movement_speed = 1.0
+	combat_width = 0.8
 	
-	#audio_parameter = 1.0
+	audio_parameter = 1.0
 }
+
+#################################################################
+########################  TERRESTRIAL  ##########################
+#################################################################
 
 barren = {
 	color = { 140 140 140 } #Battleship Grey
-	#Travel Danger Colours need to be tweaked
-	travel_danger_color = hsv { 0.1 0.5 0.8 }
+	travel_danger_color = { 140 140 140 }
 	travel_danger_score = barren_danger_value
 	provision_cost = @provisions_cost_light
 	county_fertility = 25
 
 	province_modifier = {
-		supply_limit_mult = 0
+		supply_limit_mult = 0.2
 		travel_danger = barren_danger_value
 		county_fertility_growth_add = barren_county_fertility_value
 	}
@@ -55,18 +92,22 @@ barren = {
 		image = combat_barren
 		advantage = 4
 	}
+
+	movement_speed = 0.9
+	combat_width = 0.9
+	
+	audio_parameter = 1.0
 }
 
 frozen = {
 	color = { 150 255 255 } #Ice Blue
-	#Travel Danger Colours need to be tweaked
-	travel_danger_color = hsv { 0.1 0.5 0.8 }
+	travel_danger_color = { 150 255 255 }
 	travel_danger_score = frozen_danger_value
-	provision_cost = @provisions_cost_light
+	provision_cost = @provisions_cost_medium
 	county_fertility = 25
 
 	province_modifier = {
-		supply_limit_mult = 0
+		supply_limit_mult =  0.1
 		travel_danger = frozen_danger_value
 		county_fertility_growth_add = frozen_county_fertility_value
 	}
@@ -80,92 +121,196 @@ frozen = {
 		image = combat_frozen
 		advantage = 4
 	}
+	
+	movement_speed = 0.9
+	combat_width = 0.9
+	
+	audio_parameter = 9.0
 }
 
 corrosive = {
 	color = { 50 200 50 } #Lime Green
-	#Travel Danger Colours need to be tweaked
-	travel_danger_color = hsv { 0.1 0.5 0.8 }
+	travel_danger_color = { 50 200 50 }
+	travel_danger_score = corrosive_danger_value
+	provision_cost = @provisions_cost_high
+	county_fertility = 15
 
 	province_modifier = {
-		supply_limit_mult = 0
+		supply_limit_mult = -0.25
 		travel_danger = corrosive_danger_value
 		county_fertility_growth_add = corrosive_county_fertility_value
 	}
 
 	county_capital_modifier = {
-		development_growth_factor = -0.1
+		development_growth_factor = -0.4
 	}
 
 	defender_combat_effects = {
 		name = combat_corrosive
-		image = combat_corrosive	
-		advantage = 3
+		image = combat_corrosive
+		advantage = 6
 	}
+	
+	movement_speed = 0.8
+	combat_width = 0.6
+	
+	audio_parameter = 8.0
 }
+
+carbon = {
+	color = { 225 255 0 } # Yellow
+	travel_danger_color = { 225 255 0 }
+	travel_danger_score = carbon_danger_value
+	provision_cost = @provisions_cost_medium
+	county_fertility = 20
+	
+	province_modifier = {
+		supply_limit_mult = 0.1
+		travel_danger = carbon_danger_value
+		county_fertility_growth_add = carbon_county_fertility_value
+	}
+
+	county_capital_modifier = {
+		development_growth_factor = 0.2
+	}
+	
+	
+	movement_speed = 0.9
+	combat_width = 0.9
+	
+	audio_parameter = 2.0
+}
+
+#################################################################
+#########################  GAS GIANTS  ##########################
+#################################################################
 
 gas_giant = {
 	color = { 255 80 0 } #Aerospace Orange
-	#Travel Danger Colours need to be tweaked
-	travel_danger_color = hsv { 0.1 0.5 0.8 }
+	travel_danger_color = { 255 80 0 }
+	travel_danger_score = gas_giant_danger_value
+	provision_cost = @provisions_cost_high
+	county_fertility = 20
 
 	province_modifier = {
-		supply_limit_mult = 0
+		supply_limit_mult = -0.3
 		travel_danger = gas_giant_danger_value
 		county_fertility_growth_add = gas_giant_county_fertility_value
 	}
 
 	county_capital_modifier = {
-		development_growth_factor = -0.1
+		development_growth_factor = -0.4
+	}
+	
+	attacker_modifier = {
+		hard_casualty_modifier = 0.2
+		retreat_losses = 0.25
+	}
+	
+	defender_modifier = {
+		hard_casualty_modifier = 0.2
+		retreat_losses = 0.25
 	}
 
 	defender_combat_effects = {
 		name = combat_gas_giant
 		image = combat_gas_giant	
-		advantage = 3
+		advantage = 5
 	}
+
+	movement_speed = 0.6
+	combat_width = 0.6
+	
+	audio_parameter = 3.0
 }
 
 frozen_giant = {
 	color = { 150 100 210 } #Amethyst
-	#Travel Danger Colours need to be tweaked
-	travel_danger_color = hsv { 0.1 0.5 0.8 }
+	travel_danger_color = { 150 100 210 }
+	travel_danger_score = frozen_giant_danger_value
+	provision_cost = @provisions_cost_high
+	county_fertility = 20
 
 	province_modifier = {
-		supply_limit_mult = 0
+		supply_limit_mult = -0.3
 		travel_danger = frozen_giant_danger_value
 		county_fertility_growth_add = frozen_giant_county_fertility_value
 	}
 
 	county_capital_modifier = {
-		development_growth_factor = -0.1
+		development_growth_factor = -0.4
+	}
+	
+	attacker_modifier = {
+		hard_casualty_modifier = 0.2
+		retreat_losses = 0.25
+	}
+	
+	defender_modifier = {
+		hard_casualty_modifier = 0.2
+		retreat_losses = 0.25
 	}
 
 	defender_combat_effects = {
 		name = combat_frozen_giant
-		image = combat_frozen_giant	
-		advantage = 3
+		image = combat_frozen_giant
+		advantage = 5
 	}
+	
+	movement_speed = 0.5
+	combat_width = 0.5
+	
+	audio_parameter = 7.0
 }
 
-#This may need to be tweaked into orbital and deep space
+#################################################################
+###########################  SPACE  #############################
+#################################################################
+
 open_space = {
-	color = { 240 230 170 } #Vanilla
+	color = { 70 70 70 } #Dark grey
+	travel_danger_color = { 70 70 70 }
+	travel_danger_score = open_space_danger_value
+	provision_cost = @provisions_cost_high
+	county_fertility = 10
+	
+	province_modifier = {
+		supply_limit_mult = -0.5
+		travel_danger = open_space_danger_value
+		county_fertility_growth_add = open_space_county_fertility_value
+	}
+
+	county_capital_modifier = {
+		development_growth_factor = -0.5
+	}
+
+	defender_combat_effects = {
+		name = combat_open_space
+		image = combat_open_space		
+		advantage = 0
+	}
+
+	movement_speed = 1.0
+	combat_width = 1.0
+	
+	audio_parameter = 5.0
 }
 
 asteroids = {
 	color = { 110 70 20 } #Sepia
-	#Travel Danger Colours need to be tweaked
-	travel_danger_color = hsv { 0.1 0.5 0.8 }
+	travel_danger_color = { 110 70 20 }
+	travel_danger_score = asteroids_danger_value
+	provision_cost = @provisions_cost_extreme
+	county_fertility = 15
 
 	province_modifier = {
-		supply_limit_mult = 0
+		supply_limit_mult = -0.4
 		travel_danger = asteroids_danger_value
 		county_fertility_growth_add = asteroids_county_fertility_value
 	}
 
 	county_capital_modifier = {
-		development_growth_factor = -0.1
+		development_growth_factor = -0.4
 	}
 
 	defender_combat_effects = {
@@ -173,21 +318,65 @@ asteroids = {
 		image = combat_asteroids		
 		advantage = 6
 	}
+	
+	defender_modifier = {
+		retreat_losses = -0.3
+	}
+	
+	movement_speed = 0.6
+	combat_width = 0.6
+	
+	audio_parameter = 1.0
+}
+
+protoplanetary = {
+	color = { 255 160 0 } #Yellow ochre
+	travel_danger_color = { 110 70 20 }
+	travel_danger_score = protoplanetary_danger_value
+	provision_cost = @provisions_cost_extreme
+	county_fertility = 15
+
+	province_modifier = {
+		supply_limit_mult = -0.4
+		travel_danger = protoplanetary_danger_value
+		county_fertility_growth_add = protoplanetary_county_fertility_value
+	}
+
+	county_capital_modifier = {
+		development_growth_factor = -0.4
+	}
+
+	defender_combat_effects = {
+		name = combat_protoplanetary
+		image = combat_protoplanetary		
+		advantage = 12
+	}
+	
+	defender_modifier = {
+		retreat_losses = -0.3
+	}
+	
+	movement_speed = 0.5
+	combat_width = 0.5
+	
+	audio_parameter = 1.0
 }
 
 nebula = {
 	color = { 255 90 200 } #Rose Pink
-	#Travel Danger Colours need to be tweaked
-	travel_danger_color = hsv { 0.1 0.5 0.8 }
+	travel_danger_score = nebula_danger_value
+	provision_cost = @provisions_cost_high
+	travel_danger_color = { 255 90 200 }
+	county_fertility = 10
 
 	province_modifier = {
-		supply_limit_mult = 0
+		supply_limit_mult = -0.5
 		travel_danger = nebula_danger_value
 		county_fertility_growth_add = nebula_county_fertility_value
 	}
 
 	county_capital_modifier = {
-		development_growth_factor = -0.1
+		development_growth_factor = -0.5
 	}
 
 	defender_combat_effects = {
@@ -195,28 +384,9 @@ nebula = {
 		image = combat_nebula		
 		advantage = 12
 	}
+	
+	movement_speed = 0.9
+	combat_width = 0.9
+	
+	audio_parameter = 6.0
 }
-
-#Some kind of space steppe
-hypermatter_stream = {
-	color = { 255 190 0 } #Amber
-	#Travel Danger Colours need to be tweaked
-	travel_danger_color = hsv { 0.1 0.5 0.8 }
-
-	province_modifier = {
-		supply_limit_mult = 0
-		travel_danger = hypermatter_stream_danger_value
-		county_fertility_growth_add = hypermatter_stream_county_fertility_value
-	}
-
-	county_capital_modifier = {
-		development_growth_factor = -0.1
-	}
-
-	defender_combat_effects = {
-		name = combat_hypermatter_stream
-		image = combat_hypermatter_stream		
-		advantage = 12
-	}
-}
-

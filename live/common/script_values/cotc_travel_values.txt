@@ -1,29 +1,51 @@
 ﻿# Read time constants
-#@atmospheric_danger_value
-@barren_danger_value = 30
-@frozen_danger_value = 30
-@corrosive_danger_value = 50
-@gas_giant_danger_value = 50
-@frozen_giant_danger_value = 50
-@open_space_danger_value = 20 #Majority of terrain should be this, so lowered danger
-@asteroids_danger_value = 65
-@nebula_danger_value = 65
-@hypermatter_stream_danger_value = 65
+
+# Habitable
+@terran_danger_value = 10
+@atmospheric_danger_value = 15
+
+# Terrestrial
+@barren_danger_value = 20
+@frozen_danger_value = 25
+@corrosive_danger_value = 35
+@carbon_danger_value = 25
+
+# Gas
+@gas_giant_danger_value = 40
+@frozen_giant_danger_value = 40
+
+# Space
+@open_space_danger_value = 45
+@asteroids_danger_value = 60
+@protoplanetary_danger_value = 60
+@nebula_danger_value = 50
+
 @high_reduction_constant = -1
 @medium_reduction_constant = @[2 / 3 * -1]
 @low_reduction_constant = @[1 / 3 * -1]
 
 # Script values other files can reference
+terran_danger_value = @terran_danger_value
+atmospheric_danger_value = @atmospheric_danger_value
 barren_danger_value = @barren_danger_value
 frozen_danger_value = @frozen_danger_value
 corrosive_danger_value = @corrosive_danger_value
+carbon_danger_value = @carbon_danger_value
 gas_giant_danger_value = @gas_giant_danger_value
 frozen_giant_danger_value = @frozen_giant_danger_value
 open_space_danger_value = @open_space_danger_value
 asteroids_danger_value = @asteroids_danger_value
+protoplanetary_danger_value = @protoplanetary_danger_value
 nebula_danger_value = @nebula_danger_value
-hypermatter_stream_danger_value = @hypermatter_stream_danger_value
 epidemic_danger_value = @epidemic_danger_value
+
+terran_high_danger_reduction = @[terran_danger_value * high_reduction_constant]
+terran_medium_danger_reduction = @[terran_danger_value * medium_reduction_constant +1]
+terran_low_danger_reduction = @[terran_danger_value * low_reduction_constant -2]
+
+atmospheric_high_danger_reduction = @[atmospheric_danger_value * high_reduction_constant]
+atmospheric_medium_danger_reduction = @[atmospheric_danger_value * medium_reduction_constant +1]
+atmospheric_low_danger_reduction = @[atmospheric_danger_value * low_reduction_constant -2]
 
 barren_high_danger_reduction = @[barren_danger_value * high_reduction_constant]
 barren_medium_danger_reduction = @[barren_danger_value * medium_reduction_constant +1]
@@ -36,6 +58,10 @@ frozen_low_danger_reduction = @[frozen_danger_value * low_reduction_constant -2]
 corrosive_high_danger_reduction = @[corrosive_danger_value * high_reduction_constant]
 corrosive_medium_danger_reduction = @[corrosive_danger_value * medium_reduction_constant +1]
 corrosive_low_danger_reduction = @[corrosive_danger_value * low_reduction_constant -2]
+
+carbon_high_danger_reduction = @[carbon_danger_value * high_reduction_constant]
+carbon_medium_danger_reduction = @[carbon_danger_value * medium_reduction_constant +1]
+carbon_low_danger_reduction = @[carbon_danger_value * low_reduction_constant -2]
 
 gas_giant_high_danger_reduction = @[gas_giant_danger_value * high_reduction_constant]
 gas_giant_medium_danger_reduction = @[gas_giant_danger_value * medium_reduction_constant +1]
@@ -53,10 +79,10 @@ asteroids_high_danger_reduction = @[asteroids_danger_value * high_reduction_cons
 asteroids_medium_danger_reduction = @[asteroids_danger_value * medium_reduction_constant +1]
 asteroids_low_danger_reduction = @[asteroids_danger_value * low_reduction_constant -2]
 
+protoplanetary_high_danger_reduction = @[protoplanetary_danger_value * high_reduction_constant]
+protoplanetary_medium_danger_reduction = @[protoplanetary_danger_value * medium_reduction_constant +1]
+protoplanetary_low_danger_reduction = @[protoplanetary_danger_value * low_reduction_constant -2]
+
 nebula_high_danger_reduction = @[nebula_danger_value * high_reduction_constant]
 nebula_medium_danger_reduction = @[nebula_danger_value * medium_reduction_constant +1]
 nebula_low_danger_reduction = @[nebula_danger_value * low_reduction_constant -2]
-
-hypermatter_stream_high_danger_reduction = @[hypermatter_stream_danger_value * high_reduction_constant]
-hypermatter_stream_medium_danger_reduction = @[hypermatter_stream_danger_value * medium_reduction_constant +1]
-hypermatter_stream_low_danger_reduction = @[hypermatter_stream_danger_value * low_reduction_constant -2]
