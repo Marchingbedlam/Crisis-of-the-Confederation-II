@@ -40,7 +40,7 @@ PixelShader = {
 
 		static const float COTC_STARS_LAYER_TILE_SIZE = 75.0f;
 
-		static const int COTC_STARS_LAYERS_COUNT = 8;
+		static const int COTC_STARS_LAYERS_COUNT = 4;
 
 		static const float COTC_STARS_LAYER_ROTATION_AMOUNT = 1.0f;  // 0 = off, 1 = full turn
 		static const float COTC_STARS_LAYER_SCALE_JITTER    = 0.25f; // +/- fraction of tile size
