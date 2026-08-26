@@ -19,7 +19,7 @@
 		}
 	}
 	
-	base_progress_goal = t3_base_phase_length_value # Research projects take a long time!
+	base_progress_goal = t1_base_phase_length_value # Research projects take a long time!
 	speed_per_skill_point = -0.01 # Landed rulers are very busy, it should be impractical to progress the project without assistance
 	spymaster_speed_per_skill_point = 0
 	target_spymaster_speed_per_skill_point = 0
@@ -30,32 +30,23 @@
 	
 	odds_prediction = { value = learning multiply = 4 }
 	
-	agent_join_threshold = 25
 	agent_leave_threshold = -24
 	agent_join_chance = {
 		base = 0
 		ai_agent_join_chance_basic_suite_modifier = yes
 		ai_agent_join_chance_personal_general_suite_modifier = yes
-		modifier = { # Laziness
-			add = {
-				value = ai_energy
-				max = 0
-			}
-		}
-		modifier = { # Interest in science
-			add = ai_intellectualism
-		}
-		modifier = { # Interest in money
-			add = {
-				value = ai_greed
-				min = 0
-			}
-		}
+		# Opinion of this particular project
+		research_subject_approval_suite_modifier = yes
 	}
 	valid_agent = {
 		is_valid_agent_standard_trigger = yes
+		trigger_if = { # Must be in the same realm
+			limit = { NOT = { top_liege = scope:owner.top_liege } }
+			has_domicile = yes
+			domicile ?= { domicile_location ?= { county.holder ?= { top_liege = scope:owner.top_liege } } }
+		}
 	}
-	agent_groups_owner_perspective = { sub_realm_characters }
+	agent_groups_owner_perspective = { guests courtiers vassals nearby_domicile_owners }
 	
 	on_monthly = { scheme_owner = { trigger_event = { on_action = research_project_monthly_pulse } } }
 	on_phase_completed = {

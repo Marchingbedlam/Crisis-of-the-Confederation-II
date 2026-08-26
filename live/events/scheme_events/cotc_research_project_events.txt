@@ -1,5 +1,6 @@
 ﻿namespace = cotc_research_project_events
 
+# STARTING PROJECTS
 cotc_research_project_events.1 = { # Start a new research project
 	immediate = {
 		if = {
@@ -76,7 +77,7 @@ cotc_research_project_events.1 = { # Start a new research project
 		name = cotc_research_project_events.1.a
 		custom_tooltip = {
 			text = cotc_research_project_events.1.a.tt
-			start_scheme = { type = research_project_public }
+			start_scheme = { type = research_project_public targets_nothing = yes }
 		}
 		random_scheme = {
 			limit = { scheme_type = research_project_public }
@@ -142,6 +143,18 @@ cotc_research_project_events.1 = { # Start a new research project
 				limit = { exists = scope:transhumanist }
 				set_variable = transhumanist
 			}
+			if = {
+				limit = { exists = scope:cybernetics_flag }
+				set_variable = cybernetics
+			}
+			if = {
+				limit = { exists = scope:gene_modding_flag }
+				set_variable = gene_modding
+			}
+			if = {
+				limit = { exists = scope:cloning_flag }
+				set_variable = cloning
+			}
 			# Set agent type caps
 			if = {
 				limit = { exists = scope:max_economist_slots }
@@ -204,8 +217,17 @@ cotc_research_project_events.1 = { # Start a new research project
 					}
 					every_neighboring_county = {
 						limit = { county_has_tech = { TECH = scope:scheme.var:research_subject } }
-						scope:scheme = { add_scheme_modifier = { type = culture_research_bonus } }
+						scope:scheme = { add_scheme_modifier = { type = neighbor_research_bonus } }
 					}
+				}
+				if = {
+					limit = {
+						any_secret = {
+							has_variable = research_subject
+							var:research_subject ?= scope:scheme.var:research_subject
+						}
+					}
+					scope:scheme = { add_scheme_modifier = already_researched_bonus }
 				}
 			}
 			
@@ -324,6 +346,7 @@ cotc_research_project_events.2 = { # Decide on funding for your new research pro
 	}
 }
 
+# ENDING PROJECTS
 cotc_research_project_events.10 = { # Successfully complete the research project
 	desc = {
 		desc = cotc_research_project_events.10.desc.intro
@@ -428,12 +451,19 @@ cotc_research_project_events.10 = { # Successfully complete the research project
 		name = cotc_research_project_events.10.a
 		capital_county = { add_tech_to_county = { TECH = scope:discovered_innovation } }
 		if = { # You did this all by yourself, gain prestige and get back your investment
-			limit = { NOT = { any_scheme_agent_character = { count >= 1 } } }
+			limit = { scope:scheme = { NOT = { any_scheme_agent_character = { count >= 1 } } } }
 			add_prestige = research_project_prestige_reward
 			add_treasury_or_gold = scope:scheme.var:grant_money
+			add_research_project_secret_effect = yes
 		}
+		# Piety and stress effects
+		if = {
+			limit = { research_project_piety_reward != 0 }
+			add_piety = research_project_piety_reward
+		}
+		add_research_project_stress_effects = yes
 		scope:scheme = {
-			every_scheme_agent_character = { cotc_research_project_events.11 }
+			every_scheme_agent_character = { trigger_event = cotc_research_project_events.11 }
 			end_scheme = yes
 		}
 	}
@@ -470,6 +500,14 @@ cotc_research_project_events.11 = {
 		# Gain rewards in prestige and money
 		add_prestige = research_project_prestige_reward
 		add_treasury_or_gold = scope:agent_payout
+		# Piety and stress effects
+		if = {
+			limit = { research_project_piety_reward != 0 }
+			add_piety = research_project_piety_reward
+		}
+		add_research_project_stress_effects = yes
+		# Remember the secret
+		add_research_project_secret_effect = yes
 	}
 }
 

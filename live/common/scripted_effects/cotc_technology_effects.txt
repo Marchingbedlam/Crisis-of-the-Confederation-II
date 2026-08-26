@@ -331,6 +331,131 @@ save_research_project_scopes_effect = { # Run this when it's possible the projec
 		limit = { has_variable = learning }
 		save_scope_value_as = { name = learning value = flag:yes }
 	}
+	if = {
+		limit = { has_variable = cybernetics }
+		save_scope_value_as = { name = cybernetics_flag value = flag:yes }
+	}
+	if = {
+		limit = { has_variable = gene_modding }
+		save_scope_value_as = { name = gene_modding_flag value = flag:yes }
+	}
+	if = {
+		limit = { has_variable = cloning }
+		save_scope_value_as = { name = cloning_flag value = flag:yes }
+	}
+}
+add_research_project_stress_effects = {
+	if = {
+		limit = { exists = scope:military }
+		positive_hawkishness_stress_gain_effect = { SCALE = -0.5 }
+		negative_hawkishness_stress_gain_effect = { SCALE = 1 }
+	}
+	if = {
+		limit = { exists = secret_faith }
+		secret_faith ?= { save_temporary_scope_as = real_ideology }
+	}
+	else = { faith = { save_temporary_scope_as = real_ideology } }
+	if = {
+		limit = { exists = scope:cybernetics_flag }
+		if = {
+			limit = { scope:real_ideology ?= { has_doctrine_parameter = hates_cybernetics } }
+			positive_zeal_stress_gain_effect = { SCALE = 1 }
+		}
+		else_if = {
+			limit = { scope:real_ideology ?= { has_doctrine_parameter = supports_cybernetics } }
+			positive_zeal_stress_gain_effect = { SCALE = 0.5 }
+		}
+	}
+	if = {
+		limit = { exists = scope:gene_modding_flag }
+		if = {
+			limit = { scope:real_ideology ?= { has_doctrine_parameter = hates_gene_modding } }
+			positive_zeal_stress_gain_effect = { SCALE = 1 }
+		}
+		else_if = {
+			limit = { scope:real_ideology ?= { has_doctrine_parameter = supports_gene_modding } }
+			positive_zeal_stress_gain_effect = { SCALE = 0.5 }
+		}
+	}
+	if = {
+		limit = { exists = scope:cloning_flag }
+		if = {
+			limit = { scope:real_ideology ?= { has_doctrine_parameter = hates_cloning } }
+			positive_zeal_stress_gain_effect = { SCALE = 1 }
+		}
+		else_if = {
+			limit = { scope:real_ideology ?= { has_doctrine_parameter = supports_cloning } }
+			positive_zeal_stress_gain_effect = { SCALE = 0.5 }
+		}
+	}
+}
+add_research_project_secret_effect = {
+	save_temporary_scope_as = temp_secret_owner
+	every_secret = {
+		limit = { secret_type = secret_researched_innovation }
+		add_to_temporary_list = temp_existing_secrets
+	}
+	if = {
+		limit = {
+			NOT = {
+				any_in_list = {
+					list = temp_existing_secrets
+					trigger_if = {
+						limit = { has_variable = research_subject }
+						var:research_subject = scope:discovered_innovation
+					}
+				}
+			}
+		}
+		add_secret = { type = secret_researched_innovation }
+		random_secret = {
+			limit = {
+				secret_type = secret_researched_innovation
+				NOT = { is_in_list = temp_existing_secrets }
+			}
+			set_variable = { name = research_subject value = scope:discovered_innovation }
+			if = {
+				limit = { exists = scope:military }
+				set_variable = { name = military value = flag:yes }
+			}
+			if = {
+				limit = { exists = scope:cybernetics_flag }
+				set_variable = { name = cybernetics value = flag:yes }
+			}
+			if = {
+				limit = { exists = scope:gene_modding_flag }
+				set_variable = { name = gene_modding value = flag:yes }
+			}
+			if = {
+				limit = { exists = scope:cloning_flag }
+				set_variable = { name = cloning value = flag:yes }
+			}
+		}
+	}
+	random_secret = {
+		limit = {
+			secret_type = secret_researched_innovation
+			trigger_if = {
+				limit = { has_variable = research_subject }
+				var:research_subject = scope:discovered_innovation
+			}
+		}
+		if = { # Set who knows that we know this
+			limit = { exists = scope:secret }
+			save_temporary_scope_as = temp_secret
+			scope:patron = { add_to_temporary_list = temp_project_participants }
+			every_in_list = {
+				list = project_staff
+				add_to_temporary_list = temp_project_participants
+			}
+			every_in_list = {
+				list = temp_project_participants
+				limit = { NOT = { this = scope:temp_secret_owner } }
+				scope:temp_secret = { add_secret_participant = PREV }
+			}
+		}
+		else = { expose_secret = yes }
+	}
 }
 generate_research_project_codename = {
 	random_list = {

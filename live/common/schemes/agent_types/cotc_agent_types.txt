@@ -233,6 +233,25 @@ agent_research_physicist = {
 				desc = scheme_agent_aptitude.trait.lazy
 			}
 		}
+		# We have other work to do
+		if = {
+			limit = {
+				exists = capital_county
+				highest_held_title_tier >= tier_county
+			}
+			divide = 5
+		}
+		# We already know this technology
+		if = {
+			limit = {
+				any_secret = {
+					type = secret_researched_innovation
+					var:research_subject = scope:scheme.var:research_subject
+					is_known_by = scope:owner
+				}
+			}
+			min = agent_scheme_contributor_max
+		}
 		# Cap this off.
 		max = agent_scheme_contributor_max
 		min = agent_scheme_contributor_min
@@ -353,6 +372,25 @@ agent_research_engineer = {
 				value = agent_trait_malus_t3_value
 				desc = scheme_agent_aptitude.trait.lazy
 			}
+		}
+		# We have other work to do
+		if = {
+			limit = {
+				exists = capital_county
+				highest_held_title_tier >= tier_county
+			}
+			divide = 5
+		}
+		# We already know this technology
+		if = {
+			limit = {
+				any_secret = {
+					type = secret_researched_innovation
+					var:research_subject = scope:scheme.var:research_subject
+					is_known_by = scope:owner
+				}
+			}
+			min = agent_scheme_contributor_max
 		}
 		# Cap this off.
 		max = agent_scheme_contributor_max
@@ -490,6 +528,25 @@ agent_research_economist = {
 				desc = scheme_agent_aptitude.trait.profligate
 			}
 		}
+		# We have other work to do
+		if = {
+			limit = {
+				exists = capital_county
+				highest_held_title_tier >= tier_county
+			}
+			divide = 5
+		}
+		# We already know this technology
+		if = {
+			limit = {
+				any_secret = {
+					type = secret_researched_innovation
+					var:research_subject = scope:scheme.var:research_subject
+					is_known_by = scope:owner
+				}
+			}
+			min = agent_scheme_contributor_max
+		}
 		# Cap this off.
 		max = agent_scheme_contributor_max
 		min = agent_scheme_contributor_min
@@ -593,6 +650,25 @@ agent_research_sociologist = {
 				value = agent_trait_malus_t3_value
 				desc = scheme_agent_aptitude.trait.shy
 			}
+		}
+		# We have other work to do
+		if = {
+			limit = {
+				exists = capital_county
+				highest_held_title_tier >= tier_county
+			}
+			divide = 5
+		}
+		# We already know this technology
+		if = {
+			limit = {
+				any_secret = {
+					type = secret_researched_innovation
+					var:research_subject = scope:scheme.var:research_subject
+					is_known_by = scope:owner
+				}
+			}
+			min = agent_scheme_contributor_max
 		}
 		# Cap this off.
 		max = agent_scheme_contributor_max
@@ -721,6 +797,25 @@ agent_research_officer = {
 				value = agent_trait_malus_t3_value
 				desc = scheme_agent_aptitude.trait.content
 			}
+		}
+		# We have other work to do
+		if = {
+			limit = {
+				exists = capital_county
+				highest_held_title_tier >= tier_county
+			}
+			divide = 5
+		}
+		# We already know this technology
+		if = {
+			limit = {
+				any_secret = {
+					type = secret_researched_innovation
+					var:research_subject = scope:scheme.var:research_subject
+					is_known_by = scope:owner
+				}
+			}
+			min = agent_scheme_contributor_max
 		}
 		# Cap this off.
 		max = agent_scheme_contributor_max

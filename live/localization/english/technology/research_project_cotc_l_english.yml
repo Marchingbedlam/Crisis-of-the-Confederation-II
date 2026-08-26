@@ -20,13 +20,37 @@
  research_project_public: "Public Research Project"
  research_project_public_action: "Research"
  research_project_public_desc: "Project [SCHEME.Custom('GetResearchProjectCodenameAdj')][SCHEME.Custom('GetResearchProjectCodenameNoun')] aims to bring [SCHEME.MakeScope.Var('research_subject').CultureInnovationType.GetName] to [SCHEME.GetOwner.GetCapitalLocation.GetCounty.GetTitle.GetNameNoTier]."
+ research_project_public_desc_general: "$research_project_public_desc$"
+ 
+ tooltip_support_for_research: "Intellectualism: $VALUE|=+0$"
+ tooltip_desire_for_wealth: "[gold_i|E][gold|E] Reward: $VALUE|=+0$"
+ tooltip_desire_for_fame: "[prestige_i|E][prestige|E] Reward: $VALUE|=+0$"
+ tooltip_research_subject_social: "[scheme.MakeScope.Var('research_subject').CultureInnovationType.GetName] is a #P Social#! [innovation|E]: $VALUE|=+0$"
+ tooltip_research_subject_economic: "[scheme.MakeScope.Var('research_subject').CultureInnovationType.GetName] is an #P Economic#! [innovation|E]: $VALUE|=+0$"
+ tooltip_research_subject_military: "[scheme.MakeScope.Var('research_subject').CultureInnovationType.GetName] is a #P Military#! [innovation|E]: $VALUE|=+0$"
+ tooltip_research_subject_learning: "[scheme.MakeScope.Var('research_subject').CultureInnovationType.GetName] is a #P Scientific#! [innovation|E]: $VALUE|=+0$"
+ tooltip_research_subject_medical: "[scheme.MakeScope.Var('research_subject').CultureInnovationType.GetName] is a #P Medical#! [innovation|E]: $VALUE|=+0$"
+ tooltip_research_subject_cloning: "[scheme.MakeScope.Var('research_subject').CultureInnovationType.GetName] is a #P Cloning#! [innovation|E]: $VALUE|=+0$"
+ tooltip_research_subject_gene_modding: "[scheme.MakeScope.Var('research_subject').CultureInnovationType.GetName] is a #P Gene Modding#! [innovation|E]: $VALUE|=+0$"
+ tooltip_research_subject_cybernetics: "[scheme.MakeScope.Var('research_subject').CultureInnovationType.GetName] is a #P Cybernetics#! [innovation|E]: $VALUE|=+0$"
+ 
+ colonial_research_subject_difficulty: "Colonial Era Innovation"
+ confederate_research_subject_difficulty: "Confederate Era Innovation"
+ trimillennial_research_subject_difficulty: "Trimillennial Era Innovation"
+ neorenaissance_research_subject_difficulty: "Neorenaissance Era Innovation"
+ confederate_era_research_bonus: "Culture Has Reached Confederate Era"
+ trimillennial_era_research_bonus: "Culture Has Reached Trimillennial Era"
+ neorenaissance_era_research_bonus: "Culture Has Reached Neorenaissance Era"
+ culture_research_bonus: "Same Culture Systems Already Have This Innovation"
+ neighbor_research_bonus: "Neighboring Systems Already Have This Innovation"
+ already_researched_bonus: "You Have Already Researched This Innovation"
  
  agent_research_doctor: "Doctor"
  agent_research_doctor_i: [scheme_speed_i]
  agent_research_doctor_desc: "#WEAK A medical doctor, brimming with knowledge about the human body and exactly what can go wrong with it.#!\n$EFFECT_LIST_BULLET$ Reduces [scheme_speed_i] [scheme_speed|E]\n$EFFECT_LIST_BULLET$ Requires [learning_i] [learning|E]\n$EFFECT_LIST_BULLET$ #P Benefits#! from [traits|E] like [GetTrait('lifestyle_physician').GetName( GetNullCharacter )] and [GetTrait('whole_of_body').GetName( GetNullCharacter )]\n$EFFECT_LIST_BULLET$ #N Suffers#! from [traits|E] like [GetTrait('drunkard').GetName( GetNullCharacter )] and [GetTrait('blind').GetName( GetNullCharacter )]"
  agent_research_physicist: "Physicist"
  agent_research_physicist_i: [scheme_speed_i]
- agent_research_physicist_desc: "#WEAK An expert on the fundamental particles and forces that make up the universe.#!\n$EFFECT_LIST_BULLET$ Reduces [scheme_speed_i] [scheme_speed|E]\n$EFFECT_LIST_BULLET$ Requires [learning_i] [learning|E]]\n$EFFECT_LIST_BULLET$ #P Benefits#! from [traits|E] like [GetTrait('scholar').GetName( GetNullCharacter )] and [GetTrait('humble').GetName( GetNullCharacter )]\n$EFFECT_LIST_BULLET$ #N Suffers#! from [traits|E] like [GetTrait('lazy').GetName( GetNullCharacter )] and [GetTrait('arbitrary').GetName( GetNullCharacter )]"
+ agent_research_physicist_desc: "#WEAK An expert on the fundamental particles and forces that make up the universe.#!\n$EFFECT_LIST_BULLET$ Reduces [scheme_speed_i] [scheme_speed|E]\n$EFFECT_LIST_BULLET$ Requires [learning_i] [learning|E]\n$EFFECT_LIST_BULLET$ #P Benefits#! from [traits|E] like [GetTrait('scholar').GetName( GetNullCharacter )] and [GetTrait('humble').GetName( GetNullCharacter )]\n$EFFECT_LIST_BULLET$ #N Suffers#! from [traits|E] like [GetTrait('lazy').GetName( GetNullCharacter )] and [GetTrait('arbitrary').GetName( GetNullCharacter )]"
  agent_research_engineer: "Engineer"
  agent_research_engineer_i: [scheme_speed_i]
  agent_research_engineer_desc: "#WEAK No matter how much theoretical knowledge you amass, putting it into use will always require a more practical touch.#!\n$EFFECT_LIST_BULLET$ Reduces [scheme_speed_i] [scheme_speed|E]\n$EFFECT_LIST_BULLET$ Requires [learning_i] [learning|E]\n$EFFECT_LIST_BULLET$ #P Benefits#! from [traits|E] like [GetTrait('architect').GetName( GetNullCharacter )] and [GetTrait('administrator').GetName( GetNullCharacter )]\n$EFFECT_LIST_BULLET$ #N Suffers#! from [traits|E] like [GetTrait('content').GetName( GetNullCharacter )] and [GetTrait('lazy').GetName( GetNullCharacter )]"

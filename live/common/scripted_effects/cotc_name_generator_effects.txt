@@ -219,25 +219,25 @@ select_military_noun = {
 		10 = { save_scope_value_as = { name = noun value = flag:champion } }
 		10 = {
 			trigger = {
-				NOT = { scope:adjective value = flag:brave }
-				NOT = { scope:adjective value = flag:courageous }
+				NOT = { scope:adjective ?= flag:brave }
+				NOT = { scope:adjective ?= flag:courageous }
 			}
 			save_scope_value_as = { name = noun value = flag:courage }
 		}
 		10 = { save_scope_value_as = { name = noun value = flag:cutlass } }
 		10 = {
-			trigger = { NOT = { scope:adjective value = flag:defiant } }
+			trigger = { NOT = { scope:adjective ?= flag:defiant } }
 			save_scope_value_as = { name = noun value = flag:defiance }
 		}
 		10 = {
-			trigger = { NOT = { scope:adjective value = flag:furious } }
+			trigger = { NOT = { scope:adjective ?= flag:furious } }
 			save_scope_value_as = { name = noun value = flag:fury }
 		}
 		10 = { save_scope_value_as = { name = noun value = flag:glaive } }
 		10 = { save_scope_value_as = { name = noun value = flag:guardian } }
 		10 = { save_scope_value_as = { name = noun value = flag:hammer } }
 		10 = {
-			trigger = { NOT = { scope:adjective value = flag:heroic } }
+			trigger = { NOT = { scope:adjective ?= flag:heroic } }
 			save_scope_value_as = { name = noun value = flag:hero }
 		}
 		10 = { save_scope_value_as = { name = noun value = flag:hunter } }
@@ -251,23 +251,23 @@ select_military_noun = {
 		10 = { save_scope_value_as = { name = noun value = flag:terror } }
 		10 = {
 			trigger = {
-				NOT = { scope:adjective value = flag:triumphant }
-				NOT = { scope:adjective value = flag:victorious }
+				NOT = { scope:adjective ?= flag:triumphant }
+				NOT = { scope:adjective ?= flag:victorious }
 			}
 			save_scope_value_as = { name = noun value = flag:triumph }
 		}
 		10 = {
 			trigger = {
-				NOT = { scope:adjective value = flag:valiant }
-				NOT = { scope:adjective value = flag:valorous }
+				NOT = { scope:adjective ?= flag:valiant }
+				NOT = { scope:adjective ?= flag:valorous }
 			}
 			save_scope_value_as = { name = noun value = flag:valor }
 		}
 		10 = { save_scope_value_as = { name = noun value = flag:vanguard } }
 		10 = {
 			trigger = {
-				NOT = { scope:adjective value = flag:triumphant }
-				NOT = { scope:adjective value = flag:victorious }
+				NOT = { scope:adjective ?= flag:triumphant }
+				NOT = { scope:adjective ?= flag:victorious }
 			}
 			save_scope_value_as = { name = noun value = flag:victory }
 		}
@@ -283,27 +283,27 @@ select_economic_noun = {
 		10 = { save_scope_value_as = { name = noun value = flag:galleon } }
 		10 = {
 			trigger = {
-				NOT = { scope:adjective value = flag:golden }
-				NOT = { scope:adjective value = flag:silver }
-				NOT = { scope:adjective value = flag:platinum }
+				NOT = { scope:adjective ?= flag:golden }
+				NOT = { scope:adjective ?= flag:silver }
+				NOT = { scope:adjective ?= flag:platinum }
 			}
 			save_scope_value_as = { name = noun value = flag:gold }
 		}
 		10 = { save_scope_value_as = { name = noun value = flag:merchant } }
 		10 = {
 			trigger = {
-				NOT = { scope:adjective value = flag:golden }
-				NOT = { scope:adjective value = flag:silver }
-				NOT = { scope:adjective value = flag:platinum }
+				NOT = { scope:adjective ?= flag:golden }
+				NOT = { scope:adjective ?= flag:silver }
+				NOT = { scope:adjective ?= flag:platinum }
 			}
 			save_scope_value_as = { name = noun value = flag:platinum }
 		}
 		10 = { save_scope_value_as = { name = noun value = flag:prosperity } }
 		10 = {
 			trigger = {
-				NOT = { scope:adjective value = flag:golden }
-				NOT = { scope:adjective value = flag:silver }
-				NOT = { scope:adjective value = flag:platinum }
+				NOT = { scope:adjective ?= flag:golden }
+				NOT = { scope:adjective ?= flag:silver }
+				NOT = { scope:adjective ?= flag:platinum }
 			}
 			save_scope_value_as = { name = noun value = flag:silver }
 		}
@@ -320,12 +320,12 @@ select_medical_noun = {
 		10 = { save_scope_value_as = { name = noun value = flag:breath } }
 		10 = { save_scope_value_as = { name = noun value = flag:elixir } }
 		10 = {
-			trigger = { NOT = { scope:adjective value = flag:healing } }
+			trigger = { NOT = { scope:adjective ?= flag:healing } }
 			save_scope_value_as = { name = noun value = flag:healer }
 		}
 		10 = { save_scope_value_as = { name = noun value = flag:heart } }
 		10 = {
-			trigger = { NOT = { scope:adjective value = flag:immortal } }
+			trigger = { NOT = { scope:adjective ?= flag:immortal } }
 			save_scope_value_as = { name = noun value = flag:immortality }
 		}
 		10 = { save_scope_value_as = { name = noun value = flag:life } }
@@ -346,11 +346,11 @@ select_learning_noun = {
 		10 = { save_scope_value_as = { name = noun value = flag:memory } }
 		10 = { save_scope_value_as = { name = noun value = flag:mentor } }
 		10 = {
-			trigger = { NOT = { scope:adjective value = flag:oracular } }
+			trigger = { NOT = { scope:adjective ?= flag:oracular } }
 			save_scope_value_as = { name = noun value = flag:oracle }
 		}
 		10 = {
-			trigger = { NOT = { scope:adjective value = flag:sage } }
+			trigger = { NOT = { scope:adjective ?= flag:sage } }
 			save_scope_value_as = { name = noun value = flag:sage }
 		}
 		10 = { save_scope_value_as = { name = noun value = flag:scholar } }
@@ -358,17 +358,17 @@ select_learning_noun = {
 		10 = { save_scope_value_as = { name = noun value = flag:teacher } }
 		10 = { save_scope_value_as = { name = noun value = flag:testament } }
 		10 = {
-			trigger = { NOT = { scope:adjective value = flag:thoughtful } }
+			trigger = { NOT = { scope:adjective ?= flag:thoughtful } }
 			save_scope_value_as = { name = noun value = flag:thought }
 		}
 		10 = { save_scope_value_as = { name = noun value = flag:tome } }
 		10 = { save_scope_value_as = { name = noun value = flag:truth } }
 		10 = {
-			trigger = { NOT = { scope:adjective value = flag:visionary } }
+			trigger = { NOT = { scope:adjective ?= flag:visionary } }
 			save_scope_value_as = { name = noun value = flag:vision }
 		}
 		10 = {
-			trigger = { NOT = { scope:adjective value = flag:wise } }
+			trigger = { NOT = { scope:adjective ?= flag:wise } }
 			save_scope_value_as = { name = noun value = flag:wisdom }
 		}
 	}
@@ -442,7 +442,7 @@ select_energy_noun = {
 		10 = { save_scope_value_as = { name = noun value = flag:inferno } }
 		10 = { save_scope_value_as = { name = noun value = flag:light } }
 		10 = {
-			trigger = { NOT = { scope:adjective value = flag:electric } }
+			trigger = { NOT = { scope:adjective ?= flag:electric } }
 			save_scope_value_as = { name = noun value = flag:lightning }
 		}
 		10 = { save_scope_value_as = { name = noun value = flag:nexus } }
@@ -452,7 +452,7 @@ select_energy_noun = {
 		10 = { save_scope_value_as = { name = noun value = flag:sun } }
 		10 = { save_scope_value_as = { name = noun value = flag:thunder } }
 		10 = {
-			trigger = { NOT = { scope:adjective value = flag:volcanic } }
+			trigger = { NOT = { scope:adjective ?= flag:volcanic } }
 			save_scope_value_as = { name = noun value = flag:volcano }
 		}
 		10 = { save_scope_value_as = { name = noun value = flag:whirlwind } }

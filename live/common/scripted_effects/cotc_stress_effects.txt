@@ -466,3 +466,55 @@ negative_sociability_stress_gain_effect = {
 		}
 	}
 }
+positive_hawkishness_stress_gain_effect = {
+	if = {
+		limit = { ai_hawkishness >= very_low_positive_ai_value }
+		custom_tooltip = pos_hawkishness_desc
+		add_stress = {
+			value = $SCALE$
+			if = {
+				limit = { ai_hawkishness >= very_high_positive_ai_value }
+				multiply = massive_stress_gain
+			}
+			else_if = {
+				limit = { ai_hawkishness >= high_positive_ai_value }
+				multiply = major_stress_gain
+			}
+			else_if = {
+				limit = { ai_hawkishness >= medium_positive_ai_value }
+				multiply = medium_stress_gain
+			}
+			else_if = {
+				limit = { ai_hawkishness >= low_positive_ai_value }
+				multiply = minor_stress_gain
+			}
+			else = { multiply = miniscule_stress_gain }
+		}
+	}
+}
+negative_hawkishness_stress_gain_effect = {
+	if = {
+		limit = { ai_hawkishness <= very_low_negative_ai_value }
+		custom_tooltip = neg_hawkishness_desc
+		add_stress = {
+			value = $SCALE$
+			if = {
+				limit = { ai_hawkishness <= very_high_negative_ai_value }
+				multiply = massive_stress_gain
+			}
+			else_if = {
+				limit = { ai_hawkishness <= high_negative_ai_value }
+				multiply = major_stress_gain
+			}
+			else_if = {
+				limit = { ai_hawkishness <= medium_negative_ai_value }
+				multiply = medium_stress_gain
+			}
+			else_if = {
+				limit = { ai_hawkishness <= low_negative_ai_value }
+				multiply = minor_stress_gain
+			}
+			else = { multiply = miniscule_stress_gain }
+		}
+	}
+}
