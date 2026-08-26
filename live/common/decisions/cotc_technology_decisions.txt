@@ -69,7 +69,6 @@
 			is_shown = { NOT = { character_has_tech = { TECH = culture_innovation:innovation_mass_literacy } } }
 			is_valid = { can_research_tech_by_string = { TECH = mass_literacy } }
 			localization = start_research_project_mass_literacy
-			current_description = start_research_project_mass_literacy.desc
 			ai_chance = {
 				add = {
 					integer_range = {
@@ -87,7 +86,6 @@
 			is_shown = { NOT = { character_has_tech = { TECH = culture_innovation:innovation_propaganda } } }
 			is_valid = { can_research_tech_by_string = { TECH = propaganda } }
 			localization = start_research_project_propaganda
-			current_description = start_research_project_propaganda.desc
 			ai_chance = {
 				add = {
 					integer_range = {
@@ -105,7 +103,6 @@
 			is_shown = { NOT = { character_has_tech = { TECH = culture_innovation:innovation_fusion_reactors } } }
 			is_valid = { can_research_tech_by_string = { TECH = fusion_reactors } }
 			localization = start_research_project_fusion_reactors
-			current_description = start_research_project_fusion_reactors.desc
 			ai_chance = {
 				add = {
 					integer_range = {
@@ -127,7 +124,6 @@
 			is_shown = { NOT = { character_has_tech = { TECH = culture_innovation:innovation_modern_medicine } } }
 			is_valid = { can_research_tech_by_string = { TECH = modern_medicine } }
 			localization = start_research_project_modern_medicine
-			current_description = start_research_project_modern_medicine.desc
 			ai_chance = {
 				add = {
 					integer_range = {
@@ -145,7 +141,6 @@
 			is_shown = { NOT = { character_has_tech = { TECH = culture_innovation:innovation_genetic_screening } } }
 			is_valid = { can_research_tech_by_string = { TECH = genetic_screening } }
 			localization = start_research_project_genetic_screening
-			current_description = start_research_project_genetic_screening.desc
 			ai_chance = {
 				add = {
 					integer_range = {
@@ -164,7 +159,6 @@
 			is_shown = { NOT = { character_has_tech = { TECH = culture_innovation:innovation_cloning } } }
 			is_valid = { can_research_tech_by_string = { TECH = cloning } }
 			localization = start_research_project_cloning
-			current_description = start_research_project_cloning.desc
 			ai_chance = {
 				add = {
 					integer_range = {
@@ -182,7 +176,6 @@
 			is_shown = { NOT = { character_has_tech = { TECH = culture_innovation:innovation_cybernetics } } }
 			is_valid = { can_research_tech_by_string = { TECH = cybernetics } }
 			localization = start_research_project_cybernetics
-			current_description = start_research_project_cybernetics.desc
 			ai_chance = {
 				add = {
 					integer_range = {
@@ -200,7 +193,6 @@
 			is_shown = { NOT = { character_has_tech = { TECH = culture_innovation:innovation_direct_neural_interface } } }
 			is_valid = { can_research_tech_by_string = { TECH = direct_neural_interface } }
 			localization = start_research_project_direct_neural_interface
-			current_description = start_research_project_direct_neural_interface.desc
 			ai_chance = {
 				add = {
 					integer_range = {
@@ -218,7 +210,6 @@
 			is_shown = { NOT = { character_has_tech = { TECH = culture_innovation:innovation_nuclear_missiles } } }
 			is_valid = { can_research_tech_by_string = { TECH = nuclear_missiles } }
 			localization = start_research_project_nuclear_missiles
-			current_description = start_research_project_nuclear_missiles.desc
 			ai_chance = {
 				add = {
 					integer_range = {
@@ -236,7 +227,6 @@
 			is_shown = { NOT = { character_has_tech = { TECH = culture_innovation:innovation_automatic_weapons } } }
 			is_valid = { can_research_tech_by_string = { TECH = automatic_weapons } }
 			localization = start_research_project_automatic_weapons
-			current_description = start_research_project_automatic_weapons.desc
 			ai_chance = {
 				add = {
 					integer_range = {
@@ -254,7 +244,6 @@
 			is_shown = { NOT = { character_has_tech = { TECH = culture_innovation:innovation_lasers } } }
 			is_valid = { can_research_tech_by_string = { TECH = lasers } }
 			localization = start_research_project_lasers
-			current_description = start_research_project_lasers.desc
 			ai_chance = {
 				add = {
 					integer_range = {
@@ -310,6 +299,7 @@
 					save_scope_value_as = { name = medical value = flag:yes }
 					save_scope_value_as = { name = transhumanist value = flag:yes }
 					save_scope_value_as = { name = engineering value = flag:yes }
+					save_scope_value_as = { name = cloning_flag value = flag:yes }
 					save_scope_value_as = { name = max_doctor_slots value = 5 }
 				}
 				scope:genetic_screening = {
@@ -318,6 +308,7 @@
 					save_scope_value_as = { name = medical value = flag:yes }
 					save_scope_value_as = { name = transhumanist value = flag:yes }
 					save_scope_value_as = { name = engineering value = flag:yes }
+					save_scope_value_as = { name = gene_modding_flag value = flag:yes }
 					save_scope_value_as = { name = max_doctor_slots value = 5 }
 				}
 				scope:cybernetics = {
@@ -327,6 +318,7 @@
 					save_scope_value_as = { name = mechanical value = flag:yes }
 					save_scope_value_as = { name = transhumanist value = flag:yes }
 					save_scope_value_as = { name = engineering value = flag:yes }
+					save_scope_value_as = { name = cybernetics_flag value = flag:yes }
 					save_scope_value_as = { name = max_doctor_slots value = 2 }
 					save_scope_value_as = { name = max_engineer_slots value = 3 }
 				}
@@ -337,6 +329,7 @@
 					save_scope_value_as = { name = mechanical value = flag:yes }
 					save_scope_value_as = { name = transhumanist value = flag:yes }
 					save_scope_value_as = { name = engineering value = flag:yes }
+					save_scope_value_as = { name = cybernetics_flag value = flag:yes }
 					save_scope_value_as = { name = max_doctor_slots value = 2 }
 					save_scope_value_as = { name = max_engineer_slots value = 3 }
 				}
@@ -367,6 +360,7 @@
 					save_scope_value_as = { name = max_officer_slots value = 2 }
 				}
 			}
+			add_character_flag = starting_research_project
 			custom_tooltip = {
 				trigger_event = cotc_research_project_events.1
 				text = start_new_research_project.tt

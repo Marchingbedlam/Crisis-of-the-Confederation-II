@@ -7,7 +7,7 @@ economic_research_project_score = {
 	add = stewardship
 }
 military_research_project_score = {
-	add = ai_warlikeness
+	add = ai_hawkishness
 	if = { # Favor military projects when threatened
 		limit = { is_threatened_trigger = yes }
 		add = {
@@ -173,6 +173,51 @@ research_project_prestige_reward = {
 				multiply = 1.5
 			}
 			else = { multiply = 1.25 }
+		}
+	}
+}
+research_project_piety_reward = {
+	value = 0
+	faith = {
+		if = {
+			limit = { exists = scope:military }
+			add = {
+				value = ideology_hawkishness
+				multiply = 50
+			}
+		}
+		if = {
+			limit = { exists = scope:cybernetics_flag }
+			if = {
+				limit = { has_doctrine_parameter = hates_cybernetics }
+				subtract = 100
+			}
+			else_if = {
+				limit = { has_doctrine_parameter = supports_cybernetics }
+				add = 100
+			}
+		}
+		if = {
+			limit = { exists = scope:gene_modding_flag }
+			if = {
+				limit = { has_doctrine_parameter = hates_gene_modding }
+				subtract = 100
+			}
+			else_if = {
+				limit = { has_doctrine_parameter = supports_gene_modding }
+				add = 100
+			}
+		}
+		if = {
+			limit = { exists = scope:cloning_flag }
+			if = {
+				limit = { has_doctrine_parameter = hates_cloning }
+				subtract = 100
+			}
+			else_if = {
+				limit = { has_doctrine_parameter = supports_cloning }
+				add = 100
+			}
 		}
 	}
 }
