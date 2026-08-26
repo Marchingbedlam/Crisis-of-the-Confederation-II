@@ -1,0 +1,236 @@
+﻿castle_holding = {
+	primary_building = castle_01
+	buildings = {
+		# COTC Buildings
+		# Standard Economic
+		ice_collector_01
+		common_tradeberth_01
+		commercial_yards_01
+		agriculture_01
+		dome_farms_01
+		module_farms_01
+		refinery_01
+		forges_01
+		exotic_forges_01
+		xenofauna_01
+		water_collector_01
+
+		# Standard Military
+		capital_shipyard_01
+		officer_school_01
+		he_depot_01
+		patrols_01
+		regattas_01
+		military_berths_01
+		test_grounds_01
+		marines_01
+		grav_forges_01
+		linked_defense_01
+
+		# Infrastructure
+		hab_infrastructure_01
+		orb_infrastructure_01
+
+		# Fortification Buildings
+		planet_defense_01
+		defense_network_01
+		ds_surveys_01
+		asteroid_ambushes_01
+
+	}
+}
+
+tribal_holding = {
+	primary_building = tribe_01
+
+	buildings = {
+		# COTC Buildings
+		ice_collector_01
+
+		# Vanilla Buildings
+		palisades_01
+		war_camps_01
+		longhouses_01
+		market_villages_01
+		
+		idjang_forts_01
+		wantilan_01
+		kora_kora_yards_01
+		water_temples_01
+		stilted_granaries_01
+		
+		hillside_grazing_01
+		warrior_lodges_01
+		horse_pastures_01
+
+		common_tradeport_01 # only for trade_ports_enabled_for_tribals culture parameter
+
+		oath_warriors_building_01
+		oath_faithful_building_01
+		oath_poor_building_01
+		
+		monastic_schools_01 # only for the monastic_schools_allowed_in_every_holding_type faith tenet
+	}
+}
+
+city_holding = {
+	primary_building = city_01
+	buildings = {
+		# COTC Buildings
+		# Standard Economic
+		ice_collector_01
+		common_tradeberth_01
+		commercial_yards_01
+		agriculture_01
+		dome_farms_01
+		module_farms_01
+		refinery_01
+		forges_01
+		exotic_forges_01
+		xenofauna_01
+		water_collector_01
+
+		# Standard Military
+		capital_shipyard_01
+		officer_school_01
+		he_depot_01
+		patrols_01
+		regattas_01
+		military_berths_01
+		test_grounds_01
+		marines_01
+		grav_forges_01
+		linked_defense_01
+
+		# Infrastructure
+		hab_infrastructure_01
+		orb_infrastructure_01
+
+		# (CotC) City Buildings
+		resorts_01
+		cloning_bay_01
+		manufactories_01
+
+	}
+
+	can_be_inherited = yes
+}
+
+church_holding = {
+	primary_building = temple_01
+	buildings = {
+		# COTC Buildings
+		# Standard Economic
+		ice_collector_01
+		common_tradeberth_01
+		commercial_yards_01
+		agriculture_01
+		dome_farms_01
+		module_farms_01
+		refinery_01
+		forges_01
+		exotic_forges_01
+		xenofauna_01
+		water_collector_01
+
+		# Standard Military
+		capital_shipyard_01
+		officer_school_01
+		he_depot_01
+		patrols_01
+		regattas_01
+		military_berths_01
+		test_grounds_01
+		marines_01
+		grav_forges_01
+		linked_defense_01
+
+		# Infrastructure
+		hab_infrastructure_01
+		orb_infrastructure_01
+
+		# (COTC) Unique Temple
+
+		pharmaceuticals_01
+		bureaucracy_01
+		research_labs_01
+		propaganda_01
+		diplomatic_corps_01
+	}
+
+	can_be_inherited = yes
+}
+
+nomad_holding = {
+	primary_building = nomadic_camp_01
+	counts_toward_domain_limit_if_disabled = no
+	can_be_inherited = yes
+	required_heir_government_types = { nomad_government }
+
+	parameters = {
+		no_buildings
+		no_levies
+		county_fertility
+	}
+}
+
+herder_holding = {
+	primary_building = herder_camp_01
+	counts_toward_domain_limit_if_disabled = no
+	can_be_inherited = yes
+	required_heir_government_types = {
+		nomad_government
+		herder_government
+	}
+	
+	parameters = {
+		no_buildings
+		no_levies
+		county_fertility
+	}
+}
+
+temple_citadel_holding = {
+	primary_building = temple_citadel_01
+	buildings = {
+		# COTC Buildings
+		# Standard Economic
+		ice_collector_01
+		common_tradeberth_01
+		commercial_yards_01
+		agriculture_01
+		dome_farms_01
+		module_farms_01
+		refinery_01
+		forges_01
+		exotic_forges_01
+		xenofauna_01
+		water_collector_01
+
+		# Standard Military
+		capital_shipyard_01
+		officer_school_01
+		he_depot_01
+		patrols_01
+		regattas_01
+		military_berths_01
+		test_grounds_01
+		marines_01
+		grav_forges_01
+		linked_defense_01
+
+		# (COTC) Unique Temple
+
+		pharmaceuticals_01
+		bureaucracy_01
+		research_labs_01
+		propaganda_01
+		diplomatic_corps_01
+
+		# Infrastructure
+		hab_infrastructure_01
+		orb_infrastructure_01
+	}
+
+	can_be_inherited = yes
+}

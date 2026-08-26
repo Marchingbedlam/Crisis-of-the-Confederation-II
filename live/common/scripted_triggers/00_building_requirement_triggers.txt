@@ -124,6 +124,34 @@ building_requirement_castle_city_church_temple_citadel_tribe = {
 	}
 }
 
+# CotC stellar infrastructure requirements
+building_requirement_space_infrastructure = {
+	trigger_if = {  # Special Counts as Infrastructure
+		limit = { building_counts_as_infrastructure = yes }
+		always = yes
+	}
+	trigger_else_if = {  # Hard-space locations
+		limit = { building_orb_infrastructure_requirement_terrain = yes }
+		has_building_or_higher = orb_infrastructure_$LEVEL$
+	}
+	trigger_else_if = {  # Ground-based locations
+		limit = { building_hab_infrastructure_requirement_terrain = yes }
+		has_building_or_higher = hab_infrastructure_$LEVEL$
+	}
+	trigger_else = {  # Atmospheric
+		always = yes
+	}
+}
+
+building_counts_as_infrastructure = {
+	# List of special buildings that count as infrastructure
+	OR = {
+		has_building_or_higher = dharmaalay_archipelago_01
+		has_building_or_higher = uranium_keep_01
+		has_building_or_higher = altair_core_01
+	}
+}
+
 ######################################################################
 # Special
 ######################################################################
@@ -150,6 +178,141 @@ building_university_requirement = {
 ######################################################################
 # Terrain
 ######################################################################
+
+# COTC Building Requirements
+building_ice_collector_requirement_terrain = {
+	OR = {
+		terrain = frozen
+		terrain = frozen_giant
+		terrain = asteroids
+	}
+}
+
+building_agriculture_requirement_terrain = {
+	terrain = atmospheric
+}
+
+building_water_collector_requirement_terrain = {
+	terrain = atmospheric
+}
+
+building_dome_farms_requirement_terrain = {
+	OR = {
+		terrain = asteroids
+		terrain = barren
+		terrain = corrosive
+		terrain = frozen
+	}
+}
+
+building_module_farms_requirement_terrain = {
+	OR = {
+		terrain = frozen_giant
+		terrain = gas_giant
+		terrain = open_space
+		terrain = nebula
+	}
+}
+
+building_refinery_requirement_terrain = {
+	OR = {
+		terrain = corrosive
+		terrain = nebula
+	}
+}
+
+building_forges_requirement_terrain = {
+	OR = {	
+		terrain = atmospheric
+		terrain = barren
+		terrain = corrosive
+		terrain = frozen
+	}
+}
+
+building_exotic_forges_requirement_terrain = {
+	terrain = asteroids
+}
+
+building_xenofauna_requirement_terrain = {
+	terrain = atmospheric
+}
+
+building_he_depot_requirement_terrain = {
+	terrain = corrosive
+}
+
+building_regattas_requirement_terrain = {
+	OR = {
+		terrain = asteroids
+		terrain = open_space
+	}
+}
+
+building_test_grounds_requirement_terrain = {
+	OR = {
+		terrain = barren
+		terrain = frozen	
+	}
+}
+
+building_grav_forges_requirement_terrain = {
+	OR = {
+		terrain = frozen_giant
+		terrain = gas_giant
+	}
+}
+
+building_marines_requirement_terrain = {
+	terrain = atmospheric
+}
+
+building_orb_infrastructure_requirement_terrain = {
+	OR = {
+		terrain = frozen_giant
+		terrain = gas_giant
+		terrain = open_space
+		terrain = nebula
+	}
+}
+
+building_hab_infrastructure_requirement_terrain = {
+	OR = {
+		terrain = asteroids
+		terrain = barren
+		terrain = corrosive
+		terrain = frozen
+	}
+}
+
+building_planet_defense_requirement_terrain = {
+	OR = {
+		terrain = atmospheric
+		terrain = barren
+		terrain = corrosive
+		terrain = frozen
+	}
+}
+
+building_ds_surveys_requirement_terrain = {
+	OR = {
+		terrain = open_space
+		terrain = nebula
+	}
+}
+
+building_defense_network_requirement_terrain = {
+	OR = {
+		terrain = frozen_giant
+		terrain = gas_giant
+	}
+}
+
+building_asteroid_ambushes_requirement_terrain = {
+	terrain = asteroids
+}
+# End CotC
+
 
 building_common_tradeport_requirement_terrain = {
 	OR = {
