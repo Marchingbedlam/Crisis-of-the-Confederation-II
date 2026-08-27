@@ -1,43 +1,18 @@
-﻿xingjie = {
+﻿jingshi = {
 	color = { 60 2 3 }
 
 	name_order_convention = dynasty_always_first
-	ethos = ethos_courtly
+	ethos = ethos_bureaucratic
 	heritage = heritage_xingjie
-	language = language_cotc_chinese
+	language = language_cotc_mandarin
 	martial_custom = martial_custom_equal
 	head_determination = head_determination_domain
 
 	traditions = {
-		tradition_mystical_ancestors
-	}
-
-	dlc_tradition = {
-		trait = tradition_scholar_officials
-		requires_dlc_flag = all_under_heaven
-		fallback = tradition_philosopher_culture
-	}
-	dlc_tradition = {
-		trait = tradition_tgp_art_of_war
-		requires_dlc_flag = all_under_heaven
-		fallback = tradition_formation_fighting
-	}
-	dlc_tradition = {
-		trait = tradition_cultural_primacy
-		requires_dlc_flag = all_under_heaven
-	}
-	dlc_tradition = {
-		trait = tradition_tgp_court_machinations
-		requires_dlc_flag = all_under_heaven
-	}
-	dlc_tradition = {
-		trait = tradition_cultivation
-		requires_dlc_flag = all_under_heaven
-	}
-	dlc_tradition = {
-		trait = tradition_intensive_farming
-		requires_dlc_flag = all_under_heaven
-		fallback = tradition_agrarian
+		tradition_court_eunuchs
+		tradition_ruling_caste
+		tradition_language_scholars
+		tradition_philosopher_culture
 	}
 
 	name_list = name_list_cotc_chinese
@@ -49,9 +24,81 @@
 	house_coa_frame = house_china
 
 	ethnicities = {
-		180 = asian_han_chinese
-		2 = asian_manchu_korean
+		190 = asian_han_chinese
+		3 = asian_manchu_korean
 		1 = asian_mongol
-		1 = asian_tibetan
+	}
+}
+baixing = {
+	color = { 158 62 28 }
+	created = 2571.1.1 # Han settlers spread beyond the Xingjie core
+	parents = { jingshi }
+
+	name_order_convention = dynasty_always_first
+	ethos = ethos_communal
+	heritage = heritage_xingjie
+	language = language_cotc_mandarin
+	martial_custom = martial_custom_equal
+	head_determination = head_determination_domain
+
+	traditions = {
+		tradition_family_entrepreneurship
+		tradition_hard_working
+		tradition_collective_lands
+		tradition_wedding_ceremonies
+	}
+
+	name_list = name_list_cotc_chinese
+
+	coa_gfx = { chinese_group_coa_gfx }
+	building_gfx = { chinese_building_gfx }
+	clothing_gfx = { chinese_clothing_gfx }
+	unit_gfx = { chinese_unit_gfx }
+	house_coa_frame = house_china
+
+	ethnicities = {
+		150 = asian_han_chinese
+		8 = asian_manchu_korean
+		6 = asian_malay
+		4 = asian_mongol
+		3 = asian_tibetan
+		2 = turkic
+	}
+}
+tangren = {
+	color = { 205 158 45 }
+	created = 2688.1.1 # Chinese communities take root outside the Xingjie sphere
+	parents = { jingshi }
+
+	name_order_convention = dynasty_always_first
+	ethos = ethos_egalitarian
+	heritage = heritage_xingjie
+	language = language_cotc_mandarin
+	martial_custom = martial_custom_equal
+	head_determination = head_determination_domain
+
+	traditions = {
+		tradition_welcoming
+		tradition_xenophilic
+		tradition_talent_acquisition
+		tradition_storytellers
+	}
+
+	name_list = name_list_cotc_chinese
+
+	coa_gfx = { chinese_group_coa_gfx }
+	building_gfx = { chinese_building_gfx }
+	clothing_gfx = { chinese_clothing_gfx }
+	unit_gfx = { chinese_unit_gfx }
+	house_coa_frame = house_china
+
+	ethnicities = {
+		120 = asian_han_chinese
+		10 = asian_malay
+		6 = slavic_northern_brown_hair
+		5 = asian_japanese
+		4 = slavic_northern_blond
+		3 = caucasian_brown_hair
+		2 = asian_manchu_korean
 	}
 }
