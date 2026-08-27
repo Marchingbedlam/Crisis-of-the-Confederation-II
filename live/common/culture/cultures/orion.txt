@@ -1,4 +1,4 @@
-﻿orion = {
+﻿reachero = {
 	color = { 110 110 60 }
 	created = 2663.1.1 # Initial colonization of the Orion Reach
 	parents = { andante }
@@ -8,16 +8,13 @@
 	language = language_cotc_spanish
 	martial_custom = martial_custom_equal
 	head_determination = head_determination_domain
-	# Placeholders
 	traditions = {
-		tradition_religious_patronage
+		tradition_stalwart_defenders
+		tradition_adaptive_skirmishing
+		tradition_reverence_for_veterans
+		tradition_martial_admiration
 	}
 
-	dlc_tradition = {
-		trait = tradition_culture_blending
-		requires_dlc_flag = hybridize_culture
-	}
-	
 	name_list = name_list_cotc_spanish
 	
 	coa_gfx = { castilian_coa_gfx iberian_group_coa_gfx western_coa_gfx }
@@ -26,79 +23,71 @@
 	unit_gfx = { iberian_christian_unit_gfx }
 	
 	ethnicities = {
-		4 = mediterranean
-		4 = african
-		8 = white_indigenous
-		8 = black_white
-		8 = black_indigenous
-		36 = med_black_ind
+		16 = mediterranean
+		6 = african
+		10 = white_indigenous
+		10 = black_white
+		10 = black_indigenous
+		30 = med_black_ind
 		1 = mesoamerican_mixe_zoque
 		1 = mesoamerican_maya
 		1 = mesoamerican_otomangue
 		1 = mesoamerican_yuto_aztec
 	}
 }
-ortegan = {
-	color = { 91 114 106 }
-	created = 2663.1.1 # Initial colonization of the Orion Reach
-	parents = { navegante }
+consulado = {
+	color = { 176 138 58 }
+	created = 2741.1.1 # The merchant consulates charter the Reach's trade
+	parents = { reachero }
 
-	ethos = ethos_bellicose
+	ethos = ethos_bureaucratic
 	heritage = heritage_celestean
-	language = language_cotc_portuguese
+	language = language_cotc_spanish
 	martial_custom = martial_custom_equal
 	head_determination = head_determination_domain
 	traditions = {
-		tradition_chivalry
-		tradition_fervent_temple_builders
-		tradition_martial_admiration
+		tradition_ruling_caste
+		tradition_astute_diplomats
+		tradition_family_entrepreneurship
+		tradition_esteemed_hospitality
 	}
 
-	dlc_tradition = {
-		trait = tradition_fp2_ritualised_friendship
-		requires_dlc_flag = the_fate_of_iberia
-	}
+	name_list = name_list_cotc_spanish
 	
-	name_list = name_list_cotc_portuguese
-	
-	coa_gfx = { iberian_group_coa_gfx western_coa_gfx }
+	coa_gfx = { castilian_coa_gfx iberian_group_coa_gfx western_coa_gfx }
 	building_gfx = { iberian_building_gfx }
 	clothing_gfx = { iberian_christian_clothing_gfx western_clothing_gfx }
 	unit_gfx = { iberian_christian_unit_gfx }
 	
 	ethnicities = {
-		4 = mediterranean
+		28 = mediterranean
 		4 = african
 		8 = white_indigenous
 		8 = black_white
-		8 = black_indigenous
-		36 = med_black_ind
+		6 = black_indigenous
+		20 = med_black_ind
 		1 = mesoamerican_mixe_zoque
 		1 = mesoamerican_maya
 		1 = mesoamerican_otomangue
 		1 = mesoamerican_yuto_aztec
 	}
 }
-barajar = {
+krajina = {
 	color = { 143 169 128 }
 	created = 2663.1.1 # Initial colonization of the Orion Reach
-	
+
 	ethos = ethos_communal
 	heritage = heritage_celestean
-	language = language_cotc_balkan
+	language = language_cotc_serbian
 	martial_custom = martial_custom_male_only
 	head_determination = head_determination_domain
 	traditions = {
-		tradition_hussar
+		tradition_hit_and_run
 		tradition_religious_patronage
 		tradition_stalwart_defenders
+		tradition_loyal_soldiers
 	}
-	
-	dlc_tradition = {
-		trait = tradition_staunch_traditionalists
-		requires_dlc_flag = hybridize_culture
-	}
-	
+
 	name_list = name_list_cotc_serbian
 	
 	coa_gfx = { south_slavic_group_coa_gfx western_coa_gfx }
@@ -108,30 +97,29 @@ barajar = {
 	house_coa_frame = house_frame_02
 	house_coa_mask_offset = { 0.0 0.055 }
 	house_coa_mask_scale = { 0.9 0.9 }
-
+	
 	ethnicities = {
-		100 = mediterranean_byzantine
+		70 = mediterranean_byzantine
+		20 = slavic_brown_hair
+		10 = slavic_dark_hair
 	}
 }
-pauleti = {
+kresowiak = {
 	color = { 255 152 139 }
 	created = 2663.1.1 # Initial colonization of the Orion Reach
-	
+
 	ethos = ethos_courtly
 	heritage = heritage_celestean
 	language = language_cotc_polish
 	martial_custom = martial_custom_equal
 	head_determination = head_determination_domain
 	traditions = {
-		tradition_hussar
+		tradition_hit_and_run
 		tradition_xenophilic
+		tradition_esteemed_hospitality
+		tradition_ruling_caste
 	}
-	
-	dlc_tradition = {
-		trait = tradition_staunch_traditionalists
-		requires_dlc_flag = hybridize_culture
-	}
-	
+
 	name_list = name_list_cotc_polish
 	
 	coa_gfx = { polish_coa_gfx west_slavic_group_coa_gfx western_coa_gfx }
@@ -141,7 +129,7 @@ pauleti = {
 	house_coa_frame = house_frame_21
 	house_coa_mask_offset = { 0.0 0.055 }
 	house_coa_mask_scale = { 1.0 1.0 }
-
+	
 	ethnicities = {
 		45 = slavic_blond
 		5 = slavic_ginger
