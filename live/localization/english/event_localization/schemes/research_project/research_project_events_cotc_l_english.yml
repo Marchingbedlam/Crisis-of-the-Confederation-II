@@ -1,4 +1,5 @@
 ﻿l_english:
+ cotc_research_project_events.title: "Project [scheme.Custom('GetResearchProjectCodenameAdj')][scheme.Custom('GetResearchProjectCodenameNoun')]"
  cotc_research_project_events.1.intro.theory: "You have decided to commission a new investigation into the theory of [research_subject.GetName]. "
  cotc_research_project_events.1.intro.praxis: "You have decided to commission a new study on the hypothetical practice of [research_subject.GetName]. "
  cotc_research_project_events.1.intro.engineering: "You have decided to commission a new project aimed at developing viable [research_subject.GetName]. "
@@ -38,7 +39,7 @@
  cotc_research_project_events.11.desc: "At last, your work on [patron.Custom('GetBestName')]'s [discovered_innovation.GetName] research project is complete! This achievement will surely make your name better known in the academic community, and of course the [patron.GetTierAsNameNoTooltip] has made sure that you are generously compensated for your services."
  cotc_research_project_events.11.a: "A job well done."
  
- cotc_research_project_events.20.desc: "With the loss of your worlds and titles, you have lost access to the resources you once had, and Project [scheme.GetResearchProjectCodenameAdj][scheme.GetResearchProjectCodenameNoun] has come to an ignominous end."
+ cotc_research_project_events.20.desc: "With the loss of your worlds and titles, you have lost access to the resources you once had, and Project [scheme.Custom('GetResearchProjectCodenameAdj')][scheme.Custom('GetResearchProjectCodenameNoun')] has come to an ignominous end."
  cotc_research_project_events.20.a: "Wonderful, more bad news."
  cotc_research_project_events.21.desc: "With the fall of [patron.Custom('GetBestName')], [patron.Custom('GetTheir')] is no longer funded and has come an end. It would appear you are out of a job."
  cotc_research_project_events.21.a: "I have more important things to do, anyway."
@@ -47,3 +48,21 @@
  cotc_research_project_events.30.a: "A complete waste of time and money."
  cotc_research_project_events.31.desc: "You have just received word that your work on [research_subject.GetName] for [patron.Custom('GetBestName')] has been deemed obsolete - it appears that someone else has beaten you to the punch. The project has been shuttered, and you will not receive any further pay."
  cotc_research_project_events.31.a: "What a colossal waste of my time."
+ 
+ cotc_research_project_events.50.desc: "Among the many other issues caused by the death of your predecessor, [old_project_patron.Custom('GetBestName')], there is the matter of Project [scheme.Custom('GetResearchProjectCodenameAdj')][scheme.Custom('GetResearchProjectCodenameNoun')], [old_project_patron.Custom('GetTheir')] [scheme.Custom('GetResearchProjectType')] [scheme.MakeScope.Var('research_subject').CultureInnovationType.GetName]. [old_project_patron.Custom('GetTheir')|U] death has disrupted the project somewhat, but not to the point of derailing it entirely. Research will continue as long as you are interesting in continuing it."
+ cotc_research_project_events.50.a: "I see."
+ cotc_research_project_events.51.desc: "The death of [old_project_patron.Custom('GetBestName')] has caused significant disruption to the progress of Project [scheme.Custom('GetResearchProjectCodenameAdj')][scheme.Custom('GetResearchProjectCodenameNoun')], but has not derailed it entirely. You have been asked to continue on in your current role on the project.
+ cotc_research_project_events.51.a: "I see."
+ 
+ cotc_research_project_events.60.desc: "Among the many other issues caused by your taking over [title.GetDefinitiveName], there is the matter of Project [scheme.Custom('GetResearchProjectCodenameAdj')][scheme.Custom('GetResearchProjectCodenameNoun')], your predecessor's [scheme.Custom('GetResearchProjectType')] [scheme.MakeScope.Var('research_subject').CultureInnovationType.GetName]. The change of power has disrupted the project somewhat, but not to the point of derailing it entirely. Research will continue as long as you are interesting in continuing it."
+ cotc_research_project_events.60.a: "I see."
+ cotc_research_project_events.61.desc: "The transfer of power from [old_project_patron.Custom('GetBestName')] to [owner.Custom('GetBestName')] has caused significant disruption to the progress of Project [scheme.Custom('GetResearchProjectCodenameAdj')][scheme.Custom('GetResearchProjectCodenameNoun')], but has not derailed it entirely. You have been asked to continue on in your current role on the project.
+ cotc_research_project_events.61.a: "I see."
+ cotc_research_project_events.62.desc: "The transfer of [title.GetDefinitiveName] has left you without the resources or authority to continue Project [scheme.Custom('GetResearchProjectCodenameAdj')][scheme.Custom('GetResearchProjectCodenameNoun')]. However, while the transfer of power has disrupted the project, it has not derailed it entirely, and your successor, [owner.Custom('GetBestName')] will be able to continue it."
+ cotc_research_project_events.62.a: "I see."
+ 
+ cotc_research_project_events.100.desc: "Project [scheme.Custom('GetResearchProjectCodenameAdj')][scheme.Custom('GetResearchProjectCodenameNoun')] aims to bring [scheme.MakeScope.Var('research_subject').CultureInnovationType.GetName] to [owner.GetCapitalLocation.GetCounty.GetDefinitiveName]."
+ cotc_research_project_events.100.a: "Increase Funding"
+ project_slots_maxed.tt: "Project [scheme.Custom('GetResearchProjectCodenameAdj')][scheme.Custom('GetResearchProjectCodenameNoun')] already has 5 [agent|E] Slots"
+ cotc_research_project_events.100.a.tt: "Project [scheme.Custom('GetResearchProjectCodenameAdj')][scheme.Custom('GetResearchProjectCodenameNoun')] gains #P 1#! [agent|E] Slot"
+ cotc_research_project_events.100.b: "Close"

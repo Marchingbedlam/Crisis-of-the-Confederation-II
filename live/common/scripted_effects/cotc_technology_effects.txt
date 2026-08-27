@@ -116,6 +116,118 @@ add_research_project_agent_slots = {
 		add_new_research_project_agent_slot = { TYPE = physicist }
 	}
 }
+copy_research_project_data = {
+	# Copy basic data
+	set_variable = { name = research_subject value = $SCHEME$.var:research_subject }
+	set_variable = { name = codename_adjective value = $SCHEME$.var:codename_adjective }
+	set_variable = { name = codename_noun value = $SCHEME$.var:codename_noun }
+	set_variable = { name = grant_money value = $SCHEME$.var:grant_money }
+	set_variable = { name = max_agent_slots value = $SCHEME$.var:max_agent_slots }
+	add_scheme_progress = $SCHEME$.scheme_progress
+	set_research_project_difficulty_effect = yes
+	
+	# Copy flags
+	if = {
+		limit = { $SCHEME$ = { has_variable = theory } }
+		set_variable = theory
+	}
+	if = {
+		limit = { $SCHEME$ = { has_variable = praxis } }
+		set_variable = praxis
+	}
+	if = {
+		limit = { $SCHEME$ = { has_variable = engineering } }
+		set_variable = engineering
+	}
+	if = {
+		limit = { $SCHEME$ = { has_variable = military } }
+		set_variable = military
+	}
+	if = {
+		limit = { $SCHEME$ = { has_variable = economic } }
+		set_variable = economic
+	}
+	if = {
+		limit = { $SCHEME$ = { has_variable = social } }
+		set_variable = social
+	}
+	if = {
+		limit = { $SCHEME$ = { has_variable = energy } }
+		set_variable = energy
+	}
+	if = {
+		limit = { $SCHEME$ = { has_variable = mechanical } }
+		set_variable = mechanical
+	}
+	if = {
+		limit = { $SCHEME$ = { has_variable = medical } }
+		set_variable = medical
+	}
+	if = {
+		limit = { $SCHEME$ = { has_variable = learning } }
+		set_variable = learning
+	}
+	if = {
+		limit = { $SCHEME$ = { has_variable = transhumanist } }
+		set_variable = transhumanist
+	}
+	if = {
+		limit = { $SCHEME$ = { has_variable = cybernetics } }
+		set_variable = cybernetics
+	}
+	if = {
+		limit = { $SCHEME$ = { has_variable = gene_modding } }
+		set_variable = gene_modding
+	}
+	if = {
+		limit = { $SCHEME$ = { has_variable = cloning } }
+		set_variable = cloning
+	}
+	
+	# Copy agents
+	if = {
+		limit = { exists = $SCHEME$.var:max_economist_slots }
+		set_variable = { name = max_economist_slots value = $SCHEME$.var:max_economist_slots }
+	}
+	if = {
+		limit = { exists = $SCHEME$.var:max_sociologist_slots }
+		set_variable = { name = max_sociologist_slots value = $SCHEME$.var:max_sociologist_slots }
+	}
+	if = {
+		limit = { exists = $SCHEME$.var:max_officer_slots }
+		set_variable = { name = max_officer_slots value = $SCHEME$.var:max_officer_slots }
+	}
+	if = {
+		limit = { exists = $SCHEME$.var:max_doctor_slots }
+		set_variable = { name = max_doctor_slots value = $SCHEME$.var:max_doctor_slots }
+	}
+	if = {
+		limit = { exists = $SCHEME$.var:max_engineer_slots }
+		set_variable = { name = max_engineer_slots value = $SCHEME$.var:max_engineer_slots }
+	}
+	if = {
+		limit = { exists = $SCHEME$.var:max_physicist_slots }
+		set_variable = { name = max_physicist_slots value = $SCHEME$.var:max_physicist_slots }
+	}
+	add_research_project_agent_slots = yes
+	
+	save_temporary_scope_as = temp_new_scheme
+	$SCHEME$ = {
+		every_scheme_agent_slot = {
+			limit = { is_filled = yes }
+			save_temporary_scope_as = old_agent_slot
+			switch = {
+				trigger = is_agent_slot_type
+				agent_research_economist = { copy_research_project_agent_slot = { NEW_SCHEME = scope:temp_new_scheme TYPE = economist } }
+				agent_research_sociologist = { copy_research_project_agent_slot = { NEW_SCHEME = scope:temp_new_scheme TYPE = sociologist } }
+				agent_research_officer = { copy_research_project_agent_slot = { NEW_SCHEME = scope:temp_new_scheme TYPE = officer } }
+				agent_research_doctor = { copy_research_project_agent_slot = { NEW_SCHEME = scope:temp_new_scheme TYPE = doctor } }
+				agent_research_engineer = { copy_research_project_agent_slot = { NEW_SCHEME = scope:temp_new_scheme TYPE = engineer } }
+				agent_research_physicist = { copy_research_project_agent_slot = { NEW_SCHEME = scope:temp_new_scheme TYPE = physicist } }
+			}
+		}
+	}
+}
 
 # STRING EFFECTS
 # These are modular and will not need as much constant maintenance
@@ -278,6 +390,23 @@ add_new_research_project_agent_slot = {
 		}
 	}
 }
+copy_research_project_agent_slot = {
+	slot_character = { save_temporary_scope_as = temp_agent_to_copy }
+	$NEW_SCHEME$ = {
+		random_scheme_agent_slot = {
+			limit = {
+				is_filled = no
+				is_agent_slot_type = agent_research_$TYPE$
+			}
+			scope:temp_agent_to_copy = {
+				if = {
+					limit = { is_valid_as_agent_in_slot = PREV }
+					add_to_agent_slot = PREV
+				}
+			}
+		}
+	}
+}
 save_research_project_scopes_effect = { # Run this when it's possible the project will end before some scopes need to be checked
 	var:research_subject = { save_scope_as = research_subject }
 	save_scope_value_as = { name = grant_money value = var:grant_money }
@@ -342,6 +471,57 @@ save_research_project_scopes_effect = { # Run this when it's possible the projec
 	if = {
 		limit = { has_variable = cloning }
 		save_scope_value_as = { name = cloning_flag value = flag:yes }
+	}
+}
+set_research_project_difficulty_effect = {	
+	# Set difficulty
+	var:research_subject = {
+		switch = {
+			trigger = has_innovation_parameter
+			colonial_civic = { scope:scheme = { add_scheme_modifier = { type = colonial_research_subject_difficulty } } }
+			colonial_military = { scope:scheme = { add_scheme_modifier = { type = colonial_research_subject_difficulty } } }
+			confederate_civic = { scope:scheme = { add_scheme_modifier = { type = confederate_research_subject_difficulty } } }
+			confederate_military = { scope:scheme = { add_scheme_modifier = { type = confederate_research_subject_difficulty } } }
+			trimillennial_civic = { scope:scheme = { add_scheme_modifier = { type = trimillennial_research_subject_difficulty } } }
+			trimillennial_military = { scope:scheme = { add_scheme_modifier = { type = trimillennial_research_subject_difficulty } } }
+			neorenaissance_civic = { scope:scheme = { add_scheme_modifier = { type = neorenaissance_research_subject_difficulty } } }
+			neorenaissance_military = { scope:scheme = { add_scheme_modifier = { type = neorenaissance_research_subject_difficulty } } }
+		}
+	}
+	scheme_owner = {
+		capital_county ?= {
+			culture = {
+				if = {
+					limit = { has_cultural_era_or_later = culture_era_early_medieval }
+					scope:scheme = { add_scheme_modifier = { type = confederate_era_research_bonus } }
+				}
+				if = {
+					limit = { has_cultural_era_or_later = culture_era_high_medieval }
+					scope:scheme = { add_scheme_modifier = { type = trimillennial_era_research_bonus } }
+				}
+				if = {
+					limit = { has_cultural_era_or_later = culture_era_late_medieval }
+					scope:scheme = { add_scheme_modifier = { type = neorenaissance_era_research_bonus } }
+				}
+				every_culture_county = {
+					limit = { county_has_tech = { TECH = scope:scheme.var:research_subject } }
+					scope:scheme = { add_scheme_modifier = { type = culture_research_bonus } }
+				}
+			}
+			every_neighboring_county = {
+				limit = { county_has_tech = { TECH = scope:scheme.var:research_subject } }
+				scope:scheme = { add_scheme_modifier = { type = neighbor_research_bonus } }
+			}
+		}
+		if = {
+			limit = {
+				any_secret = {
+					has_variable = research_subject
+					var:research_subject ?= scope:scheme.var:research_subject
+				}
+			}
+			scope:scheme = { add_scheme_modifier = { type = already_researched_bonus } }
+		}
 	}
 }
 add_research_project_stress_effects = {
@@ -455,6 +635,13 @@ add_research_project_secret_effect = {
 			}
 		}
 		else = { expose_secret = yes }
+	}
+}
+research_project_prep_effect = {
+	save_scope_as = scheme
+	if = {
+		limit = { NOT = { exists = scope:suppress_next_event } }
+		scheme_owner = { trigger_event = cotc_research_project_events.100 }
 	}
 }
 generate_research_project_codename = {
