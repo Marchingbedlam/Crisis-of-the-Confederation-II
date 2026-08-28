@@ -24,6 +24,7 @@ Includes = {
 	"bordercolor.fxh"
 	"cotc_overrides.fxh"
 	"cotc_utilities.fxh"
+	"cotc_map_edge_fade.fxh"
 	"cotc_sector_fill.fxh"
 	"generated/cotc_starlight_coord.fxh"
 	#END MOD
@@ -126,6 +127,20 @@ PixelShader =
 		SampleModeV = "Clamp"
 		File = "gfx/FX/generated/cotc_starlight_coord_lut.dds"
 	}
+
+	# MOD(COTC) - vanilla surround mask
+	TextureSampler COTC_SurroundMask
+	{
+		Index = 45
+		MagFilter = "Linear"
+		MinFilter = "Linear"
+		MipFilter = "Linear"
+		SampleModeU = "Border"
+		SampleModeV = "Border"
+		Border_Color = { 1 1 1 1 }
+		File = "gfx/map/surround_map/surround_mask.dds"
+	}
+	# END MOD
 
 	# MOD(map-skybox)
 	TextureSampler SkyboxSample
@@ -372,6 +387,9 @@ PixelShader =
 
 				COTC_ApplyHighlightColor(Color, ColorMapCoords);
 				COTC_ApplyBackgroundEffects( Color, Alpha, Input.WorldSpacePos, StarLayerMult );
+
+				float SurroundMaskValue = 1.0f - PdxTex2D( COTC_SurroundMask, float2( ColorMapCoords.x, 1.0f - ColorMapCoords.y ) ).b;
+				Alpha *= COTC_GetMapEdgeFade( ColorMapCoords ) * SurroundMaskValue;
 
 				return float4(Color, Alpha);
 			}
@@ -666,6 +684,13 @@ BlendState alpha_to_coverage
 	AlphaToCoverage = yes
 }
 
+BlendState alpha_blend_no_coverage
+{
+	BlendEnable = yes
+	SourceBlend = "SRC_ALPHA"
+	DestBlend = "INV_SRC_ALPHA"
+}
+
 Effect cotc_planet
 {
 	VertexShader = "COTC_VS_standard"
@@ -823,7 +848,7 @@ Effect cotc_plane
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_plane"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend_no_coverage"
 	DepthStencilState = DepthStencilState
 }
 
@@ -831,7 +856,7 @@ Effect cotc_plane_mapobject
 {
 	VertexShader = "COTC_VS_mapobject"
 	PixelShader = "COTC_PS_plane"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend_no_coverage"
 	DepthStencilState = DepthStencilState
 }
 
@@ -839,6 +864,6 @@ Effect cotc_plane_selection_mapobject
 {
 	VertexShader = "COTC_VS_mapobject"
 	PixelShader = "COTC_PS_plane"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend_no_coverage"
 	DepthStencilState = DepthStencilState
 }
