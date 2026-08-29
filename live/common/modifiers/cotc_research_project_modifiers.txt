@@ -38,3 +38,80 @@ already_researched_bonus = {
 	icon = learning_positive
 	scheme_success_chance = 50
 }
+
+personal_involvement_learning_bonus = {
+	icon = learning_positive
+	research_project_public_scheme_phase_duration_add = -0.25
+	
+	scale = {
+		value = {
+			add = learning
+			if = {
+				limit = {
+					scope:scheme = {
+						OR = {
+							is_target_in_variable_list = { name = flags target = flag:social }
+							is_target_in_variable_list = { name = flags target = flag:economic }
+							is_target_in_variable_list = { name = flags target = flag:military }
+						}
+					}
+				}
+				multiply = 3
+			}
+			else = { multiply = 4 }
+		}
+		display_mode = scaled
+	}
+}
+personal_involvement_diplomacy_bonus = {
+	icon = diplomacy_positive
+	research_project_public_scheme_phase_duration_add = -0.25
+	
+	scale = {
+		value = diplomacy
+		display_mode = scaled
+	}
+}
+personal_involvement_stewardship_bonus = {
+	icon = stewardship_positive
+	research_project_public_scheme_phase_duration_add = -0.25
+	
+	scale = {
+		value = stewardship
+		display_mode = scaled
+	}
+}
+personal_involvement_martial_bonus = {
+	icon = learning_positive
+	research_project_public_scheme_phase_duration_add = -0.25
+	
+	scale = {
+		value = martial
+		display_mode = scaled
+	}
+}
+researching_modifier = {
+	icon = learning_mixed
+	monthly_prestige_gain_mult = -1
+	legitimacy_loss_mult = 0.3
+	courtly_opinion = -20
+	glory_hound_opinion = -20
+}
+
+research_project_good_teamwork = {
+	icon = diplomacy_positive
+	scheme_phase_duration = -5
+}
+research_project_bad_teamwork = {
+	icon = diplomacy_negative
+	scheme_phase_duration = 5
+}
+
+research_project_breakthrough = {
+	icon = learning_positive
+	scheme_success_chance = 1
+}
+research_project_dead_end = {
+	icon = learning_negative
+	scheme_success_chance = -1
+}

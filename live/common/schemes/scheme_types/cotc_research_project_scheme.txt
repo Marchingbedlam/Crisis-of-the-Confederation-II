@@ -5,13 +5,21 @@
 	is_secret = no
 	
 	allow = {
-		highest_held_title_tier >= tier_county
-		exists = capital_county
+		trigger_if = {
+			limit = { NOT = { has_character_flag = inheriting_research_project } }
+			highest_held_title_tier >= tier_county
+			exists = capital_county
+		}
+		trigger_else = { always = yes }
 	}
 	valid = {
 		scope:owner = {
-			highest_held_title_tier >= tier_county
-			exists = capital_county
+			trigger_if = {
+				limit = { NOT = { has_character_flag = inheriting_research_project } }
+				highest_held_title_tier >= tier_county
+				exists = capital_county
+			}
+			trigger_else = { always = yes }
 		}
 		trigger_if = {
 			limit = { scope:scheme = { has_variable = research_subject } }
@@ -49,6 +57,13 @@
 	agent_groups_owner_perspective = { guests courtiers vassals nearby_domicile_owners }
 	
 	on_monthly = { scheme_owner = { trigger_event = { on_action = research_project_monthly_pulse } } }
+	on_hud_click = { research_project_prep_effect = yes }
+	on_semiyearly = {
+		if = {
+			limit = { is_ai = yes }
+			research_project_prep_effect = yes
+		}
+	}
 	on_phase_completed = {
 		# SUCCESS ROLL
 		random = {
@@ -62,9 +77,27 @@
 		if = {
 			limit = { exists = scope:scheme_successful }
 			save_research_project_scopes_effect = yes
-			scheme_owner = { trigger_event = cotc_research_project_events.10 }
+			scheme_owner = {
+				if = {
+					limit = { has_character_modifier = researching_modifier }
+					remove_research_project_personal_involvement = yes
+				}
+				trigger_event = cotc_research_project_events.10
+			}
 		}
 		else = { scheme_owner = { trigger_event = { on_action = research_project_phase_pulse } } }
 	}
-	on_invalidated = { scheme_owner = { trigger_event = { on_action = fail_research_project_on_action_scopes } } }
+	on_invalidated = {
+		scheme_owner = {
+			if = {
+				limit = { has_character_modifier = researching_modifier }
+				remove_research_project_personal_involvement = yes
+			}
+			if = {
+				limit = { has_character_flag = suppress_project_invalidation }
+				remove_character_flag = suppress_project_invalidation
+			}
+			else = { trigger_event = { on_action = fail_research_project_on_action_scopes } }
+		}
+	}
 }

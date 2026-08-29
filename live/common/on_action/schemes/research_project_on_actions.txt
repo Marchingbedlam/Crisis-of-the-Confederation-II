@@ -10,4 +10,74 @@ fail_research_project_on_action = {
 		cotc_research_project_events.30 # Project failed because you got the tech some other way
 	}
 }
+on_death = { on_actions = { inherit_research_project_by_death_on_action } }
+on_title_gain = { on_actions = { inherit_research_project_by_succession_on_action } }
+inherit_research_project_by_death_on_action = {
+	trigger = { any_scheme = { scheme_type = research_project_public } }
+	effect = {
+		save_scope_as = old_project_patron
+		random_scheme = {
+			limit = { scheme_type = research_project_public }
+			save_scope_as = old_scheme
+		}
+		if = {
+			limit = { capital_county ?= { current_heir ?= { NOT = { any_scheme = { scheme_type = research_project_public } } } } }
+			capital_county ?= {
+				current_heir ?= {
+					save_scope_as = owner
+					add_character_flag = inheriting_research_project
+					start_scheme = {
+						type = research_project_public
+						targets_nothing = yes
+						save_scope_as = scheme
+					}
+					scope:scheme = {
+						copy_research_project_data = { SCHEME = scope:old_scheme }
+						set_variable = { name = owner value = scope:owner }
+					}
+					trigger_event = { id = cotc_research_project_events.50 days = 1 }
+				}
+			}
+		}
+	}
+}
+inherit_research_project_by_succession_on_action = {
+	trigger = {
+		OR = {
+			scope:transfer_type = inheritance
+			scope:transfer_type = abdication
+			scope:transfer_type = usurped
+			scope:transfer_type = election
+		}
+		NOT = { any_scheme = { scheme_type = research_project_public } }
+		scope:previous_holder = {
+			any_scheme = { scheme_type = research_project_public }
+			NOT = { exists = capital_county }
+		}
+	}
+	effect = {
+		save_scope_as = owner
+		scope:previous_holder = {
+			save_scope_as = old_project_patron
+			random_scheme = {
+				limit = { scheme_type = research_project_public }
+				save_scope_as = old_scheme
+			}
+			add_character_flag = suppress_project_invalidation
+		}
+		add_character_flag = inheriting_research_project
+		start_scheme = {
+			type = research_project_public
+			targets_nothing = yes
+			save_scope_as = scheme
+		}
+		scope:scheme = {
+			copy_research_project_data = { SCHEME = scope:old_scheme }
+			set_variable = { name = owner value = scope:owner }
+		}
+		scope:old_scheme = { invalidate_scheme = yes }
+		trigger_event = { id = cotc_research_project_events.61 days = 1 }
+		scope:previous_holder = { trigger_event = { id = cotc_research_project_events.62 days = 1 } }
+	}
+}
 research_project_monthly_pulse = { }

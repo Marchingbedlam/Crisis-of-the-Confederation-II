@@ -23,11 +23,11 @@ cotc_research_project_events.1 = { # Start a new research project
 	desc = {
 		first_valid = {
 			triggered_desc = {
-				trigger = { exists = scope:theory }
+				trigger = { any_in_list = { list = research_project_flags this = flag:theory } }
 				desc = cotc_research_project_events.1.intro.theory
 			}
 			triggered_desc = {
-				trigger = { exists = scope:engineering }
+				trigger = { any_in_list = { list = research_project_flags this = flag:engineering } }
 				desc = cotc_research_project_events.1.intro.engineering
 			}
 			desc = cotc_research_project_events.1.intro.praxis
@@ -35,25 +35,25 @@ cotc_research_project_events.1 = { # Start a new research project
 		first_valid = {
 			triggered_desc = {
 				trigger = {
-					exists = scope:military
+					any_in_list = { list = research_project_flags this = flag:military }
 					exists = scope:enemy
 				}
 				desc = cotc_research_project_events.1.desc.military_war
 			}
 			triggered_desc = {
-				trigger = { exists = scope:military }
+				trigger = { any_in_list = { list = research_project_flags this = flag:military } }
 				desc = cotc_research_project_events.1.desc.military_peace
 			}
 			triggered_desc = {
-				trigger = { exists = scope:social }
+				trigger = { any_in_list = { list = research_project_flags this = flag:social } }
 				desc = cotc_research_project_events.1.desc.social
 			}
 			triggered_desc = {
-				trigger = { exists = scope:economic }
+				trigger = { any_in_list = { list = research_project_flags this = flag:economic } }
 				desc = cotc_research_project_events.1.desc.economic
 			}
 			triggered_desc = {
-				trigger = { exists = scope:transhumanist }
+				trigger = { any_in_list = { list = research_project_flags this = flag:transhumanist } }
 				desc = cotc_research_project_events.1.desc.transhumanist
 			}
 			desc = cotc_research_project_events.1.desc.other
@@ -82,6 +82,7 @@ cotc_research_project_events.1 = { # Start a new research project
 		random_scheme = {
 			limit = { scheme_type = research_project_public }
 			save_scope_as = scheme
+			set_variable = { name = owner value = ROOT }
 		}
 		ai_chance = {
 			base = 50
@@ -97,63 +98,10 @@ cotc_research_project_events.1 = { # Start a new research project
 		remove_character_flag = starting_research_project
 		scope:scheme ?= { # Assign research project data
 			set_variable = { name = research_subject value = scope:research_subject }
-			set_variable = { name = research_subject_flag value = scope:research_subject_flag }
 			# Set all project flags
-			if = {
-				limit = { exists = scope:theory }
-				set_variable = theory
-			}
-			if = {
-				limit = { exists = scope:praxis }
-				set_variable = praxis
-			}
-			if = {
-				limit = { exists = scope:engineering }
-				set_variable = engineering
-			}
-			if = {
-				limit = { exists = scope:military }
-				set_variable = military
-			}
-			if = {
-				limit = { exists = scope:economic }
-				set_variable = economic
-			}
-			if = {
-				limit = { exists = scope:social }
-				set_variable = social
-			}
-			if = {
-				limit = { exists = scope:energy }
-				set_variable = energy
-			}
-			if = {
-				limit = { exists = scope:mechanical }
-				set_variable = mechanical
-			}
-			if = {
-				limit = { exists = scope:medical }
-				set_variable = medical
-			}
-			if = {
-				limit = { exists = scope:learning }
-				set_variable = learning
-			}
-			if = {
-				limit = { exists = scope:transhumanist }
-				set_variable = transhumanist
-			}
-			if = {
-				limit = { exists = scope:cybernetics_flag }
-				set_variable = cybernetics
-			}
-			if = {
-				limit = { exists = scope:gene_modding_flag }
-				set_variable = gene_modding
-			}
-			if = {
-				limit = { exists = scope:cloning_flag }
-				set_variable = cloning
+			every_in_list = {
+				list = research_project_flags
+				scope:scheme = { add_to_variable_list = { name = flags target = PREV } }
 			}
 			# Set agent type caps
 			if = {
@@ -180,56 +128,7 @@ cotc_research_project_events.1 = { # Start a new research project
 				limit = { exists = scope:max_physicist_slots }
 				set_variable = { name = max_physicist_slots value = scope:max_physicist_slots }
 			}
-			
-			# Set difficulty
-			var:research_subject = {
-				switch = {
-					trigger = has_innovation_parameter
-					colonial_civic = { scope:scheme = { add_scheme_modifier = { type = colonial_research_subject_difficulty } } }
-					colonial_military = { scope:scheme = { add_scheme_modifier = { type = colonial_research_subject_difficulty } } }
-					confederate_civic = { scope:scheme = { add_scheme_modifier = { type = confederate_research_subject_difficulty } } }
-					confederate_military = { scope:scheme = { add_scheme_modifier = { type = confederate_research_subject_difficulty } } }
-					trimillennial_civic = { scope:scheme = { add_scheme_modifier = { type = trimillennial_research_subject_difficulty } } }
-					trimillennial_military = { scope:scheme = { add_scheme_modifier = { type = trimillennial_research_subject_difficulty } } }
-					neorenaissance_civic = { scope:scheme = { add_scheme_modifier = { type = neorenaissance_research_subject_difficulty } } }
-					neorenaissance_military = { scope:scheme = { add_scheme_modifier = { type = neorenaissance_research_subject_difficulty } } }
-				}
-			}
-			scheme_owner = {
-				capital_county ?= {
-					culture = {
-						if = {
-							limit = { has_cultural_era_or_later = culture_era_early_medieval }
-							scope:scheme = { add_scheme_modifier = { type = confederate_era_research_bonus } }
-						}
-						if = {
-							limit = { has_cultural_era_or_later = culture_era_high_medieval }
-							scope:scheme = { add_scheme_modifier = { type = trimillennial_era_research_bonus } }
-						}
-						if = {
-							limit = { has_cultural_era_or_later = culture_era_late_medieval }
-							scope:scheme = { add_scheme_modifier = { type = neorenaissance_era_research_bonus } }
-						}
-						every_culture_county = {
-							limit = { county_has_tech = { TECH = scope:scheme.var:research_subject } }
-							scope:scheme = { add_scheme_modifier = { type = culture_research_bonus } }
-						}
-					}
-					every_neighboring_county = {
-						limit = { county_has_tech = { TECH = scope:scheme.var:research_subject } }
-						scope:scheme = { add_scheme_modifier = { type = neighbor_research_bonus } }
-					}
-				}
-				if = {
-					limit = {
-						any_secret = {
-							has_variable = research_subject
-							var:research_subject ?= scope:scheme.var:research_subject
-						}
-					}
-					scope:scheme = { add_scheme_modifier = already_researched_bonus }
-				}
-			}
+			set_research_project_difficulty_effect = yes
 			
 			# Set Codename
 			generate_research_project_codename = yes
@@ -238,6 +137,7 @@ cotc_research_project_events.1 = { # Start a new research project
 	}
 }
 cotc_research_project_events.2 = { # Decide on funding for your new research project
+	title = cotc_research_project_events.title
 	desc = cotc_research_project_events.2.desc
 	theme = research
 	
@@ -348,6 +248,7 @@ cotc_research_project_events.2 = { # Decide on funding for your new research pro
 
 # ENDING PROJECTS
 cotc_research_project_events.10 = { # Successfully complete the research project
+	title = cotc_research_project_events.title
 	desc = {
 		desc = cotc_research_project_events.10.desc.intro
 		first_valid = {
@@ -392,28 +293,37 @@ cotc_research_project_events.10 = { # Successfully complete the research project
 				save_scope_value_as = { name = first_culture_discovery value = flag:yes }
 			}
 			var:research_subject = { save_scope_as = discovered_innovation }
-			ordered_scheme_agent_character ?= {
-				order_by = learning
-				position = 1
-				save_scope_as = first_agent
-			}
-			ordered_scheme_agent_character ?= {
-				order_by = learning
-				position = 2
-				save_scope_as = second_agent
-			}
-			ordered_scheme_agent_character ?= {
-				order_by = learning
-				position = 3
-				save_scope_as = third_agent
-			}
-			ordered_scheme_agent_character ?= {
-				order_by = learning
-				position = 4
-				save_scope_as = fourth_agent
-			}
 			if = {
 				limit = { any_scheme_agent_character = { count >= 1 } }
+				ordered_scheme_agent_character = {
+					order_by = learning
+					position = 1
+					save_scope_as = first_agent
+				}
+				if = {
+					limit = { any_scheme_agent_character = { count >= 2 } }
+					ordered_scheme_agent_character = {
+						order_by = learning
+						position = 2
+						save_scope_as = second_agent
+					}
+					if = {
+						limit = { any_scheme_agent_character = { count >= 3 } }
+						ordered_scheme_agent_character = {
+							order_by = learning
+							position = 3
+							save_scope_as = third_agent
+						}
+						if = {
+							limit = { any_scheme_agent_character = { count >= 4 } }
+							ordered_scheme_agent_character = {
+								order_by = learning
+								position = 4
+								save_scope_as = fourth_agent
+							}
+						}
+					}
+				}
 				save_scope_value_as = { # Divide the remaining grant money among all agents
 					name = agent_payout
 					value = {
@@ -500,6 +410,7 @@ cotc_research_project_events.11 = {
 		# Gain rewards in prestige and money
 		add_prestige = research_project_prestige_reward
 		add_treasury_or_gold = scope:agent_payout
+		reverse_add_opinion = { modifier = opinion_researched_innovation_for_me target = scope:patron }
 		# Piety and stress effects
 		if = {
 			limit = { research_project_piety_reward != 0 }
@@ -573,4 +484,311 @@ cotc_research_project_events.31 = {
 		animation = idle
 	}
 	option = { name = cotc_research_project_events.31.a }
+}
+
+# INHERITING PROJECTS
+cotc_research_project_events.50 = { # You inherited a public research project from a dead predecessor
+	title = cotc_research_project_events.title
+	desc = cotc_research_project_events.50.desc
+	theme = research
+	
+	left_portrait = {
+		character = ROOT
+		scripted_animation = thinking
+	}
+	right_portrait = {
+		character = scope:old_project_patron
+		scripted_animation = dead
+	}
+	
+	immediate = { remove_character_flag = inheriting_research_project }
+	
+	option = {
+		name = cotc_research_project_events.50.a
+		scope:scheme = { every_scheme_agent_character = { trigger_event = cotc_research_project_events.51 } }
+	}
+}
+cotc_research_project_events.51 = {
+	title = cotc_research_project_events.title
+	desc = cotc_research_project_events.51.desc
+	theme = research
+	
+	left_portrait = {
+		character = scope:owner
+		scripted_animation = thinking
+	}
+	right_portrait = {
+		character = scope:old_project_patron
+		scripted_animation = dead
+	}
+	
+	option = { name = cotc_research_project_events.51.a }
+}
+cotc_research_project_events.60 = { # You inherited a public research project from a living predecessor
+	title = cotc_research_project_events.title
+	desc = cotc_research_project_events.60.desc
+	theme = research
+	
+	left_portrait = {
+		character = ROOT
+		scripted_animation = thinking
+	}
+	right_portrait = {
+		character = scope:old_project_patron
+		scripted_animation = thinking
+	}
+	
+	immediate = { remove_character_flag = inheriting_research_project }
+	
+	option = {
+		name = cotc_research_project_events.60.a
+		scope:scheme = { every_scheme_agent_character = { trigger_event = cotc_research_project_events.61 } }
+	}
+}
+cotc_research_project_events.61 = {
+	title = cotc_research_project_events.title
+	desc = cotc_research_project_events.61.desc
+	theme = research
+	
+	left_portrait = {
+		character = scope:owner
+		scripted_animation = thinking
+	}
+	right_portrait = {
+		character = scope:old_project_patron
+		scripted_animation = thinking
+	}
+	
+	option = { name = cotc_research_project_events.61.a }
+}
+cotc_research_project_events.62 = {
+	title = cotc_research_project_events.title
+	desc = cotc_research_project_events.62.desc
+	theme = research
+	
+	left_portrait = {
+		character = scope:owner
+		scripted_animation = thinking
+	}
+	right_portrait = {
+		character = scope:old_project_patron
+		scripted_animation = thinking
+	}
+	
+	option = { name = cotc_research_project_events.62.a }
+}
+
+# PROJECT MANAGEMENT
+cotc_research_project_events.100 = { # Research project in progress
+	type = character_event
+	window = scheme_preparations_event
+	title = cotc_research_project_events.title
+	desc = cotc_research_project_events.100.desc
+	theme = research
+	left_portrait = {
+		character = scope:left_portrait
+		scripted_animation = scheme_prep_pick_best_stance
+	}
+	center_portrait = {
+		character = scope:center_portrait
+		scripted_animation = scheme_prep_pick_best_stance
+	}
+	right_portrait = {
+		character = scope:right_portrait
+		scripted_animation = scheme_prep_pick_best_stance
+	}
+	
+	trigger = {
+		NOR = {
+			has_character_flag = currently_in_scheme_preparations
+			has_character_flag = currently_in_scheme_reminder
+		}
+	}
+
+	immediate = {
+		# Flag that we're in the event, so no doubles pls.
+		add_character_flag = currently_in_scheme_preparations
+		# Sort some aesthetic stuff for the player.
+		if = {
+			limit = { is_ai = no }
+			save_scope_as = center_portrait
+			scope:scheme = {
+				if = {
+					limit = { any_scheme_agent_character = { count >= 1 } }
+					ordered_scheme_agent_character = {
+						order_by = learning
+						position = 1
+						save_scope_as = right_portrait
+					}
+					if = {
+						limit = { any_scheme_agent_character = { count >= 2 } }
+						ordered_scheme_agent_character = {
+							order_by = learning
+							position = 2
+							save_scope_as = left_portrait
+						}
+					}
+				}
+			}
+		}
+		# How much money do we need to upgrade to the next tier of funding?
+		scope:scheme = {
+			save_scope_value_as = {
+				name = funding_required
+				value = {
+					if = {
+						limit = { any_scheme_agent_slot = { count = 4 } }
+						add = ROOT.major_research_project_cost
+					}
+					else_if = {
+						limit = { any_scheme_agent_slot = { count = 3 } }
+						add = ROOT.medium_research_project_cost
+					}
+					else = { add = ROOT.minor_research_project_cost }
+					subtract = var:grant_money
+				}
+			}
+		}
+	}
+	
+	option = { # Increase funding
+		show_as_unavailable = { always = yes }
+		trigger = {
+			trigger_if = {
+				limit = { scope:scheme = { any_scheme_agent_slot = { count < 5 } } }
+				treasury_or_gold >= scope:funding_required
+			}
+			trigger_else = {
+				custom_tooltip = {
+					text = project_slots_maxed.tt
+					always = no
+				}
+			}
+		}
+		name = cotc_research_project_events.100.a
+		custom_tooltip = {
+			text = cotc_research_project_events.100.a.tt
+			scope:scheme = {
+				change_variable = { name = grant_money add = scope:funding_required }
+				change_variable = { name = max_agent_slots add = 1 }
+				add_research_project_agent_slots = yes
+			}
+		}
+		remove_treasury_or_gold = scope:funding_required
+		ai_chance = {
+			base = 0
+			modifier = { add = short_term_treasury_or_gold }
+		}
+	}
+	option = { # Involve yourself personally
+		name = cotc_research_project_events.100.b
+		show_as_unavailable = { NOT = { has_character_modifier = researching_modifier } }
+		trigger = {
+			is_capable_adult = yes
+			NOT = { has_character_modifier = researching_modifier }
+		}
+		add_research_project_personal_involvement = yes
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = {
+					value = ai_intellectualism # I like doing science!
+					subtract = ai_sociability # I don't like being out of the spotlight
+					subtract = { value = ai_greed min = 0 } # I don't like giving up control
+				}
+			}
+			modifier = {
+				add = { value = -50 subtract = ai_rationality max = 0 } # Our attention is needed elsewhere
+				OR = {
+					is_at_war = yes
+					debt_level >= 0
+				}
+			}
+			modifier = {
+				add = { value = -30 subtract = ai_vengefulness max = 0 } # I don't trust any of my potential regents
+				NOT = { any_vassal = { reverse_opinion = { target = ROOT value >= 0 } } }
+			}
+			modifier = { # I wouldn't be any use anyway
+				factor = 0
+				ai_rationality > 0 # Must not fall afoul of Dunning and Kruger
+				learning <= 4
+				trigger_if = {
+					limit = { scope:scheme = { is_target_in_variable_list = { name = flags target = flag:military } } }
+					martial <= 4
+				}
+				trigger_if = {
+					limit = { scope:scheme = { is_target_in_variable_list = { name = flags target = flag:economic } } }
+					stewardship <= 4
+				}
+				trigger_if = {
+					limit = { scope:scheme = { is_target_in_variable_list = { name = flags target = flag:social } } }
+					diplomacy <= 4
+				}
+			}
+		}
+	}
+	option = { # Uninvolve yourself
+		name = cotc_research_project_events.100.c
+		show_as_unavailable = { has_character_modifier = researching_modifier }
+		trigger = { has_character_modifier = researching_modifier }
+		remove_research_project_personal_involvement = yes
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = {
+					value = ai_sociability # I don't like being out of the spotlight
+					add = { value = ai_greed min = 0 } # I don't like giving up control
+					subtract = ai_intellectualism # I like doing science!
+				}
+			}
+			modifier = {
+				add = { value = 50 add = ai_rationality min = 0 } # Our attention is needed elsewhere
+				OR = {
+					is_at_war = yes
+					debt_level >= 0
+				}
+			}
+			modifier = {
+				add = { value = 30 add = ai_vengefulness min = 0 } # I don't trust my regent
+				exists = diarch
+				opinion = { target = diarch value < 0 }
+			}
+			modifier = { # I'm no use anyway
+				add = 1000
+				ai_rationality > 0 # Must not fall afoul of Dunning and Kruger
+				learning <= 4
+				trigger_if = {
+					limit = { scope:scheme = { is_target_in_variable_list = { name = flags target = flag:military } } }
+					martial <= 4
+				}
+				trigger_if = {
+					limit = { scope:scheme = { is_target_in_variable_list = { name = flags target = flag:economic } } }
+					stewardship <= 4
+				}
+				trigger_if = {
+					limit = { scope:scheme = { is_target_in_variable_list = { name = flags target = flag:social } } }
+					diplomacy <= 4
+				}
+			}
+		}
+	}
+	option = { # Do nothing
+		name = cotc_research_project_events.100.d
+		ai_chance = {
+			base = 0
+			modifier = { add = scope:scheme.scheme_success_chance }
+			modifier = { add = scope:funding_required }
+		}
+	}
+
+	after = { remove_character_flag = currently_in_scheme_preparations }
+}
+
+cotc_research_project_events.101 = { # Starting a regency because you're too busy researching
+	hidden = yes
+	trigger = {
+		has_character_modifier = researching_modifier
+		basic_eligible_for_diarchy_trigger = yes
+	}
+	immediate = { try_start_diarchy = temporary_regency }
 }

@@ -116,6 +116,67 @@ add_research_project_agent_slots = {
 		add_new_research_project_agent_slot = { TYPE = physicist }
 	}
 }
+copy_research_project_data = {
+	save_temporary_scope_as = temp_new_scheme
+	# Copy basic data
+	set_variable = { name = research_subject value = $SCHEME$.var:research_subject }
+	set_variable = { name = codename_adjective value = $SCHEME$.var:codename_adjective }
+	set_variable = { name = codename_noun value = $SCHEME$.var:codename_noun }
+	set_variable = { name = grant_money value = $SCHEME$.var:grant_money }
+	set_variable = { name = max_agent_slots value = $SCHEME$.var:max_agent_slots }
+	add_scheme_progress = $SCHEME$.scheme_progress
+	set_research_project_difficulty_effect = yes
+	
+	# Copy flags
+	$SCHEME$ = {
+		every_in_list = {
+			variable = flags
+			scope:temp_new_scheme = { add_to_variable_list = { name = flag target = PREV } }
+		}
+	}
+	
+	# Copy agents
+	if = {
+		limit = { exists = $SCHEME$.var:max_economist_slots }
+		set_variable = { name = max_economist_slots value = $SCHEME$.var:max_economist_slots }
+	}
+	if = {
+		limit = { exists = $SCHEME$.var:max_sociologist_slots }
+		set_variable = { name = max_sociologist_slots value = $SCHEME$.var:max_sociologist_slots }
+	}
+	if = {
+		limit = { exists = $SCHEME$.var:max_officer_slots }
+		set_variable = { name = max_officer_slots value = $SCHEME$.var:max_officer_slots }
+	}
+	if = {
+		limit = { exists = $SCHEME$.var:max_doctor_slots }
+		set_variable = { name = max_doctor_slots value = $SCHEME$.var:max_doctor_slots }
+	}
+	if = {
+		limit = { exists = $SCHEME$.var:max_engineer_slots }
+		set_variable = { name = max_engineer_slots value = $SCHEME$.var:max_engineer_slots }
+	}
+	if = {
+		limit = { exists = $SCHEME$.var:max_physicist_slots }
+		set_variable = { name = max_physicist_slots value = $SCHEME$.var:max_physicist_slots }
+	}
+	add_research_project_agent_slots = yes
+	$SCHEME$ = {
+		every_scheme_agent_slot = {
+			limit = { is_filled = yes }
+			save_temporary_scope_as = old_agent_slot
+			switch = {
+				trigger = is_agent_slot_type
+				agent_research_economist = { copy_research_project_agent_slot = { NEW_SCHEME = scope:temp_new_scheme TYPE = economist } }
+				agent_research_sociologist = { copy_research_project_agent_slot = { NEW_SCHEME = scope:temp_new_scheme TYPE = sociologist } }
+				agent_research_officer = { copy_research_project_agent_slot = { NEW_SCHEME = scope:temp_new_scheme TYPE = officer } }
+				agent_research_doctor = { copy_research_project_agent_slot = { NEW_SCHEME = scope:temp_new_scheme TYPE = doctor } }
+				agent_research_engineer = { copy_research_project_agent_slot = { NEW_SCHEME = scope:temp_new_scheme TYPE = engineer } }
+				agent_research_physicist = { copy_research_project_agent_slot = { NEW_SCHEME = scope:temp_new_scheme TYPE = physicist } }
+			}
+		}
+	}
+}
 
 # STRING EFFECTS
 # These are modular and will not need as much constant maintenance
@@ -278,75 +339,92 @@ add_new_research_project_agent_slot = {
 		}
 	}
 }
+copy_research_project_agent_slot = {
+	slot_character = { save_temporary_scope_as = temp_agent_to_copy }
+	$NEW_SCHEME$ = {
+		random_scheme_agent_slot = {
+			limit = {
+				is_filled = no
+				is_agent_slot_type = agent_research_$TYPE$
+			}
+			scope:temp_agent_to_copy = {
+				if = {
+					limit = { is_valid_as_agent_in_slot = PREV }
+					add_to_agent_slot = PREV
+				}
+			}
+		}
+	}
+}
 save_research_project_scopes_effect = { # Run this when it's possible the project will end before some scopes need to be checked
 	var:research_subject = { save_scope_as = research_subject }
 	save_scope_value_as = { name = grant_money value = var:grant_money }
 	scheme_owner = { save_scope_as = patron }
 	every_scheme_agent_character = { add_to_list = project_staff }
-	if = {
-		limit = { has_variable = theory }
-		save_scope_value_as = { name = theory value = flag:yes }
+	every_in_list = {
+		variable = flags
+		add_to_list = research_project_flags
 	}
-	if = {
-		limit = { has_variable = praxis }
-		save_scope_value_as = { name = praxis value = flag:yes }
+}
+set_research_project_difficulty_effect = {	
+	# Set difficulty
+	var:research_subject = {
+		switch = {
+			trigger = has_innovation_parameter
+			colonial_civic = { scope:scheme = { add_scheme_modifier = { type = colonial_research_subject_difficulty } } }
+			colonial_military = { scope:scheme = { add_scheme_modifier = { type = colonial_research_subject_difficulty } } }
+			confederate_civic = { scope:scheme = { add_scheme_modifier = { type = confederate_research_subject_difficulty } } }
+			confederate_military = { scope:scheme = { add_scheme_modifier = { type = confederate_research_subject_difficulty } } }
+			trimillennial_civic = { scope:scheme = { add_scheme_modifier = { type = trimillennial_research_subject_difficulty } } }
+			trimillennial_military = { scope:scheme = { add_scheme_modifier = { type = trimillennial_research_subject_difficulty } } }
+			neorenaissance_civic = { scope:scheme = { add_scheme_modifier = { type = neorenaissance_research_subject_difficulty } } }
+			neorenaissance_military = { scope:scheme = { add_scheme_modifier = { type = neorenaissance_research_subject_difficulty } } }
+		}
 	}
-	if = {
-		limit = { has_variable = engineering }
-		save_scope_value_as = { name = engineering value = flag:yes }
-	}
-	if = {
-		limit = { has_variable = military }
-		save_scope_value_as = { name = military value = flag:yes }
-	}
-	if = {
-		limit = { has_variable = economic }
-		save_scope_value_as = { name = economic value = flag:yes }
-	}
-	if = {
-		limit = { has_variable = social }
-		save_scope_value_as = { name = social value = flag:yes }
-	}
-	if = {
-		limit = { has_variable = medical }
-		save_scope_value_as = { name = medical value = flag:yes }
-	}
-	if = {
-		limit = { has_variable = energy }
-		save_scope_value_as = { name = energy value = flag:yes }
-	}
-	if = {
-		limit = { has_variable = mechanical }
-		save_scope_value_as = { name = mechanical value = flag:yes }
-	}
-	if = {
-		limit = { has_variable = industrial }
-		save_scope_value_as = { name = industrial value = flag:yes }
-	}
-	if = {
-		limit = { has_variable = transhumanist }
-		save_scope_value_as = { name = transhumanist value = flag:yes }
-	}
-	if = {
-		limit = { has_variable = learning }
-		save_scope_value_as = { name = learning value = flag:yes }
-	}
-	if = {
-		limit = { has_variable = cybernetics }
-		save_scope_value_as = { name = cybernetics_flag value = flag:yes }
-	}
-	if = {
-		limit = { has_variable = gene_modding }
-		save_scope_value_as = { name = gene_modding_flag value = flag:yes }
-	}
-	if = {
-		limit = { has_variable = cloning }
-		save_scope_value_as = { name = cloning_flag value = flag:yes }
+	scheme_owner = {
+		capital_county ?= {
+			culture = {
+				if = {
+					limit = { has_cultural_era_or_later = culture_era_early_medieval }
+					scope:scheme = { add_scheme_modifier = { type = confederate_era_research_bonus } }
+				}
+				if = {
+					limit = { has_cultural_era_or_later = culture_era_high_medieval }
+					scope:scheme = { add_scheme_modifier = { type = trimillennial_era_research_bonus } }
+				}
+				if = {
+					limit = { has_cultural_era_or_later = culture_era_late_medieval }
+					scope:scheme = { add_scheme_modifier = { type = neorenaissance_era_research_bonus } }
+				}
+				every_culture_county = {
+					limit = { county_has_tech = { TECH = scope:scheme.var:research_subject } }
+					scope:scheme = { add_scheme_modifier = { type = culture_research_bonus } }
+				}
+			}
+			every_neighboring_county = {
+				limit = { county_has_tech = { TECH = scope:scheme.var:research_subject } }
+				scope:scheme = { add_scheme_modifier = { type = neighbor_research_bonus } }
+			}
+		}
+		if = {
+			limit = {
+				any_secret = {
+					has_variable = research_subject
+					var:research_subject ?= scope:scheme.var:research_subject
+				}
+			}
+			scope:scheme = { add_scheme_modifier = { type = already_researched_bonus } }
+		}
 	}
 }
 add_research_project_stress_effects = {
 	if = {
-		limit = { exists = scope:military }
+		limit = {
+			any_in_list = {
+				list = research_project_flags
+				this = flag:military
+			}
+		}
 		positive_hawkishness_stress_gain_effect = { SCALE = -0.5 }
 		negative_hawkishness_stress_gain_effect = { SCALE = 1 }
 	}
@@ -356,7 +434,12 @@ add_research_project_stress_effects = {
 	}
 	else = { faith = { save_temporary_scope_as = real_ideology } }
 	if = {
-		limit = { exists = scope:cybernetics_flag }
+		limit = {
+			any_in_list = {
+				list = research_project_flags
+				this = flag:cybernetics
+			}
+		}
 		if = {
 			limit = { scope:real_ideology ?= { has_doctrine_parameter = hates_cybernetics } }
 			positive_zeal_stress_gain_effect = { SCALE = 1 }
@@ -367,7 +450,12 @@ add_research_project_stress_effects = {
 		}
 	}
 	if = {
-		limit = { exists = scope:gene_modding_flag }
+		limit = {
+			any_in_list = {
+				list = research_project_flags
+				this = flag:gene_modding
+			}
+		}
 		if = {
 			limit = { scope:real_ideology ?= { has_doctrine_parameter = hates_gene_modding } }
 			positive_zeal_stress_gain_effect = { SCALE = 1 }
@@ -378,7 +466,12 @@ add_research_project_stress_effects = {
 		}
 	}
 	if = {
-		limit = { exists = scope:cloning_flag }
+		limit = {
+			any_in_list = {
+				list = research_project_flags
+				this = flag:cloning
+			}
+		}
 		if = {
 			limit = { scope:real_ideology ?= { has_doctrine_parameter = hates_cloning } }
 			positive_zeal_stress_gain_effect = { SCALE = 1 }
@@ -414,21 +507,18 @@ add_research_project_secret_effect = {
 				NOT = { is_in_list = temp_existing_secrets }
 			}
 			set_variable = { name = research_subject value = scope:discovered_innovation }
-			if = {
-				limit = { exists = scope:military }
-				set_variable = { name = military value = flag:yes }
-			}
-			if = {
-				limit = { exists = scope:cybernetics_flag }
-				set_variable = { name = cybernetics value = flag:yes }
-			}
-			if = {
-				limit = { exists = scope:gene_modding_flag }
-				set_variable = { name = gene_modding value = flag:yes }
-			}
-			if = {
-				limit = { exists = scope:cloning_flag }
-				set_variable = { name = cloning value = flag:yes }
+			save_temporary_scope_as = temp_new_secret
+			every_in_list = {
+				list = research_project_flags
+				limit = {
+					OR = {
+						this = flag:military
+						this = flag:cybernetics
+						this = flag:gene_modding
+						this = flag:cloning
+					}
+				}
+				scope:temp_new_secret = { add_to_variable_list = { name = flags target = PREV } }
 			}
 		}
 	}
@@ -457,6 +547,65 @@ add_research_project_secret_effect = {
 		else = { expose_secret = yes }
 	}
 }
+research_project_prep_effect = {
+	save_scope_as = scheme
+	if = {
+		limit = { NOT = { exists = scope:suppress_next_event } }
+		scheme_owner = { trigger_event = cotc_research_project_events.100 }
+	}
+}
+add_research_project_personal_involvement = {
+	add_character_modifier = researching_modifier
+	add_character_modifier = personal_involvement_learning_bonus
+	if = {
+		limit = { scope:scheme = { is_target_in_variable_list = { name = flags target = flag:social } } }
+		add_character_modifier = personal_involvement_diplomacy_bonus
+	}
+	if = {
+		limit = { scope:scheme = { is_target_in_variable_list = { name = flags target = flag:economic } } }
+		add_character_modifier = personal_involvement_stewardship_bonus
+	}
+	if = {
+		limit = { scope:scheme = { is_target_in_variable_list = { name = flags target = flag:military } } }
+		add_character_modifier = personal_involvement_military_bonus
+	}
+	if = {
+		limit = { basic_eligible_for_diarchy_trigger = yes }
+		custom_tooltip = {
+			trigger_event = cotc_research_project_events.101
+			text = enter_temporary_regency.tt
+		}
+	}
+}
+remove_research_project_personal_involvement = {
+	remove_character_modifier = researching_modifier
+	remove_character_modifier = personal_involvement_learning_bonus
+	if = {
+		limit = { has_character_modifier = personal_involvement_diplomacy_bonus }
+		remove_character_modifier = personal_involvement_diplomacy_bonus
+	}
+	if = {
+		limit = { has_character_modifier = personal_involvement_stewardship_bonus }
+		remove_character_modifier = personal_involvement_stewardship_bonus
+	}
+	if = {
+		limit = { has_character_modifier = personal_involvement_martial_bonus }
+		remove_character_modifier = personal_involvement_martial_bonus
+	}
+	if = {
+		limit = {
+			exists = diarch
+			is_character_interaction_valid = {
+				interaction = liege_dismiss_temporary_regency_interaction
+				recipient = diarch
+			}
+		}
+		custom_tooltip = {
+			trigger_event = diarchy.0112
+			text = dismiss_temporary_regency.tt
+		}
+	}
+}
 generate_research_project_codename = {
 	random_list = {
 		10 = {
@@ -477,27 +626,27 @@ select_research_project_codename_proper_noun = {
 	select_learning_proper_noun = yes
 	random_list = {
 		10 = {
-			trigger = { has_variable = military }
+			trigger = { is_target_in_variable_list = { name = flags target = flag:military } }
 			select_military_proper_noun = yes
 		}
 		10 = {
-			trigger = { has_variable = economic }
+			trigger = { is_target_in_variable_list = { name = flags target = flag:economic } }
 			select_economic_proper_noun = yes
 		}
 		10 = {
-			trigger = { has_variable = social }
+			trigger = { is_target_in_variable_list = { name = flags target = flag:social } }
 			select_social_proper_noun = yes
 		}
 		10 = {
-			trigger = { has_variable = medical }
+			trigger = { is_target_in_variable_list = { name = flags target = flag:medical } }
 			select_medical_proper_noun = yes
 		}
 		10 = {
-			trigger = { has_variable = energy }
+			trigger = { is_target_in_variable_list = { name = flags target = flag:energy } }
 			select_energy_proper_noun = yes
 		}
 		10 = {
-			trigger = { has_variable = learning }
+			trigger = { is_target_in_variable_list = { name = flags target = flag:learning } }
 			select_learning_proper_noun = yes
 		}
 	}
@@ -507,31 +656,31 @@ select_research_project_codename_noun = {
 	select_learning_noun = yes
 	random_list = {
 		10 = {
-			trigger = { has_variable = military }
+			trigger = { is_target_in_variable_list = { name = flags target = flag:military } }
 			select_military_noun = yes
 		}
 		10 = {
-			trigger = { has_variable = economic }
+			trigger = { is_target_in_variable_list = { name = flags target = flag:economic } }
 			select_economic_noun = yes
 		}
 		5 = {
-			trigger = { has_variable = social }
+			trigger = { is_target_in_variable_list = { name = flags target = flag:social } }
 			select_social_noun = yes
 		}
 		5 = {
-			trigger = { has_variable = social }
+			trigger = { is_target_in_variable_list = { name = flags target = flag:social } }
 			select_diplomatic_noun = yes
 		}
 		10 = {
-			trigger = { has_variable = medical }
+			trigger = { is_target_in_variable_list = { name = flags target = flag:medical } }
 			select_medical_noun = yes
 		}
 		10 = {
-			trigger = { has_variable = energy }
+			trigger = { is_target_in_variable_list = { name = flags target = flag:energy } }
 			select_energy_noun = yes
 		}
 		10 = {
-			trigger = { has_variable = learning }
+			trigger = { is_target_in_variable_list = { name = flags target = flag:learning } }
 			select_learning_noun = yes
 		}
 	}
@@ -549,19 +698,19 @@ select_research_project_codename_adjective = {
 			select_secret_adjective = yes
 		}
 		10 = {
-			trigger = { has_variable = military }
+			trigger = { is_target_in_variable_list = { name = flags target = flag:military } }
 			select_military_adjective = yes
 		}
 		10 = {
-			trigger = { has_variable = medical }
+			trigger = { is_target_in_variable_list = { name = flags target = flag:medical } }
 			select_medical_adjective = yes
 		}
 		10 = {
-			trigger = { has_variable = energy }
+			trigger = { is_target_in_variable_list = { name = flags target = flag:energy } }
 			select_energy_adjective = yes
 		}
 		10 = {
-			trigger = { has_variable = learning }
+			trigger = { is_target_in_variable_list = { name = flags target = flag:learning } }
 			select_learning_adjective = yes
 		}
 	}

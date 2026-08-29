@@ -20,9 +20,14 @@ research = {
 		trigger = {
 			trigger_if = {
 				limit = { exists = scope:scheme }
-				scope:scheme = { has_variable = military }
+				scope:scheme = { is_target_in_variable_list = { name = flags target = flag:military } }
 			}
-			trigger_else = { exists = scope:military }
+			trigger_else = {
+				any_in_list = {
+					list = research_project_flags
+					this = flag:military
+				}
+			}
 		}
 		reference = "gfx/interface/window_event/event_header_red"
 	}
@@ -30,9 +35,14 @@ research = {
 		trigger = {
 			trigger_if = {
 				limit = { exists = scope:scheme }
-				scope:scheme = { has_variable = social }
+				scope:scheme = { is_target_in_variable_list = { name = flags target = flag:social } }
 			}
-			trigger_else = { exists = scope:social }
+			trigger_else = {
+				any_in_list = {
+					list = research_project_flags
+					this = flag:social
+				}
+			}
 		}
 		reference = "gfx/interface/window_event/event_header_blue"
 	}
@@ -42,17 +52,18 @@ research = {
 				limit = { exists = scope:scheme }
 				scope:scheme = {
 					OR = {
-						has_variable = economic
-						has_variable = energy
-						has_variable = industrial
+						is_target_in_variable_list = { name = flags target = flag:economic }
+						is_target_in_variable_list = { name = flags target = flag:energy }
 					}
 				}
 			}
 			trigger_else = {
-				OR = {
-					exists = scope:economic
-					exists = scope:energy
-					exists = scope:industrial
+				any_in_list = {
+					list = research_project_flags
+					OR = {
+						this = flag:economic
+						this = flag:energy
+					}
 				}
 			}
 		}
@@ -68,13 +79,18 @@ research = {
 		trigger = {
 			trigger_if = {
 				limit = { exists = scope:scheme }
-				scope:scheme = { has_variable = theory }
+				scope:scheme = { is_target_in_variable_list = { name = flags target = flag:engineering } }
 			}
-			trigger_else = { exists = scope:theory }
+			trigger_else = {
+				any_in_list = {
+					list = research_project_flags
+					this = flag:engineering
+				}
+			}
 		}
-		reference = study
+		reference = physicians_study
 	}
 	background = {
-		reference = physicians_study
+		reference = study
 	}
 }
