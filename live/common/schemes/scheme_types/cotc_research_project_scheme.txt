@@ -77,12 +77,22 @@
 		if = {
 			limit = { exists = scope:scheme_successful }
 			save_research_project_scopes_effect = yes
-			scheme_owner = { trigger_event = cotc_research_project_events.10 }
+			scheme_owner = {
+				if = {
+					limit = { has_character_modifier = researching_modifier }
+					remove_research_project_personal_involvement = yes
+				}
+				trigger_event = cotc_research_project_events.10
+			}
 		}
 		else = { scheme_owner = { trigger_event = { on_action = research_project_phase_pulse } } }
 	}
 	on_invalidated = {
 		scheme_owner = {
+			if = {
+				limit = { has_character_modifier = researching_modifier }
+				remove_research_project_personal_involvement = yes
+			}
 			if = {
 				limit = { has_character_flag = suppress_project_invalidation }
 				remove_character_flag = suppress_project_invalidation

@@ -23,11 +23,11 @@ cotc_research_project_events.1 = { # Start a new research project
 	desc = {
 		first_valid = {
 			triggered_desc = {
-				trigger = { exists = scope:theory }
+				trigger = { any_in_list = { list = research_project_flags this = flag:theory } }
 				desc = cotc_research_project_events.1.intro.theory
 			}
 			triggered_desc = {
-				trigger = { exists = scope:engineering }
+				trigger = { any_in_list = { list = research_project_flags this = flag:engineering } }
 				desc = cotc_research_project_events.1.intro.engineering
 			}
 			desc = cotc_research_project_events.1.intro.praxis
@@ -35,25 +35,25 @@ cotc_research_project_events.1 = { # Start a new research project
 		first_valid = {
 			triggered_desc = {
 				trigger = {
-					exists = scope:military
+					any_in_list = { list = research_project_flags this = flag:military }
 					exists = scope:enemy
 				}
 				desc = cotc_research_project_events.1.desc.military_war
 			}
 			triggered_desc = {
-				trigger = { exists = scope:military }
+				trigger = { any_in_list = { list = research_project_flags this = flag:military } }
 				desc = cotc_research_project_events.1.desc.military_peace
 			}
 			triggered_desc = {
-				trigger = { exists = scope:social }
+				trigger = { any_in_list = { list = research_project_flags this = flag:social } }
 				desc = cotc_research_project_events.1.desc.social
 			}
 			triggered_desc = {
-				trigger = { exists = scope:economic }
+				trigger = { any_in_list = { list = research_project_flags this = flag:economic } }
 				desc = cotc_research_project_events.1.desc.economic
 			}
 			triggered_desc = {
-				trigger = { exists = scope:transhumanist }
+				trigger = { any_in_list = { list = research_project_flags this = flag:transhumanist } }
 				desc = cotc_research_project_events.1.desc.transhumanist
 			}
 			desc = cotc_research_project_events.1.desc.other
@@ -82,6 +82,7 @@ cotc_research_project_events.1 = { # Start a new research project
 		random_scheme = {
 			limit = { scheme_type = research_project_public }
 			save_scope_as = scheme
+			set_variable = { name = owner value = ROOT }
 		}
 		ai_chance = {
 			base = 50
@@ -98,61 +99,9 @@ cotc_research_project_events.1 = { # Start a new research project
 		scope:scheme ?= { # Assign research project data
 			set_variable = { name = research_subject value = scope:research_subject }
 			# Set all project flags
-			if = {
-				limit = { exists = scope:theory }
-				set_variable = theory
-			}
-			if = {
-				limit = { exists = scope:praxis }
-				set_variable = praxis
-			}
-			if = {
-				limit = { exists = scope:engineering }
-				set_variable = engineering
-			}
-			if = {
-				limit = { exists = scope:military }
-				set_variable = military
-			}
-			if = {
-				limit = { exists = scope:economic }
-				set_variable = economic
-			}
-			if = {
-				limit = { exists = scope:social }
-				set_variable = social
-			}
-			if = {
-				limit = { exists = scope:energy }
-				set_variable = energy
-			}
-			if = {
-				limit = { exists = scope:mechanical }
-				set_variable = mechanical
-			}
-			if = {
-				limit = { exists = scope:medical }
-				set_variable = medical
-			}
-			if = {
-				limit = { exists = scope:learning }
-				set_variable = learning
-			}
-			if = {
-				limit = { exists = scope:transhumanist }
-				set_variable = transhumanist
-			}
-			if = {
-				limit = { exists = scope:cybernetics_flag }
-				set_variable = cybernetics
-			}
-			if = {
-				limit = { exists = scope:gene_modding_flag }
-				set_variable = gene_modding
-			}
-			if = {
-				limit = { exists = scope:cloning_flag }
-				set_variable = cloning
+			every_in_list = {
+				list = research_project_flags
+				scope:scheme = { add_to_variable_list = { name = flags target = PREV } }
 			}
 			# Set agent type caps
 			if = {
@@ -461,6 +410,7 @@ cotc_research_project_events.11 = {
 		# Gain rewards in prestige and money
 		add_prestige = research_project_prestige_reward
 		add_treasury_or_gold = scope:agent_payout
+		reverse_add_opinion = { modifier = opinion_researched_innovation_for_me target = scope:patron }
 		# Piety and stress effects
 		if = {
 			limit = { research_project_piety_reward != 0 }
@@ -629,7 +579,7 @@ cotc_research_project_events.62 = {
 }
 
 # PROJECT MANAGEMENT
-cotc_research_project_events.100 = { # Research a project in progress
+cotc_research_project_events.100 = { # Research project in progress
 	type = character_event
 	window = scheme_preparations_event
 	title = cotc_research_project_events.title
@@ -730,13 +680,115 @@ cotc_research_project_events.100 = { # Research a project in progress
 			modifier = { add = short_term_treasury_or_gold }
 		}
 	}
-	option = { # Do nothing
+	option = { # Involve yourself personally
 		name = cotc_research_project_events.100.b
+		show_as_unavailable = { NOT = { has_character_modifier = researching_modifier } }
+		trigger = {
+			is_capable_adult = yes
+			NOT = { has_character_modifier = researching_modifier }
+		}
+		add_research_project_personal_involvement = yes
 		ai_chance = {
 			base = 0
+			modifier = {
+				add = {
+					value = ai_intellectualism # I like doing science!
+					subtract = ai_sociability # I don't like being out of the spotlight
+					subtract = { value = ai_greed min = 0 } # I don't like giving up control
+				}
+			}
+			modifier = {
+				add = { value = -50 subtract = ai_rationality max = 0 } # Our attention is needed elsewhere
+				OR = {
+					is_at_war = yes
+					debt_level >= 0
+				}
+			}
+			modifier = {
+				add = { value = -30 subtract = ai_vengefulness max = 0 } # I don't trust any of my potential regents
+				NOT = { any_vassal = { reverse_opinion = { target = ROOT value >= 0 } } }
+			}
+			modifier = { # I wouldn't be any use anyway
+				factor = 0
+				ai_rationality > 0 # Must not fall afoul of Dunning and Kruger
+				learning <= 4
+				trigger_if = {
+					limit = { scope:scheme = { is_target_in_variable_list = { name = flags target = flag:military } } }
+					martial <= 4
+				}
+				trigger_if = {
+					limit = { scope:scheme = { is_target_in_variable_list = { name = flags target = flag:economic } } }
+					stewardship <= 4
+				}
+				trigger_if = {
+					limit = { scope:scheme = { is_target_in_variable_list = { name = flags target = flag:social } } }
+					diplomacy <= 4
+				}
+			}
+		}
+	}
+	option = { # Uninvolve yourself
+		name = cotc_research_project_events.100.c
+		show_as_unavailable = { has_character_modifier = researching_modifier }
+		trigger = { has_character_modifier = researching_modifier }
+		remove_research_project_personal_involvement = yes
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = {
+					value = ai_sociability # I don't like being out of the spotlight
+					add = { value = ai_greed min = 0 } # I don't like giving up control
+					subtract = ai_intellectualism # I like doing science!
+				}
+			}
+			modifier = {
+				add = { value = 50 add = ai_rationality min = 0 } # Our attention is needed elsewhere
+				OR = {
+					is_at_war = yes
+					debt_level >= 0
+				}
+			}
+			modifier = {
+				add = { value = 30 add = ai_vengefulness min = 0 } # I don't trust my regent
+				exists = diarch
+				opinion = { target = diarch value < 0 }
+			}
+			modifier = { # I'm no use anyway
+				add = 1000
+				ai_rationality > 0 # Must not fall afoul of Dunning and Kruger
+				learning <= 4
+				trigger_if = {
+					limit = { scope:scheme = { is_target_in_variable_list = { name = flags target = flag:military } } }
+					martial <= 4
+				}
+				trigger_if = {
+					limit = { scope:scheme = { is_target_in_variable_list = { name = flags target = flag:economic } } }
+					stewardship <= 4
+				}
+				trigger_if = {
+					limit = { scope:scheme = { is_target_in_variable_list = { name = flags target = flag:social } } }
+					diplomacy <= 4
+				}
+			}
+		}
+	}
+	option = { # Do nothing
+		name = cotc_research_project_events.100.d
+		ai_chance = {
+			base = 0
+			modifier = { add = scope:scheme.scheme_success_chance }
 			modifier = { add = scope:funding_required }
 		}
 	}
 
 	after = { remove_character_flag = currently_in_scheme_preparations }
+}
+
+cotc_research_project_events.101 = { # Starting a regency because you're too busy researching
+	hidden = yes
+	trigger = {
+		has_character_modifier = researching_modifier
+		basic_eligible_for_diarchy_trigger = yes
+	}
+	immediate = { try_start_diarchy = temporary_regency }
 }
