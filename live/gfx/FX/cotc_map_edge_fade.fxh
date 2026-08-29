@@ -4,7 +4,7 @@ Includes = {
 
 PixelShader = {
 	Code [[
-		static const float COTC_MAP_EDGE_FADE_WIDTH = 600.0f;
+		static const float COTC_MAP_EDGE_FADE_WIDTH = 200.0f;
 
 		float COTC_GetMapEdgeFade( float2 ColorMapCoords )
 		{
