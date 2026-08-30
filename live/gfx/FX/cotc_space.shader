@@ -637,10 +637,6 @@ PixelShader =
 				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend );
 				float3 ToCameraDir = normalize( Input.WorldSpacePos.xyz - CameraPosition );
 
-				#if defined( COTC_HEX )
-					Alpha = Alpha * ProvinceStrength;
-				#endif
-
 				#if defined( COTC_OUTER_FRESNEL ) || defined( COTC_INNER_FRESNEL )
 					float4 FresnelColor = PdxTex2D( FresnelMap, DIFFUSE_UV_SET );
 
@@ -665,6 +661,10 @@ PixelShader =
 					Color *= COTC_STAR_EMISSIVE_BOOST;
 				#endif
 
+				#if defined( COTC_HEX )
+					Alpha = Alpha * ProvinceStrength;
+				#endif
+
 				return float4( Color, Alpha );
 			}
 		]]
@@ -682,13 +682,6 @@ BlendState alpha_to_coverage
 	SourceBlend = "SRC_ALPHA"
 	DestBlend = "INV_SRC_ALPHA"
 	AlphaToCoverage = yes
-}
-
-BlendState alpha_blend_no_coverage
-{
-	BlendEnable = yes
-	SourceBlend = "SRC_ALPHA"
-	DestBlend = "INV_SRC_ALPHA"
 }
 
 Effect cotc_planet
@@ -848,7 +841,7 @@ Effect cotc_plane
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_plane"
-	BlendState = "alpha_blend_no_coverage"
+	BlendState = "alpha_to_coverage"
 	DepthStencilState = DepthStencilState
 }
 
@@ -856,7 +849,7 @@ Effect cotc_plane_mapobject
 {
 	VertexShader = "COTC_VS_mapobject"
 	PixelShader = "COTC_PS_plane"
-	BlendState = "alpha_blend_no_coverage"
+	BlendState = "alpha_to_coverage"
 	DepthStencilState = DepthStencilState
 }
 
@@ -864,6 +857,6 @@ Effect cotc_plane_selection_mapobject
 {
 	VertexShader = "COTC_VS_mapobject"
 	PixelShader = "COTC_PS_plane"
-	BlendState = "alpha_blend_no_coverage"
+	BlendState = "alpha_to_coverage"
 	DepthStencilState = DepthStencilState
 }
