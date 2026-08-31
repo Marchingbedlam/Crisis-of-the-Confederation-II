@@ -1,20 +1,20 @@
-﻿american_frontierfolk = {
+﻿frontierfolk = {
 	color = blue
-	
-	ethos = ethos_bureaucratic
+
+	ethos = ethos_egalitarian
 	heritage = heritage_frontier
 	language = language_cotc_english
 	martial_custom = martial_custom_equal
 	head_determination = head_determination_domain
 	traditions = {
-		tradition_hereditary_hierarchy
-		tradition_chivalry
-		tradition_castle_keepers
-		tradition_longbow_competitions
+		tradition_hard_working
+		tradition_stalwart_defenders
+		tradition_welcoming
+		tradition_hunters
 	}
-	
+
 	name_list = name_list_cotc_american
-	
+
 	coa_gfx = { english_coa_gfx western_coa_gfx }
 	building_gfx = { western_building_gfx }
 	clothing_gfx = { western_clothing_gfx }
@@ -41,45 +41,9 @@
 		1 = amerindian
 	}
 }
-british_frontierfolk = {
-	color = english
-	
-	ethos = ethos_bureaucratic
-	heritage = heritage_frontier
-	language = language_cotc_english
-	martial_custom = martial_custom_equal
-	head_determination = head_determination_domain
-	traditions = {
-		tradition_hereditary_hierarchy
-		tradition_chivalry
-		tradition_castle_keepers
-		tradition_longbow_competitions
-	}
-	
-	name_list = name_list_cotc_british
-	
-	coa_gfx = { english_coa_gfx western_coa_gfx }
-	building_gfx = { western_building_gfx }
-	clothing_gfx = { western_clothing_gfx }
-	unit_gfx = { western_unit_gfx }
-	house_coa_frame = house_frame_24
-	house_coa_mask_offset = { 0.0 0.055 }
-	house_coa_mask_scale = { 0.9 0.9 }
-
-	ethnicities = {
-		20 = caucasian_blond
-		12 = caucasian_ginger
-		28 = caucasian_brown_hair
-		20 = caucasian_dark_hair
-		6 = indian
-		1 = asian_han_chinese
-		1 = asian_japanese
-		4 = african
-	}
-}
-french_frontierfolk = {
+compagnon = {
 	color = french
-	
+
 	ethos = ethos_courtly
 	heritage = heritage_frontier
 	language = language_cotc_french
@@ -87,12 +51,13 @@ french_frontierfolk = {
 	head_determination = head_determination_domain
 	traditions = {
 		tradition_chanson_de_geste
-		tradition_hereditary_hierarchy
 		tradition_chivalry
+		tradition_martial_admiration
+		tradition_esteemed_hospitality
 	}
-	
+
 	name_list = name_list_cotc_french
-	
+
 	coa_gfx = { french_coa_gfx frankish_group_coa_gfx western_coa_gfx }
 	building_gfx = { western_building_gfx }
 	clothing_gfx = { french_clothing_gfx western_clothing_gfx }
@@ -102,59 +67,73 @@ french_frontierfolk = {
 	house_coa_mask_scale = { 0.9 0.9 }
 
 	ethnicities = {
-		10 = caucasian_blond
+		9 = caucasian_blond
 		5 = caucasian_ginger
-		45 = caucasian_brown_hair
-		35 = caucasian_dark_hair
-	}	
+		40 = caucasian_brown_hair
+		31 = caucasian_dark_hair
+		8 = african
+		4 = arab
+		3 = med_black_ind
+	}
 }
-german_frontierfolk = {
+neusiedler = {
 	color = { 50 50 50 }
-	
-	ethos = ethos_stoic
+
+	ethos = ethos_bureaucratic
 	heritage = heritage_frontier
 	language = language_cotc_german
 	martial_custom = martial_custom_equal
 	head_determination = head_determination_domain
 	traditions = {
-		tradition_hereditary_hierarchy
+		tradition_maritime_mercantilism
 		tradition_astute_diplomats
-		tradition_stand_and_fight
+		tradition_family_entrepreneurship
+		tradition_hereditary_hierarchy
 	}
-	
+
 	name_list = name_list_cotc_german
 
-	coa_gfx = { german_group_coa_gfx western_coa_gfx } 
-	building_gfx = { western_building_gfx } 
-	clothing_gfx = { dde_hre_clothing_gfx western_clothing_gfx } 
-	unit_gfx = { western_unit_gfx } 		
+	coa_gfx = { german_group_coa_gfx western_coa_gfx }
+	building_gfx = { western_building_gfx }
+	clothing_gfx = { dde_hre_clothing_gfx western_clothing_gfx }
+	unit_gfx = { western_unit_gfx }
 	house_coa_frame = house_frame_25
 	house_coa_mask_offset = { 0.0 0.025 }
 	house_coa_mask_scale = { 0.95 0.95 }
 
 	ethnicities = {
-		25 = caucasian_blond
-		15 = caucasian_ginger
-		35 = caucasian_brown_hair
-		25 = caucasian_dark_hair
+		22 = caucasian_blond
+		12 = caucasian_ginger
+		32 = caucasian_brown_hair
+		22 = caucasian_dark_hair
+		4 = slavic_blond
+		3 = slavic_brown_hair
+		3 = african
+		2 = indian
 	}
 }
-italian_frontierfolk = {
+popolano = {
 	color = italian
-	
-	ethos = ethos_spiritual
+
+	ethos = ethos_communal
 	heritage = heritage_frontier
 	language = language_cotc_italian
 	martial_custom = martial_custom_equal
 	head_determination = head_determination_domain
 	traditions = {
-		tradition_formation_fighting
 		tradition_republican_legacy
-		tradition_poetry
+		tradition_city_keepers
+		tradition_formation_fighting
 	}
-	
+
+	dlc_tradition = {
+		trait = tradition_artisans
+		requires_dlc_flag = royal_court
+		fallback = tradition_metal_craftsmanship
+	}
+
 	name_list = name_list_cotc_italian
-	
+
 	coa_gfx = { latin_group_coa_gfx western_coa_gfx }
 	building_gfx = { mediterranean_building_gfx }
 	clothing_gfx = { western_clothing_gfx }
@@ -164,12 +143,19 @@ italian_frontierfolk = {
 	house_coa_mask_scale = { 0.85 0.85 }
 
 	ethnicities = {
-		10 = mediterranean
+		46 = mediterranean
+		14 = caucasian_brown_hair
+		10 = caucasian_dark_hair
+		8 = caucasian_blond
+		4 = caucasian_ginger
+		8 = african
+		6 = med_black_ind
+		4 = arab
 	}
 }
-scandinavian_frontierfolk = {
+vinlander = {
 	color = { 210 150 255 }
-	
+
 	ethos = ethos_bellicose
 	heritage = heritage_frontier
 	language = language_cotc_scandinavian
@@ -179,7 +165,7 @@ scandinavian_frontierfolk = {
 		tradition_storytellers
 		tradition_runestones
 		tradition_things
-		tradition_maritime_mercantilism
+		tradition_seafaring
 	}
 	# FP1 Traditions
 	dlc_tradition = {
@@ -191,7 +177,7 @@ scandinavian_frontierfolk = {
 	name_list = name_list_cotc_norwegian
 	name_list = name_list_cotc_swedish
 	name_list = name_list_cotc_danish
-	
+
 	coa_gfx = { norwegian_coa_gfx western_coa_gfx }
 	building_gfx = { western_building_gfx }
 	clothing_gfx = { northern_clothing_gfx }
@@ -201,49 +187,38 @@ scandinavian_frontierfolk = {
 	house_coa_mask_scale = { 1.0 1.0 }
 
 	ethnicities = {
-		70 = caucasian_northern_blond
-		15 = caucasian_northern_ginger
-		10 = caucasian_northern_brown_hair
-		5 = caucasian_northern_dark_hair
+		60 = caucasian_northern_blond
+		13 = caucasian_northern_ginger
+		9 = caucasian_northern_brown_hair
+		4 = caucasian_northern_dark_hair
+		6 = caucasian_brown_hair
+		4 = amerindian
+		4 = african
 	}
 }
-greek_frontierfolk = {
+apoikos = {
 	color = { 168 120 41 }
-	
+
 	ethos = ethos_bureaucratic
 	heritage = heritage_frontier
 	language = language_cotc_greek
-	martial_custom = martial_custom_male_only
+	martial_custom = martial_custom_equal
 	head_determination = head_determination_domain
-	dlc_tradition = {
-		trait = tradition_ep3_imperial_tagmata
-		requires_dlc_flag = roads_to_power
-		fallback = tradition_roman_legacy
-	}
-	dlc_tradition = {
-		trait = tradition_ep3_roman_ceremonies
-		requires_dlc_flag = roads_to_power
-		fallback = tradition_byzantine_succession
-	}
-	dlc_tradition = {
-		trait = tradition_ep3_palace_politics
-		requires_dlc_flag = roads_to_power
-		fallback = tradition_formation_fighting
+	traditions = {
+		tradition_language_scholars
+		tradition_philosopher_culture
+		tradition_esteemed_hospitality
+		tradition_seafaring
 	}
 	dlc_tradition = {
 		trait = tradition_ep3_cultivated_sophistication
 		requires_dlc_flag = roads_to_power
-		fallback = tradition_legalistic
+		fallback = tradition_storytellers
 	}
-	dlc_tradition = {
-		trait = tradition_religious_patronage
-		requires_dlc_flag = roads_to_power
-		fallback = tradition_religious_patronage
-	}
-	
+
 	name_list = name_list_cotc_greek
-	
-	coa_gfx = { byzantine_group_coa_gfx }
+
+	coa_gfx = { byzantine_group_coa_gfx western_coa_gfx }
 	building_gfx = { byzantine_building_gfx }
 	clothing_gfx = { byzantine_clothing_gfx }
 	unit_gfx = { eastern_unit_gfx }
@@ -252,39 +227,77 @@ greek_frontierfolk = {
 	house_coa_mask_scale = { 0.9 0.9 }
 
 	ethnicities = {
-		100 = mediterranean_byzantine
+		62 = mediterranean_byzantine
+		16 = mediterranean
+		10 = caucasian_brown_hair
+		6 = caucasian_dark_hair
+		4 = arab
+		2 = turkic_west
 	}
 }
-sione = {
-	color = { 41 49 168 }
-	created = 2733.1.1 # Initial settlement of Sion
-	parents = { french_frontierfolk }
+
+krajina = {
+	color = { 143 169 128 }
+	created = 2663.1.1 # Initial colonization of the Orion Reach
+
+	ethos = ethos_communal
+	heritage = heritage_frontier
+	language = language_cotc_serbian
+	martial_custom = martial_custom_male_only
+	head_determination = head_determination_domain
+	traditions = {
+		tradition_hit_and_run
+		tradition_religious_patronage
+		tradition_stalwart_defenders
+		tradition_loyal_soldiers
+	}
+
+	name_list = name_list_cotc_serbian
 	
+	coa_gfx = { south_slavic_group_coa_gfx western_coa_gfx }
+	building_gfx = { mediterranean_building_gfx }
+	clothing_gfx = { byzantine_clothing_gfx }
+	unit_gfx = { eastern_unit_gfx }
+	house_coa_frame = house_frame_02
+	house_coa_mask_offset = { 0.0 0.055 }
+	house_coa_mask_scale = { 0.9 0.9 }
+	
+	ethnicities = {
+		70 = mediterranean_byzantine
+		20 = slavic_brown_hair
+		10 = slavic_dark_hair
+	}
+}
+kresowiak = {
+	color = { 255 152 139 }
+	created = 2663.1.1 # Initial colonization of the Orion Reach
+
 	ethos = ethos_courtly
 	heritage = heritage_frontier
-	language = language_cotc_french
+	language = language_cotc_polish
 	martial_custom = martial_custom_equal
 	head_determination = head_determination_domain
 	traditions = {
-		tradition_chanson_de_geste
-		tradition_hereditary_hierarchy
-		tradition_chivalry
+		tradition_hit_and_run
+		tradition_xenophilic
+		tradition_esteemed_hospitality
+		tradition_ruling_caste
 	}
-	
-	name_list = name_list_cotc_french
-	
-	coa_gfx = { french_coa_gfx frankish_group_coa_gfx western_coa_gfx }
-	building_gfx = { western_building_gfx }
-	clothing_gfx = { french_clothing_gfx western_clothing_gfx }
-	unit_gfx = { western_unit_gfx }
-	house_coa_frame = house_frame_03
-	house_coa_mask_offset = { 0.0 0.055 }
-	house_coa_mask_scale = { 0.9 0.9 }
 
+	name_list = name_list_cotc_polish
+	
+	coa_gfx = { polish_coa_gfx west_slavic_group_coa_gfx western_coa_gfx }
+	building_gfx = { western_building_gfx }
+	clothing_gfx = { west_slavic_clothing_gfx western_clothing_gfx }
+	unit_gfx = { eastern_unit_gfx }
+	house_coa_frame = house_frame_21
+	house_coa_mask_offset = { 0.0 0.055 }
+	house_coa_mask_scale = { 1.0 1.0 }
+	
 	ethnicities = {
-		10 = caucasian_blond
-		5 = caucasian_ginger
-		45 = caucasian_brown_hair
-		35 = caucasian_dark_hair
-	}	
+		45 = slavic_blond
+		5 = slavic_ginger
+		35 = slavic_brown_hair
+		15 = slavic_dark_hair
+	}
 }

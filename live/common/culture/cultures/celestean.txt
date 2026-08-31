@@ -1,4 +1,4 @@
-﻿hispanic_celestean = {
+﻿celestiano = {
 	color = { 218 219 49 }
 
 	ethos = ethos_spiritual
@@ -6,9 +6,11 @@
 	language = language_cotc_spanish
 	martial_custom = martial_custom_equal
 	head_determination = head_determination_domain
-	# Placeholders
 	traditions = {
 		tradition_religious_patronage
+		tradition_esteemed_hospitality
+		tradition_storytellers
+		tradition_martial_admiration
 	}
 
 	dlc_tradition = {
@@ -36,7 +38,7 @@
 		1 = mesoamerican_yuto_aztec
 	}
 }
-portuguese_celestean = {
+lusitano = {
 	color = { 109 104 72 }
 
 	ethos = ethos_bellicose
@@ -45,7 +47,8 @@ portuguese_celestean = {
 	martial_custom = martial_custom_equal
 	head_determination = head_determination_domain
 	traditions = {
-		tradition_chivalry
+		tradition_seafaring
+		tradition_maritime_mercantilism
 		tradition_fervent_temple_builders
 		tradition_martial_admiration
 	}
@@ -53,6 +56,7 @@ portuguese_celestean = {
 	dlc_tradition = {
 		trait = tradition_fp2_ritualised_friendship
 		requires_dlc_flag = the_fate_of_iberia
+		fallback = tradition_esteemed_hospitality
 	}
 	
 	name_list = name_list_cotc_portuguese
@@ -75,26 +79,23 @@ portuguese_celestean = {
 		1 = mesoamerican_yuto_aztec
 	}
 }
-bolivaran = {
+bolivaro = {
 	color = { 139 90 20 }
 	created = 2367.1.1 # End of the First Colonial Revolution
-	parents = { hispanic_celestean }
+	parents = { celestiano }
 
-	ethos = ethos_spiritual
+	ethos = ethos_egalitarian
 	heritage = heritage_celestean
 	language = language_cotc_spanish
 	martial_custom = martial_custom_equal
 	head_determination = head_determination_domain
-	# Placeholders
 	traditions = {
-		tradition_religious_patronage
+		tradition_warriors_by_merit
+		tradition_philosopher_culture
+		tradition_metal_craftsmanship
+		tradition_equal_inheritance
 	}
 
-	dlc_tradition = {
-		trait = tradition_culture_blending
-		requires_dlc_flag = hybridize_culture
-	}
-	
 	name_list = name_list_cotc_spanish
 	
 	coa_gfx = { castilian_coa_gfx iberian_group_coa_gfx western_coa_gfx }
@@ -109,9 +110,8 @@ bolivaran = {
 		6 = black_white
 		6 = black_indigenous
 		6 = med_black_ind
-		8 = mesoamerican_mixe_zoque
-		8 = mesoamerican_maya
-		8 = mesoamerican_otomangue
-		8 = mesoamerican_yuto_aztec
+		14 = andean
+		12 = centralamerican_chibchan
+		6 = amazonian
 	}
 }
