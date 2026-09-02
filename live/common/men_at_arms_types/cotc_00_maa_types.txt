@@ -37,8 +37,8 @@
 ##
 # Begin COTC Fleet Squadrons
 
-corvettes = {
-	type = skirmishers
+corvettes_base = {
+	type = corvettes
 	
 	damage = 30
 	toughness = 10
@@ -65,11 +65,11 @@ corvettes = {
 
 	stack = 100
 	ai_quality = { value = culture_ai_weight_skirmishers }  # TODO: Rework AI Balance for ships
-	icon = skirmishers
+	icon = corvettes
 }
 
-missile_boats = {
-	type = skirmishers
+missile_boats_base = {
+	type = missile_boats
 	
 	damage = 40
 	toughness = 10
@@ -99,11 +99,11 @@ missile_boats = {
 		value = culture_ai_weight_archers 
 		add = counter_synergy_ai_weight_archers
 	}
-	icon = bowmen
+	icon = missile_boats
 }
 
-raiders = {
-	type = light_cavalry
+raiders_base = {
+	type = raiders
 	
 	damage = 20
 	toughness = 16
@@ -157,11 +157,11 @@ raiders = {
 		value = culture_ai_weight_light_cavalry
 		add = counter_synergy_ai_weight_light_cavalry
 	}
-	icon = light_cavalry
+	icon = raiders
 }
 
-destroyers = {
-	type = pikemen
+destroyers_base = {
+	type = destroyers
 	
 	damage = 20
 	toughness = 15
@@ -197,11 +197,11 @@ destroyers = {
 		value = culture_ai_weight_pikemen
 		add = counter_synergy_ai_weight_pikemen
 	}
-	icon = pikemen
+	icon = destroyers
 }
 
-cruisers = {
-	type = heavy_infantry
+cruisers_base = {
+	type = cruisers
 	
 	damage = 32
 	toughness = 22
@@ -231,11 +231,11 @@ cruisers = {
 		value = culture_ai_weight_heavy_infantry
 		add = counter_synergy_ai_weight_heavy_infantry
 	}
-	icon = heavy_infantry
+	icon = cruisers
 }
 
-fast_frigates = {
-	type = heavy_cavalry
+fast_frigates_base = {
+	type = fast_frigates
 	
 	damage = 40
 	toughness = 16
@@ -264,11 +264,11 @@ fast_frigates = {
 	
 	stack = 100
 	ai_quality = { value = culture_ai_weight_heavy_cavalry }
-	icon = heavy_cavalry
+	icon = fast_frigates
 }
 
-missile_frigates = {
-	type = heavy_cavalry
+missile_frigates_base = {
+	type = missile_frigates
 	
 	damage = 100
 	toughness = 16
@@ -293,11 +293,11 @@ missile_frigates = {
 	
 	stack = 100
 	ai_quality = { value = culture_ai_weight_heavy_cavalry }
-	icon = heavy_cavalry
+	icon = missile_frigates
 }
 
-ew_cruisers = {
-	type = heavy_infantry
+ew_cruisers_base = {
+	type = ew_cruisers
 	
 	damage = 10
 	toughness = 22
@@ -325,17 +325,17 @@ ew_cruisers = {
 	high_maintenance_cost = { gold = ew_cruisers_high_maint_cost }
 	provision_cost = @provisions_cost_infantry_moderate
 
-	holy_order_fallback = yes
+	holy_order_fallback = no
 
 	stack = 100
 	ai_quality = {
 		value = culture_ai_weight_heavy_infantry
 	}
-	icon = heavy_infantry
+	icon = ew_cruisers
 }
 
-merchanteers = {
-	type = heavy_infantry
+merchanteers_base = {
+	type = merchanteers
 	
 	damage = 10
 	toughness = 40
@@ -358,707 +358,711 @@ merchanteers = {
 	high_maintenance_cost = { gold = merchanteers_high_maint_cost }
 	provision_cost = @provisions_cost_infantry_moderate
 
-	holy_order_fallback = yes
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
 
 	stack = 100
 	ai_quality = {
 		value = culture_ai_weight_heavy_infantry
 	}
-	icon = heavy_infantry
+	icon = merchanteers
 }
 
 # Finish COTC Squadrons
 ## 
 
-
-
-light_footmen = {
-	type = skirmishers
-	
-	damage = 10
-	toughness = 16
-	pursuit = 10
-	screen = 16
-	
-	#COTC EDIT
-	# terrain_bonus = {
-	# 	forest = { damage = 4 toughness = 6 }
-	# 	taiga = { damage = 4 toughness = 6 }
-	# 	jungle = { damage = 4 toughness = 6 }
-	# }
-	#COTC EDIT END
-
-	counters = {
-		heavy_infantry = 1
-	}
-
-	can_recruit = {
-		NOR = {
-			government_has_flag = government_is_nomadic
-			government_has_flag = government_is_herder
-		}
-	}
-
-	should_show_when_unavailable = {
-		government_allows = subject_men_at_arms
-	}
-
-	buy_cost = { gold = skirmisher_recruitment_cost }
-	low_maintenance_cost = { gold = skirmisher_low_maint_cost }
-	high_maintenance_cost = { gold = skirmisher_high_maint_cost }
-	provision_cost = @provisions_cost_infantry_cheap
-
-	holy_order_fallback = yes
-
-	stack = 100
-	ai_quality = { value = culture_ai_weight_skirmishers }
-	icon = skirmishers
-}
-
-bowmen = {
-	type = archers
-	
-	damage = 25
-	toughness = 10
-	pursuit = 0
-	screen = 0
-	
-	#COTC EDIT
-	# terrain_bonus = {
-	# 	hills = { damage = 10 toughness = 4 }
-	# 	forest = { toughness = 4 screen = 4 }
-	# 	taiga = { toughness = 4 screen = 4 }
-	# }
-	#COTC EDIT END
-
-	counters = {
-		skirmishers = 1
-	}
-
-	can_recruit = {
-		NOR = {
-			government_has_flag = government_is_nomadic
-			government_has_flag = government_is_herder
-		}
-	}
-
-	should_show_when_unavailable = {
-		government_allows = subject_men_at_arms
-	}
-
-	buy_cost = { gold = bowmen_recruitment_cost }
-	low_maintenance_cost = { gold = bowmen_low_maint_cost }
-	high_maintenance_cost = { gold = bowmen_high_maint_cost }
-	provision_cost = @provisions_cost_infantry_moderate
-
-	holy_order_fallback = yes
-
-	stack = 100
-	ai_quality = { 
-		value = culture_ai_weight_archers
-		add = counter_synergy_ai_weight_archers
-	}
-}
-
-light_horsemen = {
-	type = light_cavalry
-	
-	damage = 22
-	toughness = 15
-	pursuit = 30
-	screen = 30
-	
-	#COTC EDIT
-	# terrain_bonus = {
-	# 	plains = { damage = 15 }
-	# 	drylands = { damage = 15 }
-	# 	hills = { damage = -5 }
-	# 	mountains = { damage = -10 pursuit = -20 }
-	# 	desert_mountains = { damage = -15 pursuit = -20 }
-	# 	wetlands = { damage = -15 toughness = -10 pursuit = -30 screen = -30 }
-	# }
-	#COTC EDIT END
-
-	counters = {
-		archers = 1
-	}
-
-	can_recruit = {
-		NOR = {
-			government_has_flag = government_is_nomadic
-			government_has_flag = government_is_herder
-		}
-	}
-
-	should_show_when_unavailable = {
-		government_allows = subject_men_at_arms
-		NOT = { has_access_to_maa = steppe_raiders }
-	}
-
-	access_through_subject = {
-		NOT = { has_access_to_maa = steppe_raiders }
-	}
-
-	#COTC EDIT
-	# winter_bonus = {
-	# 	harsh_winter = { damage = -5 toughness = -2 }
-	# }
-	#COTC EDIT END
-
-	buy_cost = { gold = light_cavalry_recruitment_cost }
-	low_maintenance_cost = { gold = light_cavalry_low_maint_cost }
-	high_maintenance_cost = { gold = light_cavalry_high_maint_cost }
-	provision_cost = @provisions_cost_cavalry_cheap
-
-	holy_order_fallback = yes
-
-	stack = 100
-	ai_quality = { 
-		value = culture_ai_weight_light_cavalry
-		add = counter_synergy_ai_weight_light_cavalry
-	}
-	icon = light_cavalry
-}
-
-pikemen_unit = {
-	type = pikemen
-	
-	damage = 22
-	toughness = 24
-	pursuit = 0
-	screen = 0
-	
-	#COTC EDIT
-	# terrain_bonus = {
-	# 	mountains = { toughness = 12 }
-	# 	desert_mountains = { toughness = 12 }
-	# 	hills = { toughness = 8 }
-	# }
-	#COTC EDIT END
-
-	counters = {
-		light_cavalry = 1
-		heavy_cavalry = 1
-		camel_cavalry = 1
-		elephant_cavalry = 1
-	}
-
-	can_recruit = {
-		NOR = {
-			government_has_flag = government_is_nomadic
-			government_has_flag = government_is_herder
-		}
-	}
-
-	should_show_when_unavailable = {
-		government_allows = subject_men_at_arms
-	}
-
-	buy_cost = { gold = pikemen_recruitment_cost }
-	low_maintenance_cost = { gold = pikemen_low_maint_cost }
-	high_maintenance_cost = { gold = pikemen_high_maint_cost }
-	provision_cost = @provisions_cost_infantry_expensive
-
-	holy_order_fallback = yes
-
-	stack = 100
-	ai_quality = {
-		value = culture_ai_weight_pikemen
-		add = counter_synergy_ai_weight_pikemen
-	}
-	icon = pikemen
-}
-
-
-
-#Tribal Era
-armored_footmen = {
-	type = heavy_infantry
-	
-	damage = 32
-	toughness = 22
-	pursuit = 0
-	screen = 0
-	
-	counters = {
-		pikemen = 1
-	}
-
-	can_recruit = {
-		culture = {
-			has_innovation = innovation_quilted_armor
-		}
-		NOT = {
-			culture = { has_cultural_parameter = strength_in_numbers_heavy_maa_ban }
-		}
-		NOR = {
-			government_has_flag = government_is_nomadic
-			government_has_flag = government_is_herder
-		}
-	}
-	
-	should_show_when_unavailable = {
-		government_allows = subject_men_at_arms
-	}
-
-	buy_cost = { gold = heavy_infantry_recruitment_cost }
-	low_maintenance_cost = { gold = heavy_infantry_low_maint_cost }
-	high_maintenance_cost = { gold = heavy_infantry_high_maint_cost }
-	provision_cost = @provisions_cost_infantry_moderate
-
-	holy_order_fallback = yes
-
-	stack = 100
-	ai_quality = {
-		value = culture_ai_weight_heavy_infantry
-		add = counter_synergy_ai_weight_heavy_infantry
-	}
-	icon = heavy_infantry
-}
-
-onager = {
-	type = siege_weapon
-	fights_in_main_phase = no
-	
-	damage = 0
-	toughness = 12
-	
-	siege_tier = 1
-	siege_value = 0.2
-
-	can_recruit = {
-		culture = {
-			has_innovation = innovation_catapult
-		}
-		NOR = {
-			government_has_flag = government_is_nomadic
-			government_has_flag = government_is_herder
-		}
-	}
-	
-	should_show_when_unavailable = {
-		government_allows = subject_men_at_arms
-	}
-
-	buy_cost = { gold = onager_recruitment_cost }
-	low_maintenance_cost = { gold = onager_low_maint_cost }
-	high_maintenance_cost = { gold = onager_high_maint_cost }
-	provision_cost = @provisions_cost_special_cheap
-	
-	stack = 10
-	allowed_in_hired_troops = no
-}
-
-#Medieval Era
-armored_horsemen = {
-	type = heavy_cavalry
-	
-	damage = 100
-	toughness = 35
-	pursuit = 20
-	screen = 0
-	
-	#COTC EDIT
-	# terrain_bonus = {
-	# 	plains = { damage = 30 }
-	# 	drylands = { damage = 30 }
-	# 	hills = { damage = -20 }
-	# 	mountains = { damage = -75 }
-	# 	desert_mountains = { damage = -75 }
-	# 	wetlands = { damage = -75 toughness = -10 pursuit = -10 }
-	# }
-	#COTC EDIT END
-
-	counters = {
-		archers = 1
-	}
-
-	can_recruit = {
-		culture = {
-			has_innovation = innovation_arched_saddle
-		}
-		NOR = {
-			government_has_flag = government_is_nomadic
-			government_has_flag = government_is_herder
-		}
-	}
-
-	should_show_when_unavailable = {
-		government_allows = subject_men_at_arms
-		culture = { has_cultural_era_or_later = culture_era_early_medieval }
-		NOT = { has_access_to_maa = nomad_lancers }
-	}
-	
-	access_through_subject = {
-		NOT = { has_access_to_maa = nomad_lancers }
-	}
-
-	#COTC EDIT
-	# winter_bonus = {
-	# 	normal_winter = { damage = -10 toughness = -5 }
-	# 	harsh_winter = { damage = -20 toughness = -10 }
-	# }
-	#COTC EDIT END
-
-	buy_cost = { gold = heavy_cavalry_recruitment_cost }
-	low_maintenance_cost = { gold = heavy_cavalry_low_maint_cost }
-	high_maintenance_cost = { gold = heavy_cavalry_high_maint_cost }
-	provision_cost = @provisions_cost_cavalry_expensive
-	
-	stack = 50
-	ai_quality = { value = culture_ai_weight_heavy_cavalry }
-	icon = heavy_cavalry
-}
-
-mangonel = {
-	type = siege_weapon
-	fights_in_main_phase = no
-	
-	damage = 0
-	toughness = 12
-	
-	siege_tier = 2
-	siege_value = 0.3
-
-	can_recruit = {
-		culture = {
-			has_innovation = innovation_mangonel
-		}
-		NOR = {
-			government_has_flag = government_is_nomadic
-			government_has_flag = government_is_herder
-		}
-	}
-	
-	should_show_when_unavailable = {
-		government_allows = subject_men_at_arms
-		culture = { has_cultural_era_or_later = culture_era_early_medieval }
-	}
-
-	buy_cost = { gold = mangonel_recruitment_cost }
-	low_maintenance_cost = { gold = mangonel_low_maint_cost }
-	high_maintenance_cost = { gold = mangonel_high_maint_cost }
-	provision_cost = @provisions_cost_special_moderate
-	
-	stack = 10
-	allowed_in_hired_troops = no
-}
-
-#High Medieval Era
-crossbowmen = {
-	type = archers
-	
-	damage = 42
-	toughness = 18
-	pursuit = 0
-	screen = 0
-	
-	#COTC EDIT
-	# terrain_bonus = {
-	# 	hills = { damage = 10 }
-	# 	plains = { toughness = -8 }
-	# 	drylands = { toughness = -8 }
-	# 	desert = { toughness = -8 }
-	# }
-	#COTC EDIT END
-
-	counters = {
-		heavy_infantry = 1
-		heavy_cavalry = 1
-		archer_cavalry = 0.5
-	}
-
-	can_recruit = {
-		culture = {
-			has_innovation = innovation_advanced_bowmaking
-		}
-		NOR = {
-			government_has_flag = government_is_nomadic
-			government_has_flag = government_is_herder
-		}
-	}
-
-	should_show_when_unavailable = {
-		government_allows = subject_men_at_arms
-		culture = { has_cultural_era_or_later = culture_era_high_medieval }
-	}
-
-	buy_cost = { gold = crossbowmen_recruitment_cost }
-	low_maintenance_cost = { gold = crossbowmen_low_maint_cost }
-	high_maintenance_cost = { gold = crossbowmen_high_maint_cost }
-	provision_cost = @provisions_cost_infantry_moderate
-
-	ai_quality = {
-		value = counter_synergy_ai_weight_archers
-	}
-	
-	holy_order_fallback = yes
-	
-	stack = 100
-}
-
-trebuchet = {
-	type = siege_weapon
-	fights_in_main_phase = no
-	
-	damage = 0
-	toughness = 12
-	
-	siege_tier = 3
-	siege_value = 0.4
-
-	can_recruit = {
-		culture = {
-			has_innovation = innovation_trebuchet
-		}
-		NOR = {
-			government_has_flag = government_is_nomadic
-			government_has_flag = government_is_herder
-		}
-	}
-	
-	should_show_when_unavailable = {
-		government_allows = subject_men_at_arms
-		culture = { has_cultural_era_or_later = culture_era_high_medieval }
-	}
-
-	buy_cost = { gold = trebuchet_recruitment_cost }
-	low_maintenance_cost = { gold = trebuchet_low_maint_cost }
-	high_maintenance_cost = { gold = trebuchet_high_maint_cost }
-	provision_cost = @provisions_cost_special_expensive
-	
-	stack = 10
-	allowed_in_hired_troops = no
-
-}
-
-#Late Medieval Era
-bombard = {
-	type = siege_weapon
-	fights_in_main_phase = no
-	
-	damage = 0
-	toughness = 12
-	
-	siege_tier = 4
-	siege_value = 0.6
-
-	can_recruit = {
-		culture = {
-			has_innovation = innovation_bombard
-		}
-		NOR = {
-			government_has_flag = government_is_nomadic
-			government_has_flag = government_is_herder
-		}
-	}
-	
-	should_show_when_unavailable = {
-		government_allows = subject_men_at_arms
-		culture = { has_cultural_era_or_later = culture_era_late_medieval }
-	}
-
-	buy_cost = { gold = bombard_recruitment_cost }
-	low_maintenance_cost = { gold = bombard_low_maint_cost }
-	high_maintenance_cost = { gold = bombard_high_maint_cost }
-	provision_cost = @provisions_cost_special_bankrupting
-	
-	stack = 10
-	allowed_in_hired_troops = no
-}
-
-# Special
-house_guard = {
-	type = heavy_infantry
-	can_recruit = {
-		exists = dynasty
-		dynasty = {
-			has_dynasty_perk = warfare_legacy_5
-		}
-		NOT = {
-			culture = { has_cultural_parameter = strength_in_numbers_heavy_maa_ban }
-		}
-	}
-	
-	damage = 40
-	toughness = 32
-	pursuit = 0
-	screen = 24
-	
-	counters = {
-		pikemen = 2
-		archers = 2
-	}
-	
-	buy_cost = { gold = 50 }
-	low_maintenance_cost = { gold = 0 }
-	high_maintenance_cost = { gold = 1 }
-	provision_cost = @provisions_cost_infantry_expensive
-	
-	max_regiments = 1
-	
-	stack = 100
-	ai_quality = { value = 100 }
-}
-
-#Flavor Pack 3 landless units#
-handpicked_faithful = {
-	type = heavy_infantry
-
-	damage = 38
-	toughness = 28
-	pursuit = 5
-	screen = 5
-
-	can_recruit = {
-		domicile ?= { has_domicile_parameter = camp_unlocks_handpicked_faithful_maa_type }
-	}
-
-	terrain_bonus = {
-		hills = { damage = 6 toughness = 4 }
-		forest = { damage = 6 toughness = 4 }
-		jungle = { damage = 6 toughness = 4 }
-	}
-
-	counters = {
-		pikemen = 1
-		heavy_cavalry = 1
-	}
-
-	buy_cost = { gold = handpicked_faithful_recruitment_cost }
-	low_maintenance_cost = { gold = handpicked_faithful_low_maint_cost }
-	high_maintenance_cost = { gold = handpicked_faithful_high_maint_cost }
-	provision_cost = @provisions_cost_infantry_moderate
-
-	stack = 100
-	ai_quality = {
-		value = @[cultural_maa_extra_ai_score + 50]
-		add = counter_synergy_ai_weight_heavy_infantry
-	}
-	icon = heavy_infantry
-}
-
-maa_bandits = {
-	type = skirmishers
-	
-	can_recruit = { always = no }
-
-	damage = 15
-	toughness = 20
-	pursuit = 20
-	screen = 25
-
-	terrain_bonus = {
-		forest = { damage = 4 toughness = 6 }
-		hills = { damage = 4 toughness = 6 }
-		jungle = { damage = 4 toughness = 6 }
-	}
-	
-	counters = {
-		heavy_infantry = 1
-		archers = 1
-	}
-
-	buy_cost = { gold = jomsviking_pirates_recruitment_cost }
-	low_maintenance_cost = { gold = jomsviking_pirates_low_maint_cost }
-	high_maintenance_cost = { gold = jomsviking_pirates_high_maint_cost }
-	provision_cost = @provisions_cost_infantry_cheap
-	
-	stack = 50
-	ai_quality = { value = @cultural_maa_extra_ai_score }
-	icon = skirmishers
-}
-
-maa_poachers = {
-	type = archers
-
-	can_recruit = { always = no }
-	
-	damage = 30
-	toughness = 15
-	pursuit = 10
-	screen = 10
-	
-	terrain_bonus = {
-		hills = { damage = 10 toughness = 6 }
-		forest = { toughness = 10 screen = 10 }
-		jungle = { toughness = 10 screen = 10 }
-	}
-
-	counters = {
-		skirmishers = 1
-	}
-
-	buy_cost = { gold = jomsviking_pirates_recruitment_cost }
-	low_maintenance_cost = { gold = jomsviking_pirates_low_maint_cost }
-	high_maintenance_cost = { gold = jomsviking_pirates_high_maint_cost }
-	provision_cost = @provisions_cost_infantry_cheap
-	
-	stack = 50
-	ai_quality = { value = @cultural_maa_extra_ai_score }
-	icon = bowmen
-}
-
-maa_marauders = {
-	type = light_cavalry
-
-	can_recruit = { always = no }
-	
-	damage = 30
-	toughness = 15
-	pursuit = 40
-	screen = 30
-	
-	terrain_bonus = {
-		plains = { damage = 15 }
-		drylands = { damage = 15 }
-		farmlands = { damage = 25 }
-	}
-	
-	counters = {
-		archers = 1
-	}
-
-	buy_cost = { gold = jomsviking_pirates_recruitment_cost }
-	low_maintenance_cost = { gold = jomsviking_pirates_low_maint_cost }
-	high_maintenance_cost = { gold = jomsviking_pirates_high_maint_cost }
-	provision_cost = @provisions_cost_infantry_moderate
-	
-	stack = 50
-	ai_quality = { value = @cultural_maa_extra_ai_score }
-	icon = light_cavalry
-}
-
-maa_thieves = {
-	type = pikemen
-
-	can_recruit = { always = no }
-	
-	damage = 30
-	toughness = 20
-	pursuit = 10
-	screen = 10
-	
-	terrain_bonus = {
-		mountains = { toughness = 15 }
-		desert_mountains = { toughness = 15 }
-		hills = { toughness = 10 }
-	}
-
-	counters = {
-		light_cavalry = 1
-		heavy_cavalry = 1
-		camel_cavalry = 1
-		elephant_cavalry = 1
-	}
-
-	buy_cost = { gold = jomsviking_pirates_recruitment_cost }
-	low_maintenance_cost = { gold = jomsviking_pirates_low_maint_cost }
-	high_maintenance_cost = { gold = jomsviking_pirates_high_maint_cost }
-	provision_cost = @provisions_cost_infantry_cheap
-	
-	stack = 50
-	ai_quality = { value = @cultural_maa_extra_ai_score }
-	icon = pikemen
-}
-
+# ##
+# # REMOVE ALL OTHER MEN AT ARMS TYPES
+# 
+# light_footmen = {
+# 	type = skirmishers
+# 	
+# 	damage = 10
+# 	toughness = 16
+# 	pursuit = 10
+# 	screen = 16
+# 	
+# 	#COTC EDIT
+# 	# terrain_bonus = {
+# 	# 	forest = { damage = 4 toughness = 6 }
+# 	# 	taiga = { damage = 4 toughness = 6 }
+# 	# 	jungle = { damage = 4 toughness = 6 }
+# 	# }
+# 	#COTC EDIT END
+# 
+# 	counters = {
+# 		heavy_infantry = 1
+# 	}
+# 
+# 	can_recruit = {
+# 		NOR = {
+# 			government_has_flag = government_is_nomadic
+# 			government_has_flag = government_is_herder
+# 		}
+# 	}
+# 
+# 	should_show_when_unavailable = {
+# 		government_allows = subject_men_at_arms
+# 	}
+# 
+# 	buy_cost = { gold = skirmisher_recruitment_cost }
+# 	low_maintenance_cost = { gold = skirmisher_low_maint_cost }
+# 	high_maintenance_cost = { gold = skirmisher_high_maint_cost }
+# 	provision_cost = @provisions_cost_infantry_cheap
+# 
+# 	holy_order_fallback = yes
+# 
+# 	stack = 100
+# 	ai_quality = { value = culture_ai_weight_skirmishers }
+# 	icon = skirmishers
+# }
+# 
+# bowmen = {
+# 	type = archers
+# 	
+# 	damage = 25
+# 	toughness = 10
+# 	pursuit = 0
+# 	screen = 0
+# 	
+# 	#COTC EDIT
+# 	# terrain_bonus = {
+# 	# 	hills = { damage = 10 toughness = 4 }
+# 	# 	forest = { toughness = 4 screen = 4 }
+# 	# 	taiga = { toughness = 4 screen = 4 }
+# 	# }
+# 	#COTC EDIT END
+# 
+# 	counters = {
+# 		skirmishers = 1
+# 	}
+# 
+# 	can_recruit = {
+# 		NOR = {
+# 			government_has_flag = government_is_nomadic
+# 			government_has_flag = government_is_herder
+# 		}
+# 	}
+# 
+# 	should_show_when_unavailable = {
+# 		government_allows = subject_men_at_arms
+# 	}
+# 
+# 	buy_cost = { gold = bowmen_recruitment_cost }
+# 	low_maintenance_cost = { gold = bowmen_low_maint_cost }
+# 	high_maintenance_cost = { gold = bowmen_high_maint_cost }
+# 	provision_cost = @provisions_cost_infantry_moderate
+# 
+# 	holy_order_fallback = yes
+# 
+# 	stack = 100
+# 	ai_quality = { 
+# 		value = culture_ai_weight_archers
+# 		add = counter_synergy_ai_weight_archers
+# 	}
+# }
+# 
+# light_horsemen = {
+# 	type = light_cavalry
+# 	
+# 	damage = 22
+# 	toughness = 15
+# 	pursuit = 30
+# 	screen = 30
+# 	
+# 	#COTC EDIT
+# 	# terrain_bonus = {
+# 	# 	plains = { damage = 15 }
+# 	# 	drylands = { damage = 15 }
+# 	# 	hills = { damage = -5 }
+# 	# 	mountains = { damage = -10 pursuit = -20 }
+# 	# 	desert_mountains = { damage = -15 pursuit = -20 }
+# 	# 	wetlands = { damage = -15 toughness = -10 pursuit = -30 screen = -30 }
+# 	# }
+# 	#COTC EDIT END
+# 
+# 	counters = {
+# 		archers = 1
+# 	}
+# 
+# 	can_recruit = {
+# 		NOR = {
+# 			government_has_flag = government_is_nomadic
+# 			government_has_flag = government_is_herder
+# 		}
+# 	}
+# 
+# 	should_show_when_unavailable = {
+# 		government_allows = subject_men_at_arms
+# 		NOT = { has_access_to_maa = steppe_raiders }
+# 	}
+# 
+# 	access_through_subject = {
+# 		NOT = { has_access_to_maa = steppe_raiders }
+# 	}
+# 
+# 	#COTC EDIT
+# 	# winter_bonus = {
+# 	# 	harsh_winter = { damage = -5 toughness = -2 }
+# 	# }
+# 	#COTC EDIT END
+# 
+# 	buy_cost = { gold = light_cavalry_recruitment_cost }
+# 	low_maintenance_cost = { gold = light_cavalry_low_maint_cost }
+# 	high_maintenance_cost = { gold = light_cavalry_high_maint_cost }
+# 	provision_cost = @provisions_cost_cavalry_cheap
+# 
+# 	holy_order_fallback = yes
+# 
+# 	stack = 100
+# 	ai_quality = { 
+# 		value = culture_ai_weight_light_cavalry
+# 		add = counter_synergy_ai_weight_light_cavalry
+# 	}
+# 	icon = light_cavalry
+# }
+# 
+# pikemen_unit = {
+# 	type = pikemen
+# 	
+# 	damage = 22
+# 	toughness = 24
+# 	pursuit = 0
+# 	screen = 0
+# 	
+# 	#COTC EDIT
+# 	# terrain_bonus = {
+# 	# 	mountains = { toughness = 12 }
+# 	# 	desert_mountains = { toughness = 12 }
+# 	# 	hills = { toughness = 8 }
+# 	# }
+# 	#COTC EDIT END
+# 
+# 	counters = {
+# 		light_cavalry = 1
+# 		heavy_cavalry = 1
+# 		camel_cavalry = 1
+# 		elephant_cavalry = 1
+# 	}
+# 
+# 	can_recruit = {
+# 		NOR = {
+# 			government_has_flag = government_is_nomadic
+# 			government_has_flag = government_is_herder
+# 		}
+# 	}
+# 
+# 	should_show_when_unavailable = {
+# 		government_allows = subject_men_at_arms
+# 	}
+# 
+# 	buy_cost = { gold = pikemen_recruitment_cost }
+# 	low_maintenance_cost = { gold = pikemen_low_maint_cost }
+# 	high_maintenance_cost = { gold = pikemen_high_maint_cost }
+# 	provision_cost = @provisions_cost_infantry_expensive
+# 
+# 	holy_order_fallback = yes
+# 
+# 	stack = 100
+# 	ai_quality = {
+# 		value = culture_ai_weight_pikemen
+# 		add = counter_synergy_ai_weight_pikemen
+# 	}
+# 	icon = pikemen
+# }
+# 
+# 
+# 
+# #Tribal Era
+# armored_footmen = {
+# 	type = heavy_infantry
+# 	
+# 	damage = 32
+# 	toughness = 22
+# 	pursuit = 0
+# 	screen = 0
+# 	
+# 	counters = {
+# 		pikemen = 1
+# 	}
+# 
+# 	can_recruit = {
+# 		culture = {
+# 			has_innovation = innovation_quilted_armor
+# 		}
+# 		NOT = {
+# 			culture = { has_cultural_parameter = strength_in_numbers_heavy_maa_ban }
+# 		}
+# 		NOR = {
+# 			government_has_flag = government_is_nomadic
+# 			government_has_flag = government_is_herder
+# 		}
+# 	}
+# 	
+# 	should_show_when_unavailable = {
+# 		government_allows = subject_men_at_arms
+# 	}
+# 
+# 	buy_cost = { gold = heavy_infantry_recruitment_cost }
+# 	low_maintenance_cost = { gold = heavy_infantry_low_maint_cost }
+# 	high_maintenance_cost = { gold = heavy_infantry_high_maint_cost }
+# 	provision_cost = @provisions_cost_infantry_moderate
+# 
+# 	holy_order_fallback = yes
+# 
+# 	stack = 100
+# 	ai_quality = {
+# 		value = culture_ai_weight_heavy_infantry
+# 		add = counter_synergy_ai_weight_heavy_infantry
+# 	}
+# 	icon = heavy_infantry
+# }
+# 
+# onager = {
+# 	type = siege_weapon
+# 	fights_in_main_phase = no
+# 	
+# 	damage = 0
+# 	toughness = 12
+# 	
+# 	siege_tier = 1
+# 	siege_value = 0.2
+# 
+# 	can_recruit = {
+# 		culture = {
+# 			has_innovation = innovation_catapult
+# 		}
+# 		NOR = {
+# 			government_has_flag = government_is_nomadic
+# 			government_has_flag = government_is_herder
+# 		}
+# 	}
+# 	
+# 	should_show_when_unavailable = {
+# 		government_allows = subject_men_at_arms
+# 	}
+# 
+# 	buy_cost = { gold = onager_recruitment_cost }
+# 	low_maintenance_cost = { gold = onager_low_maint_cost }
+# 	high_maintenance_cost = { gold = onager_high_maint_cost }
+# 	provision_cost = @provisions_cost_special_cheap
+# 	
+# 	stack = 10
+# 	allowed_in_hired_troops = no
+# }
+# 
+# #Medieval Era
+# armored_horsemen = {
+# 	type = heavy_cavalry
+# 	
+# 	damage = 100
+# 	toughness = 35
+# 	pursuit = 20
+# 	screen = 0
+# 	
+# 	#COTC EDIT
+# 	# terrain_bonus = {
+# 	# 	plains = { damage = 30 }
+# 	# 	drylands = { damage = 30 }
+# 	# 	hills = { damage = -20 }
+# 	# 	mountains = { damage = -75 }
+# 	# 	desert_mountains = { damage = -75 }
+# 	# 	wetlands = { damage = -75 toughness = -10 pursuit = -10 }
+# 	# }
+# 	#COTC EDIT END
+# 
+# 	counters = {
+# 		archers = 1
+# 	}
+# 
+# 	can_recruit = {
+# 		culture = {
+# 			has_innovation = innovation_arched_saddle
+# 		}
+# 		NOR = {
+# 			government_has_flag = government_is_nomadic
+# 			government_has_flag = government_is_herder
+# 		}
+# 	}
+# 
+# 	should_show_when_unavailable = {
+# 		government_allows = subject_men_at_arms
+# 		culture = { has_cultural_era_or_later = culture_era_early_medieval }
+# 		NOT = { has_access_to_maa = nomad_lancers }
+# 	}
+# 	
+# 	access_through_subject = {
+# 		NOT = { has_access_to_maa = nomad_lancers }
+# 	}
+# 
+# 	#COTC EDIT
+# 	# winter_bonus = {
+# 	# 	normal_winter = { damage = -10 toughness = -5 }
+# 	# 	harsh_winter = { damage = -20 toughness = -10 }
+# 	# }
+# 	#COTC EDIT END
+# 
+# 	buy_cost = { gold = heavy_cavalry_recruitment_cost }
+# 	low_maintenance_cost = { gold = heavy_cavalry_low_maint_cost }
+# 	high_maintenance_cost = { gold = heavy_cavalry_high_maint_cost }
+# 	provision_cost = @provisions_cost_cavalry_expensive
+# 	
+# 	stack = 50
+# 	ai_quality = { value = culture_ai_weight_heavy_cavalry }
+# 	icon = heavy_cavalry
+# }
+# 
+# mangonel = {
+# 	type = siege_weapon
+# 	fights_in_main_phase = no
+# 	
+# 	damage = 0
+# 	toughness = 12
+# 	
+# 	siege_tier = 2
+# 	siege_value = 0.3
+# 
+# 	can_recruit = {
+# 		culture = {
+# 			has_innovation = innovation_mangonel
+# 		}
+# 		NOR = {
+# 			government_has_flag = government_is_nomadic
+# 			government_has_flag = government_is_herder
+# 		}
+# 	}
+# 	
+# 	should_show_when_unavailable = {
+# 		government_allows = subject_men_at_arms
+# 		culture = { has_cultural_era_or_later = culture_era_early_medieval }
+# 	}
+# 
+# 	buy_cost = { gold = mangonel_recruitment_cost }
+# 	low_maintenance_cost = { gold = mangonel_low_maint_cost }
+# 	high_maintenance_cost = { gold = mangonel_high_maint_cost }
+# 	provision_cost = @provisions_cost_special_moderate
+# 	
+# 	stack = 10
+# 	allowed_in_hired_troops = no
+# }
+# 
+# #High Medieval Era
+# crossbowmen = {
+# 	type = archers
+# 	
+# 	damage = 42
+# 	toughness = 18
+# 	pursuit = 0
+# 	screen = 0
+# 	
+# 	#COTC EDIT
+# 	# terrain_bonus = {
+# 	# 	hills = { damage = 10 }
+# 	# 	plains = { toughness = -8 }
+# 	# 	drylands = { toughness = -8 }
+# 	# 	desert = { toughness = -8 }
+# 	# }
+# 	#COTC EDIT END
+# 
+# 	counters = {
+# 		heavy_infantry = 1
+# 		heavy_cavalry = 1
+# 		archer_cavalry = 0.5
+# 	}
+# 
+# 	can_recruit = {
+# 		culture = {
+# 			has_innovation = innovation_advanced_bowmaking
+# 		}
+# 		NOR = {
+# 			government_has_flag = government_is_nomadic
+# 			government_has_flag = government_is_herder
+# 		}
+# 	}
+# 
+# 	should_show_when_unavailable = {
+# 		government_allows = subject_men_at_arms
+# 		culture = { has_cultural_era_or_later = culture_era_high_medieval }
+# 	}
+# 
+# 	buy_cost = { gold = crossbowmen_recruitment_cost }
+# 	low_maintenance_cost = { gold = crossbowmen_low_maint_cost }
+# 	high_maintenance_cost = { gold = crossbowmen_high_maint_cost }
+# 	provision_cost = @provisions_cost_infantry_moderate
+# 
+# 	ai_quality = {
+# 		value = counter_synergy_ai_weight_archers
+# 	}
+# 	
+# 	holy_order_fallback = yes
+# 	
+# 	stack = 100
+# }
+# 
+# trebuchet = {
+# 	type = siege_weapon
+# 	fights_in_main_phase = no
+# 	
+# 	damage = 0
+# 	toughness = 12
+# 	
+# 	siege_tier = 3
+# 	siege_value = 0.4
+# 
+# 	can_recruit = {
+# 		culture = {
+# 			has_innovation = innovation_trebuchet
+# 		}
+# 		NOR = {
+# 			government_has_flag = government_is_nomadic
+# 			government_has_flag = government_is_herder
+# 		}
+# 	}
+# 	
+# 	should_show_when_unavailable = {
+# 		government_allows = subject_men_at_arms
+# 		culture = { has_cultural_era_or_later = culture_era_high_medieval }
+# 	}
+# 
+# 	buy_cost = { gold = trebuchet_recruitment_cost }
+# 	low_maintenance_cost = { gold = trebuchet_low_maint_cost }
+# 	high_maintenance_cost = { gold = trebuchet_high_maint_cost }
+# 	provision_cost = @provisions_cost_special_expensive
+# 	
+# 	stack = 10
+# 	allowed_in_hired_troops = no
+# 
+# }
+# 
+# #Late Medieval Era
+# bombard = {
+# 	type = siege_weapon
+# 	fights_in_main_phase = no
+# 	
+# 	damage = 0
+# 	toughness = 12
+# 	
+# 	siege_tier = 4
+# 	siege_value = 0.6
+# 
+# 	can_recruit = {
+# 		culture = {
+# 			has_innovation = innovation_bombard
+# 		}
+# 		NOR = {
+# 			government_has_flag = government_is_nomadic
+# 			government_has_flag = government_is_herder
+# 		}
+# 	}
+# 	
+# 	should_show_when_unavailable = {
+# 		government_allows = subject_men_at_arms
+# 		culture = { has_cultural_era_or_later = culture_era_late_medieval }
+# 	}
+# 
+# 	buy_cost = { gold = bombard_recruitment_cost }
+# 	low_maintenance_cost = { gold = bombard_low_maint_cost }
+# 	high_maintenance_cost = { gold = bombard_high_maint_cost }
+# 	provision_cost = @provisions_cost_special_bankrupting
+# 	
+# 	stack = 10
+# 	allowed_in_hired_troops = no
+# }
+# 
+# # Special
+# house_guard = {
+# 	type = heavy_infantry
+# 	can_recruit = {
+# 		exists = dynasty
+# 		dynasty = {
+# 			has_dynasty_perk = warfare_legacy_5
+# 		}
+# 		NOT = {
+# 			culture = { has_cultural_parameter = strength_in_numbers_heavy_maa_ban }
+# 		}
+# 	}
+# 	
+# 	damage = 40
+# 	toughness = 32
+# 	pursuit = 0
+# 	screen = 24
+# 	
+# 	counters = {
+# 		pikemen = 2
+# 		archers = 2
+# 	}
+# 	
+# 	buy_cost = { gold = 50 }
+# 	low_maintenance_cost = { gold = 0 }
+# 	high_maintenance_cost = { gold = 1 }
+# 	provision_cost = @provisions_cost_infantry_expensive
+# 	
+# 	max_regiments = 1
+# 	
+# 	stack = 100
+# 	ai_quality = { value = 100 }
+# }
+# 
+# #Flavor Pack 3 landless units#
+# handpicked_faithful = {
+# 	type = heavy_infantry
+# 
+# 	damage = 38
+# 	toughness = 28
+# 	pursuit = 5
+# 	screen = 5
+# 
+# 	can_recruit = {
+# 		domicile ?= { has_domicile_parameter = camp_unlocks_handpicked_faithful_maa_type }
+# 	}
+# 
+# 	terrain_bonus = {
+# 		hills = { damage = 6 toughness = 4 }
+# 		forest = { damage = 6 toughness = 4 }
+# 		jungle = { damage = 6 toughness = 4 }
+# 	}
+# 
+# 	counters = {
+# 		pikemen = 1
+# 		heavy_cavalry = 1
+# 	}
+# 
+# 	buy_cost = { gold = handpicked_faithful_recruitment_cost }
+# 	low_maintenance_cost = { gold = handpicked_faithful_low_maint_cost }
+# 	high_maintenance_cost = { gold = handpicked_faithful_high_maint_cost }
+# 	provision_cost = @provisions_cost_infantry_moderate
+# 
+# 	stack = 100
+# 	ai_quality = {
+# 		value = @[cultural_maa_extra_ai_score + 50]
+# 		add = counter_synergy_ai_weight_heavy_infantry
+# 	}
+# 	icon = heavy_infantry
+# }
+# 
+# maa_bandits = {
+# 	type = skirmishers
+# 	
+# 	can_recruit = { always = no }
+# 
+# 	damage = 15
+# 	toughness = 20
+# 	pursuit = 20
+# 	screen = 25
+# 
+# 	terrain_bonus = {
+# 		forest = { damage = 4 toughness = 6 }
+# 		hills = { damage = 4 toughness = 6 }
+# 		jungle = { damage = 4 toughness = 6 }
+# 	}
+# 	
+# 	counters = {
+# 		heavy_infantry = 1
+# 		archers = 1
+# 	}
+# 
+# 	buy_cost = { gold = jomsviking_pirates_recruitment_cost }
+# 	low_maintenance_cost = { gold = jomsviking_pirates_low_maint_cost }
+# 	high_maintenance_cost = { gold = jomsviking_pirates_high_maint_cost }
+# 	provision_cost = @provisions_cost_infantry_cheap
+# 	
+# 	stack = 50
+# 	ai_quality = { value = @cultural_maa_extra_ai_score }
+# 	icon = skirmishers
+# }
+# 
+# maa_poachers = {
+# 	type = archers
+# 
+# 	can_recruit = { always = no }
+# 	
+# 	damage = 30
+# 	toughness = 15
+# 	pursuit = 10
+# 	screen = 10
+# 	
+# 	terrain_bonus = {
+# 		hills = { damage = 10 toughness = 6 }
+# 		forest = { toughness = 10 screen = 10 }
+# 		jungle = { toughness = 10 screen = 10 }
+# 	}
+# 
+# 	counters = {
+# 		skirmishers = 1
+# 	}
+# 
+# 	buy_cost = { gold = jomsviking_pirates_recruitment_cost }
+# 	low_maintenance_cost = { gold = jomsviking_pirates_low_maint_cost }
+# 	high_maintenance_cost = { gold = jomsviking_pirates_high_maint_cost }
+# 	provision_cost = @provisions_cost_infantry_cheap
+# 	
+# 	stack = 50
+# 	ai_quality = { value = @cultural_maa_extra_ai_score }
+# 	icon = bowmen
+# }
+# 
+# maa_marauders = {
+# 	type = light_cavalry
+# 
+# 	can_recruit = { always = no }
+# 	
+# 	damage = 30
+# 	toughness = 15
+# 	pursuit = 40
+# 	screen = 30
+# 	
+# 	terrain_bonus = {
+# 		plains = { damage = 15 }
+# 		drylands = { damage = 15 }
+# 		farmlands = { damage = 25 }
+# 	}
+# 	
+# 	counters = {
+# 		archers = 1
+# 	}
+# 
+# 	buy_cost = { gold = jomsviking_pirates_recruitment_cost }
+# 	low_maintenance_cost = { gold = jomsviking_pirates_low_maint_cost }
+# 	high_maintenance_cost = { gold = jomsviking_pirates_high_maint_cost }
+# 	provision_cost = @provisions_cost_infantry_moderate
+# 	
+# 	stack = 50
+# 	ai_quality = { value = @cultural_maa_extra_ai_score }
+# 	icon = light_cavalry
+# }
+# 
+# maa_thieves = {
+# 	type = pikemen
+# 
+# 	can_recruit = { always = no }
+# 	
+# 	damage = 30
+# 	toughness = 20
+# 	pursuit = 10
+# 	screen = 10
+# 	
+# 	terrain_bonus = {
+# 		mountains = { toughness = 15 }
+# 		desert_mountains = { toughness = 15 }
+# 		hills = { toughness = 10 }
+# 	}
+# 
+# 	counters = {
+# 		light_cavalry = 1
+# 		heavy_cavalry = 1
+# 		camel_cavalry = 1
+# 		elephant_cavalry = 1
+# 	}
+# 
+# 	buy_cost = { gold = jomsviking_pirates_recruitment_cost }
+# 	low_maintenance_cost = { gold = jomsviking_pirates_low_maint_cost }
+# 	high_maintenance_cost = { gold = jomsviking_pirates_high_maint_cost }
+# 	provision_cost = @provisions_cost_infantry_cheap
+# 	
+# 	stack = 50
+# 	ai_quality = { value = @cultural_maa_extra_ai_score }
+# 	icon = pikemen
+# }
+# 
+# 
