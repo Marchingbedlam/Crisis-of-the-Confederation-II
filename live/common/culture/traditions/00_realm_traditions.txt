@@ -1581,15 +1581,15 @@ tradition_agrarian = {
 	character_modifier = {
 		men_at_arms_recruitment_cost = 0.25
 		prowess = -2
-		floodplains_travel_danger = floodplains_medium_danger_reduction
+		atmospheric_travel_danger = atmospheric_medium_danger_reduction
 	}
 	county_modifier = {
 		terran_development_growth_factor = 0.3
-		farmlands_construction_gold_cost = -0.1
+		terran_construction_gold_cost = -0.1
 		atmospheric_development_growth_factor = 0.3
-		floodplains_construction_gold_cost = -0.1
-		farmlands_levy_size = 0.1
-		floodplains_levy_size = 0.1
+		atmospheric_construction_gold_cost = -0.1
+		terran_levy_size = 0.1
+		atmospheric_levy_size = 0.1
 	}
 	
 	cost = {
@@ -2068,16 +2068,16 @@ tradition_hill_dwellers = {
 		windmills_hill_farms_unlock = yes
 	}
 	character_modifier = {
-		hills_travel_danger = hills_medium_danger_reduction
-		hills_fertility_growth_mult = low_culture_county_fertility_value_mult
+		asteroids_travel_danger = asteroids_medium_danger_reduction
+		asteroids_fertility_growth_mult = low_culture_county_fertility_value_mult
 	}
 	county_modifier = {
 		asteroids_development_growth_factor = 0.2
 	}
 	province_modifier = {
-		hills_construction_gold_cost = -0.1
-		hills_holding_construction_gold_cost = -0.1
-		hills_fertility_growth_add = 0.1
+		asteroids_construction_gold_cost = -0.1
+		asteroids_holding_construction_gold_cost = -0.1
+		asteroids_fertility_growth_add = 0.1
 	}
 	
 	cost = {
@@ -2194,19 +2194,15 @@ tradition_forest_folk = {
 		watermills_forestries_unlock = yes		
 	}
 	character_modifier = {
-		forest_travel_danger = forest_medium_danger_reduction
-		taiga_travel_danger = taiga_medium_danger_reduction
-		forest_fertility_growth_mult = medium_culture_county_fertility_value_mult
-		taiga_fertility_growth_mult = medium_culture_county_fertility_value_mult
+		nebula_travel_danger = nebula_medium_danger_reduction
+		nebula_fertility_growth_mult = medium_culture_county_fertility_value_mult
 	}
 	county_modifier = {
 		nebula_development_growth_factor = 0.15
 	}
 	province_modifier = {
-		forest_construction_gold_cost = -0.1
-		taiga_construction_gold_cost = -0.1
-		forest_holding_construction_gold_cost = -0.1
-		taiga_holding_construction_gold_cost = -0.1
+		nebula_construction_gold_cost = -0.1
+		nebula_holding_construction_gold_cost = -0.1
 	}
 	
 	cost = {
@@ -2325,19 +2321,15 @@ tradition_mountain_homes = {
 		mountains_hunt_success_chance = yes
 	}
 	character_modifier = {
-		mountains_travel_danger = mountains_medium_danger_reduction
-		desert_mountains_travel_danger = desert_mountains_medium_danger_reduction
-		mountains_fertility_growth_mult = high_culture_county_fertility_value_mult
-		desert_mountains_fertility_growth_mult = high_culture_county_fertility_value_mult
+		protoplanetary_travel_danger = protoplanetary_medium_danger_reduction
+		protoplanetary_fertility_growth_mult = high_culture_county_fertility_value_mult
 	}
 	county_modifier = {
 		protoplanetary_development_growth_factor = 0.2
 	}
 	province_modifier = {
-		mountains_construction_gold_cost = -0.1
-		desert_mountains_construction_gold_cost = -0.1
-		mountains_holding_construction_gold_cost = -0.1
-		desert_mountains_holding_construction_gold_cost = -0.1
+		protoplanetary_construction_gold_cost = -0.1
+		protoplanetary_holding_construction_gold_cost = -0.1
 	}
 	
 	cost = {
@@ -2475,14 +2467,14 @@ tradition_jungle_dwellers = {
 		jungle_hunt_success_chance = yes
 	}
 	character_modifier = {
-		jungle_travel_danger = jungle_medium_danger_reduction
+		corrosive_travel_danger = corrosive_medium_danger_reduction
 	}
 	county_modifier = {
 		corrosive_development_growth_factor = 0.25
 	}
 	province_modifier = {
-		jungle_construction_gold_cost = -0.1
-		jungle_holding_construction_gold_cost = -0.1
+		corrosive_construction_gold_cost = -0.1
+		corrosive_holding_construction_gold_cost = -0.1
 	}
 	
 	cost = {
@@ -2598,19 +2590,24 @@ tradition_wetlanders = {
 		wetlands_hunt_success_chance = yes
 	}
 	character_modifier = {
-		wetlands_advantage = 10
-		wetlands_travel_danger = wetlands_high_danger_reduction
-		floodplains_travel_danger = floodplains_high_danger_reduction
+		terran_advantage = 10
+		atmospheric_advantage = 10
+		terran_travel_danger = terran_high_danger_reduction
+		atmospheric_travel_danger = atmospheric_high_danger_reduction
 	}
 	county_modifier = {
 		terran_development_growth_factor = 0.25
 		atmospheric_development_growth_factor = 0.25
 	}
 	province_modifier = {
-		wetlands_construction_gold_cost = -0.15
-		wetlands_holding_construction_gold_cost = -0.15
-		wetlands_levy_size = 0.1
-		wetlands_supply_limit_mult = 0.25
+		terran_construction_gold_cost = -0.15
+		atmospheric_construction_gold_cost = -0.15
+		terran_holding_construction_gold_cost = -0.15
+		atmospheric_holding_construction_gold_cost = -0.15
+		terran_levy_size = 0.1
+		atmospheric_levy_size = 0.1
+		terran_supply_limit_mult = 0.25
+		atmospheric_supply_limit_mult = 0.25
 	}
 	
 	cost = {
@@ -2727,14 +2724,14 @@ tradition_hidden_cities = {
 		castle_holding_fort_level_in_jungle_bonus = yes
 	}
 	character_modifier = {
-		jungle_travel_danger = jungle_high_danger_reduction
+		corrosive_travel_danger = corrosive_high_danger_reduction
 	}
 	county_modifier = {
 		corrosive_development_growth_factor = 0.35
 	}
 	province_modifier = {
-		jungle_construction_gold_cost = -0.1
-		jungle_holding_construction_gold_cost = -0.1
+		corrosive_construction_gold_cost = -0.1
+		corrosive_holding_construction_gold_cost = -0.1
 	}
 	
 	cost = {
