@@ -5,7 +5,7 @@
 tradition_court_eunuchs = {
 	category = realm
 
-		is_shown = {
+	is_shown = {
 		always = no
 	}
 
@@ -150,7 +150,7 @@ tradition_legalistic = {
 tradition_republican_legacy = {
 	category = regional
 
-		is_shown = {
+	is_shown = {
 		always = no
 	}
 
@@ -914,7 +914,7 @@ tradition_equal_inheritance = {
 tradition_roman_legacy = {
 	category = realm
 
-		is_shown = {
+	is_shown = {
 		#replaced by new Byzantine traditions
 		has_ep3_dlc_trigger = no
 		always = no
@@ -1695,7 +1695,7 @@ tradition_agrarian = {
 tradition_pastoralists = {
 	category = realm
 
-		is_shown = {
+	is_shown = {
 		always = no
 	}
 
@@ -2089,10 +2089,10 @@ tradition_hill_dwellers = {
 	}
 	can_pick = {
 		custom_description = {
-			text = culture_in_corrosive_desc
+			text = culture_in_frozen_desc
 			any_culture_county = {
 				county_has_province_with_terrain = {
-					terrain = corrosive
+					terrain = frozen
 				}
 			}
 		}
@@ -2104,16 +2104,16 @@ tradition_hill_dwellers = {
 		windmills_hill_farms_unlock = yes
 	}
 	character_modifier = {
-		corrosive_travel_danger = corrosive_medium_danger_reduction
-		corrosive_fertility_growth_mult = low_culture_county_fertility_value_mult
+		frozen_travel_danger = frozen_medium_danger_reduction
+		frozen_fertility_growth_mult = low_culture_county_fertility_value_mult
 	}
 	county_modifier = {
-		corrosive_development_growth_factor = 0.2
+		frozen_development_growth_factor = 0.2
 	}
 	province_modifier = {
-		corrosive_construction_gold_cost = -0.1
-		corrosive_holding_construction_gold_cost = -0.1
-		corrosive_fertility_growth_add = 0.1
+		frozen_construction_gold_cost = -0.1
+		frozen_holding_construction_gold_cost = -0.1
+		frozen_fertility_growth_add = 0.1
 	}
 	
 	cost = {
@@ -2138,14 +2138,14 @@ tradition_hill_dwellers = {
 						any_culture_county = {
 							percent >= 0.3
 							county_has_province_with_terrain = {
-								terrain = corrosive
+								terrain = frozen
 							}
 						}
 					}
 				}
 				add = {
 					value = tradition_unfulfilled_criteria_penalty
-					desc = corrosive_percentage_desc
+					desc = frozen_percentage_desc
 				}
 			}
 
@@ -2173,7 +2173,7 @@ tradition_hill_dwellers = {
 							percent >= 0.2
 							culture = scope:character.culture
 							county_has_province_with_terrain = {
-								terrain = corrosive
+								terrain = frozen
 							}
 						}
 					}
@@ -2186,7 +2186,7 @@ tradition_hill_dwellers = {
 				any_culture_county = {
 					percent >= 0.6
 					county_has_province_with_terrain = {
-						terrain = corrosive
+						terrain = frozen
 					}
 				}
 			}
@@ -2351,10 +2351,11 @@ tradition_mountain_homes = {
 	}
 	can_pick = {
 		custom_description = {
-			text = culture_in_gas_giant_or_frozen_giant_desc
+			text = culture_in_gas_giant_frozen_giant_or_corrosive_desc
 			any_culture_county = {
 				county_has_province_with_terrain = {
 					terrain = gas_giant
+					terrain = corrosive
 					terrain = frozen_giant
 				}
 			}
@@ -2368,18 +2369,23 @@ tradition_mountain_homes = {
 	}
 	character_modifier = {
 		gas_giant_travel_danger = gas_giant_medium_danger_reduction
+		corrosive_travel_danger = corrosive_medium_danger_reduction
 		frozen_giant_travel_danger = frozen_giant_medium_danger_reduction
 		gas_giant_fertility_growth_mult = high_culture_county_fertility_value_mult
+		corrosive_fertility_growth_mult = high_culture_county_fertility_value_mult
 		frozen_giant_fertility_growth_mult = high_culture_county_fertility_value_mult
 	}
 	county_modifier = {
 		gas_giant_development_growth_factor = 0.2
+		corrosive_development_growth_factor = 0.2
 		frozen_giant_development_growth_factor = 0.2
 	}
 	province_modifier = {
 		gas_giant_construction_gold_cost = -0.1
+		corrosive_construction_gold_cost = -0.1
 		frozen_giant_construction_gold_cost = -0.1
 		gas_giant_holding_construction_gold_cost = -0.1
+		corrosive_holding_construction_gold_cost = -0.1
 		frozen_giant_holding_construction_gold_cost = -0.1
 	}
 	
@@ -2406,6 +2412,7 @@ tradition_mountain_homes = {
 							percent >= 0.3
 							county_has_province_with_terrain = {
 								terrain = gas_giant
+								terrain = corrosive
 								terrain = frozen_giant
 							}
 						}
@@ -2413,7 +2420,7 @@ tradition_mountain_homes = {
 				}
 				add = {
 					value = tradition_unfulfilled_criteria_penalty
-					desc = gas_giant_or_frozen_giant_percentage_desc
+					desc = gas_giant_frozen_giant_or_corrosive_percentage_desc
 				}
 			}
 
@@ -2442,6 +2449,7 @@ tradition_mountain_homes = {
 							culture = scope:character.culture
 							county_has_province_with_terrain = {
 								terrain = gas_giant
+								terrain = corrosive
 								terrain = frozen_giant
 							}
 						}
@@ -2456,6 +2464,7 @@ tradition_mountain_homes = {
 					percent >= 0.6
 					county_has_province_with_terrain = {
 						terrain = gas_giant
+						terrain = corrosive
 						terrain = frozen_giant
 					}
 				}
@@ -2468,7 +2477,7 @@ tradition_mountain_homes = {
 tradition_dryland_dwellers = {
 	category = realm
 
-		is_shown = {
+	is_shown = {
 		always = no
 	}
 
@@ -2769,22 +2778,10 @@ tradition_hidden_cities = {
 	}
 
 	is_shown = {
-		OR = {
-			has_cultural_pillar = heritage_akan
-			has_cultural_pillar = heritage_yoruba
-		}
-		NOT = { has_cultural_tradition = tradition_jungle_dwellers }
+		always = no
 	}
 	can_pick = {
-		custom_description = {
-			text = culture_in_asteroids_or_protoplanetary_desc
-			any_culture_county = {
-				county_has_province_with_terrain = {
-					terrain = asteroids
-					terrain = protoplanetary
-				}
-			}
-		}
+		always = no
 	}
 	
 	parameters = {
@@ -3214,7 +3211,12 @@ tradition_maritime_mercantilism = {
 		4 = ship.dds
 	}
 	
+	is_shown = {
+		always = no
+	}
+	
 	can_pick = {
+		always = no
 	}
 	
 	parameters = {

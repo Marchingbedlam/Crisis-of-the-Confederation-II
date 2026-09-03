@@ -11,16 +11,12 @@ tradition_winter_warriors = {
 		4 = fight.dds
 	}
 	
+	is_shown = {
+		always = no
+	}
+	
 	can_pick = {
-		culture_not_pacifistic_trigger = yes
-		custom_description = {
-			text = culture_in_frozen_desc
-			any_culture_county = {
-				county_has_province_with_terrain = {
-					terrain = frozen
-				}
-			}
-		}
+		always = no
 	}
 	parameters = {
 		winter_soldier_trait_more_common = yes
@@ -215,10 +211,11 @@ tradition_mountaineers = {
 	can_pick = {
 		culture_not_pacifistic_trigger = yes
 		custom_description = {
-			text = culture_in_gas_giant_or_frozen_giant_desc
+			text = culture_in_gas_giant_frozen_giant_or_corrosive_desc
 			any_culture_county = {
 				county_has_province_with_terrain = {
 					terrain = gas_giant
+					terrain = corrosive
 					terrain = frozen_giant
 				}
 			}
@@ -233,12 +230,15 @@ tradition_mountaineers = {
 	}
 	character_modifier = {
 		gas_giant_travel_danger = gas_giant_low_danger_reduction
+		corrosive_travel_danger = corrosive_low_danger_reduction
 		frozen_giant_travel_danger = frozen_giant_low_danger_reduction
 	}
 	province_modifier = {
 		gas_giant_levy_size = 0.1
+		corrosive_levy_size = 0.1
 		frozen_giant_levy_size = 0.1
 		gas_giant_supply_limit_mult = 0.25
+		corrosive_supply_limit_mult = 0.25
 		frozen_giant_supply_limit_mult = 0.25
 	}
 	cost = {
@@ -268,6 +268,7 @@ tradition_mountaineers = {
 							percent >= 0.3
 							county_has_province_with_terrain = {
 								terrain = gas_giant
+								terrain = corrosive
 								terrain = frozen_giant
 							}
 						}
@@ -275,7 +276,7 @@ tradition_mountaineers = {
 				}
 				add = {
 					value = tradition_unfulfilled_criteria_penalty
-					desc = gas_giant_or_frozen_giant_percentage_desc
+					desc = gas_giant_frozen_giant_or_corrosive_percentage_desc
 				}
 			}
 
@@ -303,6 +304,7 @@ tradition_mountaineers = {
 							culture = scope:character.culture
 							county_has_province_with_terrain = {
 								terrain = gas_giant
+								terrain = corrosive
 								terrain = frozen_giant
 							}
 						}
@@ -318,6 +320,7 @@ tradition_mountaineers = {
 						percent > 0.6
 						county_has_province_with_terrain = {
 								terrain = gas_giant
+								terrain = corrosive
 								terrain = frozen_giant
 						}
 					}
@@ -332,6 +335,7 @@ tradition_mountaineers = {
 						percent > 0.4
 						county_has_province_with_terrain = {
 							terrain = gas_giant
+							terrain = corrosive
 							terrain = frozen_giant
 						}
 					}
@@ -345,7 +349,7 @@ tradition_mountaineers = {
 tradition_warriors_of_the_dry = {
 	category = combat
 
-		is_shown = {
+	is_shown = {
 		always = no
 	}
 
@@ -391,10 +395,10 @@ tradition_highland_warriors = {
 	can_pick = {
 		culture_not_pacifistic_trigger = yes
 		custom_description = {
-			text = culture_in_corrosive_desc
+			text = culture_in_frozen_desc
 			any_culture_county = {
 				county_has_province_with_terrain = {
-					terrain = corrosive
+					terrain = frozen
 				}
 			}
 		}
@@ -407,11 +411,11 @@ tradition_highland_warriors = {
 		hills_nomadic_cultrad_stationing_bonus = yes
 	}
 	province_modifier = {
-		corrosive_levy_size = 0.1
-		corrosive_supply_limit_mult = 0.25
+		frozen_levy_size = 0.1
+		frozen_supply_limit_mult = 0.25
 	}
 	character_modifier = {
-		corrosive_travel_danger = corrosive_low_danger_reduction
+		frozen_travel_danger = frozen_low_danger_reduction
 	}
 	
 	cost = {
@@ -440,14 +444,14 @@ tradition_highland_warriors = {
 						any_culture_county = {
 							percent >= 0.3
 							county_has_province_with_terrain = {
-								terrain = corrosive
+								terrain = frozen
 							}
 						}
 					}
 				}
 				add = {
 					value = tradition_unfulfilled_criteria_penalty
-					desc = corrosive_percentage_desc
+					desc = frozen_percentage_desc
 				}
 			}
 
@@ -475,7 +479,7 @@ tradition_highland_warriors = {
 							percent >= 0.2
 							culture = scope:character.culture
 							county_has_province_with_terrain = {
-								terrain = corrosive
+								terrain = frozen
 							}
 						}
 					}
@@ -489,7 +493,7 @@ tradition_highland_warriors = {
 					any_culture_county = {
 						percent > 0.6
 						county_has_province_with_terrain = {
-							terrain = corrosive
+							terrain = frozen
 						}
 					}
 				}
@@ -502,7 +506,7 @@ tradition_highland_warriors = {
 					any_culture_county = {
 						percent > 0.4
 						county_has_province_with_terrain = {
-							terrain = corrosive
+							terrain = frozen
 						}
 					}
 				}
@@ -2362,7 +2366,7 @@ tradition_horse_breeder = {
 	category = combat
 	category = combat
 
-		is_shown = {
+	is_shown = {
 		always = no
 	}
 
@@ -2391,7 +2395,7 @@ tradition_horse_breeder = {
 tradition_longbow_competitions = {
 	category = combat
 
-		is_shown = {
+	is_shown = {
 		always = no
 	}
 
