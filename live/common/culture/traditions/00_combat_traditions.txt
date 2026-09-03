@@ -29,7 +29,7 @@ tradition_winter_warriors = {
 		resistant_to_winter_privation = yes
 	}
 	character_modifier = {
-		nebula_travel_danger = nebula_low_danger_reduction
+		frozen_travel_danger = frozen_low_danger_reduction
 	}
 	cost = {
 		prestige = {
@@ -80,9 +80,10 @@ tradition_forest_fighters = {
 	can_pick = {
 		culture_not_pacifistic_trigger = yes
 		custom_description = {
-			text = culture_in_nebula_desc
+			text = culture_in_open_space_or_nebula_desc
 			any_culture_county = {
 				county_has_province_with_terrain = {
+					terrain = open_space
 					terrain = nebula
 				}
 			}
@@ -95,10 +96,13 @@ tradition_forest_fighters = {
 		forest_nomadic_cultrad_stationing_bonus = yes
 	}
 	character_modifier = {
+		open_space_travel_danger = open_space_low_danger_reduction
 		nebula_travel_danger = nebula_low_danger_reduction
 	}
 	province_modifier = {
+		open_space_levy_size = 0.1
 		nebula_levy_size = 0.1
+		open_space_supply_limit_mult = 0.25
 		nebula_supply_limit_mult = 0.25
 	}
 	cost = {
@@ -127,6 +131,7 @@ tradition_forest_fighters = {
 						any_culture_county = {
 							percent >= 0.3
 							county_has_province_with_terrain = {
+								terrain = open_space
 								terrain = nebula
 							}
 						}
@@ -134,7 +139,7 @@ tradition_forest_fighters = {
 				}
 				add = {
 					value = tradition_unfulfilled_criteria_penalty
-					desc = nebula_percentage_desc
+					desc = open_space_or_nebula_percentage_desc
 				}
 			}
 
@@ -161,6 +166,7 @@ tradition_forest_fighters = {
 							percent >= 0.2
 							culture = scope:character.culture
 							county_has_province_with_terrain = {
+								terrain = open_space
 								terrain = nebula
 							}
 						}
@@ -174,6 +180,7 @@ tradition_forest_fighters = {
 				any_culture_county = {
 					percent >= 0.6
 					county_has_province_with_terrain = {
+						terrain = open_space
 						terrain = nebula
 					}
 				}
@@ -208,10 +215,11 @@ tradition_mountaineers = {
 	can_pick = {
 		culture_not_pacifistic_trigger = yes
 		custom_description = {
-			text = culture_in_protoplanetary_desc
+			text = culture_in_gas_giant_or_frozen_giant_desc
 			any_culture_county = {
 				county_has_province_with_terrain = {
-					terrain = protoplanetary
+					terrain = gas_giant
+					terrain = frozen_giant
 				}
 			}
 		}
@@ -224,11 +232,14 @@ tradition_mountaineers = {
 		mountains_nomadic_cultrad_stationing_bonus = yes
 	}
 	character_modifier = {
-		protoplanetary_travel_danger = protoplanetary_low_danger_reduction
+		gas_giant_travel_danger = gas_giant_low_danger_reduction
+		frozen_giant_travel_danger = frozen_giant_low_danger_reduction
 	}
 	province_modifier = {
-		protoplanetary_levy_size = 0.1
-		protoplanetary_supply_limit_mult = 0.25
+		gas_giant_levy_size = 0.1
+		frozen_giant_levy_size = 0.1
+		gas_giant_supply_limit_mult = 0.25
+		frozen_giant_supply_limit_mult = 0.25
 	}
 	cost = {
 		prestige = {
@@ -256,14 +267,15 @@ tradition_mountaineers = {
 						any_culture_county = {
 							percent >= 0.3
 							county_has_province_with_terrain = {
-								terrain = protoplanetary
+								terrain = gas_giant
+								terrain = frozen_giant
 							}
 						}
 					}
 				}
 				add = {
 					value = tradition_unfulfilled_criteria_penalty
-					desc = protoplanetary_percentage_desc
+					desc = gas_giant_or_frozen_giant_percentage_desc
 				}
 			}
 
@@ -290,7 +302,8 @@ tradition_mountaineers = {
 							percent >= 0.2
 							culture = scope:character.culture
 							county_has_province_with_terrain = {
-								terrain = protoplanetary
+								terrain = gas_giant
+								terrain = frozen_giant
 							}
 						}
 					}
@@ -304,7 +317,8 @@ tradition_mountaineers = {
 					any_culture_county = {
 						percent > 0.6
 						county_has_province_with_terrain = {
-								terrain = protoplanetary
+								terrain = gas_giant
+								terrain = frozen_giant
 						}
 					}
 				}
@@ -317,7 +331,8 @@ tradition_mountaineers = {
 					any_culture_county = {
 						percent > 0.4
 						county_has_province_with_terrain = {
-							terrain = protoplanetary
+							terrain = gas_giant
+							terrain = frozen_giant
 						}
 					}
 				}
@@ -376,10 +391,10 @@ tradition_highland_warriors = {
 	can_pick = {
 		culture_not_pacifistic_trigger = yes
 		custom_description = {
-			text = culture_in_asteroids_desc
+			text = culture_in_corrosive_desc
 			any_culture_county = {
 				county_has_province_with_terrain = {
-					terrain = asteroids
+					terrain = corrosive
 				}
 			}
 		}
@@ -392,151 +407,13 @@ tradition_highland_warriors = {
 		hills_nomadic_cultrad_stationing_bonus = yes
 	}
 	province_modifier = {
-		asteroids_levy_size = 0.1
-		asteroids_supply_limit_mult = 0.25
-	}
-	character_modifier = {
-		asteroids_travel_danger = asteroids_low_danger_reduction
-	}
-	
-	cost = {
-		prestige = {
-			add = {
-				value = tradition_base_cost
-				desc = BASE
-				format = "BASE_VALUE_FORMAT"
-			}
-			if = {
-				limit = {
-					NOR = {
-						culture_pillar:ethos_bellicose = { is_in_list = traits }
-						culture_pillar:ethos_stoic = { is_in_list = traits }
-						culture_pillar:ethos_communal = { is_in_list = traits }
-					}
-				}
-				add = {
-					value = tradition_incompatible_ethos_penalty
-					desc = not_bellicose_stoic_or_communal_desc
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						any_culture_county = {
-							percent >= 0.3
-							county_has_province_with_terrain = {
-								terrain = asteroids
-							}
-						}
-					}
-				}
-				add = {
-					value = tradition_unfulfilled_criteria_penalty
-					desc = asteroids_percentage_desc
-				}
-			}
-
-			if = {
-				limit = {
-					culture_tradition_reduction_trigger = { TRADITION = tradition_highland_warriors }
-				}
-				multiply = {
-					value = 0.5
-					desc = inspired_by_culture_desc
-				}
-			}
-			
-			multiply = tradition_replacement_cost_if_relevant
-		}
-	}
-	
-	ai_will_do = {
-		value = 100
-		if = {
-			limit = {
-				NOT = {
-					scope:character = {
-						any_sub_realm_county = {
-							percent >= 0.2
-							culture = scope:character.culture
-							county_has_province_with_terrain = {
-								terrain = asteroids
-							}
-						}
-					}
-				}
-			}
-			multiply = 0
-		}
-		else_if = {
-			limit = {
-				scope:character.culture ?= {
-					any_culture_county = {
-						percent > 0.6
-						county_has_province_with_terrain = {
-							terrain = asteroids
-						}
-					}
-				}
-			}
-			multiply = 6
-		}
-		else_if = {
-			limit = {
-				scope:character.culture ?= {
-					any_culture_county = {
-						percent > 0.4
-						county_has_province_with_terrain = {
-							terrain = asteroids
-						}
-					}
-				}
-			}
-			multiply = 2
-		}
-	}
-}
-
-tradition_jungle_warriors = {
-	category = combat
-
-	layers = {
-		0 = intrigue
-		1 = mena
-		4 = jungle.dds
-	}
-
-	is_shown = { #Replaced by Bush Hunting
-		NOR = {
-			has_cultural_pillar = heritage_akan
-			has_cultural_pillar = heritage_yoruba
-			has_cultural_tradition = tradition_bush_hunting
-		}
-	}
-	
-	can_pick = {
-		culture_not_pacifistic_trigger = yes
-		custom_description = {
-			text = culture_in_corrosive_desc
-			any_culture_county = {
-				county_has_province_with_terrain = {
-					terrain = corrosive
-				}
-			}
-		}
-	}
-	parameters = {
-		jungle_stalker_trait_more_common = yes
-		jungle_trait_bonuses = yes
-		can_recruit_jungle_specialist = yes
+		corrosive_levy_size = 0.1
+		corrosive_supply_limit_mult = 0.25
 	}
 	character_modifier = {
 		corrosive_travel_danger = corrosive_low_danger_reduction
 	}
-	province_modifier = {
-		corrosive_levy_size = 0.1
-		corrosive_supply_limit_mult = 0.25
-	}
+	
 	cost = {
 		prestige = {
 			add = {
@@ -576,7 +453,7 @@ tradition_jungle_warriors = {
 
 			if = {
 				limit = {
-					culture_tradition_reduction_trigger = { TRADITION = tradition_jungle_warriors }
+					culture_tradition_reduction_trigger = { TRADITION = tradition_highland_warriors }
 				}
 				multiply = {
 					value = 0.5
@@ -587,6 +464,7 @@ tradition_jungle_warriors = {
 			multiply = tradition_replacement_cost_if_relevant
 		}
 	}
+	
 	ai_will_do = {
 		value = 100
 		if = {
@@ -625,6 +503,151 @@ tradition_jungle_warriors = {
 						percent > 0.4
 						county_has_province_with_terrain = {
 							terrain = corrosive
+						}
+					}
+				}
+			}
+			multiply = 2
+		}
+	}
+}
+
+tradition_jungle_warriors = {
+	category = combat
+
+	layers = {
+		0 = intrigue
+		1 = mena
+		4 = jungle.dds
+	}
+
+	is_shown = { #Replaced by Bush Hunting
+		NOR = {
+			has_cultural_pillar = heritage_akan
+			has_cultural_pillar = heritage_yoruba
+			has_cultural_tradition = tradition_bush_hunting
+		}
+	}
+	
+	can_pick = {
+		culture_not_pacifistic_trigger = yes
+		custom_description = {
+			text = culture_in_asteroids_or_protoplanetary_desc
+			any_culture_county = {
+				county_has_province_with_terrain = {
+					terrain = asteroids
+					terrain = protoplanetary
+				}
+			}
+		}
+	}
+	parameters = {
+		jungle_stalker_trait_more_common = yes
+		jungle_trait_bonuses = yes
+		can_recruit_jungle_specialist = yes
+	}
+	character_modifier = {
+		asteroids_travel_danger = asteroids_low_danger_reduction
+		protoplanetary_travel_danger = protoplanetary_low_danger_reduction
+	}
+	province_modifier = {
+		asteroids_levy_size = 0.1
+		protoplanetary_levy_size = 0.1
+		asteroids_supply_limit_mult = 0.25
+		protoplanetary_supply_limit_mult = 0.25
+	}
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+			if = {
+				limit = {
+					NOR = {
+						culture_pillar:ethos_bellicose = { is_in_list = traits }
+						culture_pillar:ethos_stoic = { is_in_list = traits }
+						culture_pillar:ethos_communal = { is_in_list = traits }
+					}
+				}
+				add = {
+					value = tradition_incompatible_ethos_penalty
+					desc = not_bellicose_stoic_or_communal_desc
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						any_culture_county = {
+							percent >= 0.3
+							county_has_province_with_terrain = {
+								terrain = asteroids
+								terrain = protoplanetary
+							}
+						}
+					}
+				}
+				add = {
+					value = tradition_unfulfilled_criteria_penalty
+					desc = asteroids_or_protoplanetary_percentage_desc
+				}
+			}
+
+			if = {
+				limit = {
+					culture_tradition_reduction_trigger = { TRADITION = tradition_jungle_warriors }
+				}
+				multiply = {
+					value = 0.5
+					desc = inspired_by_culture_desc
+				}
+			}
+			
+			multiply = tradition_replacement_cost_if_relevant
+		}
+	}
+	ai_will_do = {
+		value = 100
+		if = {
+			limit = {
+				NOT = {
+					scope:character = {
+						any_sub_realm_county = {
+							percent >= 0.2
+							culture = scope:character.culture
+							county_has_province_with_terrain = {
+								terrain = asteroids
+								terrain = protoplanetary
+							}
+						}
+					}
+				}
+			}
+			multiply = 0
+		}
+		else_if = {
+			limit = {
+				scope:character.culture ?= {
+					any_culture_county = {
+						percent > 0.6
+						county_has_province_with_terrain = {
+							terrain = asteroids
+							terrain = protoplanetary
+						}
+					}
+				}
+			}
+			multiply = 6
+		}
+		else_if = {
+			limit = {
+				scope:character.culture ?= {
+					any_culture_county = {
+						percent > 0.4
+						county_has_province_with_terrain = {
+							terrain = asteroids
+							terrain = protoplanetary
 						}
 					}
 				}

@@ -2089,10 +2089,10 @@ tradition_hill_dwellers = {
 	}
 	can_pick = {
 		custom_description = {
-			text = culture_in_asteroids_desc
+			text = culture_in_corrosive_desc
 			any_culture_county = {
 				county_has_province_with_terrain = {
-					terrain = asteroids
+					terrain = corrosive
 				}
 			}
 		}
@@ -2104,16 +2104,16 @@ tradition_hill_dwellers = {
 		windmills_hill_farms_unlock = yes
 	}
 	character_modifier = {
-		asteroids_travel_danger = asteroids_medium_danger_reduction
-		asteroids_fertility_growth_mult = low_culture_county_fertility_value_mult
+		corrosive_travel_danger = corrosive_medium_danger_reduction
+		corrosive_fertility_growth_mult = low_culture_county_fertility_value_mult
 	}
 	county_modifier = {
-		asteroids_development_growth_factor = 0.2
+		corrosive_development_growth_factor = 0.2
 	}
 	province_modifier = {
-		asteroids_construction_gold_cost = -0.1
-		asteroids_holding_construction_gold_cost = -0.1
-		asteroids_fertility_growth_add = 0.1
+		corrosive_construction_gold_cost = -0.1
+		corrosive_holding_construction_gold_cost = -0.1
+		corrosive_fertility_growth_add = 0.1
 	}
 	
 	cost = {
@@ -2138,14 +2138,14 @@ tradition_hill_dwellers = {
 						any_culture_county = {
 							percent >= 0.3
 							county_has_province_with_terrain = {
-								terrain = asteroids
+								terrain = corrosive
 							}
 						}
 					}
 				}
 				add = {
 					value = tradition_unfulfilled_criteria_penalty
-					desc = asteroids_percentage_desc
+					desc = corrosive_percentage_desc
 				}
 			}
 
@@ -2173,7 +2173,7 @@ tradition_hill_dwellers = {
 							percent >= 0.2
 							culture = scope:character.culture
 							county_has_province_with_terrain = {
-								terrain = asteroids
+								terrain = corrosive
 							}
 						}
 					}
@@ -2186,7 +2186,7 @@ tradition_hill_dwellers = {
 				any_culture_county = {
 					percent >= 0.6
 					county_has_province_with_terrain = {
-						terrain = asteroids
+						terrain = corrosive
 					}
 				}
 			}
@@ -2215,9 +2215,10 @@ tradition_forest_folk = {
 	}
 	can_pick = {
 		custom_description = {
-			text = culture_in_nebula_desc
+			text = culture_in_open_space_or_nebula_desc
 			any_culture_county = {
 				county_has_province_with_terrain = {
+					terrain = open_space
 					terrain = nebula
 				}
 			}
@@ -2230,14 +2231,19 @@ tradition_forest_folk = {
 		watermills_forestries_unlock = yes		
 	}
 	character_modifier = {
+		open_space_travel_danger = open_space_medium_danger_reduction
 		nebula_travel_danger = nebula_medium_danger_reduction
+		open_space_fertility_growth_mult = medium_culture_county_fertility_value_mult
 		nebula_fertility_growth_mult = medium_culture_county_fertility_value_mult
 	}
 	county_modifier = {
+		open_space_development_growth_factor = 0.15
 		nebula_development_growth_factor = 0.15
 	}
 	province_modifier = {
+		open_space_construction_gold_cost = -0.1
 		nebula_construction_gold_cost = -0.1
+		open_space_holding_construction_gold_cost = -0.1
 		nebula_holding_construction_gold_cost = -0.1
 	}
 	
@@ -2263,6 +2269,7 @@ tradition_forest_folk = {
 						any_culture_county = {
 							percent >= 0.3
 							county_has_province_with_terrain = {
+								terrain = open_space
 								terrain = nebula
 							}
 						}
@@ -2270,7 +2277,7 @@ tradition_forest_folk = {
 				}
 				add = {
 					value = tradition_unfulfilled_criteria_penalty
-					desc = nebula_percentage_desc
+					desc = open_space_or_nebula_percentage_desc
 				}
 			}
 
@@ -2298,6 +2305,7 @@ tradition_forest_folk = {
 							percent >= 0.2
 							culture = scope:character.culture
 							county_has_province_with_terrain = {
+								terrain = open_space
 								terrain = nebula
 							}
 						}
@@ -2311,6 +2319,7 @@ tradition_forest_folk = {
 				any_culture_county = {
 					percent >= 0.6
 					county_has_province_with_terrain = {
+						terrain = open_space
 						terrain = nebula
 					}
 				}
@@ -2342,10 +2351,11 @@ tradition_mountain_homes = {
 	}
 	can_pick = {
 		custom_description = {
-			text = culture_in_protoplanetary_desc
+			text = culture_in_gas_giant_or_frozen_giant_desc
 			any_culture_county = {
 				county_has_province_with_terrain = {
-					terrain = protoplanetary
+					terrain = gas_giant
+					terrain = frozen_giant
 				}
 			}
 		}
@@ -2357,15 +2367,20 @@ tradition_mountain_homes = {
 		mountains_hunt_success_chance = yes
 	}
 	character_modifier = {
-		protoplanetary_travel_danger = protoplanetary_medium_danger_reduction
-		protoplanetary_fertility_growth_mult = high_culture_county_fertility_value_mult
+		gas_giant_travel_danger = gas_giant_medium_danger_reduction
+		frozen_giant_travel_danger = frozen_giant_medium_danger_reduction
+		gas_giant_fertility_growth_mult = high_culture_county_fertility_value_mult
+		frozen_giant_fertility_growth_mult = high_culture_county_fertility_value_mult
 	}
 	county_modifier = {
-		protoplanetary_development_growth_factor = 0.2
+		gas_giant_development_growth_factor = 0.2
+		frozen_giant_development_growth_factor = 0.2
 	}
 	province_modifier = {
-		protoplanetary_construction_gold_cost = -0.1
-		protoplanetary_holding_construction_gold_cost = -0.1
+		gas_giant_construction_gold_cost = -0.1
+		frozen_giant_construction_gold_cost = -0.1
+		gas_giant_holding_construction_gold_cost = -0.1
+		frozen_giant_holding_construction_gold_cost = -0.1
 	}
 	
 	cost = {
@@ -2390,14 +2405,15 @@ tradition_mountain_homes = {
 						any_culture_county = {
 							percent >= 0.3
 							county_has_province_with_terrain = {
-								terrain = protoplanetary
+								terrain = gas_giant
+								terrain = frozen_giant
 							}
 						}
 					}
 				}
 				add = {
 					value = tradition_unfulfilled_criteria_penalty
-					desc = protoplanetary_percentage_desc
+					desc = gas_giant_or_frozen_giant_percentage_desc
 				}
 			}
 
@@ -2425,7 +2441,8 @@ tradition_mountain_homes = {
 							percent >= 0.2
 							culture = scope:character.culture
 							county_has_province_with_terrain = {
-								terrain = protoplanetary
+								terrain = gas_giant
+								terrain = frozen_giant
 							}
 						}
 					}
@@ -2438,7 +2455,8 @@ tradition_mountain_homes = {
 				any_culture_county = {
 					percent >= 0.6
 					county_has_province_with_terrain = {
-						terrain = protoplanetary
+						terrain = gas_giant
+						terrain = frozen_giant
 					}
 				}
 			}
@@ -2494,10 +2512,11 @@ tradition_jungle_dwellers = {
 	}
 	can_pick = {
 		custom_description = {
-			text = culture_in_corrosive_desc
+			text = culture_in_asteroids_or_protoplanetary_desc
 			any_culture_county = {
 				county_has_province_with_terrain = {
-					terrain = corrosive
+					terrain = asteroids
+					terrain = protoplanetary
 				}
 			}
 		}
@@ -2508,14 +2527,18 @@ tradition_jungle_dwellers = {
 		jungle_hunt_success_chance = yes
 	}
 	character_modifier = {
-		corrosive_travel_danger = corrosive_medium_danger_reduction
+		asteroids_travel_danger = asteroids_medium_danger_reduction
+		protoplanetary_travel_danger = protoplanetary_medium_danger_reduction
 	}
 	county_modifier = {
-		corrosive_development_growth_factor = 0.25
+		asteroids_development_growth_factor = 0.25
+		protoplanetary_development_growth_factor = 0.25
 	}
 	province_modifier = {
-		corrosive_construction_gold_cost = -0.1
-		corrosive_holding_construction_gold_cost = -0.1
+		asteroids_construction_gold_cost = -0.1
+		protoplanetary_construction_gold_cost = -0.1
+		asteroids_holding_construction_gold_cost = -0.1
+		protoplanetary_holding_construction_gold_cost = -0.1
 	}
 	
 	cost = {
@@ -2540,14 +2563,15 @@ tradition_jungle_dwellers = {
 						any_culture_county = {
 							percent >= 0.3
 							county_has_province_with_terrain = {
-								terrain = corrosive
+								terrain = asteroids
+								terrain = protoplanetary
 							}
 						}
 					}
 				}
 				add = {
 					value = tradition_unfulfilled_criteria_penalty
-					desc = corrosive_percentage_desc
+					desc = asteroids_or_protoplanetary_percentage_desc
 				}
 			}
 
@@ -2575,7 +2599,8 @@ tradition_jungle_dwellers = {
 							percent >= 0.2
 							culture = scope:character.culture
 							county_has_province_with_terrain = {
-								terrain = corrosive
+								terrain = asteroids
+								terrain = protoplanetary
 							}
 						}
 					}
@@ -2588,7 +2613,8 @@ tradition_jungle_dwellers = {
 				any_culture_county = {
 					percent >= 0.6
 					county_has_province_with_terrain = {
-						terrain = corrosive
+						terrain = asteroids
+						terrain = protoplanetary
 					}
 				}
 			}
@@ -2751,10 +2777,11 @@ tradition_hidden_cities = {
 	}
 	can_pick = {
 		custom_description = {
-			text = culture_in_corrosive_desc
+			text = culture_in_asteroids_or_protoplanetary_desc
 			any_culture_county = {
 				county_has_province_with_terrain = {
-					terrain = corrosive
+					terrain = asteroids
+					terrain = protoplanetary
 				}
 			}
 		}
@@ -2765,14 +2792,18 @@ tradition_hidden_cities = {
 		castle_holding_fort_level_in_jungle_bonus = yes
 	}
 	character_modifier = {
-		corrosive_travel_danger = corrosive_high_danger_reduction
+		asteroids_travel_danger = asteroids_high_danger_reduction
+		protoplanetary_travel_danger = protoplanetary_high_danger_reduction
 	}
 	county_modifier = {
-		corrosive_development_growth_factor = 0.35
+		asteroids_development_growth_factor = 0.35
+		protoplanetary_development_growth_factor = 0.35
 	}
 	province_modifier = {
-		corrosive_construction_gold_cost = -0.1
-		corrosive_holding_construction_gold_cost = -0.1
+		asteroids_construction_gold_cost = -0.1
+		protoplanetary_construction_gold_cost = -0.1
+		asteroids_holding_construction_gold_cost = -0.1
+		protoplanetary_holding_construction_gold_cost = -0.1
 	}
 	
 	cost = {
@@ -2797,14 +2828,15 @@ tradition_hidden_cities = {
 						any_culture_county = {
 							percent >= 0.3
 							county_has_province_with_terrain = {
-								terrain = corrosive
+								terrain = asteroids
+								terrain = protoplanetary
 							}
 						}
 					}
 				}
 				add = {
 					value = tradition_unfulfilled_criteria_penalty
-					desc = corrosive_percentage_desc
+					desc = asteroids_or_protoplanetary_percentage_desc
 				}
 			}
 
@@ -2830,7 +2862,8 @@ tradition_hidden_cities = {
 					any_culture_county = {
 						percent >= 0.3
 						county_has_province_with_terrain = {
-							terrain = corrosive
+							terrain = asteroids
+							terrain = protoplanetary
 						}
 					}
 				}
@@ -2845,7 +2878,8 @@ tradition_hidden_cities = {
 							culture = scope:character.culture
 							any_county_province = {
 								has_holding_type = city_holding 
-								terrain = corrosive
+								terrain = asteroids
+								terrain = protoplanetary
 							}
 						}
 					}
@@ -2858,7 +2892,8 @@ tradition_hidden_cities = {
 				any_culture_county = {
 					percent >= 0.6
 					county_has_province_with_terrain = {
-						terrain = corrosive
+						terrain = asteroids
+						terrain = protoplanetary
 					}
 				}
 			}
