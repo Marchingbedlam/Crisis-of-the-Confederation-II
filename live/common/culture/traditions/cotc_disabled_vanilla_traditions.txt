@@ -1,0 +1,5057 @@
+﻿##################################################
+# COTC DISABLED VANILLA TRADITIONS
+#
+# Defines disabled vanilla traditions so that references still resolve.
+##################################################
+
+oath_mend_the_fracture_tradition = {
+	category = regional
+
+	is_shown = { #only added from decision
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			# Base cost.
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_african_tolerance = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_amharic_highlanders = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_ancient_miners = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+
+			if = {
+				limit = {
+					culture_tradition_reduction_trigger = { TRADITION = tradition_ancient_miners }
+				}
+				multiply = {
+					value = 0.5
+					desc = inspired_by_culture_desc
+				}
+			}
+			
+			multiply = tradition_replacement_cost_if_relevant
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_burman_royal_army = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_bush_hunting = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_byzantine_succession = {
+	category = regional
+
+	is_shown = {
+		#replaced by new Byzantine traditions
+		has_ep3_dlc_trigger = no
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_caravaneers = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_caucasian_wolves = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_ce1_ritual_washing = {
+	category = ritual
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			# Base cost.
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_chanson_de_geste = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_court_eunuchs = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_cultivation = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_tgp_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_cultural_primacy = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_tgp_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_debug = {
+	category = regional
+
+	is_shown = { always = no }
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = { prestige = 300000 }
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_desert_nomads = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_desert_ribat = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_devoted_horsemanship = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_diasporic = {
+	category = societal
+
+	is_shown = { always = no }
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = { prestige = 9999 }
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_druzhina = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_dryland_dwellers = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_ep2_avid_falconers = {
+	category = societal
+
+	is_shown = {
+		# DLC check.
+		has_dlc_feature = tours_and_tournaments
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			# Base cost.
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_ep3_audacious_cadets = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_ep3_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			# Base cost.
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_ep3_cultivated_sophistication = {
+	category = societal
+
+	is_shown = {
+		# DLC check.
+		has_ep3_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			# Base cost.
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_ep3_imperial_tagmata = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_ep3_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			# Base cost.
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_ep3_indomitable_azatani = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_ep3_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			# Base cost.
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_ep3_palace_politics = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_ep3_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			# Base cost.
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_ep3_roman_ceremonies = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_ep3_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			# Base cost.
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_fishermen = {
+	category = societal
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+			if = {
+				limit = {
+					culture_pillar:ethos_bellicose = { is_in_list = traits }
+				}
+				add = {
+					value = tradition_incompatible_ethos_penalty
+					desc = culture_not_bellicose
+				}
+			}
+
+			if = {
+				limit = {
+					scope:character = {
+						has_variable = tradition_fishermen_travel_discount
+					}
+					
+				}
+
+				add = {
+					value = tradition_travel_discount
+					desc = tradition_travel_discount_desc
+				}
+			}
+
+			if = {
+				limit = {
+					culture_tradition_reduction_trigger = { TRADITION = tradition_fishermen }
+				}
+				multiply = {
+					value = 0.5
+					desc = inspired_by_culture_desc
+				}
+			}
+			
+			multiply = tradition_replacement_cost_if_relevant
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_forest_wardens = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_fortress_mastery = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_tgp_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_fp1_coastal_warriors = {
+	category = combat
+
+	is_shown = {
+		# DLC check.
+		has_fp1_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			# Base cost.
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_fp1_northern_stories = {
+	category = societal
+
+	is_shown = {
+		# DLC check.
+		has_fp1_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			# Base cost.
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_fp1_performative_honour = {
+	category = societal
+
+	is_shown = {
+		# DLC check.
+		has_fp1_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			# Base cost.
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_fp1_the_right_to_prove = {
+	category = societal
+
+	is_shown = {
+		# DLC check.
+		has_fp1_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			# Base cost.
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_fp1_trials_by_combat = {
+	category = societal
+
+	is_shown = {
+		# DLC check.
+		has_fp1_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			# Base cost.
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_fp2_malleable_subjects = {
+	category = realm
+
+	is_shown = {
+		# DLC check.
+		has_fp2_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			# Base cost.
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_fp2_ritualised_friendship = {
+	category = societal
+
+	is_shown = {
+		# DLC check.
+		#has_fp2_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			# Base cost.
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_fp2_state_ransoming = {
+	category = realm
+
+	is_shown = {
+		# DLC check.
+		has_fp2_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			# Base cost.
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_fp2_strategy_gamers = {
+	category = ritual
+
+	is_shown = {
+		# DLC check.
+		has_fp2_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			# Base cost.
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_fp3_beacon_of_learning = {
+	category = societal
+
+	is_shown = {
+		# DLC check.
+		has_fp3_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			# Base cost.
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_fp3_enlightened_magnates = {
+	category = societal
+
+	is_shown = {
+		# DLC check.
+		has_fp3_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			# Base cost.
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_fp3_fierce_independence = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_fp3_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			# Base cost.
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_fp3_frontier_warriors = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_fp3_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			# Base cost.
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_fp3_irrigation_experts = {
+	category = realm
+
+	is_shown = {
+		# DLC check.
+		has_fp3_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			# Base cost.
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_fp3_jirga = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_fp3_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			# Base cost.
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_fp3_pragmatic_creed = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_fp3_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			# Base cost.
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_futuwaa = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_garuda_warriors = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_hidden_cities = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+			if = {
+				limit = {
+					NOT = {	culture_pillar:ethos_bureaucratic = { is_in_list = traits }	}
+				}
+				add = {
+					value = tradition_incompatible_ethos_penalty
+					desc = not_inventive_desc
+				}
+			}	
+			if = {
+				limit = {
+					NOT = {
+						any_culture_county = {
+							percent >= 0.3
+							county_has_province_with_terrain = {
+								terrain = asteroids
+								terrain = protoplanetary
+							}
+						}
+					}
+				}
+				add = {
+					value = tradition_unfulfilled_criteria_penalty
+					desc = asteroids_or_protoplanetary_percentage_desc
+				}
+			}
+
+			if = {
+				limit = {
+					culture_tradition_reduction_trigger = { TRADITION = tradition_hidden_cities }
+				}
+				multiply = {
+					value = 0.5
+					desc = inspired_by_culture_desc
+				}
+			}
+			
+			multiply = tradition_replacement_cost_if_relevant		
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_himalayan_settlers = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_hird = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_fp1_dlc_trigger = no
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_horn_mountain_skirmishing = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_horse_breeder = {
+	category = combat
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_horse_lords = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_dlc_feature = khans_of_the_steppe
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_hussar = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_intensive_farming = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_tgp_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_khadga_puja = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_land_of_the_bow = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_longbow_competitions = {
+	category = combat
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_lords_of_the_elephant = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_maritime_mercantilism = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+			# Ethos requirement.
+			if = {
+				limit = {
+					NOR = {
+						culture_pillar:ethos_egalitarian = { is_in_list = traits }
+						culture_pillar:ethos_stoic = { is_in_list = traits }
+						culture_pillar:ethos_bureaucratic = { is_in_list = traits }
+					}
+				}
+				add = {
+					value = tradition_incompatible_ethos_penalty
+					desc = not_egalitarian_stoic_or_bureaucratic_desc
+				}
+			}
+
+			if = {
+				limit = {
+					culture_tradition_reduction_trigger = { TRADITION = tradition_maritime_mercantilism }
+				}
+				multiply = {
+					value = 0.5
+					desc = inspired_by_culture_desc
+				}
+			}
+			
+			multiply = tradition_replacement_cost_if_relevant
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_maritime_way_of_life = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_tgp_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_mobile_guards = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_mountain_herding = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_mountaineer_ruralism = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_mpo_iron_cavalry = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_mpo_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_mpo_northern_tribes = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_mpo_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_mpo_wolves_of_the_deep_steppe = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_mpo_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_mubarizuns = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_nubian_warrior_kings = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_nubian_warrior_queens = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_nudists = {
+	category = societal
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_pastoralists = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_polders = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_republican_legacy = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_roman_legacy = {
+	category = realm
+
+	is_shown = {
+		#replaced by new Byzantine traditions
+		has_ep3_dlc_trigger = no
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_runestones = {
+	category = ritual
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_sacred_groves = {
+	category = ritual
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_sacred_mountains = {
+	category = ritual
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_saharan_nomads = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_scholar_officials = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_tgp_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_seafaring = {
+	category = societal
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+			if = {
+				limit = {
+					NOR = {
+						culture_pillar:ethos_bellicose = { is_in_list = traits }
+						culture_pillar:ethos_bureaucratic = { is_in_list = traits }
+						culture_pillar:ethos_spiritual = { is_in_list = traits }
+					}
+				}
+				add = {
+					value = tradition_incompatible_ethos_penalty
+					desc = not_bellicose_bureaucratic_or_spiritual_desc
+				}
+			}
+
+			if = {
+				limit = {
+					scope:character = {
+						has_variable = tradition_seafaring_travel_discount
+					}
+					
+				}
+
+				add = {
+					value = tradition_travel_discount
+					desc = tradition_travel_discount_desc
+				}
+			}
+
+			if = {
+				limit = {
+					culture_tradition_reduction_trigger = { TRADITION = tradition_seafaring }
+				}
+				multiply = {
+					value = 0.5
+					desc = inspired_by_culture_desc
+				}
+			}
+			
+			multiply = tradition_replacement_cost_if_relevant
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_sinophilic = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_tgp_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_steppe_tolerance = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_stratified_society = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_tgp_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_strong_kinship = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_tgp_art_of_war = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_tgp_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_tgp_barangay_confederations = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_tgp_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_tgp_bushido = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_tgp_court_machinations = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_tgp_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_tgp_defiant_ambushers = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_tgp_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_tgp_ephemeral_grace = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_tgp_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_tgp_esoteric_power = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_tgp_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_tgp_fortified_strongholds = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_tgp_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_tgp_hydraulic_builders = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_tgp_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_tgp_imperial_peace = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_tgp_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_tgp_inward_perfection = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_tgp_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_tgp_japanese_houses = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_tgp_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_tgp_mountain_island = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_tgp_religious_hospitality = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_tgp_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_tgp_rice_cultivators = {
+	category = realm
+
+	is_shown = {
+		# DLC check.
+		has_tgp_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_tgp_warrior_monks = {
+	category = regional
+
+	is_shown = {
+		# DLC check.
+		has_tgp_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_the_witenagemot = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_things = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_tribe_unity = {
+	category = realm
+
+	is_shown = { always = no }
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_upland_skirmishing = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_visigothic_codes = {
+	category = regional
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_warriors_of_the_dry = {
+	category = combat
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_winter_warriors = {
+	category = combat
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+			if = {
+				limit = {
+					NOR = {
+						culture_pillar:ethos_bellicose = { is_in_list = traits }
+						culture_pillar:ethos_stoic = { is_in_list = traits }
+						culture_pillar:ethos_communal = { is_in_list = traits }
+					}
+				}
+				add = {
+					value = tradition_incompatible_ethos_penalty
+					desc = not_bellicose_stoic_or_communal_desc
+				}
+			}
+
+			if = {
+				limit = {
+					culture_tradition_reduction_trigger = { TRADITION = tradition_winter_warriors }
+				}
+				multiply = {
+					value = 0.5
+					desc = inspired_by_culture_desc
+				}
+			}
+
+			multiply = tradition_replacement_cost_if_relevant
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+##################################################
+# Vanilla keys vacated by the split. The mod now defines these traditions under
+# tradition_cotc_* keys; these stubs keep the vanilla keys resolvable for the unshipped
+# vanilla content that still references them.
+##################################################
+
+tradition_adaptive_skirmishing = {
+	category = combat
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_agrarian = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_artisans = {
+	category = societal
+
+	is_shown = {
+		# DLC check.
+		has_dlc_feature = royal_court
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_astute_diplomats = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_battlefield_looters = {
+	category = combat
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_brewery = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_by_the_sword = {
+	category = ritual
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_castle_keepers = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_charitable = {
+	category = societal
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_chivalry = {
+	category = societal
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_city_keepers = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_collective_lands = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_concubines = {
+	category = ritual
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_culinary_art = {
+	category = ritual
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_culture_blending = {
+	category = realm
+
+	is_shown = {
+		# DLC check.
+		has_dlc_feature = hybridize_culture
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_equal_inheritance = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_equitable = {
+	category = societal
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_esteemed_hospitality = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_eye_for_an_eye = {
+	category = societal
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_faith_bound = {
+	category = ritual
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_family_entrepreneurship = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_female_only_inheritance = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_fervent_temple_builders = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_festivities = {
+	category = ritual
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_forbearing = {
+	category = societal
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_forest_fighters = {
+	category = combat
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_forest_folk = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_formation_fighting = {
+	category = combat
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_frugal_armorsmiths = {
+	category = combat
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_gardening = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_hard_working = {
+	category = societal
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_hereditary_hierarchy = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_highland_warriors = {
+	category = combat
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_hill_dwellers = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_hit_and_run = {
+	category = combat
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_hunters = {
+	category = societal
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_isolationist = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_jungle_dwellers = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_jungle_warriors = {
+	category = combat
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_language_scholars = {
+	category = ritual
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_legalistic = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_life_is_just_a_joke = {
+	category = societal
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_loyal_soldiers = {
+	category = societal
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_malleable_invaders = {
+	category = combat
+
+	is_shown = {
+		# DLC check.
+		has_dlc_feature = hybridize_culture
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_martial_admiration = {
+	category = societal
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_medicinal_plants = {
+	category = ritual
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_mendicant_mystics = {
+	category = societal
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_merciful_blindings = {
+	category = ritual
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_metal_craftsmanship = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_modest = {
+	category = societal
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_monastic_communities = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_monogamous = {
+	category = ritual
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_mountain_homes = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_mountaineers = {
+	category = combat
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_music_theory = {
+	category = societal
+
+	is_shown = {
+		# DLC check.
+		has_ep1_court_positions_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_mystical_ancestors = {
+	category = ritual
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_noble_adoption = {
+	category = societal
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_only_the_strong = {
+	category = combat
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_pacifism = {
+	category = societal
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_parochialism = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_philosopher_culture = {
+	category = societal
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_poetry = {
+	category = societal
+
+	is_shown = {
+		# DLC check.
+		has_fp3_dlc_trigger = yes
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_polygamous = {
+	category = ritual
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_practiced_pirates = {
+	category = societal
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_quarrelsome = {
+	category = combat
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_religion_blending = {
+	category = ritual
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_religious_patronage = {
+	category = ritual
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_reverence_for_veterans = {
+	category = combat
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_ruling_caste = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_sacred_hunts = {
+	category = ritual
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_sorcerous_metallurgy = {
+	category = ritual
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_spartan = {
+	category = societal
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_stalwart_defenders = {
+	category = combat
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_stand_and_fight = {
+	category = combat
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_staunch_traditionalists = {
+	category = realm
+
+	is_shown = {
+		# DLC check.
+		has_dlc_feature = hybridize_culture
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_storytellers = {
+	category = societal
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_strength_in_numbers = {
+	category = combat
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_swords_for_hire = {
+	category = combat
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_talent_acquisition = {
+	category = combat
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_vegetarianism = {
+	category = societal
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_warrior_culture = {
+	category = societal
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_warrior_monks = {
+	category = combat
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_warriors_by_merit = {
+	category = combat
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_wedding_ceremonies = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_welcoming = {
+	category = societal
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_wetlanders = {
+	category = realm
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_xenophilic = {
+	category = societal
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
+
+tradition_zealous_people = {
+	category = societal
+
+	is_shown = {
+		always = no
+	}
+	
+	can_pick = {
+		always = no
+	}
+	
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+		}
+	}
+	
+	ai_will_do = { value = 0 }
+}
