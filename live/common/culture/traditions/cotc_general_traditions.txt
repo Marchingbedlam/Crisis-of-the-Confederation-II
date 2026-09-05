@@ -472,28 +472,14 @@ tradition_cotc_military_bastions = {
 	can_pick = {
 		custom_tooltip = {
 			scope:character = {
-				OR = {
-						government_has_flag = government_is_feudal
-						government_has_flag = government_is_clan #Update for FP3
-						government_has_flag = government_is_administrative
-						government_has_flag = government_has_merit
-						government_has_flag = government_is_japan_feudal
-				}
+				government_has_flag = government_is_military
 			}
-			text = must_be_feudal_or_clan
+			text = must_be_military
 		}
 		custom_tooltip = {
-			text = cannot_have_tradition_city_keepers
+			text = cannot_have_tradition_cotc_metropolitan
 			NOT = {
 				culture_tradition:tradition_cotc_metropolitan = { is_in_list = traits }
-			}
-		}
-		custom_tooltip = {
-			text = cultrad_not_nomadic_government_type
-			scope:character = {
-				NOT = {
-					government_has_flag = government_is_nomadic
-				}
 			}
 		}
 	}
