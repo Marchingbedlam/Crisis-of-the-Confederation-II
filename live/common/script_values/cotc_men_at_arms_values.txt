@@ -1,0 +1,405 @@
+###########################
+# COTC Men-at-Arms Values #
+###########################
+
+#########
+# Costs #
+#########
+
+@high_maint_mult = 3
+@civ_fleet_maint_mult = 11  # Why does 10 break this?
+
+### Base Cost Values
+@corvettes_recruitment_cost = 50
+@corvettes_low_maint_cost = 0.17
+@corvettes_high_maint_cost = @[corvettes_low_maint_cost * high_maint_mult]
+
+@missile_boats_recruitment_cost = 60
+@missile_boats_low_maint_cost = 0.2
+@missile_boats_high_maint_cost = @[missile_boats_low_maint_cost * high_maint_mult]
+
+@destroyers_recruitment_cost = 75
+@destroyers_low_maint_cost = 0.27
+@destroyers_high_maint_cost = @[destroyers_low_maint_cost * high_maint_mult]
+
+@cruisers_recruitment_cost = 90
+@cruisers_low_maint_cost = 0.4
+@cruisers_high_maint_cost = @[cruisers_low_maint_cost * high_maint_mult]
+
+@raiders_recruitment_cost = 60
+@raiders_low_maint_cost = 0.2
+@raiders_high_maint_cost = @[raiders_low_maint_cost * high_maint_mult]
+
+@fast_frigates_recruitment_cost = 100
+@fast_frigates_low_maint_cost = 0.4
+@fast_frigates_high_maint_cost = @[fast_frigates_low_maint_cost * high_maint_mult]
+
+@siege_weapons_recruitment_cost = 60
+@siege_weapons_low_maint_cost = 0.1
+@siege_weapons_high_maint_cost = @[siege_weapons_low_maint_cost * high_maint_mult]
+
+@missile_frigates_recruitment_cost = 150
+@missile_frigates_low_maint_cost = 0.6
+@missile_frigates_high_maint_cost = @[missile_frigates_low_maint_cost * high_maint_mult]
+
+@ew_cruiser_recruitment_cost = 80
+@ew_cruiser_low_maint_cost = 0.4
+@ew_cruiser_high_maint_cost = @[ew_cruiser_low_maint_cost * high_maint_mult]
+
+@merchanteers_recruitment_cost = 40
+@merchanteers_low_maint_cost = 0.1
+@merchanteers_high_maint_cost = @[merchanteers_low_maint_cost * civ_fleet_maint_mult]
+
+
+### Ship Class Multipliers
+corvettes_recruitment_cost = @[corvettes_recruitment_cost]
+corvettes_low_maint_cost = @[corvettes_low_maint_cost]
+corvettes_high_maint_cost = @[corvettes_high_maint_cost]
+
+missile_boats_recruitment_cost = @[missile_boats_recruitment_cost]
+missile_boats_low_maint_cost = @[missile_boats_low_maint_cost]
+missile_boats_high_maint_cost = @[missile_boats_high_maint_cost]
+
+destroyers_recruitment_cost = @[destroyers_recruitment_cost]
+destroyers_low_maint_cost = @[destroyers_low_maint_cost]
+destroyers_high_maint_cost = @[destroyers_high_maint_cost]
+
+cruisers_recruitment_cost = @[cruisers_recruitment_cost]
+cruisers_low_maint_cost = @[cruisers_low_maint_cost]
+cruisers_high_maint_cost = @[cruisers_high_maint_cost]
+
+raiders_recruitment_cost = @[raiders_recruitment_cost]
+raiders_low_maint_cost = @[raiders_low_maint_cost]
+raiders_high_maint_cost = @[raiders_high_maint_cost]
+
+fast_frigates_recruitment_cost = @[fast_frigates_recruitment_cost]
+fast_frigates_low_maint_cost = @[fast_frigates_low_maint_cost]
+fast_frigates_high_maint_cost = @[fast_frigates_high_maint_cost]
+
+missile_frigates_recruitment_cost = @[missile_frigates_recruitment_cost]
+missile_frigates_low_maint_cost = @[missile_frigates_low_maint_cost]
+missile_frigates_high_maint_cost = @[missile_frigates_high_maint_cost]
+
+ew_cruisers_recruitment_cost = @[ew_cruiser_recruitment_cost]
+ew_cruisers_low_maint_cost = @[ew_cruiser_low_maint_cost]
+ew_cruisers_high_maint_cost = @[ew_cruiser_high_maint_cost]
+
+merchanteers_recruitment_cost = @[merchanteers_recruitment_cost]
+merchanteers_low_maint_cost = @[merchanteers_low_maint_cost]
+merchanteers_high_maint_cost = @[merchanteers_high_maint_cost]
+
+culture_ai_weight_corvettes = {
+	value = 0
+	
+	if = { # Cultures that favours archers
+		limit = {
+			culture = {
+				OR = {
+					has_cultural_pillar = heritage_angani
+				}
+			}
+		}
+		add = 40
+	}
+	if = { # Cultures that dislike archers
+		limit = {
+			OR = {
+				culture = { has_cultural_pillar = heritage_xingjie }
+				culture = { has_cultural_pillar = heritage_centauri }
+			}
+		}
+		add = -60
+	}
+	
+	#if = { # Cultures with a special MaA of that type should avoid the base version of the unit
+	#	limit = {
+	#		culture = {
+	#			culture_has_corvettes_maa = yes
+	#		}
+	#	}
+	#	add = -500
+	#}
+}
+culture_ai_weight_missile_boats = {
+	value = 0
+	
+	if = { # Cultures that favours archers
+		limit = {
+			culture = {
+				OR = {
+					has_cultural_pillar = heritage_sexto_solar
+				}
+			}
+		}
+		add = 40
+	}
+	if = { # Cultures that dislike archers
+		limit = {
+			OR = {
+				culture = { has_cultural_pillar = heritage_tarka }
+			}
+		}
+		add = -60
+	}
+	
+	#if = { # Cultures with a special MaA of that type should avoid the base version of the unit
+	#	limit = {
+	#		culture = {
+	#			culture_has_missile_boats_maa = yes
+	#		}
+	#	}
+	#	add = -500
+	#}
+}
+culture_ai_weight_destroyers = {
+	value = 10
+	
+	if = { # Cultures that favours archers
+		limit = {
+			culture = {
+				OR = {
+					has_cultural_pillar = heritage_angani
+				}
+			}
+		}
+		add = 40
+	}
+	if = { # Cultures that dislike archers
+		limit = {
+			OR = {
+				culture = { has_cultural_pillar = heritage_sexto_solar }
+			}
+		}
+		add = -60
+	}
+	
+	#if = { # Cultures with a special MaA of that type should avoid the base version of the unit
+	#	limit = {
+	#		culture = {
+	#			culture_has_destroyers_maa = yes
+	#		}
+	#	}
+	#	add = -500
+	#}
+}
+culture_ai_weight_cruisers = {
+	value = 20
+	
+	if = { # Cultures that favours archers
+		limit = {
+			culture = {
+				OR = {
+					has_cultural_pillar = heritage_core_worlder
+                    has_cultural_pillar = heritage_tarka
+				}
+			}
+		}
+		add = 40
+	}
+	if = { # Cultures that dislike archers
+		limit = {
+			OR = {
+				culture = { has_cultural_pillar = heritage_frontier }
+                culture = { has_cultural_pillar = heritage_mukta }
+			}
+		}
+		add = -60
+	}
+	
+	#if = { # Cultures with a special MaA of that type should avoid the base version of the unit
+	#	limit = {
+	#		culture = {
+	#			culture_has_cruisers_maa = yes
+	#		}
+	#	}
+	#	add = -500
+	#}
+}
+culture_ai_weight_raiders = {
+	value = -20
+	
+	if = { # Cultures that favours archers
+		limit = {
+			culture = {
+				OR = {
+					has_cultural_pillar = heritage_celestean
+				}
+			}
+		}
+		add = 40
+	}
+	if = { # Cultures that dislike archers
+		limit = {
+			OR = {
+				culture = { has_cultural_pillar = heritage_core_worlder }
+			}
+		}
+		add = -60
+	}
+	
+	#if = { # Cultures with a special MaA of that type should avoid the base version of the unit
+	#	limit = {
+	#		culture = {
+	#			culture_has_raiders_maa = yes
+	#		}
+	#	}
+	#	add = -500
+	#}
+}
+culture_ai_weight_fast_frigates = {
+	value = 0
+	
+	if = { # Cultures that favours archers
+		limit = {
+			culture = {
+				OR = {
+					has_cultural_pillar = heritage_samawati
+                    has_cultural_pillar = heritage_mukta
+				}
+			}
+		}
+		add = 40
+	}
+	if = { # Cultures that dislike archers
+		limit = {
+			OR = {
+				culture = { has_cultural_pillar = heritage_sexto_solar }
+                culture = { has_cultural_pillar = heritage_tengoku }
+			}
+		}
+		add = -60
+	}
+	
+	#if = { # Cultures with a special MaA of that type should avoid the base version of the unit
+	#	limit = {
+	#		culture = {
+	#			culture_has_fast_frigates_maa = yes
+	#		}
+	#	}
+	#	add = -500
+	#}
+}
+culture_ai_weight_missile_frigates = {
+	value = 0
+	
+	if = { # Cultures that favours archers
+		limit = {
+			culture = {
+				OR = {
+					has_cultural_pillar = heritage_centauri
+				}
+			}
+		}
+		add = 40
+	}
+	if = { # Cultures that dislike archers
+		limit = {
+			OR = {
+				culture = { has_cultural_pillar = heritage_samawati }
+                culture = { has_cultural_pillar = heritage_celestean }
+			}
+		}
+		add = -60
+	}
+	
+	#if = { # Cultures with a special MaA of that type should avoid the base version of the unit
+	#	limit = {
+	#		culture = {
+	#			culture_has_missile_frigates_maa = yes
+	#		}
+	#	}
+	#	add = -500
+	#}
+}
+culture_ai_weight_ew_cruisers = {
+	value = -20
+	
+	if = { # Cultures that favours archers
+		limit = {
+			culture = {
+				OR = {
+					has_cultural_pillar = heritage_xingjie
+				}
+			}
+		}
+		add = 40
+	}
+	if = { # Cultures that dislike archers
+		limit = {
+			OR = {
+				culture = { has_cultural_pillar = heritage_frontier }
+			}
+		}
+		add = -60
+	}
+	
+	#if = { # Cultures with a special MaA of that type should avoid the base version of the unit
+	#	limit = {
+	#		culture = {
+	#			culture_has_ew_cruisers_maa = yes
+	#		}
+	#	}
+	#	add = -500
+	#}
+}
+culture_ai_weight_merchanteers = {
+	value = -40  # AI seems to love these anyways
+	
+	if = { # Cultures that favours archers
+		limit = {
+			culture = {
+				OR = {
+					has_cultural_pillar = heritage_sexto_solar
+				}
+			}
+		}
+		add = 40
+	}
+	if = { # Cultures that dislike archers
+		limit = {
+			OR = {
+				culture = { has_cultural_pillar = heritage_tarka }
+			}
+		}
+		add = -60
+	}
+	
+	#if = { # Cultures with a special MaA of that type should avoid the base version of the unit
+	#	limit = {
+	#		culture = {
+	#			culture_has_merchanteers_maa = yes
+	#		}
+	#	}
+	#	add = -500
+	#}
+}
+
+counter_synergy_ai_weight_ew_cruisers = {
+    # EW Cruisers counter destroyers, which counter corvettes & missiles
+	value = 0
+	if = {
+		limit = {
+			OR = {
+				number_maa_regiments_of_base_type = {
+					type = missile_boats
+					value >= 3
+				}
+				number_maa_regiments_of_base_type = {
+					type = corvettes
+					value >= 3
+				}
+				number_maa_regiments_of_base_type = {
+					type = missile_frigates
+					value >= 2  # Frigates are more expensive after all
+				}
+			}
+			NOT = { #no need to add more if i.e. regional or inherited maa of that type already exists
+				number_maa_regiments_of_base_type = {
+					type = ew_cruisers
+					value >= 1
+				}
+			}
+		}
+		add = 60
+	}
+}
