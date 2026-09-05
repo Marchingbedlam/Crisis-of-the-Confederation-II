@@ -818,7 +818,7 @@ tradition_cotc_metropolitan = {
 			}
 		}
 		custom_tooltip = {
-			text = cannot_have_tradition_castle_keepers
+			text = cannot_have_tradition_cotc_military_bastions
 			NOT = {
 				culture_tradition:tradition_cotc_military_bastions = { is_in_list = traits }
 			}
@@ -2872,7 +2872,7 @@ tradition_cotc_xeno_hunters = {
 	can_pick = {
 		culture_not_pacifistic_trigger = yes
 		custom_tooltip = {
-			text = cannot_have_tradition_vegetarianism
+			text = cannot_have_tradition_cotc_vegetarians
 			NOT = { culture_tradition:tradition_cotc_vegetarians = { is_in_list = traits } }
 		}
 	}
@@ -3894,13 +3894,6 @@ tradition_cotc_merciful_blindings = {
 		0 = intrigue
 		1 = mediterranean
 		4 = tools.dds
-	}
-	
-	can_pick = {
-		custom_tooltip = {
-			text = cannot_have_tradition_byzantine_succession
-			NOT = { culture_tradition:tradition_byzantine_succession = { is_in_list = traits } }
-		}
 	}
 	
 	parameters = {
@@ -5103,14 +5096,6 @@ tradition_cotc_refined_poetry = {
 			has_cultural_pillar = heritage_iranian
 		}
 	}
-
-	can_pick = {
-		custom_tooltip = {
-			text = cannot_have_tradition_fp1_northern_stories
-			NOT = { culture_tradition:tradition_fp1_northern_stories = { is_in_list = traits } }
-		}
-		NOT = { culture_tradition:tradition_tgp_ephemeral_grace = { is_in_list = traits } }
-	}
 	
 	parameters = {
 		poet_trait_gives_bonuses = yes
@@ -5871,7 +5856,7 @@ tradition_cotc_xeno_culling = {
 	can_pick = {
 		culture_not_pacifistic_trigger = yes
 		custom_tooltip = {
-			text = cannot_have_tradition_vegetarianism
+			text = cannot_have_tradition_cotc_vegetarians
 			NOT = { culture_tradition:tradition_cotc_vegetarians = { is_in_list = traits } }
 		}
 	}
