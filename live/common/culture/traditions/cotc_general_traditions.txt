@@ -402,25 +402,6 @@ tradition_cotc_distilleries = {
 					desc = not_spiritual_desc
 				}
 			}
-			if = {
-				limit = {
-					NOT = {
-						any_culture_county = {
-							count >= 5
-							any_county_province = {
-								OR = {
-									has_building_or_higher = farm_estates_01
-									has_building_or_higher = cereal_fields_01
-								}
-							}
-						}
-					}
-				}
-				add = {
-					value = tradition_unfulfilled_criteria_penalty
-					desc = culture_in_farm_or_mansion_count_desc
-				}
-			}
 
 			if = {
 				limit = {
@@ -2634,26 +2615,6 @@ tradition_cotc_garden_architects = {
 				add = {
 					value = tradition_incompatible_ethos_penalty
 					desc = not_courtly_communal_or_spiritual_desc
-				}
-			}
-			if = {
-				limit = {
-					NOT = {
-						any_culture_county = {
-							count >= 10
-							any_county_province = {
-								OR = {
-									has_building_or_higher = orchards_01
-									has_building_or_higher = plantations_01
-									has_building_or_higher = cereal_fields_01
-								}
-							}
-						}
-					}
-				}
-				add = {
-					value = tradition_unfulfilled_criteria_penalty
-					desc = gardening_buildings_percentage_desc
 				}
 			}
 
