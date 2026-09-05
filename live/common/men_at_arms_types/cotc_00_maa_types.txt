@@ -64,7 +64,7 @@ corvettes_base = {
 	holy_order_fallback = yes
 
 	stack = 100
-	ai_quality = { value = culture_ai_weight_skirmishers }  # TODO: Rework AI Balance for ships
+	ai_quality = { value = culture_ai_weight_corvettes }
 	icon = corvettes
 }
 
@@ -96,8 +96,7 @@ missile_boats_base = {
 
 	stack = 100
 	ai_quality = {
-		value = culture_ai_weight_archers 
-		add = counter_synergy_ai_weight_archers
+		value = culture_ai_weight_missile_boats 
 	}
 	icon = missile_boats
 }
@@ -154,8 +153,7 @@ raiders_base = {
 
 	stack = 100
 	ai_quality = { 
-		value = culture_ai_weight_light_cavalry
-		add = counter_synergy_ai_weight_light_cavalry
+		value = culture_ai_weight_raiders
 	}
 	icon = raiders
 }
@@ -194,8 +192,7 @@ destroyers_base = {
 
 	stack = 100
 	ai_quality = {
-		value = culture_ai_weight_pikemen
-		add = counter_synergy_ai_weight_pikemen
+		value = culture_ai_weight_destroyers
 	}
 	icon = destroyers
 }
@@ -228,8 +225,7 @@ cruisers_base = {
 
 	stack = 100
 	ai_quality = {
-		value = culture_ai_weight_heavy_infantry
-		add = counter_synergy_ai_weight_heavy_infantry
+		value = culture_ai_weight_cruisers
 	}
 	icon = cruisers
 }
@@ -263,7 +259,7 @@ fast_frigates_base = {
 	provision_cost = @provisions_cost_cavalry_expensive
 	
 	stack = 100
-	ai_quality = { value = culture_ai_weight_heavy_cavalry }
+	ai_quality = { value = culture_ai_weight_fast_frigates }
 	icon = fast_frigates
 }
 
@@ -292,7 +288,7 @@ missile_frigates_base = {
 	provision_cost = @provisions_cost_cavalry_expensive
 	
 	stack = 100
-	ai_quality = { value = culture_ai_weight_heavy_cavalry }
+	ai_quality = { value = culture_ai_weight_missile_frigates }
 	icon = missile_frigates
 }
 
@@ -329,7 +325,8 @@ ew_cruisers_base = {
 
 	stack = 100
 	ai_quality = {
-		value = culture_ai_weight_heavy_infantry
+		value = culture_ai_weight_ew_cruisers
+		add = counter_synergy_ai_weight_ew_cruisers
 	}
 	icon = ew_cruisers
 }
@@ -338,7 +335,7 @@ merchanteers_base = {
 	type = merchanteers
 	
 	damage = 10
-	toughness = 40
+	toughness = 30
 	pursuit = 0
 	screen = 0
 
@@ -364,7 +361,7 @@ merchanteers_base = {
 
 	stack = 100
 	ai_quality = {
-		value = culture_ai_weight_heavy_infantry
+		value = culture_ai_weight_merchanteers
 	}
 	icon = merchanteers
 }

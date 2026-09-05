@@ -87,3 +87,319 @@ ew_cruisers_high_maint_cost = @[ew_cruiser_high_maint_cost]
 merchanteers_recruitment_cost = @[merchanteers_recruitment_cost]
 merchanteers_low_maint_cost = @[merchanteers_low_maint_cost]
 merchanteers_high_maint_cost = @[merchanteers_high_maint_cost]
+
+culture_ai_weight_corvettes = {
+	value = 0
+	
+	if = { # Cultures that favours archers
+		limit = {
+			culture = {
+				OR = {
+					has_cultural_pillar = heritage_angani
+				}
+			}
+		}
+		add = 40
+	}
+	if = { # Cultures that dislike archers
+		limit = {
+			OR = {
+				culture = { has_cultural_pillar = heritage_xingjie }
+				culture = { has_cultural_pillar = heritage_centauri }
+			}
+		}
+		add = -60
+	}
+	
+	#if = { # Cultures with a special MaA of that type should avoid the base version of the unit
+	#	limit = {
+	#		culture = {
+	#			culture_has_corvettes_maa = yes
+	#		}
+	#	}
+	#	add = -500
+	#}
+}
+culture_ai_weight_missile_boats = {
+	value = 0
+	
+	if = { # Cultures that favours archers
+		limit = {
+			culture = {
+				OR = {
+					has_cultural_pillar = heritage_sexto_solar
+				}
+			}
+		}
+		add = 40
+	}
+	if = { # Cultures that dislike archers
+		limit = {
+			OR = {
+				culture = { has_cultural_pillar = heritage_tarka }
+			}
+		}
+		add = -60
+	}
+	
+	#if = { # Cultures with a special MaA of that type should avoid the base version of the unit
+	#	limit = {
+	#		culture = {
+	#			culture_has_missile_boats_maa = yes
+	#		}
+	#	}
+	#	add = -500
+	#}
+}
+culture_ai_weight_destroyers = {
+	value = 10
+	
+	if = { # Cultures that favours archers
+		limit = {
+			culture = {
+				OR = {
+					has_cultural_pillar = heritage_angani
+				}
+			}
+		}
+		add = 40
+	}
+	if = { # Cultures that dislike archers
+		limit = {
+			OR = {
+				culture = { has_cultural_pillar = heritage_sexto_solar }
+			}
+		}
+		add = -60
+	}
+	
+	#if = { # Cultures with a special MaA of that type should avoid the base version of the unit
+	#	limit = {
+	#		culture = {
+	#			culture_has_destroyers_maa = yes
+	#		}
+	#	}
+	#	add = -500
+	#}
+}
+culture_ai_weight_cruisers = {
+	value = 20
+	
+	if = { # Cultures that favours archers
+		limit = {
+			culture = {
+				OR = {
+					has_cultural_pillar = heritage_core_worlder
+                    has_cultural_pillar = heritage_tarka
+				}
+			}
+		}
+		add = 40
+	}
+	if = { # Cultures that dislike archers
+		limit = {
+			OR = {
+				culture = { has_cultural_pillar = heritage_frontier }
+                culture = { has_cultural_pillar = heritage_mukta }
+			}
+		}
+		add = -60
+	}
+	
+	#if = { # Cultures with a special MaA of that type should avoid the base version of the unit
+	#	limit = {
+	#		culture = {
+	#			culture_has_cruisers_maa = yes
+	#		}
+	#	}
+	#	add = -500
+	#}
+}
+culture_ai_weight_raiders = {
+	value = -20
+	
+	if = { # Cultures that favours archers
+		limit = {
+			culture = {
+				OR = {
+					has_cultural_pillar = heritage_celestean
+				}
+			}
+		}
+		add = 40
+	}
+	if = { # Cultures that dislike archers
+		limit = {
+			OR = {
+				culture = { has_cultural_pillar = heritage_core_worlder }
+			}
+		}
+		add = -60
+	}
+	
+	#if = { # Cultures with a special MaA of that type should avoid the base version of the unit
+	#	limit = {
+	#		culture = {
+	#			culture_has_raiders_maa = yes
+	#		}
+	#	}
+	#	add = -500
+	#}
+}
+culture_ai_weight_fast_frigates = {
+	value = 0
+	
+	if = { # Cultures that favours archers
+		limit = {
+			culture = {
+				OR = {
+					has_cultural_pillar = heritage_samawati
+                    has_cultural_pillar = heritage_mukta
+				}
+			}
+		}
+		add = 40
+	}
+	if = { # Cultures that dislike archers
+		limit = {
+			OR = {
+				culture = { has_cultural_pillar = heritage_sexto_solar }
+                culture = { has_cultural_pillar = heritage_tengoku }
+			}
+		}
+		add = -60
+	}
+	
+	#if = { # Cultures with a special MaA of that type should avoid the base version of the unit
+	#	limit = {
+	#		culture = {
+	#			culture_has_fast_frigates_maa = yes
+	#		}
+	#	}
+	#	add = -500
+	#}
+}
+culture_ai_weight_missile_frigates = {
+	value = 0
+	
+	if = { # Cultures that favours archers
+		limit = {
+			culture = {
+				OR = {
+					has_cultural_pillar = heritage_centauri
+				}
+			}
+		}
+		add = 40
+	}
+	if = { # Cultures that dislike archers
+		limit = {
+			OR = {
+				culture = { has_cultural_pillar = heritage_samawati }
+                culture = { has_cultural_pillar = heritage_celestean }
+			}
+		}
+		add = -60
+	}
+	
+	#if = { # Cultures with a special MaA of that type should avoid the base version of the unit
+	#	limit = {
+	#		culture = {
+	#			culture_has_missile_frigates_maa = yes
+	#		}
+	#	}
+	#	add = -500
+	#}
+}
+culture_ai_weight_ew_cruisers = {
+	value = -20
+	
+	if = { # Cultures that favours archers
+		limit = {
+			culture = {
+				OR = {
+					has_cultural_pillar = heritage_xingjie
+				}
+			}
+		}
+		add = 40
+	}
+	if = { # Cultures that dislike archers
+		limit = {
+			OR = {
+				culture = { has_cultural_pillar = heritage_frontier }
+			}
+		}
+		add = -60
+	}
+	
+	#if = { # Cultures with a special MaA of that type should avoid the base version of the unit
+	#	limit = {
+	#		culture = {
+	#			culture_has_ew_cruisers_maa = yes
+	#		}
+	#	}
+	#	add = -500
+	#}
+}
+culture_ai_weight_merchanteers = {
+	value = -40  # AI seems to love these anyways
+	
+	if = { # Cultures that favours archers
+		limit = {
+			culture = {
+				OR = {
+					has_cultural_pillar = heritage_sexto_solar
+				}
+			}
+		}
+		add = 40
+	}
+	if = { # Cultures that dislike archers
+		limit = {
+			OR = {
+				culture = { has_cultural_pillar = heritage_tarka }
+			}
+		}
+		add = -60
+	}
+	
+	#if = { # Cultures with a special MaA of that type should avoid the base version of the unit
+	#	limit = {
+	#		culture = {
+	#			culture_has_merchanteers_maa = yes
+	#		}
+	#	}
+	#	add = -500
+	#}
+}
+
+counter_synergy_ai_weight_ew_cruisers = {
+    # EW Cruisers counter destroyers, which counter corvettes & missiles
+	value = 0
+	if = {
+		limit = {
+			OR = {
+				number_maa_regiments_of_base_type = {
+					type = missile_boats
+					value >= 3
+				}
+				number_maa_regiments_of_base_type = {
+					type = corvettes
+					value >= 3
+				}
+				number_maa_regiments_of_base_type = {
+					type = missile_frigates
+					value >= 2  # Frigates are more expensive after all
+				}
+			}
+			NOT = { #no need to add more if i.e. regional or inherited maa of that type already exists
+				number_maa_regiments_of_base_type = {
+					type = ew_cruisers
+					value >= 1
+				}
+			}
+		}
+		add = 60
+	}
+}
