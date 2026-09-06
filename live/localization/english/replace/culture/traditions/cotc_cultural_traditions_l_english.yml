@@ -1,15 +1,10 @@
 ﻿l_english:
- # The mod's traditions live under tradition_cotc_* keys, split from vanilla, so every one
- # needs an explicit name and description here -- there is no vanilla key left to fall back
- # to. Text that was never rewritten is vanilla's, carried over verbatim.
- #
  # ---- names ----
  tradition_cotc_asymmetric_doctrine_name:0 "Asymmetric Doctrine"
  tradition_cotc_agriculturalists_name:0 "Agriculturalists"
  tradition_cotc_expert_artisans_name:0 "Expert Artisans"
  tradition_cotc_astute_diplomats_name:0 "Astute Diplomats"
  tradition_cotc_salvage_rights_name:0 "Salvage Rights"
- tradition_cotc_distilleries_name:0 "Distilleries"
  tradition_cotc_conversion_by_force_name:0 "Conversion by Force"
  tradition_cotc_military_bastions_name:0 "Military Bastions"
  tradition_cotc_charitable_name:0 "Charitable"
@@ -101,7 +96,6 @@
  tradition_cotc_expert_artisans_desc:0 "Children in this culture often carry on the profession of their parents, accumulating extensive knowledge and skill for their trade across generations."
  tradition_cotc_astute_diplomats_desc:0 "It is a common idea in this culture that the purest expression of superiority is the ability to subdue your enemy without fighting them."
  tradition_cotc_salvage_rights_desc:0 "Here an engagement is fought for the wreck field as much as for the objective. Prestige is poor compensation if you cannot fund the next campaign."
- tradition_cotc_distilleries_desc:0 "This culture treats distilling and drinking as central to both celebration and ordinary life, and every habitat runs a still of its own."
  tradition_cotc_conversion_by_force_desc:0 "Members of this culture hold that the most persuasive missionary is an armed one. Holy war enjoys broad support, though motives are examined closely."
  tradition_cotc_military_bastions_desc:0 "Offense is not a good defense. A good defense is holding more fortified stations than anyone else in settled space."
  tradition_cotc_charitable_desc:0 "Regardless of faith, people of this culture are motivated to support those less fortunate."
@@ -197,14 +191,22 @@
  frozen_percentage_desc:0 "The [culture|E] does not have #V 30%#! of its [counties|E] in $ [terrain|E]"
  culture_in_gas_giant_frozen_giant_or_corrosive_desc:0 "The [culture|E] is not present in any [county|E] with $gas_giant$, $frozen_giant$ or $corrosive$ [terrain|E]"
  gas_giant_frozen_giant_or_corrosive_percentage_desc:0 "The [culture|E] does not have #V 30%#! of its [counties|E] in $gas_giant$, $frozen_giant$ or $corrosive$ [terrain|E]"
+ must_be_military:0 "You must have a [military|E] [government|E]"
  #
- # ---- mutual-exclusion tooltips, repointed at the new name keys ----
- cannot_have_tradition_castle_keepers:0 "$cannot_combine_tradition_trigger_desc$ #high $tradition_cotc_military_bastions_name$#!"
- cannot_have_tradition_city_keepers:0 "$cannot_combine_tradition_trigger_desc$ #high $tradition_cotc_metropolitan_name$#!"
- cannot_have_tradition_hunters:0 "$cannot_combine_tradition_trigger_desc$ #high $tradition_cotc_xeno_hunters_name$#!"
- cannot_have_tradition_merciful_blindings:0 "$cannot_combine_tradition_trigger_desc$ #high $tradition_cotc_merciful_blindings_name$#!"
- cannot_have_tradition_poetry:0 "$cannot_combine_tradition_trigger_desc$ #high $tradition_cotc_refined_poetry_name$#!"
- cannot_have_tradition_sacred_hunts:0 "$cannot_combine_tradition_trigger_desc$ #high $tradition_cotc_xeno_culling_name$#!"
- cannot_have_tradition_storytellers:0 "$cannot_combine_tradition_trigger_desc$ #high $tradition_cotc_oral_archivists_name$#!"
- cannot_have_tradition_vegetarianism:0 "$cannot_combine_tradition_trigger_desc$ #high $tradition_cotc_vegetarians_name$#!"
- cannot_have_tradition_warrior_culture:0 "$cannot_combine_tradition_trigger_desc$ #high $tradition_cotc_martial_culture_name$#!"
+ # ---- exclusion tooltip ----
+ cannot_have_tradition_cotc_military_bastions:0 "$cannot_combine_tradition_trigger_desc$ #high $tradition_cotc_military_bastions_name$#!"
+ cannot_have_tradition_cotc_metropolitan:0 "$cannot_combine_tradition_trigger_desc$ #high $tradition_cotc_metropolitan_name$#!"
+ cannot_have_tradition_cotc_xeno_hunters:0 "$cannot_combine_tradition_trigger_desc$ #high $tradition_cotc_xeno_hunters_name$#!"
+ cannot_have_tradition_cotc_merciful_blindings:0 "$cannot_combine_tradition_trigger_desc$ #high $tradition_cotc_merciful_blindings_name$#!"
+ cannot_have_tradition_cotc_refined_poetry:0 "$cannot_combine_tradition_trigger_desc$ #high $tradition_cotc_refined_poetry_name$#!"
+ cannot_have_tradition_cotc_xeno_culling:0 "$cannot_combine_tradition_trigger_desc$ #high $tradition_cotc_xeno_culling_name$#!"
+ cannot_have_tradition_cotc_oral_archivists:0 "$cannot_combine_tradition_trigger_desc$ #high $tradition_cotc_oral_archivists_name$#!"
+ cannot_have_tradition_cotc_vegetarians:0 "$cannot_combine_tradition_trigger_desc$ #high $tradition_cotc_vegetarians_name$#!"
+ cannot_have_tradition_cotc_martial_culture:0 "$cannot_combine_tradition_trigger_desc$ #high $tradition_cotc_martial_culture_name$#!"
+ #
+ # ---- men-at-arms requirement tooltips for the mod's ship types ----
+ culture_head_raiders_and_corvettes_desc:0 "You do not have #V 500#! [raiders|E] and #V 500#! [corvettes|E]"
+ culture_head_raiders_and_merchanteers_desc:0 "You do not have #V 500#! [raiders|E] and #V 500#! [merchanteers|E]"
+ culture_head_raiders_and_fast_frigates_desc:0 "You do not have #V 500#! [raiders|E] and #V 500#! [fast_frigates|E]"
+ culture_head_missile_boats_and_destroyers_desc:0 "You do not have #V 500#! [missile_boats|E] and #V 500#! [destroyers|E]"
+ culture_head_cruisers_and_destroyers_desc:0 "You do not have #V 500#! [cruisers|E] and #V 500#! [destroyers|E]"
