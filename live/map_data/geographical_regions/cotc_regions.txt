@@ -1,0 +1,149 @@
+﻿# Astrographic regions for Crisis of the Confederation II.
+#
+# Declared with duchies = { }, the same field vanilla uses for its own custom_* regions.
+# Note the trade this makes: the duchy titles listed here are fixed, but a duchy's de jure
+# counties can still drift, so a region is stable at duchy granularity rather than absolutely.
+# A province list would be immutable; duchies match convention and stay readable.
+#
+# cotc_region_core       duchies de jure under e_terran_confederacy at game start
+# cotc_region_periphery  everything else, the six nebulae included
+# cotc_region_nebulae    the six nebula kingdoms, a subset of the periphery
+#
+# The three landless pilgrimage duchies (d_kolobite, d_cosmist, d_guardianist) are
+# deliberately absent: they hold no counties, so no region can meaningfully contain them.
+#
+# generate_modifiers is deliberately not set: it would create <region>_development_growth
+# and _factor modifiers that would then need localising.
+#
+# Subregions are declared before their parent, as geographical_region.txt requires.
+
+cotc_region_witch_head_nebula = {
+	duchies = {
+		# k_witch_head_nebula
+		d_core_witch_head d_lower_witch_head d_inner_witch_head d_outer_witch_head
+		d_upper_witch_head d_irukan
+	}
+}
+
+cotc_region_flame_nebula = {
+	duchies = {
+		# k_flame_nebula
+		d_iserlohn d_hades d_diyu d_chui
+		d_shihai d_shitou_wuyin d_zhurong_duanzao
+	}
+}
+
+cotc_region_veil_nebula = {
+	duchies = {
+		# k_veil_nebula
+		d_naaraayan d_nai_madurai d_remote d_upper_veil
+		d_core_veil d_lower_veil
+	}
+}
+
+cotc_region_orion_nebula = {
+	duchies = {
+		# k_orion_nebula
+		d_forja_de_dios d_mar_del_tyken d_principito d_sortelha
+		d_melilla d_tenue d_escobar
+	}
+}
+
+cotc_region_horsehead_nebula = {
+	duchies = {
+		# k_horsehead_nebula
+		d_arjona d_galilei d_miltia d_abraxas
+		d_basilisco d_manticore d_mar_brilliante d_mar_del_crepusculo
+	}
+}
+
+cotc_region_helix_nebula = {
+	duchies = {
+		# k_helix_nebula
+		d_lower_helix d_upper_helix
+	}
+}
+
+cotc_region_nebulae = {
+	regions = {
+		cotc_region_witch_head_nebula
+		cotc_region_flame_nebula
+		cotc_region_veil_nebula
+		cotc_region_orion_nebula
+		cotc_region_horsehead_nebula
+		cotc_region_helix_nebula
+	}
+}
+
+cotc_region_core = {
+	duchies = {
+		# k_terran_commonwealth
+		d_sol d_alpha_centauri d_draconis d_altair
+		d_tau_ceti d_sirius d_trappist
+		# k_frontier
+		d_armstrong d_ride d_lovell d_haignere
+		d_glenn d_shepard d_apollo d_reinhard
+		d_hadfield d_mikkelsen
+		# k_tierra_celeste
+		d_vega d_bolivar d_calima d_sexto_sol
+		d_frontera d_encrucijada d_liberdade d_carlana
+		d_kanashen
+		# k_centauri_reach
+		d_gagarin d_tereshkova d_tengoku
+		# k_xingjie
+		d_huangjing d_qinglong d_xuanwu d_baihu
+		d_zhuque d_heilong d_xianheng
+		# k_al_samawat
+		d_makkat_al_jadiida d_jabra_iil d_amal d_al_hadd
+		d_al_bawwaaba d_tafukt d_al_mourad d_cavafy
+		# k_zenye_nyota_angani
+		d_mpya_ya_zanzibar d_adwa d_ascension d_afolayan
+		d_fim_das_estrelas d_kilwa d_obatala
+	}
+}
+
+cotc_region_periphery = {
+	regions = {
+		cotc_region_nebulae
+	}
+	duchies = {
+		# k_aazaad_duniya
+		d_nai_dunya d_ghandi d_chandrasekhar d_dariush
+		d_nae_bangladesa d_saranyu
+		# k_alexandrovsk
+		d_alexandrovsk d_zabi d_mozheiko
+		# k_aspiration
+		d_aspiration d_sion d_new_liberty d_siniestre
+		# k_avalon
+		d_avalon d_nelson d_caliburn d_victoria
+		d_alfred d_galahad d_lancelot
+		# k_bianjiang
+		d_shaanxi d_sichuan d_yunnan d_guangdong
+		d_hebei d_shanghai
+		# k_jion
+		d_jion d_taikun d_sumitomo d_hiyokuoka
+		d_iogi d_yurikago d_okyoto_nara
+		# k_new_frontier
+		d_franklin d_douglas d_bridgehead d_la_fayette
+		d_washington d_deadwood d_adams d_jefferson
+		# k_novyy_edem
+		d_novyy_edem d_pobeda d_mir d_shen_yan
+		d_almaz d_maoxian d_prochnost d_sovershenstvo
+		d_zamyatin
+		# k_orion_reach
+		d_cisne d_santiago d_bellatrix d_ortega_gaona
+		d_betelgeuse d_paulet d_mintaka d_rigel
+		# k_paraiso
+		d_paraiso d_new_jerusalem
+		# k_strugatsky
+		d_novyy_sol d_saula d_kovcheg d_arkanar
+		d_raduga d_kaisan d_massolit
+		# k_tarka
+		d_tarka d_qoqnoos d_mandela d_dhartvir
+		d_new_lusaka d_yeni_istanbul d_talon
+		# k_xin_zizhiqu
+		d_xin_qin d_tian_yuan d_wei d_hua
+		d_deng_biao d_ying_shi d_macau d_hang_seng
+		d_wu_ren_zhi_an d_qianying
+	}
+}
