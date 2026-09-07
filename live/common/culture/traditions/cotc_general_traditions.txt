@@ -665,19 +665,17 @@ tradition_cotc_neo_chivalry = {
 		4 = knight.dds
 	}
 	
-	is_shown = {
-		OR = {
-			has_cultural_pillar = heritage_brythonic
-			has_cultural_pillar = heritage_central_germanic
-			has_cultural_pillar = heritage_frankish
-			has_cultural_pillar = heritage_goidelic
-			has_cultural_pillar = heritage_iberian
-			has_cultural_pillar = heritage_latin
-			has_cultural_pillar = heritage_west_germanic
+	can_pick = {
+		# Replaces an is_shown gate on seven vanilla heritages that this mod does not define,
+		# which meant the tradition could never be shown or picked. can_pick rather than is_shown:
+		# a failing is_shown would also strip the tradition from the cultures that start with it.
+		scope:character = {
+			faith = faith:neo_feudalist
 		}
 	}
 	
 	parameters = {
+		unlock_maa_d_pavise = yes
 		can_use_sparring_duel = yes
 		romance_scheme_bonuses = yes
 		romance_scheme_penalty = yes
