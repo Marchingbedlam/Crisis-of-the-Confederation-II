@@ -7654,3 +7654,528 @@ tradition_cotc_strong_believers = {
 		}
 	}
 }
+
+tradition_cotc_lance_batteries = {
+	category = combat
+
+	layers = {
+		0 = martial
+		1 = mediterranean
+		4 = swords.dds
+	}
+
+	parameters = {
+		unlock_maa_monitor_frigates = yes
+	}
+
+	character_modifier = {
+		missile_frigates_damage_mult = 0.15
+		missile_frigates_toughness_add = 4
+		missile_frigates_siege_value_add = 2
+	}
+
+	can_pick = {
+		custom_description = {
+			text = culture_in_core_desc
+			culture_is_core_trigger = yes
+		}
+	}
+
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+			if = {
+				limit = {
+					NOR = {
+						culture_pillar:ethos_bellicose = { is_in_list = traits }
+						culture_pillar:ethos_bureaucratic = { is_in_list = traits }
+					}
+				}
+				add = {
+					value = tradition_incompatible_ethos_penalty
+					desc = not_bellicose_or_bureaucratic_desc
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						scope:character = {
+							number_maa_soldiers_of_base_type = {
+								type = missile_frigates
+								value >= 500
+							}
+						}
+					}
+				}
+				add = {
+					value = tradition_unfulfilled_criteria_penalty
+					desc = culture_head_missile_frigates_desc
+				}
+			}
+			if = {
+				limit = {
+					culture_tradition_reduction_trigger = { TRADITION = tradition_cotc_lance_batteries }
+				}
+				multiply = {
+					value = 0.5
+					desc = inspired_by_culture_desc
+				}
+			}
+
+			multiply = tradition_replacement_cost_if_relevant
+		}
+	}
+
+	ai_will_do = {
+		value = 20
+		if = {
+			limit = {
+				NOT = { culture_is_core_trigger = yes }
+			}
+			multiply = 0
+		}
+	}
+}
+
+tradition_cotc_convoy_doctrine = {
+	category = realm
+
+	layers = {
+		0 = martial
+		1 = western
+		4 = city.dds
+	}
+
+	parameters = {
+		unlock_maa_q_ships = yes
+	}
+
+	character_modifier = {
+		merchanteers_toughness_mult = 0.2
+		merchanteers_maintenance_mult = -0.15
+		destroyers_screen_mult = 0.2
+	}
+
+	can_pick = {
+		custom_description = {
+			text = culture_in_periphery_desc
+			culture_is_periphery_trigger = yes
+		}
+	}
+
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+			if = {
+				limit = {
+					NOR = {
+						culture_pillar:ethos_communal = { is_in_list = traits }
+						culture_pillar:ethos_bureaucratic = { is_in_list = traits }
+						culture_pillar:ethos_stoic = { is_in_list = traits }
+					}
+				}
+				add = {
+					value = tradition_incompatible_ethos_penalty
+					desc = not_communal_bureaucratic_or_stoic_desc
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						scope:character = {
+							number_maa_soldiers_of_base_type = {
+								type = merchanteers
+								value >= 500
+							}
+							number_maa_soldiers_of_base_type = {
+								type = destroyers
+								value >= 500
+							}
+						}
+					}
+				}
+				add = {
+					value = tradition_unfulfilled_criteria_penalty
+					desc = culture_head_merchanteers_and_destroyers_desc
+				}
+			}
+			if = {
+				limit = {
+					culture_tradition_reduction_trigger = { TRADITION = tradition_cotc_convoy_doctrine }
+				}
+				multiply = {
+					value = 0.5
+					desc = inspired_by_culture_desc
+				}
+			}
+
+			multiply = tradition_replacement_cost_if_relevant
+		}
+	}
+
+	ai_will_do = {
+		value = 25
+		if = {
+			limit = {
+				NOT = { culture_is_periphery_trigger = yes }
+			}
+			multiply = 0
+		}
+	}
+}
+
+tradition_cotc_picket_screens = {
+	category = combat
+
+	layers = {
+		0 = martial
+		1 = western
+		4 = soldiers2.dds
+	}
+
+	parameters = {
+		unlock_maa_lancer_corvettes = yes
+	}
+
+	character_modifier = {
+		corvettes_screen_add = 8
+		corvettes_pursuit_add = 10
+		destroyers_screen_add = 8
+	}
+
+	can_pick = {
+		has_cultural_pillar = heritage_centauri
+	}
+
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+			if = {
+				limit = {
+					NOR = {
+						culture_pillar:ethos_bellicose = { is_in_list = traits }
+						culture_pillar:ethos_stoic = { is_in_list = traits }
+					}
+				}
+				add = {
+					value = tradition_incompatible_ethos_penalty
+					desc = not_bellicose_or_stoic_desc
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						scope:character = {
+							number_maa_soldiers_of_base_type = {
+								type = corvettes
+								value >= 500
+							}
+							number_maa_soldiers_of_base_type = {
+								type = destroyers
+								value >= 500
+							}
+						}
+					}
+				}
+				add = {
+					value = tradition_unfulfilled_criteria_penalty
+					desc = culture_head_corvettes_and_destroyers_desc
+				}
+			}
+			if = {
+				limit = {
+					culture_tradition_reduction_trigger = { TRADITION = tradition_cotc_picket_screens }
+				}
+				multiply = {
+					value = 0.5
+					desc = inspired_by_culture_desc
+				}
+			}
+
+			multiply = tradition_replacement_cost_if_relevant
+		}
+	}
+
+	ai_will_do = {
+		value = 30
+		if = {
+			limit = {
+				NOT = { has_cultural_pillar = heritage_centauri }
+			}
+			multiply = 0
+		}
+	}
+}
+
+tradition_cotc_signal_dominance = {
+	category = combat
+
+	layers = {
+		0 = martial
+		1 = mena
+		4 = tools.dds
+	}
+
+	parameters = {
+		unlock_maa_spectre_cruisers = yes
+	}
+
+	character_modifier = {
+		ew_cruisers_screen_mult = 0.25
+		ew_cruisers_toughness_add = 5
+		ew_cruisers_max_size_add = 10
+	}
+
+	can_pick = {
+		custom_description = {
+			text = culture_in_nebulae_desc
+			culture_in_nebulae_trigger = yes
+		}
+	}
+
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+			if = {
+				limit = {
+					NOR = {
+						culture_pillar:ethos_bellicose = { is_in_list = traits }
+						culture_pillar:ethos_stoic = { is_in_list = traits }
+						culture_pillar:ethos_bureaucratic = { is_in_list = traits }
+					}
+				}
+				add = {
+					value = tradition_incompatible_ethos_penalty
+					desc = not_bellicose_stoic_or_bureaucratic_desc
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						scope:character = {
+							number_maa_soldiers_of_base_type = {
+								type = ew_cruisers
+								value >= 500
+							}
+						}
+					}
+				}
+				add = {
+					value = tradition_unfulfilled_criteria_penalty
+					desc = culture_head_ew_cruisers_desc
+				}
+			}
+			if = {
+				limit = {
+					culture_tradition_reduction_trigger = { TRADITION = tradition_cotc_signal_dominance }
+				}
+				multiply = {
+					value = 0.5
+					desc = inspired_by_culture_desc
+				}
+			}
+
+			multiply = tradition_replacement_cost_if_relevant
+		}
+	}
+
+	ai_will_do = {
+		value = 30
+		if = {
+			limit = {
+				NOT = { culture_in_nebulae_trigger = yes }
+			}
+			multiply = 0
+		}
+	}
+}
+
+tradition_cotc_deep_magazines = {
+	category = realm
+
+	layers = {
+		0 = martial
+		1 = mediterranean
+		4 = tools.dds
+	}
+
+	parameters = {
+		unlock_maa_dragon_cruisers = yes
+	}
+
+	character_modifier = {
+		cruisers_max_size_add = 10
+		missile_frigates_max_size_add = 10
+		cruisers_maintenance_mult = 0.1
+	}
+
+	can_pick = {
+		has_cultural_pillar = heritage_xingjie
+	}
+
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+			if = {
+				limit = {
+					NOR = {
+						culture_pillar:ethos_bellicose = { is_in_list = traits }
+						culture_pillar:ethos_bureaucratic = { is_in_list = traits }
+					}
+				}
+				add = {
+					value = tradition_incompatible_ethos_penalty
+					desc = not_bellicose_or_bureaucratic_desc
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						scope:character = {
+							number_maa_soldiers_of_base_type = {
+								type = cruisers
+								value >= 500
+							}
+							number_maa_soldiers_of_base_type = {
+								type = missile_frigates
+								value >= 500
+							}
+						}
+					}
+				}
+				add = {
+					value = tradition_unfulfilled_criteria_penalty
+					desc = culture_head_cruisers_and_missile_frigates_desc
+				}
+			}
+			if = {
+				limit = {
+					culture_tradition_reduction_trigger = { TRADITION = tradition_cotc_deep_magazines }
+				}
+				multiply = {
+					value = 0.5
+					desc = inspired_by_culture_desc
+				}
+			}
+
+			multiply = tradition_replacement_cost_if_relevant
+		}
+	}
+
+	ai_will_do = {
+		value = 25
+		if = {
+			limit = {
+				NOT = { has_cultural_pillar = heritage_xingjie }
+			}
+			multiply = 0
+		}
+	}
+}
+
+tradition_cotc_yard_compacts = {
+	category = societal
+
+	layers = {
+		0 = martial
+		1 = western
+		4 = tools.dds
+	}
+
+	parameters = {
+		unlock_maa_hab_raiders = yes
+	}
+
+	character_modifier = {
+		corvettes_recruitment_cost_mult = -0.15
+		missile_boats_recruitment_cost_mult = -0.15
+		fast_frigates_recruitment_cost_mult = -0.1
+	}
+
+	can_pick = {
+		has_cultural_pillar = heritage_frontier
+	}
+
+	cost = {
+		prestige = {
+			add = {
+				value = tradition_base_cost
+				desc = BASE
+				format = "BASE_VALUE_FORMAT"
+			}
+			if = {
+				limit = {
+					NOR = {
+						culture_pillar:ethos_communal = { is_in_list = traits }
+						culture_pillar:ethos_egalitarian = { is_in_list = traits }
+					}
+				}
+				add = {
+					value = tradition_incompatible_ethos_penalty
+					desc = not_communal_or_egalitarian_desc
+				}
+			}
+			if = {
+				limit = {
+					NOT = {
+						scope:character = {
+							number_maa_soldiers_of_base_type = {
+								type = corvettes
+								value >= 500
+							}
+							number_maa_soldiers_of_base_type = {
+								type = missile_boats
+								value >= 500
+							}
+						}
+					}
+				}
+				add = {
+					value = tradition_unfulfilled_criteria_penalty
+					desc = culture_head_corvettes_and_missile_boats_desc
+				}
+			}
+			if = {
+				limit = {
+					culture_tradition_reduction_trigger = { TRADITION = tradition_cotc_yard_compacts }
+				}
+				multiply = {
+					value = 0.5
+					desc = inspired_by_culture_desc
+				}
+			}
+
+			multiply = tradition_replacement_cost_if_relevant
+		}
+	}
+
+	ai_will_do = {
+		value = 25
+		if = {
+			limit = {
+				NOT = { has_cultural_pillar = heritage_frontier }
+			}
+			multiply = 0
+		}
+	}
+}

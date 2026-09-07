@@ -1,4 +1,4 @@
-###########################
+﻿###########################
 # COTC Men-at-Arms Values #
 ###########################
 
@@ -403,3 +403,32 @@ counter_synergy_ai_weight_ew_cruisers = {
 		add = 60
 	}
 }
+
+### Cultural Squadron Multipliers
+@advanced_hull_cost_mult = 1.5
+@refit_hull_cost_mult = 1.25
+@rough_hull_cost_mult = 0.85
+
+monitor_frigates_recruitment_cost = @[missile_frigates_recruitment_cost * advanced_hull_cost_mult]
+monitor_frigates_low_maint_cost = @[missile_frigates_low_maint_cost * advanced_hull_cost_mult]
+monitor_frigates_high_maint_cost = @[missile_frigates_high_maint_cost * advanced_hull_cost_mult]
+
+q_ships_recruitment_cost = @[merchanteers_recruitment_cost * refit_hull_cost_mult]
+q_ships_low_maint_cost = @[merchanteers_low_maint_cost * refit_hull_cost_mult]
+q_ships_high_maint_cost = @[merchanteers_high_maint_cost * refit_hull_cost_mult]
+
+lancer_corvettes_recruitment_cost = @[corvettes_recruitment_cost * advanced_hull_cost_mult]
+lancer_corvettes_low_maint_cost = @[corvettes_low_maint_cost * advanced_hull_cost_mult]
+lancer_corvettes_high_maint_cost = @[corvettes_high_maint_cost * advanced_hull_cost_mult]
+
+spectre_cruisers_recruitment_cost = @[ew_cruiser_recruitment_cost * advanced_hull_cost_mult]
+spectre_cruisers_low_maint_cost = @[ew_cruiser_low_maint_cost * advanced_hull_cost_mult]
+spectre_cruisers_high_maint_cost = @[ew_cruiser_high_maint_cost * advanced_hull_cost_mult]
+
+dragon_cruisers_recruitment_cost = @[cruisers_recruitment_cost * advanced_hull_cost_mult]
+dragon_cruisers_low_maint_cost = @[cruisers_low_maint_cost * advanced_hull_cost_mult]
+dragon_cruisers_high_maint_cost = @[cruisers_high_maint_cost * advanced_hull_cost_mult]
+
+hab_raiders_recruitment_cost = @[raiders_recruitment_cost * rough_hull_cost_mult]
+hab_raiders_low_maint_cost = @[raiders_low_maint_cost * rough_hull_cost_mult]
+hab_raiders_high_maint_cost = @[raiders_high_maint_cost * rough_hull_cost_mult]

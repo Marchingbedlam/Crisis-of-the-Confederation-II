@@ -1,0 +1,89 @@
+﻿# Culture-scope region tests, for gating traditions on where a culture actually lives.
+#
+# The regions come from map_data/geographical_regions/cotc_regions.txt and are province lists, so
+# they are fixed for the whole game. Do NOT rewrite these as de jure title checks
+# (target_is_de_jure_liege_or_above = title:e_terran_confederacy and the like): duchies drift
+# between kingdoms in play, so a de jure test can flip mid-game and take a culture's tradition
+# with it.
+#
+# Scope: culture. Shape follows vanilla's own regional traditions, which reach the province through
+# the county capital: any_culture_county -> title_province -> geographical_region.
+#
+# These are inclusive: a culture holding a single county in the region passes. A culture straddling
+# the split therefore passes both culture_is_core_trigger and culture_is_periphery_trigger. If a
+# tradition needs exclusivity, wrap the other side in NOT rather than changing these.
+#
+# Use them in can_pick, not is_shown. An is_shown failure hides a tradition a culture already
+# holds and silently drops its modifiers, and county ownership changes on conquest.
+
+culture_is_core_trigger = {
+	any_culture_county = {
+		title_province = {
+			geographical_region = cotc_region_core
+		}
+	}
+}
+
+culture_is_periphery_trigger = {
+	any_culture_county = {
+		title_province = {
+			geographical_region = cotc_region_periphery
+		}
+	}
+}
+
+culture_in_nebulae_trigger = {
+	any_culture_county = {
+		title_province = {
+			geographical_region = cotc_region_nebulae
+		}
+	}
+}
+
+culture_in_witch_head_nebula_trigger = {
+	any_culture_county = {
+		title_province = {
+			geographical_region = cotc_region_witch_head_nebula
+		}
+	}
+}
+
+culture_in_flame_nebula_trigger = {
+	any_culture_county = {
+		title_province = {
+			geographical_region = cotc_region_flame_nebula
+		}
+	}
+}
+
+culture_in_veil_nebula_trigger = {
+	any_culture_county = {
+		title_province = {
+			geographical_region = cotc_region_veil_nebula
+		}
+	}
+}
+
+culture_in_orion_nebula_trigger = {
+	any_culture_county = {
+		title_province = {
+			geographical_region = cotc_region_orion_nebula
+		}
+	}
+}
+
+culture_in_horsehead_nebula_trigger = {
+	any_culture_county = {
+		title_province = {
+			geographical_region = cotc_region_horsehead_nebula
+		}
+	}
+}
+
+culture_in_helix_nebula_trigger = {
+	any_culture_county = {
+		title_province = {
+			geographical_region = cotc_region_helix_nebula
+		}
+	}
+}

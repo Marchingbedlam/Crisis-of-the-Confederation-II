@@ -375,6 +375,243 @@ merchanteers_base = {
 # Finish COTC Squadrons
 ## 
 
+##
+# Cultural Squadrons
+# Advanced variants of the base squadrons, unlocked by traditions.
+
+monitor_frigates = {
+	type = missile_frigates
+
+	damage = 110
+	toughness = 26
+	pursuit = 0
+	screen = 0
+
+	siege_value = 3
+
+	can_recruit = {
+		NOR = {
+			government_has_flag = government_is_nomadic
+			government_has_flag = government_is_herder
+		}
+		culture = { has_cultural_parameter = unlock_maa_monitor_frigates }
+	}
+
+	should_show_when_unavailable = {
+		government_allows = subject_men_at_arms
+	}
+
+	buy_cost = { gold = monitor_frigates_recruitment_cost }
+	low_maintenance_cost = { gold = monitor_frigates_low_maint_cost }
+	high_maintenance_cost = { gold = monitor_frigates_high_maint_cost }
+	provision_cost = @provisions_cost_special_expensive
+
+	holy_order_fallback = no
+
+	stack = 100
+	ai_quality = {
+		value = culture_ai_weight_missile_frigates
+	}
+	icon = missile_frigates
+}
+
+q_ships = {
+	type = merchanteers
+
+	damage = 25
+	toughness = 30
+	pursuit = 0
+	screen = 5
+
+	counters = {
+		raiders = 1
+	}
+
+	can_recruit = {
+		NOR = {
+			government_has_flag = government_is_nomadic
+			government_has_flag = government_is_herder
+		}
+		culture = { has_cultural_parameter = unlock_maa_q_ships }
+	}
+
+	should_show_when_unavailable = {
+		government_allows = subject_men_at_arms
+	}
+
+	buy_cost = { gold = q_ships_recruitment_cost }
+	low_maintenance_cost = { gold = q_ships_low_maint_cost }
+	high_maintenance_cost = { gold = q_ships_high_maint_cost }
+	provision_cost = @provisions_cost_infantry_moderate
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+
+	stack = 100
+	ai_quality = {
+		value = culture_ai_weight_merchanteers
+	}
+	icon = merchanteers
+}
+
+lancer_corvettes = {
+	type = corvettes
+
+	damage = 40
+	toughness = 12
+	pursuit = 35
+	screen = 22
+
+	can_recruit = {
+		NOR = {
+			government_has_flag = government_is_nomadic
+			government_has_flag = government_is_herder
+		}
+		culture = { has_cultural_parameter = unlock_maa_lancer_corvettes }
+	}
+
+	should_show_when_unavailable = {
+		government_allows = subject_men_at_arms
+	}
+
+	buy_cost = { gold = lancer_corvettes_recruitment_cost }
+	low_maintenance_cost = { gold = lancer_corvettes_low_maint_cost }
+	high_maintenance_cost = { gold = lancer_corvettes_high_maint_cost }
+	provision_cost = @provisions_cost_special_moderate
+
+	holy_order_fallback = no
+
+	stack = 100
+	ai_quality = {
+		value = culture_ai_weight_corvettes
+	}
+	icon = corvettes
+}
+
+spectre_cruisers = {
+	type = ew_cruisers
+
+	damage = 12
+	toughness = 26
+	pursuit = 0
+	screen = 38
+
+	terrain_bonus = {
+		nebula = { screen = 15 }
+	}
+
+	counters = {
+		destroyers = 2
+		missile_frigates = 1
+	}
+
+	can_recruit = {
+		NOR = {
+			government_has_flag = government_is_nomadic
+			government_has_flag = government_is_herder
+		}
+		culture = { has_cultural_parameter = unlock_maa_spectre_cruisers }
+	}
+
+	should_show_when_unavailable = {
+		government_allows = subject_men_at_arms
+	}
+
+	buy_cost = { gold = spectre_cruisers_recruitment_cost }
+	low_maintenance_cost = { gold = spectre_cruisers_low_maint_cost }
+	high_maintenance_cost = { gold = spectre_cruisers_high_maint_cost }
+	provision_cost = @provisions_cost_special_expensive
+
+	holy_order_fallback = no
+
+	stack = 100
+	ai_quality = {
+		value = culture_ai_weight_ew_cruisers
+	}
+	icon = ew_cruisers
+}
+
+dragon_cruisers = {
+	type = cruisers
+
+	damage = 38
+	toughness = 26
+	pursuit = 10
+	screen = 12
+
+	can_recruit = {
+		NOR = {
+			government_has_flag = government_is_nomadic
+			government_has_flag = government_is_herder
+		}
+		NOT = {
+			culture = { has_cultural_parameter = swarm_tactics_heavy_maa_ban }
+		}
+		culture = { has_cultural_parameter = unlock_maa_dragon_cruisers }
+	}
+
+	should_show_when_unavailable = {
+		government_allows = subject_men_at_arms
+	}
+
+	buy_cost = { gold = dragon_cruisers_recruitment_cost }
+	low_maintenance_cost = { gold = dragon_cruisers_low_maint_cost }
+	high_maintenance_cost = { gold = dragon_cruisers_high_maint_cost }
+	provision_cost = @provisions_cost_special_expensive
+
+	holy_order_fallback = no
+
+	stack = 100
+	ai_quality = {
+		value = culture_ai_weight_cruisers
+	}
+	icon = cruisers
+}
+
+hab_raiders = {
+	type = raiders
+
+	damage = 22
+	toughness = 12
+	pursuit = 55
+	screen = 20
+
+	terrain_bonus = {
+		nebula = { damage = 15 screen = 20 }
+		open_space = { damage = 15 pursuit = 20 }
+	}
+
+	counters = {
+		merchanteers = 1
+	}
+
+	can_recruit = {
+		NOR = {
+			government_has_flag = government_is_nomadic
+			government_has_flag = government_is_herder
+		}
+		culture = { has_cultural_parameter = unlock_maa_hab_raiders }
+	}
+
+	should_show_when_unavailable = {
+		government_allows = subject_men_at_arms
+	}
+
+	buy_cost = { gold = hab_raiders_recruitment_cost }
+	low_maintenance_cost = { gold = hab_raiders_low_maint_cost }
+	high_maintenance_cost = { gold = hab_raiders_high_maint_cost }
+	provision_cost = @provisions_cost_cavalry_cheap
+
+	holy_order_fallback = yes
+
+	stack = 100
+	ai_quality = {
+		value = culture_ai_weight_raiders
+	}
+	icon = raiders
+}
+
 # ##
 # # REMOVE ALL OTHER MEN AT ARMS TYPES
 # 
@@ -1068,4 +1305,4 @@ merchanteers_base = {
 # 	icon = pikemen
 # }
 # 
-# 
+#
