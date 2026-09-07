@@ -1,8 +1,11 @@
 ﻿l_english:
- # Mod-specific men-at-arms keys only. Everything vanilla defines identically was
- # removed -- it lives in vanilla regiment_l_english.yml and duplicating it here only
- # risks the two drifting apart. There are no overrides of vanilla values, so this file
- # has no counterpart under localization/english/replace/.
+ # Mod-specific men-at-arms keys only.
+ #
+ # Deliberately NOT named regiment_l_english.yml: a mod localisation file with the same name as
+ # a vanilla one REPLACES it outright rather than merging, so a trimmed copy silently deletes
+ # every vanilla key it no longer lists. Under this name vanilla regiment_l_english.yml loads
+ # intact and these keys are simply added. None of them exists in vanilla, so there are no
+ # duplicates and no need for a replace/ counterpart.
  #MaA types
  corvettes: "[corvettes|E]"
  missile_boats: "[missile_boats|E]"
