@@ -1,11 +1,4 @@
 ﻿l_english:
- # Mod-specific men-at-arms keys only.
- #
- # Deliberately NOT named regiment_l_english.yml: a mod localisation file with the same name as
- # a vanilla one REPLACES it outright rather than merging, so a trimmed copy silently deletes
- # every vanilla key it no longer lists. Under this name vanilla regiment_l_english.yml loads
- # intact and these keys are simply added. None of them exists in vanilla, so there are no
- # duplicates and no need for a replace/ counterpart.
  #MaA types
  corvettes: "[corvettes|E]"
  missile_boats: "[missile_boats|E]"
@@ -30,7 +23,14 @@
 
  #Cultural MaA
  d_pavise: "Pavise-Class Destroyer"
- #MaA Descriptions
+ monitor_frigates: "Monitor Frigates"
+ q_ships: "Q-Ships"
+ lancer_corvettes: "Lancer Corvettes"
+ spectre_cruisers: "Spectre Cruisers"
+ dragon_cruisers: "Dragon Cruisers"
+ compact_raiders: "Compact Raiders"
+
+ #Base MaA Descriptions
  corvettes_base_flavor: "#F $game_concept_corvettes_desc$ \nOur shipyards have not developed an above-average $game_concept_corvettes$ class. #!"
  missile_boats_base_flavor: "#F $game_concept_missile_boats_desc$ \nOur shipyards have not developed an above-average $game_concept_missile_boats$ class. #!"
  destroyers_base_flavor: "#F $game_concept_destroyers_desc$ \nOur shipyards have not developed an above-average $game_concept_destroyers$ class. #!"
@@ -40,18 +40,12 @@
  missile_frigates_base_flavor: "#F $game_concept_missile_frigates_desc$ \nOur shipyards have not developed an above-average $game_concept_missile_frigates$ class. #!"
  ew_cruisers_base_flavor: "#F $game_concept_ew_cruisers_desc$ \nOur shipyards have not developed an above-average $game_concept_ew_cruisers$ class. #!"
  merchanteers_base_flavor: "#F $game_concept_merchanteers_desc$ \nOur shipyards have not developed an above-average $game_concept_merchanteers$ class. #!"
- d_pavise_flavor: "#F In the tradition of the greatest knights, these superior destroyers defend ships at their weakest but do not harm a yielding enemy. #!"
  
- #Cultural Hulls
- monitor_frigates: "Monitor Frigates"
- q_ships: "Q-Ships"
- lancer_corvettes: "Lancer Corvettes"
- spectre_cruisers: "Spectre Cruisers"
- dragon_cruisers: "Dragon Cruisers"
- hab_raiders: "Hab Raiders"
- monitor_frigates_flavor: "#F $game_concept_missile_frigates_desc$ \nA monitor carries one gun and the reactor to feed it. Everything else aboard is there to keep that gun firing. #!"
+ #Cultural MaA Descriptions
+ d_pavise_flavor: "#F In the tradition of the greatest knights, these superior destroyers defend ships at their weakest but do not harm a yielding enemy. #!"
+ monitor_frigates_flavor: "#F $game_concept_missile_frigates_desc$ \nA monitor carries a massive gun battery with the capabilities to fire it. Everything else aboard is there to keep that gun firing. #!"
  q_ships_flavor: "#F $game_concept_merchanteers_desc$ \nUnder the cargo plating sit launch rails and a gun crew who have been waiting a long time for someone to try their luck. #!"
- lancer_corvettes_flavor: "#F $game_concept_corvettes_desc$ \nBuilt for the picket line: long legs, sharp sensors, and the endurance to hold station until relieved. #!"
+ lancer_corvettes_flavor: "#F $game_concept_corvettes_desc$ \nBuilt for the picket line with sharp sensors and the endurance to hold station until relieved. #!"
  spectre_cruisers_flavor: "#F $game_concept_ew_cruisers_desc$ \nThey carry barely a gun worth naming. What they carry instead is the certainty that the enemy's targeting solution is a lie. #!"
  dragon_cruisers_flavor: "#F $game_concept_cruisers_desc$ \nMagazines running the length of the keel, and yard crews who consider a half-empty bunker a personal failing. #!"
- hab_raiders_flavor: "#F $game_concept_raiders_desc$ \nWelded together in habitat slips from whatever the yards had that season. Fast, fragile, and available in numbers. #!"
+ compact_raiders_flavor: "#F $game_concept_raiders_desc$ \nWelded together from whatever the yards had that season. Fast, fragile, and available in numbers. #!"
