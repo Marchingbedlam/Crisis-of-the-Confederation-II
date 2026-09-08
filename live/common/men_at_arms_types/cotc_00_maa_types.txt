@@ -415,7 +415,7 @@ monitor_frigates = {
 	icon = missile_frigates
 }
 
-q_ships = {
+armored_merchanteers = {
 	type = merchanteers
 
 	damage = 25
@@ -432,16 +432,16 @@ q_ships = {
 			government_has_flag = government_is_nomadic
 			government_has_flag = government_is_herder
 		}
-		culture = { has_cultural_parameter = unlock_maa_q_ships }
+		culture = { has_cultural_parameter = unlock_maa_armored_merchanteers }
 	}
 
 	should_show_when_unavailable = {
 		government_allows = subject_men_at_arms
 	}
 
-	buy_cost = { gold = q_ships_recruitment_cost }
-	low_maintenance_cost = { gold = q_ships_low_maint_cost }
-	high_maintenance_cost = { gold = q_ships_high_maint_cost }
+	buy_cost = { gold = armored_merchanteers_recruitment_cost }
+	low_maintenance_cost = { gold = armored_merchanteers_low_maint_cost }
+	high_maintenance_cost = { gold = armored_merchanteers_high_maint_cost }
 	provision_cost = @provisions_cost_infantry_moderate
 
 	holy_order_fallback = no
