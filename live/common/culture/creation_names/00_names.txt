@@ -1,0 +1,49 @@
+﻿# COTC override: rules that name a landed title have been removed.
+# Removed 71 of 75 rules.
+#
+# common/landed_titles is in replace_path, so every vanilla title these rules referred
+# to was undefined. They crashed the game when a culture was hybridised or created.
+
+# Used in definition order
+
+nomadic_house_name = {
+	trigger = {
+		government_has_flag = government_is_nomadic
+	}
+}
+
+beta_israeli = {
+	trigger = {
+		faith.religion = religion:judaism_religion
+		scope:culture = { has_cultural_pillar = heritage_east_african }
+	}
+}
+
+parsi = {
+	trigger = {
+		capital_county = {
+			title_province = { geographical_region = world_india }
+		}
+		faith = { religion_tag = zoroastrianism_religion }
+		any_sub_realm_county = {
+			faith = { religion_tag = zoroastrianism_religion }
+			title_province = { geographical_region = world_india }
+		}
+	}
+}
+
+new_english = {
+	trigger = {
+		capital_county = {
+			title_province = {
+				geographical_region = world_steppe
+			}
+		}
+		culture = { has_cultural_pillar = heritage_west_germanic }
+		any_sub_realm_county = {
+			title_province = {
+				geographical_region = world_steppe
+			}
+		}
+	}
+}
