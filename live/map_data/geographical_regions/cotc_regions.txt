@@ -1,21 +1,4 @@
 ﻿# Astrographic regions for Crisis of the Confederation II.
-#
-# Declared with duchies = { }, the same field vanilla uses for its own custom_* regions.
-# Note the trade this makes: the duchy titles listed here are fixed, but a duchy's de jure
-# counties can still drift, so a region is stable at duchy granularity rather than absolutely.
-# A province list would be immutable; duchies match convention and stay readable.
-#
-# cotc_region_core       duchies de jure under e_terran_confederacy at game start
-# cotc_region_periphery  everything else, the six nebulae included
-# cotc_region_nebulae    the six nebula kingdoms, a subset of the periphery
-#
-# The three landless pilgrimage duchies (d_kolobite, d_cosmist, d_guardianist) are
-# deliberately absent: they hold no counties, so no region can meaningfully contain them.
-#
-# generate_modifiers is deliberately not set: it would create <region>_development_growth
-# and _factor modifiers that would then need localising.
-#
-# Subregions are declared before their parent, as geographical_region.txt requires.
 
 cotc_region_witch_head_nebula = {
 	duchies = {
@@ -145,5 +128,14 @@ cotc_region_periphery = {
 		d_xin_qin d_tian_yuan d_wei d_hua
 		d_deng_biao d_ying_shi d_macau d_hang_seng
 		d_wu_ren_zhi_an d_qianying
+	}
+}
+
+cotc_region_graphical = {
+	graphical = yes
+	color = { 200 40 200 }
+	regions = {
+		cotc_region_core
+		cotc_region_periphery
 	}
 }
