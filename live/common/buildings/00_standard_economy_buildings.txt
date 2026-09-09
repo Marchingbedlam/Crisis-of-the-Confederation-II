@@ -386,6 +386,7 @@ commercial_yards_01 = {
 		monthly_income = normal_building_tax_tier_1
 		supply_limit = normal_building_supply_limit_tier_1
 		defender_holding_advantage = normal_building_advantage_tier_1
+		stationed_merchanteers_toughness_mult = normal_maa_toughness_tier_1
 	}
 
 	next_building = commercial_yards_02
@@ -443,6 +444,7 @@ commercial_yards_02 = {
 		monthly_income = normal_building_tax_tier_2
 		supply_limit = normal_building_supply_limit_tier_2
 		defender_holding_advantage = normal_building_advantage_tier_2
+		stationed_merchanteers_toughness_mult = normal_maa_toughness_tier_2
 	}
 
 	next_building = commercial_yards_03
@@ -482,6 +484,8 @@ commercial_yards_03 = {
 		supply_limit = normal_building_supply_limit_tier_3
 		levy_reinforcement_rate = 0.1
 		defender_holding_advantage = normal_building_advantage_tier_3
+		stationed_merchanteers_toughness_mult = normal_maa_toughness_tier_3
+		stationed_merchanteers_damage_mult = low_maa_damage_tier_1
 	}
 
 	on_complete = {
@@ -523,6 +527,8 @@ commercial_yards_04 = {
 		supply_limit = normal_building_supply_limit_tier_4
 		levy_reinforcement_rate = 0.1
 		defender_holding_advantage = normal_building_advantage_tier_4
+		stationed_merchanteers_toughness_mult = normal_maa_toughness_tier_4
+		stationed_merchanteers_damage_mult = low_maa_damage_tier_2
 	}
 	county_modifier = {
 		development_growth_factor = 0.02
@@ -563,6 +569,8 @@ commercial_yards_05 = {
 		levy_reinforcement_rate = 0.1
 		garrison_size = 0.05
 		defender_holding_advantage = normal_building_advantage_tier_5
+		stationed_merchanteers_toughness_mult = normal_maa_toughness_tier_5
+		stationed_merchanteers_damage_mult = low_maa_damage_tier_3
 	}
 	county_modifier = {
 		development_growth_factor = 0.02
@@ -602,6 +610,8 @@ commercial_yards_06 = {
 		levy_reinforcement_rate = 0.1
 		garrison_size = 0.05
 		defender_holding_advantage = normal_building_advantage_tier_6
+		stationed_merchanteers_toughness_mult = normal_maa_toughness_tier_6
+		stationed_merchanteers_damage_mult = low_maa_damage_tier_4
 	}
 	county_modifier = {
 		development_growth_factor = 0.02
@@ -642,6 +652,8 @@ commercial_yards_07 = {
 		levy_reinforcement_rate = 0.1
 		garrison_size = 0.05
 		defender_holding_advantage = normal_building_advantage_tier_7
+		stationed_merchanteers_toughness_mult = normal_maa_toughness_tier_7
+		stationed_merchanteers_damage_mult = low_maa_damage_tier_5
 	}
 	county_modifier = {
 		development_growth_factor = 0.02
@@ -682,6 +694,8 @@ commercial_yards_08 = {
 		levy_reinforcement_rate = 0.15
 		garrison_size = 0.05
 		defender_holding_advantage = normal_building_advantage_tier_8
+		stationed_merchanteers_toughness_mult = normal_maa_toughness_tier_8
+		stationed_merchanteers_damage_mult = low_maa_damage_tier_6
 	}
 	county_modifier = {
 		development_growth_factor = 0.02
@@ -2669,8 +2683,8 @@ forges_07 = {
 	province_modifier = {
 		monthly_income = poor_building_tax_tier_7
 		build_speed = good_building_build_speed_tier_7
-		stationed_heavy_infantry_toughness_mult = 0.02
-		stationed_pikemen_toughness_mult = 0.02
+		stationed_cruisers_toughness_mult = 0.02
+		stationed_destroyers_toughness_mult = 0.02
 	}
 	county_modifier = {
 		development_growth_factor = 0.02
@@ -2715,9 +2729,8 @@ forges_08 = {
 	province_modifier = {
 		monthly_income = poor_building_tax_tier_8
 		build_speed = good_building_build_speed_tier_8
-		stationed_heavy_infantry_toughness_mult = 0.04
-		stationed_pikemen_toughness_mult = 0.04
-		stationed_heavy_cavalry_toughness_mult = 0.08
+		stationed_cruisers_toughness_mult = 0.04
+		stationed_destroyers_toughness_mult = 0.04
 	}
 	county_modifier = {
 		development_growth_factor = 0.02
@@ -2757,7 +2770,7 @@ exotic_forges_01 = {
 	province_modifier = {
 		monthly_income = normal_building_tax_tier_1
 		build_speed = good_building_build_speed_tier_1
-		stationed_heavy_cavalry_toughness_mult = 0.02
+		stationed_missile_frigates_toughness_mult = 0.02
 		stationed_maa_damage_mult = normal_maa_damage_tier_1
 	}
 	character_modifier = {
@@ -2808,7 +2821,7 @@ exotic_forges_02 = {
 	province_modifier = {
 		monthly_income = normal_building_tax_tier_2
 		build_speed = good_building_build_speed_tier_2
-		stationed_heavy_cavalry_toughness_mult = 0.04
+		stationed_missile_frigates_toughness_mult = 0.04
 		stationed_maa_damage_mult = normal_maa_damage_tier_2
 	}
 	character_modifier = {
@@ -2853,7 +2866,7 @@ exotic_forges_03 = {
 	province_modifier = {
 		monthly_income = normal_building_tax_tier_3
 		build_speed = good_building_build_speed_tier_3
-		stationed_heavy_cavalry_toughness_mult = 0.06
+		stationed_missile_frigates_toughness_mult = 0.06
 		stationed_maa_damage_mult = normal_maa_damage_tier_3
 	}
 	county_modifier = {
@@ -2897,9 +2910,9 @@ exotic_forges_04 = {
 	province_modifier = {
 		monthly_income = normal_building_tax_tier_4
 		build_speed = good_building_build_speed_tier_4
-		stationed_heavy_infantry_toughness_mult = 0.2
-		stationed_pikemen_toughness_mult = 0.2
-		stationed_heavy_cavalry_toughness_mult = 0.08
+		stationed_cruisers_toughness_mult = 0.2
+		stationed_destroyers_toughness_mult = 0.2
+		stationed_missile_frigates_toughness_mult = 0.08
 		stationed_maa_damage_mult = normal_maa_damage_tier_4
 	}
 	county_modifier = {
@@ -2944,9 +2957,9 @@ exotic_forges_05 = {
 	province_modifier = {
 		monthly_income = normal_building_tax_tier_5
 		build_speed = good_building_build_speed_tier_5
-		stationed_heavy_infantry_toughness_mult = 0.4
-		stationed_pikemen_toughness_mult = 0.4
-		stationed_heavy_cavalry_toughness_mult = 0.10
+		stationed_cruisers_toughness_mult = 0.4
+		stationed_destroyers_toughness_mult = 0.4
+		stationed_missile_frigates_toughness_mult = 0.10
 		stationed_maa_damage_mult = normal_maa_damage_tier_5
 	}
 	county_modifier = {
@@ -2991,9 +3004,9 @@ exotic_forges_06 = {
 	province_modifier = {
 		monthly_income = normal_building_tax_tier_6
 		build_speed = good_building_build_speed_tier_6
-		stationed_heavy_infantry_toughness_mult = 0.6
-		stationed_pikemen_toughness_mult = 0.6
-		stationed_heavy_cavalry_toughness_mult = 0.12
+		stationed_cruisers_toughness_mult = 0.6
+		stationed_destroyers_toughness_mult = 0.6
+		stationed_missile_frigates_toughness_mult = 0.12
 		stationed_maa_damage_mult = normal_maa_damage_tier_6
 	}
 	county_modifier = {
@@ -3039,9 +3052,9 @@ exotic_forges_07 = {
 	province_modifier = {
 		monthly_income = normal_building_tax_tier_7
 		build_speed = good_building_build_speed_tier_7
-		stationed_heavy_infantry_toughness_mult = 0.8
-		stationed_pikemen_toughness_mult = 0.8
-		stationed_heavy_cavalry_toughness_mult = 0.14
+		stationed_cruisers_toughness_mult = 0.8
+		stationed_destroyers_toughness_mult = 0.8
+		stationed_missile_frigates_toughness_mult = 0.14
 		stationed_maa_damage_mult = normal_maa_damage_tier_7
 	}
 	county_modifier = {
@@ -3087,9 +3100,9 @@ exotic_forges_08 = {
 	province_modifier = {
 		monthly_income = normal_building_tax_tier_8
 		build_speed = good_building_build_speed_tier_8
-		stationed_heavy_infantry_toughness_mult = 0.10
-		stationed_pikemen_toughness_mult = 0.10
-		stationed_heavy_cavalry_toughness_mult = 0.16
+		stationed_cruisers_toughness_mult = 0.10
+		stationed_destroyers_toughness_mult = 0.10
+		stationed_missile_frigates_toughness_mult = 0.16
 		stationed_maa_damage_mult = normal_maa_damage_tier_8
 	}
 	county_modifier = {
