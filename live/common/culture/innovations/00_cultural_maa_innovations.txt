@@ -385,3 +385,90 @@ innovation_pole_vault = {
 		value = 100
 	}
 }
+
+## Add certain tgp innovations to remove maas
+# Why does this override can_recruit=no?
+innovation_tiefutu = {
+	skill = martial
+	group = culture_group_military
+	culture_era = culture_era_tribal
+	icon = @special_maa_01
+	region = world_asia_north_east
+
+	flag = global_regional
+	flag = global_maa
+
+	# unlock_maa = tiefutu
+	
+	ai_weight_for_fascination = {
+		value = 100
+		if = {
+			limit = {
+				NOT = {
+					has_cultural_era_or_later = culture_era_high_medieval
+				}
+			}
+			multiply = 0
+		}
+	}
+}
+
+innovation_rocket_cart = { # Singijeon & Hwacha, and the Huo Che
+	skill = learning
+	group = culture_group_military
+	culture_era = culture_era_late_medieval
+	icon = @rocket_cart
+
+	asset = {
+		trigger = {
+			OR = {
+				has_cultural_pillar = heritage_korean
+				has_cultural_pillar = heritage_buyeo
+			}
+		}
+		icon = @rocket_cart
+		name = innovation_rocket_cart_koreanic
+	}
+
+	asset = {
+		trigger = {
+			has_cultural_pillar = heritage_chinese
+		}
+		icon = @rocket_cart
+		name = innovation_rocket_cart_chinese
+	}
+
+	potential = {
+		has_tgp_dlc_trigger = yes
+		OR = {
+			has_cultural_pillar = heritage_chinese
+			has_cultural_pillar = heritage_korean
+			has_cultural_pillar = heritage_buyeo
+		}
+	}
+
+	can_progress = {
+		has_innovation = innovation_fire_medicine
+	}
+
+	# unlock_maa = rocket_carts
+
+	province_modifier = {
+		defender_holding_advantage = 5
+	}
+
+	flag = global_regional
+	flag = late_medieval_era_regional
+	
+	ai_weight_for_fascination = {
+		value = 100
+		if = {
+			limit = {
+				NOT = {
+					has_cultural_era_or_later = culture_era_late_medieval
+				}
+			}
+			multiply = 0
+		}
+	}
+}
