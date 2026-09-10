@@ -5296,6 +5296,9 @@ tradition_cotc_corsair_charters = {
 	}
 	
 	parameters = {
+		# Despite the name, vanilla's can_raid_trigger applies this with no government check
+		# So it technically means "this culture may raid regardless of government"
+		# Which in turn means we can re-use this for non-criminal governments
 		culture_can_raid_at_sea_even_if_feudal = yes
 		not_tribal_raiding_malus = yes
 	}
