@@ -2,7 +2,12 @@
 # HOOKS TO CODE #
 #################
 on_game_start = { on_actions = { game_start_technology_on_action } }
-on_county_culture_change = { on_actions = { add_culture_techs_locally } }
+on_county_culture_change = {
+	on_actions = {
+		add_culture_techs_locally
+		validate_old_culture_innovations
+	}
+}
 on_character_culture_change = { on_actions = { verify_character_tech_modifiers } }
 quarterly_playable_pulse = { on_actions = { verify_character_tech_modifiers } }
 random_yearly_everyone_pulse = { on_actions = { verify_character_tech_modifiers } }
@@ -73,4 +78,26 @@ verify_character_tech_modifiers = {
 }
 verify_county_tech_modifiers = {
 	effect = { verify_all_tech_modifiers = { TARGET = flag:county } }
+}
+validate_old_culture_innovations = { # If all counties of a culture have a tech after a county is lost, the culture learns the tech!
+	effect = {
+		scope:old_culture = {
+			every_in_list = {
+				variable = culture_discovered_innovations
+				limit = { NOT = { scope:old_culture = { has_innovation = PREV } } }
+				save_temporary_scope_as = temp_tech_to_check
+				scope:old_culture = {
+					if = {
+						limit = {
+							any_culture_county = {
+								NOT = { county_has_tech = { TECH = scope:temp_tech_to_check } }
+								count = 0
+							}
+						}
+						add_innovation = scope:temp_tech_to_check
+					}
+				}
+			}
+		}
+	}
 }

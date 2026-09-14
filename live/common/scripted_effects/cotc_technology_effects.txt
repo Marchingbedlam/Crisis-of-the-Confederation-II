@@ -201,12 +201,37 @@ add_tech_by_string = {
 				province_owner ?= {
 					add_to_temporary_list = county_characters
 					every_courtier = { add_to_temporary_list = county_characters }
-					every_pool_character = { add_to_temporary_list = county_characters }
 				}
+				every_pool_character = { add_to_temporary_list = county_characters }
 			}
 			every_in_list = {
 				list = county_characters
 				apply_character_tech_by_string = { TECH = $TECH$ }
+			}
+		}
+		if = { # If this culture doesn't have the tech, there is a chance for the culture to learn it
+			limit = { culture = { NOT = { has_innovation = scope:temp_tech } } }
+			culture = {
+				# The chance for the whole culture to learn the tech scales quadratically with the percentage that already knows it
+				save_temporary_scope_value_as = {
+					name = temp_x
+					value = {
+						every_culture_county = {
+							limit = { county_has_tech_by_string = { TECH = $TECH$ } }
+							add = 1
+						}
+						divide = { every_culture_county = { add = 1 } min = 1 }
+						multiply = 100
+					}
+				}
+				random = {
+					chance = {
+						value = scope:temp_x
+						multiply = scope:temp_x
+						multiply = 0.01
+					}
+					add_innovation = scope:temp_tech
+				}
 			}
 		}
 	}
@@ -544,7 +569,6 @@ add_research_project_secret_effect = {
 				scope:temp_secret = { add_secret_participant = PREV }
 			}
 		}
-		else = { expose_secret = yes }
 	}
 }
 research_project_prep_effect = {
@@ -567,7 +591,7 @@ add_research_project_personal_involvement = {
 	}
 	if = {
 		limit = { scope:scheme = { is_target_in_variable_list = { name = flags target = flag:military } } }
-		add_character_modifier = personal_involvement_military_bonus
+		add_character_modifier = personal_involvement_martial_bonus
 	}
 	if = {
 		limit = { basic_eligible_for_diarchy_trigger = yes }
