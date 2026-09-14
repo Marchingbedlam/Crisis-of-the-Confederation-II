@@ -9,7 +9,7 @@
 # 	- Require End Game Techs
 # Officer Schools - Knight Effectiveness/Number, Global Advantage, Prowess
 # 	- Start at Level 2 holdings
-# HE Depot - Generic Damage, especially pikemen and archers
+# HE Depot - Generic Damage, especially destroyers and fast_frigates
 # 	- Corrosive world unique
 # Patrols - Screen, skirmisher (etc) damage, control
 # Regattas - Movement, Pursuit, Screen for lighter ships
@@ -43,16 +43,16 @@ capital_shipyard_01 = {
 	levy = small_building_levy_tier_1
 	
 	province_modifier = {
-		stationed_heavy_infantry_toughness_mult = normal_maa_toughness_tier_1
-		stationed_heavy_cavalry_toughness_mult = normal_maa_toughness_tier_1
-		stationed_archer_cavalry_toughness_mult = normal_maa_toughness_tier_1
-		stationed_elephant_cavalry_toughness_mult = normal_maa_toughness_tier_1
-		heavy_infantry_maintenance_mult = normal_building_maa_maintenance_tier_1
-		heavy_cavalry_maintenance_mult = normal_building_maa_maintenance_tier_1
-		archer_cavalry_maintenance_mult = normal_building_maa_maintenance_tier_1
-		elephant_cavalry_maintenance_mult = normal_building_maa_maintenance_tier_1
+		stationed_cruisers_toughness_mult = normal_maa_toughness_tier_1
+		stationed_fast_frigates_toughness_mult = normal_maa_toughness_tier_1
+		stationed_missile_frigates_toughness_mult = normal_maa_toughness_tier_1
+		cruisers_maintenance_mult = normal_building_maa_maintenance_tier_1
+		fast_frigates_maintenance_mult = normal_building_maa_maintenance_tier_1
+		missile_frigates_maintenance_mult = normal_building_maa_maintenance_tier_1
 	}
-
+	character_modifier = {
+		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_1
+	}
 	# TODO: Cultural bonus for selling arms adds a tax benefit?
 
 	on_complete = {
@@ -62,7 +62,7 @@ capital_shipyard_01 = {
 	
 	next_building = capital_shipyard_02
 
-	type_icon = "icon_building_hillside_grazing.dds"
+	type_icon = "icon_building_capital_shipyard.dds"
 	
 	ai_value = {
 		base = 11 # Little nudge
@@ -74,7 +74,7 @@ capital_shipyard_01 = {
 		ai_stacking_bonus_stables_modifier = yes
 		ai_archer_cavalry_modifier = yes
 		ai_light_cavalry_modifier = yes
-		ai_heavy_cavalry_modifier = yes
+		ai_fast_frigates_modifier = yes
 		modifier = {
 			factor = 0
 			building_regimental_grounds_requirement_terrain = yes
@@ -122,26 +122,27 @@ capital_shipyard_02 = {
 	levy = small_building_levy_tier_2
 	
 	province_modifier = {
-		stationed_heavy_infantry_damage_mult = normal_maa_damage_tier_1
-		stationed_heavy_cavalry_damage_mult = normal_maa_damage_tier_1
-		stationed_archer_cavalry_damage_mult = normal_maa_damage_tier_1
-		stationed_elephant_cavalry_damage_mult = normal_maa_damage_tier_1
-		stationed_heavy_infantry_toughness_mult = normal_maa_toughness_tier_2
-		stationed_heavy_cavalry_toughness_mult = normal_maa_toughness_tier_2
-		stationed_archer_cavalry_toughness_mult = normal_maa_toughness_tier_2
-		stationed_elephant_cavalry_toughness_mult = normal_maa_toughness_tier_2
-		heavy_infantry_maintenance_mult = normal_building_maa_maintenance_tier_2
-		heavy_cavalry_maintenance_mult = normal_building_maa_maintenance_tier_2
-		archer_cavalry_maintenance_mult = normal_building_maa_maintenance_tier_2
-		elephant_cavalry_maintenance_mult = normal_building_maa_maintenance_tier_2
+		stationed_cruisers_damage_mult = normal_maa_damage_tier_1
+		stationed_fast_frigates_damage_mult = normal_maa_damage_tier_1
+		stationed_missile_frigates_damage_mult = normal_maa_damage_tier_1
+		stationed_cruisers_toughness_mult = normal_maa_toughness_tier_2
+		stationed_fast_frigates_toughness_mult = normal_maa_toughness_tier_2
+		stationed_missile_frigates_toughness_mult = normal_maa_toughness_tier_2
+		cruisers_maintenance_mult = normal_building_maa_maintenance_tier_2
+		fast_frigates_maintenance_mult = normal_building_maa_maintenance_tier_2
+		missile_frigates_maintenance_mult = normal_building_maa_maintenance_tier_2
 	}
-
+	character_modifier = {
+		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_2
+	}
 	on_complete = {
 		#Mandala Creator Aspect
 		creator_mandala_built_regular_building_piety_effect = yes
 	}
 	
 	next_building = capital_shipyard_03
+
+	type_icon = "icon_building_capital_shipyard.dds"
 	
 	ai_value = {
 		base = 9
@@ -177,27 +178,29 @@ capital_shipyard_03 = {
 	levy = small_building_levy_tier_3
 	
 	province_modifier = {
-		stationed_heavy_infantry_damage_mult = normal_maa_damage_tier_2
-		stationed_heavy_cavalry_damage_mult = normal_maa_damage_tier_2
-		stationed_archer_cavalry_damage_mult = normal_maa_damage_tier_2
-		stationed_elephant_cavalry_damage_mult = normal_maa_damage_tier_2
-		stationed_heavy_infantry_toughness_mult = normal_maa_toughness_tier_3
-		stationed_heavy_cavalry_toughness_mult = normal_maa_toughness_tier_3
-		stationed_archer_cavalry_toughness_mult = normal_maa_toughness_tier_3
-		stationed_elephant_cavalry_toughness_mult = normal_maa_toughness_tier_3
-		heavy_infantry_maintenance_mult = normal_building_maa_maintenance_tier_3
-		heavy_cavalry_maintenance_mult = normal_building_maa_maintenance_tier_3
-		archer_cavalry_maintenance_mult = normal_building_maa_maintenance_tier_3
-		elephant_cavalry_maintenance_mult = normal_building_maa_maintenance_tier_3
+		stationed_cruisers_damage_mult = normal_maa_damage_tier_2
+		stationed_fast_frigates_damage_mult = normal_maa_damage_tier_2
+		stationed_missile_frigates_damage_mult = normal_maa_damage_tier_2
+		stationed_cruisers_toughness_mult = normal_maa_toughness_tier_3
+		stationed_fast_frigates_toughness_mult = normal_maa_toughness_tier_3
+		stationed_missile_frigates_toughness_mult = normal_maa_toughness_tier_3
+		cruisers_maintenance_mult = normal_building_maa_maintenance_tier_3
+		fast_frigates_maintenance_mult = normal_building_maa_maintenance_tier_3
+		missile_frigates_maintenance_mult = normal_building_maa_maintenance_tier_3
+		
 		defender_holding_advantage = 2
 	}
-
+	character_modifier = {
+		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_3
+	}
 	on_complete = {
 		#Mandala Creator Aspect
 		creator_mandala_built_regular_building_piety_effect = yes
 	}
 	
 	next_building = capital_shipyard_04
+
+	type_icon = "icon_building_capital_shipyard.dds"
 	
 	ai_value = {
 		base = 8
@@ -229,27 +232,28 @@ capital_shipyard_04 = {
 	levy = small_building_levy_tier_4
 	
 	province_modifier = {
-		stationed_heavy_infantry_damage_mult = normal_maa_damage_tier_3
-		stationed_heavy_cavalry_damage_mult = normal_maa_damage_tier_3
-		stationed_archer_cavalry_damage_mult = normal_maa_damage_tier_3
-		stationed_elephant_cavalry_damage_mult = normal_maa_damage_tier_3
-		stationed_heavy_infantry_toughness_mult = normal_maa_toughness_tier_4
-		stationed_heavy_cavalry_toughness_mult = normal_maa_toughness_tier_4
-		stationed_archer_cavalry_toughness_mult = normal_maa_toughness_tier_4
-		stationed_elephant_cavalry_toughness_mult = normal_maa_toughness_tier_4
-		heavy_infantry_maintenance_mult = normal_building_maa_maintenance_tier_4
-		heavy_cavalry_maintenance_mult = normal_building_maa_maintenance_tier_4
-		archer_cavalry_maintenance_mult = normal_building_maa_maintenance_tier_4
-		elephant_cavalry_maintenance_mult = normal_building_maa_maintenance_tier_4
+		stationed_cruisers_damage_mult = normal_maa_damage_tier_3
+		stationed_fast_frigates_damage_mult = normal_maa_damage_tier_3
+		stationed_missile_frigates_damage_mult = normal_maa_damage_tier_3
+		stationed_cruisers_toughness_mult = normal_maa_toughness_tier_4
+		stationed_fast_frigates_toughness_mult = normal_maa_toughness_tier_4
+		stationed_missile_frigates_toughness_mult = normal_maa_toughness_tier_4
+		cruisers_maintenance_mult = normal_building_maa_maintenance_tier_4
+		fast_frigates_maintenance_mult = normal_building_maa_maintenance_tier_4
+		missile_frigates_maintenance_mult = normal_building_maa_maintenance_tier_4
 		defender_holding_advantage = 2
 	}
-
+	character_modifier = {
+		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_4
+	}
 	on_complete = {
 		#Mandala Creator Aspect
 		creator_mandala_built_regular_building_piety_effect = yes
 	}
 	
 	next_building = capital_shipyard_05
+
+	type_icon = "icon_building_capital_shipyard.dds"
 	
 	ai_value = {
 		base = 7
@@ -281,27 +285,28 @@ capital_shipyard_05 = {
 	levy = small_building_levy_tier_5
 	
 	province_modifier = {
-		stationed_heavy_infantry_damage_mult = normal_maa_damage_tier_4
-		stationed_heavy_cavalry_damage_mult = normal_maa_damage_tier_4
-		stationed_archer_cavalry_damage_mult = normal_maa_damage_tier_4
-		stationed_elephant_cavalry_damage_mult = normal_maa_damage_tier_4
-		stationed_heavy_infantry_toughness_mult = normal_maa_toughness_tier_5
-		stationed_heavy_cavalry_toughness_mult = normal_maa_toughness_tier_5
-		stationed_archer_cavalry_toughness_mult = normal_maa_toughness_tier_5
-		stationed_elephant_cavalry_toughness_mult = normal_maa_toughness_tier_5
-		heavy_infantry_maintenance_mult = normal_building_maa_maintenance_tier_5
-		heavy_cavalry_maintenance_mult = normal_building_maa_maintenance_tier_5
-		archer_cavalry_maintenance_mult = normal_building_maa_maintenance_tier_5
-		elephant_cavalry_maintenance_mult = normal_building_maa_maintenance_tier_5
+		stationed_cruisers_damage_mult = normal_maa_damage_tier_4
+		stationed_fast_frigates_damage_mult = normal_maa_damage_tier_4
+		stationed_missile_frigates_damage_mult = normal_maa_damage_tier_4
+		stationed_cruisers_toughness_mult = normal_maa_toughness_tier_5
+		stationed_fast_frigates_toughness_mult = normal_maa_toughness_tier_5
+		stationed_missile_frigates_toughness_mult = normal_maa_toughness_tier_5
+		cruisers_maintenance_mult = normal_building_maa_maintenance_tier_5
+		fast_frigates_maintenance_mult = normal_building_maa_maintenance_tier_5
+		missile_frigates_maintenance_mult = normal_building_maa_maintenance_tier_5
 		defender_holding_advantage = 2
 	}
-
+	character_modifier = {
+		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_5
+	}
 	on_complete = {
 		#Mandala Creator Aspect
 		creator_mandala_built_regular_building_piety_effect = yes
 	}
 	
 	next_building = capital_shipyard_06
+
+	type_icon = "icon_building_capital_shipyard.dds"
 	
 	ai_value = {
 		base = 6
@@ -333,27 +338,31 @@ capital_shipyard_06 = {
 	levy = small_building_levy_tier_6
 	
 	province_modifier = {
-		stationed_heavy_infantry_damage_mult = normal_maa_damage_tier_5
-		stationed_heavy_cavalry_damage_mult = normal_maa_damage_tier_5
-		stationed_archer_cavalry_damage_mult = normal_maa_damage_tier_5
-		stationed_elephant_cavalry_damage_mult = normal_maa_damage_tier_5
-		stationed_heavy_infantry_toughness_mult = normal_maa_toughness_tier_6
-		stationed_heavy_cavalry_toughness_mult = normal_maa_toughness_tier_6
-		stationed_archer_cavalry_toughness_mult = normal_maa_toughness_tier_6
-		stationed_elephant_cavalry_toughness_mult = normal_maa_toughness_tier_6
-		heavy_infantry_maintenance_mult = normal_building_maa_maintenance_tier_6
-		heavy_cavalry_maintenance_mult = normal_building_maa_maintenance_tier_6
-		archer_cavalry_maintenance_mult = normal_building_maa_maintenance_tier_6
-		elephant_cavalry_maintenance_mult = normal_building_maa_maintenance_tier_6
+		stationed_cruisers_damage_mult = normal_maa_damage_tier_5
+		stationed_fast_frigates_damage_mult = normal_maa_damage_tier_5
+		stationed_missile_frigates_damage_mult = normal_maa_damage_tier_5
+		stationed_cruisers_toughness_mult = normal_maa_toughness_tier_6
+		stationed_fast_frigates_toughness_mult = normal_maa_toughness_tier_6
+		stationed_missile_frigates_toughness_mult = normal_maa_toughness_tier_6
+		cruisers_maintenance_mult = normal_building_maa_maintenance_tier_6
+		fast_frigates_maintenance_mult = normal_building_maa_maintenance_tier_6
+		missile_frigates_maintenance_mult = normal_building_maa_maintenance_tier_6
+		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_6
+		knight_limit = 1
 		defender_holding_advantage = 4
 	}
-
+	character_modifier = {
+		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_6
+		knight_limit = 1
+	}
 	on_complete = {
 		#Mandala Creator Aspect
 		creator_mandala_built_regular_building_piety_effect = yes
 	}
 	
 	next_building = capital_shipyard_07
+
+	type_icon = "icon_building_capital_shipyard.dds"
 	
 	ai_value = {
 		base = 5
@@ -385,19 +394,23 @@ capital_shipyard_07 = {
 	levy = small_building_levy_tier_7
 	
 	province_modifier = {
-		stationed_heavy_infantry_damage_mult = normal_maa_damage_tier_6
-		stationed_heavy_cavalry_damage_mult = normal_maa_damage_tier_6
-		stationed_archer_cavalry_damage_mult = normal_maa_damage_tier_6
-		stationed_elephant_cavalry_damage_mult = normal_maa_damage_tier_6
-		stationed_heavy_infantry_toughness_mult = normal_maa_toughness_tier_7
-		stationed_heavy_cavalry_toughness_mult = normal_maa_toughness_tier_7
-		stationed_archer_cavalry_toughness_mult = normal_maa_toughness_tier_7
-		stationed_elephant_cavalry_toughness_mult = normal_maa_toughness_tier_7
-		heavy_infantry_maintenance_mult = normal_building_maa_maintenance_tier_7
-		heavy_cavalry_maintenance_mult = normal_building_maa_maintenance_tier_7
-		archer_cavalry_maintenance_mult = normal_building_maa_maintenance_tier_7
-		elephant_cavalry_maintenance_mult = normal_building_maa_maintenance_tier_7
+		stationed_cruisers_damage_mult = normal_maa_damage_tier_6
+		stationed_fast_frigates_damage_mult = normal_maa_damage_tier_6
+		stationed_missile_frigates_damage_mult = normal_maa_damage_tier_6
+		stationed_cruisers_toughness_mult = normal_maa_toughness_tier_7
+		stationed_fast_frigates_toughness_mult = normal_maa_toughness_tier_7
+		stationed_missile_frigates_toughness_mult = normal_maa_toughness_tier_7
+		cruisers_maintenance_mult = normal_building_maa_maintenance_tier_7
+		fast_frigates_maintenance_mult = normal_building_maa_maintenance_tier_7
+		missile_frigates_maintenance_mult = normal_building_maa_maintenance_tier_7
+		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_7
+		knight_limit = 1
 		defender_holding_advantage = 4
+	}
+
+	character_modifier = {
+		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_7
+		knight_limit = 1
 	}
 
 	on_complete = {
@@ -406,6 +419,8 @@ capital_shipyard_07 = {
 	}
 	
 	next_building = capital_shipyard_08
+
+	type_icon = "icon_building_capital_shipyard.dds"
 	
 	ai_value = {
 		base = 4
@@ -435,20 +450,22 @@ capital_shipyard_08 = {
 	cost_gold = normal_building_tier_8_cost
 	
 	levy = small_building_levy_tier_8
+
+	character_modifier = {
+		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_8
+		knight_limit = 2
+	}
 	
 	province_modifier = {
-		stationed_heavy_infantry_damage_mult = normal_maa_damage_tier_7
-		stationed_heavy_cavalry_damage_mult = normal_maa_damage_tier_7
-		stationed_archer_cavalry_damage_mult = normal_maa_damage_tier_7
-		stationed_elephant_cavalry_damage_mult = normal_maa_damage_tier_7
-		stationed_heavy_infantry_toughness_mult = normal_maa_toughness_tier_8
-		stationed_heavy_cavalry_toughness_mult = normal_maa_toughness_tier_8
-		stationed_archer_cavalry_toughness_mult = normal_maa_toughness_tier_8
-		stationed_elephant_cavalry_toughness_mult = normal_maa_toughness_tier_8
-		heavy_infantry_maintenance_mult = normal_building_maa_maintenance_tier_8
-		heavy_cavalry_maintenance_mult = normal_building_maa_maintenance_tier_8
-		archer_cavalry_maintenance_mult = normal_building_maa_maintenance_tier_8
-		elephant_cavalry_maintenance_mult = normal_building_maa_maintenance_tier_8
+		stationed_cruisers_damage_mult = normal_maa_damage_tier_7
+		stationed_fast_frigates_damage_mult = normal_maa_damage_tier_7
+		stationed_missile_frigates_damage_mult = normal_maa_damage_tier_7
+		stationed_cruisers_toughness_mult = normal_maa_toughness_tier_8
+		stationed_fast_frigates_toughness_mult = normal_maa_toughness_tier_8
+		stationed_missile_frigates_toughness_mult = normal_maa_toughness_tier_8
+		cruisers_maintenance_mult = normal_building_maa_maintenance_tier_8
+		fast_frigates_maintenance_mult = normal_building_maa_maintenance_tier_8
+		missile_frigates_maintenance_mult = normal_building_maa_maintenance_tier_8
 		defender_holding_advantage = 6
 	}
 
@@ -456,6 +473,8 @@ capital_shipyard_08 = {
 		#Mandala Creator Aspect
 		creator_mandala_built_regular_building_piety_effect = yes
 	}
+
+	type_icon = "icon_building_capital_shipyard.dds"
 	
 	ai_value = {
 		base = 3
@@ -487,7 +506,7 @@ officer_school_01 = {
 	
 	next_building = officer_school_02
 
-	type_icon = "icon_building_wind_furnaces.dds"
+	type_icon = "icon_building_officer_school.dds"
 	
 	ai_value = {
 		base = 10
@@ -824,8 +843,8 @@ he_depot_01 = {
 		
 	province_modifier = {
 		stationed_maa_damage_mult = normal_maa_damage_tier_1
-		stationed_pikemen_damage_mult = normal_maa_damage_tier_1
-		stationed_archers_damage_mult = normal_maa_damage_tier_1
+		stationed_destroyers_damage_mult = normal_maa_damage_tier_1
+		stationed_fast_frigates_damage_mult = normal_maa_damage_tier_1
 		levy_size = 0.01
 	}
 
@@ -838,7 +857,7 @@ he_depot_01 = {
 	
 	next_building = he_depot_02
 
-	type_icon = "icon_building_hillside_grazing.dds"
+	type_icon = "icon_building_he_depot.dds"
 	
 	ai_value = {
 		base = 11 # Little nudge
@@ -850,7 +869,7 @@ he_depot_01 = {
 		ai_stacking_bonus_stables_modifier = yes
 		ai_archer_cavalry_modifier = yes
 		ai_light_cavalry_modifier = yes
-		ai_heavy_cavalry_modifier = yes
+		ai_fast_frigates_modifier = yes
 		modifier = {
 			factor = 0
 			building_regimental_grounds_requirement_terrain = yes
@@ -898,8 +917,8 @@ he_depot_02 = {
 
 	province_modifier = {
 		stationed_maa_damage_mult = normal_maa_damage_tier_2
-		stationed_pikemen_damage_mult = normal_maa_damage_tier_2
-		stationed_archers_damage_mult = normal_maa_damage_tier_2
+		stationed_destroyers_damage_mult = normal_maa_damage_tier_2
+		stationed_fast_frigates_damage_mult = normal_maa_damage_tier_2
 		levy_size = 0.02
 	}
 
@@ -944,8 +963,8 @@ he_depot_03 = {
 	
 	province_modifier = {
 		stationed_maa_damage_mult = normal_maa_damage_tier_3
-		stationed_pikemen_damage_mult = normal_maa_damage_tier_3
-		stationed_archers_damage_mult = normal_maa_damage_tier_3
+		stationed_destroyers_damage_mult = normal_maa_damage_tier_3
+		stationed_fast_frigates_damage_mult = normal_maa_damage_tier_3
 		levy_size = 0.03
 	}
 
@@ -986,8 +1005,8 @@ he_depot_04 = {
 	
 	province_modifier = {
 		stationed_maa_damage_mult = normal_maa_damage_tier_4
-		stationed_pikemen_damage_mult = normal_maa_damage_tier_4
-		stationed_archers_damage_mult = normal_maa_damage_tier_4
+		stationed_destroyers_damage_mult = normal_maa_damage_tier_4
+		stationed_fast_frigates_damage_mult = normal_maa_damage_tier_4
 		levy_size = 0.04
 		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_1
 	}
@@ -1029,8 +1048,8 @@ he_depot_05 = {
 	
 	province_modifier = {
 		stationed_maa_damage_mult = normal_maa_damage_tier_5
-		stationed_pikemen_damage_mult = normal_maa_damage_tier_5
-		stationed_archers_damage_mult = normal_maa_damage_tier_5
+		stationed_destroyers_damage_mult = normal_maa_damage_tier_5
+		stationed_fast_frigates_damage_mult = normal_maa_damage_tier_5
 		levy_size = 0.05
 		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_2
 	}
@@ -1067,8 +1086,8 @@ he_depot_06 = {
 	
 	province_modifier = {
 		stationed_maa_damage_mult = normal_maa_damage_tier_6
-		stationed_pikemen_damage_mult = normal_maa_damage_tier_6
-		stationed_archers_damage_mult = normal_maa_damage_tier_6
+		stationed_destroyers_damage_mult = normal_maa_damage_tier_6
+		stationed_fast_frigates_damage_mult = normal_maa_damage_tier_6
 		levy_size = 0.06
 		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_3
 	}
@@ -1105,8 +1124,8 @@ he_depot_07 = {
 	
 	province_modifier = {
 		stationed_maa_damage_mult = normal_maa_damage_tier_7
-		stationed_pikemen_damage_mult = normal_maa_damage_tier_7
-		stationed_archers_damage_mult = normal_maa_damage_tier_7
+		stationed_destroyers_damage_mult = normal_maa_damage_tier_7
+		stationed_fast_frigates_damage_mult = normal_maa_damage_tier_7
 		levy_size = 0.07
 		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_4
 	}
@@ -1146,8 +1165,8 @@ he_depot_08 = {
 	
 	province_modifier = {
 		stationed_maa_damage_mult = normal_maa_damage_tier_8
-		stationed_pikemen_damage_mult = normal_maa_damage_tier_8
-		stationed_archers_damage_mult = normal_maa_damage_tier_8
+		stationed_destroyers_damage_mult = normal_maa_damage_tier_8
+		stationed_fast_frigates_damage_mult = normal_maa_damage_tier_8
 		levy_size = 0.08
 		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_5
 	}
@@ -1185,11 +1204,11 @@ patrols_01 = {
 	province_modifier = {
 		monthly_income = super_poor_building_tax_tier_1
 		defender_holding_advantage = normal_building_advantage_tier_1
-		stationed_skirmishers_damage_mult = low_maa_damage_tier_1
-		stationed_skirmishers_toughness_mult = normal_maa_toughness_tier_1
-		stationed_skirmishers_screen_mult = normal_maa_screen_tier_1
-		stationed_archers_damage_mult = low_maa_damage_tier_1
-		stationed_archers_toughness_mult = normal_maa_toughness_tier_1
+		stationed_corvettes_damage_mult = low_maa_damage_tier_1
+		stationed_corvettes_toughness_mult = normal_maa_toughness_tier_1
+		stationed_corvettes_screen_mult = normal_maa_screen_tier_1
+		stationed_missile_boats_damage_mult = low_maa_damage_tier_1
+		stationed_missile_boats_toughness_mult = normal_maa_toughness_tier_1
 		hostile_raid_time = 0.1
 		travel_danger = -1
 	}
@@ -1199,7 +1218,7 @@ patrols_01 = {
 	
 	next_building = patrols_02
 
-	type_icon = "icon_building_outposts.dds"
+	type_icon = "icon_building_patrols.dds"
 	
 	ai_value = {
 		base = 10
@@ -1280,11 +1299,11 @@ patrols_02 = {
 	province_modifier = {
 		monthly_income = super_poor_building_tax_tier_2
 		defender_holding_advantage = normal_building_advantage_tier_2
-		stationed_skirmishers_damage_mult = low_maa_damage_tier_2
-		stationed_skirmishers_toughness_mult = normal_maa_toughness_tier_2
-		stationed_skirmishers_screen_mult = normal_maa_screen_tier_2
-		stationed_archers_damage_mult = low_maa_damage_tier_2
-		stationed_archers_toughness_mult = normal_maa_toughness_tier_2
+		stationed_corvettes_damage_mult = low_maa_damage_tier_2
+		stationed_corvettes_toughness_mult = normal_maa_toughness_tier_2
+		stationed_corvettes_screen_mult = normal_maa_screen_tier_2
+		stationed_missile_boats_damage_mult = low_maa_damage_tier_2
+		stationed_missile_boats_toughness_mult = normal_maa_toughness_tier_2
 		hostile_raid_time = 0.1
 		travel_danger = -1
 	}
@@ -1334,13 +1353,13 @@ patrols_03 = {
 	province_modifier = {
 		monthly_income = super_poor_building_tax_tier_3
 		defender_holding_advantage = normal_building_advantage_tier_3
-		stationed_skirmishers_damage_mult = low_maa_damage_tier_3
-		stationed_skirmishers_toughness_mult = normal_maa_toughness_tier_3
-		stationed_skirmishers_screen_mult = normal_maa_screen_tier_3
-		stationed_archers_damage_mult = low_maa_damage_tier_3
-		stationed_archers_toughness_mult = normal_maa_toughness_tier_3
-		stationed_light_cavalry_damage_mult = low_maa_damage_tier_1
-		stationed_light_cavalry_toughness_mult = low_maa_toughness_tier_1
+		stationed_corvettes_damage_mult = low_maa_damage_tier_3
+		stationed_corvettes_toughness_mult = normal_maa_toughness_tier_3
+		stationed_corvettes_screen_mult = normal_maa_screen_tier_3
+		stationed_missile_boats_damage_mult = low_maa_damage_tier_3
+		stationed_missile_boats_toughness_mult = normal_maa_toughness_tier_3
+		stationed_raiders_damage_mult = low_maa_damage_tier_1
+		stationed_raiders_toughness_mult = low_maa_toughness_tier_1
 		hostile_raid_time = 0.2
 		travel_danger = -2
 	}
@@ -1386,13 +1405,13 @@ patrols_04 = {
 	province_modifier = {
 		monthly_income = super_poor_building_tax_tier_4
 		defender_holding_advantage = normal_building_advantage_tier_4
-		stationed_skirmishers_damage_mult = low_maa_damage_tier_4
-		stationed_skirmishers_toughness_mult = normal_maa_toughness_tier_4
-		stationed_skirmishers_screen_mult = normal_maa_screen_tier_4
-		stationed_archers_damage_mult = low_maa_damage_tier_4
-		stationed_archers_toughness_mult = normal_maa_toughness_tier_4
-		stationed_light_cavalry_damage_mult = low_maa_damage_tier_2
-		stationed_light_cavalry_toughness_mult = low_maa_toughness_tier_2
+		stationed_corvettes_damage_mult = low_maa_damage_tier_4
+		stationed_corvettes_toughness_mult = normal_maa_toughness_tier_4
+		stationed_corvettes_screen_mult = normal_maa_screen_tier_4
+		stationed_missile_boats_damage_mult = low_maa_damage_tier_4
+		stationed_missile_boats_toughness_mult = normal_maa_toughness_tier_4
+		stationed_raiders_damage_mult = low_maa_damage_tier_2
+		stationed_raiders_toughness_mult = low_maa_toughness_tier_2
 		hostile_raid_time = 0.2
 		travel_danger = -2
 	}
@@ -1433,13 +1452,13 @@ patrols_05 = {
 	province_modifier = {
 		monthly_income = super_poor_building_tax_tier_5
 		defender_holding_advantage = normal_building_advantage_tier_5
-		stationed_skirmishers_damage_mult = low_maa_damage_tier_5
-		stationed_skirmishers_toughness_mult = normal_maa_toughness_tier_5
-		stationed_skirmishers_screen_mult = normal_maa_screen_tier_5
-		stationed_archers_damage_mult = low_maa_damage_tier_5
-		stationed_archers_toughness_mult = normal_maa_toughness_tier_5
-		stationed_light_cavalry_damage_mult = low_maa_damage_tier_3
-		stationed_light_cavalry_toughness_mult = low_maa_toughness_tier_3
+		stationed_corvettes_damage_mult = low_maa_damage_tier_5
+		stationed_corvettes_toughness_mult = normal_maa_toughness_tier_5
+		stationed_corvettes_screen_mult = normal_maa_screen_tier_5
+		stationed_missile_boats_damage_mult = low_maa_damage_tier_5
+		stationed_missile_boats_toughness_mult = normal_maa_toughness_tier_5
+		stationed_raiders_damage_mult = low_maa_damage_tier_3
+		stationed_raiders_toughness_mult = low_maa_toughness_tier_3
 		hostile_raid_time = 0.3
 		travel_danger = -3
 	}
@@ -1480,13 +1499,13 @@ patrols_06 = {
 	province_modifier = {
 		monthly_income = super_poor_building_tax_tier_6
 		defender_holding_advantage = normal_building_advantage_tier_6
-		stationed_skirmishers_damage_mult = low_maa_damage_tier_6
-		stationed_skirmishers_toughness_mult = normal_maa_toughness_tier_6
-		stationed_skirmishers_screen_mult = normal_maa_screen_tier_6
-		stationed_archers_damage_mult = low_maa_damage_tier_6
-		stationed_archers_toughness_mult = normal_maa_toughness_tier_6
-		stationed_light_cavalry_damage_mult = low_maa_damage_tier_4
-		stationed_light_cavalry_toughness_mult = low_maa_toughness_tier_4
+		stationed_corvettes_damage_mult = low_maa_damage_tier_6
+		stationed_corvettes_toughness_mult = normal_maa_toughness_tier_6
+		stationed_corvettes_screen_mult = normal_maa_screen_tier_6
+		stationed_missile_boats_damage_mult = low_maa_damage_tier_6
+		stationed_missile_boats_toughness_mult = normal_maa_toughness_tier_6
+		stationed_raiders_damage_mult = low_maa_damage_tier_4
+		stationed_raiders_toughness_mult = low_maa_toughness_tier_4
 		hostile_raid_time = 0.3
 		travel_danger = -6
 	}
@@ -1530,13 +1549,13 @@ patrols_07 = {
 	province_modifier = {
 		monthly_income = super_poor_building_tax_tier_7
 		defender_holding_advantage = normal_building_advantage_tier_7
-		stationed_skirmishers_damage_mult = low_maa_damage_tier_7
-		stationed_skirmishers_toughness_mult = normal_maa_toughness_tier_7
-		stationed_skirmishers_screen_mult = normal_maa_screen_tier_7
-		stationed_archers_damage_mult = low_maa_damage_tier_7
-		stationed_archers_toughness_mult = normal_maa_toughness_tier_7
-		stationed_light_cavalry_damage_mult = low_maa_damage_tier_5
-		stationed_light_cavalry_toughness_mult = low_maa_toughness_tier_5
+		stationed_corvettes_damage_mult = low_maa_damage_tier_7
+		stationed_corvettes_toughness_mult = normal_maa_toughness_tier_7
+		stationed_corvettes_screen_mult = normal_maa_screen_tier_7
+		stationed_missile_boats_damage_mult = low_maa_damage_tier_7
+		stationed_missile_boats_toughness_mult = normal_maa_toughness_tier_7
+		stationed_raiders_damage_mult = low_maa_damage_tier_5
+		stationed_raiders_toughness_mult = low_maa_toughness_tier_5
 		hostile_raid_time = 0.4
 		travel_danger = -7
 	}
@@ -1584,13 +1603,13 @@ patrols_08 = {
 	province_modifier = {
 		monthly_income = super_poor_building_tax_tier_8
 		defender_holding_advantage = normal_building_advantage_tier_8
-		stationed_skirmishers_damage_mult = low_maa_damage_tier_8
-		stationed_skirmishers_toughness_mult = normal_maa_toughness_tier_8
-		stationed_skirmishers_screen_mult = normal_maa_screen_tier_8
-		stationed_archers_damage_mult = low_maa_damage_tier_8
-		stationed_archers_toughness_mult = normal_maa_toughness_tier_8
-		stationed_light_cavalry_damage_mult = low_maa_damage_tier_6
-		stationed_light_cavalry_toughness_mult = low_maa_toughness_tier_6
+		stationed_corvettes_damage_mult = low_maa_damage_tier_8
+		stationed_corvettes_toughness_mult = normal_maa_toughness_tier_8
+		stationed_corvettes_screen_mult = normal_maa_screen_tier_8
+		stationed_missile_boats_damage_mult = low_maa_damage_tier_8
+		stationed_missile_boats_toughness_mult = normal_maa_toughness_tier_8
+		stationed_raiders_damage_mult = low_maa_damage_tier_6
+		stationed_raiders_toughness_mult = low_maa_toughness_tier_6
 		hostile_raid_time = 0.4
 		travel_danger = -8
 	}
@@ -1635,16 +1654,16 @@ regattas_01 = {
 	}
 	
 	province_modifier = {
-		stationed_skirmishers_damage_mult = normal_maa_damage_tier_1
-		stationed_skirmishers_pursuit_mult = high_maa_pursuit_tier_1
-		stationed_light_cavalry_damage_mult = normal_maa_damage_tier_1
-		stationed_light_cavalry_pursuit_mult = high_maa_pursuit_tier_1
+		stationed_corvettes_damage_mult = normal_maa_damage_tier_1
+		stationed_corvettes_pursuit_mult = high_maa_pursuit_tier_1
+		stationed_raiders_damage_mult = normal_maa_damage_tier_1
+		stationed_raiders_pursuit_mult = high_maa_pursuit_tier_1
 		monthly_income = poor_building_tax_tier_1
 	}
 	
 	next_building = regattas_02
 	
-	type_icon = "icon_building_camel_farms.dds"
+	type_icon = "icon_building_regattas.dds"
 	
 	ai_value = {
 		base = 10
@@ -1703,10 +1722,10 @@ regattas_02 = {
 	}
 	
 	province_modifier = {
-		stationed_skirmishers_damage_mult = normal_maa_damage_tier_2
-		stationed_skirmishers_pursuit_mult = high_maa_pursuit_tier_2
-		stationed_light_cavalry_damage_mult = normal_maa_damage_tier_2
-		stationed_light_cavalry_pursuit_mult = high_maa_pursuit_tier_2
+		stationed_corvettes_damage_mult = normal_maa_damage_tier_2
+		stationed_corvettes_pursuit_mult = high_maa_pursuit_tier_2
+		stationed_raiders_damage_mult = normal_maa_damage_tier_2
+		stationed_raiders_pursuit_mult = high_maa_pursuit_tier_2
 		monthly_income = poor_building_tax_tier_2
 	}
 	
@@ -1750,14 +1769,14 @@ regattas_03 = {
 	}
 	
 	province_modifier = {
-		stationed_skirmishers_damage_mult = normal_maa_damage_tier_3
-		stationed_skirmishers_pursuit_mult = high_maa_pursuit_tier_3
-		stationed_skirmishers_toughness_mult = normal_maa_toughness_tier_1
-		stationed_skirmishers_screen_mult = normal_maa_screen_tier_1
-		stationed_light_cavalry_damage_mult = normal_maa_damage_tier_3
-		stationed_light_cavalry_pursuit_mult = high_maa_pursuit_tier_3
-		stationed_light_cavalry_toughness_mult = normal_maa_toughness_tier_1
-		stationed_light_cavalry_screen_mult = normal_maa_screen_tier_1
+		stationed_corvettes_damage_mult = normal_maa_damage_tier_3
+		stationed_corvettes_pursuit_mult = high_maa_pursuit_tier_3
+		stationed_corvettes_toughness_mult = normal_maa_toughness_tier_1
+		stationed_corvettes_screen_mult = normal_maa_screen_tier_1
+		stationed_raiders_damage_mult = normal_maa_damage_tier_3
+		stationed_raiders_pursuit_mult = high_maa_pursuit_tier_3
+		stationed_raiders_toughness_mult = normal_maa_toughness_tier_1
+		stationed_raiders_screen_mult = normal_maa_screen_tier_1
 		monthly_income = poor_building_tax_tier_3
 	}
 	
@@ -1798,14 +1817,14 @@ regattas_04 = {
 	}
 	
 	province_modifier = {
-		stationed_skirmishers_damage_mult = normal_maa_damage_tier_4
-		stationed_skirmishers_pursuit_mult = high_maa_pursuit_tier_4
-		stationed_skirmishers_toughness_mult = normal_maa_toughness_tier_2
-		stationed_skirmishers_screen_mult = normal_maa_screen_tier_2
-		stationed_light_cavalry_damage_mult = normal_maa_damage_tier_4
-		stationed_light_cavalry_pursuit_mult = high_maa_pursuit_tier_4
-		stationed_light_cavalry_toughness_mult = normal_maa_toughness_tier_2
-		stationed_light_cavalry_screen_mult = normal_maa_screen_tier_2
+		stationed_corvettes_damage_mult = normal_maa_damage_tier_4
+		stationed_corvettes_pursuit_mult = high_maa_pursuit_tier_4
+		stationed_corvettes_toughness_mult = normal_maa_toughness_tier_2
+		stationed_corvettes_screen_mult = normal_maa_screen_tier_2
+		stationed_raiders_damage_mult = normal_maa_damage_tier_4
+		stationed_raiders_pursuit_mult = high_maa_pursuit_tier_4
+		stationed_raiders_toughness_mult = normal_maa_toughness_tier_2
+		stationed_raiders_screen_mult = normal_maa_screen_tier_2
 		monthly_income = poor_building_tax_tier_4
 	}
 	
@@ -1846,14 +1865,14 @@ regattas_05 = {
 	}
 	
 	province_modifier = {
-		stationed_skirmishers_damage_mult = normal_maa_damage_tier_5
-		stationed_skirmishers_pursuit_mult = high_maa_pursuit_tier_5
-		stationed_skirmishers_toughness_mult = normal_maa_toughness_tier_3
-		stationed_skirmishers_screen_mult = normal_maa_screen_tier_3
-		stationed_light_cavalry_damage_mult = normal_maa_damage_tier_5
-		stationed_light_cavalry_pursuit_mult = high_maa_pursuit_tier_5
-		stationed_light_cavalry_toughness_mult = normal_maa_toughness_tier_3
-		stationed_light_cavalry_screen_mult = normal_maa_screen_tier_3
+		stationed_corvettes_damage_mult = normal_maa_damage_tier_5
+		stationed_corvettes_pursuit_mult = high_maa_pursuit_tier_5
+		stationed_corvettes_toughness_mult = normal_maa_toughness_tier_3
+		stationed_corvettes_screen_mult = normal_maa_screen_tier_3
+		stationed_raiders_damage_mult = normal_maa_damage_tier_5
+		stationed_raiders_pursuit_mult = high_maa_pursuit_tier_5
+		stationed_raiders_toughness_mult = normal_maa_toughness_tier_3
+		stationed_raiders_screen_mult = normal_maa_screen_tier_3
 		monthly_income = poor_building_tax_tier_5
 	}
 	
@@ -1895,14 +1914,14 @@ regattas_06 = {
 	}
 	
 	province_modifier = {
-		stationed_skirmishers_damage_mult = normal_maa_damage_tier_6
-		stationed_skirmishers_pursuit_mult = high_maa_pursuit_tier_6
-		stationed_skirmishers_toughness_mult = normal_maa_toughness_tier_4
-		stationed_skirmishers_screen_mult = normal_maa_screen_tier_4
-		stationed_light_cavalry_damage_mult = normal_maa_damage_tier_6
-		stationed_light_cavalry_pursuit_mult = high_maa_pursuit_tier_6
-		stationed_light_cavalry_toughness_mult = normal_maa_toughness_tier_4
-		stationed_light_cavalry_screen_mult = normal_maa_screen_tier_4
+		stationed_corvettes_damage_mult = normal_maa_damage_tier_6
+		stationed_corvettes_pursuit_mult = high_maa_pursuit_tier_6
+		stationed_corvettes_toughness_mult = normal_maa_toughness_tier_4
+		stationed_corvettes_screen_mult = normal_maa_screen_tier_4
+		stationed_raiders_damage_mult = normal_maa_damage_tier_6
+		stationed_raiders_pursuit_mult = high_maa_pursuit_tier_6
+		stationed_raiders_toughness_mult = normal_maa_toughness_tier_4
+		stationed_raiders_screen_mult = normal_maa_screen_tier_4
 		monthly_income = poor_building_tax_tier_6
 	}
 	next_building = regattas_07
@@ -1943,14 +1962,14 @@ regattas_07 = {
 	}
 	
 	province_modifier = {
-		stationed_skirmishers_damage_mult = normal_maa_damage_tier_7
-		stationed_skirmishers_pursuit_mult = high_maa_pursuit_tier_7
-		stationed_skirmishers_toughness_mult = normal_maa_toughness_tier_5
-		stationed_skirmishers_screen_mult = normal_maa_screen_tier_5
-		stationed_light_cavalry_damage_mult = normal_maa_damage_tier_7
-		stationed_light_cavalry_pursuit_mult = high_maa_pursuit_tier_7
-		stationed_light_cavalry_toughness_mult = normal_maa_toughness_tier_5
-		stationed_light_cavalry_screen_mult = normal_maa_screen_tier_5
+		stationed_corvettes_damage_mult = normal_maa_damage_tier_7
+		stationed_corvettes_pursuit_mult = high_maa_pursuit_tier_7
+		stationed_corvettes_toughness_mult = normal_maa_toughness_tier_5
+		stationed_corvettes_screen_mult = normal_maa_screen_tier_5
+		stationed_raiders_damage_mult = normal_maa_damage_tier_7
+		stationed_raiders_pursuit_mult = high_maa_pursuit_tier_7
+		stationed_raiders_toughness_mult = normal_maa_toughness_tier_5
+		stationed_raiders_screen_mult = normal_maa_screen_tier_5
 		monthly_income = poor_building_tax_tier_7
 	}
 	
@@ -1992,14 +2011,14 @@ regattas_08 = {
 	}
 	
 	province_modifier = {
-		stationed_skirmishers_damage_mult = normal_maa_damage_tier_8
-		stationed_skirmishers_pursuit_mult = high_maa_pursuit_tier_8
-		stationed_skirmishers_toughness_mult = normal_maa_toughness_tier_6
-		stationed_skirmishers_screen_mult = normal_maa_screen_tier_6
-		stationed_light_cavalry_damage_mult = normal_maa_damage_tier_8
-		stationed_light_cavalry_pursuit_mult = high_maa_pursuit_tier_8
-		stationed_light_cavalry_toughness_mult = normal_maa_toughness_tier_6
-		stationed_light_cavalry_screen_mult = normal_maa_screen_tier_6
+		stationed_corvettes_damage_mult = normal_maa_damage_tier_8
+		stationed_corvettes_pursuit_mult = high_maa_pursuit_tier_8
+		stationed_corvettes_toughness_mult = normal_maa_toughness_tier_6
+		stationed_corvettes_screen_mult = normal_maa_screen_tier_6
+		stationed_raiders_damage_mult = normal_maa_damage_tier_8
+		stationed_raiders_pursuit_mult = high_maa_pursuit_tier_8
+		stationed_raiders_toughness_mult = normal_maa_toughness_tier_6
+		stationed_raiders_screen_mult = normal_maa_screen_tier_6
 		monthly_income = poor_building_tax_tier_8
 	}
 
@@ -2043,7 +2062,7 @@ military_berths_01 = {
 	}
 	next_building = military_berths_02
 
-	type_icon = "icon_building_military_camps.dds"
+	type_icon = "icon_building_military_berths.dds"
 	
 	ai_value = {
 		base = 10
@@ -2061,8 +2080,8 @@ military_berths_01 = {
 			add = non_stationed_maa_bonus
 			has_stationed_regiment = yes
 			NOR = {
-				has_stationed_regiment_of_base_type = skirmishers
-				has_stationed_regiment_of_base_type = archers
+				has_stationed_regiment_of_base_type = corvettes
+				has_stationed_regiment_of_base_type = missile_boats
 			}
 		}
 		modifier = {
@@ -2168,6 +2187,8 @@ military_berths_02 = {
 	}
 	
 	next_building = military_berths_03
+
+	type_icon = "icon_building_military_berths.dds"
 	
 	ai_value = {
 		base = 9
@@ -2215,6 +2236,8 @@ military_berths_03 = {
 	}
 
 	next_building = military_berths_04
+
+	type_icon = "icon_building_military_berths.dds"
 	
 	ai_value = {
 		base = 8
@@ -2260,6 +2283,8 @@ military_berths_04 = {
 	}
 	
 	next_building = military_berths_05
+
+	type_icon = "icon_building_military_berths.dds"
 	
 	ai_value = {
 		base = 7
@@ -2309,6 +2334,8 @@ military_berths_05 = {
 	}
 	
 	next_building = military_berths_06
+
+	type_icon = "icon_building_military_berths.dds"
 	
 	ai_value = {
 		base = 6
@@ -2353,9 +2380,10 @@ military_berths_06 = {
 	character_modifier = {
 		men_at_arms_maintenance = normal_building_maa_maintenance_tier_6
 	}
-
 	
 	next_building = military_berths_07
+
+	type_icon = "icon_building_military_berths.dds"
 	
 	ai_value = {
 		base = 5
@@ -2402,6 +2430,8 @@ military_berths_07 = {
 	}
 	
 	next_building = military_berths_08
+
+	type_icon = "icon_building_military_berths.dds"
 	
 	ai_value = {
 		base = 4
@@ -2446,6 +2476,8 @@ military_berths_08 = {
 	character_modifier = {
 		men_at_arms_maintenance = normal_building_maa_maintenance_tier_8
 	}
+
+	type_icon = "icon_building_military_berths.dds"
 	
 	ai_value = {
 		base = 3
@@ -2477,9 +2509,9 @@ test_grounds_01 = {
 
 	province_modifier = {
 		stationed_maa_damage_mult = normal_maa_damage_tier_1
-		stationed_heavy_cavalry_damage_mult = normal_maa_damage_tier_1
-		stationed_heavy_infantry_damage_mult = normal_maa_damage_tier_1
-		stationed_elephant_cavalry_damage_mult = normal_maa_damage_tier_1
+		stationed_missile_boats_damage_mult = normal_maa_damage_tier_1
+		stationed_cruisers_damage_mult = normal_maa_damage_tier_1
+		stationed_missile_frigates_damage_mult = normal_maa_damage_tier_1
 	}
 	character_modifier = {
 		dread_gain_mult = 0.05
@@ -2489,7 +2521,7 @@ test_grounds_01 = {
 	
 	next_building = test_grounds_02
 
-	type_icon = "icon_building_hillside_grazing.dds"
+	type_icon = "icon_building_test_grounds.dds"
 	
 	ai_value = {
 		base = 11 # Little nudge
@@ -2501,7 +2533,7 @@ test_grounds_01 = {
 		ai_stacking_bonus_stables_modifier = yes
 		ai_archer_cavalry_modifier = yes
 		ai_light_cavalry_modifier = yes
-		ai_heavy_cavalry_modifier = yes
+		ai_fast_frigates_modifier = yes
 		modifier = {
 			factor = 0
 			building_regimental_grounds_requirement_terrain = yes
@@ -2554,9 +2586,9 @@ test_grounds_02 = {
 
 	province_modifier = {
 		stationed_maa_damage_mult = normal_maa_damage_tier_2
-		stationed_heavy_cavalry_damage_mult = normal_maa_damage_tier_2
-		stationed_heavy_infantry_damage_mult = normal_maa_damage_tier_2
-		stationed_elephant_cavalry_damage_mult = normal_maa_damage_tier_2
+		stationed_missile_boats_damage_mult = normal_maa_damage_tier_2
+		stationed_cruisers_damage_mult = normal_maa_damage_tier_2
+		stationed_missile_frigates_damage_mult = normal_maa_damage_tier_2
 	}
 	character_modifier = {
 		dread_gain_mult = 0.075
@@ -2603,9 +2635,9 @@ test_grounds_03 = {
 
 	province_modifier = {
 		stationed_maa_damage_mult = normal_maa_damage_tier_3
-		stationed_heavy_cavalry_damage_mult = normal_maa_damage_tier_3
-		stationed_heavy_infantry_damage_mult = normal_maa_damage_tier_3
-		stationed_elephant_cavalry_damage_mult = normal_maa_damage_tier_3
+		stationed_missile_boats_damage_mult = normal_maa_damage_tier_3
+		stationed_cruisers_damage_mult = normal_maa_damage_tier_3
+		stationed_missile_frigates_damage_mult = normal_maa_damage_tier_3
 		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_1
 	}
 	character_modifier = {
@@ -2649,9 +2681,9 @@ test_grounds_04 = {
 
 	province_modifier = {
 		stationed_maa_damage_mult = normal_maa_damage_tier_4
-		stationed_heavy_cavalry_damage_mult = normal_maa_damage_tier_4
-		stationed_heavy_infantry_damage_mult = normal_maa_damage_tier_4
-		stationed_elephant_cavalry_damage_mult = normal_maa_damage_tier_4
+		stationed_missile_boats_damage_mult = normal_maa_damage_tier_4
+		stationed_cruisers_damage_mult = normal_maa_damage_tier_4
+		stationed_missile_frigates_damage_mult = normal_maa_damage_tier_4
 		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_2
 	}
 	character_modifier = {
@@ -2695,9 +2727,9 @@ test_grounds_05 = {
 
 	province_modifier = {
 		stationed_maa_damage_mult = normal_maa_damage_tier_5
-		stationed_heavy_cavalry_damage_mult = normal_maa_damage_tier_5
-		stationed_heavy_infantry_damage_mult = normal_maa_damage_tier_5
-		stationed_elephant_cavalry_damage_mult = normal_maa_damage_tier_5
+		stationed_missile_boats_damage_mult = normal_maa_damage_tier_5
+		stationed_cruisers_damage_mult = normal_maa_damage_tier_5
+		stationed_missile_frigates_damage_mult = normal_maa_damage_tier_5
 		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_3
 	}
 	character_modifier = {
@@ -2742,9 +2774,9 @@ test_grounds_06 = {
 
 	province_modifier = {
 		stationed_maa_damage_mult = normal_maa_damage_tier_6
-		stationed_heavy_cavalry_damage_mult = normal_maa_damage_tier_6
-		stationed_heavy_infantry_damage_mult = normal_maa_damage_tier_6
-		stationed_elephant_cavalry_damage_mult = normal_maa_damage_tier_6
+		stationed_missile_boats_damage_mult = normal_maa_damage_tier_6
+		stationed_cruisers_damage_mult = normal_maa_damage_tier_6
+		stationed_missile_frigates_damage_mult = normal_maa_damage_tier_6
 		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_4
 	}
 	character_modifier = {
@@ -2789,9 +2821,9 @@ test_grounds_07 = {
 
 	province_modifier = {
 		stationed_maa_damage_mult = normal_maa_damage_tier_7
-		stationed_heavy_cavalry_damage_mult = normal_maa_damage_tier_7
-		stationed_heavy_infantry_damage_mult = normal_maa_damage_tier_7
-		stationed_elephant_cavalry_damage_mult = normal_maa_damage_tier_7
+		stationed_missile_boats_damage_mult = normal_maa_damage_tier_7
+		stationed_cruisers_damage_mult = normal_maa_damage_tier_7
+		stationed_missile_frigates_damage_mult = normal_maa_damage_tier_7
 		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_5
 	}
 	character_modifier = {
@@ -2836,9 +2868,9 @@ test_grounds_08 = {
 
 	province_modifier = {
 		stationed_maa_damage_mult = normal_maa_damage_tier_8
-		stationed_heavy_cavalry_damage_mult = normal_maa_damage_tier_8
-		stationed_heavy_infantry_damage_mult = normal_maa_damage_tier_8
-		stationed_elephant_cavalry_damage_mult = normal_maa_damage_tier_8
+		stationed_missile_boats_damage_mult = normal_maa_damage_tier_8
+		stationed_cruisers_damage_mult = normal_maa_damage_tier_8
+		stationed_missile_frigates_damage_mult = normal_maa_damage_tier_8
 		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_6
 	}
 	character_modifier = {
@@ -2879,7 +2911,7 @@ marines_01 = {
 	
 	next_building = marines_02
 
-	type_icon = "icon_building_workshops.dds"
+	type_icon = "icon_building_marines.dds"
 	
 	ai_value = {
 		base = 11 # Little nudge
@@ -2891,7 +2923,7 @@ marines_01 = {
 		ai_stacking_bonus_stables_modifier = yes
 		ai_archer_cavalry_modifier = yes
 		ai_light_cavalry_modifier = yes
-		ai_heavy_cavalry_modifier = yes
+		ai_fast_frigates_modifier = yes
 		modifier = {
 			factor = 0
 			building_regimental_grounds_requirement_terrain = yes
@@ -3239,7 +3271,7 @@ grav_forges_01 = {
 	
 	next_building = grav_forges_02
 
-	type_icon = "icon_building_smiths.dds"
+	type_icon = "icon_building_grav_forges.dds"
 	
 	ai_value = {
 		base = 10
@@ -3250,14 +3282,14 @@ grav_forges_01 = {
 		ai_stacking_bonus_wind_furnaces_modifier = yes
 		ai_anti_synergy_cavalry_modifier = yes
 		ai_anti_synergy_light_infantry_modifier = yes
-		ai_heavy_infantry_modifier = yes
-		ai_pikemen_modifier = yes
+		ai_cruisers_modifier = yes
+		ai_destroyers_modifier = yes
 		modifier = {
 			add = non_stationed_maa_bonus
 			has_stationed_regiment = yes
 			NOR = {
-				has_stationed_regiment_of_base_type = pikemen
-				has_stationed_regiment_of_base_type = heavy_infantry
+				has_stationed_regiment_of_base_type = destroyers
+				has_stationed_regiment_of_base_type = cruisers
 			}
 		}
 		modifier = {
@@ -3664,8 +3696,8 @@ linked_defense_01 = {
 	}
 	
 	province_modifier = {
-		# Assuming archer cavalry become drone carriers
-		stationed_archer_cavalry_damage_mult = normal_maa_damage_tier_1
+		stationed_ew_cruisers_damage_mult = normal_maa_damage_tier_1
+		stationed_ew_cruisers_screen_mult = normal_maa_screen_tier_1
 		stationed_maa_toughness_mult = low_maa_toughness_tier_1
 	}
 	county_modifier = {
@@ -3674,7 +3706,7 @@ linked_defense_01 = {
 
 	next_building = linked_defense_02
 
-	type_icon = "icon_building_hillside_grazing.dds"
+	type_icon = "icon_building_linked_defenses.dds"
 	
 	ai_value = {
 		base = 11 # Little nudge
@@ -3684,9 +3716,9 @@ linked_defense_01 = {
 		ai_stacking_bonus_camel_farms_modifier = yes
 		ai_stacking_bonus_horse_pastures_modifier = yes
 		ai_stacking_bonus_stables_modifier = yes
-		ai_archer_cavalry_modifier = yes
+		ai_ew_cruisers_modifier = yes
 		ai_light_cavalry_modifier = yes
-		ai_heavy_cavalry_modifier = yes
+		ai_fast_frigates_modifier = yes
 		modifier = {
 			factor = 0
 			building_regimental_grounds_requirement_terrain = yes
@@ -3738,8 +3770,9 @@ linked_defense_02 = {
 	}
 	
 	province_modifier = {
-		stationed_archer_cavalry_damage_mult = normal_maa_damage_tier_2
+		stationed_ew_cruisers_damage_mult = normal_maa_damage_tier_2
 		stationed_maa_toughness_mult = low_maa_toughness_tier_2
+		stationed_ew_cruisers_screen_mult = normal_maa_screen_tier_1
 	}
 	county_modifier = {
 		defender_holding_advantage = 1
@@ -3786,8 +3819,9 @@ linked_defense_03 = {
 	}
 	
 	province_modifier = {
-		stationed_archer_cavalry_damage_mult = normal_maa_damage_tier_3
+		stationed_ew_cruisers_damage_mult = normal_maa_damage_tier_3
 		stationed_maa_toughness_mult = low_maa_toughness_tier_3
+		stationed_ew_cruisers_screen_mult = normal_maa_screen_tier_2
 	}
 	county_modifier = {
 		defender_holding_advantage = 2
@@ -3830,8 +3864,9 @@ linked_defense_04 = {
 	}
 	
 	province_modifier = {
-		stationed_archer_cavalry_damage_mult = normal_maa_damage_tier_4
+		stationed_ew_cruisers_damage_mult = normal_maa_damage_tier_4
 		stationed_maa_toughness_mult = low_maa_toughness_tier_4
+		stationed_ew_cruisers_screen_mult = normal_maa_screen_tier_2
 	}
 	county_modifier = {
 		defender_holding_advantage = 2
@@ -3874,8 +3909,9 @@ linked_defense_05 = {
 	}
 	
 	province_modifier = {
-		stationed_archer_cavalry_damage_mult = normal_maa_damage_tier_5
+		stationed_ew_cruisers_damage_mult = normal_maa_damage_tier_5
 		stationed_maa_toughness_mult = low_maa_toughness_tier_5
+		stationed_ew_cruisers_screen_mult = normal_maa_screen_tier_3
 	}
 	county_modifier = {
 		defender_holding_advantage = 3
@@ -3919,8 +3955,9 @@ linked_defense_06 = {
 	}
 	
 	province_modifier = {
-		stationed_archer_cavalry_damage_mult = normal_maa_damage_tier_6
+		stationed_ew_cruisers_damage_mult = normal_maa_damage_tier_6
 		stationed_maa_toughness_mult = low_maa_toughness_tier_6
+		stationed_ew_cruisers_screen_mult = normal_maa_screen_tier_3
 	}
 	county_modifier = {
 		defender_holding_advantage = 3
@@ -3964,8 +4001,9 @@ linked_defense_07 = {
 	}
 	
 	province_modifier = {
-		stationed_archer_cavalry_damage_mult = normal_maa_damage_tier_7
+		stationed_ew_cruisers_damage_mult = normal_maa_damage_tier_7
 		stationed_maa_toughness_mult = low_maa_toughness_tier_7
+		stationed_ew_cruisers_screen_mult = normal_maa_screen_tier_4
 	}
 	county_modifier = {
 		defender_holding_advantage = 4
@@ -4009,8 +4047,9 @@ linked_defense_08 = {
 	}
 	
 	province_modifier = {
-		stationed_archer_cavalry_damage_mult = normal_maa_damage_tier_8
+		stationed_ew_cruisers_damage_mult = normal_maa_damage_tier_8
 		stationed_maa_toughness_mult = low_maa_toughness_tier_8
+		stationed_ew_cruisers_screen_mult = normal_maa_screen_tier_4
 	}
 	county_modifier = {
 		defender_holding_advantage = 4

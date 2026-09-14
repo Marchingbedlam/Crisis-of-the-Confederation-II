@@ -423,3 +423,20 @@ language_cotc_thai = {
 	
 	color = { 0.8 0.9 0.1 }
 }
+language_cotc_greek = {
+	type = language
+	is_shown = {
+		language_is_shown_trigger = {
+			LANGUAGE = language_cotc_greek
+		}
+	}
+	ai_will_do = {
+		value = 10
+		if = {
+			limit = { has_cultural_pillar = language_cotc_greek }
+			multiply = 10
+		}
+	}
+	
+	color = { 168 120 41 }
+}

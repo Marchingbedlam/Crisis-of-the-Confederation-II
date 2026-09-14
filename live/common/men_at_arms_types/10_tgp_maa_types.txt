@@ -42,7 +42,7 @@ emishi_horse_archers = {
 	}
 
 	can_recruit = {
-		culture = { has_cultural_parameter = unlock_emishi_horse_archers_units }
+		always = no
 	}
 
 	buy_cost = { gold = light_cavalry_recruitment_cost }
@@ -85,7 +85,7 @@ japanese_horse_archers = {
 	}
 
 	can_recruit = {
-		valid_for_maa_trigger = { PARAMETER = unlock_mounted_samurai_units }
+		always = no
 	}
 
 	buy_cost = { gold = horse_archers_recruitment_cost }
@@ -123,7 +123,7 @@ warrior_monks = {
 	}
 
 	can_recruit = {
-		valid_for_maa_trigger = { PARAMETER = unlock_warrior_monk_units }
+		always = no
 	}
 
 	buy_cost = {
@@ -157,8 +157,7 @@ fire_lancers = {
 	screen = 0
 
 	can_recruit = {
-		gunpowder_raise_limit_existing_gunpowder_units < gunpowder_raise_limit_existing_gunpowder_buildings	# one powder magazine must be owned to support three handgunner regiments, regardless of maa size
-		culture = { has_cultural_parameter = unlock_fire_lancers_units }
+		always = no
 	}
 	
 	terrain_bonus = {
@@ -189,7 +188,7 @@ gakgung_archers = {
 	type = archers
 
 	can_recruit = {
-		valid_for_maa_trigger = { PARAMETER = unlock_maa_gakgung_archers }
+		always = no
 	}
 	
 	damage = 25
@@ -232,11 +231,7 @@ ballista_elephant = {
 	siege_value = 0.1
 
 	can_recruit = {
-		culture ?= { 
-			has_innovation = innovation_elephantry 
-			has_innovation = innovation_advanced_bowmaking
-		}
-		NOT = { is_landless_adventurer = yes }
+		always = no
 	}
 	
 	terrain_bonus = {
@@ -276,7 +271,7 @@ pesilat_warriors = {
 	screen = 5
 
 	can_recruit = {
-		valid_for_maa_trigger = { PARAMETER = unlock_maa_pesilat }
+		always = no
 	}
 
 	terrain_bonus = {
@@ -308,10 +303,7 @@ samurai = {
 	screen = 0
 	
 	can_recruit = {
-		valid_for_maa_trigger = { PARAMETER = unlock_infantry_samurai_units }
-		NOT = {
-			culture = { has_cultural_parameter = strength_in_numbers_heavy_maa_ban }
-		}
+		always = no
 	}
 	
 	terrain_bonus = {
@@ -346,15 +338,7 @@ zhanmadao_infantry = {
 	screen = 0
 	
 	can_recruit = {
-		valid_for_maa_trigger = { PARAMETER = unlock_zhanmadao }
-		OR = {
-			vassal_contract_has_flag = celestial_province_military
-			vassal_contract_has_flag = celestial_province_protectorate
-			is_independent_ruler = yes
-		}
-		NOT = {
-			culture = { has_cultural_parameter = strength_in_numbers_heavy_maa_ban }
-		}
+		always = no
 	}
 	
 	terrain_bonus = {
@@ -415,10 +399,7 @@ black_armor_cavalry = {
 	}
 	
 	can_recruit = {
-		valid_for_maa_trigger = { PARAMETER = unlock_maa_black_armor_cavalry }
-		NOT = {
-			culture = { has_cultural_parameter = strength_in_numbers_heavy_maa_ban }
-		}
+		always = no
 	}
 
 	buy_cost = { gold = tiefutu_recruitment_cost }
@@ -439,6 +420,10 @@ tiefutu = {
 	toughness = 40
 	pursuit = 15
 	screen = 10
+
+	can_recruit = {
+		always = no
+	}
 	
 	terrain_bonus = {
 		plains = { damage = 30 toughness = 5 }
@@ -482,10 +467,7 @@ burenjia = {
 	screen = 0
 	
 	can_recruit = {
-		valid_for_maa_trigger = { PARAMETER = unlock_burenjia }
-		NOT = {
-			culture = { has_cultural_parameter = strength_in_numbers_heavy_maa_ban }
-		}
+		always = no
 	}
 	
 	terrain_bonus = {
@@ -525,6 +507,10 @@ rocket_carts = {
 
 	siege_value = 0.1
 
+	can_recruit = {
+		always = no
+	}
+
 	terrain_bonus = {
 		farmlands = { damage = 8 toughness = 6 }
 		plains = { damage = 8 }
@@ -560,22 +546,7 @@ ballista = {
 	siege_value = 0.2
 
 	can_recruit = {
-		culture = {
-			has_innovation = innovation_catapult
-			OR = {
-				has_cultural_pillar = heritage_chinese
-				has_cultural_pillar = heritage_korean
-				has_cultural_pillar = heritage_japonic
-			}
-		}
-		NOR = {
-			government_has_flag = government_is_nomadic
-			government_has_flag = government_is_herder
-		}
-	}
-
-	should_show_when_unavailable = {
-		government_allows = subject_men_at_arms
+		always = no
 	}
 
 	buy_cost = { gold = ballista_recruitment_cost }
@@ -584,6 +555,8 @@ ballista = {
 	provision_cost = @provisions_cost_special_cheap
 
 	stack = 10
+	holy_order_fallback = no
+	mercenary_fallback = no
 	allowed_in_hired_troops = no
 	icon = ballista
 }
@@ -599,23 +572,7 @@ cloud_ladder = {
 	siege_value = 0.3
 
 	can_recruit = {
-		culture = {
-			has_innovation = innovation_mangonel
-			OR = {
-				has_cultural_pillar = heritage_chinese
-				has_cultural_pillar = heritage_korean
-				has_cultural_pillar = heritage_japonic
-			}	
-		}
-		NOR = {
-			government_has_flag = government_is_nomadic
-			government_has_flag = government_is_herder
-		}
-	}
-
-	should_show_when_unavailable = {
-		government_allows = subject_men_at_arms
-		culture = { has_cultural_era_or_later = culture_era_early_medieval }
+		always = no
 	}
 
 	buy_cost = { gold = cloud_ladder_recruitment_cost }
@@ -624,6 +581,8 @@ cloud_ladder = {
 	provision_cost = @provisions_cost_special_moderate
 
 	stack = 10
+	holy_order_fallback = no
+	mercenary_fallback = no
 	allowed_in_hired_troops = no
 	icon = cloud_ladder
 }
@@ -639,23 +598,7 @@ siege_tower = {
 	siege_value = 0.4
 
 	can_recruit = {
-		culture = {
-			has_innovation = innovation_trebuchet
-			OR = {
-				has_cultural_pillar = heritage_chinese
-				has_cultural_pillar = heritage_korean
-				has_cultural_pillar = heritage_japonic
-			}
-		}
-		NOR = {
-			government_has_flag = government_is_nomadic
-			government_has_flag = government_is_herder
-		}
-	}
-
-	should_show_when_unavailable = {
-		government_allows = subject_men_at_arms
-		culture = { has_cultural_era_or_later = culture_era_high_medieval }
+		always = no
 	}
 
 	buy_cost = { gold = siege_tower_recruitment_cost }
@@ -664,6 +607,8 @@ siege_tower = {
 	provision_cost = @provisions_cost_special_expensive
 
 	stack = 10
+	holy_order_fallback = no
+	mercenary_fallback = no
 	allowed_in_hired_troops = no
 	icon = siege_tower
 }
@@ -679,23 +624,7 @@ cannon = {
 	siege_value = 0.6
 
 	can_recruit = {
-		culture = {
-			has_cultural_parameter = unlock_late_medieval_gunpowder_units
-			OR = {
-				has_cultural_pillar = heritage_chinese
-				has_cultural_pillar = heritage_korean
-				has_cultural_pillar = heritage_japonic
-			}
-		}
-		NOR = {
-			government_has_flag = government_is_nomadic
-			government_has_flag = government_is_herder
-		}
-	}
-
-	should_show_when_unavailable = {
-		government_allows = subject_men_at_arms
-		culture = { has_cultural_era_or_later = culture_era_late_medieval }
+		always = no
 	}
 
 	buy_cost = { gold = cannon_recruitment_cost }
@@ -704,6 +633,8 @@ cannon = {
 	provision_cost = @provisions_cost_special_bankrupting
 
 	stack = 10
+ 	holy_order_fallback = no
+	mercenary_fallback = no
 	allowed_in_hired_troops = no
 	icon = cannon
 }

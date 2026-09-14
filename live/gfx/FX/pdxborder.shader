@@ -12,6 +12,7 @@ Includes = {
 	"jomini/map_lighting.fxh"
 	#MOD(COTC)
 	"cotc_utilities.fxh"
+	"cotc_map_edge_fade.fxh"
 	#END MOD
 }
 
@@ -145,8 +146,8 @@ PixelShader =
 				// Diffuse.rgb = ApplyMapDistanceFogWithoutFoW( Diffuse.rgb, Input.WorldSpacePos );
 
 				Diffuse.a *= COTC_GetProvinceColorFade();
-				// ENDMOD
-
+				Diffuse.a *= COTC_GetMapEdgeFadeByWorldSpace( Input.WorldSpacePos );
+				// END MOD
 				return Diffuse;
 			}
 		]]
@@ -234,6 +235,9 @@ PixelShader =
 					}
 				#endif
 
+				// MOD(COTC)
+				Diffuse.a *= COTC_GetMapEdgeFadeByWorldSpace( Input.WorldSpacePos );
+				// END MOD
 				return Diffuse;
 			}
 		]]
@@ -267,6 +271,9 @@ PixelShader =
 					}
 				#endif
 
+				// MOD(COTC)
+				Diffuse.a *= COTC_GetMapEdgeFadeByWorldSpace( Input.WorldSpacePos );
+				// END MOD
 				return Diffuse;
 			}
 		]]
@@ -293,6 +300,9 @@ PixelShader =
 				Diffuse.rgb = ApplyMapDistanceFogWithoutFoW( Diffuse.rgb, Input.WorldSpacePos );
 				
 				Diffuse.a *= _Alpha;
+				// MOD(COTC)
+				Diffuse.a *= COTC_GetMapEdgeFadeByWorldSpace( Input.WorldSpacePos );
+				// END MOD
 				return Diffuse;
 			}
 		]]

@@ -61,7 +61,7 @@ common_tradeberth_01 = {
 
 	next_building = common_tradeberth_02
 
-	type_icon = "icon_building_tradeport.dds"
+	type_icon = "icon_building_trade_berths.dds"
 
 	ai_value = {
 		base = 10
@@ -131,6 +131,9 @@ common_tradeberth_02 = {
 	}
 
 	next_building = common_tradeberth_03
+
+	type_icon = "icon_building_trade_berths.dds"
+
 	ai_value = {
 		base = 9
 		ai_general_building_modifier = yes
@@ -172,6 +175,9 @@ common_tradeberth_03 = {
 	}
 
 	next_building = common_tradeberth_04
+
+	type_icon = "icon_building_trade_berths.dds"
+
 	ai_value = {
 		base = 8
 		ai_general_building_modifier = yes
@@ -209,6 +215,9 @@ common_tradeberth_04 = {
 	}
 
 	next_building = common_tradeberth_05
+
+	type_icon = "icon_building_trade_berths.dds"
+
 	ai_value = {
 		base = 7
 		ai_general_building_modifier = yes
@@ -246,6 +255,9 @@ common_tradeberth_05 = {
 	}
 
 	next_building = common_tradeberth_06
+
+	type_icon = "icon_building_trade_berths.dds"
+
 	ai_value = {
 		base = 6
 		ai_general_building_modifier = yes
@@ -282,8 +294,10 @@ common_tradeberth_06 = {
 		levy_size = 0.04
 	}
 
-
 	next_building = common_tradeberth_07
+
+	type_icon = "icon_building_trade_berths.dds"
+
 	ai_value = {
 		base = 5
 		ai_general_building_modifier = yes
@@ -321,6 +335,9 @@ common_tradeberth_07 = {
 	}
 
 	next_building = common_tradeberth_08
+
+	type_icon = "icon_building_trade_berths.dds"
+
 	ai_value = {
 		base = 4
 		ai_general_building_modifier = yes
@@ -356,6 +373,8 @@ common_tradeberth_08 = {
 		levy_size = 0.08
 	}
 
+	type_icon = "icon_building_trade_berths.dds"
+
 	ai_value = {
 		base = 3
 		ai_general_building_modifier = yes
@@ -386,11 +405,12 @@ commercial_yards_01 = {
 		monthly_income = normal_building_tax_tier_1
 		supply_limit = normal_building_supply_limit_tier_1
 		defender_holding_advantage = normal_building_advantage_tier_1
+		stationed_merchanteers_toughness_mult = normal_maa_toughness_tier_1
 	}
 
 	next_building = commercial_yards_02
 
-	type_icon = "icon_building_pastures.dds"
+	type_icon = "icon_building_commercial_yards.dds"
 
 	ai_value = {
 		base = 10
@@ -443,9 +463,12 @@ commercial_yards_02 = {
 		monthly_income = normal_building_tax_tier_2
 		supply_limit = normal_building_supply_limit_tier_2
 		defender_holding_advantage = normal_building_advantage_tier_2
+		stationed_merchanteers_toughness_mult = normal_maa_toughness_tier_2
 	}
 
 	next_building = commercial_yards_03
+
+	type_icon = "icon_building_commercial_yards.dds"
 
 	ai_value = {
 		base = 9
@@ -482,6 +505,8 @@ commercial_yards_03 = {
 		supply_limit = normal_building_supply_limit_tier_3
 		levy_reinforcement_rate = 0.1
 		defender_holding_advantage = normal_building_advantage_tier_3
+		stationed_merchanteers_toughness_mult = normal_maa_toughness_tier_3
+		stationed_merchanteers_damage_mult = low_maa_damage_tier_1
 	}
 
 	on_complete = {
@@ -490,6 +515,8 @@ commercial_yards_03 = {
 	}
 
 	next_building = commercial_yards_04
+
+	type_icon = "icon_building_commercial_yards.dds"
 
 	ai_value = {
 		base = 8
@@ -523,6 +550,8 @@ commercial_yards_04 = {
 		supply_limit = normal_building_supply_limit_tier_4
 		levy_reinforcement_rate = 0.1
 		defender_holding_advantage = normal_building_advantage_tier_4
+		stationed_merchanteers_toughness_mult = normal_maa_toughness_tier_4
+		stationed_merchanteers_damage_mult = low_maa_damage_tier_2
 	}
 	county_modifier = {
 		development_growth_factor = 0.02
@@ -563,11 +592,15 @@ commercial_yards_05 = {
 		levy_reinforcement_rate = 0.1
 		garrison_size = 0.05
 		defender_holding_advantage = normal_building_advantage_tier_5
+		stationed_merchanteers_toughness_mult = normal_maa_toughness_tier_5
+		stationed_merchanteers_damage_mult = low_maa_damage_tier_3
 	}
 	county_modifier = {
 		development_growth_factor = 0.02
 	}
 	next_building = commercial_yards_06
+
+	type_icon = "icon_building_commercial_yards.dds"
 
 	ai_value = {
 		base = 6
@@ -602,6 +635,8 @@ commercial_yards_06 = {
 		levy_reinforcement_rate = 0.1
 		garrison_size = 0.05
 		defender_holding_advantage = normal_building_advantage_tier_6
+		stationed_merchanteers_toughness_mult = normal_maa_toughness_tier_6
+		stationed_merchanteers_damage_mult = low_maa_damage_tier_4
 	}
 	county_modifier = {
 		development_growth_factor = 0.02
@@ -609,6 +644,8 @@ commercial_yards_06 = {
 	}
 
 	next_building = commercial_yards_07
+
+	type_icon = "icon_building_commercial_yards.dds"
 
 	ai_value = {
 		base = 5
@@ -642,6 +679,8 @@ commercial_yards_07 = {
 		levy_reinforcement_rate = 0.1
 		garrison_size = 0.05
 		defender_holding_advantage = normal_building_advantage_tier_7
+		stationed_merchanteers_toughness_mult = normal_maa_toughness_tier_7
+		stationed_merchanteers_damage_mult = low_maa_damage_tier_5
 	}
 	county_modifier = {
 		development_growth_factor = 0.02
@@ -649,6 +688,8 @@ commercial_yards_07 = {
 	}
 
 	next_building = commercial_yards_08
+
+	type_icon = "icon_building_commercial_yards.dds"
 
 	ai_value = {
 		base = 4
@@ -682,11 +723,15 @@ commercial_yards_08 = {
 		levy_reinforcement_rate = 0.15
 		garrison_size = 0.05
 		defender_holding_advantage = normal_building_advantage_tier_8
+		stationed_merchanteers_toughness_mult = normal_maa_toughness_tier_8
+		stationed_merchanteers_damage_mult = low_maa_damage_tier_6
 	}
 	county_modifier = {
 		development_growth_factor = 0.02
 		county_opinion_add = 2
 	}
+
+	type_icon = "icon_building_commercial_yards.dds"
 
 	ai_value = {
 		base = 3
@@ -731,7 +776,7 @@ ice_collector_01 = {
 
 	next_building = ice_collector_02
 
-	type_icon = "icon_building_peat_quarries.dds"
+	type_icon = "icon_building_ice_collector.dds"
 
 	ai_value = {
 		base = 9
@@ -764,7 +809,7 @@ ice_collector_02 = {
 
 	next_building = ice_collector_03
 
-	type_icon = "icon_building_peat_quarries.dds"
+	type_icon = "icon_building_ice_collector.dds"
 
 	ai_value = {
 		base = 9
@@ -801,7 +846,7 @@ ice_collector_03 = {
 
 	next_building = ice_collector_04
 
-	type_icon = "icon_building_peat_quarries.dds"
+	type_icon = "icon_building_ice_collector.dds"
 
 	ai_value = {
 		base = 8
@@ -833,7 +878,7 @@ ice_collector_04 = {
 
 	next_building = ice_collector_05
 
-	type_icon = "icon_building_peat_quarries.dds"
+	type_icon = "icon_building_ice_collector.dds"
 
 	ai_value = {
 		base = 8
@@ -867,7 +912,7 @@ ice_collector_05 = {
 	}
 	next_building = ice_collector_06
 
-	type_icon = "icon_building_peat_quarries.dds"
+	type_icon = "icon_building_ice_collector.dds"
 
 	ai_value = {
 		base = 8
@@ -901,7 +946,7 @@ ice_collector_06 = {
 	}
 	next_building = ice_collector_07
 
-	type_icon = "icon_building_peat_quarries.dds"
+	type_icon = "icon_building_ice_collector.dds"
 
 	ai_value = {
 		base = 8
@@ -935,7 +980,7 @@ ice_collector_07 = {
 	}
 	next_building = ice_collector_08
 
-	type_icon = "icon_building_peat_quarries.dds"
+	type_icon = "icon_building_ice_collector.dds"
 
 	ai_value = {
 		base = 8
@@ -968,7 +1013,7 @@ ice_collector_08 = {
 		army_maintenance_mult = -0.02
 	}
 
-	type_icon = "icon_building_peat_quarries.dds"
+	type_icon = "icon_building_ice_collector.dds"
 
 	ai_value = {
 		base = 8
@@ -1009,7 +1054,7 @@ agriculture_01 = {
 
 	next_building = agriculture_02
 
-	type_icon = "icon_building_farm_estates.dds"
+	type_icon = "icon_building_agriculture.dds"
 
 	ai_value = {
 		base = 15 # Significantly higher than normal, they're just that good
@@ -1054,6 +1099,8 @@ agriculture_02 = {
 
 	next_building = agriculture_03
 
+	type_icon = "icon_building_agriculture.dds"
+
 	ai_value = {
 		base = 9
 		ai_general_building_modifier = yes
@@ -1097,6 +1144,8 @@ agriculture_03 = {
 
 	next_building = agriculture_04
 
+	type_icon = "icon_building_agriculture.dds"
+
 	ai_value = {
 		base = 8
 		ai_general_building_modifier = yes
@@ -1135,6 +1184,8 @@ agriculture_04 = {
 	}
 
 	next_building = agriculture_05
+
+	type_icon = "icon_building_agriculture.dds"
 
 	ai_value = {
 		base = 7
@@ -1179,6 +1230,8 @@ agriculture_05 = {
 	}
 
 	next_building = agriculture_06
+
+	type_icon = "icon_building_agriculture.dds"
 
 	ai_value = {
 		base = 6
@@ -1225,6 +1278,8 @@ agriculture_06 = {
 
 	next_building = agriculture_07
 
+	type_icon = "icon_building_agriculture.dds"
+
 	ai_value = {
 		base = 5
 		ai_general_building_modifier = yes
@@ -1269,13 +1324,14 @@ agriculture_07 = {
 		monthly_county_control_growth_add = 0.2
 	}
 
-
 	on_complete = {
 		#Mandala Creator Aspect
 		creator_mandala_built_regular_building_piety_effect = yes
 	}
 
 	next_building = agriculture_08
+
+	type_icon = "icon_building_agriculture.dds"
 
 	ai_value = {
 		base = 4
@@ -1319,6 +1375,8 @@ agriculture_08 = {
 		is_coastal = no
 		tax_mult = 0.08
 	}
+
+	type_icon = "icon_building_agriculture.dds"
 
 	ai_value = {
 		base = 3
@@ -1411,6 +1469,8 @@ refinery_02 = {
 
 	next_building = refinery_03
 
+	type_icon = "icon_building_refinery.dds"
+
 	ai_value = {
 		base = 9
 		ai_general_building_modifier = yes
@@ -1457,6 +1517,8 @@ refinery_03 = {
 
 	next_building = refinery_04
 
+	type_icon = "icon_building_refinery.dds"
+
 	ai_value = {
 		base = 8
 		ai_general_building_modifier = yes
@@ -1498,6 +1560,8 @@ refinery_04 = {
 	}
 
 	next_building = refinery_05
+
+	type_icon = "icon_building_refinery.dds"
 
 	ai_value = {
 		base = 7
@@ -1542,6 +1606,8 @@ refinery_05 = {
 
 	next_building = refinery_06
 
+	type_icon = "icon_building_refinery.dds"
+
 	ai_value = {
 		base = 6
 		ai_general_building_modifier = yes
@@ -1585,6 +1651,8 @@ refinery_06 = {
 	}
 
 	next_building = refinery_07
+
+	type_icon = "icon_building_refinery.dds"
 
 	ai_value = {
 		base = 5
@@ -1633,6 +1701,8 @@ refinery_07 = {
 
 	next_building = refinery_08
 
+	type_icon = "icon_building_refinery.dds"
+
 	ai_value = {
 		base = 4
 		ai_general_building_modifier = yes
@@ -1678,6 +1748,8 @@ refinery_08 = {
 		monthly_prestige = 0.1
 	}
 
+	type_icon = "icon_building_refinery.dds"
+
 	ai_value = {
 		base = 3
 		ai_general_building_modifier = yes
@@ -1710,7 +1782,7 @@ dome_farms_01 = {
 
 	next_building = dome_farms_02
 
-	type_icon = "icon_building_hill_farms.dds"
+	type_icon = "icon_building_dome_farms.dds"
 
 	ai_value = {
 		base = 10
@@ -1764,6 +1836,8 @@ dome_farms_02 = {
 
 	next_building = dome_farms_03
 
+	type_icon = "icon_building_dome_farms.dds"
+
 	ai_value = {
 		base = 9
 		ai_general_building_modifier = yes
@@ -1809,6 +1883,8 @@ dome_farms_03 = {
 
 	next_building = dome_farms_04
 
+	type_icon = "icon_building_dome_farms.dds"
+
 	ai_value = {
 		base = 8
 		ai_general_building_modifier = yes
@@ -1849,6 +1925,8 @@ dome_farms_04 = {
 	}
 
 	next_building = dome_farms_05
+
+	type_icon = "icon_building_dome_farms.dds"
 
 	ai_value = {
 		base = 7
@@ -1891,6 +1969,8 @@ dome_farms_05 = {
 	}
 
 	next_building = dome_farms_06
+
+	type_icon = "icon_building_dome_farms.dds"
 
 	ai_value = {
 		base = 6
@@ -1935,6 +2015,8 @@ dome_farms_06 = {
 
 	next_building = dome_farms_07
 
+	type_icon = "icon_building_dome_farms.dds"
+
 	ai_value = {
 		base = 5
 		ai_general_building_modifier = yes
@@ -1977,6 +2059,8 @@ dome_farms_07 = {
 	}
 	next_building = dome_farms_08
 
+	type_icon = "icon_building_dome_farms.dds"
+
 	ai_value = {
 		base = 4
 		ai_general_building_modifier = yes
@@ -2018,6 +2102,8 @@ dome_farms_08 = {
 		development_growth_factor = 0.1
 	}
 
+	type_icon = "icon_building_dome_farms.dds"
+
 	ai_value = {
 		base = 3
 		ai_general_building_modifier = yes
@@ -2054,7 +2140,7 @@ module_farms_01 = {
 
 	next_building = module_farms_02
 
-	type_icon = "icon_building_peat_quarries.dds"
+	type_icon = "icon_building_module_farms.dds"
 
 	ai_value = {
 		base = 12 # A little bit higher than normal, they're very handy for further development
@@ -2098,6 +2184,8 @@ module_farms_02 = {
 	}
 
 	next_building = module_farms_03
+
+	type_icon = "icon_building_module_farms.dds"
 
 	ai_value = {
 		base = 9
@@ -2148,6 +2236,8 @@ module_farms_03 = {
 
 	next_building = module_farms_04
 
+	type_icon = "icon_building_module_farms.dds"
+
 	ai_value = {
 		base = 8
 		ai_general_building_modifier = yes
@@ -2193,6 +2283,8 @@ module_farms_04 = {
 	}
 
 	next_building = module_farms_05
+
+	type_icon = "icon_building_module_farms.dds"
 
 	ai_value = {
 		base = 7
@@ -2240,6 +2332,8 @@ module_farms_05 = {
 	}
 
 	next_building = module_farms_06
+
+	type_icon = "icon_building_module_farms.dds"
 
 	ai_value = {
 		base = 6
@@ -2289,6 +2383,8 @@ module_farms_06 = {
 
 	next_building = module_farms_07
 
+	type_icon = "icon_building_module_farms.dds"
+
 	ai_value = {
 		base = 5
 		ai_general_building_modifier = yes
@@ -2337,6 +2433,8 @@ module_farms_07 = {
 
 	next_building = module_farms_08
 
+	type_icon = "icon_building_module_farms.dds"
+
 	ai_value = {
 		base = 4
 		ai_general_building_modifier = yes
@@ -2383,6 +2481,8 @@ module_farms_08 = {
 		development_growth_factor = 0.05
 	}
 
+	type_icon = "icon_building_module_farms.dds"
+
 	ai_value = {
 		base = 3
 		ai_general_building_modifier = yes
@@ -2415,7 +2515,7 @@ forges_01 = {
 
 	next_building = forges_02
 
-	type_icon = "icon_building_quarries.dds"
+	type_icon = "icon_building_forges.dds"
 
 	ai_value = {
 		base = 12 # A little bit higher than normal, they're very handy for further development
@@ -2463,6 +2563,8 @@ forges_02 = {
 
 	next_building = forges_03
 
+	type_icon = "icon_building_forges.dds"
+
 	ai_value = {
 		base = 9
 		ai_general_building_modifier = yes
@@ -2508,6 +2610,8 @@ forges_03 = {
 
 	next_building = forges_04
 
+	type_icon = "icon_building_forges.dds"
+
 	ai_value = {
 		base = 8
 		ai_general_building_modifier = yes
@@ -2551,6 +2655,8 @@ forges_04 = {
 
 	next_building = forges_05
 
+	type_icon = "icon_building_forges.dds"
+
 	ai_value = {
 		base = 7
 		ai_general_building_modifier = yes
@@ -2593,6 +2699,8 @@ forges_05 = {
 	}
 
 	next_building = forges_06
+
+	type_icon = "icon_building_forges.dds"
 
 	ai_value = {
 		base = 6
@@ -2638,6 +2746,8 @@ forges_06 = {
 
 	next_building = forges_07
 
+	type_icon = "icon_building_forges.dds"
+
 	ai_value = {
 		base = 5
 		ai_general_building_modifier = yes
@@ -2669,8 +2779,8 @@ forges_07 = {
 	province_modifier = {
 		monthly_income = poor_building_tax_tier_7
 		build_speed = good_building_build_speed_tier_7
-		stationed_heavy_infantry_toughness_mult = 0.02
-		stationed_pikemen_toughness_mult = 0.02
+		stationed_cruisers_toughness_mult = 0.02
+		stationed_destroyers_toughness_mult = 0.02
 	}
 	county_modifier = {
 		development_growth_factor = 0.02
@@ -2683,6 +2793,8 @@ forges_07 = {
 	}
 
 	next_building = forges_08
+
+	type_icon = "icon_building_forges.dds"
 
 	ai_value = {
 		base = 4
@@ -2715,9 +2827,8 @@ forges_08 = {
 	province_modifier = {
 		monthly_income = poor_building_tax_tier_8
 		build_speed = good_building_build_speed_tier_8
-		stationed_heavy_infantry_toughness_mult = 0.04
-		stationed_pikemen_toughness_mult = 0.04
-		stationed_heavy_cavalry_toughness_mult = 0.08
+		stationed_cruisers_toughness_mult = 0.04
+		stationed_destroyers_toughness_mult = 0.04
 	}
 	county_modifier = {
 		development_growth_factor = 0.02
@@ -2728,6 +2839,8 @@ forges_08 = {
 		men_at_arms_maintenance = -0.02
 		men_at_arms_recruitment_cost = -0.02
 	}
+
+	type_icon = "icon_building_forges.dds"
 
 	ai_value = {
 		base = 3
@@ -2757,7 +2870,7 @@ exotic_forges_01 = {
 	province_modifier = {
 		monthly_income = normal_building_tax_tier_1
 		build_speed = good_building_build_speed_tier_1
-		stationed_heavy_cavalry_toughness_mult = 0.02
+		stationed_missile_frigates_toughness_mult = 0.02
 		stationed_maa_damage_mult = normal_maa_damage_tier_1
 	}
 	character_modifier = {
@@ -2767,7 +2880,7 @@ exotic_forges_01 = {
 
 	next_building = exotic_forges_02
 
-	type_icon = "icon_building_quarries.dds"
+	type_icon = "icon_building_exotic_forges.dds"
 
 	ai_value = {
 		base = 12 # A little bit higher than normal, they're very handy for further development
@@ -2808,7 +2921,7 @@ exotic_forges_02 = {
 	province_modifier = {
 		monthly_income = normal_building_tax_tier_2
 		build_speed = good_building_build_speed_tier_2
-		stationed_heavy_cavalry_toughness_mult = 0.04
+		stationed_missile_frigates_toughness_mult = 0.04
 		stationed_maa_damage_mult = normal_maa_damage_tier_2
 	}
 	character_modifier = {
@@ -2853,7 +2966,7 @@ exotic_forges_03 = {
 	province_modifier = {
 		monthly_income = normal_building_tax_tier_3
 		build_speed = good_building_build_speed_tier_3
-		stationed_heavy_cavalry_toughness_mult = 0.06
+		stationed_missile_frigates_toughness_mult = 0.06
 		stationed_maa_damage_mult = normal_maa_damage_tier_3
 	}
 	county_modifier = {
@@ -2897,9 +3010,9 @@ exotic_forges_04 = {
 	province_modifier = {
 		monthly_income = normal_building_tax_tier_4
 		build_speed = good_building_build_speed_tier_4
-		stationed_heavy_infantry_toughness_mult = 0.2
-		stationed_pikemen_toughness_mult = 0.2
-		stationed_heavy_cavalry_toughness_mult = 0.08
+		stationed_cruisers_toughness_mult = 0.2
+		stationed_destroyers_toughness_mult = 0.2
+		stationed_missile_frigates_toughness_mult = 0.08
 		stationed_maa_damage_mult = normal_maa_damage_tier_4
 	}
 	county_modifier = {
@@ -2944,9 +3057,9 @@ exotic_forges_05 = {
 	province_modifier = {
 		monthly_income = normal_building_tax_tier_5
 		build_speed = good_building_build_speed_tier_5
-		stationed_heavy_infantry_toughness_mult = 0.4
-		stationed_pikemen_toughness_mult = 0.4
-		stationed_heavy_cavalry_toughness_mult = 0.10
+		stationed_cruisers_toughness_mult = 0.4
+		stationed_destroyers_toughness_mult = 0.4
+		stationed_missile_frigates_toughness_mult = 0.10
 		stationed_maa_damage_mult = normal_maa_damage_tier_5
 	}
 	county_modifier = {
@@ -2991,9 +3104,9 @@ exotic_forges_06 = {
 	province_modifier = {
 		monthly_income = normal_building_tax_tier_6
 		build_speed = good_building_build_speed_tier_6
-		stationed_heavy_infantry_toughness_mult = 0.6
-		stationed_pikemen_toughness_mult = 0.6
-		stationed_heavy_cavalry_toughness_mult = 0.12
+		stationed_cruisers_toughness_mult = 0.6
+		stationed_destroyers_toughness_mult = 0.6
+		stationed_missile_frigates_toughness_mult = 0.12
 		stationed_maa_damage_mult = normal_maa_damage_tier_6
 	}
 	county_modifier = {
@@ -3039,9 +3152,9 @@ exotic_forges_07 = {
 	province_modifier = {
 		monthly_income = normal_building_tax_tier_7
 		build_speed = good_building_build_speed_tier_7
-		stationed_heavy_infantry_toughness_mult = 0.8
-		stationed_pikemen_toughness_mult = 0.8
-		stationed_heavy_cavalry_toughness_mult = 0.14
+		stationed_cruisers_toughness_mult = 0.8
+		stationed_destroyers_toughness_mult = 0.8
+		stationed_missile_frigates_toughness_mult = 0.14
 		stationed_maa_damage_mult = normal_maa_damage_tier_7
 	}
 	county_modifier = {
@@ -3087,9 +3200,9 @@ exotic_forges_08 = {
 	province_modifier = {
 		monthly_income = normal_building_tax_tier_8
 		build_speed = good_building_build_speed_tier_8
-		stationed_heavy_infantry_toughness_mult = 0.10
-		stationed_pikemen_toughness_mult = 0.10
-		stationed_heavy_cavalry_toughness_mult = 0.16
+		stationed_cruisers_toughness_mult = 0.10
+		stationed_destroyers_toughness_mult = 0.10
+		stationed_missile_frigates_toughness_mult = 0.16
 		stationed_maa_damage_mult = normal_maa_damage_tier_8
 	}
 	county_modifier = {
@@ -3144,7 +3257,7 @@ xenofauna_01 = {
 
 	next_building = xenofauna_02
 
-	type_icon = "icon_building_elephant_pens.dds"
+	type_icon = "icon_building_xenofauna.dds"
 
 	ai_value = {
 		base = 12 # A little bit higher than normal, they're very handy for further development
@@ -3194,6 +3307,8 @@ xenofauna_02 = {
 	}
 
 	next_building = xenofauna_03
+
+	type_icon = "icon_building_xenofauna.dds"
 
 	ai_value = {
 		base = 9
@@ -3250,6 +3365,8 @@ xenofauna_03 = {
 
 	next_building = xenofauna_04
 
+	type_icon = "icon_building_xenofauna.dds"
+
 	ai_value = {
 		base = 8
 		ai_general_building_modifier = yes
@@ -3294,6 +3411,8 @@ xenofauna_04 = {
 	}
 
 	next_building = xenofauna_05
+
+	type_icon = "icon_building_xenofauna.dds"
 
 	ai_value = {
 		base = 7
@@ -3341,6 +3460,8 @@ xenofauna_05 = {
 
 	next_building = xenofauna_06
 
+	type_icon = "icon_building_xenofauna.dds"
+
 	ai_value = {
 		base = 6
 		ai_general_building_modifier = yes
@@ -3386,6 +3507,8 @@ xenofauna_06 = {
 	}
 
 	next_building = xenofauna_07
+
+	type_icon = "icon_building_xenofauna.dds"
 
 	ai_value = {
 		base = 5
@@ -3438,6 +3561,8 @@ xenofauna_07 = {
 
 	next_building = xenofauna_08
 
+	type_icon = "icon_building_xenofauna.dds"
+
 	ai_value = {
 		base = 4
 		ai_general_building_modifier = yes
@@ -3488,6 +3613,8 @@ xenofauna_08 = {
 		creator_mandala_built_regular_building_piety_effect = yes
 	}
 
+	type_icon = "icon_building_xenofauna.dds"
+
 	ai_value = {
 		base = 3
 		ai_general_building_modifier = yes
@@ -3531,7 +3658,7 @@ water_collector_01 = {
 
 	next_building = water_collector_02
 
-	type_icon = "icon_building_peat_quarries.dds"
+	type_icon = "icon_building_water_collector.dds"
 
 	ai_value = {
 		base = 9
@@ -3566,7 +3693,7 @@ water_collector_02 = {
 
 	next_building = water_collector_03
 
-	type_icon = "icon_building_peat_quarries.dds"
+	type_icon = "icon_building_water_collector.dds"
 
 	ai_value = {
 		base = 9
@@ -3604,7 +3731,7 @@ water_collector_03 = {
 
 	next_building = water_collector_04
 
-	type_icon = "icon_building_peat_quarries.dds"
+	type_icon = "icon_building_water_collector.dds"
 
 	ai_value = {
 		base = 8
@@ -3637,7 +3764,7 @@ water_collector_04 = {
 
 	next_building = water_collector_05
 
-	type_icon = "icon_building_peat_quarries.dds"
+	type_icon = "icon_building_water_collector.dds"
 
 	ai_value = {
 		base = 8
@@ -3672,7 +3799,7 @@ water_collector_05 = {
 	}
 	next_building = water_collector_06
 
-	type_icon = "icon_building_peat_quarries.dds"
+	type_icon = "icon_building_water_collector.dds"
 
 	ai_value = {
 		base = 8
@@ -3707,7 +3834,7 @@ water_collector_06 = {
 	}
 	next_building = water_collector_07
 
-	type_icon = "icon_building_peat_quarries.dds"
+	type_icon = "icon_building_water_collector.dds"
 
 	ai_value = {
 		base = 8
@@ -3742,7 +3869,7 @@ water_collector_07 = {
 	}
 	next_building = water_collector_08
 
-	type_icon = "icon_building_peat_quarries.dds"
+	type_icon = "icon_building_water_collector.dds"
 
 	ai_value = {
 		base = 8
@@ -3776,7 +3903,7 @@ water_collector_08 = {
 		army_maintenance_mult = -0.03
 	}
 
-	type_icon = "icon_building_peat_quarries.dds"
+	type_icon = "icon_building_water_collector.dds"
 
 	ai_value = {
 		base = 8

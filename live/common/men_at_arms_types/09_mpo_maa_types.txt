@@ -57,7 +57,7 @@ torch_bearers = {
 	siege_value = 0.1
 
 	can_recruit = {
-		government_has_flag = government_is_nomadic
+		always = no
 	}
 	
 	holding_bonus = {
@@ -75,6 +75,8 @@ torch_bearers = {
 	provision_cost = @provisions_cost_special_cheap
 	
 	stack = 10
+	holy_order_fallback = no
+	mercenary_fallback = no
 	allowed_in_hired_troops = no
 	icon = torch_bearers
 }
@@ -98,7 +100,7 @@ kheshig = {
 	}
 	
 	can_recruit = {
-		dynasty ?= { has_dynasty_perk = mpo_nomad_legacy_4 }
+		always = no
 	}
 
 	counters = {
@@ -113,7 +115,9 @@ kheshig = {
 	low_maintenance_cost = { gold = kheshig_veterans_low_maint_cost }
 	high_maintenance_cost = { gold = kheshig_veterans_high_maint_cost }
 	provision_cost = @provisions_cost_cavalry_cheap
-
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
 	stack = 50
 	ai_quality = { value = 100 }
 	icon = keshig
@@ -145,13 +149,16 @@ steppe_raiders = {
 	}
 
 	can_recruit = {
-		mpo_can_recruit_nomad_maa_trigger = yes
+		always = no
 	}
 
 	buy_cost = { gold = steppe_raiders_recruitment_cost }
 	low_maintenance_cost = { gold = steppe_raiders_low_maint_cost }
 	high_maintenance_cost = { gold = steppe_raiders_high_maint_cost }
 	provision_cost = @provisions_cost_cavalry_cheap
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
 
 	stack = 100
 	ai_quality = { 
@@ -182,16 +189,7 @@ heavy_horse_archers = {
 	}
 
 	can_recruit = {
-		mpo_can_recruit_nomad_maa_trigger = yes
-		trigger_if = {
-			limit = {
-				government_has_flag = government_is_nomadic
-				exists = domicile
-			}
-			domicile = {
-				has_domicile_parameter = unlock_maa_heavy_horse_archers
-			}
-		}
+		always = no
 	}
 
 	counters = {
@@ -208,6 +206,9 @@ heavy_horse_archers = {
 	low_maintenance_cost = { gold = heavy_horse_archers_low_maint_cost }
 	high_maintenance_cost = { gold = heavy_horse_archers_high_maint_cost }
 	provision_cost = @provisions_cost_cavalry_expensive
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
 	
 	stack = 50
 	ai_quality = {
@@ -236,10 +237,7 @@ nomad_lancers = {
 	}
 
 	can_recruit = {
-		mpo_can_recruit_nomad_heavy_cavalry_maa_trigger = yes
-		NOT = {
-			culture = { has_cultural_parameter = strength_in_numbers_heavy_maa_ban }
-		}
+		always = no
 	}
 
 	counters = {
@@ -256,6 +254,9 @@ nomad_lancers = {
 	low_maintenance_cost = { gold = nomad_lancers_low_maint_cost }
 	high_maintenance_cost = { gold = nomad_lancers_high_maint_cost }
 	provision_cost = @provisions_cost_cavalry_expensive
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
 	
 	stack = 50
 	ai_quality = {
@@ -290,13 +291,16 @@ mangudai = {
 	}
 	
 	can_recruit = {
-		valid_for_maa_trigger = { PARAMETER = unlock_maa_mangudai }
+		always = no
 	}
 
 	buy_cost = { gold = mangudai_recruitment_cost }
 	low_maintenance_cost = { gold = mangudai_low_maint_cost }
 	high_maintenance_cost = { gold = mangudai_high_maint_cost }
 	provision_cost = @provisions_cost_cavalry_cheap
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
 	
 	stack = 100
 	ai_quality = {
@@ -324,17 +328,7 @@ cataphract_archers = {
 	}
 
 	can_recruit = {
-		valid_for_maa_trigger = { PARAMETER = unlock_maa_cataphract_archers }
-		#Either non-nomadic or has some dominance
-		NOT = {
-			culture = { has_cultural_parameter = strength_in_numbers_heavy_maa_ban }
-		}
-		OR = {
-			NOT = {
-				government_has_flag = government_is_nomadic
-			}
-			has_realm_law_flag = unlock_maa_nomad_lancers
-		}
+		always = no
 	}
 
 	counters = {
@@ -352,6 +346,9 @@ cataphract_archers = {
 	low_maintenance_cost = { gold = cataphract_archers_low_maint_cost }
 	high_maintenance_cost = { gold = cataphract_archers_high_maint_cost }
 	provision_cost = @provisions_cost_cavalry_expensive
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
 	
 	stack = 50
 	ai_quality = {
@@ -386,13 +383,16 @@ maturkan_warriors = {
 	}
 
 	can_recruit = {
-		valid_for_maa_trigger = { PARAMETER = unlock_maa_maturkan_warriors }
+		always = no
 	}
 
 	buy_cost = { gold = maturkan_warriors_recruitment_cost }
 	low_maintenance_cost = { gold = maturkan_warriors_low_maint_cost }
 	high_maintenance_cost = { gold = maturkan_warriors_high_maint_cost }
 	provision_cost = @provisions_cost_infantry_cheap
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
 	
 	stack = 100
 	ai_quality = {

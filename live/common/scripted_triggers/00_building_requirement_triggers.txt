@@ -202,6 +202,7 @@ building_dome_farms_requirement_terrain = {
 		terrain = barren
 		terrain = corrosive
 		terrain = frozen
+		terrain = carbon
 	}
 }
 
@@ -211,6 +212,7 @@ building_module_farms_requirement_terrain = {
 		terrain = gas_giant
 		terrain = open_space
 		terrain = nebula
+		terrain = protoplanetary
 	}
 }
 
@@ -231,7 +233,10 @@ building_forges_requirement_terrain = {
 }
 
 building_exotic_forges_requirement_terrain = {
-	terrain = asteroids
+	OR = {
+		terrain = asteroids
+		terrain = protoplanetary
+	}
 }
 
 building_xenofauna_requirement_terrain = {
@@ -239,7 +244,10 @@ building_xenofauna_requirement_terrain = {
 }
 
 building_he_depot_requirement_terrain = {
-	terrain = corrosive
+	OR = {
+		terrain = corrosive
+		terrain = carbon
+	}
 }
 
 building_regattas_requirement_terrain = {
@@ -273,6 +281,7 @@ building_orb_infrastructure_requirement_terrain = {
 		terrain = gas_giant
 		terrain = open_space
 		terrain = nebula
+		terrain = protoplanetary
 	}
 }
 
@@ -282,6 +291,7 @@ building_hab_infrastructure_requirement_terrain = {
 		terrain = barren
 		terrain = corrosive
 		terrain = frozen
+		terrain = carbon
 	}
 }
 
@@ -291,6 +301,7 @@ building_planet_defense_requirement_terrain = {
 		terrain = barren
 		terrain = corrosive
 		terrain = frozen
+		terrain = carbon
 	}
 }
 
@@ -309,7 +320,10 @@ building_defense_network_requirement_terrain = {
 }
 
 building_asteroid_ambushes_requirement_terrain = {
-	terrain = asteroids
+	OR = {
+		terrain = asteroids
+		terrain = protoplanetary
+	}
 }
 # End CotC
 

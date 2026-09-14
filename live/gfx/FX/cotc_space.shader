@@ -24,6 +24,7 @@ Includes = {
 	"bordercolor.fxh"
 	"cotc_overrides.fxh"
 	"cotc_utilities.fxh"
+	"cotc_map_edge_fade.fxh"
 	"cotc_sector_fill.fxh"
 	"generated/cotc_starlight_coord.fxh"
 	#END MOD
@@ -126,6 +127,20 @@ PixelShader =
 		SampleModeV = "Clamp"
 		File = "gfx/FX/generated/cotc_starlight_coord_lut.dds"
 	}
+
+	# MOD(COTC) - vanilla surround mask
+	TextureSampler COTC_SurroundMask
+	{
+		Index = 45
+		MagFilter = "Linear"
+		MinFilter = "Linear"
+		MipFilter = "Linear"
+		SampleModeU = "Border"
+		SampleModeV = "Border"
+		Border_Color = { 1 1 1 1 }
+		File = "gfx/map/surround_map/surround_mask.dds"
+	}
+	# END MOD
 
 	# MOD(map-skybox)
 	TextureSampler SkyboxSample
@@ -373,6 +388,9 @@ PixelShader =
 				COTC_ApplyHighlightColor(Color, ColorMapCoords);
 				COTC_ApplyBackgroundEffects( Color, Alpha, Input.WorldSpacePos, StarLayerMult );
 
+				float SurroundMaskValue = 1.0f - PdxTex2D( COTC_SurroundMask, float2( ColorMapCoords.x, 1.0f - ColorMapCoords.y ) ).b;
+				Alpha *= COTC_GetMapEdgeFade( ColorMapCoords ) * SurroundMaskValue;
+
 				return float4(Color, Alpha);
 			}
 		]]
@@ -619,10 +637,6 @@ PixelShader =
 				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend );
 				float3 ToCameraDir = normalize( Input.WorldSpacePos.xyz - CameraPosition );
 
-				#if defined( COTC_HEX )
-					Alpha = Alpha * ProvinceStrength;
-				#endif
-
 				#if defined( COTC_OUTER_FRESNEL ) || defined( COTC_INNER_FRESNEL )
 					float4 FresnelColor = PdxTex2D( FresnelMap, DIFFUSE_UV_SET );
 
@@ -645,6 +659,10 @@ PixelShader =
 
 				#if defined( COTC_EMISSIVE_STAR )
 					Color *= COTC_STAR_EMISSIVE_BOOST;
+				#endif
+
+				#if defined( COTC_HEX )
+					Alpha = Alpha * ProvinceStrength;
 				#endif
 
 				return float4( Color, Alpha );

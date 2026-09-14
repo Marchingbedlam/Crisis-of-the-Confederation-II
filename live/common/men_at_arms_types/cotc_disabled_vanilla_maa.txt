@@ -1,0 +1,3056 @@
+﻿##################################################
+# COTC DISABLED VANILLA MEN-AT-ARMS
+#
+# common/men_at_arms_types is in /replace_path/, so vanilla's files do not load and
+# these 73 keys would otherwise not exist. Declaring them here keeps those
+# references resolving.
+#
+# Every entry is mechanically dead:
+#   can_recruit = { always = no }        cannot be recruited by player or AI
+#   no should_show_when_unavailable      never listed in the recruitment UI
+#   no access_through_subject            cannot arrive through a subject
+#   all three fallback flags = no        cannot be auto-assigned to a holy order or
+#                                        mercenary company, which can_recruit alone
+#                                        does not prevent
+#
+# Do not add a live unit to this file.
+##################################################
+
+##
+# from 00_cultural_maa_types.txt
+##
+
+huscarl = {
+	type = heavy_infantry
+
+	damage = 40
+	toughness = 26
+	pursuit = 0
+	screen = 24
+	
+	terrain_bonus = {
+		taiga = { damage = 8 }
+		forest = { damage = 8 }
+	}
+	
+	counters = {
+		pikemen = 1
+		peasant_militia = 2
+		archers = 1
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	winter_bonus = {
+		normal_winter = { toughness = 6 screen = 6 }
+		harsh_winter = { toughness = 6 screen = 6 }
+	}
+	
+	buy_cost = { gold = huscarls_recruitment_cost }
+	low_maintenance_cost = { gold = huscarls_low_maint_cost }
+	high_maintenance_cost = { gold = huscarls_high_maint_cost }
+	provision_cost = 3
+	
+	stack = 100
+	ai_quality = { value = 80 }
+	icon = danish_huskarls
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+landsknecht = {
+	type = pikemen
+	
+	damage = 30
+	toughness = 24
+	pursuit = 0
+	screen = 0
+	
+	terrain_bonus = {
+		mountains = { damage = 5 toughness = 12 }
+		desert_mountains = { damage = 5 toughness = 12 }
+		hills = { damage = 3 toughness = 8 }
+	}
+
+	counters = {
+		pikemen = 0.5
+		peasant_militia = 1
+		light_cavalry = 2
+		heavy_cavalry = 2
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = landsknecht_recruitment_cost }
+	low_maintenance_cost = { gold = landsknecht_low_maint_cost }
+	high_maintenance_cost = { gold = landsknecht_high_maint_cost }
+	provision_cost = 3
+	
+	stack = 100
+	ai_quality = { value = 80 }
+	icon = pikemen
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+longbowmen = {
+	type = archers
+	can_recruit = {
+		always = no
+	}
+	
+	damage = 20
+	toughness = 8
+	pursuit = 0
+	screen = 0
+	
+	terrain_bonus = {
+		hills = { damage = 12 toughness = 4 }
+	}
+
+	counters = {
+		skirmishers = 1
+		heavy_cavalry = 1
+	}
+
+	buy_cost = { gold = longbowmen_recruitment_cost }
+	low_maintenance_cost = { gold = longbowmen_low_maint_cost }
+	high_maintenance_cost = { gold = longbowmen_high_maint_cost }
+	provision_cost = 7
+	
+	stack = 100
+	ai_quality = { value = 80 }
+	icon = bowmen
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+goedendag = {
+	type = skirmishers
+	
+	damage = 13
+	toughness = 18
+	pursuit = 0
+	screen = 16
+	
+	counters = {
+		heavy_infantry = 1
+		heavy_cavalry = 1
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = goedendag_recruitment_cost }
+	low_maintenance_cost = { gold = goedendag_low_maint_cost }
+	high_maintenance_cost = { gold = goedendag_high_maint_cost }
+	provision_cost = 3
+	
+	stack = 100
+	ai_quality = { value = 80 }
+	icon = skirmishers
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+gendarme = {
+	type = heavy_cavalry
+	
+	damage = 125
+	toughness = 40
+	pursuit = 20
+	screen = 10
+	
+	terrain_bonus = {
+		plains = { damage = 30 }
+		drylands = { damage = 30 }
+		hills = { damage = -10 }
+		jungle = { damage = -25 }
+		mountains = { damage = -50 }
+		desert_mountains = { damage = -50 }
+		wetlands = { damage = -75 }
+	}
+
+	counters = {
+		archers = 1
+		gunpowder = 1
+	}
+
+	winter_bonus = {
+		normal_winter = { damage = -15 toughness = -5 }
+		harsh_winter = { damage = -30 toughness = -10 }
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = gendarme_recruitment_cost }
+	low_maintenance_cost = { gold = gendarme_low_maint_cost }
+	high_maintenance_cost = { gold = gendarme_high_maint_cost }
+	provision_cost = 21
+	
+	stack = 50
+	ai_quality = { value = 80 }
+	icon = heavy_cavalry
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+chasseur = {
+	type = light_cavalry
+	
+	damage = 40
+	toughness = 15
+	pursuit = 40
+	screen = 15
+	
+	terrain_bonus = {
+		plains = { damage = 10 }
+		drylands = { damage = 10 }
+		desert = { damage = 10 }
+		hills = { damage = -5 }
+		mountains = { damage = -25 }
+		desert_mountains = { damage = -25 }
+		wetlands = { damage = -30 toughness = -10 pursuit = -25 screen = -15 }
+	}
+
+	counters = {
+		archers = 1
+		gunpowder = 1
+	}
+
+	winter_bonus = {
+		harsh_winter = { damage = -5 toughness = -2 }
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = chasseur_recruitment_cost }
+	low_maintenance_cost = { gold = chasseur_low_maint_cost }
+	high_maintenance_cost = { gold = chasseur_high_maint_cost }
+	provision_cost = 15
+	
+	stack = 100
+	ai_quality = { value = 80 }
+	icon = light_cavalry
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+picchieri = {
+	type = pikemen
+	
+	damage = 40
+	toughness = 24
+	pursuit = 0
+	screen = 0
+	
+	terrain_bonus = {
+		mountains = { toughness = 12 }
+		desert_mountains = { toughness = 12 }
+		hills = { toughness = 10 }
+	}
+
+	counters = {
+		light_cavalry = 1
+		heavy_cavalry = 1
+		camel_cavalry = 1
+		elephant_cavalry = 1
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = picchieri_recruitment_cost }
+	low_maintenance_cost = { gold = picchieri_low_maint_cost }
+	high_maintenance_cost = { gold = picchieri_high_maint_cost }
+	provision_cost = 3
+	
+	stack = 100
+	ai_quality = { value = 80 }
+	icon = pikemen
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+praetorian = {
+	type = heavy_infantry
+	
+	damage = 60
+	toughness = 30
+	pursuit = 0
+	screen = 20
+	
+	counters = {
+		pikemen = 1
+		peasant_militia = 2
+	}
+	
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = praetorian_recruitment_cost }
+	low_maintenance_cost = { gold = praetorian_low_maint_cost }
+	high_maintenance_cost = { gold = praetorian_high_maint_cost }
+	provision_cost = 15
+	
+	stack = 100
+	ai_quality = { value = 80 }
+	icon = heavy_infantry
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+caballero = {
+	type = light_cavalry
+	
+	damage = 22
+	toughness = 16
+	pursuit = 30
+	screen = 50
+	
+	terrain_bonus = {
+		hills = { damage = 15 toughness = 10 }
+		plains = { damage = 10 }
+		drylands = { damage = 10 }
+		mountains = { damage = -8 pursuit = -10 }
+		desert_mountains = { damage = -12 pursuit = -20 }
+		wetlands = { damage = -15 toughness = -10 pursuit = -20 screen = -20 }
+	}
+
+	counters = {
+		archers = 1
+		gunpowder = 1
+	}
+
+	winter_bonus = {
+		harsh_winter = { damage = -5 toughness = -2 }
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = caballero_recruitment_cost }
+	low_maintenance_cost = { gold = caballero_low_maint_cost }
+	high_maintenance_cost = { gold = caballero_high_maint_cost }
+	provision_cost = 7
+	
+	stack = 100
+	ai_quality = { value = @[80 + 20] }
+	icon = light_cavalry
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+monaspa = {
+	type = heavy_cavalry
+	
+	damage = 110
+	toughness = 30
+	pursuit = 25
+	screen = 10
+	
+	terrain_bonus = {
+		hills = { damage = 20 pursuit = 10 }
+		mountains = { damage = 20 pursuit = 10 }
+		desert_mountains = { damage = -30 }
+		wetlands = { damage = -80 toughness = -15 pursuit = -20 }
+	}
+
+	counters = {
+		archers = 1
+		gunpowder = 1
+	}
+
+	winter_bonus = {
+		normal_winter = { damage = -10 toughness = -5 }
+		harsh_winter = { damage = -20 toughness = -5 }
+	}
+	
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = monaspa_recruitment_cost }
+	low_maintenance_cost = { gold = monaspa_low_maint_cost }
+	high_maintenance_cost = { gold = monaspa_high_maint_cost }
+	provision_cost = 15
+	
+	stack = 50
+	ai_quality = { value = 80 }
+	icon = monaspa
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+cataphract = {
+	type = heavy_cavalry
+	
+	damage = 125
+	toughness = 35
+	pursuit = 10
+	screen = 0
+	
+	terrain_bonus = {
+		plains = { damage = 30 toughness = 5 }
+		drylands = { damage = 30 }
+		hills = { damage = -10 }
+		mountains = { damage = -50 }
+		desert_mountains = { damage = -50 }
+		wetlands = { damage = -80 toughness = -15 pursuit = -10 }
+	}
+
+	counters = {
+		archers = 1
+		gunpowder = 1
+	}
+
+	winter_bonus = {
+		normal_winter = { damage = -15 toughness = -5 }
+		harsh_winter = { damage = -30 toughness = -10 }
+	}
+	
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = cataphract_recruitment_cost }
+	low_maintenance_cost = { gold = cataphract_low_maint_cost }
+	high_maintenance_cost = { gold = cataphract_high_maint_cost }
+	provision_cost = 30
+	
+	stack = 50
+	ai_quality = { value = 80 }
+	icon = cataphracts
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+hobelar = {
+	type = light_cavalry
+	
+	damage = 22
+	toughness = 15
+	pursuit = 50
+	screen = 30
+	
+	terrain_bonus = {
+		forest = { damage = 15 }
+		hills = { damage = 10 }
+		mountains = { damage = -10 pursuit = -30 }
+		desert_mountains = { damage = -15 pursuit = -30 }
+		wetlands = { damage = -10 pursuit = -20 screen = -15 }
+	}
+
+	counters = {
+		archers = 1
+		gunpowder = 1
+	}
+
+	winter_bonus = {
+		harsh_winter = { damage = -5 }
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = hobelar_recruitment_cost }
+	low_maintenance_cost = { gold = hobelar_low_maint_cost }
+	high_maintenance_cost = { gold = hobelar_high_maint_cost }
+	provision_cost = 7
+	
+	stack = 100
+	ai_quality = { value = 80 }
+	icon = light_cavalry
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+schiltron = {
+	type = pikemen
+	
+	damage = 36
+	toughness = 28
+	pursuit = 0
+	screen = 0
+	
+	terrain_bonus = {
+		mountains = { toughness = 12 }
+		desert_mountains = { toughness = 12 }
+		hills = { toughness = 8 }
+		plains = { damage = 8 }
+	}
+
+	counters = {
+		light_cavalry = 1
+		heavy_cavalry = 1
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = schiltron_recruitment_cost }
+	low_maintenance_cost = { gold = schiltron_low_maint_cost }
+	high_maintenance_cost = { gold = schiltron_high_maint_cost }
+	provision_cost = 7
+	
+	stack = 100
+	ai_quality = { value = 80 }
+	icon = pikemen
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+metsanvartija = {
+	type = archers
+	
+	damage = 30
+	toughness = 14
+	pursuit = 10
+	screen = 10
+	
+	terrain_bonus = {
+		forest = { damage = 10 toughness = 4 }
+		taiga = { damage = 10 toughness = 4 }
+	}
+
+	counters = {
+		skirmishers = 1
+	}
+	
+	winter_bonus = {
+		normal_winter = { toughness = 4 screen = 8 }
+		harsh_winter = { toughness = 4 screen = 8 }
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = metsanvartija_recruitment_cost }
+	low_maintenance_cost = { gold = metsanvartija_low_maint_cost }
+	high_maintenance_cost = { gold = metsanvartija_high_maint_cost }
+	provision_cost = 3
+	
+	stack = 100
+	ai_quality = { value = 80 }
+	icon = bowmen
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+horse_archers = {
+	type = archer_cavalry
+	
+	damage = 36
+	toughness = 18
+	pursuit = 40
+	screen = 30
+	
+	terrain_bonus = {
+		steppe = { damage = 45 }
+		plains = { damage = 20 }
+		drylands = { damage = 20 }
+		jungle = { damage = -20 pursuit = -20 }
+		wetlands = { damage = -30 pursuit = -30 }
+		mountains = { damage = -30 pursuit = -30 }
+		desert_mountains = { damage = -30 pursuit = -30 }
+	}
+
+	counters = {
+		skirmishers = 1
+		heavy_infantry = 1
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = horse_archers_recruitment_cost }
+	low_maintenance_cost = { gold = horse_archers_low_maint_cost }
+	high_maintenance_cost = { gold = horse_archers_high_maint_cost }
+	provision_cost = 7
+	
+	stack = 100
+	ai_quality = {
+		value = 80
+		add = 60 #I mean... they're horse archers
+	}
+	icon = horse_archers
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+ayyar = {
+	type = heavy_infantry
+	
+	damage = 35
+	toughness = 22
+	pursuit = 12
+	screen = 0
+	
+	counters = {
+		pikemen = 1
+		peasant_militia = 2
+	}
+
+	can_recruit = {
+		always = no
+	}
+	
+	buy_cost = { gold = ayyar_recruitment_cost }
+	low_maintenance_cost = { gold = ayyar_low_maint_cost }
+	high_maintenance_cost = { gold = ayyar_high_maint_cost }
+	provision_cost = 12
+	
+	stack = 100
+	ai_quality = { value = 80 }
+	icon = ayyar
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+mubarizun = {
+	type = heavy_infantry
+	
+	damage = 45
+	toughness = 25
+	pursuit = 0
+	screen = 0
+
+	counters = {
+		pikemen = 1
+		peasant_militia = 2
+		heavy_infantry = 1
+	}
+	
+	can_recruit = {
+		always = no
+	}
+	
+	buy_cost = { gold = mubarizun_recruitment_cost }
+	low_maintenance_cost = { gold = mubarizun_low_maint_cost }
+	high_maintenance_cost = { gold = mubarizun_high_maint_cost }
+	provision_cost = 7
+	
+	stack = 100
+	ai_quality = { value = @[80 - 20] }
+	icon = mubarizun
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+mulaththamun = { #Murabit Cavalry
+	type = light_cavalry
+	
+	damage = 22
+	toughness = 15
+	pursuit = 30
+	screen = 40
+	
+	terrain_bonus = {
+		drylands = { damage = 10 toughness = 5 screen = 10 pursuit = 5 }
+		desert = { damage = 10 toughness = 5 screen = 20 pursuit = 10 }
+		plains = { damage = 10 toughness = 3 screen = 5 pursuit = 5 }
+		oasis = { damage = 10 }
+		
+		mountains = { damage = -8 pursuit = -10 }
+		desert_mountains = { damage = -12 pursuit = -20 }
+		wetlands = { damage = -15 toughness = -10 pursuit = -20 screen = -20
+		}
+	}
+
+	counters = {
+		archers = 1
+		gunpowder = 1
+	}
+
+	winter_bonus = {
+		harsh_winter = { damage = -5 toughness = -2 }
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = mulaththamun_recruitment_cost }
+	low_maintenance_cost = { gold = mulaththamun_low_maint_cost }
+	high_maintenance_cost = { gold = mulaththamun_high_maint_cost }
+	provision_cost = 7
+	
+	stack = 100
+	ai_quality = { value = @[80 + 20] }
+	icon = light_cavalry
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+archers_of_the_nile = { #Nile Archers
+	type = archers
+	
+	damage = 30
+	toughness = 14
+	pursuit = 10
+	screen = 10
+	
+	terrain_bonus = {
+		floodplains = { damage = 15 toughness = 15 pursuit = 10 screen = 10 }
+		oasis = { damage = 15 pursuit = 5 screen = 5 }
+		drylands = { damage = 10 toughness = 10 }
+		desert = { damage = -5 toughness = -5 }
+	}
+
+	counters = {
+		skirmishers = 1
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = archers_of_the_nile_recruitment_cost }
+	low_maintenance_cost = { gold = archers_of_the_nile_low_maint_cost }
+	high_maintenance_cost = { gold = archers_of_the_nile_high_maint_cost }
+	provision_cost = 7
+	
+	stack = 100
+	ai_quality = { value = 80 }
+	icon = bowmen
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+paiks = { #Indian Footmen - carrying bows but also swords and spears.
+	type = archers
+	
+	damage = 28
+	toughness = 16
+	pursuit = 10
+	screen = 10
+	
+	terrain_bonus = {
+		jungle = { damage = 15 toughness = 15 pursuit = 10 screen = 10 }
+		forest = { damage = 15 pursuit = 5 screen = 5 }
+		hills = { damage = 10 toughness = 10 }
+	}
+
+	counters = {
+		elephant_cavalry = 1
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = paiks_recruitment_cost }
+	low_maintenance_cost = { gold = paiks_low_maint_cost }
+	high_maintenance_cost = { gold = paiks_high_maint_cost }
+	provision_cost = 7
+	
+	stack = 100
+	ai_quality = { value = @[80 - 40] }
+
+	icon = paiks
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+druzhina = {
+	type = heavy_infantry
+	
+	damage = 40
+	toughness = 30
+	pursuit = 0
+	screen = 30
+	
+	counters = {
+		pikemen = 1
+		peasant_militia = 2
+	}
+
+	can_recruit = {
+		always = no
+	}
+	
+	buy_cost = { gold = druzhina_recruitment_cost }
+	low_maintenance_cost = { gold = druzhina_low_maint_cost }
+	high_maintenance_cost = { gold = druzhina_high_maint_cost }
+	provision_cost = 7
+	
+	stack = 100
+	ai_quality = { value = 80 }
+	icon = heavy_infantry
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+hussar = {
+	type = light_cavalry
+	
+	damage = 25
+	toughness = 15
+	pursuit = 60
+	screen = 20
+	
+	terrain_bonus = {
+		plains = { damage = 15 }
+		drylands = { damage = 15 }
+		hills = { damage = -15 }
+		mountains = { damage = -15 pursuit = -40 }
+		desert_mountains = { damage = -20 pursuit = -50 }
+		wetlands = { damage = -15 toughness = -10 pursuit = -50 screen = -20 }
+	}
+
+	counters = {
+		archers = 1
+		gunpowder = 1
+	}
+
+	winter_bonus = {
+		harsh_winter = { damage = -5 }
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = hussar_recruitment_cost }
+	low_maintenance_cost = { gold = hussar_low_maint_cost }
+	high_maintenance_cost = { gold = hussar_high_maint_cost }
+	provision_cost = 7
+	
+	stack = 100
+	ai_quality = { value = @[80 + 10] }
+	icon = light_cavalry
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+horn_warrior = {
+	type = skirmishers
+	
+	damage = 12
+	toughness = 16
+	pursuit = 0
+	screen = 20
+	
+	terrain_bonus = {
+		mountains = { damage = 10 toughness = 10 }
+		desert_mountains = { damage = 10 toughness = 10 }
+		hills = { damage = 4 toughness = 6 }
+	}
+
+	counters = {
+		heavy_infantry = 1
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = horn_warrior_recruitment_cost }
+	low_maintenance_cost = { gold = horn_warrior_low_maint_cost }
+	high_maintenance_cost = { gold = horn_warrior_high_maint_cost }
+	provision_cost = 7
+	
+	stack = 100
+	ai_quality = { value = 80 }
+	icon = skirmishers
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+bush_hunter = {
+	type = archers
+	
+	damage = 30
+	toughness = 12
+	pursuit = 5
+	screen = 0
+	
+	terrain_bonus = {
+		jungle = { damage = 8 toughness = 4 }
+		forest = { damage = 8 toughness = 4 }
+		hills = { damage = 8 toughness = 4 }
+	}
+
+	counters = {
+		skirmishers = 1
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = bush_hunter_recruitment_cost }
+	low_maintenance_cost = { gold = bush_hunter_low_maint_cost }
+	high_maintenance_cost = { gold = bush_hunter_high_maint_cost }
+	provision_cost = 3
+	
+	stack = 100
+	ai_quality = { value = 80 }
+	icon = bowmen
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+shomer = {
+	type = skirmishers
+	
+	damage = 10
+	toughness = 24
+	pursuit = 0
+	screen = 40
+	
+	counters = {
+		heavy_infantry = 1
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = shomer_recruitment_cost }
+	low_maintenance_cost = { gold = shomer_low_maint_cost }
+	high_maintenance_cost = { gold = shomer_high_maint_cost }
+	provision_cost = 7
+	
+	stack = 100
+	ai_quality = { value = 80 }
+	icon = skirmishers
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+garudas = {
+	type = heavy_infantry
+	
+	damage = 42
+	toughness = 22
+	pursuit = 24
+	screen = 0
+	
+	terrain_bonus = {
+		jungle = { damage = 8 }
+		forest = { damage = 8 }
+	}
+	
+	counters = {
+		pikemen = 1
+		peasant_militia = 2
+		archers = 1
+	}
+	
+	buy_cost = { gold = garudas_recruitment_cost }
+	low_maintenance_cost = { gold = garudas_low_maint_cost }
+	high_maintenance_cost = { gold = garudas_high_maint_cost }
+	provision_cost = 12
+	
+	stack = 100
+	ai_quality = { value = 80 }
+
+	can_recruit = {
+		always = no
+	}
+	
+	stack = 100
+	ai_quality = { value = 80 }
+
+	icon = garudas
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+khandayat = {
+	type = heavy_infantry
+	
+	damage = 42
+	toughness = 22
+	pursuit = 0
+	screen = 0
+	
+	terrain_bonus = {
+		jungle = { damage = 12 toughness = 8 }
+	}
+
+	counters = {
+		light_cavalry = 1
+		pikemen = 1
+		peasant_militia = 2
+	}
+	
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = khandayat_recruitment_cost }
+	low_maintenance_cost = { gold = khandayat_low_maint_cost }
+	high_maintenance_cost = { gold = khandayat_high_maint_cost }
+	provision_cost = 15
+	
+	stack = 100
+	ai_quality = { value = 80 }
+
+	icon = khandayat
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+mountaineer = {
+	type = heavy_infantry
+	
+	damage = 40
+	toughness = 26
+	pursuit = 0
+	screen = 0
+	
+	terrain_bonus = {
+		mountains = { damage = 12 toughness = 12 }
+		desert_mountains = { damage = 12 toughness = 12 }
+	}
+	
+	counters = {
+		pikemen = 1
+		peasant_militia = 2
+	}
+
+	winter_bonus = {
+		normal_winter = { damage = 5 }
+		harsh_winter = { damage = 5 }
+	}
+
+	can_recruit = {
+		always = no
+	}
+	
+	buy_cost = { gold = mountaineer_recruitment_cost }
+	low_maintenance_cost = { gold = mountaineer_low_maint_cost }
+	high_maintenance_cost = { gold = mountaineer_high_maint_cost }
+	provision_cost = 7
+	
+	stack = 100
+	ai_quality = { value = 80 }
+
+	icon = mountaineer
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+sahel_horsemen = {
+	type = light_cavalry
+	
+	damage = 22
+	toughness = 15
+	pursuit = 30
+	screen = 30
+	
+	terrain_bonus = {
+		drylands = { damage = 15 toughness = 3 }
+		floodplains = { damage = 15 toughness = 3 }
+		desert = { damage = 10 }
+		oasis = { damage = 10 }
+		hills = { damage = -10 pursuit = -10 }
+		desert_mountains = { damage = -10 pursuit = -20 }
+		mountains = { damage = -15 pursuit = -20 }
+		wetlands = { damage = -15 toughness = -10 pursuit = -30 screen = -30 }
+	}
+
+	counters = {
+		archers = 1
+		heavy_infantry = 1
+		gunpowder = 1
+	}
+
+	winter_bonus = {
+		harsh_winter = { damage = -5 toughness = -2 }
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = sahel_rider_recruitment_cost }
+	low_maintenance_cost = { gold = sahel_rider_low_maint_cost }
+	high_maintenance_cost = { gold = sahel_rider_high_maint_cost }
+	provision_cost = 7
+	
+	stack = 100
+	ai_quality = { value = @[80 + 30] }
+	icon = light_cavalry
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+guinea_warrior = { #AKA Guinean uplander
+	type = skirmishers
+	
+	damage = 18
+	toughness = 14
+	pursuit = 0
+	screen = 20
+	
+	terrain_bonus = {
+		forest = { damage = 10 toughness = 8 }
+		hills = { damage = 6 toughness = 4 }
+		drylands = { damage = 6 toughness = 4 }
+	}
+
+	counters = {
+		heavy_infantry = 1
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = guinea_warrior_recruitment_cost }
+	low_maintenance_cost = { gold = guinea_warrior_low_maint_cost }
+	high_maintenance_cost = { gold = guinea_warrior_high_maint_cost }
+	provision_cost = 3
+	
+	stack = 100
+	ai_quality = { value = 80 }
+	icon = skirmishers
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+sarawit = { #AKA Ethiopian mountaineer
+	type = heavy_infantry
+	
+	damage = 32
+	toughness = 26
+	pursuit = 0
+	screen = 10
+	
+	terrain_bonus = {
+		mountains = { damage = 12 toughness = 10 }
+		desert_mountains = { damage = 10 toughness = 8 }
+		hills = { damage = 8 toughness = 5 }
+		drylands = { screen = -10 }
+		desert = { toughness = -10 screen = -10 }
+	}
+
+	counters = {
+		light_cavalry = 1
+	}
+	
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = sarawit_recruitment_cost }
+	low_maintenance_cost = { gold = sarawit_low_maint_cost }
+	high_maintenance_cost = { gold = sarawit_high_maint_cost }
+	provision_cost = 7
+	
+	stack = 100
+	ai_quality = { value = 80 }
+	icon = heavy_infantry
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+abudrar = { #AKA Jabali - Berber mountaineer
+	type = skirmishers
+	
+	damage = 20
+	toughness = 16
+	pursuit = 20
+	screen = 10
+	
+	terrain_bonus = {
+		desert_mountains = { damage = 10 toughness = 8 }
+		mountains = { damage = 8 toughness = 6 }
+		hills = { damage = 8 toughness = 6 }
+		desert = { pursuit = -10 screen = -10 }
+	}
+	
+	counters = {
+		light_cavalry = 1
+		heavy_infantry = 1
+	}
+
+	can_recruit = {
+		always = no
+	}
+	
+	buy_cost = { gold = abudrar_recruitment_cost }
+	low_maintenance_cost = { gold = abudrar_low_maint_cost }
+	high_maintenance_cost = { gold = abudrar_high_maint_cost }
+	provision_cost = 3
+	
+	stack = 100
+	ai_quality = { value = 80 }
+	icon = skirmishers
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+zbrojnosh = {
+	type = heavy_infantry
+	
+	damage = 34
+	toughness = 20
+	pursuit = 0
+	screen = 10
+
+	terrain_bonus = {
+		hills = { damage = 8 toughness = 5 }
+		mountains = { damage = 6 }
+		forest = { damage = 6 }
+		wetlands = { damage = -10 pursuit = -10 }
+	}
+
+	counters = {
+		pikemen = 1
+		peasant_militia = 2
+		archers = 1
+	}
+	
+	can_recruit = {
+		always = no
+	}
+	
+	buy_cost = { gold = zbrojnosh_recruitment_cost }
+	low_maintenance_cost = { gold = zbrojnosh_low_maint_cost }
+	high_maintenance_cost = { gold = zbrojnosh_high_maint_cost }
+	provision_cost = 12
+	
+	stack = 100
+	ai_quality = { value = 80 }
+	icon = heavy_infantry
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+palace_guards = {
+	type = heavy_infantry
+	
+	damage = 38
+	toughness = 24
+	pursuit = 0
+	screen = 20
+	
+	terrain_bonus = {
+		jungle = { damage = 10 toughness = 6 }
+		hills = { damage = 8 toughness = 4 }
+	}
+	
+	counters = {
+		pikemen = 2
+		peasant_militia = 4
+	}
+
+	can_recruit = {
+		always = no
+	}
+	
+	buy_cost = { gold = palace_guards_recruitment_cost }
+	low_maintenance_cost = { gold = palace_guards_low_maint_cost }
+	high_maintenance_cost = { gold = palace_guards_high_maint_cost }
+	provision_cost = 15
+	
+	stack = 100
+	ai_quality = { value = 80 }
+
+	icon = palace_guards
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+shenbigong = {
+	type = archers
+	
+	damage = 44
+	toughness = 18
+	pursuit = 0
+	screen = 0
+	
+	terrain_bonus = {
+		hills = { damage = 10 toughness = 4 }
+		mountains = { damage = 8 toughness = 2 }
+		plains = { toughness = -8 }
+		drylands = { toughness = -8 }
+		desert = { toughness = -8 }
+		steppe = { toughness = -8 }
+	}
+	
+	counters = {
+		heavy_infantry = 1.25
+		heavy_cavalry = 1.25
+		pikemen = 1
+		peasant_militia = 2
+	}
+	
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = shenbigong_recruitment_cost }
+	low_maintenance_cost = { gold = shenbigong_low_maint_cost }
+	high_maintenance_cost = { gold = shenbigong_high_maint_cost }
+	provision_cost = 12
+	
+	stack = 100
+	ai_quality = {
+		value = counter_synergy_ai_weight_crossbowmen
+		add = 80
+	}
+
+	icon = shenbigong
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+guanch_vaulter = {
+	type = skirmishers
+	
+	damage = 10
+	toughness = 12
+	pursuit = 15
+	screen = 20
+	siege_value = 0.1
+	
+	terrain_bonus = {
+		hills = { damage = 4 toughness = 6 }
+		mountains = { damage = 4 pursuit = 6 }
+		desert_mountains = { damage = 4 pursuit = 6 }
+		wetlands = { damage = 4 pursuit = 6 }
+	}
+
+	counters = {
+		heavy_infantry = 1
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = guanch_vaulter_recruitment_cost }
+	low_maintenance_cost = { gold = guanch_vaulter_low_maint_cost }
+	high_maintenance_cost = { gold = guanch_vaulter_high_maint_cost }
+	provision_cost = 7
+	
+	
+	stack = 100
+	ai_quality = { value = culture_ai_weight_skirmishers }
+	icon = skirmishers
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+teulu = {
+	type = light_cavalry
+
+	damage = 25
+	toughness = 25
+	pursuit = 35
+	screen = 30
+	
+	terrain_bonus = {
+		hills = { pursuit = 5 toughness = 10 }
+		forest = { pursuit = 5 toughness = 10 }
+		plains = { pursuit = 5 damage = 10 toughness = 10 }
+		wetlands = { damage = -15 toughness = -10 pursuit = -30 screen = -30 }
+		mountains = { damage = -10 pursuit = -20 }
+		desert_mountains = { damage = -15 pursuit = -20 }
+	}
+	
+	counters = {
+		archers = 1
+		gunpowder = 1
+	}
+
+	can_recruit = {
+		always = no
+	}
+	
+	buy_cost = { gold = teulu_recruitment_cost }
+	low_maintenance_cost = { gold = teulu_low_maint_cost }
+	high_maintenance_cost = { gold = teulu_high_maint_cost }
+	provision_cost = 3
+	
+	stack = 100
+	ai_quality = { value = 80 }
+
+	illustration = {
+		trigger = {
+			should_use_asian_maa_graphics = yes
+		}
+
+		reference = light_cavalry_asia
+	}
+
+	illustration = {
+		reference = light_cavalry
+	}
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+##
+# from 00_fp3_maa_types.txt
+##
+
+asawira = { #Iranian knights in early caliphal armies. Can be restored as a military unit with Khvarenah 4 dynasty legacy perk. 
+	type = archer_cavalry
+	
+	damage = 90
+	toughness = 35
+	pursuit = 35
+	screen = 10
+	
+	terrain_bonus = {
+		plains = { damage = 30 }
+		drylands = { damage = 30 }
+		desert_mountains = { damage = 10 pursuit = 10 }
+		hills = { damage = -10 }
+		mountains = { damage = -50 }
+		wetlands = { damage = -50 toughness = -15 pursuit = -20 }
+	}
+
+	counters = {
+		skirmishers = 2
+		heavy_infantry = 2
+	}
+
+	winter_bonus = {
+		normal_winter = { damage = -15 toughness = -5 }
+		harsh_winter = { damage = -30 toughness = -10 }
+	}
+	
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = asawira_recruitment_cost }
+	low_maintenance_cost = { gold = asawira_low_maint_cost }
+	high_maintenance_cost = { gold = asawira_high_maint_cost }
+	provision_cost = 12
+	
+	stack = 50
+	ai_quality = { value = @[60 + 30] }
+	icon = asawira
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+tarkhan = {
+	type = heavy_cavalry
+	
+	damage = 110
+	toughness = 30
+	pursuit = 30
+	screen = 10
+	
+	terrain_bonus = {
+		oasis = { damage = 30 }
+		drylands = { damage = 25 }
+		desert = { damage = 10 pursuit = 10 }
+		mountains = { damage = -30 }
+		wetlands = { damage = -80 toughness = -15 pursuit = -20 }
+	}
+
+	counters = {
+		heavy_infantry = 1
+		heavy_cavalry = 0.5
+		gunpowder = 1
+	}
+
+	winter_bonus = {
+		normal_winter = { damage = -10 toughness = -5 }
+		harsh_winter = { damage = -20 toughness = -5 }
+	}
+	
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = cataphract_recruitment_cost }
+	low_maintenance_cost = { gold = cataphract_low_maint_cost }
+	high_maintenance_cost = { gold = cataphract_high_maint_cost }
+	provision_cost = 21
+	
+	stack = 50
+	ai_quality = { value = @[60 + 60] }
+	icon = tarkhan
+
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+zupin_warrior = {
+	type = pikemen
+	
+	damage = 16
+	toughness = 16
+	pursuit = 0
+	screen = 10
+	
+	can_recruit = {
+		always = no
+	}
+	
+	terrain_bonus = {
+		mountains = { toughness = 12 }
+		desert_mountains = { toughness = 12 }
+		hills = { damage = 4 toughness = 8 }
+		forest = { damage = 4 toughness = 8 pursuit = 4 }
+	}
+
+	counters = {
+		heavy_cavalry = 0.5
+		heavy_infantry = 1
+		light_cavalry = 1
+	}
+
+	winter_bonus = {
+		normal_winter = { damage = 4 pursuit = 5 }
+	}
+
+	buy_cost = { gold = bondi_recruitment_cost }
+	low_maintenance_cost = { gold = bondi_low_maint_cost }
+	high_maintenance_cost = { gold = bondi_high_maint_cost }
+	provision_cost = 7
+	
+	stack = 100
+	ai_quality = { value = @[60 + 20] }
+	icon = zupin_spearmen
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+tawashi = {
+	type = light_cavalry
+	
+	damage = 25
+	toughness = 15
+	pursuit = 30
+	screen = 30
+	
+	terrain_bonus = {
+		plains = { damage = 10 }
+		drylands = { damage = 10 }
+		hills = { damage = 10 }
+		mountains = { damage = 10 pursuit = 10 }
+		desert_mountains = { damage = 10 pursuit = 10 }
+		wetlands = { damage = -15 toughness = -10 pursuit = -30 screen = -30 }
+	}
+
+	counters = {
+		archers = 1
+		heavy_infantry = 1
+		gunpowder = 1
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	winter_bonus = {
+		harsh_winter = { damage = -5 toughness = -3 }
+	}
+
+	buy_cost = { gold = tawashi_recruitment_cost }
+	low_maintenance_cost = { gold = tawashi_low_maint_cost }
+	high_maintenance_cost = { gold = tawashi_high_maint_cost }
+	provision_cost = 15
+
+	stack = 100
+	ai_quality = { value = @[60 + 40] }
+	icon = tawashi
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+##
+# from 00_holy_order_maa_types.txt
+##
+
+teutonic_knights = { # Actually all Christian knightly orders, not just the Teutons.
+	type = heavy_infantry
+
+	special_recruit_only = yes
+
+	# Slightly stronger than normal Heavy Infantry MaA, to represent zeal & dedication to the cause.
+	damage = 36 
+	toughness = 26
+	pursuit = 0
+	screen = 0
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = heavy_infantry_recruitment_cost }
+	low_maintenance_cost = { gold = heavy_infantry_low_maint_cost }
+	high_maintenance_cost = { gold = heavy_infantry_high_maint_cost }
+	provision_cost = 12
+		
+	counters = {
+		pikemen = 1
+		peasant_militia = 2
+	}
+
+	stack = 100
+	icon = heavy_infantry
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+##
+# from 00_maa_types.txt
+##
+
+light_footmen = {
+	type = skirmishers
+
+	damage = 10
+	toughness = 16
+	pursuit = 10
+	screen = 16
+
+	terrain_bonus = {
+		forest = { damage = 4 toughness = 6 }
+		taiga = { damage = 4 toughness = 6 }
+		jungle = { damage = 4 toughness = 6 }
+	}
+
+	counters = {
+		heavy_infantry = 1
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+
+	buy_cost = { gold = skirmisher_recruitment_cost }
+	low_maintenance_cost = { gold = skirmisher_low_maint_cost }
+	high_maintenance_cost = { gold = skirmisher_high_maint_cost }
+	provision_cost = 3
+
+	holy_order_fallback = no
+
+	stack = 100
+	ai_quality = { value = culture_ai_weight_skirmishers }
+
+	illustration = {
+		trigger = {
+			should_use_asian_maa_graphics = yes
+		}
+
+		reference = skirmishers_asia
+	}
+
+	illustration = {
+		reference = skirmishers
+	}
+
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+bowmen = {
+	type = archers
+
+	damage = 25
+	toughness = 10
+	pursuit = 0
+	screen = 0
+
+	terrain_bonus = {
+		hills = { damage = 10 toughness = 4 }
+		forest = { toughness = 4 screen = 4 }
+		taiga = { toughness = 4 screen = 4 }
+	}
+
+	counters = {
+		skirmishers = 1
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+
+	buy_cost = { gold = bowmen_recruitment_cost }
+	low_maintenance_cost = { gold = bowmen_low_maint_cost }
+	high_maintenance_cost = { gold = bowmen_high_maint_cost }
+	provision_cost = 7
+
+	holy_order_fallback = no
+
+	stack = 100
+	ai_quality = {
+		value = culture_ai_weight_archers
+		add = counter_synergy_ai_weight_archers
+	}
+
+	illustration = {
+		trigger = {
+			should_use_asian_maa_graphics = yes
+		}
+
+		reference = bowmen_asia
+	}
+
+	illustration = {
+		reference = bowmen
+	}
+
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+light_horsemen = {
+	type = light_cavalry
+
+	damage = 22
+	toughness = 15
+	pursuit = 30
+	screen = 30
+
+	terrain_bonus = {
+		plains = { damage = 15 }
+		drylands = { damage = 15 }
+		hills = { damage = -5 }
+		mountains = { damage = -10 pursuit = -20 }
+		desert_mountains = { damage = -15 pursuit = -20 }
+		wetlands = { damage = -15 toughness = -10 pursuit = -30 screen = -30 }
+	}
+
+	counters = {
+		archers = 1
+		gunpowder = 1
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+
+
+	winter_bonus = {
+		harsh_winter = { damage = -5 toughness = -2 }
+	}
+
+	buy_cost = { gold = light_cavalry_recruitment_cost }
+	low_maintenance_cost = { gold = light_cavalry_low_maint_cost }
+	high_maintenance_cost = { gold = light_cavalry_high_maint_cost }
+	provision_cost = 7
+
+	holy_order_fallback = no
+
+	stack = 100
+	ai_quality = {
+		value = culture_ai_weight_light_cavalry
+		add = counter_synergy_ai_weight_light_cavalry
+	}
+
+	illustration = {
+		trigger = {
+			should_use_asian_maa_graphics = yes
+		}
+
+		reference = light_cavalry_asia
+	}
+
+	illustration = {
+		reference = light_cavalry
+	}
+
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+pikemen_unit = {
+	type = pikemen
+
+	damage = 22
+	toughness = 24
+	pursuit = 0
+	screen = 0
+
+	terrain_bonus = {
+		mountains = { toughness = 12 }
+		desert_mountains = { toughness = 12 }
+		hills = { toughness = 8 }
+	}
+
+	counters = {
+		light_cavalry = 1
+		heavy_cavalry = 1
+		camel_cavalry = 1
+		elephant_cavalry = 1
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+
+	buy_cost = { gold = pikemen_recruitment_cost }
+	low_maintenance_cost = { gold = pikemen_low_maint_cost }
+	high_maintenance_cost = { gold = pikemen_high_maint_cost }
+	provision_cost = 12
+
+	holy_order_fallback = no
+
+	stack = 100
+	ai_quality = {
+		value = culture_ai_weight_pikemen
+		add = counter_synergy_ai_weight_pikemen
+	}
+
+	illustration = {
+		trigger = {
+			should_use_asian_maa_graphics = yes
+		}
+
+		reference = pikemen_asia
+	}
+
+	illustration = {
+		reference = pikemen
+	}
+
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+armored_footmen = {
+	type = heavy_infantry
+
+	damage = 32
+	toughness = 22
+	pursuit = 0
+	screen = 0
+
+	counters = {
+		pikemen = 1
+		peasant_militia = 2
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+
+	buy_cost = { gold = heavy_infantry_recruitment_cost }
+	low_maintenance_cost = { gold = heavy_infantry_low_maint_cost }
+	high_maintenance_cost = { gold = heavy_infantry_high_maint_cost }
+	provision_cost = 7
+
+	holy_order_fallback = no
+
+	stack = 100
+	ai_quality = {
+		value = culture_ai_weight_heavy_infantry
+		add = counter_synergy_ai_weight_heavy_infantry
+	}
+
+	illustration = {
+		trigger = {
+			should_use_asian_maa_graphics = yes
+		}
+
+		reference = heavy_infantry_asia
+	}
+
+	illustration = {
+		reference = heavy_infantry
+	}
+
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+onager = {
+	type = siege_weapon
+	fights_in_main_phase = no
+
+	damage = 0
+	toughness = 12
+
+	siege_tier = 1
+	siege_value = 0.2
+
+	can_recruit = {
+		always = no
+	}
+
+
+	buy_cost = { gold = onager_recruitment_cost }
+	low_maintenance_cost = { gold = onager_low_maint_cost }
+	high_maintenance_cost = { gold = onager_high_maint_cost }
+	provision_cost = 6
+
+	stack = 10
+	allowed_in_hired_troops = no
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+}
+
+armored_horsemen = {
+	type = heavy_cavalry
+
+	damage = 100
+	toughness = 35
+	pursuit = 20
+	screen = 0
+
+	terrain_bonus = {
+		plains = { damage = 30 }
+		drylands = { damage = 30 }
+		hills = { damage = -20 }
+		mountains = { damage = -75 }
+		desert_mountains = { damage = -75 }
+		wetlands = { damage = -75 toughness = -10 pursuit = -10 }
+	}
+
+	counters = {
+		archers = 1
+		gunpowder = 1
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+
+
+	winter_bonus = {
+		normal_winter = { damage = -10 toughness = -5 }
+		harsh_winter = { damage = -20 toughness = -10 }
+	}
+
+	buy_cost = { gold = heavy_cavalry_recruitment_cost }
+	low_maintenance_cost = { gold = heavy_cavalry_low_maint_cost }
+	high_maintenance_cost = { gold = heavy_cavalry_high_maint_cost }
+	provision_cost = 21
+
+	stack = 50
+	ai_quality = { value = culture_ai_weight_heavy_cavalry }
+
+	illustration = {
+		trigger = {
+			should_use_asian_maa_graphics = yes
+		}
+
+		reference = heavy_cavalry_asia
+	}
+
+	illustration = {
+		reference = heavy_cavalry
+	}
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+mangonel = {
+	type = siege_weapon
+	fights_in_main_phase = no
+
+	damage = 0
+	toughness = 12
+
+	siege_tier = 2
+	siege_value = 0.3
+
+	can_recruit = {
+		always = no
+	}
+
+
+	buy_cost = { gold = mangonel_recruitment_cost }
+	low_maintenance_cost = { gold = mangonel_low_maint_cost }
+	high_maintenance_cost = { gold = mangonel_high_maint_cost }
+	provision_cost = 12
+
+	stack = 10
+	allowed_in_hired_troops = no
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+}
+
+crossbowmen = {
+	type = archers
+
+	damage = 42
+	toughness = 18
+	pursuit = 0
+	screen = 0
+
+	terrain_bonus = {
+		hills = { damage = 10 }
+		plains = { toughness = -8 }
+		drylands = { toughness = -8 }
+		desert = { toughness = -8 }
+	}
+
+	counters = {
+		heavy_infantry = 1
+		heavy_cavalry = 1
+		archer_cavalry = 0.5
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+
+	buy_cost = { gold = crossbowmen_recruitment_cost }
+	low_maintenance_cost = { gold = crossbowmen_low_maint_cost }
+	high_maintenance_cost = { gold = crossbowmen_high_maint_cost }
+	provision_cost = 7
+
+	ai_quality = {
+		value = culture_ai_weight_crossbowmen
+	}
+
+	stack = 100
+
+	illustration = {
+		trigger = {
+			should_use_asian_maa_graphics = yes
+		}
+
+		reference = crossbowmen_asia
+	}
+
+	illustration = {
+		reference = crossbowmen
+	}
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+trebuchet = {
+	type = siege_weapon
+	fights_in_main_phase = no
+
+	damage = 0
+	toughness = 12
+
+	siege_tier = 3
+	siege_value = 0.4
+
+	can_recruit = {
+		always = no
+	}
+
+
+	buy_cost = { gold = trebuchet_recruitment_cost }
+	low_maintenance_cost = { gold = trebuchet_low_maint_cost }
+	high_maintenance_cost = { gold = trebuchet_high_maint_cost }
+	provision_cost = 18
+
+	stack = 10
+	allowed_in_hired_troops = no
+
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+}
+
+bombard = {
+	type = siege_weapon
+	fights_in_main_phase = no
+
+	damage = 0
+	toughness = 12
+
+	siege_tier = 4
+	siege_value = 0.6
+
+	can_recruit = {
+		always = no
+	}
+
+
+	buy_cost = { gold = bombard_recruitment_cost }
+	low_maintenance_cost = { gold = bombard_low_maint_cost }
+	high_maintenance_cost = { gold = bombard_high_maint_cost }
+	provision_cost = 24
+
+	stack = 10
+	allowed_in_hired_troops = no
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+}
+
+handgunners = {
+	type = gunpowder
+
+	damage = 52
+	toughness = 12
+	pursuit = 0
+	screen = 5
+
+	can_recruit = {
+		always = no
+	}
+
+	terrain_bonus = {
+		wetlands = { damage = -10 }
+		floodplains = { damage = -5 }
+	}
+
+	counters = {
+		heavy_infantry = 1
+	}
+
+	buy_cost = { gold = handgunner_recruitment_cost }
+	low_maintenance_cost = { gold = handgunner_low_maint_cost }
+	high_maintenance_cost = { gold = handgunner_high_maint_cost }
+	provision_cost = 7
+
+	ai_quality = {
+		value = counter_synergy_ai_weight_gunpowder
+	}
+
+	stack = 100
+
+	icon = handgonne
+
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+house_guard = {
+	type = heavy_infantry
+	can_recruit = {
+		always = no
+	}
+
+	damage = 40
+	toughness = 32
+	pursuit = 0
+	screen = 24
+
+	counters = {
+		pikemen = 2
+		peasant_militia = 4
+		archers = 2
+	}
+
+	buy_cost = { gold = 50 }
+	low_maintenance_cost = { gold = 0 }
+	high_maintenance_cost = { gold = 1 }
+	provision_cost = 12
+
+	max_regiments = 1
+
+	stack = 100
+	ai_quality = { value = 100 }
+
+	illustration = {
+		trigger = {
+			should_use_asian_maa_graphics = yes
+		}
+
+		reference = heavy_infantry_asia
+	}
+
+	illustration = {
+		reference = heavy_infantry
+	}
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+pikemen_militia = {
+	type = peasant_militia
+
+	damage = 12
+	toughness = 16
+	pursuit = 10
+	screen = 0
+
+	terrain_bonus = {
+		mountains = { toughness = 8 }
+		desert_mountains = { toughness = 8 }
+		hills = { toughness = 4 }
+		farmlands = { toughness = 8 }
+		floodplains = { toughness = 8 }
+		terraced_hills = { toughness = 8 }
+	}
+
+	counters = {
+		light_cavalry = 1
+		heavy_cavalry = 0.5
+		camel_cavalry = 1
+	}
+
+	special_recruit_only = yes
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = 0 }
+	low_maintenance_cost = { gold = 0 }
+	high_maintenance_cost = { gold = 0 }
+	provision_cost = 12
+
+	stack = 100
+	ai_quality = { value = -100 }
+
+	allowed_in_hired_troops = no
+	illustration = {
+		trigger = {
+			should_use_asian_maa_graphics = yes
+		}
+		reference = pikemen_militia_asia
+	}
+	illustration = {
+		reference = pikemen_militia
+	}
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+}
+
+##
+# from 00_regional_maa_types.txt
+##
+
+camel_rider = {
+	type = camel_cavalry
+	
+	damage = 22
+	toughness = 15
+	pursuit = 20
+	screen = 20
+	
+	terrain_bonus = {
+		desert = { damage = 20 toughness = 8 }
+		drylands = { damage = 15 toughness = 8 }
+		oasis = { damage = 15 }
+		floodplains = { damage = 5 }
+		hills = { damage = -10 }
+		desert_mountains = { damage = -10 pursuit = -10 }
+		mountains = { damage = -15 pursuit = -20 }
+		wetlands = { damage = -15 toughness = -10 pursuit = -20 screen = -20 }
+	}
+	
+	counters = {
+		light_cavalry = 1
+	}
+
+	winter_bonus = {
+		normal_winter = { damage = -3 }
+		harsh_winter = { damage = -5 toughness = -2 }
+	}
+	
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = camel_rider_recruitment_cost }
+	low_maintenance_cost = { gold = camel_rider_low_maint_cost }
+	high_maintenance_cost = { gold = camel_rider_high_maint_cost }
+	provision_cost = 21
+	
+	stack = 100
+	ai_quality = { value = culture_ai_weight_camels }
+	icon = camel_riders
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+war_elephant = {
+	type = elephant_cavalry
+	
+	damage = 250
+	toughness = 50
+	pursuit = 0
+	screen = 0
+	
+	siege_value = 0.1
+	
+	terrain_bonus = {
+		jungle = { damage = 50 }
+		terraced_hills = { damage = 25 }
+		mountains = { damage = -100 }
+		desert_mountains = { damage = -100 }
+		wetlands = { damage = -150 toughness = -20 }
+	}
+	
+	counters = {
+		skirmishers = 2
+		heavy_infantry = 2
+	}
+
+	winter_bonus = {
+		normal_winter = { damage = -30 toughness = -5 }
+		harsh_winter = { damage = -60 toughness = -10 }
+	}
+
+	buy_cost = { gold = war_elephant_recruitment_cost }
+	low_maintenance_cost = { gold = war_elephant_low_maint_cost }
+	high_maintenance_cost = { gold = war_elephant_high_maint_cost }
+	provision_cost = 30
+	
+	can_recruit = {
+		always = no
+	}
+	
+	stack = 25
+	hired_stack_size = 10
+	ai_quality = { value = culture_ai_weight_elephants }
+	icon = war_elephants
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+##
+# from 01_fp1_maa_types.txt
+##
+
+vigmen = {
+	type = archers
+	
+	damage = 18
+	toughness = 20
+	pursuit = 0
+	screen = 22
+	
+	can_recruit = {
+		always = no
+	}
+	
+	terrain_bonus = {
+		farmlands = { damage = 10 toughness = 6 screen = 6 }
+		plains = { damage = 6 toughness = 4 screen = 4 }
+		taiga = { damage = 4 screen = 6 }
+	}
+
+	counters = {
+		skirmishers = 1
+	}
+
+	winter_bonus = {
+		normal_winter = { toughness = 3 screen = 5 }
+		harsh_winter = { toughness = 3 screen = 5 }
+	}
+
+	buy_cost = { gold = vigmen_recruitment_cost }
+	low_maintenance_cost = { gold = vigmen_low_maint_cost }
+	high_maintenance_cost = { gold = vigmen_high_maint_cost }
+	provision_cost = 3
+	
+	stack = 100
+	ai_quality = { value = culture_ai_weight_vigmen }
+	icon = vigmen
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+bondi = {
+	type = pikemen
+	
+	damage = 14
+	toughness = 18
+	pursuit = 12
+	screen = 0
+	
+	can_recruit = {
+		always = no
+	}
+	
+	terrain_bonus = {
+		farmlands = { damage = 10 toughness = 6 pursuit = 10 }
+		plains = { damage = 6 toughness = 4 pursuit = 6 }
+		hills = { damage = -4 pursuit = -6 }
+		mountains = { damage = -4 pursuit = -6 }
+		desert_mountains = { damage = -4 pursuit = -6 }
+	}
+
+	counters = {
+		light_cavalry = 1
+		archers = 1
+	}
+
+	winter_bonus = {
+		normal_winter = { damage = 4 pursuit = 5 }
+		harsh_winter = { damage = 4 pursuit = 5 }
+	}
+
+	buy_cost = { gold = bondi_recruitment_cost }
+	low_maintenance_cost = { gold = bondi_low_maint_cost }
+	high_maintenance_cost = { gold = bondi_high_maint_cost }
+	provision_cost = 3
+	
+	stack = 100
+	ai_quality = { value = 60 }
+	icon = bondi
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+varangian_veterans = {
+	type = heavy_infantry
+	
+	damage = 45
+	toughness = 30
+	pursuit = 10
+	screen = 0
+	
+	can_recruit = {
+		always = no
+	}
+	
+	terrain_bonus = {
+		farmlands = { damage = 6 toughness = 4 }
+		plains = { damage = 6 toughness = 4 }
+		hills = { damage = 6 toughness = 4 }
+	}
+	
+	counters = {
+		pikemen = 1
+		peasant_militia = 2
+		heavy_cavalry = 1
+	}
+
+	winter_bonus = {
+		normal_winter = { toughness = 6 screen = 6 }
+		harsh_winter = { toughness = 6 screen = 6 }
+	}
+	
+	buy_cost = { gold = varangian_veterans_recruitment_cost }
+	low_maintenance_cost = { gold = varangian_veterans_low_maint_cost }
+	high_maintenance_cost = { gold = varangian_veterans_high_maint_cost }
+	provision_cost = 3
+
+	max_regiments = 1
+	
+	stack = 100
+	ai_quality = { value = 60 }
+	icon = varangian_guard
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+jomsviking_pirates = {
+	type = skirmishers
+
+	special_recruit_only = yes
+
+	damage = 30
+	toughness = 30
+	pursuit = 40
+	screen = 40
+	
+	counters = {
+		heavy_infantry = 1
+		archers = 1
+	}
+
+	winter_bonus = {
+		normal_winter = { damage = 8 pursuit = 8 }
+		harsh_winter = { damage = 8 pursuit = 8 }
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = jomsviking_pirates_recruitment_cost }
+	low_maintenance_cost = { gold = jomsviking_pirates_low_maint_cost }
+	high_maintenance_cost = { gold = jomsviking_pirates_high_maint_cost }
+	provision_cost = 3
+	
+	stack = 100
+	ai_quality = { value = 60 }
+	icon = jomsviking_pirates
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+##
+# from 07_ep3_maa_types.txt
+##
+
+ayrudzi = {
+	type = light_cavalry
+
+	damage = 50
+	toughness = 30
+	pursuit = 20
+	screen = 30
+
+	terrain_bonus = {
+		hills = { damage = 30 toughness = 20 }
+		mountains = { damage = 20 toughness = 10 }
+		drylands = { damage = 10 }
+		plains = { damage = 10 }
+		wetlands = { damage = -30 toughness = -20 pursuit = -20 screen = -25 }
+		jungle = { damage = -30 toughness = -20 pursuit = -20 screen = -25 }
+	}
+
+	counters = {
+		archers = 1
+		archer_cavalry = 0.5
+		gunpowder = 1
+	}
+
+	winter_bonus = {
+		harsh_winter = { damage = -5 }
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = ayrudzi_recruitment_cost }
+	low_maintenance_cost = { gold = ayrudzi_low_maint_cost }
+	high_maintenance_cost = { gold = ayrudzi_high_maint_cost }
+	provision_cost = 7
+
+	stack = 50
+	ai_quality = {
+		value = 80
+		add = counter_synergy_ai_weight_light_cavalry
+	}
+	icon = ayrudzi
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+conrois = {
+	type = heavy_cavalry
+
+	damage = 100
+	toughness = 25
+	pursuit = 10
+	screen = 0
+
+	terrain_bonus = {
+		plains = { damage = 30 }
+		drylands = { damage = 30 }
+		farmlands = { damage = 30 }
+		hills = { damage = -20 }
+		mountains = { damage = -75 }
+		desert_mountains = { damage = -75 }
+		wetlands = { damage = -75 toughness = -10 pursuit = -10 }
+		jungle = { damage = -75 toughness = -10 pursuit = -10 }
+	}
+
+	counters = {
+		archers = 1
+		light_cavalry = 1
+		gunpowder = 1
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	winter_bonus = {
+		normal_winter = { damage = -15 toughness = -5 }
+		harsh_winter = { damage = -25 toughness = -10 }
+	}
+
+	buy_cost = { gold = conrois_recruitment_cost }
+	low_maintenance_cost = { gold = conrois_low_maint_cost }
+	high_maintenance_cost = { gold = conrois_high_maint_cost }
+	provision_cost = 7
+
+	stack = 50
+	ai_quality = { value = @[80 + 35 ] }
+	icon = conrois
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+akritai = {
+	type = skirmishers
+
+	damage = 10
+	toughness = 14
+	pursuit = 12
+	screen = 18
+
+	terrain_bonus = {
+		mountains = { damage = 10 toughness = 10 }
+		desert_mountains = { damage = 6 toughness = 6 }
+		hills = { damage = 6 toughness = 6 }
+		forest = { toughness = 4 }
+		wetlands = { toughness = 4 }
+	}
+
+	counters = {
+		heavy_infantry = 1
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = akritai_recruitment_cost }
+	low_maintenance_cost = { gold = akritai_low_maint_cost }
+	high_maintenance_cost = { gold = akritai_high_maint_cost }
+	provision_cost = 3
+
+	stack = 100
+	ai_quality = { value = @[80 - 90] }
+	icon = akritai
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+ballistrai = {
+	type = archers
+
+	damage = 35
+	toughness = 12
+	pursuit = 0
+	screen = 0
+
+	siege_value = 0.1
+
+	terrain_bonus = {
+		farmlands = { damage = 8 toughness = 6 }
+		plains = { damage = 8 }
+		hills = { damage = 8 }
+	}
+
+	counters = {
+		pikemen = 0.5
+		peasant_militia = 1
+		heavy_infantry = 0.5
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = ballistrai_recruitment_cost }
+	low_maintenance_cost = { gold = ballistrai_low_maint_cost }
+	high_maintenance_cost = { gold = ballistrai_high_maint_cost }
+	provision_cost = 12
+
+	stack = 50
+	ai_quality = { value = @[80 + 200] }
+	icon = ballistrai
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+skoutatoi = {
+	type = pikemen
+
+	damage = 22
+	toughness = 26
+	pursuit = 0
+	screen = 20
+
+	terrain_bonus = {
+		mountains = { toughness = 8 }
+		desert_mountains = { toughness = 8 }
+		hills = { toughness = 8 }
+		plains = { damage = 8 }
+	}
+
+	counters = {
+		light_cavalry = 1
+		heavy_cavalry = 1
+		camel_cavalry = 1
+		elephant_cavalry = 1
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = skoutatoi_recruitment_cost }
+	low_maintenance_cost = { gold = skoutatoi_low_maint_cost }
+	high_maintenance_cost = { gold = skoutatoi_high_maint_cost }
+	provision_cost = 7
+
+	stack = 100
+	ai_quality = {
+		value = @[80 + 20]
+		add = counter_synergy_ai_weight_pikemen
+	}
+	icon = skoutatoi
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+varangian_guards = {
+	type = heavy_infantry
+
+	damage = 45
+	toughness = 32
+	pursuit = 10
+	screen = 5
+
+	can_recruit = {
+		always = no
+	}
+
+	terrain_bonus = {
+		farmlands = { damage = 12 toughness = 8 }
+		plains = { damage = 6 toughness = 4 }
+		hills = { damage = 6 toughness = 4 }
+	}
+	
+	counters = {
+		pikemen = 1
+		peasant_militia = 2
+		heavy_cavalry = 1
+	}
+
+	winter_bonus = {
+		normal_winter = { toughness = 6 screen = 6 }
+		harsh_winter = { toughness = 6 screen = 6 }
+	}
+
+	buy_cost = { gold = varangian_guards_recruitment_cost }
+	low_maintenance_cost = { gold = varangian_guards_low_maint_cost }
+	high_maintenance_cost = { gold = varangian_guards_high_maint_cost }
+	provision_cost = 7
+
+	stack = 100
+	ai_quality = {
+		value = @[80 + 40]
+		add = counter_synergy_ai_weight_heavy_infantry
+	}
+	icon = varangian_guard
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+handpicked_faithful = {
+	type = heavy_infantry
+
+	damage = 38
+	toughness = 28
+	pursuit = 5
+	screen = 5
+
+	can_recruit = {
+		always = no
+	}
+
+	terrain_bonus = {
+		hills = { damage = 6 toughness = 4 }
+		forest = { damage = 6 toughness = 4 }
+		jungle = { damage = 6 toughness = 4 }
+	}
+
+	counters = {
+		pikemen = 1
+		peasant_militia = 2
+		heavy_cavalry = 1
+	}
+
+	buy_cost = { gold = handpicked_faithful_recruitment_cost }
+	low_maintenance_cost = { gold = handpicked_faithful_low_maint_cost }
+	high_maintenance_cost = { gold = handpicked_faithful_high_maint_cost }
+	provision_cost = 7
+
+	stack = 100
+	ai_quality = {
+		value = @[80 + 50]
+		add = counter_synergy_ai_weight_heavy_infantry
+	}
+	icon = heavy_infantry
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+maa_bandits = {
+	type = skirmishers
+
+	special_recruit_only = yes
+
+	damage = 15
+	toughness = 20
+	pursuit = 20
+	screen = 25
+
+	terrain_bonus = {
+		forest = { damage = 4 toughness = 6 }
+		hills = { damage = 4 toughness = 6 }
+		jungle = { damage = 4 toughness = 6 }
+	}
+	
+	counters = {
+		heavy_infantry = 1
+		archers = 1
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = jomsviking_pirates_recruitment_cost }
+	low_maintenance_cost = { gold = jomsviking_pirates_low_maint_cost }
+	high_maintenance_cost = { gold = jomsviking_pirates_high_maint_cost }
+	provision_cost = 3
+	
+	stack = 50
+	ai_quality = { value = 80 }
+	icon = skirmishers
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+maa_poachers = {
+	type = archers
+
+	special_recruit_only = yes
+
+	damage = 30
+	toughness = 15
+	pursuit = 10
+	screen = 10
+	
+	terrain_bonus = {
+		hills = { damage = 10 toughness = 6 }
+		forest = { toughness = 10 screen = 10 }
+		jungle = { toughness = 10 screen = 10 }
+	}
+
+	counters = {
+		skirmishers = 1
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = jomsviking_pirates_recruitment_cost }
+	low_maintenance_cost = { gold = jomsviking_pirates_low_maint_cost }
+	high_maintenance_cost = { gold = jomsviking_pirates_high_maint_cost }
+	provision_cost = 3
+	
+	stack = 50
+	ai_quality = { value = 80 }
+	icon = bowmen
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+maa_marauders = {
+	type = light_cavalry
+
+	special_recruit_only = yes
+
+	damage = 30
+	toughness = 15
+	pursuit = 40
+	screen = 30
+	
+	terrain_bonus = {
+		plains = { damage = 15 }
+		drylands = { damage = 15 }
+		farmlands = { damage = 25 }
+	}
+	
+	counters = {
+		archers = 1
+		gunpowder = 1
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = jomsviking_pirates_recruitment_cost }
+	low_maintenance_cost = { gold = jomsviking_pirates_low_maint_cost }
+	high_maintenance_cost = { gold = jomsviking_pirates_high_maint_cost }
+	provision_cost = 7
+	
+	stack = 50
+	ai_quality = { value = 80 }
+	icon = light_cavalry
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}
+
+maa_thieves = {
+	type = pikemen
+
+	special_recruit_only = yes
+
+	damage = 30
+	toughness = 20
+	pursuit = 10
+	screen = 10
+	
+	terrain_bonus = {
+		mountains = { toughness = 15 }
+		desert_mountains = { toughness = 15 }
+		hills = { toughness = 10 }
+	}
+
+	counters = {
+		light_cavalry = 1
+		heavy_cavalry = 1
+		camel_cavalry = 1
+		elephant_cavalry = 1
+	}
+
+	can_recruit = {
+		always = no
+	}
+
+	buy_cost = { gold = jomsviking_pirates_recruitment_cost }
+	low_maintenance_cost = { gold = jomsviking_pirates_low_maint_cost }
+	high_maintenance_cost = { gold = jomsviking_pirates_high_maint_cost }
+	provision_cost = 3
+	
+	stack = 50
+	ai_quality = { value = 80 }
+	icon = pikemen
+
+	holy_order_fallback = no
+	mercenary_fallback = no
+	allowed_in_hired_troops = no
+}

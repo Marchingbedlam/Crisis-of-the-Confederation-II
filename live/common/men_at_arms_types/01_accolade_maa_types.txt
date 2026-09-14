@@ -24,13 +24,7 @@ accolade_maa_archers = {
 	type = archers
 
 	can_recruit = {
-		any_accolade = {
-			accolade_attribute_level = {
-				type = archer_attribute
-				level >= 2
-			}
-		}
-		NOT = { exists = scope:title }
+		always = no
 	}
 
 	max_regiments = 1
@@ -56,6 +50,8 @@ accolade_maa_archers = {
 	provision_cost = @provisions_cost_infantry_cheap
 	
 	stack = 100
+	holy_order_fallback = no
+	mercenary_fallback = no
 	allowed_in_hired_troops = no
 	ai_quality = {
 		value = culture_ai_weight_archers
@@ -79,13 +75,7 @@ accolade_maa_skirmishers = {
 	type = skirmishers
 
 	can_recruit = {
-		any_accolade = {
-			accolade_attribute_level = {
-				type = skirmisher_attribute
-				level >= 2
-			}
-		}
-		NOT = { exists = scope:title }
+		always = no
 	}
 
 	max_regiments = 1
@@ -112,6 +102,8 @@ accolade_maa_skirmishers = {
 	provision_cost = @provisions_cost_infantry_cheap
 	
 	stack = 100
+	holy_order_fallback = no
+	mercenary_fallback = no
 	allowed_in_hired_troops = no
 	ai_quality = {
 		value = culture_ai_weight_skirmishers
@@ -135,13 +127,7 @@ accolade_maa_pikes = {
 	type = pikemen
 
 	can_recruit = {
-		any_accolade = {
-			accolade_attribute_level = {
-				type = pike_attribute
-				level >= 2
-			}
-		}
-		NOT = { exists = scope:title }
+		always = no
 	}
 
 	max_regiments = 1
@@ -170,6 +156,8 @@ accolade_maa_pikes = {
 	provision_cost = @provisions_cost_infantry_cheap
 	
 	stack = 100
+	holy_order_fallback = no
+	mercenary_fallback = no
 	allowed_in_hired_troops = no
 	ai_quality = {
 		value = culture_ai_weight_pikemen
@@ -193,13 +181,7 @@ accolade_maa_outriders = {
 	type = light_cavalry
 
 	can_recruit = {
-		any_accolade = {
-			accolade_attribute_level = {
-				type = outrider_attribute
-				level >= 2
-			}
-		}
-		NOT = { exists = scope:title }
+		always = no
 	}
 
 	max_regiments = 1
@@ -233,6 +215,8 @@ accolade_maa_outriders = {
 	provision_cost = @provisions_cost_cavalry_cheap
 	
 	stack = 100
+	holy_order_fallback = no
+	mercenary_fallback = no
 	allowed_in_hired_troops = no
 	ai_quality = {
 		value = culture_ai_weight_light_cavalry
@@ -256,16 +240,7 @@ accolade_maa_vanguards = {
 	type = heavy_infantry
 
 	can_recruit = {
-		any_accolade = {
-			accolade_attribute_level = {
-				type = vanguard_attribute
-				level >= 2
-			}
-		}
-		NOT = {
-			culture = { has_cultural_parameter = strength_in_numbers_heavy_maa_ban }
-		}
-		NOT = { exists = scope:title }
+		always = no
 	}
 
 	max_regiments = 1
@@ -286,6 +261,8 @@ accolade_maa_vanguards = {
 	provision_cost = @provisions_cost_infantry_expensive
 	
 	stack = 100
+	holy_order_fallback = no
+	mercenary_fallback = no
 	allowed_in_hired_troops = no
 	ai_quality = {
 		value = culture_ai_weight_heavy_infantry
@@ -309,13 +286,7 @@ accolade_maa_lancers = {
 	type = heavy_cavalry
 	
 	can_recruit = {
-		any_accolade = {
-			accolade_attribute_level = {
-				type = lancer_attribute
-				level >= 2
-			}
-		}
-		NOT = { exists = scope:title }
+		always = no
 	}
 
 	max_regiments = 1
@@ -350,6 +321,8 @@ accolade_maa_lancers = {
 	provision_cost = @provisions_cost_cavalry_expensive
 	
 	stack = 50
+	holy_order_fallback = no
+	mercenary_fallback = no
 	allowed_in_hired_troops = no
 	ai_quality = {
 		value = culture_ai_weight_heavy_cavalry
@@ -373,13 +346,7 @@ accolade_maa_crossbowers = {
 	type = archers
 
 	can_recruit = {
-		any_accolade = {
-			accolade_attribute_level = {
-				type = crossbowmen_attribute
-				level >= 2
-			}
-		}
-		NOT = { exists = scope:title }
+		always = no
 	}
 
 	max_regiments = 1
@@ -408,6 +375,8 @@ accolade_maa_crossbowers = {
 	provision_cost = @provisions_cost_infantry_moderate
 	
 	stack = 100
+	holy_order_fallback = no
+	mercenary_fallback = no
 	allowed_in_hired_troops = no
 	ai_quality = {
 		value = culture_ai_weight_archers
@@ -431,13 +400,7 @@ accolade_maa_cameliers = {
 	type = camel_cavalry
 
 	can_recruit = {
-		any_accolade = {
-			accolade_attribute_level = {
-				type = camelry_attribute
-				level >= 2
-			}
-		}
-		NOT = { exists = scope:title }
+		always = no
 	}
 
 	max_regiments = 1
@@ -473,6 +436,8 @@ accolade_maa_cameliers = {
 	provision_cost = @provisions_cost_cavalry_moderate
 	
 	stack = 100
+	holy_order_fallback = no
+	mercenary_fallback = no
 	allowed_in_hired_troops = no
 	ai_quality = {
 		value = culture_ai_weight_camels
@@ -530,6 +495,8 @@ accolade_maa_elephantiers = {
 	
 	stack = 25
 	hired_stack_size = 10
+	holy_order_fallback = no
+	mercenary_fallback = no
 	allowed_in_hired_troops = no
 	ai_quality = {
 		value = culture_ai_weight_elephants
@@ -544,13 +511,7 @@ accolade_maa_horse_archers = {
 	type = archer_cavalry
 
 	can_recruit = {
-		any_accolade = {
-			accolade_attribute_level = {
-				type = horse_archer_attribute
-				level >= 2
-			}
-		}
-		NOT = { exists = scope:title }
+		always = no
 	}
 
 	max_regiments = 1
@@ -581,6 +542,8 @@ accolade_maa_horse_archers = {
 	provision_cost = @provisions_cost_cavalry_cheap
 	
 	stack = 100
+	holy_order_fallback = no
+	mercenary_fallback = no
 	allowed_in_hired_troops = no
 	ai_quality = {
 		value = @cultural_maa_extra_ai_score
@@ -600,15 +563,7 @@ accolade_maa_handgunners = {
 	screen = 5
 
 	can_recruit = {
-		any_accolade = {
-			accolade_attribute_level = {
-				type = gunpowder_attribute
-				level >= 2
-			}
-		}
-		# no powder magazine requirements for Accolade Handgunners
-		culture = { has_innovation = innovation_gunpowder }
-		NOT = { exists = scope:title }
+		always = no
 	}
 
 	max_regiments = 1
@@ -626,6 +581,8 @@ accolade_maa_handgunners = {
 	provision_cost = @provisions_cost_infantry_moderate
 	
 	stack = 100
+	holy_order_fallback = no
+	mercenary_fallback = no
 	allowed_in_hired_troops = no
 	ai_quality = {
 		value = counter_synergy_ai_weight_gunpowder
