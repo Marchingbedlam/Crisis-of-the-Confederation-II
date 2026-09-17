@@ -118,7 +118,7 @@
  camp_perimeter_01_domicile_building: "Security"
 
  ##################################################
- # FITTINGS - upgrades
+ # FITTINGS - sub-buildings
  ##################################################
 
  supply_tent_sutler_domicile_building: "Contract Fixers"
@@ -219,7 +219,6 @@
  # ACTIONS AND TITLES
  ##################################################
 
- # This is the landless duchy title
  adventurer_name: "[new_landless_adventurer.GetFirstNamePossessiveNoTooltip] Group"
 
  become_landless_adventurer_decision: "Go Freelancer"
@@ -240,11 +239,7 @@
  ep3_laamp_adventurer_empire_invasion: "Seizure"
 
  ##################################################
- # ARTICLE FIXES
- #
- # [adventurer|E] used to render "Adventurer" and now renders "Freelancer", so
- # every vanilla string that wrote "an" before it is wrong. Values are verbatim
- # vanilla with only the article changed.
+ # ARTICLE FIXES - adventurer
  ##################################################
 
  BUY_CLAIM_LANDLESS_ADVENTURER_TITLE:0 "You cannot buy a [claim|E] on a [adventurer|E] title"
@@ -277,16 +272,7 @@
  seize_realm_desc_general: "A Hostile [scheme|E] that allows a [adventurer|E] to seize the [realm|E] of a [landed|E] [ruler|E].\n\n$seize_realm_warning$"
 
  ##################################################
- # ARTICLE FIXES - the other direction
- #
- # These names gained a leading vowel, so vanilla's "a" is now wrong:
- #   Second        -> Executive Officer
- #   Master Thief  -> Investigator
- #   Chief Engineer-> Assault Commander
- #   Master of Arms-> Ordnance Chief
- #   Barber's Tent -> Infirmary
- # Unchanged in the same strings: Huntsman->Weapons Specialist, Master of
- # Spoils->Fixer, Man-Haggler->Security Officer all stay consonant-initial.
+ # ARTICLE FIXES - adventurer officer roles
  ##################################################
 
  EVENT_WINDOW_OPTION_AVAILABLE_HAVE_SECOND: "This option is available because you have an [GetCourtPositionType('second_camp_officer').GetName()] [officer|E]"
@@ -296,3 +282,44 @@
  laamp_torture_requires_tools_tt: "You must have an $barber_tent_01_domicile_building$ [camp_building|E] with the $barber_tent_torturers_tools_domicile_building$ upgrade"
  laamp_base_contract_schemes.3661.o.lacking_officers.thief_huntsman_engineer: "You have neither an [GetCourtPositionType('master_thief_camp_officer').GetName()], nor a [GetCourtPositionType('huntperson_camp_officer').GetName()], nor an [GetCourtPositionType('chief_engineer_camp_officer').GetName()]"
  laamp_base_contract_schemes.3661.o.lacking_officers.moa_mos_man_haggler: "You have neither an [GetCourtPositionType('master_of_arms_camp_officer').GetName()], nor a [GetCourtPositionType('master_of_spoils_camp_officer').GetName()], nor a [GetCourtPositionType('person_haggler_camp_officer').GetName()]"
+
+ ##################################################
+ # FREELANCER RULER TITLES (per Charter)
+ #
+ # Gender-neutral throughout
+ ##################################################
+
+ # Tier word for a Freelancer's landless title
+ duchy_landless_adventurer_camp: "Group"
+
+ # No Charter selected yet.
+ duke_landless_adventurer_male_camp: "Captain"
+ duke_landless_adventurer_female_camp: "Captain"
+
+ # Freelancers
+ duke_landless_adventurer_camp_wanderers: "Captain"
+ duchess_landless_adventurer_camp_wanderers: "Captain"
+
+ # Private Contractors
+ duke_landless_adventurer_camp_mercenaries: "Commander"
+ duchess_landless_adventurer_camp_mercenaries: "Commander"
+
+ # Researchers
+ duke_landless_adventurer_camp_scholars: "Head Researcher"
+ duchess_landless_adventurer_camp_scholars: "Head Researcher"
+
+ # Prospectors
+ duke_landless_adventurer_camp_explorers: "Expedition Lead"
+ duchess_landless_adventurer_camp_explorers: "Expedition Lead"
+
+ # Privateers
+ duke_landless_adventurer_camp_brigands: "Privateer"
+ duchess_landless_adventurer_camp_brigands: "Privateer"
+
+ # Legitimists - placeholder, should take from character's previous title if possible
+ duke_landless_adventurer_camp_legitimists: "Governor-in-Exile"
+ duchess_landless_adventurer_camp_legitimists: "Governor-in-Exile"
+
+ # Spouse of a Freelancer
+ spouse_landless_adventurer_male: ""
+ spouse_landless_adventurer_holder_female: ""
