@@ -783,6 +783,11 @@ ep3_become_landed_transfer_effect = {
 		$TITLE_RECEIVER$ = { laamp_clear_domicile_buildings_liquidator_effect = yes }
 	}
 	$TITLE_RECEIVER$ = {
+		# COTC: capture Freelancer status
+		if = {
+			limit = { government_has_flag = government_is_landless_adventurer }
+			save_scope_as = cotc_settling_freelancer
+		}
 		if = {
 			limit = { character:1 ?= this }
 			custom_tooltip = ep3_story_cycle_harrying.3053.b.tt
@@ -1026,6 +1031,11 @@ ep3_become_landed_transfer_effect = {
 	}
 	# Set government type
 	if = {
+		# COTC: a settling Freelancer's Charter decides their government, not the seller's.
+		limit = { exists = scope:cotc_settling_freelancer }
+		scope:cotc_settling_freelancer = { cotc_freelancer_settle_government_effect = yes }
+	}
+	else_if = {
 		limit = { exists = scope:old_government }
 		# We don't expect to actually trigger most of the below, as most are not valid targets to begin with, but all are included for completeness and mod support
 		switch = {

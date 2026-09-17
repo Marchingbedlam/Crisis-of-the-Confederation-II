@@ -1,0 +1,715 @@
+﻿# COTC - disabled camp officers
+#
+# Loads after 00_camp_officers.txt
+#
+# Do not stub these, court position types have many required fields
+
+### master_bard_camp_officer - DISABLED
+master_bard_camp_officer = {
+	sort_order = 36
+	max_available_positions = 1
+	skill = diplomacy
+
+	court_position_asset = {
+		animation = lute_active
+		background = "gfx/interface/illustrations/event_scenes/ep3_adventurer_background.dds"
+	}
+
+	opinion = {
+		value = high_camp_officer_opinion
+	}
+	
+	# How high the aptitude has to be to reach the 5 different modifier levels
+	aptitude_level_breakpoints = { 20 40 60 80 }
+
+	# How good is this character in this position? root scope is the holder of the court position
+	aptitude = {
+		value = 0
+		if = {
+			limit = {
+				employer ?= {
+					has_government = landless_adventurer_government
+					has_perk = positions_of_power_perk
+				}
+				any_relation = { type = friend }
+			}
+			add = {
+				value = 5
+				desc = court_position_positions_of_power_perk_friend
+			}
+		}
+		
+		add = {
+			value = diplomacy
+			multiply = 2.5
+			max = 60
+			desc = court_position_skill_diplomacy
+		}
+		add = {
+			value = learning
+			multiply = 1
+			max = 50
+			desc = court_position_skill_learning
+		}
+		add = court_position_aptitude_high_penalty_value
+		add = general_aptitude_bonus
+		add = court_position_aptitude_low_penalty_value
+		add = general_aptitude_bonus
+		if = {
+			limit = {
+				has_trait = gregarious
+			}
+			add = {
+				value = 15
+				desc = court_position_gregarious_trait
+			}
+		}
+		if = {
+			limit = {
+				has_trait = lifestyle_poet
+			}
+			add = {
+				value = 30
+				desc = court_position_poet_trait
+			}
+		}
+		if = {
+			limit = {
+				has_trait = shy
+			}
+			add = {
+				value = -10
+				desc = court_position_shy_trait
+			}
+		}
+		if = {
+			limit = {
+				has_trait = lifestyle_reveler
+			}
+			add = {
+				value = 20
+				desc = court_position_reveler_trait
+			}
+		}
+		if = {
+			limit = {
+				has_trait = seducer
+			}
+			add = {
+				value = 20
+				desc = court_position_seducer_trait
+			}
+		}
+		if = { #Cultural Tradition that improves the aptitude of characters of that culture
+			limit = {
+				culture = { has_cultural_parameter = characters_are_better_court_musicians }
+			}
+			add = {
+				value = 20
+				desc = court_position_tradition_music_theory
+			}
+		}
+		if = { #Cultural Tradition that improves the aptitude of characters of that culture
+			limit = {
+				culture = { has_cultural_parameter = characters_are_better_court_poets }
+			}
+			add = {
+				value = 20
+				desc = court_position_tradition_poetry
+			}
+		}
+	}
+
+	is_shown = {
+		always = no # COTC: disabled
+	}
+
+	valid_position = {
+		custom_tooltip = {
+			text = landless_government_tt
+			government_has_flag = government_is_landless_adventurer
+		}
+		custom_tooltip = {
+			text = master_bard_camp_officer_parameter_tt
+			domicile ?= { has_domicile_parameter = camp_unlocks_master_bard_officer }
+		}
+	}
+
+	is_shown_character = {
+		scope:employee = {
+			is_incapable = no
+		}
+	}
+
+	valid_character = {
+		valid_camp_officer_trigger = {
+			OFFICER = master_bard
+		}
+	}
+
+	revoke_cost = {
+		prestige =  {
+			value = minor_court_position_prestige_revoke_cost
+
+			# Set to 0 with Dynasty Perk Inner Circle
+			if = {
+				limit = {
+					dynasty ?= { has_dynasty_perk = fp2_coterie_legacy_1 }
+
+					employs_court_position = master_bard_camp_officer
+					any_court_position_holder = {
+				        type = master_bard_camp_officer
+						exists = dynasty
+						house = prev.house
+					}
+				}
+				multiply = 0
+			}
+		}
+	}
+
+	salary = {
+		#officers have no salary
+	}
+
+	# These modifiers are employed based on what level the aptitude reaches (levels are defined as breakpoints) 
+	scaling_employer_modifiers = {
+		terrible = {
+			monthly_prestige = 0.05
+		}
+		poor = {
+			monthly_prestige = 0.1
+		}
+		average = {
+			monthly_prestige = 0.2
+		}
+		good = {
+			monthly_prestige = 0.25
+		}
+		excellent = {
+			monthly_prestige = 0.3
+		}
+	}
+
+	custom_employer_modifier_description = master_bard_camp_officer_employer_custom_effect_description
+
+	modifier = {
+		monthly_prestige = 0.1
+	}
+	
+	on_court_position_received = {
+		master_bard_camp_officer_title_accepted_effect = yes
+	}
+	on_court_position_revoked = { 
+		master_bard_camp_officer_title_revoked_effect = yes
+	}
+	on_court_position_invalidated = {
+		master_bard_camp_officer_title_invalidated_effect = yes
+	}
+	on_court_position_vacated = {
+		court_position_vacated_event_effect = {
+			COURT_POSITION_TYPE = master_bard_camp_officer
+		}
+	}
+	# Scripted value to determine whether an AI will hire/fire a position or not. Hires over 0, fires under -50. Look in _court_positions.info for more extensive documentation!
+	ai_position_score = {
+		value = @base_position_score
+	}
+	ai_candidate_score = {
+		value = @base_candidate_score
+
+		add = court_position_candidate_score_base_value 
+		add = court_position_candidate_aptitude_value
+	}
+}
+
+
+### stooge_camp_officer - DISABLED
+stooge_camp_officer = {
+	sort_order = 35
+	max_available_positions = 1
+	skill = learning
+
+	court_position_asset = {
+		animation = anger
+		background = "gfx/interface/illustrations/event_scenes/bp1_bonfire.dds"
+	}
+
+	opinion = {
+		value = -5
+	}
+	
+	# How high the aptitude has to be to reach the 5 different modifier levels
+	aptitude_level_breakpoints = { 20 40 60 80 }
+
+	# How good is this character in this position? root scope is the holder of the court position
+	aptitude = {
+		value = {
+			value = 100
+			desc = BASE
+		}
+		if = {
+			limit = {
+				employer ?= {
+					has_government = landless_adventurer_government
+					has_perk = positions_of_power_perk
+				}
+				any_relation = { type = friend }
+			}
+			add = {
+				value = 5
+				desc = court_position_positions_of_power_perk_friend
+			}
+		}
+		
+		add = {
+			value = learning
+			multiply = -2
+			max = 100
+			desc = court_position_skill_learning
+		}
+		add = {
+			value = sum_of_all_skills_value
+			multiply = -1
+			max = 100
+			desc = court_position_skill_all
+		}
+		if = {
+			limit = {
+				employer ?= { domicile ?= { has_domicile_parameter = camp_improves_stooge_officer } }
+			}
+			multiply = {
+				value = 1.25
+				desc = court_position_improved_by_camp_fire_capering_fools
+			}
+		}
+	}
+
+	is_shown = {
+		always = no # COTC: disabled
+	}
+
+	valid_position = {
+		custom_tooltip = {
+			text = landless_government_tt
+			government_has_flag = government_is_landless_adventurer
+		}
+	}
+
+	is_shown_character = {
+		scope:employee = {
+			is_incapable = no
+		}
+	}
+
+	valid_character = {
+		valid_camp_officer_trigger = {
+			OFFICER = stooge
+		}
+	}
+
+	revoke_cost = {
+		prestige =  {
+			value = minor_court_position_prestige_revoke_cost
+
+			# Set to 0 with Dynasty Perk Inner Circle
+			if = {
+				limit = {
+					dynasty ?= { has_dynasty_perk = fp2_coterie_legacy_1 }
+
+					employs_court_position = stooge_camp_officer
+					any_court_position_holder = {
+				        type = stooge_camp_officer
+						exists = dynasty
+						house = prev.house
+					}
+				}
+				multiply = 0
+			}
+		}
+	}
+
+	salary = {
+		#officers have no salary
+	}
+	
+	custom_employer_modifier_description = stooge_employer_custom_effect_description
+
+	modifier = {
+		monthly_prestige = -0.25
+	}
+
+	on_court_position_received = {
+		stooge_camp_officer_title_accepted_effect = yes
+	}
+	on_court_position_revoked = { 
+		stooge_camp_officer_title_revoked_effect = yes
+	}
+	on_court_position_invalidated = {
+		stooge_camp_officer_title_invalidated_effect = yes
+	}
+	on_court_position_vacated = {
+		court_position_vacated_event_effect = {
+			COURT_POSITION_TYPE = stooge_camp_officer
+		}
+	}
+	# Scripted value to determine whether an AI will hire/fire a position or not. Hires over 0, fires under -50. Look in _court_positions.info for more extensive documentation!
+	ai_position_score = {
+		value = @base_position_score
+	}
+	ai_candidate_score = {
+		value = @base_candidate_score
+
+		add = court_position_candidate_score_base_value 
+		add = court_position_candidate_aptitude_value
+	}
+}
+
+
+### laureate_camp_officer - DISABLED
+laureate_camp_officer = {
+	sort_order = 23
+	max_available_positions = 1
+	skill = diplomacy
+
+	court_position_asset = {
+		animation = debating
+		background = "gfx/interface/illustrations/event_scenes/ep2_village_festival_western.dds"
+	}
+
+	opinion = {
+		value = high_camp_officer_opinion
+	}
+	
+	# How high the aptitude has to be to reach the 5 different modifier levels
+	aptitude_level_breakpoints = { 20 40 60 80 }
+
+	# How good is this character in this position? root scope is the holder of the court position
+	aptitude = {
+		value = 0
+		if = {
+			limit = {
+				employer ?= {
+					has_government = landless_adventurer_government
+					has_perk = positions_of_power_perk
+				}
+				any_relation = { type = friend }
+			}
+			add = {
+				value = 5
+				desc = court_position_positions_of_power_perk_friend
+			}
+		}
+		
+		add = {
+			value = diplomacy
+			multiply = 2
+			max = 60
+			desc = court_position_skill_diplomacy
+		}
+		add = {
+			value = learning
+			max = 60
+			desc = court_position_skill_learning
+		}
+		add = {
+			value = intrigue
+			max = 60
+			desc = court_position_skill_intrigue
+		}
+		if = {
+			limit = {
+				has_trait = lifestyle_poet
+			}
+			add = {
+				value = 50
+				desc = court_position_poet_trait
+			}
+		}
+		add = court_position_aptitude_high_penalty_value
+		add = general_aptitude_bonus
+	}
+
+	is_shown = {
+		always = no # COTC: disabled
+	}
+
+	valid_position = {
+		custom_tooltip = {
+			text = landless_government_tt
+			government_has_flag = government_is_landless_adventurer
+		}
+		has_trait = violet_poet
+	}
+
+	is_shown_character = {
+		scope:employee = {
+			is_incapable = no
+		}
+	}
+
+	valid_character = {
+		valid_camp_officer_trigger = {
+			OFFICER = laureate
+		}
+	}
+
+	revoke_cost = {
+		prestige =  {
+			value = minor_court_position_prestige_revoke_cost
+
+			# Set to 0 with Dynasty Perk Inner Circle
+			if = {
+				limit = {
+					dynasty ?= { has_dynasty_perk = fp2_coterie_legacy_1 }
+
+					employs_court_position = laureate_camp_officer
+					any_court_position_holder = {
+				        type = laureate_camp_officer
+						exists = dynasty
+						house = prev.house
+					}
+				}
+				multiply = 0
+			}
+		}
+	}
+
+	salary = {
+		#officers have no salary
+	}
+
+	custom_employer_modifier_description = laureate_camp_officer_employer_custom_effect_description
+
+	# These modifiers are employed based on what level the aptitude reaches (levels are defined as breakpoints) 
+	scaling_employer_modifiers = {
+		terrible = {
+			monthly_prestige_gain_mult = 0.05
+			monthly_dynasty_prestige_mult = 0.01
+		}
+		poor = {
+			monthly_prestige_gain_mult = 0.1
+			monthly_dynasty_prestige_mult = 0.02
+		}
+		average = {
+			diplomacy = 1
+			monthly_prestige_gain_mult = 0.15
+			monthly_dynasty_prestige_mult = 0.03
+		}
+		good = {
+			diplomacy = 2
+			monthly_prestige_gain_mult = 0.2
+			monthly_dynasty_prestige_mult = 0.04
+		}
+		excellent = {
+			diplomacy = 3
+			monthly_prestige_gain_mult = 0.25
+			monthly_dynasty_prestige_mult = 0.05
+		}
+	}
+	modifier = {
+		monthly_prestige = 0.1
+	}
+	
+	on_court_position_received = {
+		laureate_camp_officer_title_accepted_effect = yes
+	}
+	on_court_position_revoked = { 
+		laureate_camp_officer_title_revoked_effect = yes
+	}
+	on_court_position_invalidated = {
+		laureate_camp_officer_title_invalidated_effect = yes
+	}
+	on_court_position_vacated = {
+		court_position_vacated_event_effect = {
+			COURT_POSITION_TYPE = laureate_camp_officer
+		}
+	}
+	# Scripted value to determine whether an AI will hire/fire a position or not. Hires over 0, fires under -50. Look in _court_positions.info for more extensive documentation!
+	ai_position_score = {
+		value = @base_position_score
+	}
+	ai_candidate_score = {
+		value = @base_candidate_score
+		add = court_position_candidate_score_base_value 
+		add = court_position_candidate_aptitude_value
+	}
+}
+
+# Camp Priest
+
+### camp_priest_camp_officer - DISABLED
+camp_priest_camp_officer = {
+	sort_order = 22
+	max_available_positions = 1
+	skill = learning
+
+	court_position_asset = {
+		animation = prayer
+		background = "gfx/interface/illustrations/event_scenes/ep3_relaxing_tent.dds"
+	}
+
+	opinion = {
+		value = regular_camp_officer_opinion
+	}
+	
+	# How high the aptitude has to be to reach the 5 different modifier levels
+	aptitude_level_breakpoints = { 20 40 60 80 }
+
+	# How good is this character in this position? root scope is the holder of the court position
+	aptitude = {
+		value = 0
+		if = {
+			limit = {
+				employer ?= {
+					has_government = landless_adventurer_government
+					has_perk = positions_of_power_perk
+				}
+				any_relation = { type = friend }
+			}
+			add = {
+				value = 5
+				desc = court_position_positions_of_power_perk_friend
+			}
+		}
+		
+		add = {
+			value = learning
+			multiply = 4
+			max = 65
+			desc = court_position_skill_learning
+		}
+		if = {
+			limit = {
+				has_trait = theologian
+			}
+			add = {
+				value = 20
+				desc = court_position_theologian_trait
+			}
+		}
+		if = {
+			limit = { has_trait = scholar }
+			add = {
+				value = 15
+				desc = court_position_scholar_trait
+			}
+		}
+		if = {
+			limit = { has_trait = lifestyle_mystic }
+			add = {
+				value = 15
+				desc = court_position_mystic_1_trait
+			}
+		}
+		add = court_position_aptitude_high_penalty_value
+		add = general_aptitude_bonus
+	}
+
+	is_shown = {
+		always = no # COTC: disabled
+	}
+
+	valid_position = {
+		custom_tooltip = {
+			text = landless_government_tt
+			government_has_flag = government_is_landless_adventurer
+		}
+		custom_tooltip = {
+			text = camp_priest_camp_officer_parameter_tt
+			domicile ?= { has_domicile_parameter = camp_unlocks_camp_priest_officer }
+		}
+	}
+
+	is_shown_character = {
+		scope:employee = {
+			is_incapable = no
+			faith = scope:liege.faith
+			can_be_clergy_due_to_gender_trigger = yes
+		}
+	}
+
+	valid_character = {
+		valid_camp_officer_trigger = {
+			OFFICER = camp_priest
+		}
+	}
+
+	revoke_cost = {
+		prestige =  {
+			value = minor_court_position_prestige_revoke_cost
+
+			# Set to 0 with Dynasty Perk Inner Circle
+			if = {
+				limit = {
+					dynasty ?= { has_dynasty_perk = fp2_coterie_legacy_1 }
+
+					employs_court_position = camp_priest_camp_officer
+					any_court_position_holder = {
+				        type = camp_priest_camp_officer
+						exists = dynasty
+						house = prev.house
+					}
+				}
+				multiply = 0
+			}
+		}
+	}
+
+	salary = {
+		#officers have no salary
+	}
+	
+	# These modifiers are employed based on what level the aptitude reaches (levels are defined as breakpoints) 
+	scaling_employer_modifiers = {
+		terrible = {
+			monthly_piety_gain_mult = 0.02
+		}
+		poor = {
+			monthly_piety_gain_mult = 0.05
+		}
+		average = {
+			monthly_piety_gain_mult = 0.075
+			learning = 1
+		}
+		good = {
+			monthly_piety_gain_mult = 0.1
+			learning = 2
+		}
+		excellent = {
+			monthly_piety_gain_mult = 0.2
+			learning = 3
+		}
+	}
+
+	modifier = {
+		monthly_piety = 0.5
+	}
+	
+	on_court_position_received = {
+		camp_priest_camp_officer_title_accepted_effect = yes
+	}
+	on_court_position_revoked = { 
+		camp_priest_camp_officer_title_revoked_effect = yes
+	}
+	on_court_position_invalidated = {
+		camp_priest_camp_officer_title_invalidated_effect = yes
+	}
+	on_court_position_vacated = {
+		court_position_vacated_event_effect = {
+			COURT_POSITION_TYPE = camp_priest_camp_officer
+		}
+	}
+	# Scripted value to determine whether an AI will hire/fire a position or not. Hires over 0, fires under -50. Look in _court_positions.info for more extensive documentation!
+	ai_position_score = {
+		value = @base_position_score
+	}
+	ai_candidate_score = {
+		value = @base_candidate_score
+		add = scope:base_value
+		add = court_position_candidate_score_base_value 
+		add = court_position_candidate_aptitude_value
+	}
+}
+
+

@@ -1,0 +1,28 @@
+﻿### COTC - Freelancer wording that branches on Posture
+#
+# The camp is a ship for roaming bases and a headquarters for settled ones.
+#
+# The Posture law group does not exist yet, so only the fallback ships.
+# When Posture is added, add a settled arm ABOVE each fallback:
+#
+#	text = {
+#		trigger = { has_realm_law_flag = static_camp_posture }
+#		localization_key = cotc_crew_word_staff
+#	}
+#
+# Call as [DomicileWindow.GetCharacter.Custom('GetCrewWord')] in GUI loc,
+# or [ROOT.Char.Custom('GetCrewWord')] in event text.
+
+GetCrewWord = {
+	type = character
+	text = {
+		localization_key = cotc_crew_word_crew
+	}
+}
+
+GetBaseWord = {
+	type = character
+	text = {
+		localization_key = cotc_base_word_ship
+	}
+}
