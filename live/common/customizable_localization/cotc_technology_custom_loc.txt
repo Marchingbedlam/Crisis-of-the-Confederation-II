@@ -1,22 +1,23 @@
 ﻿GetResearchProjectSecrecy = {
 	type = scheme
 	text = {
-		trigger = { scheme_type = research_project_public }
-		localization_key = "public_custom_loc"
+		trigger = { is_target_in_variable_list = { name = flags target = flag:secret } }
+		localization_key = "secret_custom_loc"
 	}
+	text = { localization_key = "public_custom_loc" }
 }
 GetResearchProjectType = {
 	type = scheme
 	text = {
-		trigger = { has_variable = praxis }
+		trigger = { is_target_in_variable_list = { name = flags target = flag:praxis } }
 		localization_key = "study_on_custom_loc"
 	}
 	text = {
-		trigger = { has_variable = theory }
+		trigger = { is_target_in_variable_list = { name = flags target = flag:theory } }
 		localization_key = "investigation_into_custom_loc"
 	}
 	text = {
-		trigger = { has_variable = engineering }
+		trigger = { is_target_in_variable_list = { name = flags target = flag:engineering } }
 		localization_key = "research_project_on_custom_loc"
 	}
 }
@@ -342,6 +343,10 @@ GetResearchProjectCodenameAdj = {
 	text = {
 		trigger = { var:codename_adjective = flag:wise }
 		localization_key = "project_codename_adj_wise"
+	}
+	text = {
+		trigger = { var:codename_adjective = flag:twilight }
+		localization_key = "project_codename_adj_twilight"
 	}
 }
 
@@ -1530,5 +1535,149 @@ GetResearchProjectCodenameNoun = {
 	text = {
 		trigger = { var:codename_noun = flag:reconciliation }
 		localization_key = "project_codename_noun_reconciliation"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:anansi }
+		localization_key = "project_codename_noun_anansi"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:all_seeing_eye }
+		localization_key = "project_codename_noun_all_seeing_eye"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:cassandra }
+		localization_key = "project_codename_noun_cassandra"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:coyote }
+		localization_key = "project_codename_noun_coyote"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:crow }
+		localization_key = "project_codename_noun_crow"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:delphi }
+		localization_key = "project_codename_noun_delphi"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:eshu }
+		localization_key = "project_codename_noun_eshu"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:eye_of_providence }
+		localization_key = "project_codename_noun_eye_of_providence"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:eye_of_ra }
+		localization_key = "project_codename_noun_eye_of_ra"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:goemon }
+		localization_key = "project_codename_noun_goemon"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:hades }
+		localization_key = "project_codename_noun_hades"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:kitsune }
+		localization_key = "project_codename_noun_kitsune"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:pluto }
+		localization_key = "project_codename_noun_pluto"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:pythia }
+		localization_key = "project_codename_noun_pythia"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:raven }
+		localization_key = "project_codename_noun_raven"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:robin_hood }
+		localization_key = "project_codename_noun_robin_hood"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:tiresias }
+		localization_key = "project_codename_noun_tiresias"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:wadjet }
+		localization_key = "project_codename_noun_wadjet"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:cloak }
+		localization_key = "project_codename_noun_cloak"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:dagger }
+		localization_key = "project_codename_noun_dagger"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:ghost }
+		localization_key = "project_codename_noun_ghost"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:mask }
+		localization_key = "project_codename_noun_mask"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:midnight }
+		localization_key = "project_codename_noun_midnight"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:mystery }
+		localization_key = "project_codename_noun_mystery"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:oracle }
+		localization_key = "project_codename_noun_oracle"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:phantom }
+		localization_key = "project_codename_noun_phantom"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:prophecy }
+		localization_key = "project_codename_noun_prophecy"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:prophet }
+		localization_key = "project_codename_noun_prophet"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:secret }
+		localization_key = "project_codename_noun_secret"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:seer }
+		localization_key = "project_codename_noun_seer"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:shadow }
+		localization_key = "project_codename_noun_shadow"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:silence }
+		localization_key = "project_codename_noun_silence"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:spectre }
+		localization_key = "project_codename_noun_spectre"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:spirit }
+		localization_key = "project_codename_noun_spirit"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:twilight }
+		localization_key = "project_codename_noun_twilight"
+	}
+	text = {
+		trigger = { var:codename_noun = flag:whisper }
+		localization_key = "project_codename_noun_whisper"
 	}
 }

@@ -77,15 +77,80 @@ cotc_research_project_events.1 = { # Start a new research project
 		name = cotc_research_project_events.1.a
 		custom_tooltip = {
 			text = cotc_research_project_events.1.a.tt
-			start_scheme = { type = research_project_public targets_nothing = yes }
+			start_scheme = { type = research_project targets_nothing = yes }
 		}
 		random_scheme = {
-			limit = { scheme_type = research_project_public }
+			limit = { scheme_type = research_project }
 			save_scope_as = scheme
 			set_variable = { name = owner value = ROOT }
 		}
 		ai_chance = {
 			base = 50
+		}
+	}
+	option = { # Start a secret research project!
+		name = cotc_research_project_events.1.b
+		custom_tooltip = {
+			text = cotc_research_project_events.1.b.tt
+			start_scheme = { type = secret_research_project targets_nothing = yes }
+		}
+		random_scheme = {
+			limit = { scheme_type = secret_research_project }
+			save_scope_as = scheme
+			set_variable = { name = owner value = ROOT }
+			add_to_variable_list = { name = flags target = flag:secret }
+		}
+		ai_chance = {
+			base = 0
+			modifier = { # Potentially sensitive technologies
+				add = 50
+				any_in_list = {
+					list = research_project_flags
+					OR = {
+						this = flag:military
+						this = flag:espionage
+					}
+				}
+			}
+			modifier = { # We're at war, let's be extra careful
+				add = 50
+				exists = scope:enemy
+			}
+			modifier = { # This is an illegal technology for my ideology
+				add = 100
+				OR = {
+					AND = {
+						any_in_list = {
+							list = research_project_flags
+							this = flag:cybernetics
+						}
+						faith = { has_doctrine_parameter = hates_cybernetics }
+					}
+					AND = {
+						any_in_list = {
+							list = research_project_flags
+							this = flag:cloning
+						}
+						faith = { has_doctrine_parameter = hates_cloning }
+					}
+					AND = {
+						any_in_list = {
+							list = research_project_flags
+							this = flag:gene_modding
+						}
+						faith = { has_doctrine_parameter = hates_gene_modding }
+					}
+				}
+			}
+			# Traits
+			modifier = {
+				factor = 0.25
+				has_trait = trusting
+			}
+			modifier = {
+				factor = 4
+				has_trait = paranoid
+			}
 		}
 	}
 	
@@ -98,6 +163,7 @@ cotc_research_project_events.1 = { # Start a new research project
 		remove_character_flag = starting_research_project
 		scope:scheme ?= { # Assign research project data
 			set_variable = { name = research_subject value = scope:research_subject }
+			set_variable = { name = target_county value = scope:owner.capital_county }
 			# Set all project flags
 			every_in_list = {
 				list = research_project_flags
@@ -284,6 +350,10 @@ cotc_research_project_events.10 = { # Successfully complete the research project
 	
 	immediate = {
 		scope:scheme = {
+			every_in_list = {
+				variable = flags
+				add_to_list = research_project_flags
+			}
 			if = {
 				limit = { NOT = { is_target_in_global_variable_list = { name = all_discovered_innovations target = var:research_subject } } }
 				save_scope_value_as = { name = first_ever_discovery value = flag:yes }
@@ -294,37 +364,49 @@ cotc_research_project_events.10 = { # Successfully complete the research project
 			}
 			var:research_subject = { save_scope_as = discovered_innovation }
 			# Add any current researchers as contributors
-			every_scheme_agent_character = {
-				limit = { NOT = { scope:scheme = { is_target_in_variable_list = { name = researchers target = PREV } } } }
-				scope:scheme = { add_to_variable_list = { name = researchers target = PREV } }
+			every_scheme_agent_slot = {
+				limit = {
+					is_filled = yes
+					NOT = { is_agent_slot_type = agent_research_security_chief }
+				}
+				slot_character = {
+					if = {
+						limit = { NOT = { scope:scheme = { is_target_in_variable_list = { name = researchers target = PREV } } } }
+						scope:scheme = { add_to_variable_list = { name = researchers target = PREV } }
+					}
+				}
 			}
 			if = {
 				limit = { any_scheme_agent_character = { count >= 1 } }
-				ordered_scheme_agent_character = {
-					order_by = learning
+				ordered_scheme_agent_slot = {
+					limit = { is_filled = yes }
+					order_by = agent_slot_contribution
 					position = 1
-					save_scope_as = first_agent
+					slot_character = { save_scope_as = first_agent }
 				}
 				if = {
 					limit = { any_scheme_agent_character = { count >= 2 } }
-					ordered_scheme_agent_character = {
-						order_by = learning
+					ordered_scheme_agent_slot = {
+						limit = { is_filled = yes }
+						order_by = agent_slot_contribution
 						position = 2
-						save_scope_as = second_agent
+						slot_character = { save_scope_as = second_agent }
 					}
 					if = {
 						limit = { any_scheme_agent_character = { count >= 3 } }
-						ordered_scheme_agent_character = {
-							order_by = learning
+						ordered_scheme_agent_slot = {
+							limit = { is_filled = yes }
+							order_by = agent_slot_contribution
 							position = 3
-							save_scope_as = third_agent
+							slot_character = { save_scope_as = third_agent }
 						}
 						if = {
 							limit = { any_scheme_agent_character = { count >= 4 } }
-							ordered_scheme_agent_character = {
-								order_by = learning
+							ordered_scheme_agent_slot = {
+								limit = { is_filled = yes }
+								order_by = agent_slot_contribution
 								position = 4
-								save_scope_as = fourth_agent
+								slot_character = { save_scope_as = fourth_agent }
 							}
 						}
 					}
@@ -333,7 +415,16 @@ cotc_research_project_events.10 = { # Successfully complete the research project
 					name = agent_payout
 					value = {
 						value = var:grant_money
-						divide = { every_in_list = { variable = researchers add = 1 } }
+						divide = {
+							every_in_list = { variable = researchers add = 1 }
+							every_scheme_agent_slot = {
+								limit = {
+									is_filled = yes
+									is_agent_slot_type = agent_research_security_chief
+								}
+								add = 1
+							}
+						}
 					}
 				}
 			}
@@ -367,18 +458,43 @@ cotc_research_project_events.10 = { # Successfully complete the research project
 		capital_county = { add_tech_to_county = { TECH = scope:discovered_innovation } }
 		if = { # You did this all by yourself, gain prestige and get back your investment
 			limit = { scope:scheme = { NOT = { any_in_list = { variable = researchers count >= 1 } } } }
-			add_prestige = research_project_prestige_reward
+			if = {
+				limit = {
+					NOT = {
+						any_in_list = {
+							list = research_project_flags
+							this = flag:secret
+						}
+					}
+				}
+				add_prestige = research_project_prestige_reward
+			}
 			add_treasury_or_gold = scope:scheme.var:grant_money
 			add_research_project_secret_effect = yes
 		}
 		# Piety and stress effects
 		if = {
-			limit = { research_project_piety_reward != 0 }
+			limit = {
+				NOT = {
+					any_in_list = {
+						list = research_project_flags
+						this = flag:secret
+					}
+				}
+				research_project_piety_reward != 0
+			}
 			add_piety = research_project_piety_reward
 		}
 		add_research_project_stress_effects = yes
 		scope:scheme = {
 			every_in_list = { variable = researchers trigger_event = cotc_research_project_events.11 }
+			every_scheme_agent_slot = {
+				limit = {
+					is_filled = yes
+					is_agent_slot_type = agent_research_security_chief
+				}
+				slot_character = { trigger_event = cotc_research_project_events.11 }
+			}
 			end_scheme = yes
 		}
 	}
@@ -413,12 +529,30 @@ cotc_research_project_events.11 = {
 		name = cotc_research_project_events.11.a
 		
 		# Gain rewards in prestige and money
-		add_prestige = research_project_prestige_reward
+		if = {
+			limit = {
+				NOT = {
+					any_in_list = {
+						list = research_project_flags
+						this = flag:secret
+					}
+				}
+			}
+			add_prestige = research_project_prestige_reward
+		}
 		add_treasury_or_gold = scope:agent_payout
 		reverse_add_opinion = { modifier = opinion_researched_innovation_for_me target = scope:patron }
 		# Piety and stress effects
 		if = {
-			limit = { research_project_piety_reward != 0 }
+			limit = {
+				NOT = {
+					any_in_list = {
+						list = research_project_flags
+						this = flag:secret
+					}
+				}
+				research_project_piety_reward != 0
+			}
 			add_piety = research_project_piety_reward
 		}
 		add_research_project_stress_effects = yes
@@ -489,6 +623,39 @@ cotc_research_project_events.31 = {
 		animation = idle
 	}
 	option = { name = cotc_research_project_events.31.a }
+}
+cotc_research_project_events.40 = { # Project failed for some other reason
+	trigger = {
+		exists = capital_county
+		capital_county ?= { NOT = { county_has_tech = { TECH = scope:research_subject } } }
+	}
+	desc = cotc_research_project_events.40.desc
+	theme = research
+	
+	right_portrait = {
+		character = ROOT
+		animation = idle
+	}
+	
+	option = {
+		name = cotc_research_project_events.40.a
+		add_treasury_or_gold = scope:grant_money
+		every_in_list = { list = project_staff trigger_event = cotc_research_project_events.41 }
+	}
+}
+cotc_research_project_events.41 = {
+	desc = cotc_research_project_events.41.desc
+	theme = research
+	
+	right_portrait = {
+		character = ROOT
+		animation = idle
+	}
+	left_portrait = {
+		character = scope:patron
+		animation = idle
+	}
+	option = { name = cotc_research_project_events.41.a }
 }
 
 # INHERITING PROJECTS
@@ -583,6 +750,38 @@ cotc_research_project_events.62 = {
 	option = { name = cotc_research_project_events.62.a }
 }
 
+# PROJECT EXPOSED
+cotc_research_project_events.70 = {
+	title = cotc_research_project_events.title
+	desc = cotc_research_project_events.70.desc
+	theme = research
+	right_portrait = {
+		character = scope:owner
+		scripted_animation = scheme_prep_pick_best_stance
+	}
+	trigger = {
+		scope:scheme = {
+			is_target_in_variable_list = { name = flags target = flag:secret }
+			scheme_breaches >= 5
+		}
+	}
+	option = { # Make the project public
+		name = cotc_research_project_events.70.a
+		scope:scheme = {
+			custom_tooltip = {
+				text = cotc_research_project_events.100.d.tt
+				ROOT = { make_research_project_public = yes }
+			}
+		}
+		ai_chance = { base = 100 }
+	}
+	option = { # End the project
+		name = cotc_research_project_events.70.b
+		scope:scheme = { invalidate_scheme = yes }
+		ai_chance = { base = 0 }
+	}
+}
+
 # PROJECT MANAGEMENT
 cotc_research_project_events.100 = { # Research project in progress
 	type = character_event
@@ -620,17 +819,19 @@ cotc_research_project_events.100 = { # Research project in progress
 			scope:scheme = {
 				if = {
 					limit = { any_scheme_agent_character = { count >= 1 } }
-					ordered_scheme_agent_character = {
-						order_by = learning
+					ordered_scheme_agent_slot = {
+						limit = { is_filled = yes }
+						order_by = agent_slot_contribution
 						position = 1
-						save_scope_as = right_portrait
+						slot_character = { save_scope_as = right_portrait }
 					}
 					if = {
 						limit = { any_scheme_agent_character = { count >= 2 } }
-						ordered_scheme_agent_character = {
-							order_by = learning
+						ordered_scheme_agent_slot = {
+							limit = { is_filled = yes }
+							order_by = agent_slot_contribution
 							position = 2
-							save_scope_as = left_portrait
+							slot_character = { save_scope_as = left_portrait }
 						}
 					}
 				}
@@ -683,6 +884,7 @@ cotc_research_project_events.100 = { # Research project in progress
 		ai_chance = {
 			base = 0
 			modifier = { add = short_term_treasury_or_gold }
+			modifier = { add = { subtract = scope:funding_required } }
 		}
 	}
 	option = { # Involve yourself personally
@@ -777,12 +979,55 @@ cotc_research_project_events.100 = { # Research project in progress
 			}
 		}
 	}
-	option = { # Do nothing
+	option = { # Make the project public
+		trigger = { scope:scheme = { is_target_in_variable_list = { name = flags target = flag:secret } } }
 		name = cotc_research_project_events.100.d
+		scope:scheme = {
+			custom_tooltip = {
+				text = cotc_research_project_events.100.d.tt
+				ROOT = { make_research_project_public = yes }
+			}
+		}
 		ai_chance = {
 			base = 0
-			modifier = { add = scope:scheme.scheme_success_chance }
-			modifier = { add = scope:funding_required }
+			modifier = { # The more exposed the scheme is, the less point there is in keeping it a secret
+				add = {
+					value = scope:scheme.scheme_breaches
+					multiply = 20
+				}
+			}
+			modifier = {
+				factor = 0.5
+				scope:scheme = {
+					any_in_list = {
+						variable = flags
+						OR = {
+							this = flag:military
+							this = flag:espionage
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				has_trait = trusting
+			}
+			modifier = {
+				factor = 0.5
+				has_trait = paranoid
+			}
+		}
+	}
+	option = { # Do nothing
+		name = cotc_research_project_events.100.e
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = {
+					add = scope:scheme.scheme_success_chance
+					multiply = 10
+				}
+			}
 		}
 	}
 
@@ -796,6 +1041,35 @@ cotc_research_project_events.101 = { # Starting a regency because you're too bus
 		basic_eligible_for_diarchy_trigger = yes
 	}
 	immediate = { try_start_diarchy = temporary_regency }
+}
+
+cotc_research_project_events.102 = { # You are no longer on the project because it's public
+	title = cotc_research_project_events.title
+	desc = cotc_research_project_events.102.desc
+	theme = research
+	right_portrait = {
+		character = ROOT
+		animation = shock
+	}
+	left_portrait = {
+		character = scope:owner
+		animation = dismissal
+	}
+	option = { name = cotc_research_project_events.102.a }
+}
+cotc_research_project_events.103 = { # The project is no longer secret
+	title = cotc_research_project_events.title
+	desc = cotc_research_project_events.103.desc
+	theme = research
+	right_portrait = {
+		character = ROOT
+		animation = idle
+	}
+	left_portrait = {
+		character = scope:owner
+		animation = storyteller
+	}
+	option = { name = cotc_research_project_events.103.a }
 }
 
 # RESEARCH PROJECT FLAVOR EVENTS - INDIVIDUAL RESEARCHERS
@@ -881,9 +1155,11 @@ cotc_research_project_events.210 = { # You have positive feelings about another 
 	}
 	trigger = {
 		scope:scheme = {
-			any_scheme_agent_character = {
-				NOT = { this = scope:first_researcher }
-				reverse_opinion = { target = scope:first_researcher value > 0 }
+			any_scheme_agent_slot = {
+				is_filled = yes
+				NOT = { this = scope:first_researcher_slot }
+				NOT = { is_agent_slot_type = agent_research_security_chief }
+				slot_character ?= { reverse_opinion = { target = scope:first_researcher value > 0 } }
 			}
 		}
 	}
@@ -892,13 +1168,15 @@ cotc_research_project_events.210 = { # You have positive feelings about another 
 		modifier = {
 			add = {
 				scope:scheme = {
-					ordered_scheme_agent_character {
+					ordered_scheme_agent_slot = {
 						limit = {
-							NOT = { this = scope:first_researcher }
-							reverse_opinion = { target = scope:first_researcher value > 0 }
+							is_filled = yes
+							NOT = { this = scope:first_researcher_slot }
+							NOT = { is_agent_slot_type = agent_research_security_chief }
+							slot_character ?= { reverse_opinion = { target = scope:first_researcher value > 0 } }
 						}
-						order_by = { value = "reverse_opinion(scope:first_researcher)" }
-						add = "reverse_opinion(scope:first_researcher)"
+						order_by = { slot_character = { add = "reverse_opinion(scope:first_researcher)" } }
+						slot_character = { add = "reverse_opinion(scope:first_researcher)" }
 					}
 				}
 			}
@@ -907,16 +1185,19 @@ cotc_research_project_events.210 = { # You have positive feelings about another 
 	immediate = {
 		add_character_flag = { flag = research_project_event_cooldown weeks = { 12 72 } }
 		scope:scheme = {
-			random_scheme_agent_character = {
+			random_scheme_agent_slot = {
 				limit = {
-					NOT = { this = scope:first_researcher }
-					reverse_opinion = { target = scope:first_researcher value > 0 }
+					is_filled = yes
+					NOT = { this = scope:first_researcher_slot }
+					NOT = { is_agent_slot_type = agent_research_security_chief }
+					slot_character ?= { reverse_opinion = { target = scope:first_researcher value > 0 } }
 				}
 				weight = {
 					base = 0
-					modifier = { add = "reverse_opinion(scope:first_researcher)" }
+					modifier = { add = { slot_character = { add = "reverse_opinion(scope:first_researcher)" } } }
 				}
-				save_scope_as = second_researcher
+				save_scope_as = second_researcher_slot
+				slot_character = { save_scope_as = second_researcher }
 			}
 		}
 	}
@@ -1109,9 +1390,11 @@ cotc_research_project_events.220 = { # You have negative feelings about another 
 	}
 	trigger = {
 		scope:scheme = {
-			any_scheme_agent_character = {
-				NOT = { this = scope:first_researcher }
-				reverse_opinion = { target = scope:first_researcher value < 0 }
+			any_scheme_agent_slot = {
+				is_filled = yes
+				NOT = { this = scope:first_researcher_slot }
+				NOT = { is_agent_slot_type = agent_research_security_chief }
+				slot_character ?= { reverse_opinion = { target = scope:first_researcher value < 0 } }
 			}
 		}
 	}
@@ -1120,12 +1403,14 @@ cotc_research_project_events.220 = { # You have negative feelings about another 
 		modifier = {
 			add = {
 				scope:scheme = {
-					ordered_scheme_agent_character {
+					ordered_scheme_agent_slot = {
 						limit = {
-							NOT = { this = scope:first_researcher }
-							reverse_opinion = { target = scope:first_researcher value < 0 }
+							is_filled = yes
+							NOT = { this = scope:first_researcher_slot }
+							NOT = { is_agent_slot_type = agent_research_security_chief }
+							slot_character ?= { reverse_opinion = { target = scope:first_researcher value < 0 } }
 						}
-						order_by = { value = "reverse_opinion(scope:first_researcher)" multiply = -1 }
+						order_by = { slot_character = { subtract = "reverse_opinion(scope:first_researcher)" } }
 						subtract = "reverse_opinion(scope:first_researcher)"
 					}
 				}
@@ -1138,10 +1423,9 @@ cotc_research_project_events.220 = { # You have negative feelings about another 
 			random_scheme_agent_slot = {
 				limit = {
 					is_filled = yes
-					slot_character ?= {
-						NOT = { this = scope:first_researcher }
-						reverse_opinion = { target = scope:first_researcher value < 0 }
-					}
+					NOT = { this = scope:first_researcher_slot }
+					NOT = { is_agent_slot_type = agent_research_security_chief }
+					slot_character ?= { reverse_opinion = { target = scope:first_researcher value < 0 } }
 				}
 				weight = {
 					base = 0
@@ -2258,10 +2542,9 @@ cotc_research_project_events.240 = { # You made a sudden solo breakthrough!
 				random_scheme_agent_slot = {
 					limit = {
 						is_filled = yes
-						slot_character ?= {
-							NOT = { this = scope:first_researcher }
-							opinion = { target = scope:first_researcher value < 0 }
-						}
+						NOT = { this = scope:first_researcher_slot }
+						NOT = { is_agent_slot_type = agent_research_security_chief }
+						slot_character ?= { opinion = { target = scope:first_researcher value < 0 } }
 					}
 					weight = {
 						base = 0
@@ -2599,7 +2882,15 @@ cotc_research_project_events.250 = { # Two researchers make a breakthrough toget
 		character = scope:second_researcher
 		animation = interested_left
 	}
-	trigger = { scope:scheme = { any_scheme_agent_character = { NOT = { this = scope:first_researcher } } } }
+	trigger = {
+		scope:scheme = {
+			any_scheme_agent_slot = {
+				is_filled = yes
+				NOT = { this = scope:first_researcher_slot }
+				NOT = { is_agent_slot_type = agent_research_security_chief }
+			}
+		}
+	}
 	weight_multiplier = {
 		base = 0
 		modifier = {
@@ -2623,6 +2914,7 @@ cotc_research_project_events.250 = { # Two researchers make a breakthrough toget
 						limit = {
 							is_filled = yes
 							NOT = { this = scope:first_researcher_slot }
+							NOT = { is_agent_slot_type = agent_research_security_chief }
 						}
 						order_by = { slot_character ?= { add = "opinion(scope:first_researcher)" } }
 						add = agent_slot_contribution
@@ -2645,6 +2937,7 @@ cotc_research_project_events.250 = { # Two researchers make a breakthrough toget
 				limit = {
 					is_filled = yes
 					NOT = { this = scope:first_researcher_slot }
+					NOT = { is_agent_slot_type = agent_research_security_chief }
 				}
 				weight = {
 					base = 0

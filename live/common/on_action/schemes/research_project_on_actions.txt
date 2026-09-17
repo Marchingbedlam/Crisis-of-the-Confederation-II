@@ -1,6 +1,8 @@
 ﻿# HOOKS TO CODE
 on_death = { on_actions = { inherit_research_project_by_death_on_action } }
 on_title_gain = { on_actions = { inherit_research_project_by_succession_on_action } }
+on_scheme_discovered = { on_actions = { discover_research_project_on_action } }
+on_realm_capital_change = { on_actions = { change_research_project_county_on_action } }
 
 # CORE PROJECT ON-ACTIONS
 research_project_on_monthly = {
@@ -72,9 +74,13 @@ research_project_monthly_pulse = {
 	effect = {
 		# Track active contributors to the project
 		scope:scheme = {
-			every_scheme_agent_character = {
-				limit = { NOT = { scope:scheme = { is_target_in_variable_list = { name = researchers target = PREV } } } }
-				scope:scheme = { add_to_variable_list = { name = researchers target = PREV } }
+			every_scheme_agent_slot = {
+				limit = {
+					is_filled = yes
+					NOT = { is_agent_slot_type = agent_research_security_chief }
+					NOT = { slot_character = { scope:scheme = { is_target_in_variable_list = { name = researchers target = PREV } } } }
+				}
+				slot_character = { scope:scheme = { add_to_variable_list = { name = researchers target = PREV } } }
 			}
 			every_in_list = {
 				variable = researchers
@@ -83,35 +89,57 @@ research_project_monthly_pulse = {
 			}
 		}
 		# Guaranteed events
-		scope:scheme = { every_scheme_agent_character = { trigger_event = cotc_research_project_events.200 } } # Reveal your knowledge of the subject if you want
+		scope:scheme = {
+			every_scheme_agent_slot = {
+				limit = {
+					is_filled = yes
+					NOT = { is_agent_slot_type = agent_research_security_chief }
+				}
+				slot_character = { trigger_event = cotc_research_project_events.200 } # Reveal your knowledge of the subject if you want
+			}
+		}
+		trigger_event = cotc_research_project_events.70 # Expose scheme if there are too many security breaches
 	}
 }
 research_project_semiyearly_pulse = {
 	effect = {
 		# Check for setbacks
-		trigger_event = { on_action = research_project_setback_roll days = { 1 180 } }
+		trigger_event = { on_action = research_project_setback_roll }
 		
 		# Random events
 		random_list = { # Pick a random type of event to (maybe) fire
 			10 = {
-				modifier = { factor = { scope:scheme = { every_scheme_agent_character = { add = 1 } } } }
+				modifier = {
+					factor = {
+						scope:scheme = {
+							every_scheme_agent_slot = {
+								limit = {
+									is_filled = yes
+									NOT = { is_agent_slot_type = agent_research_security_chief }
+								}
+								add = 1
+							}
+						}
+					}
+				}
 				scope:scheme = {
 					random_scheme_agent_slot = {
 						limit = {
 							is_filled = yes
+							NOT = { is_agent_slot_type = agent_research_security_chief }
 							slot_character ?= { NOT = { has_character_flag = research_project_event_cooldown } }
 						}
 						save_scope_as = first_researcher_slot
 						slot_character = {
 							save_scope_as = first_researcher
-							trigger_event = { on_action = research_project_researcher_pulse days = { 1 180 } }
+							trigger_event = { on_action = research_project_researcher_pulse }
 						}
 					}
 				}
 			}
 			10 = {
 				trigger = { has_character_modifier = researching_modifier }
-				trigger_event = { on_action = research_project_personal_research_on_action days = { 1 180 } }
+				trigger_event = { on_action = research_project_personal_research_on_action }
 			}
 			40 = { }
 		}
@@ -151,31 +179,62 @@ fail_research_project_on_action = {
 	events = {
 		cotc_research_project_events.20 # Project failed because you no longer have territory
 		cotc_research_project_events.30 # Project failed because you got the tech some other way
+		cotc_research_project_events.40 # Project failed for some other reason
 	}
 }
 inherit_research_project_by_death_on_action = {
-	trigger = { any_scheme = { scheme_type = research_project_public } }
+	trigger = {
+		any_scheme = {
+			OR = {
+				scheme_type = research_project
+				scheme_type = secret_research_project
+			}
+		}
+	}
 	effect = {
 		save_scope_as = old_project_patron
 		random_scheme = {
-			limit = { scheme_type = research_project_public }
+			limit = {
+				OR = {
+					scheme_type = research_project
+					scheme_type = secret_research_project
+				}
+			}
 			save_scope_as = old_scheme
 		}
 		if = {
-			limit = { capital_county ?= { current_heir ?= { NOT = { any_scheme = { scheme_type = research_project_public } } } } }
+			limit = {
+				capital_county ?= {
+					current_heir ?= {
+						NOT = { any_scheme = { scheme_type = research_project } }
+						NOT = { any_scheme = { scheme_type = secret_research_project } }
+					}
+				}
+			}
 			capital_county ?= {
 				current_heir ?= {
 					save_scope_as = owner
 					add_character_flag = inheriting_research_project
-					start_scheme = {
-						type = research_project_public
-						targets_nothing = yes
-						save_scope_as = scheme
+					if = {
+						limit = { scope:old_scheme = { scheme_type = research_project } }
+						start_scheme = {
+							type = research_project
+							targets_nothing = yes
+							save_scope_as = scheme
+						}
+					}
+					else = {
+						start_scheme = {
+							type = secret_research_project
+							targets_nothing = yes
+							save_scope_as = scheme
+						}
 					}
 					scope:scheme = {
 						copy_research_project_data = { SCHEME = scope:old_scheme }
-						set_variable = { name = owner value = scope:owner }
+						set_variable = { name = capital value = scope:owner.capital_county }
 					}
+					trigger_event = { on_action = research_project_monthly_pulse }
 					trigger_event = { id = cotc_research_project_events.50 days = 1 }
 				}
 			}
@@ -184,16 +243,25 @@ inherit_research_project_by_death_on_action = {
 }
 inherit_research_project_by_succession_on_action = {
 	trigger = {
+		save_temporary_scope_as = temp_owner
 		OR = {
 			scope:transfer_type = flag:inheritance
 			scope:transfer_type = flag:abdication
 			scope:transfer_type = flag:usurped
 			scope:transfer_type = flag:election
 		}
-		NOT = { any_scheme = { scheme_type = research_project_public } }
+		NOT = { any_scheme = { scheme_type = research_project } }
+		NOT = { any_scheme = { scheme_type = secret_research_project } }
 		scope:previous_holder = {
-			any_scheme = { scheme_type = research_project_public }
-			NOT = { exists = capital_county }
+			NOT = { exists = capital_county } # Don't transfer projects unless the old one is no longer viable
+			any_scheme = {
+				OR = {
+					scheme_type = research_project
+					scheme_type = secret_research_project
+				}
+				has_variable = capital
+				var:capital ?= { holder = scope:temp_owner }
+			}
 		}
 	}
 	effect = {
@@ -201,23 +269,39 @@ inherit_research_project_by_succession_on_action = {
 		scope:previous_holder = {
 			save_scope_as = old_project_patron
 			random_scheme = {
-				limit = { scheme_type = research_project_public }
+				limit = {
+					OR = {
+						scheme_type = research_project
+						scheme_type = secret_research_project
+					}
+				}
 				save_scope_as = old_scheme
 			}
 			add_character_flag = suppress_project_invalidation
 		}
 		add_character_flag = inheriting_research_project
-		start_scheme = {
-			type = research_project_public
-			targets_nothing = yes
-			save_scope_as = scheme
+		if = {
+			limit = { scope:old_scheme = { scheme_type = research_project } }
+			start_scheme = {
+				type = research_project
+				targets_nothing = yes
+				save_scope_as = scheme
+			}
+		}
+		else = {
+			start_scheme = {
+				type = secret_research_project
+				targets_nothing = yes
+				save_scope_as = scheme
+			}
 		}
 		scope:scheme = {
 			copy_research_project_data = { SCHEME = scope:old_scheme }
-			set_variable = { name = owner value = scope:owner }
+			set_variable = { name = capital value = scope:owner.capital_county }
 		}
 		scope:old_scheme = { invalidate_scheme = yes }
-		trigger_event = { id = cotc_research_project_events.61 days = 1 }
+		trigger_event = { on_action = research_project_monthly_pulse }
+		trigger_event = { id = cotc_research_project_events.60 days = 1 }
 		scope:previous_holder = { trigger_event = { id = cotc_research_project_events.62 days = 1 } }
 	}
 }
@@ -230,4 +314,26 @@ research_project_researcher_purge = { # You've been off the project for a year, 
 		}
 	}
 	effect = { scope:scheme = { remove_list_variable = { name = researchers target = ROOT } } }
+}
+discover_research_project_on_action = { # Expose scheme if there are too many security breaches
+	trigger = { is_target_in_variable_list = { name = flags target = flag:secret } }
+	effect = {
+		save_scope_as = scheme
+		scheme_owner = {
+			save_scope_as = owner
+			trigger_event = cotc_research_project_events.70
+		}
+	}
+}
+change_research_project_county_on_action = {
+	trigger = { holder = { any_scheme = { has_variable = capital } } }
+	effect = {
+		holder = {
+			save_temporary_scope_as = temp_owner
+			every_scheme = {
+				limit = { has_variable = capital }
+				set_variable = { name = capital value = scope:temp_owner.capital_county }
+			}
+		}
+	}
 }

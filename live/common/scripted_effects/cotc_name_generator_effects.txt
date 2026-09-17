@@ -212,6 +212,33 @@ select_social_proper_noun = {
 		10 = { save_scope_value_as = { name = noun value = flag:yue_lao } }
 	}
 }
+select_espionage_proper_noun = {
+	random_list = {
+		10 = { save_scope_value_as = { name = noun value = flag:anansi } }
+		10 = { save_scope_value_as = { name = noun value = flag:all_seeing_eye } }
+		10 = { save_scope_value_as = { name = noun value = flag:apollo } }
+		10 = { save_scope_value_as = { name = noun value = flag:cassandra } }
+		10 = { save_scope_value_as = { name = noun value = flag:coyote } }
+		10 = { save_scope_value_as = { name = noun value = flag:crow } }
+		10 = { save_scope_value_as = { name = noun value = flag:delphi } }
+		10 = { save_scope_value_as = { name = noun value = flag:eshu } }
+		10 = { save_scope_value_as = { name = noun value = flag:eye_of_providence } }
+		10 = { save_scope_value_as = { name = noun value = flag:eye_of_ra } }
+		10 = { save_scope_value_as = { name = noun value = flag:goemon } }
+		10 = { save_scope_value_as = { name = noun value = flag:hades } }
+		10 = { save_scope_value_as = { name = noun value = flag:hermes } }
+		10 = { save_scope_value_as = { name = noun value = flag:kitsune } }
+		10 = { save_scope_value_as = { name = noun value = flag:loki } }
+		10 = { save_scope_value_as = { name = noun value = flag:odysseus } }
+		10 = { save_scope_value_as = { name = noun value = flag:pluto } }
+		10 = { save_scope_value_as = { name = noun value = flag:prometheus } }
+		10 = { save_scope_value_as = { name = noun value = flag:pythia } }
+		10 = { save_scope_value_as = { name = noun value = flag:raven } }
+		10 = { save_scope_value_as = { name = noun value = flag:robin_hood } }
+		10 = { save_scope_value_as = { name = noun value = flag:tiresias } }
+		10 = { save_scope_value_as = { name = noun value = flag:wadjet } }
+	}
+}
 select_military_noun = {
 	random_list = {
 		10 = { save_scope_value_as = { name = noun value = flag:aegis } }
@@ -458,7 +485,59 @@ select_energy_noun = {
 		10 = { save_scope_value_as = { name = noun value = flag:whirlwind } }
 	}
 }
-
+select_espionage_noun = {
+	random_list = {
+		10 = { save_scope_value_as = { name = noun value = flag:cloak } }
+		10 = { save_scope_value_as = { name = noun value = flag:dagger } }
+		10 = {
+			trigger = { NOT = { scope:adjective ?= flag:ghostly } }
+			save_scope_value_as = { name = noun value = flag:ghost }
+		}
+		10 = { save_scope_value_as = { name = noun value = flag:knife } }
+		10 = { save_scope_value_as = { name = noun value = flag:mask } }
+		10 = {
+			trigger = {
+				NOT = { scope:adjective ?= flag:midnight }
+				NOT = { scope:adjective ?= flag:twilight }
+			}
+			save_scope_value_as = { name = noun value = flag:midnight }
+		}
+		10 = { save_scope_value_as = { name = noun value = flag:mystery } }
+		10 = { save_scope_value_as = { name = noun value = flag:oracle } }
+		10 = {
+			trigger = { NOT = { scope:adjective ?= flag:phantom } }
+			save_scope_value_as = { name = noun value = flag:phantom }
+		}
+		10 = { save_scope_value_as = { name = noun value = flag:prophecy } }
+		10 = { save_scope_value_as = { name = noun value = flag:prophet } }
+		10 = {
+			trigger = { NOT = { scope:adjective ?= flag:secret } }
+			save_scope_value_as = { name = noun value = flag:secret }
+		}
+		10 = { save_scope_value_as = { name = noun value = flag:seer } }
+		10 = {
+			trigger = { NOT = { scope:adjective ?= flag:shadowed } }
+			save_scope_value_as = { name = noun value = flag:shadow }
+		}
+		10 = {
+			trigger = { NOT = { scope:adjective ?= flag:silent } }
+			save_scope_value_as = { name = noun value = flag:silence }
+		}
+		10 = { save_scope_value_as = { name = noun value = flag:spectre } }
+		10 = { save_scope_value_as = { name = noun value = flag:spirit } }
+		10 = {
+			trigger = {
+				NOT = { scope:adjective ?= flag:midnight }
+				NOT = { scope:adjective ?= flag:twilight }
+			}
+			save_scope_value_as = { name = noun value = flag:twilight }
+		}
+		10 = {
+			trigger = { NOT = { scope:adjective ?= flag:whispered } }
+			save_scope_value_as = { name = noun value = flag:whisper }
+		}
+	}
+}
 
 
 select_impressive_adjective = {
@@ -494,6 +573,7 @@ select_secret_adjective = {
 		10 = { save_scope_value_as = { name = adjective value = flag:secret } }
 		10 = { save_scope_value_as = { name = adjective value = flag:shadowed } }
 		10 = { save_scope_value_as = { name = adjective value = flag:silent } }
+		10 = { save_scope_value_as = { name = adjective value = flag:twilight } }
 		10 = { save_scope_value_as = { name = adjective value = flag:unseen } }
 		10 = { save_scope_value_as = { name = adjective value = flag:whispered } }
 	}

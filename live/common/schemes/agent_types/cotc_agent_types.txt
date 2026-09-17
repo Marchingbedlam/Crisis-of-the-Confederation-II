@@ -824,3 +824,99 @@ agent_research_officer = {
 		multiply = -1
 	}
 }
+# SECRECY
+agent_research_security_chief = {
+	contribution_type = secrecy
+	contribution = {
+		# Base value.
+		value = scheme_agent_general_bonuses_contribution_score_value
+		# Skills
+		## Intrigue
+		add = {
+			value = intrigue
+			multiply = agent_3to1_3_skill_mult_value
+			ceiling = yes
+			max = agent_max_skill_value
+			desc = scheme_agent_aptitude.skill.intrigue
+		}
+		## Learning
+		add = {
+			value = learning
+			multiply = agent_3to1_1_skill_mult_value
+			ceiling = yes
+			max = agent_max_skill_value
+			desc = scheme_agent_aptitude.skill.learning
+		}
+		# Traits
+		## Bonuses
+		### +++ Patient
+		if = {
+			limit = { has_trait = patient }
+			add = {
+				value = agent_trait_bonus_t3_value
+				desc = scheme_agent_aptitude.trait.patient
+			}
+		}
+		### +++ Diligent
+		if = {
+			limit = { has_trait = diligent }
+			add = {
+				value = agent_trait_bonus_t3_value
+				desc = scheme_agent_aptitude.trait.diligent
+			}
+		}
+		### +++ Paranoid
+		if = {
+			limit = { has_trait = paranoid }
+			add = {
+				value = agent_trait_bonus_t3_value
+				desc = scheme_agent_aptitude.trait.paranoid
+			}
+		}
+		### + Brave
+		if = {
+			limit = { has_trait = brave }
+			add = {
+				value = agent_trait_bonus_t1_value
+				desc = scheme_agent_aptitude.trait.brave
+			}
+		}
+		## Maluses
+		### - Craven
+		if = {
+			limit = { has_trait = craven }
+			add = {
+				value = agent_trait_malus_t1_value
+				desc = scheme_agent_aptitude.trait.craven
+			}
+		}
+		### -- Trusting
+		if = {
+			limit = { has_trait = trusting }
+			add = {
+				value = agent_trait_malus_t2_value
+				desc = scheme_agent_aptitude.trait.trusting
+			}
+		}
+		### --- Lazy
+		if = {
+			limit = { has_trait = lazy }
+			add = {
+				value = agent_trait_malus_t3_value
+				desc = scheme_agent_aptitude.trait.lazy
+			}
+		}
+		### --- Impatient
+		if = {
+			limit = { has_trait = impatient }
+			add = {
+				value = agent_trait_malus_t3_value
+				desc = scheme_agent_aptitude.trait.impatient
+			}
+		}
+
+		# Cap this off.
+		max = agent_scheme_contributor_max
+		min = agent_scheme_contributor_min
+	}
+}

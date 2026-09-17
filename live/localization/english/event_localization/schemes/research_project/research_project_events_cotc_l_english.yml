@@ -12,9 +12,10 @@
  cotc_research_project_events.1.outro.war: "The only concern is security. If the project is conducted in the open, it will be easy to draw in researchers looking for fame and fortune - but your activities will also be openly exposed to [enemy.GetPrimaryTitle.GetAdjective] spies. Perhaps secrecy would be better advised."
  cotc_research_project_events.1.outro.peace: "There is only the matter of security. If the project is conducted in the open, it will be easy to draw in researchers looking for fame and fortune, but your activities will also be more exposed to potential rivals. Perhaps secrecy would be better advised."
  cotc_research_project_events.1.a: "We will do our research in the open."
- cotc_research_project_events.1.a.tt: "You will start a new Public [research_project_cotc|E] researching [research_subject.GetName]"
+ cotc_research_project_events.1.tt: ""
+ cotc_research_project_events.1.a.tt: "You will start a new [research_project_cotc|E] researching [research_subject.GetName]"
  cotc_research_project_events.1.b: "This project must remain top secret."
- cotc_research_project_events.1.b.tt: "You will start a new Secret [research_project_cotc|E] researching [research_subject.GetName]"
+ cotc_research_project_events.1.b.tt: "You will start a new @scheme_secrecy_icon![secret_scheme_single|E] [research_project_cotc|E] researching [research_subject.GetName]"
  cotc_research_project_events.1.c: "On second thought, maybe we don't need this project at all."
  
  cotc_research_project_events.2.desc: "Work now officially begins on Project [scheme.Custom('GetResearchProjectCodenameAdj')][scheme.Custom('GetResearchProjectCodenameNoun')], your new [scheme.Custom('GetResearchProjectSecrecy')] [scheme.Custom('GetResearchProjectType')] [scheme.MakeScope.Var('research_subject').CultureInnovationType.GetName]. The only remaining issue is the question of funding. The more you invest in the project, the more experts you will be able to bring on board it." 
@@ -41,13 +42,18 @@
  
  cotc_research_project_events.20.desc: "With the loss of your worlds and titles, you have lost access to the resources you once had, and Project [scheme.Custom('GetResearchProjectCodenameAdj')][scheme.Custom('GetResearchProjectCodenameNoun')] has come to an ignominous end."
  cotc_research_project_events.20.a: "Wonderful, more bad news."
- cotc_research_project_events.21.desc: "With the fall of [patron.Custom('GetBestNameNoState')], [patron.Custom('GetTheir')] is no longer funded and has come an end. It would appear you are out of a job."
+ cotc_research_project_events.21.desc: "With the fall of [patron.Custom('GetBestNameNoState')], [patron.Custom('GetTheir')] research project is no longer funded and has come an end. It would appear you are out of a job."
  cotc_research_project_events.21.a: "I have more important things to do, anyway."
  
  cotc_research_project_events.30.desc: "By whatever twist of fate, the people of [ROOT.GetCapitalLocation.GetCounty.GetNameNoTier] appear to have discovered [scheme.MakeScope.Var('research_subject').CultureInnovationType.GetName] all on their own. Project [scheme.Custom('GetResearchProjectCodenameAdj')][scheme.Custom('GetResearchProjectCodenameNoun')] no longer serves any useful purpose, and has been shuttered."
  cotc_research_project_events.30.a: "A complete waste of time and money."
  cotc_research_project_events.31.desc: "You have just received word that your work on [research_subject.GetName] for [patron.Custom('GetBestNameNoState')] has been deemed obsolete - it appears that someone else has beaten you to the punch. The project has been shuttered, and you will not receive any further pay."
  cotc_research_project_events.31.a: "What a colossal waste of my time."
+ 
+ cotc_research_project_events.40.desc: "Project [scheme.Custom('GetResearchProjectCodenameAdj')][scheme.Custom('GetResearchProjectCodenameNoun')] has come to an unceremonious and inconclusive end."
+ cotc_research_project_events.40.a: "A complete waste of time and money."
+ cotc_research_project_events.41.desc: "You have just received word that your work on [research_subject.GetName] for [patron.Custom('GetBestNameNoState')] is over, as the project has come to an unceremonious and inconclusive end."
+ cotc_research_project_events.41.a: "What a colossal waste of my time."
  
  cotc_research_project_events.50.desc: "Among the many other issues caused by the death of your predecessor, [old_project_patron.Custom('GetBestNameNoState')], there is the matter of Project [scheme.Custom('GetResearchProjectCodenameAdj')][scheme.Custom('GetResearchProjectCodenameNoun')], [old_project_patron.Custom('GetTheir')] [scheme.Custom('GetResearchProjectType')] [scheme.MakeScope.Var('research_subject').CultureInnovationType.GetName]. [old_project_patron.Custom('GetTheir')|U] death has disrupted the project somewhat, but not to the point of derailing it entirely. Research will continue as long as you are interesting in continuing it."
  cotc_research_project_events.50.a: "I see."
@@ -61,13 +67,23 @@
  cotc_research_project_events.62.desc: "The transfer of [title.GetDefinitiveName] has left you without the resources or authority to continue Project [scheme.Custom('GetResearchProjectCodenameAdj')][scheme.Custom('GetResearchProjectCodenameNoun')]. However, while the transfer of power has disrupted the project, it has not derailed it entirely, and your successor, [owner.Custom('GetBestNameNoState')] will be able to continue it."
  cotc_research_project_events.62.a: "I see."
  
+ cotc_research_project_events.70.desc: "Information security on Project [scheme.Custom('GetResearchProjectCodenameAdj')][scheme.Custom('GetResearchProjectCodenameNoun')] has become a joke. The project is ostensibly supposed to be top secret, but there have been so many security breaches that it is now known to virtually everyone. There is no longer any point in trying to maintain the charade of secrecy."
+ cotc_research_project_events.70.a: "We'll continue our research in the open."
+ cotc_research_project_events.70.b: "That's it for the project, then."
+ 
  cotc_research_project_events.100.desc: "Project [scheme.Custom('GetResearchProjectCodenameAdj')][scheme.Custom('GetResearchProjectCodenameNoun')] aims to bring [scheme.MakeScope.Var('research_subject').CultureInnovationType.GetName] to [owner.GetCapitalLocation.GetCounty.GetDefinitiveName]."
  cotc_research_project_events.100.a: "Increase Funding"
  project_slots_maxed.tt: "Project [scheme.Custom('GetResearchProjectCodenameAdj')][scheme.Custom('GetResearchProjectCodenameNoun')] already has 5 [agent|E] Slots"
  cotc_research_project_events.100.a.tt: "Project [scheme.Custom('GetResearchProjectCodenameAdj')][scheme.Custom('GetResearchProjectCodenameNoun')] gains #P 1#! [agent|E] Slot"
  cotc_research_project_events.100.b: "Devote Yourself to Research"
  cotc_research_project_events.100.c: "Withdraw From Research"
- cotc_research_project_events.100.d: "Close"
+ cotc_research_project_events.100.d: "Go Public"
+ cotc_research_project_events.100.d.tt: "Project [scheme.Custom('GetResearchProjectCodenameAdj')][scheme.Custom('GetResearchProjectCodenameNoun')] will no longer use [secrecy|E]"
+ cotc_research_project_events.100.e: "Close"
+ cotc_research_project_events.102.desc: "[owner.Custom('GetBestNameNoState')] has chosen to end the security precautions around Project [scheme.Custom('GetResearchProjectCodenameAdj')][scheme.Custom('GetResearchProjectCodenameNoun')] and take the project public. As such, there is no longer any need for your services - you have been dismissed to make room for more actual researchers."
+ cotc_research_project_events.102.a: "We'll see how that works out for them."
+ cotc_research_project_events.103.desc: "[owner.Custom('GetBestNameNoState')] has chosen to end the security precautions around Project [scheme.Custom('GetResearchProjectCodenameAdj')][scheme.Custom('GetResearchProjectCodenameNoun')] and take the project public."
+ cotc_research_project_events.103.a: "We'll see how that works out."
  
  cotc_research_project_events.200.desc: "When [owner.Custom('GetBestNameNoState')] brought you on board as a researcher for Project [scheme.Custom('GetResearchProjectCodenameAdj')][scheme.Custom('GetResearchProjectCodenameNoun')], you assumed that [owner.Custom('GetThey')] somehow knew about your previous work on [scheme.MakeScope.Var('research_subject').CultureInnovationType.GetName], but to your surprise, it appears that [owner.Custom('GetThey')] [owner.Custom('GetHave')] no clue about your expertise in the field. If you were to let [owner.Custom('GetThem')] know, you could greatly accelerate the project's progress."
  cotc_research_project_events.200.a: "I'll inform [owner.Custom('GetThem')] at once."
