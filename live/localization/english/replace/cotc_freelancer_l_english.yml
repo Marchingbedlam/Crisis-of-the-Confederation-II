@@ -1,0 +1,239 @@
+﻿l_english:
+ ##################################################
+ # CONCEPTS - names
+ ##################################################
+
+ game_concept_camp: "Base"
+ game_concept_camps: "Bases"
+ game_concept_adventurer_camp: "Freelancer Base"
+ game_concept_adventurer_camps: "Freelancer Bases"
+
+ game_concept_follower: "Staff Member"
+ game_concept_followers: "Staff"
+
+ game_concept_camp_building: "Fitting"
+ game_concept_camp_buildings: "Fittings"
+
+ game_concept_adventurer: "Freelancer"
+ game_concept_adventurers: "Freelancers"
+ game_concept_adventurer_possessive: "Freelancer's"
+ game_concept_adventurers_possessive: "Freelancers'"
+
+ game_concept_camp_purpose: "Charter"
+ game_concept_camp_purposes: "Charters"
+ game_concept_camp_purpose_purpose: "Charter"
+ game_concept_camp_purpose_purposes: "Charters"
+
+ game_concept_camp_temperament: "Morale"
+
+ game_concept_provision: "Store"
+ game_concept_provisions: "Stores"
+
+ game_concept_contractor: "Client"
+ game_concept_contractors: "Clients"
+ game_concept_contractor_possessive: "Client's"
+ game_concept_contractors_possessive: "Clients'"
+
+ game_concept_contact_list_contact: "Contact"
+ game_concept_contact_list_contacts: "Contacts"
+
+ ##################################################
+ # CONCEPTS - descriptions
+ ##################################################
+
+ game_concept_camp_desc: "A $game_concept_camp$ is whatever a [adventurer|E] group works out of - a hull under way, or a headquarters leased on some [barony_cotc|E].\n\nIt goes where they go, and [camp_buildings|E] are fitted to it, standing in for the [counties_cotc|E] a [landed|E] ruler would draw on. [followers|E] live aboard and may be appointed [officers|E].\n\n#WEAK Like [courts|E], a $game_concept_camp$ carries people too minor to portray - loaders, the third-shift watch, somebody's cousin.#!"
+
+ game_concept_follower_desc: "A $game_concept_follower$ is an [unlanded|E] character signed to a [adventurer|E] group.\n\nMechanically they are [courtiers|E], under rather less obligation to be respectful or to stay. The collective [opinion|E] of a [camp|E]'s $game_concept_followers$ sets its [camp_temperament|E].\n\n$game_concept_followers$ can:\n$BULLET_WITH_TAB$Hold [officers|E] posts\n$BULLET_WITH_TAB$Serve as [commanders|E] or [knights|E]\n$BULLET_WITH_TAB$Let their [adventurer|E] press their [claims|E] in [war|E]"
+
+ game_concept_camp_building_desc: "$game_concept_camp_buildings$ are what a [adventurer|E] installs in their [camp|E] - [domicile_buildings|E] by another name, though many are a standing arrangement or a habit rather than a structure.\n\nThey can:\n$EFFECT_LIST_BULLET$Open new [officers|E] posts\n$EFFECT_LIST_BULLET$Buff [skill|E] for everyone aboard\n$EFFECT_LIST_BULLET$Strengthen [men_at_arms|E]\n$EFFECT_LIST_BULLET$Unlock actions [landed|E] [rulers|E] take for granted\n\n#WEAK When a [adventurer|E] decides to stop, their $game_concept_camp_buildings$ are sold off and part of the value refunded as [gold|E].#!"
+
+ game_concept_adventurer_desc: "A $game_concept_adventurer$ is an [unlanded|E] [character|E] running their own [camp|E].\n\nThey hold no [counties_cotc|E] and draw no tax. They live on [task_contracts|E] and on favours called in from their [contact_list|E], and they answer to nobody - which is the appeal, and the problem.\n\n$game_concept_adventurers$ go where they like. Their standing worry is [provisions|E].\n\nInstead of [crown_authority|E], most file a [camp_purpose|E]: what the group is for, and what it is willing to do.\n\n#WEAK Disinherited siblings, cashiered officers, surveyors who never filed, deposed governors, and people who simply felt trapped by the system.#!"
+
+ game_concept_camp_purpose_desc: "A $game_concept_camp_purpose$ is the registration a group operates under - filed with a ministry, a board, a guild, or with nobody at all.\n\nIt decides which [task_contracts|E] come your way, which [camp_buildings|E] and [officers|E] you may have, and how the rest of the [counties_cotc|E] read you when you station.\n\n#WEAK $game_concept_camp_purpose$ also sets the [adventurer_possessive|E] title and how the [followers|E] dress.#!"
+
+ game_concept_camp_temperament_desc: "A [camp|E] is not a [court|E]. There is no rank to hide behind, and grumbling from people who are #EMP not#! the [adventurer|E] matters a great deal.\n\n#P $DOMICILE_WINDOW_BOOKMARK_FOLLOWERS_TEMPERAMENT_POSITIVE$#! requires the majority [opinion|E] of all named [characters|E] to be [GetDefine('NDomicile', 'TEMPERAMENT_THRESHOLD_HIGH')|=P0] or better, and confers positive [character_modifiers|E].\n\n#N $DOMICILE_WINDOW_BOOKMARK_FOLLOWERS_TEMPERAMENT_NEGATIVE$#! requires it to be [GetDefine('NDomicile', 'TEMPERAMENT_THRESHOLD_LOW')|=N0] or worse, and applies negative ones.\n\n#V $DOMICILE_WINDOW_BOOKMARK_FOLLOWERS_TEMPERAMENT_NEUTRAL$#! is everything between.\n\n#WEAK Effects scale with [prestige_level|E]. The better known the outfit, the further its mood carries.#!"
+
+ game_concept_provisions_desc: "$game_concept_provisions$ are what a [camp|E] consumes to stay alive between ports: water, air, fuel, and food.\n\nThey drain while under way and are replenished at friendly [baronies_cotc|E]. Run low and the [followers|E] start leaving; run out and they start dying.\n\n#WEAK A settled [camp|E] buys from local providers and rarely thinks about it.#!"
+
+ game_concept_contact_list_desc: "[adventurers|E] hold no land, but they are not without people who owe them.\n\nYour $game_concept_contact_list$ holds everyone the group has completed a [task_contract|E] for, plus anyone else with reason to help - [family|E] who think well of them, [friends|E], [lovers|E].\n\n$game_concept_contact_list_contacts$ can be leaned on through the $contact_list_request_interaction|V$ [character_interaction|E]."
+
+ game_concept_contractor_desc: "A $game_concept_contractor$ is whoever put the [task_contract|E] out. It chiefly affects them, and they are usually the one paying.\n\n#N [criminal_task_contracts|E] are generally #BOL not#! put out by their $game_concept_contractor$ - they exploit one. Someone who advertises how much they trust you is advertising something else too.#!"
+
+ ##################################################
+ # CHARTERS
+ ##################################################
+
+ camp_purpose_pass_phrase: "File as [Law.GetNameNoTooltip]"
+ camp_purpose_confirmation_button_text: "Refile"
+
+ camp_purpose_wanderers: "Freelancers"
+ camp_purpose_wanderers_effects: "$EFFECT_LIST_BULLET$Equal chance of [task_contracts|E] of any kind\n$EFFECT_LIST_BULLET$May file any other [camp_purpose|E] without the usual [prestige|E] cost\n\n#WEAK No charter on file.#!"
+
+ camp_purpose_mercenaries: "Private Contractors"
+ camp_purpose_mercenaries_effects: "$EFFECT_LIST_BULLET$Finds more [mercenary_task_contracts|E]\n$EFFECT_LIST_BULLET$Finds more [prowess|E] and [martial|E] [task_contracts|E]\n\n#WEAK Registered to provide armed services for hire. The paperwork is usually in order; the work is usually not.#!"
+
+ camp_purpose_scholars: "Researchers"
+ camp_purpose_scholars_effects: "$EFFECT_LIST_BULLET$Finds more [learning|E] and [stewardship|E] [task_contracts|E]\n$EFFECT_LIST_BULLET$Finds slightly more [diplomacy|E] [task_contracts|E]\n\n#WEAK Chartered as an institute or a foundation for the purposes of research and development.#!"
+
+ camp_purpose_explorers: "Prospectors"
+ camp_purpose_explorers_effects: "$EFFECT_LIST_BULLET$Finds more [transport_task_contracts|E]\n$EFFECT_LIST_BULLET$Finds more [diplomacy|E] and [intrigue|E] [task_contracts|E]\n$EFFECT_LIST_BULLET$Finds slightly more [martial|E] [task_contracts|E]\n\n#WEAK Licensed to survey and excavate. Carries the endurance to reach places nobody has seen yet, and the nerve to investigate them.#!"
+
+ camp_purpose_brigands: "Privateers"
+ camp_purpose_brigands_effects: "$EFFECT_LIST_BULLET$Finds more [criminal_task_contracts|E] of all kinds\n$EFFECT_LIST_BULLET$Finds more [prowess|E] and [intrigue|E] [task_contracts|E]\n\n#WEAK Registered somewhere that asks nothing and records even less. A privateer is a pirate with paperwork, and the paperwork is the only difference.#!"
+
+ # consumed by GetCampPurposeType / GetAdventurerType.
+ camp_purpose_type_wanderer: "freelancer"
+ camp_purpose_type_wanderers: "freelancers"
+ camp_purpose_type_mercenary: "contractor"
+ camp_purpose_type_mercenaries: "contractors"
+ camp_purpose_type_scholar: "researcher"
+ camp_purpose_type_scholars: "researchers"
+ camp_purpose_type_explorer: "prospector"
+ camp_purpose_type_explorers: "prospectors"
+ camp_purpose_type_freebooter: "privateer"
+ camp_purpose_type_freebooters: "privateers"
+
+ ##################################################
+ # POSTURE - see cotc_freelancer_custom_loc.txt
+ ##################################################
+
+ cotc_crew_word_crew: "crew"
+ cotc_crew_word_staff: "staff"
+ cotc_base_word_ship: "ship"
+ cotc_base_word_hq: "headquarters"
+
+ ##################################################
+ # FITTINGS - core
+ # Tiers 02-06 alias to _01
+ ##################################################
+
+ camp_main_01_domicile_building: "Operations"
+ supply_tent_01_domicile_building: "Maintenance"
+ barber_tent_01_domicile_building: "Infirmary"
+ baggage_train_01_domicile_building: "Storage"
+ mess_tent_01_domicile_building: "Canteen"
+ camp_fire_01_domicile_building: "Dormitory"
+ proving_grounds_01_domicile_building: "Hangar"
+ camp_perimeter_01_domicile_building: "Security"
+
+ ##################################################
+ # FITTINGS - upgrades
+ ##################################################
+
+ supply_tent_sutler_domicile_building: "Contract Fixers"
+ supply_tent_mender_domicile_building: "Spare Parts"
+ supply_tent_smithy_domicile_building: "Engineering Bay"
+ supply_tent_arsenal_domicile_building: "Stocked Magazine"
+ supply_tent_reserve_provisions_domicile_building: "Deep Stores"
+ supply_tent_reserve_water_domicile_building: "Water Reclamation"
+ supply_tent_climbing_gear_domicile_building: "Hazard Rigging"
+ supply_tent_subdued_gear_domicile_building: "Unmarked Plating"
+
+ barber_tent_surgeons_tools_domicile_building: "Autodoc"
+ barber_tent_torturers_tools_domicile_building: "Interrogation Room"
+ barber_tent_reference_corpus_domicile_building: "Medical Database"
+ barber_tent_morticians_tools_domicile_building: "Cold Storage"
+
+ baggage_train_ample_steeds_domicile_building: "Contingency Plans"
+ baggage_train_porters_domicile_building: "Loading Crew"
+ baggage_train_trackers_domicile_building: "Weight Redistribution"
+ baggage_train_kennel_domicile_building: "Drone Bay"
+ baggage_train_siege_engineers_domicile_building: "Breaching Charges"
+ baggage_train_shrine_domicile_building: "Quiet Room"
+ baggage_train_scribes_domicile_building: "Information Database"
+ baggage_train_bartering_grounds_domicile_building: "Trading Floor"
+ baggage_train_proof_of_claims_domicile_building: "Records Office"
+ baggage_train_ransom_cages_domicile_building: "Holding Cells"
+ baggage_train_negotiators_domicile_building: "Expert Negotiators"
+ baggage_train_ascetics_domicile_building: "Resident Ascetics"
+ baggage_train_pleasure_tents_domicile_building: "Private Cabins"
+
+ mess_tent_herbalists_domicile_building: "Food Specialists"
+ mess_tent_brewers_domicile_building: "Resident Brewers"
+ mess_tent_curers_domicile_building: "Stocked Refrigerators"
+ mess_tent_bakers_domicile_building: "Resident Bakers"
+ mess_tent_cooks_domicile_building: "Trained Chefs"
+
+ camp_fire_trailing_musicians_domicile_building: "Resident Band"
+ camp_fire_libations_for_the_lost_domicile_building: "Memorial Wall"
+ camp_fire_local_hangers_on_domicile_building: "Civilian Decks"
+ camp_fire_future_dreams_domicile_building: "Future Dreams"
+ camp_fire_nightly_debates_domicile_building: "Open Forum"
+ camp_fire_juicy_rumors_domicile_building: "Watercooler Talk"
+
+ # Hangar drills
+ # Repointing them to the ship classes is Phase 2
+ proving_grounds_horse_run_domicile_building: "Corvette Drills"
+ proving_grounds_life_in_the_saddle_domicile_building: "Missile Boat Drills"
+ proving_grounds_camel_run_domicile_building: "Raider Drills"
+ proving_grounds_personal_bouts_domicile_building: "Point Defence Drills"
+ proving_grounds_nightly_barding_drills_domicile_building: "Cruiser Drills"
+ proving_grounds_training_circle_domicile_building: "Fast Attack Drills"
+ proving_grounds_the_stump_domicile_building: "Salvo Drills"
+ proving_grounds_elephantry_reserve_domicile_building: "Electronic Warfare Drills"
+ proving_grounds_mock_battle_drills_domicile_building: "Infantry Drills"
+ proving_grounds_lockwagon_domicile_building: "Prize Locker"
+ proving_grounds_martial_study_domicile_building: "Tactical Database"
+ proving_grounds_the_stick_game_domicile_building: "Boarding Practice"
+ proving_grounds_bodyguard_drills_domicile_building: "Security Drills"
+
+ camp_perimeter_good_siting_domicile_building: "Scenic Stationing"
+ camp_perimeter_fixed_layout_domicile_building: "Fixed Layout"
+ camp_perimeter_extra_watch_domicile_building: "Frequent Rotations"
+ camp_perimeter_palisade_domicile_building: "Extra Plating"
+ camp_perimeter_ditch_domicile_building: "Countermeasures"
+ camp_perimeter_camp_hygiene_domicile_building: "Life Support"
+
+ ##################################################
+ # OFFICERS
+ ##################################################
+
+ second_camp_officer: "Executive Officer"
+ quartermaster_camp_officer: "Quartermaster"
+ armorer_camp_officer: "Equipment Specialist"
+ chief_forager_camp_officer: "Surveyor"
+ master_thief_camp_officer: "Investigator"
+ head_porter_camp_officer: "Loadmaster"
+ head_groom_camp_officer: "Chief Engineer"
+ huntperson_camp_officer: "Weapons Specialist"
+ kennelperson_camp_officer: "Strike Coordinator"
+ chief_engineer_camp_officer: "Assault Commander"
+ witness_camp_officer: "Witness"
+ person_haggler_camp_officer: "Security Officer"
+ camp_cook_camp_officer: "Head Chef"
+ master_of_arms_camp_officer: "Ordnance Chief"
+ master_of_spoils_camp_officer: "Fixer"
+
+ light_cavalry_captain_camp_officer: "Corvette Captain"
+ horse_archer_captain_camp_officer: "Missile Boat Captain"
+ heavy_infantry_captain_camp_officer: "Destroyer Captain"
+ heavy_cavalry_captain_camp_officer: "Cruiser Captain"
+ camelry_captain_camp_officer: "Raider Captain"
+ light_infantry_captain_camp_officer: "Frigate Captain"
+ archer_captain_camp_officer: "Missile Officer"
+ elephantry_captain_camp_officer: "EW Officer"
+ pike_captain_camp_officer: "Auxiliary Captain"
+
+ ##################################################
+ # ACTIONS AND TITLES
+ ##################################################
+
+ # This is the landless duchy title
+ adventurer_name: "[new_landless_adventurer.GetFirstNamePossessiveNoTooltip] Group"
+
+ become_landless_adventurer_decision: "Go Freelancer"
+ become_landless_adventurer_decision_desc: "Space. The final frontier. There is a great deal of room out there, and much is yet to be spoken for."
+ become_landless_adventurer_decision_tooltip: "Give up your [landed|E] [realm|E] and register as a [adventurer|E]"
+ become_landless_adventurer_decision_confirm: "Engage."
+ become_landless_adventurer_decision_tier_tt: "You must hold a [county_cotc|E] or [duchy_cotc|E]"
+ become_landless_adventurer_decision_domain_size_tt: "Your [domain|E] must be no larger than #V 3#! [counties_cotc|E]"
+
+ relocate_camp_to_interaction: "Relocate Base"
+
+ activity_camp_party: "Shore Leave"
+ phase_camp_party: "Shore Leave"
+
+ ep3_laamp_adventurer_county_invasion: "Seizure"
+ ep3_laamp_adventurer_duchy_invasion: "Seizure"
+ ep3_laamp_adventurer_kingdom_invasion: "Seizure"
+ ep3_laamp_adventurer_empire_invasion: "Seizure"
