@@ -34,6 +34,7 @@
  game_concept_contractor_possessive: "Client's"
  game_concept_contractors_possessive: "Clients'"
 
+ game_concept_contact_list: "Contact List"
  game_concept_contact_list_contact: "Contact"
  game_concept_contact_list_contacts: "Contacts"
 
@@ -41,7 +42,7 @@
  # CONCEPTS - descriptions
  ##################################################
 
- game_concept_camp_desc: "A $game_concept_camp$ is whatever a [adventurer|E] group works out of - a hull under way, or a headquarters leased on some [barony_cotc|E].\n\nIt goes where they go, and [camp_buildings|E] are fitted to it, standing in for the [counties_cotc|E] a [landed|E] ruler would draw on. [followers|E] live aboard and may be appointed [officers|E].\n\n#WEAK Like [courts|E], a $game_concept_camp$ carries people too minor to portray - loaders, the third-shift watch, somebody's cousin.#!"
+ game_concept_camp_desc: "A $game_concept_camp$ is whatever a [adventurer|E] group works out of - a hull under way, or a headquarters leased at some [barony_cotc|E].\n\nIt goes where they go, and [camp_buildings|E] are fitted to it, standing in for the [counties_cotc|E] a [landed|E] ruler would draw on. [followers|E] live aboard and may be appointed [officers|E].\n\n#WEAK Like [courts|E], a $game_concept_camp$ carries people too minor to portray - loaders, the third-shift watch, somebody's cousin.#!"
 
  game_concept_follower_desc: "A $game_concept_follower$ is an [unlanded|E] character signed to a [adventurer|E] group.\n\nMechanically they are [courtiers|E], under rather less obligation to be respectful or to stay. The collective [opinion|E] of a [camp|E]'s $game_concept_followers$ sets its [camp_temperament|E].\n\n$game_concept_followers$ can:\n$BULLET_WITH_TAB$Hold [officers|E] posts\n$BULLET_WITH_TAB$Serve as [commanders|E] or [knights|E]\n$BULLET_WITH_TAB$Let their [adventurer|E] press their [claims|E] in [war|E]"
 
@@ -237,3 +238,61 @@
  ep3_laamp_adventurer_duchy_invasion: "Seizure"
  ep3_laamp_adventurer_kingdom_invasion: "Seizure"
  ep3_laamp_adventurer_empire_invasion: "Seizure"
+
+ ##################################################
+ # ARTICLE FIXES
+ #
+ # [adventurer|E] used to render "Adventurer" and now renders "Freelancer", so
+ # every vanilla string that wrote "an" before it is wrong. Values are verbatim
+ # vanilla with only the article changed.
+ ##################################################
+
+ BUY_CLAIM_LANDLESS_ADVENTURER_TITLE:0 "You cannot buy a [claim|E] on a [adventurer|E] title"
+ IS_LANDLESS_ADVENTURER_TRIGGER: "Is a [adventurer|E]"
+ I_AM_LANDLESS_ADVENTURER_TRIGGER: "You are a [adventurer|E]"
+ NONE_ARE_LANDLESS_ADVENTURER_TRIGGER: "They are a [adventurer|E]"
+ NOT_IS_LANDLESS_ADVENTURER_TRIGGER: "Is #bold not#! a [adventurer|E]"
+ NOT_I_AM_LANDLESS_ADVENTURER_TRIGGER: "You are #bold not#! a [adventurer|E]"
+ NOT_NONE_ARE_LANDLESS_ADVENTURER_TRIGGER: "They are #bold not#! a [adventurer|E]"
+ NOT_THEY_ARE_LANDLESS_ADVENTURER_TRIGGER: "[CHARACTER.GetShortUIName|U] is #bold not#! a [adventurer|E]"
+ RANDOM_DESTINY_CHARACTER_TYPE_TOOLTIP_boilerplate_adventurer: "The chance to become a [adventurer|E] is roughly #V 50%#!\n\n"
+ RANDOM_DESTINY_CHARACTER_TYPE_TOOLTIP_random_adventurer: "Click to select a random member of the [GetPlayer.GetDynasty.GetBaseName] [dynasty|E] which either is, or will become, a [adventurer|E].\n\n$RANDOM_DESTINY_CHARACTER_TYPE_TOOLTIP_boilerplate$"
+ THEY_ARE_LANDLESS_ADVENTURER_TRIGGER: "[CHARACTER.GetShortUIName|U] is a [adventurer|E]"
+ YOU_ARE_AN_ADVENTURER_REASON: "You are a [adventurer|E]: $VALUE|=+0$"
+ adventurer_titles_renounced_to_me_desc: "[adventurer.GetFirstName] renounced [adventurer.GetHerHis] new [titles|E] to remain a [adventurer|E]"
+ cid_2020_b_tt: "You continue as a [adventurer|E]"
+ event_window_widget_peasant_leader_tooltip: "Local Peasants are in a constant struggle against their overlords. As a [adventurer|E], you are just a bystander. However, if you wish, you can take action into your own hands. Decide who's right and who's wrong, choose a side and support it."
+ game_concept_adventurer_siege_replenishment_desc: "When a [adventurer|E] successfully [sieges|E] a [holding|E], a portion of their [men_at_arms|E] will be replenished.\n\nAll Men-at-Arms [regiments|E] in the [army|E] will be replenished by #V x2#! times the Holding's [loot|E] value.\n\n#weak The increase is made up of new recruits, the press-ganging of locals, and simply paying those who wandered off during the siege.#!"
+ game_concept_ep3_become_landless_adventurer_decision_desc: "A [decision|E] unlocked by certain [traditions|E] which allows a [ruler|E] of a small [realm|E] to voluntarily leave and become a [adventurer|E]"
+ game_concept_ep3_laamp_adventurer_invasion_war_desc: "A [casus_belli|E] which allows a [adventurer|E] to declare [war|E] to attempt to carve out a new [realm|E]"
+ game_concept_ep3_purchase_land_interaction_desc: "An [interaction|E] which allows a [adventurer|E] to buy land from a [ruler|E] and settle in their [realm|E]"
+ laamp_become_adventurer_tt: "#mixed_value #BER [THIS.Char.GetShortUIName|U] will establish a [adventurer|E] [camp|E]#!#!"
+ laamp_may_become_adventurer_tt: "[THIS.Char.GetShortUIName|U] may become a [adventurer|E]"
+ landless_government_tt: "You are a [adventurer|E]"
+ message_filter_laamp_nearby_desc: "A [adventurer|E] appears or is [landed|E] nearby"
+ nearby_landless_adventurer_created_message_eradicate_tt: "[new_landless_adventurer.GetShortUINamePossessive|U] [house|E] was eradicated so [new_landless_adventurer.GetSheHe] fled [new_landless_adventurer.GetHerHis] home and became a [adventurer|E]" 
+ nearby_landless_adventurer_created_message_fallback_tt: "[new_landless_adventurer.GetShortUIName|U] has become a [adventurer|E]"
+ nearby_landless_adventurer_created_message_wanderer_tt: "[new_landless_adventurer.GetShortUIName|U] gathered a band of followers and became a [adventurer|E]"
+ request_laamp_invasion_sponsorship_existing_supportee_tt: "[recipient.GetShortUIName|U] is already supporting a [adventurer|E]"
+ seize_realm_desc_general: "A Hostile [scheme|E] that allows a [adventurer|E] to seize the [realm|E] of a [landed|E] [ruler|E].\n\n$seize_realm_warning$"
+
+ ##################################################
+ # ARTICLE FIXES - the other direction
+ #
+ # These names gained a leading vowel, so vanilla's "a" is now wrong:
+ #   Second        -> Executive Officer
+ #   Master Thief  -> Investigator
+ #   Chief Engineer-> Assault Commander
+ #   Master of Arms-> Ordnance Chief
+ #   Barber's Tent -> Infirmary
+ # Unchanged in the same strings: Huntsman->Weapons Specialist, Master of
+ # Spoils->Fixer, Man-Haggler->Security Officer all stay consonant-initial.
+ ##################################################
+
+ EVENT_WINDOW_OPTION_AVAILABLE_HAVE_SECOND: "This option is available because you have an [GetCourtPositionType('second_camp_officer').GetName()] [officer|E]"
+ EVENT_WINDOW_OPTION_AVAILABLE_HAVE_MASTER_THIEF: "This option is available because you have an [GetCourtPositionType('master_thief_camp_officer').GetName()] [officer|E]"
+ EVENT_WINDOW_OPTION_AVAILABLE_HAVE_CHIEF_ENGINEER: "This option is available because you have an [GetCourtPositionType('chief_engineer_camp_officer').GetName()] [officer|E]"
+ EVENT_WINDOW_OPTION_AVAILABLE_HAVE_MASTER_OF_ARMS: "This option is available because you have an [GetCourtPositionType('master_of_arms_camp_officer').GetName()] [officer|E]"
+ laamp_torture_requires_tools_tt: "You must have an $barber_tent_01_domicile_building$ [camp_building|E] with the $barber_tent_torturers_tools_domicile_building$ upgrade"
+ laamp_base_contract_schemes.3661.o.lacking_officers.thief_huntsman_engineer: "You have neither an [GetCourtPositionType('master_thief_camp_officer').GetName()], nor a [GetCourtPositionType('huntperson_camp_officer').GetName()], nor an [GetCourtPositionType('chief_engineer_camp_officer').GetName()]"
+ laamp_base_contract_schemes.3661.o.lacking_officers.moa_mos_man_haggler: "You have neither an [GetCourtPositionType('master_of_arms_camp_officer').GetName()], nor a [GetCourtPositionType('master_of_spoils_camp_officer').GetName()], nor a [GetCourtPositionType('person_haggler_camp_officer').GetName()]"
