@@ -22,8 +22,9 @@ quarterly_playable_pulse = {
 }
 
 ##################################################
-# Voluntary moves are already blocked for a settled Base by can_move_domicile, 
-# this covers forced relocation which should un-settle, so any move reaching here is forced
+# Voluntary moves are blocked by can_move_domicile, eviction by
+# cotc_freelancer_eviction_override.txt. This covers the remaining scripted
+# relocations, which un-settle rather than strand the character.
 ##################################################
 on_domicile_moved = {
 	effect = {
