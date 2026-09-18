@@ -1406,8 +1406,13 @@ types MyRealmWindow
 				spacing = 10
 
 				text_label_center = {
-					visible = "[IsLandlessAdventurer( Character )]"
+					visible = "[And( IsLandlessAdventurer( Character ), GuiLawGroup.GetLawGroup.HasFlag( 'cotc_charter_law' ) )]"
 					text = "[camp_purpose|E]"
+				}
+
+				text_label_center = {
+					visible = "[And( IsLandlessAdventurer( Character ), GuiLawGroup.GetLawGroup.HasFlag( 'cotc_posture_law' ) )]"
+					text = "[posture|E]"
 				}
 
 				text_label_center = {

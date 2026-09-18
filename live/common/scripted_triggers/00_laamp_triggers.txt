@@ -550,6 +550,11 @@ player_adventurer_sufficient_distance_for_contract_spawn_trigger = {
 			limit = { exists = scope:char_temp.current_travel_plan }
 			"location.squared_distance(scope:char_temp.current_travel_plan.departure_location)" >= squared_distance_medium
 		}
+		# COTC: a settled Base shouldn't move, new contracts are on a timer
+		AND = {
+			has_realm_law_flag = static_camp_posture
+			NOT = { has_variable = cotc_settled_contract_cooldown }
+		}
 	}
 }
 

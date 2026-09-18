@@ -1,0 +1,39 @@
+﻿##################################################
+# COTC - Freelancer Posture triggers
+##################################################
+
+# Same shape as realm_law_use_camp_purpose in 00_law_triggers.txt
+realm_law_use_cotc_posture = {
+	government_has_flag = government_is_landless_adventurer
+}
+
+# Prospectors and Privateers are defined by movement
+cotc_charter_allows_settled_trigger = {
+	custom_description = {
+		subject = root
+		text = cotc_posture_charter_forbids_settled_tt
+		NOR = {
+			has_realm_law = camp_purpose_explorers
+			has_realm_law = camp_purpose_brigands
+		}
+	}
+}
+
+# Shape copied from crown_authority (00_realm_laws.txt)
+cotc_posture_no_cooldown_trigger = {
+	custom_description = {
+		subject = root
+		text = cotc_posture_cooldown_tt
+		NOT = { has_variable = cotc_posture_cooldown }
+	}
+}
+
+# Changing Posture re-anchors the Base, so it cannot happen mid-journey
+# Same conditions relocate_camp_to_interaction uses (06_ep3_laamp_interactions.txt)
+cotc_posture_can_switch_now_trigger = {
+	is_travelling = no
+	is_in_army = no
+	is_imprisoned = no
+	exists = domicile
+	domicile = { is_domicile_type = camp }
+}
