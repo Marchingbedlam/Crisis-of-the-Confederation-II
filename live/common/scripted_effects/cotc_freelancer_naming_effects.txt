@@ -1,0 +1,41 @@
+﻿##################################################
+# COTC - Freelancer group renaming
+##################################################
+
+cotc_freelancer_rename_group_effect = {
+	if = {
+		limit = {
+			government_has_flag = government_is_landless_adventurer
+			exists = primary_title
+			# Players who have changed a name will keep it
+			NOT = { has_variable = cotc_group_name_locked }
+		}
+		house ?= { save_scope_as = cotc_group_house }
+		location ?= { save_scope_as = cotc_group_location }
+
+		random_list = {
+			10 = {
+				primary_title = { set_title_name_dynamic = cotc_group_name_r01 }
+			}
+			10 = {
+				primary_title = { set_title_name_dynamic = cotc_group_name_r02 }
+			}
+			10 = {
+				trigger = { exists = scope:cotc_group_house }
+				primary_title = { set_title_name_dynamic = cotc_group_name_r03 }
+			}
+			10 = {
+				trigger = { exists = scope:cotc_group_location }
+				primary_title = { set_title_name_dynamic = cotc_group_name_r04 }
+			}
+			10 = {
+				primary_title = { set_title_name_dynamic = cotc_group_name_r05 }
+			}
+		}
+	}
+}
+
+# Stops the group being renamed on any later Charter change.
+cotc_freelancer_lock_group_name_effect = {
+	set_variable = cotc_group_name_locked
+}
