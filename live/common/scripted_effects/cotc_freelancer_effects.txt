@@ -38,6 +38,15 @@ cotc_freelancer_settle_government_effect = {
 
 # Runs on every Posture change
 cotc_freelancer_posture_changed_effect = {
+	# The ship or headquarters are sold and partly refunded. Same as vanilla when becoming landed.
+	hidden_effect = {
+		laamp_clear_domicile_buildings_liquidator_effect = yes
+	}
+	custom_tooltip = {
+		text = cotc_posture_base_liquidated_tt
+		laamp_clear_domicile_buildings_effect = yes
+	}
+
 	if = {
 		limit = { has_realm_law = posture_settled }
 		set_variable = cotc_was_settled
