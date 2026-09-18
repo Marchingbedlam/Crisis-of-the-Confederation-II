@@ -988,9 +988,19 @@ ep3_laamp_diplo_range_trigger = {
 					exists = $TARGET$.host.capital_province
 				}
 				$TARGET$.host.capital_province ?= {
-					squared_distance = {
-						target = $LAAMP$.domicile.domicile_location
-						value < define:NTaskContract|ADVENTURER_DISTANCE_RESTRICTION
+					# COTC: Settled reaches 250px instead of 150px so they have more room
+					trigger_if = {
+						limit = { $LAAMP$ = { has_realm_law_flag = static_camp_posture } }
+						squared_distance = {
+							target = $LAAMP$.domicile.domicile_location
+							value < squared_distance_medium
+						}
+					}
+					trigger_else = {
+						squared_distance = {
+							target = $LAAMP$.domicile.domicile_location
+							value < define:NTaskContract|ADVENTURER_DISTANCE_RESTRICTION
+						}
 					}
 				}
 			}
@@ -1000,17 +1010,37 @@ ep3_laamp_diplo_range_trigger = {
 					exists = $TARGET$.location
 				}
 				$TARGET$.location ?= {
-					squared_distance = {
-						target = $LAAMP$.domicile.domicile_location
-						value < define:NTaskContract|ADVENTURER_DISTANCE_RESTRICTION
+					# COTC: Settled reaches 250px instead of 150px so they have more room
+					trigger_if = {
+						limit = { $LAAMP$ = { has_realm_law_flag = static_camp_posture } }
+						squared_distance = {
+							target = $LAAMP$.domicile.domicile_location
+							value < squared_distance_medium
+						}
+					}
+					trigger_else = {
+						squared_distance = {
+							target = $LAAMP$.domicile.domicile_location
+							value < define:NTaskContract|ADVENTURER_DISTANCE_RESTRICTION
+						}
 					}
 				}
 			}
 			trigger_else = {
 				$TARGET$.capital_province ?= {
-					squared_distance = {
-						target = $LAAMP$.domicile.domicile_location
-						value < define:NTaskContract|ADVENTURER_DISTANCE_RESTRICTION
+					# COTC: Settled reaches 250px instead of 150px so they have more room
+					trigger_if = {
+						limit = { $LAAMP$ = { has_realm_law_flag = static_camp_posture } }
+						squared_distance = {
+							target = $LAAMP$.domicile.domicile_location
+							value < squared_distance_medium
+						}
+					}
+					trigger_else = {
+						squared_distance = {
+							target = $LAAMP$.domicile.domicile_location
+							value < define:NTaskContract|ADVENTURER_DISTANCE_RESTRICTION
+						}
 					}
 				}
 			}

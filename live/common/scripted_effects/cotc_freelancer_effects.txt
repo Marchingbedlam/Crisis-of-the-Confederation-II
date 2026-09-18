@@ -35,3 +35,47 @@ cotc_freelancer_settle_government_effect = {
 		set_to_default_state_government = { KEEP_CURRENT_POWER_BASE = flag:no }
 	}
 }
+
+# Runs on every Posture change
+cotc_freelancer_posture_changed_effect = {
+	if = {
+		limit = { has_realm_law = posture_settled }
+		set_variable = cotc_was_settled
+		# Anchor the Base, so a forced relocation can be detected
+		if = {
+			limit = { exists = domicile.domicile_location }
+			set_variable = {
+				name = cotc_settled_base_province
+				value = domicile.domicile_location
+			}
+		}
+	}
+	else = {
+		remove_variable = cotc_was_settled
+		remove_variable = cotc_settled_base_province
+	}
+
+	# Posture picks the name template shape, so the Group is re-rolled
+	cotc_freelancer_rename_group_effect = yes
+}
+
+# A settled character forced onto a roaming-only Charter would drop to Roaming while keeping a settled group name
+# cotc_was_settled records what we last reconciled to, if it disagrees with the law, a change happened behind our back
+cotc_freelancer_posture_reconcile_effect = {
+	if = {
+		limit = {
+			government_has_flag = government_is_landless_adventurer
+			OR = {
+				AND = {
+					has_realm_law = posture_settled
+					NOT = { has_variable = cotc_was_settled }
+				}
+				AND = {
+					NOT = { has_realm_law = posture_settled }
+					has_variable = cotc_was_settled
+				}
+			}
+		}
+		cotc_freelancer_posture_changed_effect = yes
+	}
+}

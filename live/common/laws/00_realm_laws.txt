@@ -525,6 +525,8 @@ tribal_authority = {
 camp_purpose = {
 	default = camp_purpose_wanderers
 	flag = realm_law
+	# COTC: lets window_my_realm.gui tell Charter from Posture
+	flag = cotc_charter_law
 	
 	camp_purpose_wanderers = {
 		pass_phrase =  camp_purpose_pass_phrase
@@ -826,6 +828,15 @@ camp_purpose = {
 
 		can_keep = { realm_law_use_camp_purpose = yes }
 
+		# COTC: A settled Base cannot file as Charters defined by movement. Start roaming first.
+		can_pass = {
+			custom_description = {
+				subject = root
+				text = cotc_charter_requires_roaming_tt
+				NOT = { has_realm_law = posture_settled }
+			}
+		}
+
 		pass_cost = {
 			prestige = {
 				if = {
@@ -948,6 +959,15 @@ camp_purpose = {
 		flag = unlocks_proving_grounds_the_stick_game
 
 		can_keep = { realm_law_use_camp_purpose = yes }
+
+		# COTC: A settled Base cannot file as Charters defined by movement. Start roaming first.
+		can_pass = {
+			custom_description = {
+				subject = root
+				text = cotc_charter_requires_roaming_tt
+				NOT = { has_realm_law = posture_settled }
+			}
+		}
 
 		pass_cost = {
 			prestige = {
