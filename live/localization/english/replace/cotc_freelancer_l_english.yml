@@ -52,7 +52,7 @@
 
  game_concept_camp_purpose_desc: "A $game_concept_camp_purpose$ is the registration a group operates under - filed with a ministry, a board, a guild, or with nobody at all.\n\nIt decides which [task_contracts|E] come your way, which [camp_buildings|E] and [officers|E] you may have, and how the rest of the [counties_cotc|E] read you when you station.\n\n#WEAK $game_concept_camp_purpose$ also sets the [adventurer_possessive|E] title and how the [followers|E] dress.#!"
 
- game_concept_camp_temperament_desc: "A [camp|E] is not a [court|E]. There is no rank to hide behind, and grumbling from people who are #EMP not#! the [adventurer|E] matters a great deal.\n\n#P $DOMICILE_WINDOW_BOOKMARK_FOLLOWERS_TEMPERAMENT_POSITIVE$#! requires the majority [opinion|E] of all named [characters|E] to be [GetDefine('NDomicile', 'TEMPERAMENT_THRESHOLD_HIGH')|=P0] or better, and confers positive [character_modifiers|E].\n\n#N $DOMICILE_WINDOW_BOOKMARK_FOLLOWERS_TEMPERAMENT_NEGATIVE$#! requires it to be [GetDefine('NDomicile', 'TEMPERAMENT_THRESHOLD_LOW')|=N0] or worse, and applies negative ones.\n\n#V $DOMICILE_WINDOW_BOOKMARK_FOLLOWERS_TEMPERAMENT_NEUTRAL$#! is everything between.\n\n#WEAK Effects scale with [prestige_level|E]. The better known the outfit, the further its mood carries.#!"
+ game_concept_camp_temperament_desc: "A [camp|E] is not a [court|E]. There is no rank to hide behind, and grumbling from people who are #EMP not#! the [adventurer|E] matters a great deal.\n\n#P $DOMICILE_WINDOW_BOOKMARK_FOLLOWERS_TEMPERAMENT_POSITIVE$#! requires the majority [opinion|E] of all named [characters|E] to be [GetDefine('NDomicile', 'TEMPERAMENT_THRESHOLD_HIGH')|=P0] or better, and confers positive [character_modifiers|E].\n\n#N $DOMICILE_WINDOW_BOOKMARK_FOLLOWERS_TEMPERAMENT_NEGATIVE$#! requires it to be [GetDefine('NDomicile', 'TEMPERAMENT_THRESHOLD_LOW')|=N0] or worse, and applies negative ones.\n\n#V $DOMICILE_WINDOW_BOOKMARK_FOLLOWERS_TEMPERAMENT_NEUTRAL$#! is everything between.\n\n#WEAK Effects scale with [prestige_level|E]. The better known the group, the further its mood carries.#!"
 
  game_concept_provisions_desc: "$game_concept_provisions$ are what a [camp|E] consumes to stay alive between ports: water, air, fuel, and food.\n\nThey drain while under way and are replenished at friendly [baronies_cotc|E]. Run low and the [followers|E] start leaving; run out and they start dying.\n\n#WEAK A settled [camp|E] buys from local providers and rarely thinks about it.#!"
 
@@ -131,6 +131,7 @@
  supply_tent_subdued_gear_domicile_building: "Unmarked Plating"
 
  barber_tent_surgeons_tools_domicile_building: "Autodoc"
+ barber_tent_dentists_tools_domicile_building: "Dentist's Office"
  barber_tent_torturers_tools_domicile_building: "Interrogation Room"
  barber_tent_reference_corpus_domicile_building: "Medical Database"
  barber_tent_morticians_tools_domicile_building: "Cold Storage"
@@ -321,3 +322,9 @@
  # Spouse of a Freelancer
  spouse_landless_adventurer_male: ""
  spouse_landless_adventurer_holder_female: ""
+
+ ##################################################
+ # FLAVOR EVENTS
+ ##################################################
+
+ ep3_laamp_flavour_ewan.0051.desc.buildings.barber_tent_dentists_tools: "muffled complaints of somebody having their teeth seen to properly for once,"
