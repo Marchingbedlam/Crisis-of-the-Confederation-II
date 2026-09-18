@@ -988,8 +988,15 @@ ep3_laamp_diplo_range_trigger = {
 					exists = $TARGET$.host.capital_province
 				}
 				$TARGET$.host.capital_province ?= {
-					# COTC: Settled reaches 250px instead of 150px so they have more room
+					# COTC: Settled reaches 250px, and 460px with cotc_settled_enhanced_comms
 					trigger_if = {
+						limit = { $LAAMP$ = { domicile ?= { has_domicile_parameter = cotc_settled_enhanced_comms } } }
+						squared_distance = {
+							target = $LAAMP$.domicile.domicile_location
+							value < squared_distance_major
+						}
+					}
+					trigger_else_if = {
 						limit = { $LAAMP$ = { has_realm_law_flag = static_camp_posture } }
 						squared_distance = {
 							target = $LAAMP$.domicile.domicile_location
@@ -1010,8 +1017,15 @@ ep3_laamp_diplo_range_trigger = {
 					exists = $TARGET$.location
 				}
 				$TARGET$.location ?= {
-					# COTC: Settled reaches 250px instead of 150px so they have more room
+					# COTC: Settled reaches 250px, and 460px with cotc_settled_enhanced_comms
 					trigger_if = {
+						limit = { $LAAMP$ = { domicile ?= { has_domicile_parameter = cotc_settled_enhanced_comms } } }
+						squared_distance = {
+							target = $LAAMP$.domicile.domicile_location
+							value < squared_distance_major
+						}
+					}
+					trigger_else_if = {
 						limit = { $LAAMP$ = { has_realm_law_flag = static_camp_posture } }
 						squared_distance = {
 							target = $LAAMP$.domicile.domicile_location
@@ -1028,8 +1042,15 @@ ep3_laamp_diplo_range_trigger = {
 			}
 			trigger_else = {
 				$TARGET$.capital_province ?= {
-					# COTC: Settled reaches 250px instead of 150px so they have more room
+					# COTC: Settled reaches 250px, and 460px with cotc_settled_enhanced_comms
 					trigger_if = {
+						limit = { $LAAMP$ = { domicile ?= { has_domicile_parameter = cotc_settled_comms_relay } } }
+						squared_distance = {
+							target = $LAAMP$.domicile.domicile_location
+							value < squared_distance_major
+						}
+					}
+					trigger_else_if = {
 						limit = { $LAAMP$ = { has_realm_law_flag = static_camp_posture } }
 						squared_distance = {
 							target = $LAAMP$.domicile.domicile_location
