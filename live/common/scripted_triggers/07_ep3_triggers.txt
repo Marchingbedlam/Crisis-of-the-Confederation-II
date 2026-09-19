@@ -1044,7 +1044,7 @@ ep3_laamp_diplo_range_trigger = {
 				$TARGET$.capital_province ?= {
 					# COTC: Settled reaches 250px, and 460px with cotc_settled_enhanced_comms
 					trigger_if = {
-						limit = { $LAAMP$ = { domicile ?= { has_domicile_parameter = cotc_settled_comms_relay } } }
+						limit = { $LAAMP$ = { domicile ?= { has_domicile_parameter = cotc_settled_enhanced_comms } } }
 						squared_distance = {
 							target = $LAAMP$.domicile.domicile_location
 							value < squared_distance_major
