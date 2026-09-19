@@ -244,7 +244,8 @@ window = {
 							name = "move_domcicle_button"
 							datacontext = "[GetPlayer.GetDomicile]"
 							datacontext = "[HoldingView.GetProvince]"
-							visible = "[IsLandlessAdventurer( GetPlayer )]"
+							# COTC: Check posture here, invisible to settled
+							visible = "[And( IsLandlessAdventurer( GetPlayer ), Not( GetPlayer.HasRealmLaw('posture_settled') ) )]"
 							widgetid = "move_domcicle_button"
 							size = { 50 50 }
 
