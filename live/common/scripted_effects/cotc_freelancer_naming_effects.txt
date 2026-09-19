@@ -1,16 +1,5 @@
 ﻿##################################################
 # COTC - Freelancer group renaming
-#
-# Called from each Charter law's on_pass in 00_realm_laws.txt, and from
-# cotc_freelancer_posture_changed_effect when Posture changes.
-#
-# Charter picks the VOCABULARY (CotcRoamingGroupNoun / CotcSettledGroupNoun)
-# Posture picks the TEMPLATE SHAPE:
-#   roaming r01-r05 - Iron Corsairs, Hedd Runners
-#   settled s01-s04 - Hedd Survey, Ceres Combine
-#
-# Every Freelancer holds the default Charter by the time create_landless_adventurer_title_effect runs
-# set_title_name_dynamic resolves it again
 ##################################################
 
 cotc_freelancer_rename_group_effect = {
@@ -43,38 +32,25 @@ cotc_freelancer_rename_group_effect = {
 						trigger = { exists = scope:cotc_group_house }
 						primary_title = { set_title_name_dynamic = cotc_group_name_s01 }
 					}
-					20 = {
+					10 = {
 						trigger = { exists = scope:cotc_group_location }
 						primary_title = { set_title_name_dynamic = cotc_group_name_s02 }
 					}
-					20 = {
+					10 = {
 						trigger = { exists = scope:cotc_group_location }
 						primary_title = { set_title_name_dynamic = cotc_group_name_s03 }
-					}
-					5 = {
-						primary_title = { set_title_name_dynamic = cotc_group_name_s04 }
 					}
 				}
 			}
 			else = {
 				# ROAMING
 				random_list = {
-					20 = {
+					10 = {
 						primary_title = { set_title_name_dynamic = cotc_group_name_r01 }
-					}
-					5 = {
-						primary_title = { set_title_name_dynamic = cotc_group_name_r02 }
 					}
 					10 = {
 						trigger = { exists = scope:cotc_group_house }
-						primary_title = { set_title_name_dynamic = cotc_group_name_r03 }
-					}
-					10 = {
-						trigger = { exists = scope:cotc_group_location }
-						primary_title = { set_title_name_dynamic = cotc_group_name_r04 }
-					}
-					10 = {
-						primary_title = { set_title_name_dynamic = cotc_group_name_r05 }
+						primary_title = { set_title_name_dynamic = cotc_group_name_r02 }
 					}
 				}
 			}
@@ -82,7 +58,7 @@ cotc_freelancer_rename_group_effect = {
 	}
 }
 
-# Stops the group being renamed on any later Charter or Posture change
+# Stops the group being renamed on Charter or Posture changes (e.g when player sets a name)
 cotc_freelancer_lock_group_name_effect = {
 	set_variable = cotc_group_name_locked
 }
