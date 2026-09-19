@@ -229,8 +229,16 @@
 
  relocate_camp_to_interaction: "Relocate Base"
 
- activity_camp_party: "Shore Leave"
- phase_camp_party: "Shore Leave"
+ activity_camp_party: "Downtime"
+ phase_camp_party: "Downtime"
+ activity_camp_party_desc: "Hold a small celebration at your [camp|E], funded by [gold_i][gold|E] but modified by your stocks of [provisions_i][provisions|E]. Invitees will include all your [followers|E], plus optionally local [rulers|E].\n\nIt is an opportunity to befriend your [followers|E], gain special [task_contracts|E], and manage [stress|E]."
+ activity_camp_party_cooldown: "You have to wait at least 3 months before planning more [GetActivityType('activity_camp_party').GetName]!"
+ activity_camp_party_destination_selection: "[GetActivityType('activity_camp_party').GetName] can only be taken at your [camp|E]"
+ # Downtime is a mass noun, so vanilla a/the must go
+ activity_camp_party_selection_tooltip: "Plan [GetActivityType('activity_camp_party').GetName] with your [followers|E]\n\nAnticipated Rewards:\n$BULLET_WITH_TAB$[stress_i][stress|E] loss\n$BULLET_WITH_TAB$[provisions_i][provisions|E]\n$BULLET_WITH_TAB$New [task_contracts|E]"
+ activity_camp_party_conclusion_desc: "[GetActivityType( 'activity_camp_party' ).GetName] has concluded"
+ camp_party_fortress_of_solitude_desc: "This character took [GetActivityType('activity_camp_party').GetName] entirely alone, and is warmed by the memory of the peaceful silence of solitude"
+ ep3_camp_party_sad_lonesome_desc: "This character took [GetActivityType('activity_camp_party').GetName] entirely alone, and is haunted by the memory of the troubled silence of solitude"
 
  ep3_laamp_adventurer_county_invasion: "Seizure"
  ep3_laamp_adventurer_duchy_invasion: "Seizure"
