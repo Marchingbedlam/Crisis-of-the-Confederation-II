@@ -260,3 +260,41 @@ cotc_settled_modular_layout = {
 		soundeffect = "event:/DLC/EP3/SFX/UI/camp_buildings/ep3_ui_domicile_buildings_supply_tent"
 	}
 }
+
+cotc_settled_payroll_department = {
+	slot_type = internal
+	construction_time = 240
+	allowed_domicile_types = { camp }
+	previous_building = supply_tent_01
+
+	can_construct_potential = { has_realm_law_flag = static_camp_posture }
+
+	cost = { gold = cotc_settled_payroll_department_gold_cost_value }
+	refund = {
+		gold = {
+			value = cotc_settled_payroll_department_gold_cost_value
+			multiply = camp_refund_mult_value
+			floor = yes
+		}
+	}
+
+	character_modifier = {
+		provisions_loss_mult = -0.15
+	}
+
+	parameters = {
+		cotc_settled_payroll_department = yes
+	}
+
+	ai_value = {
+		value = camp_building_ai_base_t4
+		multiply = 10
+	}
+
+	asset = {
+		icon = "gfx/interface/icons/domicile_building/domicile_building_sutler.dds"
+		texture = "gfx/interface/window_domiciles/laamp_building_supply_tent.dds"
+		intersectionmask_texture = "gfx/interface/window_domiciles/laamp_building_supply_tent_mask.png"
+		soundeffect = "event:/DLC/EP3/SFX/UI/camp_buildings/ep3_ui_domicile_buildings_supply_tent"
+	}
+}

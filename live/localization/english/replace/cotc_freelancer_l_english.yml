@@ -54,7 +54,17 @@
 
  game_concept_camp_temperament_desc: "A [camp|E] is not a [court|E]. There is no rank to hide behind, and grumbling from people who are #EMP not#! the [adventurer|E] matters a great deal.\n\n#P $DOMICILE_WINDOW_BOOKMARK_FOLLOWERS_TEMPERAMENT_POSITIVE$#! requires the majority [opinion|E] of all named [characters|E] to be [GetDefine('NDomicile', 'TEMPERAMENT_THRESHOLD_HIGH')|=P0] or better, and confers positive [character_modifiers|E].\n\n#N $DOMICILE_WINDOW_BOOKMARK_FOLLOWERS_TEMPERAMENT_NEGATIVE$#! requires it to be [GetDefine('NDomicile', 'TEMPERAMENT_THRESHOLD_LOW')|=N0] or worse, and applies negative ones.\n\n#V $DOMICILE_WINDOW_BOOKMARK_FOLLOWERS_TEMPERAMENT_NEUTRAL$#! is everything between.\n\n#WEAK Effects scale with [prestige_level|E]. The better known the group, the further its mood carries.#!"
 
- game_concept_provisions_desc: "$game_concept_provisions$ are what a [camp|E] consumes to stay alive between ports: water, air, fuel, and food.\n\nThey drain while under way and are replenished at friendly [baronies_cotc|E]. Run low and the [followers|E] start leaving; run out and they start dying.\n\n#WEAK A settled [camp|E] buys from local providers and rarely thinks about it.#!"
+ game_concept_provisions_desc: "$game_concept_provisions$ are everything it takes to keep a [adventurer|E] group running: water, air, fuel and food, as well as the wages and services that keep [followers|E] turning up.\n\nA roaming [camp|E] spends them when moving, draining them while under way and replenishing at friendly [baronies_cotc|E]. A settled one spends them staying somewhere, as quarterly upkeep on the Staff and the premises.\n\nEither way, run low and people will start complaining.#!"
+ game_concept_privation_desc: "When $game_concept_provisions$ run low, a [camp|E] begins to come apart.\n\nOn the move this arrives fast - sickness, desertion, and worse. In a settled [camp|E] this fails more quietly: wages go unpaid, and [followers|E] stop turning up in the morning.#!"
+
+ cotc_settled_stores_low_title: "[camp|E] Running Low"
+ cotc_settled_stores_low_desc: "Your [provisions|E] will not cover another quarter of wages and upkeep."
+ cotc_settled_stores_empty_title: "Wages Unpaid"
+ cotc_settled_stores_empty_desc: "Your [provisions|E] are gone. [followers|E] have not been paid, and [scope:cotc_unpaid_staff.GetShortUIName] has stopped turning up."
+
+ # The breakdown tooltip a settled player now reads regularly
+ DOMICILE_PROVISIONS_BREAKDOWN_GAIN_MULT: "#bold [provisions|E] Gain#!"
+ DOMICILE_PROVISIONS_BREAKDOWN_LOSS_MULT: "#bold [provisions|E] Loss#!"
 
  game_concept_contact_list_desc: "[adventurers|E] hold no land, but they are not without people who owe them.\n\nYour $game_concept_contact_list$ holds everyone the group has completed a [task_contract|E] for, plus anyone else with reason to help - [family|E] who think well of them, [friends|E], [lovers|E].\n\n$game_concept_contact_list_contacts$ can be leaned on through the $contact_list_request_interaction|V$ [character_interaction|E]."
 

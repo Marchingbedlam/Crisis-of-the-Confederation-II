@@ -5,3 +5,31 @@ cotc_settled_motor_pool_gold_cost_value = 250
 cotc_settled_recreation_area_gold_cost_value = 200
 cotc_settled_licensed_clinic_gold_cost_value = 200
 cotc_settled_modular_layout_gold_cost_value = 200
+cotc_settled_payroll_department_gold_cost_value = 250
+
+# Quarterly upkeep of a settled Base
+cotc_settled_upkeep_value = {
+	value = 60
+
+	every_courtier = { add = 4 }
+
+	if = {
+		limit = { domicile ?= { num_domicile_buildings >= 4 } }
+		add = 30
+	}
+	if = {
+		limit = { domicile ?= { num_domicile_buildings >= 8 } }
+		add = 30
+	}
+	if = {
+		limit = { domicile ?= { num_domicile_buildings >= 12 } }
+		add = 30
+	}
+
+	if = {
+		limit = { domicile ?= { has_domicile_parameter = cotc_settled_payroll_department } }
+		multiply = 0.6
+	}
+
+	floor = yes
+}

@@ -90,3 +90,58 @@ cotc_freelancer_posture_reconcile_effect = {
 		cotc_freelancer_posture_changed_effect = yes
 	}
 }
+
+# Settled Freelancer pressure from low Stores
+cotc_settled_stores_pressure_effect = {
+	if = {
+		limit = {
+			domicile ?= { provisions <= 0 }
+			NOT = { has_variable = cotc_settled_privation_cooldown }
+		}
+		set_variable = {
+			name = cotc_settled_privation_cooldown
+			months = 12
+		}
+		# Someone stops turning up
+		random_courtier = {
+			limit = {
+				is_available_ai_adult = yes
+				NOR = {
+					is_close_family_of = root
+					has_any_court_position = yes
+				}
+			}
+			save_scope_as = cotc_unpaid_staff
+			move_to_pool = yes
+		}
+		# Morale hit
+		every_courtier = {
+			add_opinion = {
+				modifier = starving_opinion
+				target = root
+			}
+		}
+		send_interface_toast = {
+			type = event_toast_effect_bad
+			title = cotc_settled_stores_empty_title
+			desc = cotc_settled_stores_empty_desc
+			left_icon = root
+		}
+	}
+	else_if = {
+		limit = {
+			domicile ?= { provisions <= provisions_privation_threshold_start }
+			NOT = { has_variable = cotc_settled_stores_warned }
+		}
+		set_variable = {
+			name = cotc_settled_stores_warned
+			months = 12
+		}
+		send_interface_toast = {
+			type = event_toast_effect_bad
+			title = cotc_settled_stores_low_title
+			desc = cotc_settled_stores_low_desc
+			left_icon = root
+		}
+	}
+}

@@ -18,6 +18,24 @@ quarterly_playable_pulse = {
 				years = 1
 			}
 		}
+		# Settled upkeep
+		if = {
+			limit = {
+				has_realm_law_flag = static_camp_posture
+				exists = domicile
+			}
+			save_scope_value_as = {
+				name = cotc_upkeep
+				value = cotc_settled_upkeep_value
+			}
+			domicile = {
+				change_provisions = {
+					value = scope:cotc_upkeep
+					multiply = -1
+				}
+			}
+			cotc_settled_stores_pressure_effect = yes
+		}
 	}
 }
 
