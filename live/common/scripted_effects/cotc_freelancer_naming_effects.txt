@@ -21,58 +21,61 @@ cotc_freelancer_rename_group_effect = {
 			# Players who have settled on a name will keep it.
 			NOT = { has_variable = cotc_group_name_locked }
 		}
-		house ?= { save_scope_as = cotc_group_house }
+		custom_tooltip = cotc_group_renamed_tt
+		hidden_effect = {
+			house ?= { save_scope_as = cotc_group_house }
 
-		if = {
-			limit = { has_realm_law = posture_settled }
-			domicile ?= {
-				domicile_location ?= { save_scope_as = cotc_group_location }
-			}
-		}
-		else = {
-			location ?= { save_scope_as = cotc_group_location }
-		}
-
-		if = {
-			limit = { has_realm_law_flag = static_camp_posture }
-			# SETTLED
-			random_list = {
-				10 = {
-					trigger = { exists = scope:cotc_group_house }
-					primary_title = { set_title_name_dynamic = cotc_group_name_s01 }
-				}
-				10 = {
-					trigger = { exists = scope:cotc_group_location }
-					primary_title = { set_title_name_dynamic = cotc_group_name_s02 }
-				}
-				10 = {
-					trigger = { exists = scope:cotc_group_location }
-					primary_title = { set_title_name_dynamic = cotc_group_name_s03 }
-				}
-				10 = {
-					primary_title = { set_title_name_dynamic = cotc_group_name_s04 }
+			if = {
+				limit = { has_realm_law = posture_settled }
+				domicile ?= {
+					domicile_location ?= { save_scope_as = cotc_group_location }
 				}
 			}
-		}
-		else = {
-			# ROAMING
-			random_list = {
-				10 = {
-					primary_title = { set_title_name_dynamic = cotc_group_name_r01 }
+			else = {
+				location ?= { save_scope_as = cotc_group_location }
+			}
+
+			if = {
+				limit = { has_realm_law_flag = static_camp_posture }
+				# SETTLED
+				random_list = {
+					10 = {
+						trigger = { exists = scope:cotc_group_house }
+						primary_title = { set_title_name_dynamic = cotc_group_name_s01 }
+					}
+					10 = {
+						trigger = { exists = scope:cotc_group_location }
+						primary_title = { set_title_name_dynamic = cotc_group_name_s02 }
+					}
+					10 = {
+						trigger = { exists = scope:cotc_group_location }
+						primary_title = { set_title_name_dynamic = cotc_group_name_s03 }
+					}
+					10 = {
+						primary_title = { set_title_name_dynamic = cotc_group_name_s04 }
+					}
 				}
-				10 = {
-					primary_title = { set_title_name_dynamic = cotc_group_name_r02 }
-				}
-				10 = {
-					trigger = { exists = scope:cotc_group_house }
-					primary_title = { set_title_name_dynamic = cotc_group_name_r03 }
-				}
-				10 = {
-					trigger = { exists = scope:cotc_group_location }
-					primary_title = { set_title_name_dynamic = cotc_group_name_r04 }
-				}
-				10 = {
-					primary_title = { set_title_name_dynamic = cotc_group_name_r05 }
+			}
+			else = {
+				# ROAMING
+				random_list = {
+					10 = {
+						primary_title = { set_title_name_dynamic = cotc_group_name_r01 }
+					}
+					10 = {
+						primary_title = { set_title_name_dynamic = cotc_group_name_r02 }
+					}
+					10 = {
+						trigger = { exists = scope:cotc_group_house }
+						primary_title = { set_title_name_dynamic = cotc_group_name_r03 }
+					}
+					10 = {
+						trigger = { exists = scope:cotc_group_location }
+						primary_title = { set_title_name_dynamic = cotc_group_name_r04 }
+					}
+					10 = {
+						primary_title = { set_title_name_dynamic = cotc_group_name_r05 }
+					}
 				}
 			}
 		}
