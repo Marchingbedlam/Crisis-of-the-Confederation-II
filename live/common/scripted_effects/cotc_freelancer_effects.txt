@@ -47,21 +47,23 @@ cotc_freelancer_posture_changed_effect = {
 		laamp_clear_domicile_buildings_effect = yes
 	}
 
-	if = {
-		limit = { has_realm_law = posture_settled }
-		set_variable = cotc_was_settled
-		# Anchor the Base, so a forced relocation can be detected
+	hidden_effect = {
 		if = {
-			limit = { exists = domicile.domicile_location }
-			set_variable = {
-				name = cotc_settled_base_province
-				value = domicile.domicile_location
+			limit = { has_realm_law = posture_settled }
+			set_variable = cotc_was_settled
+			# Anchor the Base, so a forced relocation can be detected
+			if = {
+				limit = { exists = domicile.domicile_location }
+				set_variable = {
+					name = cotc_settled_base_province
+					value = domicile.domicile_location
+				}
 			}
 		}
-	}
-	else = {
-		remove_variable = cotc_was_settled
-		remove_variable = cotc_settled_base_province
+		else = {
+			remove_variable = cotc_was_settled
+			remove_variable = cotc_settled_base_province
+		}
 	}
 
 	# Posture picks the name template shape, so the Group is re-rolled
