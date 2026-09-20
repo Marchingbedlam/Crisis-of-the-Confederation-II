@@ -26,6 +26,12 @@ create_landless_adventurer_title_effect = {
 			exists = location
 		}
 		location = { save_scope_as = new_landless_adventurer_location }
+		location = {
+			if = {
+				limit = { NOT = { geographical_region = unsuitable_placename_region } }
+				county ?= { save_scope_as = new_landless_adventurer_county }
+			}
+		}
 	}
 	save_scope_value_as = {
 		name = adventurer_creation_reason
@@ -55,7 +61,7 @@ create_landless_adventurer_title_effect = {
 			}
 			10 = {
 				trigger = {
-					exists = scope:new_landless_adventurer_location
+					exists = scope:new_landless_adventurer_county
 				}
 				create_adventurer_title = {
 					name = cotc_adventurer_name_03
@@ -66,7 +72,7 @@ create_landless_adventurer_title_effect = {
 			}
 			10 = {
 				trigger = {
-					exists = scope:new_landless_adventurer_location
+					exists = scope:new_landless_adventurer_county
 				}
 				create_adventurer_title = {
 					name = cotc_adventurer_name_04

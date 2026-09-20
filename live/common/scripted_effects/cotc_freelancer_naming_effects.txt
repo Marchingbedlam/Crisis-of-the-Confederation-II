@@ -16,12 +16,10 @@ cotc_freelancer_rename_group_effect = {
 
 			if = {
 				limit = { has_realm_law = posture_settled }
-				domicile ?= {
-					domicile_location ?= { save_scope_as = cotc_group_location }
-				}
+				domicile ?= { domicile_location ?= { cotc_save_group_location_effect = yes } }
 			}
 			else = {
-				location ?= { save_scope_as = cotc_group_location }
+				location ?= { cotc_save_group_location_effect = yes }
 			}
 
 			if = {
@@ -64,4 +62,12 @@ cotc_freelancer_rename_group_effect = {
 # Stops the group being renamed on Charter or Posture changes (e.g when player sets a name)
 cotc_freelancer_lock_group_name_effect = {
 	set_variable = cotc_group_name_locked
+}
+
+# Province scope, saves the county name
+cotc_save_group_location_effect = {
+	if = {
+		limit = { NOT = { geographical_region = unsuitable_placename_region } }
+		county ?= { save_scope_as = cotc_group_location }
+	}
 }
