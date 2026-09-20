@@ -120,16 +120,46 @@ CotcRoamingGroupNoun = {
 		localization_key = cotc_roaming_group_noun_brigands_08
 	}
 	text = {
-		trigger = { has_realm_law = camp_purpose_brigands }
-		localization_key = cotc_roaming_group_noun_brigands_09
+		trigger = {
+			has_realm_law = camp_purpose_brigands
+			culture = { has_cultural_pillar = heritage_xingjie }
+		}
+		localization_key = cotc_roaming_group_noun_brigands_xingjie_01
 	}
 	text = {
-		trigger = { has_realm_law = camp_purpose_brigands }
-		localization_key = cotc_roaming_group_noun_brigands_10
+		trigger = {
+			has_realm_law = camp_purpose_brigands
+			culture = { has_cultural_pillar = heritage_frontier }
+		}
+		localization_key = cotc_roaming_group_noun_brigands_frontier_01
 	}
 	text = {
-		trigger = { has_realm_law = camp_purpose_brigands }
-		localization_key = cotc_roaming_group_noun_brigands_11
+		trigger = {
+			has_realm_law = camp_purpose_brigands
+			culture = { has_cultural_pillar = heritage_frontier }
+		}
+		localization_key = cotc_roaming_group_noun_brigands_frontier_02
+	}
+	text = {
+		trigger = {
+			has_realm_law = camp_purpose_brigands
+			culture = { has_cultural_pillar = heritage_tengoku }
+		}
+		localization_key = cotc_roaming_group_noun_brigands_tengoku_01
+	}
+	text = {
+		trigger = {
+			has_realm_law = camp_purpose_brigands
+			culture = { has_cultural_pillar = heritage_celestean }
+		}
+		localization_key = cotc_roaming_group_noun_brigands_celestean_01
+	}
+	text = {
+		trigger = {
+			has_realm_law = camp_purpose_brigands
+			culture = { has_cultural_pillar = heritage_sexto_solar }
+		}
+		localization_key = cotc_roaming_group_noun_brigands_celestean_02
 	}
 	# legitimists
 	text = {
@@ -326,7 +356,7 @@ CotcGroupPrefix = {
 	text = { localization_key = cotc_group_prefix_fenrir }
 	text = { localization_key = cotc_group_prefix_sleipnir }
 	text = { localization_key = cotc_group_prefix_bastet }
-	text = { localization_key = cotc_group_prefix_kirin }
+	text = { localization_key = cotc_group_prefix_tethys }
 	text = { localization_key = cotc_group_prefix_ozma }
 	text = { localization_key = cotc_group_prefix_lodestar }
 	text = { localization_key = cotc_group_prefix_lodestone }
@@ -476,5 +506,131 @@ CotcGroupPrefix = {
 	text = {
 		trigger = { has_realm_law = camp_purpose_legitimists }
 		localization_key = cotc_group_prefix_palatine
+	}
+
+	# Terran
+	text = {
+		trigger = { culture = { has_cultural_pillar = heritage_core_worlder } }
+		localization_key = cotc_group_prefix_greenwich
+	}
+	text = {
+		trigger = { culture = { has_cultural_pillar = heritage_core_worlder } }
+		localization_key = cotc_group_prefix_ecliptic
+	}
+	text = {
+		trigger = { culture = { has_cultural_pillar = heritage_core_worlder } }
+		localization_key = cotc_group_prefix_concord
+	}
+
+	# Aazaad
+	text = {
+		trigger = { culture = { has_cultural_pillar = heritage_aazaad } }
+		localization_key = cotc_group_prefix_ashoka
+	}
+	text = {
+		trigger = { culture = { has_cultural_pillar = heritage_aazaad } }
+		localization_key = cotc_group_prefix_surya
+	}
+	text = {
+		trigger = { culture = { has_cultural_pillar = heritage_aazaad } }
+		localization_key = cotc_group_prefix_akash
+	}
+
+	# Angani
+	text = {
+		trigger = { culture = { has_cultural_pillar = heritage_angani } }
+		localization_key = cotc_group_prefix_anga
+	}
+	text = {
+		trigger = { culture = { has_cultural_pillar = heritage_angani } }
+		localization_key = cotc_group_prefix_jua
+	}
+	text = {
+		trigger = { culture = { has_cultural_pillar = heritage_angani } }
+		localization_key = cotc_group_prefix_bahari
+	}
+
+	# Celestean
+	text = {
+		trigger = { culture = { has_cultural_pillar = heritage_celestean } }
+		localization_key = cotc_group_prefix_caelum
+	}
+	text = {
+		trigger = { culture = { has_cultural_pillar = heritage_celestean } }
+		localization_key = cotc_group_prefix_aurora
+	}
+	text = {
+		trigger = { culture = { has_cultural_pillar = heritage_celestean } }
+		localization_key = cotc_group_prefix_lumen
+	}
+
+	# Centauri
+	text = {
+		trigger = { culture = { has_cultural_pillar = heritage_centauri } }
+		localization_key = cotc_group_prefix_chiron
+	}
+	text = {
+		trigger = { culture = { has_cultural_pillar = heritage_centauri } }
+		localization_key = cotc_group_prefix_nessus
+	}
+	text = {
+		trigger = { culture = { has_cultural_pillar = heritage_centauri } }
+		localization_key = cotc_group_prefix_pholus
+	}
+
+	# Frontierfolk
+	text = {
+		trigger = { culture = { has_cultural_pillar = heritage_frontier } }
+		localization_key = cotc_group_prefix_pathfinder
+	}
+	text = {
+		trigger = { culture = { has_cultural_pillar = heritage_frontier } }
+		localization_key = cotc_group_prefix_homestead
+	}
+	text = {
+		trigger = { culture = { has_cultural_pillar = heritage_frontier } }
+		localization_key = cotc_group_prefix_ironhorse
+	}
+
+	# Samawati
+	text = {
+		trigger = { culture = { has_cultural_pillar = heritage_samawati } }
+		localization_key = cotc_group_prefix_falak
+	}
+	text = {
+		trigger = { culture = { has_cultural_pillar = heritage_samawati } }
+		localization_key = cotc_group_prefix_qamar
+	}
+	text = {
+		trigger = { culture = { has_cultural_pillar = heritage_samawati } }
+		localization_key = cotc_group_prefix_najm
+	}
+
+	# Tengoku
+	text = {
+		trigger = { culture = { has_cultural_pillar = heritage_tengoku } }
+		localization_key = cotc_group_prefix_sakura
+	}
+	text = {
+		trigger = { culture = { has_cultural_pillar = heritage_tengoku } }
+		localization_key = cotc_group_prefix_hoshi
+	}
+	text = {
+		trigger = { culture = { has_cultural_pillar = heritage_tengoku } }
+		localization_key = cotc_group_prefix_kirin
+	}
+
+	# Xingjie
+	text = {
+		trigger = { culture = { has_cultural_pillar = heritage_xingjie } }
+		localization_key = cotc_group_prefix_xinghe
+	}
+	text = {
+		trigger = { culture = { has_cultural_pillar = heritage_xingjie } }
+		localization_key = cotc_group_prefix_beidou
+	}
+	text = {
+		trigger = { culture = { has_cultural_pillar = heritage_xingjie } }
+		localization_key = cotc_group_prefix_tianhe
 	}
 }
