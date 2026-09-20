@@ -55,7 +55,7 @@
  cotc_roaming_group_noun_brigands_04: "Outcasts"
  cotc_roaming_group_noun_brigands_05: "Dragons"
  cotc_roaming_group_noun_brigands_06: "Gaians"
- cotc_roaming_group_noun_brigands_07: "Mollys"
+ cotc_roaming_group_noun_brigands_07: "Mollies"
  cotc_roaming_group_noun_brigands_08: "Zoners"
  cotc_roaming_group_noun_brigands_09: "Junkers"
  cotc_roaming_group_noun_brigands_10: "Hessians"
@@ -93,21 +93,126 @@
  cotc_settled_group_noun_entrepreneurs_05: "Corporation"
  cotc_settled_group_noun_entrepreneurs_06: "Bureau"
 
+
+ ##################################################
+ # PREFIXES
+ ##################################################
+
+ # Core - Mythology
+ cotc_group_prefix_janus: "Janus"
+ cotc_group_prefix_argus: "Argus"
+ cotc_group_prefix_nemesis: "Nemesis"
+ cotc_group_prefix_hyperion: "Hyperion"
+ cotc_group_prefix_helios: "Helios"
+ cotc_group_prefix_selene: "Selene"
+ cotc_group_prefix_proteus: "Proteus"
+ cotc_group_prefix_kronos: "Kronos"
+ cotc_group_prefix_aeolus: "Aeolus"
+ cotc_group_prefix_boreas: "Boreas"
+ cotc_group_prefix_zephyr: "Zephyr"
+ cotc_group_prefix_daedalus: "Daedalus"
+ cotc_group_prefix_morpheus: "Morpheus"
+ cotc_group_prefix_orpheus: "Orpheus"
+ cotc_group_prefix_calypso: "Calypso"
+ cotc_group_prefix_nereus: "Nereus"
+ cotc_group_prefix_fenrir: "Fenrir"
+ cotc_group_prefix_sleipnir: "Sleipnir"
+ cotc_group_prefix_bastet: "Bastet"
+ cotc_group_prefix_kirin: "Kirin"
+
+# Core - Programme
+ cotc_group_prefix_ozma: "Ozma"
+ cotc_group_prefix_lodestar: "Lodestar"
+ cotc_group_prefix_lodestone: "Lodestone"
+ cotc_group_prefix_sentinel: "Sentinel"
+ cotc_group_prefix_keystone: "Keystone"
+ cotc_group_prefix_cairn: "Cairn"
+ cotc_group_prefix_landfall: "Landfall"
+ cotc_group_prefix_bellwether: "Bellwether"
+ cotc_group_prefix_parallax: "Parallax"
+ cotc_group_prefix_azimuth: "Azimuth"
+ cotc_group_prefix_vernier: "Vernier"
+ cotc_group_prefix_meridian: "Meridian"
+ cotc_group_prefix_zenith: "Zenith"
+ cotc_group_prefix_apogee: "Apogee"
+ cotc_group_prefix_terminus: "Terminus"
+ cotc_group_prefix_equinox: "Equinox"
+ cotc_group_prefix_penumbra: "Penumbra"
+ cotc_group_prefix_waypoint: "Waypoint"
+ cotc_group_prefix_benchmark: "Benchmark"
+ cotc_group_prefix_datum: "Datum"
+
+ # Private Contractors
+ cotc_group_prefix_myrmidon: "Myrmidon"
+ cotc_group_prefix_bellona: "Bellona"
+ cotc_group_prefix_gungnir: "Gungnir"
+ cotc_group_prefix_praetorian: "Praetorian"
+ cotc_group_prefix_hoplite: "Hoplite"
+ cotc_group_prefix_enyo: "Enyo"
+
+ # Researchers
+ cotc_group_prefix_kepler: "Kepler"
+ cotc_group_prefix_herschel: "Herschel"
+ cotc_group_prefix_messier: "Messier"
+ cotc_group_prefix_copernicus: "Copernicus"
+ cotc_group_prefix_brahe: "Brahe"
+ cotc_group_prefix_lagrange: "Lagrange"
+
+ # Prospectors
+ cotc_group_prefix_placer: "Kuiper"
+ cotc_group_prefix_oort: "Oort"
+ cotc_group_prefix_bonanza: "Bonanza"
+ cotc_group_prefix_portage: "Portage"
+ cotc_group_prefix_tidewater: "Tidewater"
+ cotc_group_prefix_klondike: "Klondike"
+
+ # Privateers
+ cotc_group_prefix_erebus: "Erebus"
+ cotc_group_prefix_nyx: "Nyx"
+ cotc_group_prefix_lethe: "Lethe"
+ cotc_group_prefix_charon: "Charon"
+ cotc_group_prefix_tantalus: "Tantalus"
+ cotc_group_prefix_scylla: "Scylla"
+
+ # Legitimists
+ cotc_group_prefix_aeneas: "Aeneas"
+ cotc_group_prefix_romulus: "Romulus"
+ cotc_group_prefix_aquila: "Aquila"
+ cotc_group_prefix_labarum: "Labarum"
+ cotc_group_prefix_porphyry: "Porphyry"
+ cotc_group_prefix_palatine: "Palatine"
+
  ##################################################
  # TEMPLATES
  # r = roaming Posture, s = settled Posture
  ##################################################
 
  ##### Roaming #####
- # Iron Corsairs
- cotc_group_name_r01: "[ROOT.Char.Custom('GetAdventureNamePrefixes')|U] [ROOT.Char.Custom('CotcRoamingGroupNoun')|U]"
- # Hedd Corsairs
+ # Ozma Corsairs
+ cotc_group_name_r01: "[ROOT.Char.Custom('CotcGroupPrefix')|U] [ROOT.Char.Custom('CotcRoamingGroupNoun')|U]"
+ # Robertson Raiders
  cotc_group_name_r02: "[cotc_group_house.GetBaseNameNoTooltip|U] [ROOT.Char.Custom('CotcRoamingGroupNoun')|U]"
 
  ##### Settled #####
- # Hedd Survey
+ # Robertson Survey
  cotc_group_name_s01: "[cotc_group_house.GetBaseNameNoTooltip|U] [ROOT.Char.Custom('CotcSettledGroupNoun')|U]"
  # Ceres Combine
  cotc_group_name_s02: "[cotc_group_location.GetNameNoTooltip|U] [ROOT.Char.Custom('CotcSettledGroupNoun')|U]"
  # Institute of Ceres
  cotc_group_name_s03: "[ROOT.Char.Custom('CotcSettledGroupNoun')|U] of [cotc_group_location.GetNameNoTooltip|U]"
+ # Ozma Institute
+ cotc_group_name_s04: "[ROOT.Char.Custom('CotcGroupPrefix')|U] [ROOT.Char.Custom('CotcSettledGroupNoun')|U]"
+
+ ##################################################
+ # CREATION TEMPLATES
+ # Used by create_landless_adventurer_title_effect, before any Charter exists.
+ ##################################################
+
+ # The Ozma Group
+ cotc_adventurer_name_01: "[new_landless_adventurer.Custom('CotcGroupPrefix')|U] [new_landless_adventurer.Custom('CotcRoamingGroupNoun')|U]"
+ # The Robertson Group
+ cotc_adventurer_name_02: "[new_landless_adventurer_house.GetBaseNameNoTooltip|U] [new_landless_adventurer.Custom('CotcRoamingGroupNoun')|U]"
+ # The Group of Ceres
+ cotc_adventurer_name_03: "[new_landless_adventurer.Custom('CotcRoamingGroupNoun')|U] of [new_landless_adventurer_location.GetNameNoTooltip|U]"
+ # The Ceres Group
+ cotc_adventurer_name_04: "[new_landless_adventurer_location.GetNameNoTooltip|U] [new_landless_adventurer.Custom('CotcRoamingGroupNoun')|U]"

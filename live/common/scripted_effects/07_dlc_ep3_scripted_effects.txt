@@ -36,7 +36,7 @@ create_landless_adventurer_title_effect = {
 		random_list = {
 			10 = {
 				create_adventurer_title = {
-					name = adventurer_name_001
+					name = cotc_adventurer_name_01
 					holder = scope:new_landless_adventurer
 					article = DEFAULT_TITLE_NAME_ARTICLE
 					save_scope_as = new_title
@@ -47,315 +47,29 @@ create_landless_adventurer_title_effect = {
 					exists = scope:new_landless_adventurer_house
 				}
 				create_adventurer_title = {
-					name = adventurer_name_002
+					name = cotc_adventurer_name_02
 					holder = scope:new_landless_adventurer
 					article = DEFAULT_TITLE_NAME_ARTICLE
 					save_scope_as = new_title
 				}
 			}
 			10 = {
-				create_adventurer_title = {
-					name = adventurer_name_003
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			10 = {
-				create_adventurer_title = {
-					name = adventurer_name_004
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			10 = {
-				trigger = {
-					NOT = {
-						scope:new_landless_adventurer.culture = culture:kurdish
-					}
-				}
-				create_adventurer_title = {
-					name = adventurer_name_005
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			10 = {
-				create_adventurer_title = {
-					name = adventurer_name_006
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			10 = {
-				create_adventurer_title = {
-					name = adventurer_name_007
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			10 = {
-				trigger = {
-					exists = scope:new_landless_adventurer_house
-				}
-				create_adventurer_title = {
-					name = adventurer_name_008
-					holder = scope:new_landless_adventurer
-					save_scope_as = new_title
-				}
-			}
-			10 = {
-				create_adventurer_title = {
-					name = adventurer_name_009
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			7 = {
 				trigger = {
 					exists = scope:new_landless_adventurer_location
 				}
 				create_adventurer_title = {
-					name = adventurer_name_010
+					name = cotc_adventurer_name_03
 					holder = scope:new_landless_adventurer
 					article = DEFAULT_TITLE_NAME_ARTICLE
 					save_scope_as = new_title
 				}
 			}
-			7 = {
+			10 = {
 				trigger = {
 					exists = scope:new_landless_adventurer_location
 				}
 				create_adventurer_title = {
-					name = adventurer_name_011
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			7 = {
-				trigger = {
-					exists = scope:new_landless_adventurer_location
-				}
-				create_adventurer_title = {
-					name = adventurer_name_012
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			7 = {
-				trigger = {
-					scope:new_landless_adventurer.ai_zeal > 0
-				}
-				create_adventurer_title = {
-					name = adventurer_name_013
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			7 = {
-				trigger = {
-					scope:new_landless_adventurer.ai_zeal > 0
-				}
-				create_adventurer_title = {
-					name = adventurer_name_014
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			7 = {
-				trigger = {
-					scope:new_landless_adventurer.ai_zeal > 0
-				}
-				create_adventurer_title = {
-					name = adventurer_name_015
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			7 = {
-				trigger = {
-					OR = {
-						has_martial_lifestyle_trait_trigger = yes
-						ai_boldness >= medium_positive_ai_value
-						has_trait = education_martial_prowess_1
-						has_trait = education_martial_prowess_2
-						has_trait = education_martial_prowess_3
-						has_trait = education_martial_prowess_4
-						has_education_martial_trigger = yes
-					}
-				}
-				create_adventurer_title = {
-					name = adventurer_name_016
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			7 = {
-				trigger = {
-					OR = {
-						has_martial_lifestyle_trait_trigger = yes
-						has_trait = lifestyle_blademaster
-						has_trait = education_martial_prowess_1
-						has_trait = education_martial_prowess_2
-						has_trait = education_martial_prowess_3
-						has_trait = education_martial_prowess_4
-						has_education_martial_trigger = yes
-					}
-				}
-				create_adventurer_title = {
-					name = adventurer_name_017
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			7 = {
-				trigger = {
-					scope:new_landless_adventurer.ai_zeal > medium_negative_ai_value
-					scope:new_landless_adventurer.ai_boldness >= 0
-					NOT = {
-						scope:new_landless_adventurer = {
-							faith.religion = religion:west_african_bori_religion
-						}
-					}
-				}
-				create_adventurer_title = {
-					name = adventurer_name_018
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			7 = {
-				trigger = {
-					scope:new_landless_adventurer.ai_zeal > medium_negative_ai_value
-					scope:new_landless_adventurer.ai_greed >= 0
-					NOT = {
-						scope:new_landless_adventurer = {
-							faith.religion = religion:west_african_bori_religion
-						}
-					}
-				}
-				create_adventurer_title = {
-					name = adventurer_name_019
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			7 = {
-				trigger = {
-					scope:new_landless_adventurer.ai_zeal > medium_negative_ai_value
-					scope:new_landless_adventurer.ai_compassion >= 0
-					NOT = {
-						scope:new_landless_adventurer = {
-							faith.religion = religion:west_african_bori_religion
-						}
-					}
-				}
-				create_adventurer_title = {
-					name = adventurer_name_020
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			7 = {
-				trigger = {
-					exists = scope:new_landless_adventurer_location.county
-				}
-				scope:new_landless_adventurer_location.county = {
-					save_scope_as = new_landless_adventurer_county
-				}
-				create_adventurer_title = {
-					name = adventurer_name_021
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			7 = {
-				create_adventurer_title = {
-					name = adventurer_name_022
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			10 = {
-				trigger = {
-					exists = scope:new_landless_adventurer_house
-				}
-				create_adventurer_title = {
-					name = adventurer_name_023
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			10 = {
-				trigger = {
-					scope:new_landless_adventurer.ai_zeal > medium_negative_ai_value
-					scope:new_landless_adventurer.ai_rationality >= 0
-					#Many names using Allah already
-					NOT = {
-						scope:new_landless_adventurer = {
-							faith.religion = religion:islam_religion
-						}
-					}
-				}
-				create_adventurer_title = {
-					name = adventurer_name_024
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			7 = {
-				trigger = {
-					scope:new_landless_adventurer.ai_zeal < low_negative_ai_value
-					scope:new_landless_adventurer.ai_compassion < medium_negative_ai_value
-				}
-				create_adventurer_title = {
-					name = adventurer_name_025
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			10 = {
-				create_adventurer_title = {
-					name = adventurer_name_0026
-					holder = scope:new_landless_adventurer
-					save_scope_as = new_title
-				}
-			}
-			5 = {
-				trigger = {
-					exists = scope:new_landless_adventurer.culture
-					OR = {
-						has_martial_lifestyle_trait_trigger = yes
-						ai_boldness >= medium_positive_ai_value
-						has_trait = education_martial_prowess_1
-						has_trait = education_martial_prowess_2
-						has_trait = education_martial_prowess_3
-						has_trait = education_martial_prowess_4
-						has_education_martial_trigger = yes
-					}
-				}
-				create_adventurer_title = {
-					name = adventurer_name_0027
+					name = cotc_adventurer_name_04
 					holder = scope:new_landless_adventurer
 					article = DEFAULT_TITLE_NAME_ARTICLE
 					save_scope_as = new_title
