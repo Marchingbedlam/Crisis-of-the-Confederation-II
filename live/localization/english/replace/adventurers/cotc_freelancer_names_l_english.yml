@@ -223,15 +223,15 @@
  # Ozma Corsairs
  cotc_group_name_r01: "[ROOT.Char.Custom('CotcGroupPrefix')|U] [ROOT.Char.Custom('CotcRoamingGroupNoun')|U]"
  # Robertson Raiders
- cotc_group_name_r02: "[cotc_group_house.GetBaseNameNoTooltip|U] [ROOT.Char.Custom('CotcRoamingGroupNoun')|U]"
+ cotc_group_name_r02: "[ROOT.Char.GetHouse.GetBaseNameNoTooltip|U] [ROOT.Char.Custom('CotcRoamingGroupNoun')|U]"
 
  ##### Settled #####
  # Robertson Survey
- cotc_group_name_s01: "[cotc_group_house.GetBaseNameNoTooltip|U] [ROOT.Char.Custom('CotcSettledGroupNoun')|U]"
- # Ceres Combine
- cotc_group_name_s02: "[cotc_group_location.GetNameNoTooltip|U] [ROOT.Char.Custom('CotcSettledGroupNoun')|U]"
- # Institute of Ceres
- cotc_group_name_s03: "[ROOT.Char.Custom('CotcSettledGroupNoun')|U] of [cotc_group_location.GetNameNoTooltip|U]"
+ cotc_group_name_s01: "[ROOT.Char.GetHouse.GetBaseNameNoTooltip|U] [ROOT.Char.Custom('CotcSettledGroupNoun')|U]"
+ # Ceres Combine, dynamic based on domicile location
+ cotc_group_name_s02: "[ROOT.Char.GetDomicile.GetLocation.GetCounty.GetNameNoTooltip|U] [ROOT.Char.Custom('CotcSettledGroupNoun')|U]"
+ # Institute of Ceres, dynamic based on domicile location
+ cotc_group_name_s03: "[ROOT.Char.Custom('CotcSettledGroupNoun')|U] of [ROOT.Char.GetDomicile.GetLocation.GetCounty.GetNameNoTooltip|U]"
  # Ozma Institute
  cotc_group_name_s04: "[ROOT.Char.Custom('CotcGroupPrefix')|U] [ROOT.Char.Custom('CotcSettledGroupNoun')|U]"
 
