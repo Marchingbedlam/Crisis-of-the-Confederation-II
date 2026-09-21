@@ -155,6 +155,9 @@ cotc_assign_family_name_effect = {
 			cotc_family_name_greek_effect = yes
 		}
 	}
+
+	# Marks the dynasty as handled
+	dynasty ?= { set_variable = cotc_family_name_set }
 }
 
 cotc_family_name_cotc_american_effect = {
@@ -15338,5 +15341,26 @@ cotc_family_name_greek_effect = {
 			dynasty ?= { set_dynasty_name = dynn_Euferbenos }
 			house ?= { set_house_name = dynn_Euferbenos }
 		}
+	}
+}
+
+# Gives a character a family name that is not a place name.
+#
+# A lowborn has no dynasty, so one is generated from a titleless dummy of the same
+# culture. Anyone else may already carry a dynasty the engine named after a title, 
+# so they are caught by dynasty check: not canon (defined in common/dynasties), and not already renamed.
+cotc_fix_family_name_effect = {
+	if = {
+		limit = { is_lowborn = yes }
+		generate_family_name_effect = yes
+	}
+	else_if = {
+		limit = {
+			dynasty ?= {
+				NOT = { cotc_is_canon_dynasty_trigger = yes }
+				NOT = { has_variable = cotc_family_name_set }
+			}
+		}
+		cotc_assign_family_name_effect = { CULTURE = culture }
 	}
 }

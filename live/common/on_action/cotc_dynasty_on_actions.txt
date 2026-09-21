@@ -9,38 +9,19 @@ on_guest_arrived_from_pool = { on_actions = { cotc_family_name_pool_arrival } }
 on_dynasty_created = { on_actions = { cotc_family_name_dynasty_created } }
 on_game_start_after_lobby = { on_actions = { cotc_family_name_game_start } }
 
-##################################################
-# No character reaches ennoblement lowborn, so no dynasty is founded from a title.
-##################################################
-
 # root = the newborn
 cotc_family_name_birth = {
-	effect = {
-		if = {
-			limit = { is_lowborn = yes }
-			generate_family_name_effect = yes
-		}
-	}
+	effect = { cotc_fix_family_name_effect = yes }
 }
 
-# root = the new holder. Last chance before a title can name the dynasty.
+# root = the new holder. Appointment names a dynasty after the capital barony.
 cotc_family_name_title_gain = {
-	effect = {
-		if = {
-			limit = { is_lowborn = yes }
-			generate_family_name_effect = yes
-		}
-	}
+	effect = { cotc_fix_family_name_effect = yes }
 }
 
-# root = the character joining
+# root = the character joining. Catches Freelancer group members.
 cotc_family_name_join_court = {
-	effect = {
-		if = {
-			limit = { is_lowborn = yes }
-			generate_family_name_effect = yes
-		}
-	}
+	effect = { cotc_fix_family_name_effect = yes }
 }
 
 # The characters list holds everyone who travelled together, root included.
@@ -48,8 +29,7 @@ cotc_family_name_pool_arrival = {
 	effect = {
 		every_in_list = {
 			list = characters
-			limit = { is_lowborn = yes }
-			generate_family_name_effect = yes
+			cotc_fix_family_name_effect = yes
 		}
 	}
 }
@@ -63,16 +43,12 @@ cotc_family_name_dynasty_created = {
 	}
 }
 
-# Baronies with no holder get a generated holder whose dynasty is named after the
-# barony. They are not lowborn, so the lowborn pass misses them.
+# Baronies with no holder get a generated holder whose dynasty is named after the barony.
 cotc_family_name_game_start = {
 	effect = {
 		every_ruler = {
-			limit = {
-				highest_held_title_tier = tier_barony
-				dynasty ?= { NOT = { cotc_is_canon_dynasty_trigger = yes } }
-			}
-			cotc_assign_family_name_effect = { CULTURE = culture }
+			limit = { highest_held_title_tier = tier_barony }
+			cotc_fix_family_name_effect = yes
 		}
 	}
 }
