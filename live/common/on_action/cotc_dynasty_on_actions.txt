@@ -43,7 +43,19 @@ on_guest_arrived_from_pool = {
 	}
 }
 
-# Fallback
+# root = the dynasty, dynast = its founder.
+# Fallback safety net as not all dynasty generation runs through cotc_misc_effects.
+# The founder's own culture is passed, so a Terran dummy made in an Earth culture
+# still yields a family name matching the given name
+on_dynasty_created = {
+	effect = {
+		dynast ?= {
+			cotc_assign_family_name_effect = { CULTURE = culture }
+		}
+	}
+}
+
+# Fallback pulse for lowborns, commented out, seems the others cover everything
 #random_yearly_everyone_pulse = {
 #	effect = {
 #		if = {
