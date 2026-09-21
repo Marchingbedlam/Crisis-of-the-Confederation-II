@@ -1,0 +1,37 @@
+﻿##################################################
+# COTC - Dynasty naming
+##################################################
+
+# root = the newborn
+on_birth_child = {
+	effect = {
+		if = {
+			limit = { is_lowborn = yes }
+			generate_family_name_effect = yes
+		}
+	}
+}
+
+# root = the new holder. Last chance before a title can name the dynasty.
+on_title_gain = {
+	effect = {
+		if = {
+			limit = { is_lowborn = yes }
+			generate_family_name_effect = yes
+		}
+	}
+}
+
+# Backstop for event-created characters, which rarely set a dynasty.
+# The limit fails at once for everyone who already has a family name.
+five_year_everyone_pulse = {
+	effect = {
+		if = {
+			limit = {
+				is_lowborn = yes
+				exists = location
+			}
+			generate_family_name_effect = yes
+		}
+	}
+}
