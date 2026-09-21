@@ -55,6 +55,20 @@ on_dynasty_created = {
 	}
 }
 
+# Baronies with no holder get a generated holder with their dynasty named after the barony.
+# They are not lowborn, so the other pass misses them.
+on_game_start_after_lobby = {
+	effect = {
+		every_ruler = {
+			limit = {
+				highest_held_title_tier = tier_barony
+				dynasty ?= { NOT = { cotc_is_canon_dynasty_trigger = yes } }
+			}
+			cotc_assign_family_name_effect = { CULTURE = culture }
+		}
+	}
+}
+
 # Fallback pulse for lowborns, commented out, seems the others cover everything
 #random_yearly_everyone_pulse = {
 #	effect = {
