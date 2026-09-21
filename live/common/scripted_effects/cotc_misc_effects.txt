@@ -101,7 +101,7 @@ initialize_character_effect = {
 			# Copy important data from dummy_character_1
 			copy_inheritable_appearance_from = scope:dummy_character
 			set_culture = culture:terran
-			set_faith = scope:dummy_character.faith
+			set_character_faith = scope:dummy_character.faith
 			set_house = scope:dummy_character.house
 			cotc_assign_family_name_effect = { CULTURE = scope:randomized_terran_culture }
 			change_first_name = { template_character = scope:dummy_character }
@@ -150,7 +150,7 @@ initialize_character_effect = {
 			# Copy important data from dummy_character_1
 			copy_inheritable_appearance_from = scope:dummy_character
 			set_culture = scope:dummy_character.culture
-			set_faith = scope:dummy_character.faith
+			set_character_faith = scope:dummy_character.faith
 			set_house = scope:dummy_character.house
 			cotc_assign_family_name_effect = { CULTURE = culture }
 			change_first_name = { template_character = scope:dummy_character }
@@ -179,7 +179,7 @@ initialize_character_effect = {
 					save_scope_as = dummy_character
 				}
 				set_culture = scope:dummy_character.culture
-				set_faith = scope:dummy_character.faith
+				set_character_faith = scope:dummy_character.faith
 				change_first_name = { template_character = scope:dummy_character }
 			
 				# Get rid of the dummy
