@@ -12,50 +12,11 @@
 					is_independent_ruler = no
 					government_has_flag = vassals_have_military_staff
 				}
-				desc = councillor_chancellor_military_command
+				desc = councillor_chancellor_military
 			}
 			triggered_desc = {
-				trigger = {
-					highest_held_title_tier >= tier_hegemony
-					government_has_flag = government_has_merit
-					is_independent_ruler = yes
-				}
-				desc = councillor_chancellor_celestial_government_imperial
-			}
-			triggered_desc = {
-				trigger = {
-					OR = {
-						highest_held_title_tier = tier_empire
-						highest_held_title_tier = tier_kingdom
-					}
-					government_has_flag = government_has_merit
-					is_independent_ruler = yes
-				}
-				desc = councillor_chancellor_non_celestial_government_imperial
-			}
-			triggered_desc = {
-				trigger = {
-					highest_held_title_tier < tier_hegemony
-					government_has_flag = government_has_merit
-					is_governor_or_admin_count = yes
-				}
-				desc = councillor_chancellor_celestial_government_non_imperial
-			}
-			triggered_desc = {
-				trigger = { government_has_flag = government_is_japan_administrative }
-				desc = councillor_chancellor_japan_administrative
-			}
-			triggered_desc = {
-				trigger = { government_has_flag = government_is_japan_feudal }
-				desc = councillor_chancellor_japan_feudal
-			}
-			triggered_desc = {
-				trigger = {
-					highest_held_title_tier < tier_kingdom
-					government_has_flag = government_has_merit
-					is_governor_or_admin_count = no
-				}
-				desc = councillor_chancellor_celestial_family_head
+				trigger = { government_has_flag = government_has_legislature }
+				desc = councillor_chancellor_minister
 			}
 			desc = councillor_chancellor
 		}
@@ -164,50 +125,11 @@ councillor_steward = {
 					is_independent_ruler = no
 					government_has_flag = vassals_have_military_staff
 				}
-				desc = councillor_steward_military_command
+				desc = councillor_steward_military
 			}
 			triggered_desc = {
-				trigger = {
-					highest_held_title_tier >= tier_hegemony
-					government_has_flag = government_has_merit
-					is_independent_ruler = yes
-				}
-				desc = councillor_steward_celestial_government_imperial
-			}
-			triggered_desc = {
-				trigger = {
-					OR = {
-						highest_held_title_tier = tier_empire
-						highest_held_title_tier = tier_kingdom
-					}
-					government_has_flag = government_has_merit
-					is_independent_ruler = yes
-				}
-				desc = councillor_steward_non_celestial_government_imperial
-			}
-			triggered_desc = {
-				trigger = {
-					highest_held_title_tier < tier_hegemony
-					government_has_flag = government_has_merit
-					is_governor_or_admin_count = yes
-				}
-				desc = councillor_steward_celestial_government_non_imperial
-			}
-			triggered_desc = {
-				trigger = { government_has_flag = government_is_japan_administrative }
-				desc = councillor_steward_japan_administrative
-			}
-			triggered_desc = {
-				trigger = { government_has_flag = government_is_japan_feudal }
-				desc = councillor_steward_japan_feudal
-			}
-			triggered_desc = {
-				trigger = {
-					highest_held_title_tier < tier_kingdom
-					government_has_flag = government_has_merit
-					is_governor_or_admin_count = no
-				}
-				desc = councillor_steward_celestial_family_head
+				trigger = { government_has_flag = government_has_legislature }
+				desc = councillor_steward_minister
 			}
 			desc = councillor_steward
 		}
@@ -317,50 +239,18 @@ councillor_marshal = {
 					is_independent_ruler = no
 					government_has_flag = vassals_have_military_staff
 				}
-				desc = councillor_marshal_military_command
+				desc = councillor_marshal_military
 			}
 			triggered_desc = {
 				trigger = {
-					highest_held_title_tier >= tier_hegemony
-					government_has_flag = government_has_merit
-					is_independent_ruler = yes
+					government_has_flag = government_has_legislature
+					faith = { ideology_hawkishness > 0 }
 				}
-				desc = minister_war
+				desc = councillor_marshal_minister_aggressive
 			}
 			triggered_desc = {
-				trigger = {
-					OR = {
-						highest_held_title_tier = tier_empire
-						highest_held_title_tier = tier_kingdom
-					}
-					government_has_flag = government_has_merit
-					is_independent_ruler = yes
-				}
-				desc = councillor_marshal_non_celestial_government_imperial
-			}
-			triggered_desc = {
-				trigger = {
-					highest_held_title_tier < tier_hegemony
-					government_has_flag = government_has_merit
-					is_governor = yes
-				}
-				desc = councillor_marshal_celestial_government_non_imperial
-			}
-			triggered_desc = {
-				trigger = { government_has_flag = government_is_japan_administrative }
-				desc = councillor_marshal_japan_administrative
-			}
-			triggered_desc = {
-				trigger = { government_has_flag = government_is_japan_feudal }
-				desc = councillor_marshal_japan_feudal
-			}
-			triggered_desc = {
-				trigger = {
-					highest_held_title_tier < tier_kingdom
-					government_has_flag = government_has_merit
-					is_governor_or_admin_count = no
-				}
-				desc = councillor_marshal_celestial_family_head
+				trigger = { government_has_flag = government_has_legislature }
+				desc = councillor_marshal_minister
 			}
 			desc = councillor_marshal
 		}
@@ -476,50 +366,11 @@ councillor_spymaster = {
 					is_independent_ruler = no
 					government_has_flag = vassals_have_military_staff
 				}
-				desc = councillor_spymaster_military_command
+				desc = councillor_spymaster_military
 			}
 			triggered_desc = {
-				trigger = {
-					highest_held_title_tier >= tier_hegemony
-					government_has_flag = government_has_merit
-					is_independent_ruler = yes
-				}
-				desc = councillor_spymaster_celestial_government_imperial
-			}
-			triggered_desc = {
-				trigger = {
-					OR = {
-						highest_held_title_tier = tier_empire
-						highest_held_title_tier = tier_kingdom
-					}
-					government_has_flag = government_has_merit
-					is_independent_ruler = yes
-				}
-				desc = councillor_spymaster_non_celestial_government_imperial
-			}
-			triggered_desc = {
-				trigger = {
-					highest_held_title_tier < tier_hegemony
-					government_has_flag = government_has_merit
-					is_governor_or_admin_count = yes
-				}
-				desc = councillor_spymaster_celestial_government_non_imperial
-			}
-			triggered_desc = {
-				trigger = { government_has_flag = government_is_japan_administrative }
-				desc = councillor_spymaster_japan_administrative
-			}
-			triggered_desc = {
-				trigger = { government_has_flag = government_is_japan_feudal }
-				desc = councillor_spymaster_japan_feudal
-			}
-			triggered_desc = {
-				trigger = {
-					highest_held_title_tier < tier_kingdom
-					government_has_flag = government_has_merit
-					is_governor_or_admin_count = no
-				}
-				desc = councillor_spymaster_celestial_family_head
+				trigger = { government_has_flag = government_has_legislature }
+				desc = councillor_spymaster_minister
 			}
 			desc = councillor_spymaster
 		}
@@ -693,15 +544,19 @@ councillor_court_chaplain = {
 	name = {
 		first_valid = {
 			triggered_desc = {
-				trigger = { government_has_flag = government_is_space_crew }
-				desc = councillor_court_chaplain_crew
+				trigger = {
+					NOT = { faith = { has_doctrine = religious_hostility_doctrine } }
+					NOT = { government_has_flag = government_is_theocratic }
+					government_has_flag = government_has_legislature
+				}
+				desc = councillor_court_chaplain_minister_secular
 			}
 			triggered_desc = {
 				trigger = {
-					is_independent_ruler = no
-					government_has_flag = vassals_have_military_staff
+					NOT = { faith = { has_doctrine = religious_hostility_doctrine } }
+					NOT = { government_has_flag = government_is_theocratic }
 				}
-				desc = councillor_court_chaplain_military_command
+				desc = councillor_court_chaplain_secular
 			}
 			triggered_desc = {
 				trigger = {
@@ -888,6 +743,7 @@ councillor_court_chaplain = {
 	}
 	
 	valid_position = {
+		has_court_chaplain_trigger = yes
 		NOR = { 
 			government_has_flag = government_is_landless_adventurer 
 			government_has_flag = government_is_nomadic

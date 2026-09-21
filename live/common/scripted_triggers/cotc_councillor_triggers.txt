@@ -1,0 +1,22 @@
+﻿can_be_chief_scientist_trigger = {
+	can_be_councillor_basics_trigger = yes
+	$COURT_OWNER$ ?= { NOT = { government_has_flag = government_is_nomadic } }
+	NAND = {
+		has_council_position = councillor_court_chaplain
+		faith = { has_doctrine_parameter = clerical_appointment_fixed }
+	}
+	NOR = {
+		has_council_position = councillor_spouse
+		AND = {
+			this = liege.diarch
+			liege = { has_diarchy_active_parameter = diarchy_is_vizierate }
+		}
+	}
+	can_be_councillor_gender_trigger = { COURT_OWNER = $COURT_OWNER$ }
+}
+has_court_chaplain_trigger = {
+	OR = {
+		faith = { has_doctrine = religious_hostility_doctrine }
+		government_has_flag = government_is_theocratic
+	}
+}

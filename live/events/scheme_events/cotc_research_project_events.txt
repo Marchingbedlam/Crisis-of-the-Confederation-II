@@ -455,6 +455,9 @@ cotc_research_project_events.10 = { # Successfully complete the research project
 	
 	option = {
 		name = cotc_research_project_events.10.a
+		# Make sure everyone in the project is informed
+		add_to_temporary_list = characters_to_inform
+		scope:scheme = { every_scheme_agent_character = { add_to_temporary_list = characters_to_inform } }
 		capital_county = { add_tech_to_county = { TECH = scope:discovered_innovation } }
 		if = { # You did this all by yourself, gain prestige and get back your investment
 			limit = { scope:scheme = { NOT = { any_in_list = { variable = researchers count >= 1 } } } }

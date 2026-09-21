@@ -1,4 +1,7 @@
-﻿gui_is_county_legislature = {
+﻿has_court_chaplain_trigger_gui = {
+	is_valid = { scope:owner ?= { has_court_chaplain_trigger = yes } }
+}
+gui_is_county_legislature = {
 	scope = situation
 	is_shown = { var:legislature_title ?= { tier = tier_county } }
 }

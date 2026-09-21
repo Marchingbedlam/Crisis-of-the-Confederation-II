@@ -1,0 +1,701 @@
+﻿task_maintain_technology = {
+	default_task = yes
+	position = councillor_chief_scientist
+	
+	task_type = task_type_general
+	task_progress = task_progress_infinite
+
+	asset = { # Placeholder
+		icon = "gfx/interface/icons/court_position_task_types/antiquarian_court_position_task_improve_artifacts.dds"
+		background = "gfx/interface/buttons/button_round_bg.dds"
+		frame = "gfx/interface/buttons/button_round_frame.dds"
+		glow = "gfx/particles/halo.dds"
+	}
+
+	effect_desc = {
+		desc = task_maintain_technology_effect_desc
+		triggered_desc = {
+			trigger = { councillor_liege_has_erudition_legacy_5_perk = yes }
+			desc = task_maintain_technology_erudition_bonus_desc
+		}
+		triggered_desc = {
+			trigger = { councillor_liege_has_family_business_bonus = yes }
+			desc = task_maintain_technology_family_business_bonus_desc
+		}
+		triggered_desc = {
+			trigger = { councillor_liege_has_consulted_house_bonus = yes }
+			desc = task_maintain_technology_consulted_house_bonus_desc
+		}
+	}
+
+	is_valid_showing_failures_only = {
+		tgp_natural_disaster_councillor_available_for_task_trigger = yes
+	}
+	
+	council_owner_modifier = {
+		name = task_maintain_technology_modifier
+		artifact_decay_reduction_mult -0.01
+		scale = chief_scientist_maintain_technology_total_scale
+	}
+
+	#monthly_on_action = task_maintain_technology_side_effects
+	
+	ai_will_do = { value = 1 } # Fallback option
+}
+task_supervise_research = {
+	position = councillor_chief_scientist
+	
+	task_type = task_type_general
+	task_progress = task_progress_infinite
+
+	asset = { # Placeholder
+		icon = "gfx/interface/icons/council_task_types/task_great_project.dds"
+		background = "gfx/interface/buttons/button_round_bg.dds"
+		frame = "gfx/interface/buttons/button_round_frame.dds"
+		glow = "gfx/particles/halo.dds"
+	}
+
+	effect_desc = {
+		desc = task_supervise_research_effect_desc
+		triggered_desc = {
+			trigger = { councillor_liege_has_erudition_legacy_5_perk = yes }
+			desc = task_supervise_research_erudition_bonus_desc
+		}
+		triggered_desc = {
+			trigger = { councillor_liege_has_family_business_bonus = yes }
+			desc = task_supervise_research_family_business_bonus_desc
+		}
+		triggered_desc = {
+			trigger = { councillor_liege_has_consulted_house_bonus = yes }
+			desc = task_supervise_research_consulted_house_bonus_desc
+		}
+		desc = {
+			desc = council_task_possible_side_effects
+			triggered_desc = {
+				trigger = { learning > mediocre_skill_rating }
+				desc = task_supervise_research_well_managed_project
+			}
+			triggered_desc = {
+				trigger = { learning < high_skill_rating }
+				desc = task_supervise_research_poorly_managed_project
+			}
+		}
+	}
+	
+	is_shown = {
+		scope:councillor_liege = { exists = capital_county }
+	}
+
+	is_valid_showing_failures_only = {
+		tgp_natural_disaster_councillor_available_for_task_trigger = yes
+	}
+	
+	council_owner_modifier = {
+		name = task_supervise_research_modifier
+		research_project_scheme_phase_duration_add = -1
+		secret_research_project_scheme_phase_duration_add = -1
+		scale = chief_scientist_supervise_research_total_scale
+	}
+
+	#monthly_on_action = task_supervise_research_side_effects
+	
+	ai_will_do = {
+		value = 1
+		if = { # More likely to use this when we actually have an active research project
+			limit = {
+				scope:councillor_liege = {
+					any_scheme = {
+						OR = {
+							scheme_type = research_project
+							scheme_type = secret_research_project
+						}
+					}
+				}
+			}
+			multiply = 10
+		}
+	}
+}
+
+task_spread_civic_innovations = {
+	position = councillor_chief_scientist
+	
+	task_type = task_type_county
+	county_target = realm
+	ai_county_target = realm
+	task_progress = task_progress_percentage
+	restart_on_finish = yes
+	highlight_own_realm = yes
+
+	asset = { # Placeholder
+		icon = "gfx/interface/icons/council_task_types/task_develop_county.dds"
+		background = "gfx/interface/buttons/button_round_bg.dds"
+		frame = "gfx/interface/buttons/button_round_frame.dds"
+		glow = "gfx/particles/halo.dds"
+	}
+	
+	effect_desc = { desc = task_spread_civic_innovations_effect_desc }
+	
+	is_shown = {
+		scope:councillor_liege = { exists = capital_county }
+	}
+
+	is_valid_showing_failures_only = {
+		tgp_natural_disaster_councillor_available_for_task_trigger = yes
+	}
+	
+	potential_county = {
+		scope:councillor_liege = {
+			exists = capital_county
+			capital_county = { save_temporary_scope_as = capital }
+		}
+		# Must be within our sub-realm and not the capital
+		scope:county = {
+			is_landless_type_title = no
+			custom_tooltip = {
+				text = spread_innovations.target.tt.must_not_be_capital
+				this != scope:capital
+			}
+			custom_tooltip = {
+				text = spread_innovations.target.tt.must_be_your_subrealm
+				holder = {
+					OR = {
+						this = scope:councillor_liege
+						any_liege_or_above = { this = scope:councillor_liege }
+					}
+				}
+			}
+		}
+		# Capital must have at least one civic tech this system doesn't have
+		scope:capital = {
+			custom_tooltip = {
+				text = spread_innovations.target.tt.must_be_missing_researchable_tech
+				any_in_list = {
+					variable = county_techs
+					scope:county = { county_can_research_tech = { TECH = PREV } }
+					OR = {
+						has_innovation_parameter = colonial_civic
+						has_innovation_parameter = confederate_civic
+						has_innovation_parameter = trimillennial_civic
+						has_innovation_parameter = neorenaissance_civic
+					}
+				}
+			}
+		}
+	}
+	ai_target_score = {
+		value = 10
+		scope:county = {
+			add = development_level # Prioritize the most important systems
+			holder = {
+				if = {
+					limit = { this = scope:councillor_liege }
+					multiply = {
+						add = domain_size
+						every_vassal = {
+							limit = { exists = capital_county }
+							add = 1
+						}
+					}
+					divide = domain_size
+					multiply = {
+						value = 125
+						add = ai_greed
+						min = 50
+						max = 200
+						divide = 100
+					}
+				}
+				else_if = { # Only develop your own systems or the capitals of direct vassals
+					limit = {
+						OR = {
+							capital_county != scope:county
+							liege != scope:councillor_liege
+						}
+					}
+					multiply = 0
+				}
+				else = { # Opinion factors
+					save_temporary_scope_as = temp_holder
+					scope:councillor_liege = {
+						add = {
+							value = "opinion(scope:temp_holder)"
+							if = {
+								limit = { opinion = { target = scope:temp_holder value < 0 } }
+								multiply = {
+									value = 100
+									add = ai_vengefulness
+									min = 0
+									max = 200
+									divide = 100
+								}
+							}
+							else = { divide = 2 }
+						}
+						if = {
+							limit = { reverse_opinion = { target = scope:temp_holder value < 0 } }
+							add = {
+								value = "reverse_opinion(scope:temp_holder)"
+								multiply = {
+									value = 100
+									add = ai_rationality
+									min = 0
+									max = 200
+									divide = 100
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	progress = {
+		value = 0
+		add = {
+			value = chief_scientist_spread_innovations_base
+			desc = CHIEF_SCIENTIST_PROGRESS_BASE
+		}
+		add = {
+			value = scope:councillor.chief_scientist_spread_innovations_monthly_increase
+			desc = SCALED_COUNCILLOR_LEARNING_VALUE
+		}
+		add = chief_scientist_spread_innovations_contextual_bonuses
+		min = 1
+		
+		# Innovation Era Bonuses
+		scope:county = {
+			culture = {
+				if = {
+					limit = { has_cultural_era_or_later = culture_era_late_medieval }
+					add = {
+						value = neorenaissance_era_innovation_spread_bonus
+						desc = CHIEF_SCIENTIST_SPREAD_INNOVATION_NEORENAISSANCE_ERA_BONUS
+					}
+				}
+				else_if = {
+					limit = { has_cultural_era_or_later = culture_era_high_medieval }
+					add = {
+						value = trimillennial_era_innovation_spread_bonus
+						desc = CHIEF_SCIENTIST_SPREAD_INNOVATION_TRIMILLENNIAL_ERA_BONUS
+					}
+				}
+				else_if = {
+					limit = { has_cultural_era_or_later = culture_era_early_medieval }
+					add = {
+						value = confederate_era_innovation_spread_bonus
+						desc = CHIEF_SCIENTIST_SPREAD_INNOVATION_CONFEDERATE_ERA_BONUS
+					}
+				}
+			}
+		}
+		
+		# Innovation Era Penalties
+		scope:councillor_liege = {
+			capital_county ?= {
+				if = {
+					limit = {
+						NOT = {
+							any_in_list = {
+								variable = county_techs
+								has_innovation_parameter = colonial_civic
+								scope:county = { county_can_research_tech = { TECH = PREV } }
+							}
+						}
+					}
+					if = {
+						limit = {
+							any_in_list = {
+								variable = county_techs
+								has_innovation_parameter = confederate_civic
+								scope:county = { county_can_research_tech = { TECH = PREV } }
+							}
+						}
+						subtract = {
+							value = confederate_era_innovation_spread_bonus
+							desc = CHIEF_SCIENTIST_SPREAD_INNOVATION_CONFEDERATE_ERA_PENALTY
+						}
+					}
+					else_if = {
+						limit = {
+							any_in_list = {
+								variable = county_techs
+								has_innovation_parameter = trimillennial_civic
+								scope:county = { county_can_research_tech = { TECH = PREV } }
+							}
+						}
+						subtract = {
+							value = trimillennial_era_innovation_spread_bonus
+							desc = CHIEF_SCIENTIST_SPREAD_INNOVATION_TRIMILLENNIAL_ERA_PENALTY
+						}
+					}
+					else = {
+						subtract = {
+							value = neorenaissance_era_innovation_spread_bonus
+							desc = CHIEF_SCIENTIST_SPREAD_INNOVATION_NEORENAISSANCE_ERA_PENALTY
+						}
+					}
+				}
+			}
+		}
+	}
+	#monthly_on_action = spread_civic_innovations_side_effects
+	on_finish_task_county = {
+		scope:councillor = { add_to_list = characters_to_inform }
+		scope:councillor_liege = {
+			add_to_list = characters_to_inform
+			capital_county ?= {
+				save_scope_as = capital
+				# Pick a tech to spread
+				random_in_list = {
+					variable = county_techs
+					limit = {
+						has_innovation_parameter = colonial_civic
+						scope:county = { county_can_research_tech = { TECH = PREV } }
+					}
+					save_scope_as = spread_tech
+				}
+				if = {
+					limit = { NOT = { exists = scope:spread_tech } }
+					random_in_list = {
+						variable = county_techs
+						limit = {
+							has_innovation_parameter = confederate_civic
+							scope:county = { county_can_research_tech = { TECH = PREV } }
+						}
+						save_scope_as = spread_tech
+					}
+					if = {
+						limit = { NOT = { exists = scope:spread_tech } }
+						random_in_list = {
+							variable = county_techs
+							limit = {
+								has_innovation_parameter = trimillennial_civic
+								scope:county = { county_can_research_tech = { TECH = PREV } }
+							}
+							save_scope_as = spread_tech
+						}
+						if = {
+							limit = { NOT = { exists = scope:spread_tech } }
+							random_in_list = {
+								variable = county_techs
+								limit = { scope:county = { county_can_research_tech = { TECH = PREV } } }
+								save_scope_as = spread_tech
+							}
+						}
+					}
+				}
+				if = {
+					limit = { exists = scope:spread_tech }
+					# Actually spread the tech
+					scope:county = { add_tech_to_county = { TECH = scope:spread_tech } }
+				}
+			}
+		}
+	}
+	ai_will_do = {
+		value = 1
+		multiply = { # Emphasize spreading innovations when you're playing wide
+			add = domain_size
+			every_vassal = {
+				limit = { exists = capital_county }
+				add = 1
+			}
+		}
+	}
+}
+
+task_spread_military_innovations = {
+	position = councillor_chief_scientist
+	
+	task_type = task_type_county
+	county_target = realm
+	ai_county_target = realm
+	task_progress = task_progress_percentage
+	restart_on_finish = yes
+	highlight_own_realm = yes
+
+	asset = { # Placeholder
+		icon = "gfx/interface/icons/council_task_types/task_train_commanders.dds"
+		background = "gfx/interface/buttons/button_round_bg.dds"
+		frame = "gfx/interface/buttons/button_round_frame.dds"
+		glow = "gfx/particles/halo.dds"
+	}
+	
+	effect_desc = { desc = task_spread_military_innovations_effect_desc }
+	
+	is_shown = {
+		scope:councillor_liege = { exists = capital_county }
+	}
+
+	is_valid_showing_failures_only = {
+		tgp_natural_disaster_councillor_available_for_task_trigger = yes
+	}
+	
+	potential_county = {
+		scope:councillor_liege = {
+			exists = capital_county
+			capital_county = { save_temporary_scope_as = capital }
+		}
+		# Must be within our sub-realm and not the capital
+		scope:county = {
+			is_landless_type_title = no
+			custom_tooltip = {
+				text = spread_innovations.target.tt.must_not_be_capital
+				this != scope:capital
+			}
+			custom_tooltip = {
+				text = spread_innovations.target.tt.must_be_your_subrealm
+				holder = {
+					OR = {
+						this = scope:councillor_liege
+						any_liege_or_above = { this = scope:councillor_liege }
+					}
+				}
+			}
+		}
+		# Capital must have at least one military tech this system doesn't have
+		scope:capital = {
+			custom_tooltip = {
+				text = spread_innovations.target.tt.must_be_missing_researchable_tech
+				any_in_list = {
+					variable = county_techs
+					scope:county = { county_can_research_tech = { TECH = PREV } }
+					OR = {
+						has_innovation_parameter = colonial_military
+						has_innovation_parameter = confederate_military
+						has_innovation_parameter = trimillennial_military
+						has_innovation_parameter = neorenaissance_military
+					}
+				}
+			}
+		}
+	}
+	ai_target_score = {
+		value = 10
+		scope:county = {
+			add = development_level # Prioritize the most important systems
+			holder = {
+				if = {
+					limit = { this = scope:councillor_liege }
+					multiply = {
+						add = domain_size
+						every_vassal = {
+							limit = { exists = capital_county }
+							add = 1
+						}
+					}
+					divide = domain_size
+					multiply = {
+						value = 125
+						add = ai_greed
+						min = 50
+						max = 200
+						divide = 100
+					}
+				}
+				else_if = { # Only develop your own systems or the capitals of direct vassals
+					limit = {
+						OR = {
+							capital_county != scope:county
+							liege != scope:councillor_liege
+						}
+					}
+					multiply = 0
+				}
+				else = { # Opinion factors
+					save_temporary_scope_as = temp_holder
+					scope:councillor_liege = {
+						add = {
+							value = "opinion(scope:temp_holder)"
+							if = {
+								limit = { opinion = { target = scope:temp_holder value < 0 } }
+								multiply = {
+									value = 100
+									add = ai_vengefulness
+									min = 0
+									max = 200
+									divide = 100
+								}
+							}
+							else = { divide = 2 }
+						}
+						if = {
+							limit = { reverse_opinion = { target = scope:temp_holder value < 0 } }
+							add = {
+								value = "reverse_opinion(scope:temp_holder)"
+								multiply = {
+									value = 100
+									add = ai_rationality
+									min = 0
+									max = 200
+									divide = 100
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	progress = {
+		value = 0
+		add = {
+			value = chief_scientist_spread_innovations_base
+			desc = CHIEF_SCIENTIST_PROGRESS_BASE
+		}
+		add = {
+			value = scope:councillor.chief_scientist_spread_innovations_monthly_increase
+			desc = SCALED_COUNCILLOR_LEARNING_VALUE
+		}
+		add = chief_scientist_spread_innovations_contextual_bonuses
+		min = 1
+		
+		# Innovation Era Bonuses
+		scope:county = {
+			culture = {
+				if = {
+					limit = { has_cultural_era_or_later = culture_era_late_medieval }
+					add = {
+						value = neorenaissance_era_innovation_spread_bonus
+						desc = CHIEF_SCIENTIST_SPREAD_INNOVATION_NEORENAISSANCE_ERA_BONUS
+					}
+				}
+				else_if = {
+					limit = { has_cultural_era_or_later = culture_era_high_medieval }
+					add = {
+						value = trimillennial_era_innovation_spread_bonus
+						desc = CHIEF_SCIENTIST_SPREAD_INNOVATION_TRIMILLENNIAL_ERA_BONUS
+					}
+				}
+				else_if = {
+					limit = { has_cultural_era_or_later = culture_era_early_medieval }
+					add = {
+						value = confederate_era_innovation_spread_bonus
+						desc = CHIEF_SCIENTIST_SPREAD_INNOVATION_CONFEDERATE_ERA_BONUS
+					}
+				}
+			}
+		}
+		
+		# Innovation Era Penalties
+		scope:councillor_liege = {
+			capital_county ?= {
+				if = {
+					limit = {
+						NOT = {
+							any_in_list = {
+								variable = county_techs
+								has_innovation_parameter = colonial_military
+								scope:county = { county_can_research_tech = { TECH = PREV } }
+							}
+						}
+					}
+					if = {
+						limit = {
+							any_in_list = {
+								variable = county_techs
+								has_innovation_parameter = confederate_military
+								scope:county = { county_can_research_tech = { TECH = PREV } }
+							}
+						}
+						subtract = {
+							value = confederate_era_innovation_spread_bonus
+							desc = CHIEF_SCIENTIST_SPREAD_INNOVATION_CONFEDERATE_ERA_PENALTY
+						}
+					}
+					else_if = {
+						limit = {
+							any_in_list = {
+								variable = county_techs
+								has_innovation_parameter = trimillennial_military
+								scope:county = { county_can_research_tech = { TECH = PREV } }
+							}
+						}
+						subtract = {
+							value = trimillennial_era_innovation_spread_bonus
+							desc = CHIEF_SCIENTIST_SPREAD_INNOVATION_TRIMILLENNIAL_ERA_PENALTY
+						}
+					}
+					else = {
+						subtract = {
+							value = neorenaissance_era_innovation_spread_bonus
+							desc = CHIEF_SCIENTIST_SPREAD_INNOVATION_NEORENAISSANCE_ERA_PENALTY
+						}
+					}
+				}
+			}
+		}
+	}
+	#monthly_on_action = spread_military_innovations_side_effects
+	on_finish_task_county = {
+		scope:councillor = { add_to_list = characters_to_inform }
+		scope:councillor_liege = {
+			add_to_list = characters_to_inform
+			capital_county ?= {
+				save_scope_as = capital
+				# Pick a tech to spread
+				random_in_list = {
+					variable = county_techs
+					limit = {
+						has_innovation_parameter = colonial_military
+						scope:county = { county_can_research_tech = { TECH = PREV } }
+					}
+					save_scope_as = spread_tech
+				}
+				if = {
+					limit = { NOT = { exists = scope:spread_tech } }
+					random_in_list = {
+						variable = county_techs
+						limit = {
+							has_innovation_parameter = confederate_military
+							scope:county = { county_can_research_tech = { TECH = PREV } }
+						}
+						save_scope_as = spread_tech
+					}
+					if = {
+						limit = { NOT = { exists = scope:spread_tech } }
+						random_in_list = {
+							variable = county_techs
+							limit = {
+								has_innovation_parameter = trimillennial_military
+								scope:county = { county_can_research_tech = { TECH = PREV } }
+							}
+							save_scope_as = spread_tech
+						}
+						if = {
+							limit = { NOT = { exists = scope:spread_tech } }
+							random_in_list = {
+								variable = county_techs
+								limit = { scope:county = { county_can_research_tech = { TECH = PREV } } }
+								save_scope_as = spread_tech
+							}
+						}
+					}
+				}
+				if = {
+					limit = { exists = scope:spread_tech }
+					# Actually spread the tech
+					scope:county = { add_tech_to_county = { TECH = scope:spread_tech } }
+				}
+			}
+		}
+	}
+	ai_will_do = {
+		value = 1
+		multiply = { # Emphasize spreading innovations when you're playing wide
+			add = domain_size
+			every_vassal = {
+				limit = { exists = capital_county }
+				add = 1
+			}
+		}
+		multiply = {
+			value = 125
+			add = ai_hawkishness
+			min = 50
+			max = 200
+			divide = 100
+		}
+	}
+}

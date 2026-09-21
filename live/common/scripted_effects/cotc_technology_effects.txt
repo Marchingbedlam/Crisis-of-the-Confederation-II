@@ -371,6 +371,18 @@ add_tech_by_string = {
 			every_in_list = {
 				list = county_characters
 				apply_character_tech_by_string = { TECH = $TECH$ }
+				add_to_temporary_list = characters_to_inform
+			}
+			
+			# Inform all relevant characters that the innovation has been added
+			# (this is a separate list because other characters may be interested depending on how the tech was added)
+			every_in_list = {
+				list = characters_to_inform
+				send_interface_message = {
+					type = msg_local_innovation_added
+					title = add_tech_to_county.title
+					desc = add_tech_to_county.desc
+				}
 			}
 		}
 		if = { # If this culture doesn't have the tech, there is a chance for the culture to learn it
@@ -403,21 +415,36 @@ add_tech_by_string = {
 remove_tech_by_string = {
 	if = {
 		limit = { county_has_tech_by_string = { TECH = $TECH$ } }
-		remove_list_variable = { name = county_techs target = culture_innovation:innovation_$TECH$ }
-		remove_tech_from_gui = { TECH = $TECH$ }
-		
-		# Verify the removed tech
-		apply_county_tech_by_string = { TECH = $TECH$ }
-		every_county_province = {
-			province_owner ?= {
-				add_to_temporary_list = county_characters
-				every_courtier = { add_to_temporary_list = county_characters }
+		custom_tooltip = {
+			text = remove_tech_from_county.tt
+			remove_list_variable = { name = county_techs target = culture_innovation:innovation_$TECH$ }
+			remove_tech_from_gui = { TECH = $TECH$ }
+			
+			# Verify the removed tech
+			apply_county_tech_by_string = { TECH = $TECH$ }
+			every_county_province = {
+				province_owner ?= {
+					add_to_temporary_list = county_characters
+					every_courtier = { add_to_temporary_list = county_characters }
+				}
 				every_pool_character = { add_to_temporary_list = county_characters }
 			}
-		}
-		every_in_list = {
-			list = county_characters
-			apply_character_tech_by_string = { TECH = $TECH$ }
+			every_in_list = {
+				list = county_characters
+				apply_character_tech_by_string = { TECH = $TECH$ }
+				add_to_temporary_list = characters_to_inform
+			}
+			
+			# Inform all relevant characters that the innovation has been lost
+			# (this is a separate list because other characters may be interested depending on how the tech was lost)
+			every_in_list = {
+				list = characters_to_inform
+				send_interface_message = {
+					type = msg_local_innovation_lost
+					title = remove_tech_from_county.title
+					desc = remove_tech_from_county.desc
+				}
+			}
 		}
 	}
 }

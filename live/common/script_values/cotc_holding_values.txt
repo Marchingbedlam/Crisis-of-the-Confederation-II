@@ -70,16 +70,18 @@ holding_population = {
 		add = high_demand_tier_5
 	}
 }
+county_population = {
+	every_county_province = { add = holding_population }
+}
 domain_population = {
-	value = 0
 	every_held_title = {
 		limit = { tier = county }
-		every_county_province ?= { add = holding_population }
+		add = county_population
 	}
 }
 sub_realm_population = {
 	value = 0
-	every_sub_realm_county = { every_county_province ?= { add = holding_population } }
+	every_sub_realm_county = { add = county_population }
 }
 county_development_deficit = { # Returns the difference between the county's Demand and Development. Useful for AI consideration.
 	value = 0
