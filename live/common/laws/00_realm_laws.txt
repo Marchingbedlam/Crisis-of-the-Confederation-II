@@ -837,9 +837,9 @@ camp_purpose = {
 
 		can_keep = { realm_law_use_camp_purpose = yes }
 
-		# COTC: A settled Base cannot file as Charters defined by movement. Start roaming first.
+		# COTC: A settled Base cannot register as Charters defined by movement
 		can_pass = {
-			custom_description = {
+			custom_tooltip = {
 				subject = root
 				text = cotc_charter_requires_roaming_tt
 				NOT = { has_realm_law = posture_settled }
@@ -972,9 +972,9 @@ camp_purpose = {
 
 		can_keep = { realm_law_use_camp_purpose = yes }
 
-		# COTC: A settled Base cannot file as Charters defined by movement. Start roaming first.
+		# COTC: A settled Base cannot register as Charters defined by movement
 		can_pass = {
-			custom_description = {
+			custom_tooltip = {
 				subject = root
 				text = cotc_charter_requires_roaming_tt
 				NOT = { has_realm_law = posture_settled }
@@ -1119,9 +1119,6 @@ camp_purpose = {
 	}
 	
 	camp_purpose_legitimists = {
-		# COTC: suppressed until a suitable coup mechanic is implemented.
-		# Law retained so its ~25 reference sites keep resolving.
-		can_have = { always = no }
 		pass_phrase =  camp_purpose_pass_phrase
 		confirmation_title = camp_purpose_pass_phrase
 		confirmation_button_text = camp_purpose_confirmation_button_text
