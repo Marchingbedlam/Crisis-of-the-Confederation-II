@@ -122,7 +122,7 @@ initialize_character_effect = {
 					gender = scope:initialized_character
 					random_traits = yes
 					culture = scope:randomized_terran_culture
-					faith = scope:host.location.faith
+					faith = scope:home_province.faith
 					dynasty = none
 					save_scope_as = dummy_character
 				}
@@ -165,7 +165,12 @@ initialize_character_effect = {
 		# one that's assimilated! If so, we should give them an appropriate first
 		# name, culture, and faith
 		if = {
-			limit = { NOT = { scope:host.location = scope:home_province } }
+			limit = {
+				# A host in the pool has no location, without it the comparison here and
+				# the dummy's culture and faith links all resolve against nothing.
+				exists = scope:host.location
+				NOT = { scope:host.location = scope:home_province }
+			}
 			random = {
 				chance = 50
 				create_character = {
