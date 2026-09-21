@@ -8,6 +8,7 @@ on_join_court = { on_actions = { cotc_family_name_join_court } }
 on_guest_arrived_from_pool = { on_actions = { cotc_family_name_pool_arrival } }
 on_dynasty_created = { on_actions = { cotc_family_name_dynasty_created } }
 on_game_start_after_lobby = { on_actions = { cotc_family_name_game_start } }
+five_year_everyone_pulse = { on_actions = { cotc_family_name_pulse } }
 
 # root = the newborn
 cotc_family_name_birth = {
@@ -50,5 +51,12 @@ cotc_family_name_game_start = {
 			limit = { highest_held_title_tier = tier_barony }
 			cotc_fix_family_name_effect = yes
 		}
+	}
+}
+
+# Fallback pulse for event generated characters
+cotc_family_name_pulse = {
+	effect = {
+		cotc_fix_family_name_effect = yes
 	}
 }
