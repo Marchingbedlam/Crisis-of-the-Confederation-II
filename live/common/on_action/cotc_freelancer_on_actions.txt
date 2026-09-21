@@ -1,0 +1,66 @@
+﻿##################################################
+# COTC - Freelancer Posture pulses
+##################################################
+
+quarterly_playable_pulse = {
+	effect = {
+		# Cheap for everyone else: the first check fails fast.
+		cotc_freelancer_posture_reconcile_effect = yes
+
+		if = {
+			limit = {
+				has_realm_law_flag = static_camp_posture
+				NOT = { has_variable = cotc_settled_contract_cooldown }
+			}
+			player_adventurer_contract_generation_on_wait_in_place_effect = yes
+			set_variable = {
+				name = cotc_settled_contract_cooldown
+				years = 1
+			}
+		}
+		# Settled upkeep
+		if = {
+			limit = {
+				has_realm_law_flag = static_camp_posture
+				exists = domicile
+			}
+			save_scope_value_as = {
+				name = cotc_upkeep
+				value = cotc_settled_upkeep_value
+			}
+			domicile = {
+				change_provisions = {
+					value = scope:cotc_upkeep
+					multiply = -1
+				}
+			}
+			cotc_settled_stores_pressure_effect = yes
+		}
+	}
+}
+
+
+##################################################
+# Voluntary moves are blocked by can_move_domicile, eviction by the interaction
+# override. This covers scripted relocations, which un-settle rather than strand.
+##################################################
+
+on_domicile_moved = { on_actions = { cotc_domicile_moved_on_action } }
+
+cotc_domicile_moved_on_action = {
+	effect = {
+		if = {
+			limit = {
+				exists = scope:owner
+				scope:owner = {
+					government_has_flag = government_is_landless_adventurer
+					has_realm_law = posture_settled
+				}
+			}
+			scope:owner = {
+				add_realm_law_skip_effects = posture_roaming
+				cotc_freelancer_posture_changed_effect = yes
+			}
+		}
+	}
+}

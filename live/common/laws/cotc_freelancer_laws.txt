@@ -1,0 +1,142 @@
+﻿##################################################
+# COTC - Freelancer Posture
+##################################################
+
+@cotc_posture_cooldown_years = 10
+@cotc_settle_gold_cost = 300
+@cotc_settle_prestige_cost = 300
+@cotc_uproot_gold_cost = 150
+@cotc_uproot_prestige_cost = 150
+
+posture = {
+	default = posture_roaming
+	flag = realm_law
+	# GUI hook: lets window_my_realm.gui tell this group from camp_purpose
+	flag = cotc_posture_law
+
+	##################################################
+	# ROAMING - the default. A Base that travels.
+	##################################################
+	posture_roaming = {
+		pass_phrase = cotc_posture_pass_phrase
+		confirmation_title = cotc_posture_pass_phrase
+		confirmation_button_text = cotc_posture_confirmation_button_text
+
+		can_keep = { realm_law_use_cotc_posture = yes }
+
+		can_pass = {
+			cotc_posture_no_cooldown_trigger = yes
+			cotc_posture_can_switch_now_trigger = yes
+		}
+
+		# Only a deliberate uproot from Settled costs anything. The group's
+		# initial assignment and any forced reversion are free.
+		pass_cost = {
+			gold = {
+				if = {
+					limit = { has_realm_law = posture_settled }
+					value = @cotc_uproot_gold_cost
+				}
+			}
+			prestige = {
+				if = {
+					limit = { has_realm_law = posture_settled }
+					value = @cotc_uproot_prestige_cost
+				}
+			}
+		}
+
+		on_pass = {
+			hidden_effect = {
+				set_variable = {
+					name = cotc_posture_cooldown
+					years = @cotc_posture_cooldown_years
+				}
+			}
+			custom_tooltip = cotc_posture_cooldown_warning_tt
+		}
+
+		# COTC: re-roll the group name to suit the new Charter
+		on_after_pass = {
+			cotc_freelancer_posture_changed_effect = yes
+		}
+
+		# The AI never uproots on its own - flip-flopping on a 10-year
+		# cooldown would be noise.
+		ai_will_do = { value = 0 }
+	}
+
+	##################################################
+	# SETTLED - a fixed headquarters.
+	##################################################
+	posture_settled = {
+		pass_phrase = cotc_posture_pass_phrase
+		confirmation_title = cotc_posture_pass_phrase
+		confirmation_button_text = cotc_posture_confirmation_button_text
+
+		# Read by GetCrewWord / GetBaseWord in cotc_freelancer_custom_loc.txt, by the naming random_list, and by can_move_domicile
+		flag = static_camp_posture
+
+		modifier = {
+			domicile_monthly_gold_add = 1
+			monthly_prestige = 0.25
+			domicile_build_gold_cost = -0.1
+			character_travel_speed_mult = -0.15
+		}
+
+		can_have = {
+			realm_law_use_cotc_posture = yes
+			cotc_charter_allows_settled_trigger = yes
+		}
+
+		# If a script forces Prospectors or Privateers onto a settled character, this fails and Posture falls back to the group default
+		can_keep = {
+			realm_law_use_cotc_posture = yes
+			cotc_charter_allows_settled_trigger = yes
+		}
+
+		can_pass = {
+			cotc_posture_no_cooldown_trigger = yes
+			cotc_posture_can_switch_now_trigger = yes
+			cotc_charter_allows_settled_trigger = yes
+		}
+
+		pass_cost = {
+			gold = @cotc_settle_gold_cost
+			prestige = @cotc_settle_prestige_cost
+		}
+
+		on_pass = {
+			hidden_effect = {
+				set_variable = {
+					name = cotc_posture_cooldown
+					years = @cotc_posture_cooldown_years
+				}
+			}
+			custom_tooltip = cotc_posture_cooldown_warning_tt
+		}
+
+		# COTC: re-roll the group name to suit the new Charter
+		on_after_pass = {
+			cotc_freelancer_posture_changed_effect = yes
+		}
+
+		ai_will_do = {
+			value = 0
+			# Only worth it once there is something to run a business on.
+			if = {
+				limit = { gold >= 500 }
+				add = 30
+			}
+			if = {
+				limit = { domicile ?= { domicile_location = { county ?= { development_level >= 15 } } } }
+				add = 30
+			}
+			# Still busy roaming.
+			if = {
+				limit = { any_character_task_contract = { count >= 2 } }
+				add = -100
+			}
+		}
+	}
+}
