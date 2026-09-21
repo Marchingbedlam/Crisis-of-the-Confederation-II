@@ -39,12 +39,15 @@ quarterly_playable_pulse = {
 	}
 }
 
+
 ##################################################
-# Voluntary moves are blocked by can_move_domicile, eviction by
-# cotc_freelancer_eviction_override.txt. This covers the remaining scripted
-# relocations, which un-settle rather than strand the character.
+# Voluntary moves are blocked by can_move_domicile, eviction by the interaction
+# override. This covers scripted relocations, which un-settle rather than strand.
 ##################################################
-on_domicile_moved = {
+
+on_domicile_moved = { on_actions = { cotc_domicile_moved_on_action } }
+
+cotc_domicile_moved_on_action = {
 	effect = {
 		if = {
 			limit = {
