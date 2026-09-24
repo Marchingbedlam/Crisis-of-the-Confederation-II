@@ -1,0 +1,705 @@
+﻿#Events related to the Chief Scientist's tasks
+
+namespace = chief_scientist_task
+
+### MAINTAIN TECHNOLOGY
+chief_scientist_task.1000 = { # Incompetent engineer damages artifact
+	hidden = yes
+	trigger = {
+		exists = cp:councillor_chief_scientist
+		scope:councillor = cp:councillor_chief_scientist
+		cp:councillor_chief_scientist = { learning < high_skill_rating }
+		has_any_artifact = yes
+	}
+	weight_multiplier = {
+		base = 1
+		compare_modifier = {
+			target = scope:councillor
+			value = learning
+			multiplier = -0.2
+			offset = inverted_high_skill_rating
+		}
+	}
+	immediate = {
+		cp:councillor_chief_scientist = { save_scope_as = active_councillor }
+		set_variable = {
+			name = had_chief_scientist_task_side_effect
+			value = yes
+			days = chief_scientist_task_side_effect_cooldown
+		}
+		random_character_artifact = {
+			save_scope_as = artifact
+			weight = {
+				base = 0
+				modifier = { add = artifact_durability }
+			}
+			save_scope_value_as = {
+				name = durability_loss
+				value = {
+					add = artifact_durability
+					divide = {
+						integer_range = {
+							min = 2
+							max = 4
+						}
+					}
+					multiply = -1
+				}
+			}
+		}
+		send_interface_message = {
+			type = msg_chief_scientist_task_bad
+			title = chief_scientist_task.1000.title
+			desc = {
+				triggered_desc = {
+					trigger = { scope:active_councillor ?= { learning <= average_skill_level } }
+					desc = task_learning_bad_unskilled_notification_tooltip
+				}
+				triggered_desc = {
+					trigger = { scope:active_councillor ?= { learning > average_skill_level } }
+					desc = task_learning_bad_skilled_notification_tooltip
+				}
+			}
+			tooltip = task_maintain_technology_notification_tooltip
+
+			left_icon = scope:active_councillor
+			right_icon = scope:artifact
+
+			scope:artifact ?= { add_durability = scope:durability_gain }
+		}
+	}
+}
+chief_scientist_task.1100 = { # Competent engineer repairs artifact
+	hidden = yes
+
+	trigger = {
+		exists = cp:councillor_chief_scientist
+		scope:councillor = cp:councillor_chief_scientist
+		cp:councillor_chief_scientist = { learning > mediocre_skill_rating }
+		any_character_artifact = { artifact_durability < artifact_max_durability }
+	}
+
+	weight_multiplier = {
+		base = 1
+		compare_modifier = {
+			target = scope:councillor
+			value = learning
+			multiplier = 0.2
+			offset = inverted_mediocre_skill_rating
+		}
+	}
+
+	immediate = {
+		cp:councillor_chief_scientist = { save_scope_as = active_councillor }
+		set_variable = {
+			name = had_chief_scientist_task_side_effect
+			value = yes
+			days = chief_scientist_task_side_effect_cooldown
+		}
+		random_character_artifact = {
+			limit = { artifact_durability < artifact_max_durability }
+			weight = {
+				base = 0
+				modifier = {
+					add = {
+						value = artifact_max_durability
+						subtract = artifact_durability
+					}
+				}
+			}
+			save_scope_as = artifact
+			save_scope_value_as = {
+				name = durability_gain
+				value = {
+					add = artifact_max_durability
+					subtract = artifact_durability
+					divide = {
+						integer_range = {
+							min = 1
+							max = 4
+						}
+					}
+				}
+			}
+		}
+
+		send_interface_message = {
+			type = msg_chief_scientist_task_good
+			title = chief_scientist_task.1100.title
+			desc = {
+				triggered_desc = {
+					trigger = { scope:active_councillor ?= { learning <= average_skill_level } }
+					desc = task_learning_good_unskilled_notification_tooltip
+				}
+				triggered_desc = {
+					trigger = { scope:active_councillor ?= { learning > average_skill_level } }
+					desc = task_learning_good_skilled_notification_tooltip
+				}
+			}
+			tooltip = task_maintain_technology_notification_tooltip
+
+			left_icon = scope:active_councillor
+			right_icon = scope:artifact
+
+			scope:artifact ?= { add_durability = scope:durability_gain }
+		}
+	}
+}
+### SUPERVISE RESEARCH
+chief_scientist_task.2000 = { # Bad management slows project
+	hidden = yes
+
+	trigger = {
+		exists = cp:councillor_chief_scientist
+		scope:councillor = cp:councillor_chief_scientist
+		cp:councillor_chief_scientist = { learning < high_skill_rating }
+	}
+
+	weight_multiplier = {
+		base = 1
+		compare_modifier = {
+			target = scope:councillor
+			value = learning
+			multiplier = -0.2
+			offset = inverted_high_skill_rating
+		}
+	}
+
+	immediate = {
+		cp:councillor_chief_scientist = { save_scope_as = active_councillor }
+		set_variable = {
+			name = had_chief_scientist_task_side_effect
+			value = yes
+			days = chief_scientist_task_side_effect_cooldown
+		}
+		send_interface_message = {
+			type = msg_chief_scientist_task_bad
+			title = chief_scientist_task.2000.title
+			desc = {
+				triggered_desc = {
+					trigger = { scope:active_councillor ?= { learning <= average_skill_level } }
+					desc = task_learning_bad_unskilled_notification_tooltip
+				}
+				triggered_desc = {
+					trigger = { scope:active_councillor ?= { learning > average_skill_level } }
+					desc = task_learning_bad_skilled_notification_tooltip
+				}
+			}
+			tooltip = task_supervise_research_notification_tooltip
+			left_icon = scope:councillor
+			scope:scheme = {
+				if = {
+					limit = { has_scheme_modifier = chief_scientist_supervise_research_fast_project }
+					remove_scheme_modifier = chief_scientist_supervise_research_fast_project
+				}
+				else = {
+					add_scheme_modifier = {
+						type = chief_scientist_supervise_research_slow_project
+						days = chief_scientist_task_modifier_duration
+					}
+				}
+			}
+		}
+	}
+}
+chief_scientist_task.2001 = { # Bad management loses data
+	hidden = yes
+
+	trigger = {
+		exists = cp:councillor_chief_scientist
+		scope:councillor = cp:councillor_chief_scientist
+		cp:councillor_chief_scientist = { learning < high_skill_rating }
+	}
+
+	weight_multiplier = {
+		base = 1
+		compare_modifier = {
+			target = scope:councillor
+			value = learning
+			multiplier = -0.2
+			offset = inverted_high_skill_rating
+		}
+	}
+
+	immediate = {
+		cp:councillor_chief_scientist = { save_scope_as = active_councillor }
+		set_variable = {
+			name = had_chief_scientist_task_side_effect
+			value = yes
+			days = chief_scientist_task_side_effect_cooldown
+		}
+		save_scope_value_as = {
+			name = progress_loss
+			value = {
+				integer_range = {
+					min = 1
+					max = 5
+				}
+				divide = 5
+				min = scope:scheme.scheme_success_chance
+				multiply = -1
+			}
+		}
+		send_interface_message = {
+			type = msg_chief_scientist_task_bad
+			title = chief_scientist_task.2001.title
+			desc = {
+				triggered_desc = {
+					trigger = { scope:active_councillor ?= { learning <= average_skill_level } }
+					desc = task_learning_bad_unskilled_notification_tooltip
+				}
+				triggered_desc = {
+					trigger = { scope:active_councillor ?= { learning > average_skill_level } }
+					desc = task_learning_bad_skilled_notification_tooltip
+				}
+			}
+			tooltip = task_supervise_research_notification_tooltip
+			left_icon = scope:councillor
+			scope:scheme = { add_scheme_progress = scope:progress_loss }
+		}
+	}
+}
+chief_scientist_task.2100 = { # Good management speeds project
+	hidden = yes
+
+	trigger = {
+		exists = cp:councillor_chief_scientist
+		scope:councillor = cp:councillor_chief_scientist
+		cp:councillor_chief_scientist = { learning > mediocre_skill_rating }
+	}
+
+	weight_multiplier = {
+		base = 1
+		compare_modifier = {
+			target = scope:councillor
+			value = learning
+			multiplier = 0.2
+			offset = inverted_mediocre_skill_rating
+		}
+	}
+
+	immediate = {
+		cp:councillor_chief_scientist = { save_scope_as = active_councillor }
+		set_variable = {
+			name = had_chief_scientist_task_side_effect
+			value = yes
+			days = chief_scientist_task_side_effect_cooldown
+		}
+		send_interface_message = {
+			type = msg_chief_scientist_task_good
+			title = chief_scientist_task.2100.title
+			desc = {
+				triggered_desc = {
+					trigger = { scope:active_councillor ?= { learning <= average_skill_level } }
+					desc = task_learning_good_unskilled_notification_tooltip
+				}
+				triggered_desc = {
+					trigger = { scope:active_councillor ?= { learning > average_skill_level } }
+					desc = task_learning_good_skilled_notification_tooltip
+				}
+			}
+			tooltip = task_supervise_research_notification_tooltip
+			left_icon = scope:councillor
+			scope:scheme = {
+				if = {
+					limit = { has_scheme_modifier = chief_scientist_supervise_research_slow_project }
+					remove_scheme_modifier = chief_scientist_supervise_research_slow_project
+				}
+				else = {
+					add_scheme_modifier = {
+						type = chief_scientist_supervise_research_fast_project
+						days = chief_scientist_task_modifier_duration
+					}
+				}
+			}
+		}
+	}
+}
+chief_scientist_task.2101 = { # Good management makes breakthrough
+	hidden = yes
+
+	trigger = {
+		exists = cp:councillor_chief_scientist
+		scope:councillor = cp:councillor_chief_scientist
+		cp:councillor_chief_scientist = { learning > mediocre_skill_rating }
+	}
+
+	weight_multiplier = {
+		base = 1
+		compare_modifier = {
+			target = scope:councillor
+			value = learning
+			multiplier = 0.2
+			offset = inverted_mediocre_skill_rating
+		}
+	}
+
+	immediate = {
+		cp:councillor_chief_scientist = { save_scope_as = active_councillor }
+		set_variable = {
+			name = had_chief_scientist_task_side_effect
+			value = yes
+			days = chief_scientist_task_side_effect_cooldown
+		}
+		save_scope_value_as = {
+			name = progress_gain
+			value = {
+				integer_range = {
+					min = 1
+					max = 5
+				}
+				divide = 5
+			}
+		}
+		send_interface_message = {
+			type = msg_chief_scientist_task_good
+			title = chief_scientist_task.2101.title
+			desc = {
+				triggered_desc = {
+					trigger = { scope:active_councillor ?= { learning <= average_skill_level } }
+					desc = task_learning_good_unskilled_notification_tooltip
+				}
+				triggered_desc = {
+					trigger = { scope:active_councillor ?= { learning > average_skill_level } }
+					desc = task_learning_good_skilled_notification_tooltip
+				}
+			}
+			tooltip = task_supervise_research_notification_tooltip
+			left_icon = scope:councillor
+			scope:scheme = { add_scheme_progress = scope:progress_gain }
+		}
+	}
+}
+### SPREAD INNOVATIONS (GENERAL)
+chief_scientist_task.3000 = { # Popular resistance to new technologies
+	hidden = yes
+
+	trigger = {
+		exists = cp:councillor_chief_scientist
+		scope:councillor = cp:councillor_chief_scientist
+		cp:councillor_chief_scientist = { learning < high_skill_rating }
+	}
+
+	weight_multiplier = {
+		base = 1
+		compare_modifier = {
+			target = scope:councillor
+			value = learning
+			multiplier = -0.2
+			offset = inverted_high_skill_rating
+		}
+	}
+
+	immediate = {
+		cp:councillor_chief_scientist = { save_scope_as = active_councillor }
+		set_variable = {
+			name = had_chief_scientist_task_side_effect
+			value = yes
+			days = chief_scientist_task_side_effect_cooldown
+		}
+		send_interface_message = {
+			type = msg_chief_scientist_task_bad
+			title = chief_scientist_task.3000.title
+			desc = {
+				triggered_desc = {
+					trigger = { scope:active_councillor ?= { learning <= average_skill_level } }
+					desc = task_learning_bad_unskilled_notification_tooltip
+				}
+				triggered_desc = {
+					trigger = { scope:active_councillor ?= { learning > average_skill_level } }
+					desc = task_learning_bad_skilled_notification_tooltip
+				}
+			}
+			tooltip = task_supervise_research_notification_tooltip
+			left_icon = scope:councillor
+			right_icon = scope:county
+			scope:county = {
+				add_county_modifier = {
+					modifier = chief_scientist_spread_innovations_popular_resistance
+					days = chief_scientist_task_modifier_duration
+				}
+			}
+		}
+	}
+}
+chief_scientist_task.3100 = { # New technologies spur development
+	hidden = yes
+
+	trigger = {
+		exists = cp:councillor_chief_scientist
+		scope:councillor = cp:councillor_chief_scientist
+		cp:councillor_chief_scientist = { learning > mediocre_skill_rating }
+	}
+
+	weight_multiplier = {
+		base = 1
+		compare_modifier = {
+			target = scope:councillor
+			value = learning
+			multiplier = 0.2
+			offset = inverted_mediocre_skill_rating
+		}
+	}
+
+	immediate = {
+		cp:councillor_chief_scientist = { save_scope_as = active_councillor }
+		set_variable = {
+			name = had_chief_scientist_task_side_effect
+			value = yes
+			days = chief_scientist_task_side_effect_cooldown
+		}
+		send_interface_message = {
+			type = msg_chief_scientist_task_good
+			title = chief_scientist_task.3100.title
+			desc = {
+				triggered_desc = {
+					trigger = { scope:active_councillor ?= { learning <= average_skill_level } }
+					desc = task_learning_good_unskilled_notification_tooltip
+				}
+				triggered_desc = {
+					trigger = { scope:active_councillor ?= { learning > average_skill_level } }
+					desc = task_learning_good_skilled_notification_tooltip
+				}
+			}
+			tooltip = task_supervise_research_notification_tooltip
+			left_icon = scope:councillor
+			right_icon = scope:county
+			scope:county = {
+				add_county_modifier = {
+					modifier = chief_scientist_spread_innovation_rapid_development
+					days = chief_scientist_task_modifier_duration
+				}
+			}
+		}
+	}
+}
+### SPREAD INNOVATIONS (CIVIC)
+chief_scientist_task.3200 = { # New technologies complicate construction
+	hidden = yes
+
+	trigger = {
+		exists = cp:councillor_chief_scientist
+		scope:councillor = cp:councillor_chief_scientist
+		cp:councillor_chief_scientist = { learning < high_skill_rating }
+	}
+
+	weight_multiplier = {
+		base = 1
+		compare_modifier = {
+			target = scope:councillor
+			value = learning
+			multiplier = -0.2
+			offset = inverted_high_skill_rating
+		}
+	}
+
+	immediate = {
+		cp:councillor_chief_scientist = { save_scope_as = active_councillor }
+		set_variable = {
+			name = had_chief_scientist_task_side_effect
+			value = yes
+			days = chief_scientist_task_side_effect_cooldown
+		}
+		send_interface_message = {
+			type = msg_chief_scientist_task_bad
+			title = chief_scientist_task.3200.title
+			desc = {
+				triggered_desc = {
+					trigger = { scope:active_councillor ?= { learning <= average_skill_level } }
+					desc = task_learning_bad_unskilled_notification_tooltip
+				}
+				triggered_desc = {
+					trigger = { scope:active_councillor ?= { learning > average_skill_level } }
+					desc = task_learning_bad_skilled_notification_tooltip
+				}
+			}
+			tooltip = task_supervise_research_notification_tooltip
+			left_icon = scope:councillor
+			right_icon = scope:county
+			scope:county = {
+				if = {
+					limit = { has_county_modifier = chief_scientist_spread_innovations_construction_boom }
+					remove_county_modifier = chief_scientist_spread_innovations_construction_boom
+				}
+				else = {
+					add_county_modifier = {
+						modifier = chief_scientist_spread_innovations_complicated_construction
+						days = chief_scientist_task_modifier_duration
+					}
+				}
+			}
+		}
+	}
+}
+chief_scientist_task.3300 = { # New technologies spur construction boom
+	hidden = yes
+
+	trigger = {
+		exists = cp:councillor_chief_scientist
+		scope:councillor = cp:councillor_chief_scientist
+		cp:councillor_chief_scientist = { learning > mediocre_skill_rating }
+	}
+
+	weight_multiplier = {
+		base = 1
+		compare_modifier = {
+			target = scope:councillor
+			value = learning
+			multiplier = 0.2
+			offset = inverted_mediocre_skill_rating
+		}
+	}
+
+	immediate = {
+		cp:councillor_chief_scientist = { save_scope_as = active_councillor }
+		set_variable = {
+			name = had_chief_scientist_task_side_effect
+			value = yes
+			days = chief_scientist_task_side_effect_cooldown
+		}
+		send_interface_message = {
+			type = msg_chief_scientist_task_good
+			title = chief_scientist_task.3300.title
+			desc = {
+				triggered_desc = {
+					trigger = { scope:active_councillor ?= { learning <= average_skill_level } }
+					desc = task_learning_good_unskilled_notification_tooltip
+				}
+				triggered_desc = {
+					trigger = { scope:active_councillor ?= { learning > average_skill_level } }
+					desc = task_learning_good_skilled_notification_tooltip
+				}
+			}
+			tooltip = task_supervise_research_notification_tooltip
+			left_icon = scope:councillor
+			right_icon = scope:county
+			scope:county = {
+				if = {
+					limit = { has_county_modifier = chief_scientist_spread_innovations_complicated_construction }
+					remove_county_modifier = chief_scientist_spread_innovations_complicated_construction
+				}
+				else = {
+					add_county_modifier = {
+						modifier = chief_scientist_spread_innovations_construction_boom
+						days = chief_scientist_task_modifier_duration
+					}
+				}
+			}
+		}
+	}
+}
+### SPREAD INNOVATIONS (MILITARY)
+chief_scientist_task.3400 = { # Failure to integrate new technology in military
+	hidden = yes
+
+	trigger = {
+		exists = cp:councillor_chief_scientist
+		scope:councillor = cp:councillor_chief_scientist
+		cp:councillor_chief_scientist = { learning < high_skill_rating }
+	}
+
+	weight_multiplier = {
+		base = 1
+		compare_modifier = {
+			target = scope:councillor
+			value = learning
+			multiplier = -0.2
+			offset = inverted_high_skill_rating
+		}
+	}
+
+	immediate = {
+		cp:councillor_chief_scientist = { save_scope_as = active_councillor }
+		set_variable = {
+			name = had_chief_scientist_task_side_effect
+			value = yes
+			days = chief_scientist_task_side_effect_cooldown
+		}
+		send_interface_message = {
+			type = msg_chief_scientist_task_bad
+			title = chief_scientist_task.3400.title
+			desc = {
+				triggered_desc = {
+					trigger = { scope:active_councillor ?= { learning <= average_skill_level } }
+					desc = task_learning_bad_unskilled_notification_tooltip
+				}
+				triggered_desc = {
+					trigger = { scope:active_councillor ?= { learning > average_skill_level } }
+					desc = task_learning_bad_skilled_notification_tooltip
+				}
+			}
+			tooltip = task_supervise_research_notification_tooltip
+			left_icon = scope:councillor
+			right_icon = scope:county
+			scope:county = {
+				if = {
+					limit = { has_county_modifier = chief_scientist_spread_innovations_reinforced_defenses }
+					remove_county_modifier = chief_scientist_spread_innovations_reinforced_defenses
+				}
+				else = {
+					add_county_modifier = {
+						modifier = chief_scientist_spread_innovations_vulnerable_defenses
+						days = chief_scientist_task_modifier_duration
+					}
+				}
+			}
+		}
+	}
+}
+chief_scientist_task.3500 = { # New technologies integrated successfully into military
+	hidden = yes
+
+	trigger = {
+		exists = cp:councillor_chief_scientist
+		scope:councillor = cp:councillor_chief_scientist
+		cp:councillor_chief_scientist = { learning > mediocre_skill_rating }
+	}
+
+	weight_multiplier = {
+		base = 1
+		compare_modifier = {
+			target = scope:councillor
+			value = learning
+			multiplier = 0.2
+			offset = inverted_mediocre_skill_rating
+		}
+	}
+
+	immediate = {
+		cp:councillor_chief_scientist = { save_scope_as = active_councillor }
+		set_variable = {
+			name = had_chief_scientist_task_side_effect
+			value = yes
+			days = chief_scientist_task_side_effect_cooldown
+		}
+		send_interface_message = {
+			type = msg_chief_scientist_task_good
+			title = chief_scientist_task.3500.title
+			desc = {
+				triggered_desc = {
+					trigger = { scope:active_councillor ?= { learning <= average_skill_level } }
+					desc = task_learning_good_unskilled_notification_tooltip
+				}
+				triggered_desc = {
+					trigger = { scope:active_councillor ?= { learning > average_skill_level } }
+					desc = task_learning_good_skilled_notification_tooltip
+				}
+			}
+			tooltip = task_supervise_research_notification_tooltip
+			left_icon = scope:councillor
+			right_icon = scope:county
+			scope:county = {
+				if = {
+					limit = { has_county_modifier = chief_scientist_spread_innovations_vulnerable_defenses }
+					remove_county_modifier = chief_scientist_spread_innovations_vulnerable_defenses
+				}
+				else = {
+					add_county_modifier = {
+						modifier = chief_scientist_spread_innovations_reinforced_defenses
+						days = chief_scientist_task_modifier_duration
+					}
+				}
+			}
+		}
+	}
+}

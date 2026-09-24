@@ -26,6 +26,17 @@
 			trigger = { councillor_liege_has_consulted_house_bonus = yes }
 			desc = task_maintain_technology_consulted_house_bonus_desc
 		}
+		desc = {
+			desc = council_task_possible_side_effects
+			triggered_desc = {
+				trigger = { learning > mediocre_skill_rating }
+				desc = task_maintain_technology_repair_artifact
+			}
+			triggered_desc = {
+				trigger = { learning < high_skill_rating }
+				desc = task_maintain_technology_damage_artifact
+			}
+		}
 	}
 
 	is_valid_showing_failures_only = {
@@ -38,7 +49,7 @@
 		scale = chief_scientist_maintain_technology_total_scale
 	}
 
-	#monthly_on_action = task_maintain_technology_side_effects
+	monthly_on_action = maintain_technology_chief_scientist_task_side_effects
 	
 	ai_will_do = { value = 1 } # Fallback option
 }
@@ -76,8 +87,16 @@ task_supervise_research = {
 				desc = task_supervise_research_well_managed_project
 			}
 			triggered_desc = {
+				trigger = { learning > mediocre_skill_rating }
+				desc = task_supervise_research_breakthrough
+			}
+			triggered_desc = {
 				trigger = { learning < high_skill_rating }
 				desc = task_supervise_research_poorly_managed_project
+			}
+			triggered_desc = {
+				trigger = { learning < high_skill_rating }
+				desc = task_supervise_research_lost_data
 			}
 		}
 	}
@@ -88,6 +107,18 @@ task_supervise_research = {
 
 	is_valid_showing_failures_only = {
 		tgp_natural_disaster_councillor_available_for_task_trigger = yes
+		scope:councillor_liege = {
+			trigger_if = {
+				limit = { any_scheme = { scheme_type = secret_research_project } }
+				custom_tooltip = {
+					text = supervise_research.tt.must_be_assigned_to_any_secret_projects
+					any_scheme = {
+						scheme_type = secret_research_project
+						any_scheme_agent_character = { this = scope:councillor }
+					}
+				}
+			}
+		}
 	}
 	
 	council_owner_modifier = {
@@ -97,7 +128,7 @@ task_supervise_research = {
 		scale = chief_scientist_supervise_research_total_scale
 	}
 
-	#monthly_on_action = task_supervise_research_side_effects
+	monthly_on_action = supervise_research_chief_scientist_task_side_effects
 	
 	ai_will_do = {
 		value = 1
@@ -134,7 +165,28 @@ task_spread_civic_innovations = {
 		glow = "gfx/particles/halo.dds"
 	}
 	
-	effect_desc = { desc = task_spread_civic_innovations_effect_desc }
+	effect_desc = {
+		desc = task_spread_civic_innovations_effect_desc
+		desc = {
+			desc = council_task_possible_side_effects
+			triggered_desc = {
+				trigger = { learning > mediocre_skill_rating }
+				desc = task_spread_innovations_spur_development
+			}
+			triggered_desc = {
+				trigger = { learning > mediocre_skill_rating }
+				desc = task_spread_innovations_speed_construction
+			}
+			triggered_desc = {
+				trigger = { learning < high_skill_rating }
+				desc = task_spread_innovations_provoke_resistance
+			}
+			triggered_desc = {
+				trigger = { learning < high_skill_rating }
+				desc = task_spread_innovations_slow_construction
+			}
+		}
+	}
 	
 	is_shown = {
 		scope:councillor_liege = { exists = capital_county }
@@ -339,7 +391,7 @@ task_spread_civic_innovations = {
 			}
 		}
 	}
-	#monthly_on_action = spread_civic_innovations_side_effects
+	monthly_on_action = spread_civic_innovations_chief_scientist_task_side_effects
 	on_finish_task_county = {
 		scope:councillor = { add_to_list = characters_to_inform }
 		scope:councillor_liege = {
@@ -422,7 +474,28 @@ task_spread_military_innovations = {
 		glow = "gfx/particles/halo.dds"
 	}
 	
-	effect_desc = { desc = task_spread_military_innovations_effect_desc }
+	effect_desc = {
+		desc = task_spread_military_innovations_effect_desc
+		desc = {
+			desc = council_task_possible_side_effects
+			triggered_desc = {
+				trigger = { learning > mediocre_skill_rating }
+				desc = task_spread_innovations_spur_development
+			}
+			triggered_desc = {
+				trigger = { learning > mediocre_skill_rating }
+				desc = task_spread_innovations_strengthen_defenses
+			}
+			triggered_desc = {
+				trigger = { learning < high_skill_rating }
+				desc = task_spread_innovations_provoke_resistance
+			}
+			triggered_desc = {
+				trigger = { learning < high_skill_rating }
+				desc = task_spread_innovations_weaken_defenses
+			}
+		}
+	}
 	
 	is_shown = {
 		scope:councillor_liege = { exists = capital_county }
@@ -627,7 +700,7 @@ task_spread_military_innovations = {
 			}
 		}
 	}
-	#monthly_on_action = spread_military_innovations_side_effects
+	monthly_on_action = spread_military_innovations_chief_scientist_task_side_effects
 	on_finish_task_county = {
 		scope:councillor = { add_to_list = characters_to_inform }
 		scope:councillor_liege = {
