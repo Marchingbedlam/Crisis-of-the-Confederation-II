@@ -1,0 +1,280 @@
+﻿chief_scientist_task_side_effect_cooldown = 365 #Number of days minimum before the Chief Scientist can fire a side effect event from a task again
+chief_scientist_task_modifier_duration = 1825 #Number of days that modifiers set by the chief scientist task should last for by default
+
+##### Learn on the Job Skill bonus for Liege
+chief_scientist_learn_on_the_job_scale = {
+	value = 0
+	if = {
+		limit = {
+			liege = { has_perk = learn_on_the_job_perk }
+		}
+		add = learning
+		multiply = {
+			add = learn_on_the_job_percentage
+			divide = 100
+		}
+		floor = yes
+		min = 1
+	}
+}
+
+### Reliable House modifier
+chief_scientist_reliable_house_scale = {
+	value = 0
+	if = {
+		limit = {
+			exists = liege.dynasty
+			liege.dynasty = { has_dynasty_perk = fp2_coterie_legacy_2 }
+			house = liege.house
+		}
+		add = learning
+		multiply = {
+			add = council_reliable_house_percentage
+			divide = 100
+		}
+		floor = yes
+		min = 1
+	}
+}
+
+
+##############################################
+########## MAINTAIN TECHNOLOGY TASK ##########
+##############################################
+
+chief_scientist_maintain_technology_scale_base = {
+	add = learning
+}
+
+chief_scientist_maintain_technology_erudition_bonus_scale = {
+	add = chief_scientist_supervise_research_scale_base
+	multiply = {
+		add = erudition_legacy_5_percentage
+		divide = 100
+	}
+}
+
+chief_scientist_maintain_technology_family_business_bonus_scale = {
+	add = chief_scientist_supervise_research_scale_base
+	multiply = {
+		add = family_business_councillors_percentage
+		divide = 100
+	}
+}
+
+chief_scientist_maintain_technology_consulted_house_bonus_scale = {
+	add = chief_scientist_supervise_research_scale_base
+	multiply = {
+		add = consulted_house_councillors_percentage
+		divide = 100
+	}
+}
+
+chief_scientist_maintain_technology_scale_tooltip_total = {
+	add = chief_scientist_maintain_technology_scale_base
+	if = {
+		limit = { councillor_liege_has_erudition_legacy_5_perk = yes }
+		add = chief_scientist_maintain_technology_erudition_bonus_scale
+	}
+	if = {
+		limit = { councillor_liege_has_family_business_bonus = yes }
+		add = chief_scientist_maintain_technology_family_business_bonus_scale # 0.1
+	}
+	if = {
+		limit = { councillor_liege_has_consulted_house_bonus = yes }
+		add = chief_scientist_maintain_technology_consulted_house_bonus_scale # 0.1
+	}
+}
+
+chief_scientist_maintain_technology_total_scale = {
+	add = chief_scientist_maintain_technology_scale_tooltip_total
+	divide = 100
+}
+
+
+##############################################
+########## SUPERVISE RESEARCH TASK ###########
+##############################################
+
+chief_scientist_supervise_research_scale_base = {
+	add = learning
+	divide = 2
+}
+
+chief_scientist_supervise_research_erudition_bonus_scale = {
+	add = chief_scientist_supervise_research_scale_base
+	multiply = {
+		add = erudition_legacy_5_percentage
+		divide = 100
+	}
+}
+
+chief_scientist_supervise_research_family_business_bonus_scale = {
+	add = chief_scientist_supervise_research_scale_base
+	multiply = {
+		add = family_business_councillors_percentage
+		divide = 100
+	}
+}
+
+chief_scientist_supervise_research_consulted_house_bonus_scale = {
+	add = chief_scientist_supervise_research_scale_base
+	multiply = {
+		add = consulted_house_councillors_percentage
+		divide = 100
+	}
+}
+
+chief_scientist_supervise_research_scale_tooltip_total = {
+	add = chief_scientist_supervise_research_scale_base
+	if = {
+		limit = { councillor_liege_has_erudition_legacy_5_perk = yes }
+		add = chief_scientist_supervise_research_erudition_bonus_scale
+	}
+	if = {
+		limit = { councillor_liege_has_family_business_bonus = yes }
+		add = chief_scientist_supervise_research_family_business_bonus_scale # 0.1
+	}
+	if = {
+		limit = { councillor_liege_has_consulted_house_bonus = yes }
+		add = chief_scientist_supervise_research_consulted_house_bonus_scale # 0.1
+	}
+}
+
+chief_scientist_supervise_research_total_scale = {
+	add = chief_scientist_supervise_research_scale_tooltip_total
+	divide = 100
+}
+
+##############################################
+########## SPREAD INNOVATIONS TASK ###########
+##############################################
+
+# Base progress value
+chief_scientist_spread_innovations_base = {
+	add = 0.5
+}
+
+chief_scientist_spread_innovations_monthly_increase = {
+	add = learning
+	divide = 10
+}
+
+chief_scientist_spread_innovations_base_total = {
+	add = court_chaplain_conversion_base
+	add = court_chaplain_conversion_monthly_increase
+}
+
+chief_scientist_spread_innovations_contextual_bonuses = {
+	if = {
+		limit = { councillor_liege_has_erudition_legacy_5_perk = yes }
+		add = {
+			value = scope:councillor.chief_scientist_spread_innovations_monthly_increase_dynasty_perk_bonus
+			desc = SPREAD_INNOVATION_DYNASTY_PERK_BONUS_VALUE
+		}
+	}
+	if = {
+		limit = { councillor_liege_has_family_business_bonus = yes }
+		add = {
+			value = scope:councillor.chief_scientist_spread_innovations_monthly_increase_family_business_bonus
+			desc = FAMILY_BUSINESS_BONUS_VALUE
+		}
+	}
+	if = {
+		limit = { councillor_liege_has_consulted_house_bonus = yes }
+		add = {
+			value = scope:councillor.chief_scientist_spread_innovations_monthly_increase_consulted_house_bonus
+			desc = CONSULTED_HOUSE_BONUS_VALUE
+		}
+	}
+	if = {
+		limit = { scope:county.faith = { has_doctrine_parameter = faster_innovation_spread } }
+		add = {
+			value = scope:county.faith.faster_innovation_spread_bonus
+			desc = COUNTY_FASTER_INNOVATION_SPREAD
+		}
+	}
+	# Development bonus.
+	if = {
+		limit = {
+			exists = scope:county
+			scope:county = { development_level > 0 }
+		}
+		add = {
+			value = scope:county.county_development_innovation_spread_bonus
+			desc = CHIEF_SCIENTIST_SPREAD_INNOVATIONS_DEVELOPMENT_BONUS
+		}
+	}
+	# Population penalty
+	if = {
+		limit = { exists = scope:county }
+		subtract = {
+			value = scope:county.county_demand_innovation_spread_penalty
+			desc = CHIEF_SCIENTIST_SPREAD_INNOVATIONS_DEMAND_PENALTY
+		}
+	}
+}
+
+chief_scientist_spread_innovations_monthly_increase_dynasty_perk_bonus = {
+	add = chief_scientist_spread_innovations_base_total
+	multiply = {
+		add = erudition_legacy_5_percentage
+		divide = 100
+	}
+}
+
+chief_scientist_spread_innovations_monthly_increase_family_business_bonus = {
+	add = chief_scientist_spread_innovations_base_total
+	multiply = {
+		add = family_business_councillors_percentage
+		divide = 100
+	}
+}
+
+chief_scientist_spread_innovations_monthly_increase_consulted_house_bonus = {
+	add = chief_scientist_spread_innovations_base_total
+	multiply = {
+		add = consulted_house_councillors_percentage
+		divide = 100
+	}
+}
+
+faster_innovation_spread_bonus = {
+	add = chief_scientist_spread_innovations_base_total
+	multiply = 0.25
+}
+
+county_development_innovation_spread_bonus = {
+	add = chief_scientist_spread_innovations_base_total
+	multiply = {
+		add = scope:county.development_level
+		divide = 100
+	}
+}
+
+county_demand_innovation_spread_penalty = {
+	add = chief_scientist_spread_innovations_base_total
+	multiply = {
+		add = scope:county.county_demand
+		divide = 100
+	}
+}
+
+confederate_era_innovation_spread_bonus = {
+	add = chief_scientist_spread_innovations_base_total
+	add = chief_scientist_spread_innovations_contextual_bonuses
+	min = 1
+	multiply = 0.2
+}
+trimillennial_era_innovation_spread_bonus = {
+	add = chief_scientist_spread_innovations_base_total
+	add = chief_scientist_spread_innovations_contextual_bonuses
+	min = 1
+	multiply = 0.4
+}
+neorenaissance_era_innovation_spread_bonus = {
+	add = chief_scientist_spread_innovations_base_total
+	add = chief_scientist_spread_innovations_contextual_bonuses
+	min = 1
+	multiply = 0.8
+}

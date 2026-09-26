@@ -1,0 +1,34 @@
+﻿suffer_mild_injury_effect = { increase_wounds_no_death_effect = { REASON = $REASON$ } }
+suffer_severe_injury_effect = {
+	random_list = {
+		4 = {
+			trigger = { NOT = { has_trait = one_legged } }
+			add_trait_force_tooltip = one_legged
+			increase_wounds_no_death_effect = { REASON = $REASON$ }
+		}
+		2 = {
+			trigger = { NOT = { has_trait = disfigured } }
+			add_trait_force_tooltip = disfigured
+			increase_wounds_no_death_effect = { REASON = $REASON$ }
+			epilepsy_brain_trauma_risk_effect = { CHANCE = 5 }
+		}
+		4 = {
+			trigger = { NOT = { has_trait = one_eyed } }
+			add_trait_force_tooltip = one_eyed
+			increase_wounds_no_death_effect = { REASON = $REASON$ }
+			epilepsy_brain_trauma_risk_effect = { CHANCE = 5 }
+		}
+		4 = {
+			trigger = { NOT = { has_trait = maimed } }
+			apply_maimed_trait_and_modifier_effect = yes
+			epilepsy_brain_trauma_risk_effect = { CHANCE = 5 }
+		}
+	}
+}
+suffer_random_injury_effect = {
+	random_list = {
+		$MILD$ = { suffer_mild_injury_effect = { REASON = $REASON$ } }
+		$SEVERE$ = { suffer_severe_injury_effect = { REASON = $REASON$ } }
+		$DEATH$ = { death = { death_reason = death_$REASON$ } }
+	}
+}

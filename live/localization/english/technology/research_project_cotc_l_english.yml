@@ -1,4 +1,16 @@
 ﻿l_english:
+ game_concept_research_project_cotc: "Research Project"
+ game_concept_research_projects_cotc: "Research Projects"
+ game_concept_study_cotc: "Study"
+ game_concept_studies_cotc: "Studies"
+ game_concept_investigation_rp_cotc: "Investigation"
+ game_concept_investigations_rp_cotc: "Investigations"
+ game_concept_research_project_cotc_desc: "A $game_concept_research_project_cotc$ is a [scheme|E] aimed at discovering a new [local_innovation_cotc|E]. Unlike a standard $game_concept_scheme$, $game_concept_research_projects_cotc$ are guaranteed to succeed - eventually. At the end of each [scheme_phase_phase|E], there is a chance equal to the current @scheme_success_icon![scheme_success_chance|E] that the project will be completed, after which the $game_concept_scheme_success_chance$ will increase.\n\nOnce the project is successfully completed, your [capital|E] will gain the project's subject as a new $game_concept_local_innovation_cotc$.\n\n$game_concept_research_projects_cotc$ can be either public or @scheme_secrecy_icon![secret_scheme_single|E]. A $game_concept_secret_scheme_single$ $game_concept_research_project_cotc$ will not be visible to other characters, but will not reward [prestige_i|E][prestige|E] or [piety_i|E][piety|E] and is capped at one fewer [researcher_cotc|E]. $game_concept_secret_scheme_single$ $game_concept_research_projects_cotc$ can go public at any time."
+ 
+ game_concept_researcher_cotc: "Researcher"
+ game_concept_researchers_cotc: "Researchers"
+ game_concept_researcher_cotc_desc: "A $game_concept_researcher_cotc$ is an [agent|E] working on a [research_project_cotc|E] who conducts actual research, decreasing the length of each [scheme_phase_phase|E]. The more funding a $game_concept_research_project_cotc$ has, the more $game_concept_researchers_cotc$ it can employ. @scheme_secrecy_icon![secret_scheme_single|E] $game_concept_research_projects_cotc$ can hire one fewer $game_concept_researcher_cotc$."
+ 
  public_custom_loc: "public"
  secret_custom_loc: "secret"
  study_on_custom_loc: "study on"
@@ -17,10 +29,14 @@
  START_RESEARCH_PROJECT_DECISION_NEXT_STEP_BUTTON: "Choose Research Subject"
  start_research_project_decision_confirm: "Start Project"
  
- research_project_public: "Public Research Project"
- research_project_public_action: "Research"
- research_project_public_desc: "Project [SCHEME.Custom('GetResearchProjectCodenameAdj')][SCHEME.Custom('GetResearchProjectCodenameNoun')] aims to bring [SCHEME.MakeScope.Var('research_subject').CultureInnovationType.GetName] to [SCHEME.GetOwner.GetCapitalLocation.GetCounty.GetTitle.GetNameNoTier]."
- research_project_public_desc_general: "$research_project_public_desc$"
+ research_project: "Research Project"
+ research_project_action: "Research"
+ research_project_desc: "Project [SCHEME.Custom('GetResearchProjectCodenameAdj')][SCHEME.Custom('GetResearchProjectCodenameNoun')] aims to bring [SCHEME.MakeScope.Var('research_subject').CultureInnovationType.GetName] to [SCHEME.GetOwner.GetCapitalLocation.GetCounty.GetTitle.GetNameNoTier]."
+ research_project_desc_general: "$research_project_desc$"
+ secret_research_project: "Secret Research Project"
+ secret_research_project_action: "Secretly Research"
+ secret_research_project_desc: "Project [SCHEME.Custom('GetResearchProjectCodenameAdj')][SCHEME.Custom('GetResearchProjectCodenameNoun')] aims to bring [SCHEME.MakeScope.Var('research_subject').CultureInnovationType.GetName] to [SCHEME.GetOwner.GetCapitalLocation.GetCounty.GetTitle.GetNameNoTier]."
+ secret_research_project_desc_general: "$research_project_desc$"
  
  tooltip_support_for_research: "Intellectualism: $VALUE|=+0$"
  tooltip_desire_for_wealth: "[gold_i|E][gold|E] Reward: $VALUE|=+0$"
@@ -50,23 +66,30 @@
  personal_involvement_stewardship_bonus: "Personal Involvement - [stewardship|E]"
  personal_involvement_martial_bonus: "Personal Involvement - [martial|E]"
  researching_modifier: "Distracted by Research"
- research_project_public_scheme_phase_duration_add: "Public [research_project_cotc|E]"
+ research_project_scheme_phase_duration_add: "Public [research_project_cotc|E] @scheme_speed_icon![scheme_speed|E]"
+ secret_research_project_scheme_phase_duration_add: "[secret_scheme_single|E] [research_project_cotc|E] @scheme_speed_icon![scheme_speed|E]"
+ 
+ worked_together_on_research_project: "[CHARACTER.GetShortUIName|U] and [TARGET_CHARACTER.GetShortUIName] became friends while working together on a research project."
+ worked_together_on_research_project_corresponding: "[CHARACTER.GetShortUIName|U] and [TARGET_CHARACTER.GetShortUIName] became friends while working together on a research project."
  
  agent_research_doctor: "Doctor"
- agent_research_doctor_i: [scheme_speed_i]
+ agent_research_doctor_i: "[scheme_speed_i]"
  agent_research_doctor_desc: "#WEAK A medical doctor, brimming with knowledge about the human body and exactly what can go wrong with it.#!\n$EFFECT_LIST_BULLET$ Reduces [scheme_speed_i] [scheme_speed|E]\n$EFFECT_LIST_BULLET$ Requires [learning_i] [learning|E]\n$EFFECT_LIST_BULLET$ #P Benefits#! from [traits|E] like [GetTrait('lifestyle_physician').GetName( GetNullCharacter )] and [GetTrait('whole_of_body').GetName( GetNullCharacter )]\n$EFFECT_LIST_BULLET$ #N Suffers#! from [traits|E] like [GetTrait('drunkard').GetName( GetNullCharacter )] and [GetTrait('blind').GetName( GetNullCharacter )]"
  agent_research_physicist: "Physicist"
- agent_research_physicist_i: [scheme_speed_i]
+ agent_research_physicist_i: "[scheme_speed_i]"
  agent_research_physicist_desc: "#WEAK An expert on the fundamental particles and forces that make up the universe.#!\n$EFFECT_LIST_BULLET$ Reduces [scheme_speed_i] [scheme_speed|E]\n$EFFECT_LIST_BULLET$ Requires [learning_i] [learning|E]\n$EFFECT_LIST_BULLET$ #P Benefits#! from [traits|E] like [GetTrait('scholar').GetName( GetNullCharacter )] and [GetTrait('humble').GetName( GetNullCharacter )]\n$EFFECT_LIST_BULLET$ #N Suffers#! from [traits|E] like [GetTrait('lazy').GetName( GetNullCharacter )] and [GetTrait('arbitrary').GetName( GetNullCharacter )]"
  agent_research_engineer: "Engineer"
- agent_research_engineer_i: [scheme_speed_i]
+ agent_research_engineer_i: "[scheme_speed_i]"
  agent_research_engineer_desc: "#WEAK No matter how much theoretical knowledge you amass, putting it into use will always require a more practical touch.#!\n$EFFECT_LIST_BULLET$ Reduces [scheme_speed_i] [scheme_speed|E]\n$EFFECT_LIST_BULLET$ Requires [learning_i] [learning|E]\n$EFFECT_LIST_BULLET$ #P Benefits#! from [traits|E] like [GetTrait('architect').GetName( GetNullCharacter )] and [GetTrait('administrator').GetName( GetNullCharacter )]\n$EFFECT_LIST_BULLET$ #N Suffers#! from [traits|E] like [GetTrait('content').GetName( GetNullCharacter )] and [GetTrait('lazy').GetName( GetNullCharacter )]"
  agent_research_economist: "Economist"
- agent_research_economist_i: [scheme_speed_i]
+ agent_research_economist_i: "[scheme_speed_i]"
  agent_research_economist_desc: "#WEAK An expert on the dismal science and the impact of interstellar travel on the economy.#!\n$EFFECT_LIST_BULLET$ Reduces [scheme_speed_i] [scheme_speed|E]\n$EFFECT_LIST_BULLET$ Requires [stewardship_i] [stewardship|E] & [learning_i] [learning|E]\n$EFFECT_LIST_BULLET$ Requires [learning_i] [learning|E]\n$EFFECT_LIST_BULLET$ #P Benefits#! from [traits|E] like [GetTrait('scholar').GetName( GetNullCharacter )] and [GetTrait('administrator').GetName( GetNullCharacter )]\n$EFFECT_LIST_BULLET$ #N Suffers#! from [traits|E] like [GetTrait('lazy').GetName( GetNullCharacter )] and [GetTrait('profligate').GetName( GetNullCharacter )]"
  agent_research_sociologist: "Sociologist"
- agent_research_sociologist_i: [scheme_speed_i]
+ agent_research_sociologist_i: "[scheme_speed_i]"
  agent_research_sociologist_desc: "#WEAK An expert on social psychology and the way humans related to one another.#!\n$EFFECT_LIST_BULLET$ Reduces [scheme_speed_i] [scheme_speed|E]\n$EFFECT_LIST_BULLET$ Requires [diplomacy_i] [diplomacy|E] & [learning_i] [learning|E]\n$EFFECT_LIST_BULLET$ #P Benefits#! from [traits|E] like [GetTrait('gregarious').GetName( GetNullCharacter )] and [GetTrait('scholar').GetName( GetNullCharacter )]\n$EFFECT_LIST_BULLET$ #N Suffers#! from [traits|E] like [GetTrait('callous').GetName( GetNullCharacter )] and [GetTrait('shy').GetName( GetNullCharacter )]"
  agent_research_officer: "Officer"
- agent_research_officer_i: [scheme_speed_i]
+ agent_research_officer_i: "[scheme_speed_i]"
  agent_research_officer_desc: "#WEAK The military has a vested interested in new weapons research, and will happily lend its experience with the practical art of murder.#!\n$EFFECT_LIST_BULLET$ Reduces [scheme_speed_i] [scheme_speed|E]\n$EFFECT_LIST_BULLET$ Requires [martial_i] [martial|E] & [learning_i] [learning|E]\n$EFFECT_LIST_BULLET$ #P Benefits#! from [traits|E] like [GetTrait('patient').GetName( GetNullCharacter )] and [GetTrait('diligent').GetName( GetNullCharacter )]\n$EFFECT_LIST_BULLET$ #N Suffers#! from [traits|E] like [GetTrait('lazy').GetName( GetNullCharacter )] and [GetTrait('content').GetName( GetNullCharacter )]"
+ agent_research_security_chief: "Monitor"
+ agent_research_security_chief_i: "[scheme_secrecy_i]"
+ agent_research_security_chief_desc: "#WEAK An intelligence officer charged with keeping the details of the project top secret.#!\n$EFFECT_LIST_BULLET$ Provides [secrecy_i] [secrecy|E]\n$EFFECT_LIST_BULLET$ Requires [intrigue_i] [intrigue|E] & [learning_i] [learning|E]\n$EFFECT_LIST_BULLET$ #P Benefits#! from [traits|E] like [GetTrait('patient').GetName( GetNullCharacter )] and [GetTrait('paranoid').GetName( GetNullCharacter )]\n$EFFECT_LIST_BULLET$ #N Suffers#! from [traits|E] like [GetTrait('impatient').GetName( GetNullCharacter )] and [GetTrait('trusting').GetName( GetNullCharacter )]"

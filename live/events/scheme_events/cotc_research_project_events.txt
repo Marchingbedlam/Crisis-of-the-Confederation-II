@@ -77,15 +77,80 @@ cotc_research_project_events.1 = { # Start a new research project
 		name = cotc_research_project_events.1.a
 		custom_tooltip = {
 			text = cotc_research_project_events.1.a.tt
-			start_scheme = { type = research_project_public targets_nothing = yes }
+			start_scheme = { type = research_project targets_nothing = yes }
 		}
 		random_scheme = {
-			limit = { scheme_type = research_project_public }
+			limit = { scheme_type = research_project }
 			save_scope_as = scheme
 			set_variable = { name = owner value = ROOT }
 		}
 		ai_chance = {
 			base = 50
+		}
+	}
+	option = { # Start a secret research project!
+		name = cotc_research_project_events.1.b
+		custom_tooltip = {
+			text = cotc_research_project_events.1.b.tt
+			start_scheme = { type = secret_research_project targets_nothing = yes }
+		}
+		random_scheme = {
+			limit = { scheme_type = secret_research_project }
+			save_scope_as = scheme
+			set_variable = { name = owner value = ROOT }
+			add_to_variable_list = { name = flags target = flag:secret }
+		}
+		ai_chance = {
+			base = 0
+			modifier = { # Potentially sensitive technologies
+				add = 50
+				any_in_list = {
+					list = research_project_flags
+					OR = {
+						this = flag:military
+						this = flag:espionage
+					}
+				}
+			}
+			modifier = { # We're at war, let's be extra careful
+				add = 50
+				exists = scope:enemy
+			}
+			modifier = { # This is an illegal technology for my ideology
+				add = 100
+				OR = {
+					AND = {
+						any_in_list = {
+							list = research_project_flags
+							this = flag:cybernetics
+						}
+						faith = { has_doctrine_parameter = hates_cybernetics }
+					}
+					AND = {
+						any_in_list = {
+							list = research_project_flags
+							this = flag:cloning
+						}
+						faith = { has_doctrine_parameter = hates_cloning }
+					}
+					AND = {
+						any_in_list = {
+							list = research_project_flags
+							this = flag:gene_modding
+						}
+						faith = { has_doctrine_parameter = hates_gene_modding }
+					}
+				}
+			}
+			# Traits
+			modifier = {
+				factor = 0.25
+				has_trait = trusting
+			}
+			modifier = {
+				factor = 4
+				has_trait = paranoid
+			}
 		}
 	}
 	
@@ -98,6 +163,7 @@ cotc_research_project_events.1 = { # Start a new research project
 		remove_character_flag = starting_research_project
 		scope:scheme ?= { # Assign research project data
 			set_variable = { name = research_subject value = scope:research_subject }
+			set_variable = { name = target_county value = scope:owner.capital_county }
 			# Set all project flags
 			every_in_list = {
 				list = research_project_flags
@@ -255,7 +321,7 @@ cotc_research_project_events.10 = { # Successfully complete the research project
 			triggered_desc = {
 				trigger = {
 					exists = scope:first_ever_discovery
-					scope:scheme = { any_scheme_agent_character = { count >= 1 } }
+					scope:scheme = { any_in_list = { variable = researchers count >= 1 } }
 				}
 				desc = cotc_research_project_events.10.desc.first_ever_discovery_with_team
 			}
@@ -266,7 +332,7 @@ cotc_research_project_events.10 = { # Successfully complete the research project
 			triggered_desc = {
 				trigger = {
 					exists = scope:first_culture_discovery
-					scope:scheme = { any_scheme_agent_character = { count >= 1 } }
+					scope:scheme = { any_in_list = { variable = researchers count >= 1 } }
 				}
 				desc = cotc_research_project_events.10.desc.first_culture_discovery_with_team
 			}
@@ -275,7 +341,7 @@ cotc_research_project_events.10 = { # Successfully complete the research project
 				desc = cotc_research_project_events.10.desc.first_culture_discovery_no_team
 			}
 			triggered_desc = {
-				trigger = { scope:scheme = { any_scheme_agent_character = { count < 1 } } }
+				trigger = { scope:scheme = { any_in_list = { variable = researchers count < 1 } } }
 				desc = cotc_research_project_events.10.desc.no_team
 			}
 		}
@@ -284,6 +350,10 @@ cotc_research_project_events.10 = { # Successfully complete the research project
 	
 	immediate = {
 		scope:scheme = {
+			every_in_list = {
+				variable = flags
+				add_to_list = research_project_flags
+			}
 			if = {
 				limit = { NOT = { is_target_in_global_variable_list = { name = all_discovered_innovations target = var:research_subject } } }
 				save_scope_value_as = { name = first_ever_discovery value = flag:yes }
@@ -293,33 +363,50 @@ cotc_research_project_events.10 = { # Successfully complete the research project
 				save_scope_value_as = { name = first_culture_discovery value = flag:yes }
 			}
 			var:research_subject = { save_scope_as = discovered_innovation }
+			# Add any current researchers as contributors
+			every_scheme_agent_slot = {
+				limit = {
+					is_filled = yes
+					NOT = { is_agent_slot_type = agent_research_security_chief }
+				}
+				slot_character = {
+					if = {
+						limit = { NOT = { scope:scheme = { is_target_in_variable_list = { name = researchers target = PREV } } } }
+						scope:scheme = { add_to_variable_list = { name = researchers target = PREV } }
+					}
+				}
+			}
 			if = {
 				limit = { any_scheme_agent_character = { count >= 1 } }
-				ordered_scheme_agent_character = {
-					order_by = learning
+				ordered_scheme_agent_slot = {
+					limit = { is_filled = yes }
+					order_by = agent_slot_contribution
 					position = 1
-					save_scope_as = first_agent
+					slot_character = { save_scope_as = first_agent }
 				}
 				if = {
 					limit = { any_scheme_agent_character = { count >= 2 } }
-					ordered_scheme_agent_character = {
-						order_by = learning
+					ordered_scheme_agent_slot = {
+						limit = { is_filled = yes }
+						order_by = agent_slot_contribution
 						position = 2
-						save_scope_as = second_agent
+						slot_character = { save_scope_as = second_agent }
 					}
 					if = {
 						limit = { any_scheme_agent_character = { count >= 3 } }
-						ordered_scheme_agent_character = {
-							order_by = learning
+						ordered_scheme_agent_slot = {
+							limit = { is_filled = yes }
+							order_by = agent_slot_contribution
 							position = 3
-							save_scope_as = third_agent
+							slot_character = { save_scope_as = third_agent }
 						}
 						if = {
 							limit = { any_scheme_agent_character = { count >= 4 } }
-							ordered_scheme_agent_character = {
-								order_by = learning
+							ordered_scheme_agent_slot = {
+								limit = { is_filled = yes }
+								order_by = agent_slot_contribution
 								position = 4
-								save_scope_as = fourth_agent
+								slot_character = { save_scope_as = fourth_agent }
 							}
 						}
 					}
@@ -328,7 +415,16 @@ cotc_research_project_events.10 = { # Successfully complete the research project
 					name = agent_payout
 					value = {
 						value = var:grant_money
-						divide = { every_scheme_agent_character = { add = 1 } }
+						divide = {
+							every_in_list = { variable = researchers add = 1 }
+							every_scheme_agent_slot = {
+								limit = {
+									is_filled = yes
+									is_agent_slot_type = agent_research_security_chief
+								}
+								add = 1
+							}
+						}
 					}
 				}
 			}
@@ -359,21 +455,49 @@ cotc_research_project_events.10 = { # Successfully complete the research project
 	
 	option = {
 		name = cotc_research_project_events.10.a
+		# Make sure everyone in the project is informed
+		add_to_temporary_list = characters_to_inform
+		scope:scheme = { every_scheme_agent_character = { add_to_temporary_list = characters_to_inform } }
 		capital_county = { add_tech_to_county = { TECH = scope:discovered_innovation } }
 		if = { # You did this all by yourself, gain prestige and get back your investment
-			limit = { scope:scheme = { NOT = { any_scheme_agent_character = { count >= 1 } } } }
-			add_prestige = research_project_prestige_reward
+			limit = { scope:scheme = { NOT = { any_in_list = { variable = researchers count >= 1 } } } }
+			if = {
+				limit = {
+					NOT = {
+						any_in_list = {
+							list = research_project_flags
+							this = flag:secret
+						}
+					}
+				}
+				add_prestige = research_project_prestige_reward
+			}
 			add_treasury_or_gold = scope:scheme.var:grant_money
 			add_research_project_secret_effect = yes
 		}
 		# Piety and stress effects
 		if = {
-			limit = { research_project_piety_reward != 0 }
+			limit = {
+				NOT = {
+					any_in_list = {
+						list = research_project_flags
+						this = flag:secret
+					}
+				}
+				research_project_piety_reward != 0
+			}
 			add_piety = research_project_piety_reward
 		}
 		add_research_project_stress_effects = yes
 		scope:scheme = {
-			every_scheme_agent_character = { trigger_event = cotc_research_project_events.11 }
+			every_in_list = { variable = researchers trigger_event = cotc_research_project_events.11 }
+			every_scheme_agent_slot = {
+				limit = {
+					is_filled = yes
+					is_agent_slot_type = agent_research_security_chief
+				}
+				slot_character = { trigger_event = cotc_research_project_events.11 }
+			}
 			end_scheme = yes
 		}
 	}
@@ -408,12 +532,30 @@ cotc_research_project_events.11 = {
 		name = cotc_research_project_events.11.a
 		
 		# Gain rewards in prestige and money
-		add_prestige = research_project_prestige_reward
+		if = {
+			limit = {
+				NOT = {
+					any_in_list = {
+						list = research_project_flags
+						this = flag:secret
+					}
+				}
+			}
+			add_prestige = research_project_prestige_reward
+		}
 		add_treasury_or_gold = scope:agent_payout
 		reverse_add_opinion = { modifier = opinion_researched_innovation_for_me target = scope:patron }
 		# Piety and stress effects
 		if = {
-			limit = { research_project_piety_reward != 0 }
+			limit = {
+				NOT = {
+					any_in_list = {
+						list = research_project_flags
+						this = flag:secret
+					}
+				}
+				research_project_piety_reward != 0
+			}
 			add_piety = research_project_piety_reward
 		}
 		add_research_project_stress_effects = yes
@@ -484,6 +626,39 @@ cotc_research_project_events.31 = {
 		animation = idle
 	}
 	option = { name = cotc_research_project_events.31.a }
+}
+cotc_research_project_events.40 = { # Project failed for some other reason
+	trigger = {
+		exists = capital_county
+		capital_county ?= { NOT = { county_has_tech = { TECH = scope:research_subject } } }
+	}
+	desc = cotc_research_project_events.40.desc
+	theme = research
+	
+	right_portrait = {
+		character = ROOT
+		animation = idle
+	}
+	
+	option = {
+		name = cotc_research_project_events.40.a
+		add_treasury_or_gold = scope:grant_money
+		every_in_list = { list = project_staff trigger_event = cotc_research_project_events.41 }
+	}
+}
+cotc_research_project_events.41 = {
+	desc = cotc_research_project_events.41.desc
+	theme = research
+	
+	right_portrait = {
+		character = ROOT
+		animation = idle
+	}
+	left_portrait = {
+		character = scope:patron
+		animation = idle
+	}
+	option = { name = cotc_research_project_events.41.a }
 }
 
 # INHERITING PROJECTS
@@ -578,6 +753,38 @@ cotc_research_project_events.62 = {
 	option = { name = cotc_research_project_events.62.a }
 }
 
+# PROJECT EXPOSED
+cotc_research_project_events.70 = {
+	title = cotc_research_project_events.title
+	desc = cotc_research_project_events.70.desc
+	theme = research
+	right_portrait = {
+		character = scope:owner
+		scripted_animation = scheme_prep_pick_best_stance
+	}
+	trigger = {
+		scope:scheme = {
+			is_target_in_variable_list = { name = flags target = flag:secret }
+			scheme_breaches >= 5
+		}
+	}
+	option = { # Make the project public
+		name = cotc_research_project_events.70.a
+		scope:scheme = {
+			custom_tooltip = {
+				text = cotc_research_project_events.100.d.tt
+				ROOT = { make_research_project_public = yes }
+			}
+		}
+		ai_chance = { base = 100 }
+	}
+	option = { # End the project
+		name = cotc_research_project_events.70.b
+		scope:scheme = { invalidate_scheme = yes }
+		ai_chance = { base = 0 }
+	}
+}
+
 # PROJECT MANAGEMENT
 cotc_research_project_events.100 = { # Research project in progress
 	type = character_event
@@ -615,17 +822,19 @@ cotc_research_project_events.100 = { # Research project in progress
 			scope:scheme = {
 				if = {
 					limit = { any_scheme_agent_character = { count >= 1 } }
-					ordered_scheme_agent_character = {
-						order_by = learning
+					ordered_scheme_agent_slot = {
+						limit = { is_filled = yes }
+						order_by = agent_slot_contribution
 						position = 1
-						save_scope_as = right_portrait
+						slot_character = { save_scope_as = right_portrait }
 					}
 					if = {
 						limit = { any_scheme_agent_character = { count >= 2 } }
-						ordered_scheme_agent_character = {
-							order_by = learning
+						ordered_scheme_agent_slot = {
+							limit = { is_filled = yes }
+							order_by = agent_slot_contribution
 							position = 2
-							save_scope_as = left_portrait
+							slot_character = { save_scope_as = left_portrait }
 						}
 					}
 				}
@@ -678,6 +887,7 @@ cotc_research_project_events.100 = { # Research project in progress
 		ai_chance = {
 			base = 0
 			modifier = { add = short_term_treasury_or_gold }
+			modifier = { add = { subtract = scope:funding_required } }
 		}
 	}
 	option = { # Involve yourself personally
@@ -772,12 +982,55 @@ cotc_research_project_events.100 = { # Research project in progress
 			}
 		}
 	}
-	option = { # Do nothing
+	option = { # Make the project public
+		trigger = { scope:scheme = { is_target_in_variable_list = { name = flags target = flag:secret } } }
 		name = cotc_research_project_events.100.d
+		scope:scheme = {
+			custom_tooltip = {
+				text = cotc_research_project_events.100.d.tt
+				ROOT = { make_research_project_public = yes }
+			}
+		}
 		ai_chance = {
 			base = 0
-			modifier = { add = scope:scheme.scheme_success_chance }
-			modifier = { add = scope:funding_required }
+			modifier = { # The more exposed the scheme is, the less point there is in keeping it a secret
+				add = {
+					value = scope:scheme.scheme_breaches
+					multiply = 20
+				}
+			}
+			modifier = {
+				factor = 0.5
+				scope:scheme = {
+					any_in_list = {
+						variable = flags
+						OR = {
+							this = flag:military
+							this = flag:espionage
+						}
+					}
+				}
+			}
+			modifier = {
+				factor = 2
+				has_trait = trusting
+			}
+			modifier = {
+				factor = 0.5
+				has_trait = paranoid
+			}
+		}
+	}
+	option = { # Do nothing
+		name = cotc_research_project_events.100.e
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = {
+					add = scope:scheme.scheme_success_chance
+					multiply = 10
+				}
+			}
 		}
 	}
 
@@ -791,4 +1044,2396 @@ cotc_research_project_events.101 = { # Starting a regency because you're too bus
 		basic_eligible_for_diarchy_trigger = yes
 	}
 	immediate = { try_start_diarchy = temporary_regency }
+}
+
+cotc_research_project_events.102 = { # You are no longer on the project because it's public
+	title = cotc_research_project_events.title
+	desc = cotc_research_project_events.102.desc
+	theme = research
+	right_portrait = {
+		character = ROOT
+		animation = shock
+	}
+	left_portrait = {
+		character = scope:owner
+		animation = dismissal
+	}
+	option = { name = cotc_research_project_events.102.a }
+}
+cotc_research_project_events.103 = { # The project is no longer secret
+	title = cotc_research_project_events.title
+	desc = cotc_research_project_events.103.desc
+	theme = research
+	right_portrait = {
+		character = ROOT
+		animation = idle
+	}
+	left_portrait = {
+		character = scope:owner
+		animation = storyteller
+	}
+	option = { name = cotc_research_project_events.103.a }
+}
+
+# RESEARCH PROJECT FLAVOR EVENTS - INDIVIDUAL RESEARCHERS
+cotc_research_project_events.200 = { # Reveal that you've already worked on this innovation before
+	title = cotc_research_project_events.title
+	desc = cotc_research_project_events.200.desc
+	theme = research
+	right_portrait = {
+		character = scope:researcher
+		animation = thinking
+	}
+	left_portrait = {
+		character = scope:owner
+		animation = thinking
+	}
+	trigger = {
+		any_secret = {
+			has_variable = research_subject
+			var:research_subject ?= { this = scope:scheme.var:research_subject }
+			NOT = { is_known_by = scope:owner }
+		}
+		scope:scheme = { NOT = { is_target_in_variable_list = { name = secret_declined target = ROOT } } }
+	}
+	
+	immediate = {
+		save_scope_as = researcher
+		random_secret = {
+			limit = {
+				has_variable = research_subject
+				var:research_subject ?= { this = scope:scheme.var:research_subject }
+				NOT = { is_known_by = scope:owner }
+			}
+			save_scope_as = secret
+		}
+	}
+	
+	option = { # Reveal your existing knowledge
+		name = cotc_research_project_events.200.a
+		show_as_tooltip = { scope:secret = { reveal_to = scope:owner } }
+		scope:owner = { trigger_event = cotc_research_project_events.201 }
+		ai_chance = {
+			base = 100
+			modifier = { add = ai_sociability }
+		}
+	}
+	option = { # Keep it secret
+		name = cotc_research_project_events.200.b
+		scope:scheme = { add_to_variable_list = { name = secret_declined target = ROOT } }
+		ai_chance = {
+			base = 0
+			modifier = { add = ai_vengefulness }
+		}
+	}
+}
+cotc_research_project_events.201 = { # One of your researchers has already worked on this innovation before
+	title = cotc_research_project_events.title
+	desc = cotc_research_project_events.201.desc
+	theme = research
+	right_portrait = {
+		character = scope:researcher
+		animation = storyteller
+	}
+	left_portrait = {
+		character = ROOT
+		animation = interested
+	}
+	option = {
+		name = cotc_research_project_events.201.a
+		scope:secret = { reveal_to = ROOT }
+	}
+}
+cotc_research_project_events.210 = { # You have positive feelings about another researcher
+	title = cotc_research_project_events.title
+	desc = cotc_research_project_events.210.desc
+	theme = research
+	right_portrait = {
+		character = scope:first_researcher
+		animation = admiration
+	}
+	left_portrait = {
+		character = scope:second_researcher
+		animation = thinking
+	}
+	trigger = {
+		scope:scheme = {
+			any_scheme_agent_slot = {
+				is_filled = yes
+				NOT = { this = scope:first_researcher_slot }
+				NOT = { is_agent_slot_type = agent_research_security_chief }
+				slot_character ?= { reverse_opinion = { target = scope:first_researcher value > 0 } }
+			}
+		}
+	}
+	weight_multiplier = {
+		base = 0
+		modifier = {
+			add = {
+				scope:scheme = {
+					ordered_scheme_agent_slot = {
+						limit = {
+							is_filled = yes
+							NOT = { this = scope:first_researcher_slot }
+							NOT = { is_agent_slot_type = agent_research_security_chief }
+							slot_character ?= { reverse_opinion = { target = scope:first_researcher value > 0 } }
+						}
+						order_by = { slot_character = { add = "reverse_opinion(scope:first_researcher)" } }
+						slot_character = { add = "reverse_opinion(scope:first_researcher)" }
+					}
+				}
+			}
+		}
+	}
+	immediate = {
+		add_character_flag = { flag = research_project_event_cooldown weeks = { 12 72 } }
+		scope:scheme = {
+			random_scheme_agent_slot = {
+				limit = {
+					is_filled = yes
+					NOT = { this = scope:first_researcher_slot }
+					NOT = { is_agent_slot_type = agent_research_security_chief }
+					slot_character ?= { reverse_opinion = { target = scope:first_researcher value > 0 } }
+				}
+				weight = {
+					base = 0
+					modifier = { add = { slot_character = { add = "reverse_opinion(scope:first_researcher)" } } }
+				}
+				save_scope_as = second_researcher_slot
+				slot_character = { save_scope_as = second_researcher }
+			}
+		}
+	}
+	option = { # Propose a closer collaboration
+		name = cotc_research_project_events.210.a
+		scope:second_researcher = { trigger_event = cotc_research_project_events.211 }
+		negative_sociability_stress_gain_effect = { SCALE = 0.5 }
+		ai_chance = {
+			base = 100
+			modifier = { add = ai_sociability }
+			modifier = { add = { subtract = stress } }
+			modifier = {
+				add = {
+					value = "reverse_opinion(scope:second_researcher)"
+					divide = 4
+				}
+				ai_rationality > 0
+			}
+		}
+	}
+	option = { # Just enjoy their presence
+		name = cotc_research_project_events.210.b
+		add_stress = { value = "opinion(scope:second_researcher)" multiply = -0.25 }
+		ai_chance = {
+			base = 0
+			modifier = { add = { subtract = ai_sociability } }
+			modifier = { add = stress }
+			modifier = {
+				add = {
+					subtract = "reverse_opinion(scope:second_researcher)"
+					divide = 4
+				}
+				ai_rationality > 0
+			}
+		}
+	}
+}
+cotc_research_project_events.211 = { # One of your coworkers is trying to work more closely with you
+	title = cotc_research_project_events.title
+	desc = cotc_research_project_events.211.desc
+	theme = research
+	right_portrait = {
+		character = scope:first_researcher
+		animation = admiration
+	}
+	left_portrait = {
+		character = scope:second_researcher
+		triggered_animation = {
+			trigger = { opinion = { target = scope:first_researcher value <= -50 } }
+			animation = disgust
+		}
+		triggered_animation = {
+			trigger = { opinion = { target = scope:first_researcher value <= 0 } }
+			animation = dismissal
+		}
+		triggered_animation = {
+			trigger = { opinion = { target = scope:first_researcher value >= 50 } }
+			animation = acknowledging
+		}
+		animation = interested
+	}
+	option = { # Sure, let's work together more closely
+		name = cotc_research_project_events.211.a
+		scope:owner = {
+			send_interface_message = {
+				type = msg_research_project_response_good
+				title = cotc_research_project_events.211.a.owner.title
+				desc = cotc_research_project_events.211.a.owner.desc
+				left_icon = scope:second_researcher
+				right_icon = scope:first_researcher
+				scope:scheme = { add_scheme_modifier = { type = research_project_good_teamwork days = 365 } }
+			}
+		}
+		scope:first_researcher = {
+			send_interface_message = {
+				type = msg_research_project_response_good
+				title = cotc_research_project_events.211.a.response.title
+				desc = cotc_research_project_events.211.a.response.desc
+				left_icon = scope:second_researcher
+				right_icon = scope:first_researcher
+				progress_towards_friend_effect = { REASON = worked_together_on_research_project CHARACTER = scope:second_researcher OPINION = default_friend_opinion }
+			}
+		}
+		negative_sociability_stress_gain_effect = { SCALE = 0.5 }
+		if = {
+			limit = { opinion = { target = scope:first_researcher value < 0 } }
+			positive_vengefulness_stress_gain_effect = { SCALE = 0.5 }
+		}
+		ai_chance = {
+			base = 0
+			modifier = { add = "opinion(scope:first_researcher)" }
+			modifier = { add = ai_sociability }
+		}
+	}
+	option = { # Give them the cold shoulder
+		name = cotc_research_project_events.211.b
+		scope:first_researcher = {
+			add_opinion = { target = scope:second_researcher modifier = disappointed_opinion opinion = -5 }
+			send_interface_message = {
+				type = msg_research_project_response_bad
+				title = cotc_research_project_events.211.b.response.title
+				desc = cotc_research_project_events.211.b.response.desc
+				left_icon = scope:second_researcher
+				right_icon = scope:first_researcher
+				reverse_add_opinion = { target = scope:second_researcher modifier = annoyed_opinion opinion = -10 }
+			}
+		}
+		ai_chance = {
+			base = 100
+			modifier = { add = { subtract = "opinion(scope:first_researcher)" } }
+			modifier = { add = { subtract = ai_sociability } }
+		}
+	}
+}
+cotc_research_project_events.220 = { # You have negative feelings about another researcher
+	title = cotc_research_project_events.title
+	desc = {
+		desc = cotc_research_project_events.220.intro
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:annoying }
+				desc = cotc_research_project_events.220.desc.annoying
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:despise }
+				desc = cotc_research_project_events.220.desc.despise
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:grudge }
+				desc = cotc_research_project_events.220.desc.grudge
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:evil_ideology }
+				desc = cotc_research_project_events.220.desc.evil_ideology
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:bad_learning }
+				desc = cotc_research_project_events.220.desc.bad_learning
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:bad_martial }
+				desc = cotc_research_project_events.220.desc.bad_martial
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:bad_diplomacy }
+				desc = cotc_research_project_events.220.desc.bad_diplomacy
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:bad_stewardship }
+				desc = cotc_research_project_events.220.desc.bad_stewardship
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:rival }
+				desc = cotc_research_project_events.220.desc.rival
+			}
+		}
+	}
+	theme = research
+	right_portrait = {
+		character = scope:first_researcher
+		triggered_animation = {
+			trigger = {
+				OR = {
+					scope:motive ?= flag:bad_learning
+					scope:motive ?= flag:bad_martial
+					scope:motive ?= flag:bad_diplomacy
+					scope:motive ?= flag:bad_stewardship
+				}
+			}
+			animation = disapproval
+		}
+		triggered_animation = {
+			trigger = { scope:motive ?= flag:evil_ideology }
+			animation = disgust
+		}
+		triggered_animation = {
+			trigger = {
+				OR = {
+					scope:motive ?= flag:rage
+					scope:motive ?= flag:despise
+				}
+			}
+			animation = rage
+		}
+		animation = anger
+	}
+	left_portrait = {
+		character = scope:second_researcher
+		animation = thinking
+	}
+	trigger = {
+		scope:scheme = {
+			any_scheme_agent_slot = {
+				is_filled = yes
+				NOT = { this = scope:first_researcher_slot }
+				NOT = { is_agent_slot_type = agent_research_security_chief }
+				slot_character ?= { reverse_opinion = { target = scope:first_researcher value < 0 } }
+			}
+		}
+	}
+	weight_multiplier = {
+		base = 0
+		modifier = {
+			add = {
+				scope:scheme = {
+					ordered_scheme_agent_slot = {
+						limit = {
+							is_filled = yes
+							NOT = { this = scope:first_researcher_slot }
+							NOT = { is_agent_slot_type = agent_research_security_chief }
+							slot_character ?= { reverse_opinion = { target = scope:first_researcher value < 0 } }
+						}
+						order_by = { slot_character = { subtract = "reverse_opinion(scope:first_researcher)" } }
+						subtract = "reverse_opinion(scope:first_researcher)"
+					}
+				}
+			}
+		}
+	}
+	immediate = {
+		add_character_flag = { flag = research_project_event_cooldown weeks = { 12 72 } }
+		scope:scheme = {
+			random_scheme_agent_slot = {
+				limit = {
+					is_filled = yes
+					NOT = { this = scope:first_researcher_slot }
+					NOT = { is_agent_slot_type = agent_research_security_chief }
+					slot_character ?= { reverse_opinion = { target = scope:first_researcher value < 0 } }
+				}
+				weight = {
+					base = 0
+					modifier = { add = { slot_character = { subtract = "reverse_opinion(scope:first_researcher)" } } }
+				}
+				save_scope_as = second_researcher_slot
+				slot_character = { save_scope_as = second_researcher }
+			}
+		}
+		# What's our problem with them, exactly?
+		if = {
+			limit = { # We're rivals
+				OR = {
+					has_relation_rival = scope:second_researcher
+					has_relation_nemesis = scope:second_researcher
+				}
+			}
+			save_scope_value_as = { name = motive value = flag:rival }
+		}
+		else = {
+			random_list = {
+				10 = { # We have an existing grudge against them
+					trigger = { has_relation_grudge = scope:second_researcher }
+					save_scope_value_as = { name = motive value = flag:grudge }
+				}
+				20 = { # They're an ideology we hate
+					trigger = { faith = { faith_hostility_level = { target = scope:second_researcher.faith value > 1 } } }
+					modifier = { add = ai_zeal }
+					save_scope_value_as = { name = motive value = flag:evil_ideology }
+				}
+				0 = { # They're incompetent (learning)
+					trigger = { learning > scope:second_researcher.learning }
+					modifier = { add = { value = learning subtract = scope:second_researcher.learning } }
+					save_scope_value_as = { name = motive value = flag:bad_learning }
+					save_scope_value_as = { name = skill_difference value = { value = learning subtract = scope:second_researcher.learning multiply = 2 } }
+					add_opinion = { target = scope:second_researcher modifier = disrespect_opinion opinion = scope:skill_difference }
+				}
+				0 = { # They're incompetent (martial)
+					trigger = {
+						scope:scheme = { is_target_in_variable_list = { name = flags target = flag:military } }
+						martial > scope:second_researcher.martial
+					}
+					modifier = { add = { value = martial subtract = scope:second_researcher.martial } }
+					save_scope_value_as = { name = motive value = flag:bad_martial }
+					save_scope_value_as = { name = skill_difference value = { value = martial subtract = scope:second_researcher.martial multiply = 2 } }
+					add_opinion = { target = scope:second_researcher modifier = disrespect_opinion opinion = scope:skill_difference }
+				}
+				0 = { # They're incompetent (diplomacy)
+					trigger = {
+						scope:scheme = { is_target_in_variable_list = { name = flags target = flag:social } }
+						diplomacy > scope:second_researcher.diplomacy
+					}
+					modifier = { add = { value = martial subtract = scope:second_researcher.diplomacy } }
+					save_scope_value_as = { name = motive value = flag:bad_diplomacy }
+					save_scope_value_as = { name = skill_difference value = { value = diplomacy subtract = scope:second_researcher.diplomacy multiply = 2 } }
+					add_opinion = { target = scope:second_researcher modifier = disrespect_opinion opinion = scope:skill_difference }
+				}
+				0 = { # They're incompetent (stewardship)
+					trigger = {
+						scope:scheme = { is_target_in_variable_list = { name = flags target = flag:economic } }
+						stewardship > scope:second_researcher.stewardship
+					}
+					modifier = { add = { value = martial subtract = scope:second_researcher.stewardship } }
+					save_scope_value_as = { name = motive value = flag:bad_stewardship }
+					save_scope_value_as = { name = skill_difference value = { value = stewardship subtract = scope:second_researcher.stewardship multiply = 2 } }
+					add_opinion = { target = scope:second_researcher modifier = disrespect_opinion opinion = scope:skill_difference }
+				}
+			}
+		}
+		# Fallbacks for motive
+		if = {
+			limit = {
+				NOT = { exists = scope:motive }
+				opinion = { target = scope:second_researcher value > -50 }
+			}
+			save_scope_value_as = { name = motive value = flag:annoying }
+		}
+		else_if = {
+			limit = { NOT = { exists = scope:motive } }
+			save_scope_value_as = { name = motive value = flag:despise }
+		}
+	}
+	option = { # Pick a fight with them
+		name = cotc_research_project_events.220.a
+		scope:second_researcher = {
+			add_opinion = { target = scope:first_researcher modifier = insult_opinion opinion = -10 }
+			trigger_event = { id = cotc_research_project_events.221 days = { 2 5 } }
+		}
+		positive_vengefulness_stress_gain_effect = { SCALE = -0.5 }
+		ai_chance = {
+			base = 50
+			modifier = { add = ai_vengefulness }
+			modifier = { add = stress } # This gets harder to resist the angrier you are
+		}
+	}
+	option = { # Get scope:owner to mediate
+		show_as_unavailable = { always = yes }
+		trigger = { scope:owner = { is_capable_adult = yes } }
+		name = cotc_research_project_events.220.b
+		save_scope_value_as = { name = mediation value = flag:first_researcher }
+		scope:owner = { trigger_event = cotc_research_project_events.222 }
+		ai_chance = {
+			base = 50
+			modifier = { add = ai_honor }
+			modifier = { add = "opinion(scope:owner)" }
+		}
+	}
+	option = { # An ultimatum - either they go or I go!
+		trigger = {
+			scope:owner = { is_capable_adult = yes }
+			opinion = { target = scope:second_researcher value <= -50 }
+		}
+		name = cotc_research_project_events.220.c
+		scope:owner = { trigger_event = cotc_research_project_events.226 }
+		ai_chance = {
+			base = 100
+			modifier = { add = { subtract = "opinion(scope:second_researcher)" } }
+			
+		}
+	}
+	option = { # Just buckle down and deal with it
+		name = cotc_research_project_events.220.d
+		add_stress = { value = "opinion(scope:second_researcher)" divide = 4 round = 1 multiply = -1 }
+		ai_chance = {
+			base = 50
+			modifier = { add = "opinion(scope:second_researcher)" }
+			modifier = { add = { subtract = ai_boldness } }
+		}
+	}
+}
+cotc_research_project_events.221 = { # Another researcher picked a fight with you
+	title = cotc_research_project_events.title
+	desc = {
+		desc = cotc_research_project_events.221.intro
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:annoying }
+				desc = cotc_research_project_events.221.desc.annoying
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:despise }
+				desc = cotc_research_project_events.221.desc.despise
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:grudge }
+				desc = cotc_research_project_events.221.desc.grudge
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:evil_ideology }
+				desc = cotc_research_project_events.221.desc.evil_ideology
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:bad_learning }
+				desc = cotc_research_project_events.221.desc.bad_learning
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:bad_martial }
+				desc = cotc_research_project_events.221.desc.bad_martial
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:bad_diplomacy }
+				desc = cotc_research_project_events.221.desc.bad_diplomacy
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:bad_stewardship }
+				desc = cotc_research_project_events.221.desc.bad_stewardship
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:rival }
+				desc = cotc_research_project_events.221.desc.rival
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:stole_credit }
+				desc = cotc_research_project_events.221.desc.stole_credit
+			}
+		}
+	}
+	theme = research
+	right_portrait = {
+		character = scope:second_researcher
+		animation = shock
+	}
+	left_portrait = {
+		character = scope:first_researcher
+		animation = debating
+	}
+	trigger = { exists = scope:scheme }
+	option = { # Insult them right back!
+		name = cotc_research_project_events.221.a
+		save_scope_value_as = { name = mediation value = flag:already_fought }
+		positive_vengefulness_stress_gain_effect = { SCALE = -0.5 }
+		scope:first_researcher = {
+			add_opinion = { target = scope:second_researcher modifier = insult_opinion opinion = -15 }
+			send_interface_message = {
+				type = msg_research_project_response_bad
+				title = cotc_research_project_events.221.a.response.title
+				desc = cotc_research_project_events.221.a.response.desc
+				left_icon = scope:second_researcher
+			}
+		}
+		scope:scheme = { add_scheme_modifier = { type = research_project_bad_teamwork days = 365 } }
+		scope:owner = {
+			send_interface_message = {
+				type = msg_research_project_response_bad
+				title = cotc_research_project_events.221.a.owner.title
+				desc = cotc_research_project_events.221.a.owner.desc
+				left_icon = scope:first_researcher
+				right_icon = scope:second_researcher
+			}
+			if = {
+				limit = { is_capable_adult = yes }
+				add_opinion = { target = scope:first_researcher modifier = annoyed_opinion opinion = -10 }
+				add_opinion = { target = scope:second_researcher modifier = annoyed_opinion opinion = -10 }
+				trigger_event = { id = cotc_research_project_events.222 days = { 5 10 } }
+			}
+		}
+		ai_chance = {
+			base = 50
+			modifier = { add = ai_vengefulness }
+			modifier = { add = stress } # This gets harder to resist the angrier you are
+		}
+	}
+	option = { # Tattle to scope:owner
+		show_as_unavailable = { always = yes }
+		trigger = { scope:owner = { is_capable_adult = yes } }
+		name = cotc_research_project_events.221.b
+		save_scope_value_as = { name = mediation value = flag:second_researcher }
+		scope:owner = { trigger_event = cotc_research_project_events.222 }
+		ai_chance = {
+			base = 50
+			modifier = { add = ai_honor }
+			modifier = { add = "opinion(scope:owner)" }
+		}
+	}
+	option = { # Just deal with it
+		name = cotc_research_project_events.221.c
+		add_stress = minor_stress_gain
+		scope:first_researcher = {
+			send_interface_message = {
+				type = msg_research_project_response_neutral
+				title = cotc_research_project_events.221.c.response.title
+				desc = cotc_research_project_events.221.c.response.desc
+				left_icon = scope:second_researcher
+			}
+		}
+		ai_chance = {
+			base = 50
+			modifier = { add = "opinion(scope:first_researcher)" }
+			modifier = { add = { subtract = ai_boldness } }
+		}
+	}
+}
+cotc_research_project_events.222 = { # The research team is fighting
+	title = cotc_research_project_events.title
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:mediation ?= flag:first_researcher }
+				desc = cotc_research_project_events.222.intro.first_researcher
+			}
+			triggered_desc = {
+				trigger = { scope:mediation ?= flag:second_researcher }
+				desc = cotc_research_project_events.222.intro.second_researcher
+			}
+			desc = cotc_research_project_events.222.intro.already_fought
+		}
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:annoying }
+				desc = cotc_research_project_events.222.desc.annoying
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:despise }
+				desc = cotc_research_project_events.222.desc.despise
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:grudge }
+				desc = cotc_research_project_events.222.desc.grudge
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:evil_ideology }
+				desc = cotc_research_project_events.222.desc.evil_ideology
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:bad_learning }
+				desc = cotc_research_project_events.222.desc.bad_learning
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:bad_martial }
+				desc = cotc_research_project_events.222.desc.bad_martial
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:bad_diplomacy }
+				desc = cotc_research_project_events.222.desc.bad_diplomacy
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:bad_stewardship }
+				desc = cotc_research_project_events.222.desc.bad_stewardship
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:rival }
+				desc = cotc_research_project_events.222.desc.rival
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:stole_credit }
+				desc = cotc_research_project_events.222.desc.stole_credit
+			}
+		}
+	}
+	theme = research
+	right_portrait = {
+		character = scope:first_researcher
+		animation = debating
+	}
+	left_portrait = {
+		character = scope:second_researcher
+		animation = debating
+	}
+	trigger = { exists = scope:scheme }
+	immediate = {
+		if = {
+			limit = { scope:mediation ?= flag:already_fought }
+			show_as_tooltip = { scope:scheme = { add_scheme_modifier = { type = research_project_bad_teamwork days = 365 } } }
+		}
+	}
+	option = { # Intervene in favor of first researcher
+		name = cotc_research_project_events.222.a
+		scope:first_researcher = {
+			add_opinion = { target = ROOT modifier = opinion_favored_researcher opinion = 10 }
+			trigger_event = cotc_research_project_events.223
+		}
+		scope:second_researcher = {
+			add_opinion = { target = ROOT modifier = opinion_favored_rival_researcher opinion = -10 }
+			trigger_event = cotc_research_project_events.223
+		}
+		add_stress = miniscule_stress_gain
+		ai_chance = {
+			base = 100
+			# Opinion of first researcher
+			opinion_modifier = { who = ROOT opinion_target = scope:first_researcher multiplier = 1 }
+			# Who asked us to mediate?
+			modifier = {
+				add = {
+					value = ai_sociability
+					min = -25
+					max = 25
+				}
+				scope:mediation ?= flag:first_researcher
+			}
+			# Their contribution to the project
+			modifier = { add = scope:first_researcher_slot.agent_slot_contribution }
+		}
+	}
+	option = { # Intervene in favor of second researcher
+		name = cotc_research_project_events.222.b
+		scope:first_researcher = {
+			add_opinion = { target = ROOT modifier = opinion_favored_researcher opinion = -10 }
+			trigger_event = cotc_research_project_events.224
+		}
+		scope:second_researcher = {
+			add_opinion = { target = ROOT modifier = opinion_favored_rival_researcher opinion = 10 }
+			trigger_event = cotc_research_project_events.224
+		}
+		add_stress = miniscule_stress_gain
+		ai_chance = {
+			base = 100
+			# Opinion of second researcher
+			opinion_modifier = { who = ROOT opinion_target = scope:second_researcher multiplier = 1 }
+			# Who asked us to mediate?
+			modifier = {
+				add = {
+					value = ai_sociability
+					min = -25
+					max = 25
+				}
+				scope:mediation ?= flag:second_researcher
+			}
+			# Their contribution to the project
+			modifier = { add = scope:second_researcher_slot.agent_slot_contribution }
+		}
+	}
+	option = { # Refuse to get involved
+		name = cotc_research_project_events.222.c
+		if = {
+			limit = { NOT = { scope:mediation ?= flag:already_fought } }
+			scope:scheme = { add_scheme_modifier = { type = research_project_bad_teamwork days = 365 } }
+			if = {
+				limit = { scope:mediation ?= flag:first_researcher }
+				scope:first_researcher = { add_opinion = { target = ROOT modifier = frustrated_opinion opinion = -10 } }
+			}
+			else_if = {
+				limit = { scope:mediation ?= flag:second_researcher }
+				scope:second_researcher = { add_opinion = { target = ROOT modifier = frustrated_opinion opinion = -10 } }
+			}
+		}
+		scope:first_researcher = { trigger_event = cotc_research_project_events.225 }
+		scope:second_researcher = { trigger_event = cotc_research_project_events.225 }
+		ai_chance = {
+			base = 50
+			modifier = { add = ai_vengefulness }
+			modifier = {
+				add = 100
+				scope:mediation ?= flag:already_fought
+			}
+		}
+	}
+}
+cotc_research_project_events.223 = { # scope:owner sided with scope:first_researcher
+	title = cotc_research_project_events.title
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					ROOT = scope:first_researcher
+					scope:mediation ?= flag:first_researcher
+				}
+				desc = cotc_research_project_events.223.intro.first.first
+			}
+			triggered_desc = {
+				trigger = {
+					ROOT = scope:second_researcher
+					scope:mediation ?= flag:first_researcher
+				}
+				desc = cotc_research_project_events.223.intro.first.second
+			}
+			triggered_desc = {
+				trigger = {
+					ROOT = scope:first_researcher
+					scope:mediation ?= flag:second_researcher
+				}
+				desc = cotc_research_project_events.223.intro.second.first
+			}
+			triggered_desc = {
+				trigger = {
+					ROOT = scope:second_researcher
+					scope:mediation ?= flag:second_researcher
+				}
+				desc = cotc_research_project_events.223.intro.second.second
+			}
+			desc = cotc_research_project_events.223.intro.already_fought
+		}
+		first_valid = {
+			triggered_desc = {
+				trigger = { ROOT = scope:first_researcher }
+				desc = cotc_research_project_events.223.desc.first_researcher
+			}
+			desc = cotc_research_project_events.223.desc.second_researcher
+		}
+	}
+	theme = research
+	right_portrait = {
+		character = scope:first_researcher
+		animation = war_over_win
+	}
+	left_portrait = {
+		character = scope:second_researcher
+		animation = war_over_loss
+	}
+	
+	option = {
+		trigger = { ROOT = scope:first_researcher }
+		name = cotc_research_project_events.223.a
+		add_stress = { value = miniscule_stress_gain multiply = -1 }
+	}
+	option = {
+		trigger = { ROOT = scope:second_researcher }
+		name = cotc_research_project_events.223.b
+		add_stress = { value = miniscule_stress_gain multiply = 1 }
+	}
+	option = {
+		trigger = { always = no }
+		fallback = yes
+		name = cotc_research_project_events.223.c
+	}
+}
+cotc_research_project_events.224 = { # scope:owner sided with scope:second_researcher
+	title = cotc_research_project_events.title
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					ROOT = scope:first_researcher
+					scope:mediation ?= flag:first_researcher
+				}
+				desc = cotc_research_project_events.223.intro.first.first
+			}
+			triggered_desc = {
+				trigger = {
+					ROOT = scope:second_researcher
+					scope:mediation ?= flag:first_researcher
+				}
+				desc = cotc_research_project_events.223.intro.first.second
+			}
+			triggered_desc = {
+				trigger = {
+					ROOT = scope:first_researcher
+					scope:mediation ?= flag:second_researcher
+				}
+				desc = cotc_research_project_events.223.intro.second.first
+			}
+			triggered_desc = {
+				trigger = {
+					ROOT = scope:second_researcher
+					scope:mediation ?= flag:second_researcher
+				}
+				desc = cotc_research_project_events.223.intro.second.second
+			}
+			desc = cotc_research_project_events.223.intro.already_fought
+		}
+		first_valid = {
+			triggered_desc = {
+				trigger = { ROOT = scope:first_researcher }
+				desc = cotc_research_project_events.224.desc.first_researcher
+			}
+			desc = cotc_research_project_events.224.desc.second_researcher
+		}
+	}
+	theme = research
+	right_portrait = {
+		character = scope:first_researcher
+		animation = war_over_loss
+	}
+	left_portrait = {
+		character = scope:second_researcher
+		animation = war_over_win
+	}
+	
+	option = {
+		trigger = { ROOT = scope:first_researcher }
+		name = cotc_research_project_events.223.b
+		add_stress = { value = miniscule_stress_gain multiply = 1 }
+	}
+	option = {
+		trigger = { ROOT = scope:second_researcher }
+		name = cotc_research_project_events.223.a
+		add_stress = { value = miniscule_stress_gain multiply = -1 }
+	}
+	option = {
+		trigger = { always = no }
+		fallback = yes
+		name = cotc_research_project_events.223.c
+	}
+}
+cotc_research_project_events.225 = { # scope:owner refused to get involved
+	title = cotc_research_project_events.title
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					ROOT = scope:first_researcher
+					scope:mediation ?= flag:first_researcher
+				}
+				desc = cotc_research_project_events.223.intro.first.first
+			}
+			triggered_desc = {
+				trigger = {
+					ROOT = scope:second_researcher
+					scope:mediation ?= flag:first_researcher
+				}
+				desc = cotc_research_project_events.223.intro.first.second
+			}
+			triggered_desc = {
+				trigger = {
+					ROOT = scope:first_researcher
+					scope:mediation ?= flag:second_researcher
+				}
+				desc = cotc_research_project_events.223.intro.second.first
+			}
+			triggered_desc = {
+				trigger = {
+					ROOT = scope:second_researcher
+					scope:mediation ?= flag:second_researcher
+				}
+				desc = cotc_research_project_events.223.intro.second.second
+			}
+			desc = cotc_research_project_events.223.intro.already_fought
+		}
+		desc = cotc_research_project_events.225.desc
+	}
+	theme = research
+	right_portrait = {
+		character = scope:first_researcher
+		animation = war_over_tie
+	}
+	left_portrait = {
+		character = scope:second_researcher
+		animation = war_over_tie
+	}
+	
+	option = { # My mediation request was ignored
+		trigger = {
+			trigger_if = {
+				limit = { ROOT = scope:first_researcher }
+				scope:mediation ?= flag:first_researcher
+			}
+			trigger_else_if = {
+				limit = { ROOT = scope:second_researcher }
+				scope:mediation ?= flag:second_researcher
+			}
+			trigger_else = { always = no }
+		}
+		name = cotc_research_project_events.225.a
+		add_stress = { value = miniscule_stress_gain multiply = 1 }
+	}
+	option = { # Someone else's mediation request was ignored
+		trigger = {
+			trigger_if = {
+				limit = { ROOT = scope:first_researcher }
+				scope:mediation ?= flag:second_researcher
+			}
+			trigger_else_if = {
+				limit = { ROOT = scope:second_researcher }
+				scope:mediation ?= flag:first_researcher
+			}
+			trigger_else = { always = no }
+		}
+		name = cotc_research_project_events.225.b
+	}
+	option = { # It's a fair cop
+		trigger = { always = no }
+		fallback = yes
+		name = cotc_research_project_events.225.c
+	}
+}
+cotc_research_project_events.226 = { # An ultimatum - someone has to go
+	title = cotc_research_project_events.title
+	desc = {
+		desc = cotc_research_project_events.226.intro
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:annoying }
+				desc = cotc_research_project_events.222.desc.annoying
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:despise }
+				desc = cotc_research_project_events.222.desc.despise
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:grudge }
+				desc = cotc_research_project_events.222.desc.grudge
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:evil_ideology }
+				desc = cotc_research_project_events.222.desc.evil_ideology
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:bad_learning }
+				desc = cotc_research_project_events.222.desc.bad_learning
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:bad_martial }
+				desc = cotc_research_project_events.222.desc.bad_martial
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:bad_diplomacy }
+				desc = cotc_research_project_events.222.desc.bad_diplomacy
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:bad_stewardship }
+				desc = cotc_research_project_events.222.desc.bad_stewardship
+			}
+			triggered_desc = {
+				trigger = { scope:motive ?= flag:rival }
+				desc = cotc_research_project_events.222.desc.rival
+			}
+		}
+	}
+	theme = research
+	right_portrait = {
+		character = scope:first_researcher
+		animation = rage
+	}
+	left_portrait = {
+		character = scope:second_researcher
+		animation = dismissal
+	}
+	option = { # Side with the first researcher
+		name = cotc_research_project_events.226.a
+		scope:first_researcher = {
+			add_opinion = { target = ROOT modifier = opinion_favored_researcher opinion = 10 }
+			trigger_event = cotc_research_project_events.227
+		}
+		scope:second_researcher = {
+			add_opinion = { target = ROOT modifier = opinion_favored_rival_researcher opinion = -20 }
+			forbid_from_scheme = scope:scheme
+			trigger_event = cotc_research_project_events.227
+		}
+		ai_chance = {
+			base = 100
+			opinion_modifier = { who = ROOT opinion_target = scope:first_researcher multiplier = 1 } # Opinion of first_researcher
+			modifier = { # Their contribution to the project, weighted by rationality
+				add = {
+					value = scope:first_researcher_slot.agent_slot_contribution
+					if = {
+						limit = { ai_rationality >= very_high_positive_ai_value }
+						multiply = 1.25
+					}
+					if = {
+						limit = { ai_rationality >= high_positive_ai_value }
+						multiply = 1.25
+					}
+					if = {
+						limit = { ai_rationality >= medium_positive_ai_value }
+						multiply = 1.25
+					}
+					if = {
+						limit = { ai_rationality >= low_positive_ai_value }
+						multiply = 1.25
+					}
+					if = {
+						limit = { ai_rationality >= very_low_positive_ai_value }
+						multiply = 1.25
+					}
+					if = {
+						limit = { ai_rationality <= very_high_negative_ai_value }
+						multiply = 0.8
+					}
+					if = {
+						limit = { ai_rationality <= high_negative_ai_value }
+						multiply = 0.8
+					}
+					if = {
+						limit = { ai_rationality <= medium_negative_ai_value }
+						multiply = 0.8
+					}
+					if = {
+						limit = { ai_rationality <= low_negative_ai_value }
+						multiply = 0.8
+					}
+					if = {
+						limit = { ai_rationality <= very_low_negative_ai_value }
+						multiply = 0.8
+					}
+				}
+			}
+		}
+	}
+	option = { # Side with the second researcher
+		name = cotc_research_project_events.226.b
+		scope:first_researcher = {
+			add_opinion = { target = ROOT modifier = opinion_favored_researcher opinion = -20 }
+			forbid_from_scheme = scope:scheme
+			trigger_event = cotc_research_project_events.228
+		}
+		scope:second_researcher = {
+			add_opinion = { target = ROOT modifier = opinion_favored_rival_researcher opinion = 10 }
+			trigger_event = cotc_research_project_events.228
+		}
+		ai_chance = {
+			base = 100
+			opinion_modifier = { who = ROOT opinion_target = scope:second_researcher multiplier = 1 } # Opinion of first_researcher
+			modifier = { # Their contribution to the project, weighted by rationality
+				add = {
+					value = scope:second_researcher_slot.agent_slot_contribution
+					if = {
+						limit = { ai_rationality >= very_high_positive_ai_value }
+						multiply = 1.25
+					}
+					if = {
+						limit = { ai_rationality >= high_positive_ai_value }
+						multiply = 1.25
+					}
+					if = {
+						limit = { ai_rationality >= medium_positive_ai_value }
+						multiply = 1.25
+					}
+					if = {
+						limit = { ai_rationality >= low_positive_ai_value }
+						multiply = 1.25
+					}
+					if = {
+						limit = { ai_rationality >= very_low_positive_ai_value }
+						multiply = 1.25
+					}
+					if = {
+						limit = { ai_rationality <= very_high_negative_ai_value }
+						multiply = 0.8
+					}
+					if = {
+						limit = { ai_rationality <= high_negative_ai_value }
+						multiply = 0.8
+					}
+					if = {
+						limit = { ai_rationality <= medium_negative_ai_value }
+						multiply = 0.8
+					}
+					if = {
+						limit = { ai_rationality <= low_negative_ai_value }
+						multiply = 0.8
+					}
+					if = {
+						limit = { ai_rationality <= very_low_negative_ai_value }
+						multiply = 0.8
+					}
+				}
+			}
+		}
+	}
+}
+cotc_research_project_events.227 = { # scope:owner sided with scope:first_researcher
+	title = cotc_research_project_events.title
+	desc = {
+		triggered_desc = {
+			trigger = { ROOT = scope:second_researcher }
+			desc = cotc_research_project_events.227.intro
+		}
+		first_valid = {
+			triggered_desc = {
+				trigger = { ROOT = scope:second_researcher }
+				desc = cotc_research_project_events.227.second_researcher
+			}
+			desc = cotc_research_project_events.227.first_researcher
+		}
+	}
+	theme = research
+	right_portrait = {
+		character = scope:first_researcher
+		animation = war_over_win
+	}
+	left_portrait = {
+		character = scope:second_researcher
+		animation = war_over_loss
+	}
+	
+	option = {
+		trigger = { ROOT = scope:first_researcher }
+		name = cotc_research_project_events.227.a
+		add_stress = { value = minor_stress_gain multiply = -1 }
+	}
+	option = {
+		trigger = { ROOT = scope:second_researcher }
+		name = cotc_research_project_events.227.b
+		add_stress = { value = minor_stress_gain multiply = 1 }
+	}
+	option = {
+		trigger = { always = no }
+		fallback = yes
+		name = cotc_research_project_events.223.c
+	}
+}
+cotc_research_project_events.228 = { # scope:owner sided with scope:second_researcher
+	title = cotc_research_project_events.title
+	desc = {
+		triggered_desc = {
+			trigger = { ROOT = scope:second_researcher }
+			desc = cotc_research_project_events.227.intro
+		}
+		first_valid = {
+			triggered_desc = {
+				trigger = { ROOT = scope:second_researcher }
+				desc = cotc_research_project_events.228.second_researcher
+			}
+			desc = cotc_research_project_events.228.first_researcher
+		}
+	}
+	theme = research
+	right_portrait = {
+		character = scope:first_researcher
+		animation = war_over_loss
+	}
+	left_portrait = {
+		character = scope:second_researcher
+		animation = war_over_win
+	}
+	
+	option = {
+		trigger = { ROOT = scope:first_researcher }
+		name = cotc_research_project_events.227.b
+		add_stress = { value = minor_stress_gain multiply = 1 }
+	}
+	option = {
+		trigger = { ROOT = scope:second_researcher }
+		name = cotc_research_project_events.227.a
+		add_stress = { value = minor_stress_gain multiply = -1 }
+	}
+	option = {
+		trigger = { always = no }
+		fallback = yes
+		name = cotc_research_project_events.223.c
+	}
+}
+cotc_research_project_events.230 = { # Lab accident
+	title = cotc_research_project_events.title
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:scheme = { is_target_in_variable_list = { name = flags target = flag:weapon } } }
+				desc = cotc_research_project_events.230.desc.weapon_misfire
+			}
+			triggered_desc = {
+				trigger = { scope:scheme = { is_target_in_variable_list = { name = flags target = flag:energy } } }
+				desc = cotc_research_project_events.230.desc.reactor_explosion
+			}
+			desc = cotc_research_project_events.230.desc
+		}
+	}
+	theme = research
+	right_portrait = {
+		character = scope:first_researcher
+		animation = shock
+	}
+	trigger = {
+		scope:scheme = { is_target_in_variable_list = { name = flags target = scope:engineering } } # Can't have a lab accident without a lab
+		scope:first_researcher_slot = {
+			# Must be someone who is actually working in the lab
+			OR = {
+				is_agent_slot_type = agent_research_engineer
+				AND = {
+					is_agent_slot_type = agent_research_physicist
+					scope:scheme = { is_target_in_variable_list = { name = flags target = scope:energy } }
+				}
+				AND = {
+					is_agent_slot_type = agent_research_officer
+					scope:scheme = { is_target_in_variable_list = { name = flags target = scope:weapon } }
+				}
+			}
+		}
+	}
+	weight_multiplier = {
+		base = 25
+		# Danger of the actual technology
+		modifier = { # This is weapons technology, that sounds dangerous
+			factor = 2
+			scope:scheme = { is_target_in_variable_list = { name = flags target = scope:weapon } }
+		}
+		modifier = { # This is energy technology, that also sounds dangerous!
+			factor = 2
+			scope:scheme = { is_target_in_variable_list = { name = flags target = scope:energy } }
+		}
+		modifier = { # Rockets, too
+			factor = 2
+			scope:scheme = { is_target_in_variable_list = { name = flags target = scope:propulsion } }
+		}
+		# How careful are we?
+		modifier = { add = { value = ai_rationality multiply = -1 } }
+		modifier = { add = { value = ai_boldness min = -50 max = 50 } }
+	}
+	immediate = { add_character_flag = { flag = research_project_event_cooldown weeks = { 12 72 } } }
+	option = {
+		name = cotc_research_project_events.230.a
+		suffer_random_injury_effect = { REASON = accident MILD = 4 SEVERE = 1 DEATH = 0 }
+		scope:owner = { trigger_event = { id = cotc_research_project_events.231 days = { 2 7 } } }
+	}
+}
+cotc_research_project_events.231 = { # One of your researchers had a lab accident
+	title = cotc_research_project_events.title
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:scheme = { is_target_in_variable_list = { name = flags target = flag:weapon } } }
+				desc = cotc_research_project_events.231.desc.weapon_misfire
+			}
+			triggered_desc = {
+				trigger = { scope:scheme = { is_target_in_variable_list = { name = flags target = flag:energy } } }
+				desc = cotc_research_project_events.231.desc.reactor_explosion
+			}
+			desc = cotc_research_project_events.231.desc
+		}
+	}
+	theme = research
+	right_portrait = {
+		character = scope:first_researcher
+		animation = severelywounded
+	}
+	option = { # Take them off the project
+		name = cotc_research_project_events.231.a
+		scope:first_researcher = {
+			forbid_from_scheme = scope:scheme
+			trigger_event = cotc_research_project_events.232
+		}
+		ai_chance = {
+			base = 0
+			modifier = { add = scope:first_researcher.health }
+			modifier = { factor = -5 }
+			modifier = {
+				factor = {
+					add = 100
+					add = ai_compassion
+					min = 0
+					divide = 100
+				}
+			}
+		}
+	}
+	option = { # Send them back to work
+		name = cotc_research_project_events.231.b
+		ai_chance = {
+			base = 0
+			modifier = { add = scope:first_researcher_slot.agent_slot_contribution }
+			modifier = {
+				factor = {
+					add = 100
+					add = ai_greed
+					min = 0
+					divide = 100
+				}
+			}
+		}
+	}
+}
+cotc_research_project_events.232 = { # You've been taken off the project for your own safety
+	title = cotc_research_project_events.title
+	desc = cotc_research_project_events.232.desc
+	theme = research
+	right_portrait = {
+		character = scope:first_researcher
+		animation = severelywounded
+	}
+	left_portrait = {
+		character = scope:owner
+		animation = idle
+	}
+	immediate = { show_as_tooltip = { forbid_from_scheme = scope:scheme } }
+	option = { # I am upset about this!
+		name = cotc_research_project_events.232.a
+		scope:owner = {
+			send_interface_message = {
+				type = msg_research_project_response_bad
+				title = cotc_research_project_events.232.a.title
+				desc = cotc_research_project_events.232.a.desc
+				left_icon = scope:first_researcher
+				reverse_add_opinion = { target = scope:first_researcher modifier = insult_opinion opinion = -10 }
+			}
+		}
+		ai_chance = {
+			base = 100
+			modifier = { add = ai_boldness }
+			modifier = { add = ai_greed }
+		}
+	}
+	option = { # I'm glad you're concerned for my safety
+		name = cotc_research_project_events.232.b
+		scope:owner = {
+			send_interface_message = {
+				type = msg_research_project_response_bad
+				title = cotc_research_project_events.232.b.title
+				desc = cotc_research_project_events.232.b.desc
+				left_icon = scope:first_researcher
+				reverse_add_opinion = { target = scope:first_researcher modifier = grateful_opinion opinion = 10 }
+			}
+		}
+		ai_chance = {
+			base = 100
+			modifier = { add = ai_rationality }
+		}
+	}
+}
+cotc_research_project_events.240 = { # You made a sudden solo breakthrough!
+	title = cotc_research_project_events.title
+	desc = cotc_research_project_events.240.desc
+	theme = research
+	right_portrait = {
+		character = scope:first_researcher
+		animation = thinking
+	}
+	weight_multiplier = {
+		base = 0
+		modifier = {
+			add = {
+				scope:scheme = {
+					switch = {
+						trigger = has_scheme_modifier
+						neorenaissance_research_subject_difficulty = { subtract = 50 }
+						trimillennial_research_subject_difficulty = { subtract = 40 }
+						confederate_research_subject_difficulty = { subtract = 30 }
+						colonial_research_subject_difficulty = { subtract = 20 }
+					}
+				}
+			}
+		}
+		modifier = { add = scope:first_researcher_slot.agent_slot_contribution }
+		modifier = {
+			factor = {
+				value = 100
+				add = ai_boldness
+				divide = 100
+			}
+		}
+	}
+	immediate = {
+		add_character_flag = { flag = research_project_event_cooldown weeks = { 12 72 } }
+		save_scope_value_as = {
+			name = progress
+			value = {
+				fixed_range = {
+					min = {
+						add = scope:first_researcher_slot.agent_slot_contribution
+						divide = 100
+					}
+					max = {
+						add = scope:first_researcher_slot.agent_slot_contribution
+						divide = 20
+					}
+				}
+			}
+		}
+	}
+	option = { # Eureka!
+		name = cotc_research_project_events.240.a
+		show_as_tooltip = { scope:scheme = { add_scheme_progress = scope:progress } }
+		scope:owner = {
+			add_opinion = { target = scope:first_researcher modifier = respect_opinion opinion = 10 }
+			trigger_event = cotc_research_project_events.241
+		}
+		scope:scheme = {
+			if = {
+				limit = {
+					scope:owner = { is_capable_adult = yes }
+					any_scheme_agent_character = {
+						NOT = { this = scope:first_researcher }
+						opinion = { target = scope:first_researcher value < 0 }
+					}
+				}
+				random_scheme_agent_slot = {
+					limit = {
+						is_filled = yes
+						NOT = { this = scope:first_researcher_slot }
+						NOT = { is_agent_slot_type = agent_research_security_chief }
+						slot_character ?= { opinion = { target = scope:first_researcher value < 0 } }
+					}
+					weight = {
+						base = 0
+						modifier = { add = { slot_character ?= { subtract = "opinion(scope:first_researcher)" } } }
+					}
+					save_scope_as = second_researcher_slot
+					slot_character = {
+						save_scope_as = second_researcher
+						trigger_event = { id = cotc_research_project_events.242 days = { 5 10 } }
+					}
+				}
+			}
+		}
+	}
+}
+cotc_research_project_events.241 = { # A researcher made a sudden solo breakthrough
+	title = cotc_research_project_events.title
+	desc = cotc_research_project_events.241.desc
+	theme = research
+	right_portrait = {
+		character = scope:first_researcher
+		animation = thinking
+	}
+	option = {
+		name = cotc_research_project_events.241.a
+		scope:scheme = { add_scheme_progress = scope:progress }
+	}
+}
+cotc_research_project_events.242 = { # A coworker you dislike made a solo breathrough
+	title = cotc_research_project_events.title
+	desc = cotc_research_project_events.242.desc
+	theme = research
+	right_portrait = {
+		character = scope:first_researcher
+		animation = storyteller
+	}
+	left_portrait = {
+		character = scope:owner
+		animation = acknowledging
+	}
+	trigger = {
+		exists = scope:scheme
+		scope:owner = { is_capable_adult = yes }
+	}
+	option = { # Claim they stole credit from you!
+		name = cotc_research_project_events.242.a
+		save_scope_value_as = { name = lying value = flag:yes }
+		scope:owner = { trigger_event = cotc_research_project_events.243 }
+		positive_honor_stress_gain_effect = { SCALE = 1 }
+		ai_chance = {
+			base = 0
+			opinion_modifier = { who = ROOT opinion_target = scope:second_researcher multiplier = -1 }
+			modifier = {
+				factor = {
+					value = 100
+					add = ai_vengefulness
+					min = 0
+					max = 200
+					divide = 100
+				}
+			}
+		}
+	}
+	option = { # Good for them
+		name = cotc_research_project_events.242.b
+		ai_chance = {
+			base = 100
+			modifier = {
+				factor = {
+					value = 100
+					add = ai_honor
+					min = 0
+					max = 200
+					divide = 100
+				}
+			}
+		}
+	}
+}
+cotc_research_project_events.243 = { # A researcher claims that another researcher stole credit from them
+	title = cotc_research_project_events.title
+	desc = {
+		desc = cotc_research_project_events.243.intro
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:in_the_right ?= { this = scope:first_researcher } }
+				desc = cotc_research_project_events.243.desc.first_researcher
+			}
+			triggered_desc = {
+				trigger = { scope:in_the_right ?= { this = scope:second_researcher } }
+				desc = cotc_research_project_events.243.desc.second_researcher
+			}
+			desc = cotc_research_project_events.243.desc.unknown
+		}
+	}
+	theme = research
+	right_portrait = {
+		character = scope:first_researcher
+		animation = debating
+	}
+	left_portrait = {
+		character = scope:second_researcher
+		animation = debating
+	}
+	immediate = {
+		# Skill check, can we tell who's telling the truth?
+		if = { # Pick the opponent
+			limit = { exists = scope:lying }
+			scope:second_researcher = { save_scope_as = in_the_wrong }
+		}
+		else = { scope:first_researcher = { save_scope_as = in_the_wrong } }
+		duel = {
+			skill = intrigue
+			target = scope:in_the_wrong
+			15 = { # You figure it out
+				compare_modifier = {
+					value = scope:duel_value
+					multiplier = 3.5
+					min = -49
+				}
+				if = {
+					limit = { exists = scope:lying }
+					scope:first_researcher = { save_scope_as = in_the_right }
+				}
+				else = { scope:second_researcher = { save_scope_as = in_the_wrong } }
+			}
+			50 = { # You don't figure anything out
+			}
+			5 = { # You are completely fooled
+				compare_modifier = {
+					value = scope:duel_value
+					multiplier = -3.5
+					min = -49
+				}
+				modifier = { # Not this stupid
+					factor = 0
+					ai_rationality >= 0
+				}
+				scope:in_the_wrong = { save_scope_as = in_the_right }
+			}
+		}
+	}
+	option = { # Decide in favor of first_researcher
+		name = cotc_research_project_events.243.a
+		show_as_tooltip = {
+			scope:first_researcher = { add_prestige = 50 }
+			scope:second_researcher = { add_prestige = -50 }
+		}
+		scope:first_researcher = {
+			add_opinion = { target = scope:owner modifier = opinion_favored_researcher opinion = 10 }
+			trigger_event = cotc_research_project_events.244
+		}
+		scope:second_researcher = {
+			add_opinion = { target = scope:owner modifier = opinion_favored_rival_researcher opinion = -20 }
+			trigger_event = cotc_research_project_events.244
+		}
+		if = {
+			limit = { scope:in_the_right ?= { this = scope:second_researcher } }
+			positive_honor_stress_gain_effect = { SCALE = 1 }
+		}
+		ai_chance = {
+			base = 100
+			opinion_modifier = { who = ROOT opinion_target = scope:first_researcher multiplier = 1 }
+			modifier = { add = scope:first_researcher_slot.agent_slot_contribution }
+			modifier = {
+				factor = 0.5
+				ai_honor > medium_negative_ai_value
+				scope:in_the_right ?= { this = scope:second_researcher }
+			}
+			modifier = {
+				factor = 0
+				ai_honor > 0
+				scope:in_the_right ?= { this = scope:second_researcher }
+			}
+		}
+	}
+	option = { # Decide in favor of second researcher
+		name = cotc_research_project_events.243.b
+		show_as_tooltip = {
+			scope:second_researcher = { add_prestige = -50 }
+			scope:first_researcher = { add_prestige = 50 }
+		}
+		scope:second_researcher = {
+			add_opinion = { target = scope:owner modifier = opinion_favored_researcher opinion = 10 }
+			trigger_event = cotc_research_project_events.245
+		}
+		scope:first_researcher = {
+			add_opinion = { target = scope:owner modifier = opinion_favored_rival_researcher opinion = -20 }
+			trigger_event = cotc_research_project_events.245
+		}
+		if = {
+			limit = { scope:in_the_right ?= { this = scope:first_researcher } }
+			positive_honor_stress_gain_effect = { SCALE = 1 }
+		}
+		ai_chance = {
+			base = 100
+			opinion_modifier = { who = ROOT opinion_target = scope:second_researcher multiplier = 1 }
+			modifier = { add = scope:second_researcher_slot.agent_slot_contribution }
+			modifier = {
+				factor = 0.5
+				ai_honor > medium_negative_ai_value
+				scope:in_the_right ?= { this = scope:first_researcher }
+			}
+			modifier = {
+				factor = 0
+				ai_honor > 0
+				scope:in_the_right ?= { this = scope:first_researcher }
+			}
+		}
+	}
+}
+cotc_research_project_events.244 = { # scope:owner did not believe an accusation of stolen research credit
+	title = cotc_research_project_events.title
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					ROOT = scope:first_researcher
+					scope:in_the_wrong ?= { this = scope:first_researcher }
+				}
+				desc = cotc_research_project_events.244.intro.first_researcher.in_the_wrong
+			}
+			triggered_desc = {
+				trigger = { ROOT = scope:first_researcher }
+				desc = cotc_research_project_events.244.intro.first_researcher.in_the_right
+			}
+			triggered_desc = {
+				trigger = {
+					ROOT = scope:second_researcher
+					scope:in_the_wrong ?= { this = scope:second_researcher }
+				}
+				desc = cotc_research_project_events.244.intro.second_researcher.in_the_wrong
+			}
+			triggered_desc = {
+				trigger = { ROOT = scope:second_researcher }
+				desc = cotc_research_project_events.244.intro.second_researcher.in_the_right
+			}
+		}
+		first_valid = {
+			triggered_desc = {
+				trigger = { ROOT = scope:first_researcher }
+				desc = cotc_research_project_events.244.desc.first_researcher
+			}
+			desc = cotc_research_project_events.244.desc.second_researcher
+		}
+	}
+	theme = research
+	right_portrait = {
+		character = scope:first_researcher
+		animation = war_over_win
+	}
+	left_portrait = {
+		character = scope:second_researcher
+		animation = war_over_loss
+	}
+	
+	option = {
+		trigger = { ROOT = scope:first_researcher }
+		name = cotc_research_project_events.244.a
+		add_prestige = 50
+	}
+	option = {
+		trigger = { ROOT = scope:second_researcher }
+		name = cotc_research_project_events.244.b
+		add_prestige = -50
+		scope:owner = { add_opinion = { target = scope:second_researcher modifier = liar_opinion opinion = -20 } }
+	}
+}
+cotc_research_project_events.245 = { # scope:owner believed an accusation of stolen research credit
+	title = cotc_research_project_events.title
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					ROOT = scope:first_researcher
+					scope:in_the_wrong ?= { this = scope:first_researcher }
+				}
+				desc = cotc_research_project_events.244.intro.first_researcher.in_the_wrong
+			}
+			triggered_desc = {
+				trigger = { ROOT = scope:first_researcher }
+				desc = cotc_research_project_events.244.intro.first_researcher.in_the_right
+			}
+			triggered_desc = {
+				trigger = {
+					ROOT = scope:second_researcher
+					scope:in_the_wrong ?= { this = scope:second_researcher }
+				}
+				desc = cotc_research_project_events.244.intro.second_researcher.in_the_wrong
+			}
+			triggered_desc = {
+				trigger = { ROOT = scope:second_researcher }
+				desc = cotc_research_project_events.244.intro.second_researcher.in_the_right
+			}
+		}
+		first_valid = {
+			triggered_desc = {
+				trigger = { ROOT = scope:first_researcher }
+				desc = cotc_research_project_events.245.desc.first_researcher
+			}
+			desc = cotc_research_project_events.245.desc.second_researcher
+		}
+	}
+	theme = research
+	right_portrait = {
+		character = scope:first_researcher
+		animation = war_over_loss
+	}
+	left_portrait = {
+		character = scope:second_researcher
+		animation = war_over_win
+	}
+	
+	option = {
+		trigger = { ROOT = scope:second_researcher }
+		name = cotc_research_project_events.244.a
+		add_prestige = 50
+	}
+	option = {
+		trigger = { ROOT = scope:first_researcher }
+		name = cotc_research_project_events.244.b
+		add_prestige = -50
+		scope:owner = { add_opinion = { target = scope:first_researcher modifier = liar_opinion opinion = -20 } }
+	}
+}
+cotc_research_project_events.250 = { # Two researchers make a breakthrough together
+	title = cotc_research_project_events.title
+	desc = cotc_research_project_events.250.desc
+	theme = research
+	right_portrait = {
+		character = scope:first_researcher
+		animation = thinking
+	}
+	left_portrait = {
+		character = scope:second_researcher
+		animation = interested_left
+	}
+	trigger = {
+		scope:scheme = {
+			any_scheme_agent_slot = {
+				is_filled = yes
+				NOT = { this = scope:first_researcher_slot }
+				NOT = { is_agent_slot_type = agent_research_security_chief }
+			}
+		}
+	}
+	weight_multiplier = {
+		base = 0
+		modifier = {
+			add = {
+				scope:scheme = {
+					switch = {
+						trigger = has_scheme_modifier
+						neorenaissance_research_subject_difficulty = { subtract = 50 }
+						trimillennial_research_subject_difficulty = { subtract = 40 }
+						confederate_research_subject_difficulty = { subtract = 30 }
+						colonial_research_subject_difficulty = { subtract = 20 }
+					}
+				}
+			}
+		}
+		modifier = { add = scope:first_researcher_slot.agent_slot_contribution }
+		modifier = {
+			add = {
+				scope:scheme = {
+					ordered_scheme_agent_slot = {
+						limit = {
+							is_filled = yes
+							NOT = { this = scope:first_researcher_slot }
+							NOT = { is_agent_slot_type = agent_research_security_chief }
+						}
+						order_by = { slot_character ?= { add = "opinion(scope:first_researcher)" } }
+						add = agent_slot_contribution
+					}
+				}
+			}
+		}
+		modifier = {
+			factor = {
+				value = 100
+				add = ai_sociability
+				divide = 100
+			}
+		}
+	}
+	immediate = {
+		add_character_flag = { flag = research_project_event_cooldown weeks = { 12 72 } }
+		scope:scheme = {
+			random_scheme_agent_slot = {
+				limit = {
+					is_filled = yes
+					NOT = { this = scope:first_researcher_slot }
+					NOT = { is_agent_slot_type = agent_research_security_chief }
+				}
+				weight = {
+					base = 0
+					modifier = { add = agent_slot_contribution }
+					modifier = { add = { slot_character ?= { add = "opinion(scope:first_researcher)" } } }
+				}
+				save_scope_as = second_researcher_slot
+				slot_character ?= { save_scope_as = second_researcher }
+			}
+		}
+		save_scope_value_as = {
+			name = progress
+			value = {
+				fixed_range = {
+					min = {
+						add = scope:first_researcher_slot.agent_slot_contribution
+						add = scope:second_researcher_slot.agent_slot_contribution
+						divide = 200
+					}
+					max = {
+						add = scope:first_researcher_slot.agent_slot_contribution
+						add = scope:second_researcher_slot.agent_slot_contribution
+						divide = 40
+					}
+				}
+			}
+		}
+	}
+	option = { # Jointly present our findings to scope:owner
+		name = cotc_research_project_events.250.a
+		show_as_tooltip = { scope:scheme = { add_scheme_progress = scope:progress } }
+		add_prestige = 50
+		show_as_tooltip = {
+			scope:second_researcher = { add_prestige = 50 }
+			trigger_event = cotc_research_project_events.251
+		}
+		scope:owner = {
+			add_opinion = { target = scope:first_researcher modifier = respect_opinion opinion = 5 }
+			show_as_tooltip = { add_opinion = { target = scope:second_researcher modifier = respect_opinion opinion = 5 } }
+			trigger_event = cotc_research_project_events.252
+		}
+		ai_chance = {
+			base = 100
+			opinion_modifier = { who = ROOT opinion_target = scope:second_researcher multiplier = 1 }
+			modifier = {
+				add = ai_honor
+				ai_honor > 0
+			}
+		}
+	}
+	option = { # Present the findings as yours alone
+		name = cotc_research_project_events.250.b
+		show_as_tooltip = { scope:scheme = { add_scheme_progress = scope:progress } }
+		add_prestige = 100
+		scope:owner = {
+			add_opinion = { target = scope:first_researcher modifier = respect_opinion opinion = 10 }
+			trigger_event = cotc_research_project_events.241
+		}
+		scope:second_researcher = {
+			add_opinion = { target = scope:first_researcher modifier = betrayal_opinion opinion = -20 }
+			trigger_event = { id = cotc_research_project_events.253 days = { 5 10 } }
+		}
+		positive_honor_stress_gain_effect = { SCALE = 1 }
+		ai_chance = {
+			base = 0
+			modifier = { add = ai_greed }
+			modifier = {
+				add = { subtract = ai_honor }
+				ai_honor < 0
+			}
+		}
+	}
+}
+cotc_research_project_events.251 = { # You made a joint breakthrough and got credit for it
+	title = cotc_research_project_events.title
+	desc = cotc_research_project_events.251.desc
+	theme = research
+	right_portrait = {
+		character = scope:second_researcher
+		animation = thinking
+	}
+	left_portrait = {
+		character = scope:owner
+		animation = acknowledging
+	}
+	option = {
+		name = cotc_research_project_events.251.a
+		show_as_tooltip = { scope:scheme = { add_scheme_progress = scope:progress } }
+		add_prestige = 50
+		scope:owner = { add_opinion = { target = scope:second_researcher modifier = respect_opinion opinion = 5 } }
+	}
+}
+cotc_research_project_events.252 = { # Two of your researchers made a joint breakthrough
+	title = cotc_research_project_events.title
+	desc = cotc_research_project_events.252.desc
+	theme = research
+	right_portrait = {
+		character = scope:first_researcher
+		animation = storyteller
+	}
+	left_portrait = {
+		character = scope:second_researcher
+		animation = thinking
+	}
+	option = {
+		name = cotc_research_project_events.252.a
+		scope:scheme = { add_scheme_progress = { 1 5 } }
+	}
+}
+cotc_research_project_events.253 = { # Your coworker claimed your joint discovery as theirs alone
+	title = cotc_research_project_events.title
+	desc = cotc_research_project_events.253.desc
+	theme = research
+	right_portrait = {
+		character = scope:first_researcher
+		animation = storyteller
+	}
+	left_portrait = {
+		character = scope:second_researcher
+		animation = shock
+	}
+	trigger = { exists = scope:scheme }
+	option = { # Tell scope:owner the truth
+		show_as_unavailable = { scope:owner = { is_capable_adult = yes } }
+		trigger = { scope:owner = { is_capable_adult = yes } }
+		name = cotc_research_project_events.253.a
+		scope:owner = { trigger_event = cotc_research_project_events.242 }
+		negative_boldness_stress_gain_effect = { SCALE = 0.5 }
+		ai_chance = {
+			base = 100
+			modifier = { add = ai_boldness }
+		}
+	}
+	option = { # Start harassing scope:first_researcher
+		name = cotc_research_project_events.253.b
+		# Flip the two scopes around!
+		scope:first_researcher = { save_temporary_scope_as = temp_first_researcher }
+		scope:first_researcher_slot = { save_temporary_scope_as = temp_first_researcher_slot }
+		scope:second_researcher = { save_scope_as = first_researcher }
+		scope:second_researcher_slot = { save_scope_as = first_researcher_slot }
+		scope:temp_first_researcher = { save_scope_as = second_researcher }
+		scope:temp_first_researcher_slot = { save_scope_as = second_researcher_slot }
+		
+		# Transition to the 220 event chain
+		save_scope_value_as = { name = motive value = flag:stole_credit }
+		scope:second_researcher = {
+			add_opinion = { target = scope:first_researcher modifier = insult_opinion opinion = -10 }
+			trigger_event = { id = cotc_research_project_events.221 days = { 2 5 } }
+		}
+		positive_vengefulness_stress_gain_effect = { SCALE = -0.5 }
+		ai_chance = {
+			base = 50
+			modifier = { add = ai_vengefulness }
+			modifier = { add = stress } # This gets harder to resist the angrier you are
+		}
+	}
+	option = { # Just deal with it
+		name = cotc_research_project_events.253.c
+		positive_vengefulness_stress_gain_effect = { SCALE = 0.5 }
+		ai_chance = { base = 50 }
+	}
+}
+
+# RESEARCH PROJECT EVENTS - PERSONAL INVOLVEMENT
+cotc_research_project_events.300 = { # You personally made a breakthrough!
+	title = cotc_research_project_events.title
+	desc = cotc_research_project_events.240.desc
+	theme = research
+	right_portrait = {
+		character = scope:owner
+		animation = thinking
+	}
+	trigger = { has_character_modifier = researching_modifier }
+	weight_multiplier = {
+		base = 0
+		modifier = {
+			add = {
+				scope:scheme = {
+					switch = {
+						trigger = has_scheme_modifier
+						neorenaissance_research_subject_difficulty = { subtract = 50 }
+						trimillennial_research_subject_difficulty = { subtract = 40 }
+						confederate_research_subject_difficulty = { subtract = 30 }
+						colonial_research_subject_difficulty = { subtract = 20 }
+					}
+				}
+			}
+		}
+		modifier = {
+			add = { subtract = learning }
+			has_character_modifier = personal_involvement_learning_bonus
+		}
+		modifier = {
+			add = { subtract = martial }
+			has_character_modifier = personal_involvement_martial_bonus
+		}
+		modifier = {
+			add = { subtract = diplomacy }
+			has_character_modifier = personal_involvement_diplomacy_bonus
+		}
+		modifier = {
+			add = { subtract = stewardship }
+			has_character_modifier = personal_involvement_stewardship_bonus
+		}
+		modifier = {
+			factor = {
+				value = 100
+				add = ai_boldness
+				divide = 100
+			}
+		}
+	}
+	immediate = {
+		save_scope_value_as = {
+			name = relevant_skill_total
+			value = {
+				add = learning
+				if = {
+					limit = { has_character_modifier = personal_involvement_martial_bonus }
+					add = martial
+				}
+				else_if = {
+					limit = { has_character_modifier = personal_involvement_diplomacy_bonus }
+					add = diplomacy
+				}
+				else_if = {
+					limit = { has_character_modifier = personal_involvement_stewardship_bonus }
+					add = stewardship
+				}
+				else = { add = learning }
+			}
+		}
+		save_scope_value_as = {
+			name = progress
+			value = {
+				fixed_range = {
+					min = {
+						add = scope:relevant_skill_total
+						divide = 50
+					}
+					max = {
+						add = scope:relevant_skill_total
+						divide = 10
+					}
+				}
+			}
+		}
+	}
+	option = { # Eureka!
+		name = cotc_research_project_events.300.a
+		scope:scheme = { add_scheme_progress = scope:progress }
+	}
+}
+cotc_research_project_events.310 = { # Lab accident
+	title = cotc_research_project_events.title
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:scheme = { is_target_in_variable_list = { name = flags target = flag:weapon } } }
+				desc = cotc_research_project_events.230.desc.weapon_misfire
+			}
+			triggered_desc = {
+				trigger = { scope:scheme = { is_target_in_variable_list = { name = flags target = flag:energy } } }
+				desc = cotc_research_project_events.230.desc.reactor_explosion
+			}
+			desc = cotc_research_project_events.230.desc
+		}
+	}
+	theme = research
+	right_portrait = {
+		character = scope:owner
+		animation = severelywounded
+	}
+	trigger = {
+		scope:scheme = { is_target_in_variable_list = { name = flags target = scope:engineering } } # Can't have a lab accident without a lab
+		has_character_modifier = researching_modifier
+	}
+	weight_multiplier = {
+		base = 25
+		# Danger of the actual technology
+		modifier = { # This is weapons technology, that sounds dangerous
+			factor = 2
+			scope:scheme = { is_target_in_variable_list = { name = flags target = scope:weapon } }
+		}
+		modifier = { # This is energy technology, that also sounds dangerous!
+			factor = 2
+			scope:scheme = { is_target_in_variable_list = { name = flags target = scope:energy } }
+		}
+		modifier = { # Rockets, too
+			factor = 2
+			scope:scheme = { is_target_in_variable_list = { name = flags target = scope:propulsion } }
+		}
+		# How careful are we?
+		modifier = { add = { value = ai_rationality multiply = -1 } }
+		modifier = { add = { value = ai_boldness min = -50 max = 50 } }
+	}
+	option = {
+		name = cotc_research_project_events.310.a
+		suffer_random_injury_effect = { REASON = accident MILD = 4 SEVERE = 1 DEATH = 0 }
+		ai_chance = {
+			base = 0
+			modifier = { add = { add = health multiply = 10 } }
+		}
+	}
+	option = { # Take myself off the project
+		name = cotc_research_project_events.310.b
+		suffer_random_injury_effect = { REASON = accident MILD = 4 SEVERE = 1 DEATH = 0 }
+		remove_research_project_personal_involvement = yes
+		ai_chance = {
+			base = 50
+			modifier = { add = { subtract = ai_boldness } }
+		}
+	}
+}
+
+# RESEARCH PROJECT EVENTS - DEAD ENDS
+cotc_research_project_events.500 = { # Your current research path has hit a dead end
+	title = cotc_research_project_events.title
+	desc = {
+		desc = cotc_research_project_events.500.desc
+		triggered_desc = {
+			trigger = {
+				scope:scheme = {
+					OR = {
+						AND = {
+							has_scheme_modifier = confederate_research_subject_difficulty
+							NOT = { has_scheme_modifier = confederate_era_research_bonus }
+						}
+						AND = {
+							has_scheme_modifier = trimillennial_research_subject_difficulty
+							NOT = { has_scheme_modifier = trimillennial_era_research_bonus }
+						}
+						AND = {
+							has_scheme_modifier = neorenaissance_research_subject_difficulty
+							NOT = { has_scheme_modifier = neorenaissance_era_research_bonus }
+						}
+					}
+				}
+			}
+			desc = cotc_research_project_events.500.desc.hard_research_subject
+		}
+	}
+	theme = research
+	right_portrait = {
+		character = scope:owner
+		animation = disappointed
+	}
+	trigger = {
+		exists = scope:scheme
+		scope:scheme = { scheme_success_chance >= 1 }
+	}
+	weight_multiplier = {
+		base = 100
+		# How hard is this research subject?
+		modifier = {
+			factor = 10
+			scope:scheme = { has_scheme_modifier = confederate_research_subject_difficulty }
+		}
+		modifier = {
+			factor = 100
+			scope:scheme = { has_scheme_modifier = trimillennial_research_subject_difficulty }
+		}
+		modifier = {
+			factor = 1000
+			scope:scheme = { has_scheme_modifier = neorenaissance_research_subject_difficulty }
+		}
+		modifier = {
+			factor = 0.1
+			scope:scheme = { has_scheme_modifier = confederate_era_research_bonus }
+		}
+		modifier = {
+			factor = 0.1
+			scope:scheme = { has_scheme_modifier = trimillennial_era_research_bonus }
+		}
+		modifier = {
+			factor = 0.1
+			scope:scheme = { has_scheme_modifier = neorenaissance_era_research_bonus }
+		}
+		# How good is the team?
+		modifier = {
+			add = {
+				scope:scheme = {
+					every_scheme_agent_slot = {
+						limit = { is_filled = yes }
+						subtract = agent_slot_contribution
+					}
+				}
+			}
+		}
+		modifier = {
+			add = { subtract = learning }
+			has_character_modifier = personal_involvement_learning_bonus
+		}
+		modifier = {
+			add = { subtract = martial }
+			has_character_modifier = personal_involvement_martial_bonus
+		}
+		modifier = {
+			add = { subtract = diplomacy }
+			has_character_modifier = personal_involvement_diplomacy_bonus
+		}
+		modifier = {
+			add = { subtract = stewardship }
+			has_character_modifier = personal_involvement_stewardship_bonus
+		}
+	}
+	immediate = {
+		# Calculate progress loss
+		save_scope_value_as = {
+			name = progress_lost
+			value = {
+				integer_range = {
+					min = {
+						add = 2
+						scope:scheme = {
+							if = {
+								limit = { has_scheme_modifier = confederate_research_subject_difficulty }
+								add = 1
+							}
+							else_if = {
+								limit = { has_scheme_modifier = trimillennial_research_subject_difficulty }
+								add = 2
+							}
+							else_if = {
+								limit = { has_scheme_modifier = neorenaissance_research_subject_difficulty }
+								add = 3
+							}
+							if = {
+								limit = { has_scheme_modifier = confederate_era_research_bonus }
+								subtract = 1
+							}
+							if = {
+								limit = { has_scheme_modifier = trimillennial_era_research_bonus }
+								subtract = 1
+							}
+							if = {
+								limit = { has_scheme_modifier = neorenaissance_era_research_bonus }
+								subtract = 1
+							}
+						}
+						max = scope:scheme.scheme_success_chance # Don't go negative
+						multiply = -1
+					}
+					max = -1
+				}
+			}
+		}
+	}
+	option = {
+		name = cotc_research_project_events.500.a
+		scope:scheme = { add_scheme_progress = scope:progress_lost }
+		ai_chance = { base = 100 }
+	}
+	option = { # AI only - abandon the project?
+		trigger = { is_ai = yes }
+		name = cotc_research_project_events.500.b
+		scope:scheme = { invalidate_scheme = yes }
+		ai_chance = {
+			base = 10
+			# How hard is this research subject?
+			modifier = {
+				factor = 10
+				scope:scheme = { has_scheme_modifier = confederate_research_subject_difficulty }
+			}
+			modifier = {
+				factor = 100
+				scope:scheme = { has_scheme_modifier = trimillennial_research_subject_difficulty }
+			}
+			modifier = {
+				factor = 1000
+				scope:scheme = { has_scheme_modifier = neorenaissance_research_subject_difficulty }
+			}
+			modifier = {
+				factor = 0.1
+				scope:scheme = { has_scheme_modifier = confederate_era_research_bonus }
+			}
+			modifier = {
+				factor = 0.1
+				scope:scheme = { has_scheme_modifier = trimillennial_era_research_bonus }
+			}
+			modifier = {
+				factor = 0.1
+				scope:scheme = { has_scheme_modifier = neorenaissance_era_research_bonus }
+			}
+			modifier = {
+				factor = {
+					value = 100
+					add = ai_rationality
+					min = 0
+					max = 200
+					divide = 100
+				}
+			}
+		}
+	}
 }

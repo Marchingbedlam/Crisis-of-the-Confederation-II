@@ -1,7 +1,21 @@
-﻿innovation_mass_literacy = {
+﻿@mass_literacy = "gfx/interface/icons/culture_innovations/innovation_education.dds"
+@propaganda = "gfx/interface/icons/culture_innovations/innovation_propaganda.dds"
+@fusion_reactors = "gfx/interface/icons/culture_innovations/innovation_reactors.dds"
+@modern_medicine = "gfx/interface/icons/culture_innovations/innovation_medicine.dds"
+@cloning = "gfx/interface/icons/culture_innovations/innovation_cloning.dds"
+@genetic_screening = "gfx/interface/icons/culture_innovations/innovation_genetics.dds"
+@cybernetics = "gfx/interface/icons/culture_innovations/innovation_cybernetics.dds"
+@direct_neural_interface = "gfx/interface/icons/culture_innovations/innovation_cybernetics.dds"
+@nuclear_missiles = "gfx/interface/icons/culture_innovations/innovation_lasers.dds"
+@automatic_weapons = "gfx/interface/icons/culture_innovations/innovation_lasers.dds"
+@lasers = "gfx/interface/icons/culture_innovations/innovation_lasers.dds"
+
+innovation_mass_literacy = {
 	culture_era = culture_era_tribal
 	group = culture_group_civic
 	skill = diplomacy
+	icon = @mass_literacy
+	
 	ai_weight_for_spread = { value = 100 }
 	ai_weight_for_fascination = { value = 100 }
 	parameters = {
@@ -14,6 +28,8 @@ innovation_propaganda = {
 	culture_era = culture_era_tribal
 	group = culture_group_civic
 	skill = diplomacy
+	icon = @propaganda
+	
 	ai_weight_for_spread = { value = 100 }
 	ai_weight_for_fascination = { value = 100 }
 	parameters = {
@@ -26,6 +42,8 @@ innovation_fusion_reactors = {
 	culture_era = culture_era_tribal
 	group = culture_group_civic
 	skill = learning
+	icon = @fusion_reactors
+	
 	ai_weight_for_spread = { value = 100 }
 	ai_weight_for_fascination = { value = 100 }
 	parameters = { colonial_civic = yes }
@@ -35,6 +53,8 @@ innovation_modern_medicine = {
 	culture_era = culture_era_tribal
 	group = culture_group_civic
 	skill = learning
+	icon = @modern_medicine
+	
 	ai_weight_for_spread = { value = 100 }
 	ai_weight_for_fascination = { value = 100 }
 	parameters = {
@@ -47,6 +67,8 @@ innovation_cloning = {
 	culture_era = culture_era_tribal
 	group = culture_group_civic
 	skill = learning
+	icon = @cloning
+	
 	ai_weight_for_spread = { value = 100 }
 	ai_weight_for_fascination = { value = 100 }
 	can_progress = { has_innovation = innovation_modern_medicine }
@@ -57,6 +79,8 @@ innovation_genetic_screening = {
 	culture_era = culture_era_tribal
 	group = culture_group_civic
 	skill = learning
+	icon = @genetic_screening
+	
 	ai_weight_for_spread = { value = 100 }
 	ai_weight_for_fascination = { value = 100 }
 	can_progress = { has_innovation = innovation_modern_medicine }
@@ -67,6 +91,8 @@ innovation_cybernetics = {
 	culture_era = culture_era_tribal
 	group = culture_group_civic
 	skill = learning
+	icon = @cybernetics
+	
 	ai_weight_for_spread = { value = 100 }
 	ai_weight_for_fascination = { value = 100 }
 	parameters = { colonial_civic = yes }
@@ -76,6 +102,8 @@ innovation_direct_neural_interface = {
 	culture_era = culture_era_tribal
 	group = culture_group_civic
 	skill = learning
+	icon = @direct_neural_interface
+	
 	ai_weight_for_spread = { value = 100 }
 	ai_weight_for_fascination = { value = 100 }
 	can_progress = { has_innovation = innovation_cybernetics }
@@ -87,6 +115,8 @@ innovation_nuclear_missiles = {
 	culture_era = culture_era_tribal
 	group = culture_group_military
 	skill = martial
+	icon = @nuclear_missiles
+	
 	ai_weight_for_spread = { value = 100 }
 	ai_weight_for_fascination = { value = 100 }
 	parameters = { colonial_military = yes }
@@ -96,6 +126,8 @@ innovation_automatic_weapons = {
 	culture_era = culture_era_tribal
 	group = culture_group_military
 	skill = martial
+	icon = @automatic_weapons
+	
 	ai_weight_for_spread = { value = 100 }
 	ai_weight_for_fascination = { value = 100 }
 	parameters = { colonial_military = yes }
@@ -105,6 +137,8 @@ innovation_lasers = {
 	culture_era = culture_era_tribal
 	group = culture_group_military
 	skill = martial
+	icon = @lasers
+	
 	ai_weight_for_spread = { value = 100 }
 	ai_weight_for_fascination = { value = 100 }
 	parameters = { colonial_military = yes }

@@ -42,6 +42,7 @@ GetBestName = { # Gives us the name of a character and also their highest politi
 			var:legislature ?= { save_scope_as = custom_loc_legislature }
 			var:riding ?= { save_scope_as = custom_loc_riding }
 		}
+		trigger = { exists = scope:custom_loc_riding }
 		localization_key = title_legislator_of_riding_custom_loc
 	}
 	text = {
@@ -72,11 +73,24 @@ GetBestNameNoState = { # The same, but exclude the name of the title itself
 			var:legislature ?= { save_scope_as = custom_loc_legislature }
 			var:riding ?= { save_scope_as = custom_loc_riding }
 		}
+		trigger = { exists = scope:custom_loc_riding }
 		localization_key = title_legislator_no_riding_custom_loc
 	}
 	text = {
 		setup_scope = { save_scope_as = custom_loc_character }
 		localization_key = "[custom_loc_character.Custom('GetFullPersonalName')]"
+	}
+}
+GetContextualSingleName = { # Returns either the family name or the given name, depending on whether the former is shared with scope:second
+	type = character
+	text = {
+		setup_scope = { save_scope_as = custom_loc_character }
+		trigger = { house = scope:second.house }
+		localization_key = "[custom_loc_character.GetFirstName]"
+	}
+	text = {
+		setup_scope = { save_scope_as = custom_loc_character }
+		localization_key = "[custom_loc_character.GetDynastyHouseName]"
 	}
 }
 GetSpousesDesc = { # A brief description of this character's spouse or spouses

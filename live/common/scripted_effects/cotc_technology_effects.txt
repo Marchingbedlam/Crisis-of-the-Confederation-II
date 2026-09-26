@@ -106,6 +106,13 @@ remove_tech_from_gui = {
 # AGENT EFFECTS
 # These will depend on what agent types are defined for research projects
 add_research_project_agent_slots = {
+	if = {
+		limit = {
+			is_target_in_variable_list = { name = flags target = flag:secret }
+			NOT = { any_scheme_agent_slot = { is_agent_slot_type = agent_research_security_chief } }
+		}
+		add_agent_slot = agent_research_security_chief
+	}
 	while = {
 		limit = { any_scheme_agent_slot = { count < var:max_agent_slots } }
 		add_new_research_project_agent_slot = { TYPE = economist }
@@ -125,13 +132,17 @@ copy_research_project_data = {
 	set_variable = { name = grant_money value = $SCHEME$.var:grant_money }
 	set_variable = { name = max_agent_slots value = $SCHEME$.var:max_agent_slots }
 	add_scheme_progress = $SCHEME$.scheme_progress
+	if = {
+		limit = { scheme_type = secret_research_project }
+		add_scheme_breach = $SCHEME$.scheme_breaches
+	}
 	set_research_project_difficulty_effect = yes
 	
 	# Copy flags
 	$SCHEME$ = {
 		every_in_list = {
 			variable = flags
-			scope:temp_new_scheme = { add_to_variable_list = { name = flag target = PREV } }
+			scope:temp_new_scheme = { add_to_variable_list = { name = flags target = PREV } }
 		}
 	}
 	
@@ -167,6 +178,7 @@ copy_research_project_data = {
 			save_temporary_scope_as = old_agent_slot
 			switch = {
 				trigger = is_agent_slot_type
+				agent_research_security_chief = { copy_research_project_agent_slot = { NEW_SCHEME = scope:temp_new_scheme TYPE = security_chief } }
 				agent_research_economist = { copy_research_project_agent_slot = { NEW_SCHEME = scope:temp_new_scheme TYPE = economist } }
 				agent_research_sociologist = { copy_research_project_agent_slot = { NEW_SCHEME = scope:temp_new_scheme TYPE = sociologist } }
 				agent_research_officer = { copy_research_project_agent_slot = { NEW_SCHEME = scope:temp_new_scheme TYPE = officer } }
@@ -176,6 +188,158 @@ copy_research_project_data = {
 			}
 		}
 	}
+}
+make_research_project_public = {
+	add_character_flag = suppress_project_invalidation
+	# Save old scheme data and invalidate the scheme
+	random_scheme = {
+		limit = { scheme_type = secret_research_project }
+		var:research_subject = { save_temporary_scope_as = temp_research_subject }
+		var:codename_adjective = { save_temporary_scope_as = temp_codename_adjective }
+		var:codename_noun = { save_temporary_scope_as = temp_codename_noun }
+		save_temporary_scope_value_as = { name = temp_grant_money value = var:grant_money }
+		save_temporary_scope_value_as = { name = temp_max_agent_slots value = var:max_agent_slots }
+		save_temporary_scope_value_as = { name = temp_scheme_progress value = scheme_progress }
+		every_in_list = {
+			variable = flags
+			limit = { NOT = { this = flag:secret } }
+			add_to_temporary_list = temp_flags
+		}
+		if = {
+			limit = { exists = var:max_economist_slots }
+			save_temporary_scope_value_as = { name = temp_economist_slots value = var:max_economist_slots }
+		}
+		if = {
+			limit = { exists = var:max_sociologist_slots }
+			save_temporary_scope_value_as = { name = temp_sociologist_slots value = var:max_sociologist_slots }
+		}
+		if = {
+			limit = { exists = var:max_officer_slots }
+			save_temporary_scope_value_as = { name = temp_officer_slots value = var:max_officer_slots }
+		}
+		if = {
+			limit = { exists = var:max_doctor_slots }
+			save_temporary_scope_value_as = { name = temp_doctor_slots value = var:max_doctor_slots }
+		}
+		if = {
+			limit = { exists = var:max_engineer_slots }
+			save_temporary_scope_value_as = { name = temp_engineer_slots value = var:max_engineer_slots }
+		}
+		if = {
+			limit = { exists = var:max_physicist_slots }
+			save_temporary_scope_value_as = { name = temp_physicist_slots value = var:max_physicist_slots }
+		}
+		every_scheme_agent_slot = {
+			limit = { is_filled = yes }
+			switch = {
+				trigger = is_agent_slot_type
+				agent_research_security_chief = { slot_character = { save_temporary_scope_as = old_security_chief } }
+				agent_research_economist = { slot_character = { add_to_temporary_list = temp_economists } }
+				agent_research_sociologist = { slot_character = { add_to_temporary_list = temp_sociologists } }
+				agent_research_officer = { slot_character = { add_to_temporary_list = temp_officers } }
+				agent_research_doctor = { slot_character = { add_to_temporary_list = temp_doctors } }
+				agent_research_engineer = { slot_character = { add_to_temporary_list = temp_engineers } }
+				agent_research_physicist = { slot_character = { add_to_temporary_list = temp_physicists } }
+			}
+		}
+		invalidate_scheme = yes
+	}
+	# Create new scheme
+	start_scheme = {
+		type = research_project
+		targets_nothing = yes
+		save_scope_as = scheme
+	}
+	# Copy over saved data
+	scope:scheme = {
+		set_variable = { name = research_subject value = scope:temp_research_subject }
+		set_variable = { name = codename_adjective value = scope:temp_codename_adjective }
+		set_variable = { name = codename_noun value = scope:temp_codename_noun }
+		set_variable = { name = grant_money value = scope:temp_grant_money }
+		set_variable = { name = max_agent_slots value = scope:temp_max_agent_slots }
+		add_scheme_progress = scope:temp_scheme_progress
+		set_research_project_difficulty_effect = yes
+		every_in_list = {
+			list = temp_flags
+			scope:scheme = { add_to_variable_list = { name = flags target = PREV } }
+		}
+		if = {
+			limit = { exists = scope:temp_economist_slots }
+			set_variable = { name = max_economist_slots value = scope:temp_economist_slots }
+		}
+		if = {
+			limit = { exists = scope:temp_sociologist_slots }
+			set_variable = { name = max_sociologist_slots value = scope:temp_sociologist_slots }
+		}
+		if = {
+			limit = { exists = scope:temp_officer_slots }
+			set_variable = { name = max_officer_slots value = scope:temp_officer_slots }
+		}
+		if = {
+			limit = { exists = scope:temp_doctor_slots }
+			set_variable = { name = max_doctor_slots value = scope:temp_doctor_slots }
+		}
+		if = {
+			limit = { exists = scope:temp_engineer_slots }
+			set_variable = { name = max_engineer_slots value = scope:temp_engineer_slots }
+		}
+		if = {
+			limit = { exists = scope:temp_physicist_slots }
+			set_variable = { name = max_physicist_slots value = scope:temp_physicist_slots }
+		}
+		add_research_project_agent_slots = yes
+		every_scheme_agent_slot = {
+			switch = {
+				trigger = is_agent_slot_type
+				agent_research_economist = {
+					random_in_list = {
+						list = temp_economists
+						add_to_agent_slot = PREV
+						remove_from_list = temp_economists
+					}
+				}
+				agent_research_sociologist = {
+					random_in_list = {
+						list = temp_sociologists
+						add_to_agent_slot = PREV
+						remove_from_list = temp_sociologists
+					}
+				}
+				agent_research_officer = {
+					random_in_list = {
+						list = temp_officers
+						add_to_agent_slot = PREV
+						remove_from_list = temp_officers
+					}
+				}
+				agent_research_doctor = {
+					random_in_list = {
+						list = temp_doctors
+						add_to_agent_slot = PREV
+						remove_from_list = temp_doctors
+					}
+				}
+				agent_research_engineer = {
+					random_in_list = {
+						list = temp_engineers
+						add_to_agent_slot = PREV
+						remove_from_list = temp_engineers
+					}
+				}
+				agent_research_physicist = {
+					random_in_list = {
+						list = temp_physicists
+						add_to_agent_slot = PREV
+						remove_from_list = temp_physicists
+					}
+				}
+			}
+		}
+		# Tell everyone on the new project that it is now public
+		every_scheme_agent_character = { trigger_event = cotc_research_project_events.103 }
+	}
+	# Tell the old monitor (if there is one) that they're out of a job
+	scope:old_security_chief ?= { trigger_event = cotc_research_project_events.102 }
 }
 
 # STRING EFFECTS
@@ -201,12 +365,49 @@ add_tech_by_string = {
 				province_owner ?= {
 					add_to_temporary_list = county_characters
 					every_courtier = { add_to_temporary_list = county_characters }
-					every_pool_character = { add_to_temporary_list = county_characters }
 				}
+				every_pool_character = { add_to_temporary_list = county_characters }
 			}
 			every_in_list = {
 				list = county_characters
 				apply_character_tech_by_string = { TECH = $TECH$ }
+				add_to_temporary_list = characters_to_inform
+			}
+			
+			# Inform all relevant characters that the innovation has been added
+			# (this is a separate list because other characters may be interested depending on how the tech was added)
+			every_in_list = {
+				list = characters_to_inform
+				send_interface_message = {
+					type = msg_local_innovation_added
+					title = add_tech_to_county.title
+					desc = add_tech_to_county.desc
+				}
+			}
+		}
+		if = { # If this culture doesn't have the tech, there is a chance for the culture to learn it
+			limit = { culture = { NOT = { has_innovation = scope:temp_tech } } }
+			culture = {
+				# The chance for the whole culture to learn the tech scales quadratically with the percentage that already knows it
+				save_temporary_scope_value_as = {
+					name = temp_x
+					value = {
+						every_culture_county = {
+							limit = { county_has_tech_by_string = { TECH = $TECH$ } }
+							add = 1
+						}
+						divide = { every_culture_county = { add = 1 } min = 1 }
+						multiply = 100
+					}
+				}
+				random = {
+					chance = {
+						value = scope:temp_x
+						multiply = scope:temp_x
+						multiply = 0.01
+					}
+					add_innovation = scope:temp_tech
+				}
 			}
 		}
 	}
@@ -214,21 +415,36 @@ add_tech_by_string = {
 remove_tech_by_string = {
 	if = {
 		limit = { county_has_tech_by_string = { TECH = $TECH$ } }
-		remove_list_variable = { name = county_techs target = culture_innovation:innovation_$TECH$ }
-		remove_tech_from_gui = { TECH = $TECH$ }
-		
-		# Verify the removed tech
-		apply_county_tech_by_string = { TECH = $TECH$ }
-		every_county_province = {
-			province_owner ?= {
-				add_to_temporary_list = county_characters
-				every_courtier = { add_to_temporary_list = county_characters }
+		custom_tooltip = {
+			text = remove_tech_from_county.tt
+			remove_list_variable = { name = county_techs target = culture_innovation:innovation_$TECH$ }
+			remove_tech_from_gui = { TECH = $TECH$ }
+			
+			# Verify the removed tech
+			apply_county_tech_by_string = { TECH = $TECH$ }
+			every_county_province = {
+				province_owner ?= {
+					add_to_temporary_list = county_characters
+					every_courtier = { add_to_temporary_list = county_characters }
+				}
 				every_pool_character = { add_to_temporary_list = county_characters }
 			}
-		}
-		every_in_list = {
-			list = county_characters
-			apply_character_tech_by_string = { TECH = $TECH$ }
+			every_in_list = {
+				list = county_characters
+				apply_character_tech_by_string = { TECH = $TECH$ }
+				add_to_temporary_list = characters_to_inform
+			}
+			
+			# Inform all relevant characters that the innovation has been lost
+			# (this is a separate list because other characters may be interested depending on how the tech was lost)
+			every_in_list = {
+				list = characters_to_inform
+				send_interface_message = {
+					type = msg_local_innovation_lost
+					title = remove_tech_from_county.title
+					desc = remove_tech_from_county.desc
+				}
+			}
 		}
 	}
 }
@@ -544,7 +760,6 @@ add_research_project_secret_effect = {
 				scope:temp_secret = { add_secret_participant = PREV }
 			}
 		}
-		else = { expose_secret = yes }
 	}
 }
 research_project_prep_effect = {
@@ -567,7 +782,7 @@ add_research_project_personal_involvement = {
 	}
 	if = {
 		limit = { scope:scheme = { is_target_in_variable_list = { name = flags target = flag:military } } }
-		add_character_modifier = personal_involvement_military_bonus
+		add_character_modifier = personal_involvement_martial_bonus
 	}
 	if = {
 		limit = { basic_eligible_for_diarchy_trigger = yes }
@@ -649,6 +864,10 @@ select_research_project_codename_proper_noun = {
 			trigger = { is_target_in_variable_list = { name = flags target = flag:learning } }
 			select_learning_proper_noun = yes
 		}
+		10 = {
+			trigger = { is_target_in_variable_list = { name = flags target = flag:espionage } }
+			select_espionage_proper_noun = yes
+		}
 	}
 	set_variable = { name = codename_noun value = scope:noun }
 }
@@ -683,6 +902,10 @@ select_research_project_codename_noun = {
 			trigger = { is_target_in_variable_list = { name = flags target = flag:learning } }
 			select_learning_noun = yes
 		}
+		10 = {
+			trigger = { is_target_in_variable_list = { name = flags target = flag:espionage } }
+			select_espionage_noun = yes
+		}
 	}
 	set_variable = { name = codename_noun value = scope:noun }
 }
@@ -690,11 +913,11 @@ select_research_project_codename_adjective = {
 	select_learning_adjective = yes
 	random_list = {
 		10 = {
-			trigger = { scheme_type = research_project_public }
+			trigger = { scheme_type = research_project }
 			select_impressive_adjective = yes
 		}
 		10 = {
-			trigger = { NOT = { scheme_type = research_project_public } }
+			trigger = { scheme_type = secret_research_project }
 			select_secret_adjective = yes
 		}
 		10 = {
@@ -712,6 +935,10 @@ select_research_project_codename_adjective = {
 		10 = {
 			trigger = { is_target_in_variable_list = { name = flags target = flag:learning } }
 			select_learning_adjective = yes
+		}
+		10 = {
+			trigger = { is_target_in_variable_list = { name = flags target = flag:espionage } }
+			select_secret_adjective = yes
 		}
 	}
 	set_variable = { name = codename_adjective value = scope:adjective }
