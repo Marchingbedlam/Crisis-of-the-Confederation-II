@@ -1182,6 +1182,13 @@ can_move_domicile = {
 						}
 					}
 				}
+				# COTC: A settled Base is a fixed headquarters and does not travel
+				custom_tooltip = {
+					text = cotc_base_is_settled_cannot_move_tt
+					scope:owner = {
+						NOT = { has_realm_law_flag = static_camp_posture }
+					}
+				}
 				scope:owner = { has_raised_armies = no }
 			}
 		}

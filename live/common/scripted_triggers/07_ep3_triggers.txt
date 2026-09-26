@@ -1,4 +1,4 @@
-eligible_for_ep3_administrative_legacy_trigger = {
+﻿eligible_for_ep3_administrative_legacy_trigger = {
 	has_ep3_dlc_trigger = yes
 	OR = {
 		game_rule_unrestricted_dynasty_legacies_trigger = yes
@@ -988,9 +988,26 @@ ep3_laamp_diplo_range_trigger = {
 					exists = $TARGET$.host.capital_province
 				}
 				$TARGET$.host.capital_province ?= {
-					squared_distance = {
-						target = $LAAMP$.domicile.domicile_location
-						value < define:NTaskContract|ADVENTURER_DISTANCE_RESTRICTION
+					# COTC: Settled reaches 250px, and 460px with cotc_settled_enhanced_comms
+					trigger_if = {
+						limit = { $LAAMP$ = { domicile ?= { has_domicile_parameter = cotc_settled_enhanced_comms } } }
+						squared_distance = {
+							target = $LAAMP$.domicile.domicile_location
+							value < squared_distance_major
+						}
+					}
+					trigger_else_if = {
+						limit = { $LAAMP$ = { has_realm_law_flag = static_camp_posture } }
+						squared_distance = {
+							target = $LAAMP$.domicile.domicile_location
+							value < squared_distance_medium
+						}
+					}
+					trigger_else = {
+						squared_distance = {
+							target = $LAAMP$.domicile.domicile_location
+							value < define:NTaskContract|ADVENTURER_DISTANCE_RESTRICTION
+						}
 					}
 				}
 			}
@@ -1000,17 +1017,51 @@ ep3_laamp_diplo_range_trigger = {
 					exists = $TARGET$.location
 				}
 				$TARGET$.location ?= {
-					squared_distance = {
-						target = $LAAMP$.domicile.domicile_location
-						value < define:NTaskContract|ADVENTURER_DISTANCE_RESTRICTION
+					# COTC: Settled reaches 250px, and 460px with cotc_settled_enhanced_comms
+					trigger_if = {
+						limit = { $LAAMP$ = { domicile ?= { has_domicile_parameter = cotc_settled_enhanced_comms } } }
+						squared_distance = {
+							target = $LAAMP$.domicile.domicile_location
+							value < squared_distance_major
+						}
+					}
+					trigger_else_if = {
+						limit = { $LAAMP$ = { has_realm_law_flag = static_camp_posture } }
+						squared_distance = {
+							target = $LAAMP$.domicile.domicile_location
+							value < squared_distance_medium
+						}
+					}
+					trigger_else = {
+						squared_distance = {
+							target = $LAAMP$.domicile.domicile_location
+							value < define:NTaskContract|ADVENTURER_DISTANCE_RESTRICTION
+						}
 					}
 				}
 			}
 			trigger_else = {
 				$TARGET$.capital_province ?= {
-					squared_distance = {
-						target = $LAAMP$.domicile.domicile_location
-						value < define:NTaskContract|ADVENTURER_DISTANCE_RESTRICTION
+					# COTC: Settled reaches 250px, and 460px with cotc_settled_enhanced_comms
+					trigger_if = {
+						limit = { $LAAMP$ = { domicile ?= { has_domicile_parameter = cotc_settled_enhanced_comms } } }
+						squared_distance = {
+							target = $LAAMP$.domicile.domicile_location
+							value < squared_distance_major
+						}
+					}
+					trigger_else_if = {
+						limit = { $LAAMP$ = { has_realm_law_flag = static_camp_posture } }
+						squared_distance = {
+							target = $LAAMP$.domicile.domicile_location
+							value < squared_distance_medium
+						}
+					}
+					trigger_else = {
+						squared_distance = {
+							target = $LAAMP$.domicile.domicile_location
+							value < define:NTaskContract|ADVENTURER_DISTANCE_RESTRICTION
+						}
 					}
 				}
 			}

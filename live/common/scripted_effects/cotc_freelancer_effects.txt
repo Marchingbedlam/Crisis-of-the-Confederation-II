@@ -1,0 +1,148 @@
+﻿### COTC - Freelancer (landless adventurer) effects
+
+# Decides the government a settling Freelancer receives.
+# Vanilla's ep3_become_landed_transfer_effect derives the new government from the SELLER's government.
+# COTC governments still carry vanilla compatibility flags so they end up resolving onto vanilla government types (feudal_government, clan_government)  which we don't want.
+#
+# Instead, the settling character's Charter decides their power base.
+# Legitimacy and authority still come from ideology, exactly as they do for any other route into a state government.
+cotc_freelancer_settle_government_effect = {
+	if = {
+		# Privateers settle as an outlaw regime rather than a state.
+		limit = { has_realm_law = camp_purpose_brigands }
+		set_to_default_non_state_government = yes
+	}
+	else = {
+		if = {
+			limit = { has_realm_law = camp_purpose_mercenaries }
+			save_scope_value_as = { name = power_base value = flag:military }
+		}
+		else_if = {
+			limit = { has_realm_law = camp_purpose_scholars }
+			save_scope_value_as = { name = power_base value = flag:technocratic }
+		}
+		else_if = {
+			limit = { has_realm_law = camp_purpose_explorers }
+			save_scope_value_as = { name = power_base value = flag:commercial }
+		}
+		else_if = {
+			# Suppressed in Phase 1
+			limit = { has_realm_law = camp_purpose_legitimists }
+			save_scope_value_as = { name = power_base value = flag:military }
+		}
+		# camp_purpose_wanderers deliberately sets nothing: an unregistered group has declared no trade, so the ideology chooses
+
+		set_to_default_state_government = { KEEP_CURRENT_POWER_BASE = flag:no }
+	}
+}
+
+# Runs on every Posture change
+cotc_freelancer_posture_changed_effect = {
+	# The ship or headquarters are sold and partly refunded. Same as vanilla when becoming landed.
+	hidden_effect = {
+		laamp_clear_domicile_buildings_liquidator_effect = yes
+	}
+	custom_tooltip = {
+		text = cotc_posture_base_liquidated_tt
+		laamp_clear_domicile_buildings_effect = yes
+	}
+
+	hidden_effect = {
+		if = {
+			limit = { has_realm_law = posture_settled }
+			set_variable = cotc_was_settled
+			# Anchor the Base, so a forced relocation can be detected
+			if = {
+				limit = { exists = domicile.domicile_location }
+				set_variable = {
+					name = cotc_settled_base_province
+					value = domicile.domicile_location
+				}
+			}
+		}
+		else = {
+			remove_variable = cotc_was_settled
+			remove_variable = cotc_settled_base_province
+		}
+	}
+
+	# Posture picks the name template shape, so rename
+	cotc_freelancer_rename_group_effect = yes
+}
+
+# A settled character forced onto a roaming-only Charter would drop to Roaming while keeping a settled group name
+# cotc_was_settled records what was last reconciled to, if it disagrees with the law, a change happened
+cotc_freelancer_posture_reconcile_effect = {
+	if = {
+		limit = {
+			government_has_flag = government_is_landless_adventurer
+			OR = {
+				AND = {
+					has_realm_law = posture_settled
+					NOT = { has_variable = cotc_was_settled }
+				}
+				AND = {
+					NOT = { has_realm_law = posture_settled }
+					has_variable = cotc_was_settled
+				}
+			}
+		}
+		cotc_freelancer_posture_changed_effect = yes
+	}
+}
+
+# Settled Freelancer pressure from low Stores
+cotc_settled_stores_pressure_effect = {
+	if = {
+		limit = {
+			domicile ?= { provisions <= 0 }
+			NOT = { has_variable = cotc_settled_privation_cooldown }
+		}
+		set_variable = {
+			name = cotc_settled_privation_cooldown
+			months = 12
+		}
+		# Someone stops turning up
+		random_courtier = {
+			limit = {
+				is_available_ai_adult = yes
+				NOR = {
+					is_close_family_of = root
+					has_any_court_position = yes
+				}
+			}
+			save_scope_as = cotc_unpaid_staff
+			move_to_pool = yes
+		}
+		# Morale hit
+		every_courtier = {
+			add_opinion = {
+				modifier = starving_opinion
+				target = root
+				opinion = -15
+			}
+		}
+		send_interface_toast = {
+			type = event_toast_effect_bad
+			title = cotc_settled_stores_empty_title
+			desc = cotc_settled_stores_empty_desc
+			left_icon = root
+		}
+	}
+	else_if = {
+		limit = {
+			domicile ?= { provisions <= provisions_privation_threshold_start }
+			NOT = { has_variable = cotc_settled_stores_warned }
+		}
+		set_variable = {
+			name = cotc_settled_stores_warned
+			months = 12
+		}
+		send_interface_toast = {
+			type = event_toast_effect_bad
+			title = cotc_settled_stores_low_title
+			desc = cotc_settled_stores_low_desc
+			left_icon = root
+		}
+	}
+}

@@ -525,6 +525,8 @@ tribal_authority = {
 camp_purpose = {
 	default = camp_purpose_wanderers
 	flag = realm_law
+	# COTC: lets window_my_realm.gui tell Charter from Posture
+	flag = cotc_charter_law
 	
 	camp_purpose_wanderers = {
 		pass_phrase =  camp_purpose_pass_phrase
@@ -553,6 +555,11 @@ camp_purpose = {
 			local_arbitration_boon_set_purpose_effect = {
 				MODIFIER = landless_local_arbitration_wanderers_modifier
 			}
+		}
+
+		# COTC: re-roll the group name to suit the new Charter
+		on_after_pass = {
+			cotc_freelancer_rename_group_effect = yes
 		}
 
 		ai_will_do = { value = 0 }
@@ -606,6 +613,11 @@ camp_purpose = {
 			local_arbitration_boon_set_purpose_effect = {
 				MODIFIER = landless_local_arbitration_mercenaries_modifier
 			}
+		}
+
+		# COTC: re-roll the group name to suit the new Charter
+		on_after_pass = {
+			cotc_freelancer_rename_group_effect = yes
 		}
 
 		ai_will_do = {
@@ -725,6 +737,11 @@ camp_purpose = {
 			}
 		}
 
+		# COTC: re-roll the group name to suit the new Charter
+		on_after_pass = {
+			cotc_freelancer_rename_group_effect = yes
+		}
+
 		ai_will_do = {
 			# If we've picked a purpose, don't change it.
 			if = {
@@ -820,6 +837,15 @@ camp_purpose = {
 
 		can_keep = { realm_law_use_camp_purpose = yes }
 
+		# COTC: A settled Base cannot register as Charters defined by movement
+		can_pass = {
+			custom_tooltip = {
+				subject = root
+				text = cotc_charter_requires_roaming_tt
+				NOT = { has_realm_law = posture_settled }
+			}
+		}
+
 		pass_cost = {
 			prestige = {
 				if = {
@@ -842,6 +868,11 @@ camp_purpose = {
 			local_arbitration_boon_set_purpose_effect = {
 				MODIFIER = landless_local_arbitration_explorers_modifier
 			}
+		}
+
+		# COTC: re-roll the group name to suit the new Charter
+		on_after_pass = {
+			cotc_freelancer_rename_group_effect = yes
 		}
 
 		ai_will_do = {
@@ -941,6 +972,15 @@ camp_purpose = {
 
 		can_keep = { realm_law_use_camp_purpose = yes }
 
+		# COTC: A settled Base cannot register as Charters defined by movement
+		can_pass = {
+			custom_tooltip = {
+				subject = root
+				text = cotc_charter_requires_roaming_tt
+				NOT = { has_realm_law = posture_settled }
+			}
+		}
+
 		pass_cost = {
 			prestige = {
 				if = {
@@ -963,6 +1003,11 @@ camp_purpose = {
 			local_arbitration_boon_set_purpose_effect = {
 				MODIFIER = landless_local_arbitration_brigands_modifier
 			}
+		}
+
+		# COTC: re-roll the group name to suit the new Charter
+		on_after_pass = {
+			cotc_freelancer_rename_group_effect = yes
 		}
 		
 		modifier = {
@@ -1118,6 +1163,11 @@ camp_purpose = {
 			local_arbitration_boon_set_purpose_effect = {
 				MODIFIER = landless_local_arbitration_legitimists_modifier
 			}
+		}
+
+		# COTC: re-roll the group name to suit the new Charter
+		on_after_pass = {
+			cotc_freelancer_rename_group_effect = yes
 		}
 		
 		modifier = {

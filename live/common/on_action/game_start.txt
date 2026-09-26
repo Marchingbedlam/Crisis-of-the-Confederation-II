@@ -582,6 +582,46 @@ on_game_start_after_lobby = {
 				tgp_flip_education_track_on_game_start = yes
 			}
 		}
+		### EP3 LAAMP SETUP ###
+		if = {
+			limit = { has_ep3_dlc_trigger = yes }
+			every_independent_ruler = {
+				limit = { has_government = landless_adventurer_government }
+				save_temporary_scope_as = adventurer_scope
+				# Starting funds, scaled by how well known they already are.
+				add_gold = {
+					value = {
+						value = 0
+						add = prestige
+						add = piety
+						divide = 10
+					}
+				}
+				primary_title = { set_coa = scope:adventurer_scope.house }
+				# landless_adventurer_government has council = no, so dismiss any council.
+				every_councillor = {
+					scope:adventurer_scope = { fire_councillor = prev }
+					remove_opinion = {
+						modifier = fired_from_council_opinion
+						target = scope:adventurer_scope
+					}
+				}
+				every_courtier = {
+					limit = {
+						prev = { save_temporary_scope_as = char_temp }
+						NOR = {
+							dynasty ?= scope:char_temp.dynasty
+							is_imprisoned_by = scope:char_temp
+							has_important_relationship_with_character_trigger = { CHARACTER = scope:char_temp }
+							is_close_or_extended_family_of = scope:char_temp
+						}
+					}
+					move_to_pool = yes
+				}
+				# Hire an opening crew from the locals.
+				trigger_event = ep3_laamps.1001
+			}
+		}
 	}
 	events = {
 		game_rule.1000	#Autopopulate families.
