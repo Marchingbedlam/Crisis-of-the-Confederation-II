@@ -2,28 +2,9 @@
 # COTC - Syndicate values
 ##################################################
 
-cotc_syndicate_target_status_value = {
-	value = 0
-	if = { limit = { cotc_syndicate_status_independent_trigger = yes } add = 1 }
-	else_if = { limit = { cotc_syndicate_status_protected_trigger = yes } add = 2 }
-	else_if = { limit = { cotc_syndicate_status_frontier_trigger = yes } add = 3 }
-}
-
 cotc_syndicate_grip_value = {
 	value = 0
 	if = { limit = { has_variable = cotc_syndicate_grip } add = var:cotc_syndicate_grip }
-}
-
-cotc_syndicate_crowding_value = {
-	value = 1
-	if = {
-		limit = { cotc_has_syndicate_trigger = yes }
-		value = 0
-		var:cotc_syndicate_turf = {
-			every_in_list = { variable = cotc_syndicate_operators  add = 1 }
-		}
-		min = 1
-	}
 }
 
 cotc_syndicate_grip_gain_value = {
@@ -43,7 +24,8 @@ cotc_syndicate_grip_gain_value = {
 	}
 
 	if = { limit = { cotc_syndicate_status_independent_trigger = yes } multiply = 1.25 }
-	if = { limit = { cotc_syndicate_status_frontier_trigger = yes } multiply = 0.8 }
+	if = { limit = { cotc_syndicate_status_protected_trigger = yes } multiply = 0.9 }
+	if = { limit = { cotc_syndicate_status_frontier_trigger = yes } multiply = 0.75 }
 	if = { limit = { var:cotc_syndicate_turf ?= { development_level >= 10 } } multiply = 1.2 }
 
 	min = 1
@@ -51,11 +33,10 @@ cotc_syndicate_grip_gain_value = {
 
 cotc_syndicate_grip_suborn_value = 60
 cotc_syndicate_grip_takeover_value = 80
-cotc_syndicate_grip_secession_value = 90
 cotc_syndicate_takeover_cb_cost = 150
 
 # HEAT is notoriety, held per boss rather than per System, so two syndicates sharing
-# a System draw separate attention and the loudest one takes the raid.
+# a System draw separate attention and only the loudest one gets acted upon
 cotc_syndicate_heat_raw_value = {
 	value = 0
 	if = { limit = { has_variable = cotc_syndicate_heat } add = var:cotc_syndicate_heat }
@@ -85,7 +66,8 @@ cotc_syndicate_heat_value = {
 	}
 
 	if = { limit = { cotc_syndicate_status_independent_trigger = yes } multiply = 0.75 }
-	if = { limit = { cotc_syndicate_status_frontier_trigger = yes } multiply = 1.5 }
+	if = { limit = { cotc_syndicate_status_protected_trigger = yes } multiply = 0.9 }
+	if = { limit = { cotc_syndicate_status_frontier_trigger = yes } multiply = 1.25 }
 
 	# A Sector already drowning in crime has less attention to spare
 	if = {

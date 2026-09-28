@@ -1509,6 +1509,18 @@ cotc_political_campaign_events.1000 = { # Legislative campaign endorsement accep
 		name = cotc_political_campaign_events.1000.a
 	}
 }
+
+cotc_political_campaign_events.1010 = { # Legislative campaign endorsement declined
+	type = letter_event
+	opening = { desc = char_interaction.0010.opening }
+	desc = cotc_political_campaign_events.1010.desc
+	
+	sender = scope:recipient
+	
+	option = {
+		name = cotc_political_campaign_events.1010.a
+	}
+}
 char_interaction.1010 = { # Legislative campaign endorsement refused
 	type = letter_event
 	opening = { desc = char_interaction.0001.opening }

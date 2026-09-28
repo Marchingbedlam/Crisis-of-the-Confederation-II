@@ -569,32 +569,6 @@ cotc_crackdown_interdiction_effect = {
 				target = scope:cotc_syndicate_boss
 			}
 		}
-		if = {
-			limit = {
-				scope:cotc_syndicate_boss = { cotc_syndicate_status_frontier_trigger = yes }
-				exists = scope:cotc_crackdown_authority.top_liege
-			}
-			scope:cotc_crackdown_authority = {
-				every_character_war = {
-					limit = { primary_defender = scope:cotc_syndicate_boss }
-					save_scope_as = cotc_interdiction_war
-				}
-			}
-			scope:cotc_crackdown_authority.top_liege = {
-				save_scope_as = cotc_crackdown_state
-				spawn_army = {
-					men_at_arms = {
-						type = armored_footmen
-						stacks = 3
-					}
-					levies = 500
-					inheritable = no
-					location = scope:cotc_crackdown_system.title_province
-					war = scope:cotc_interdiction_war
-					name = cotc_interdiction_event_army
-				}
-			}
-		}
 		send_interface_toast = {
 			type = event_toast_effect_bad
 			title = cotc_crackdown_interdiction_toast
