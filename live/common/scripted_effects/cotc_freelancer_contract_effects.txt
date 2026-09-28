@@ -1,0 +1,156 @@
+﻿##################################################
+# COTC - Freelancer contract population
+##################################################
+
+# OVERRIDES vanilla populate_location_with_contracts_effect
+populate_location_with_contracts_effect = {
+	if = {
+		limit = {
+			# The AI have their own system for getting contracts.
+			trigger_if = {
+				limit = { has_government = landless_adventurer_government }
+				is_ai = no
+			}
+			lock_contracts_from_spawning_in_sahara_trigger = yes
+		}
+		# Flag our pre-existing contracts if necessary.
+		if = {
+			limit = { exists = scope:toggle_distance_ignore }
+			every_character_task_contract = { add_to_list = pre_existing_contracts_list }
+		}
+		# Now populate.
+		if = {
+			limit = { $AREA_CHAR$ = { has_realm_law = camp_purpose_brigands } }
+			populate_task_contracts_for_area = {
+				location = $AREA_CHAR$.capital_province
+				amount = $AMOUNT$
+				group = {
+					laamp_contracts_criminal_group
+				}
+			}
+		}
+		else = {
+			populate_task_contracts_for_area = {
+				location = $AREA_CHAR$.capital_province
+				amount = $AMOUNT$
+				group = {
+					laamp_contracts_transport_group
+					laamp_contracts_criminal_group
+					laamp_contracts_diplomacy_group
+					laamp_contracts_hireling_group
+					laamp_contracts_hunting_group
+					laamp_contracts_intrigue_group
+					laamp_contracts_learning_group
+					laamp_contracts_martial_group
+					laamp_contracts_stewardship_group
+					laamp_contracts_justicar_group
+				}
+			}
+		}
+		# Then flag our new contracts (again, if necessary).
+		if = {
+			limit = { exists = scope:toggle_distance_ignore }
+			every_character_task_contract = {
+				limit = {
+					NOT = { is_in_list = pre_existing_contracts_list }
+				}
+				set_variable = {
+					name = retain_despite_distance
+					value = yes
+				}
+			}
+		}
+	}
+}
+
+# When a criminal contract is completed we want to progress the Underworld state of the sector where the contract was located.
+# If there is no Underworld active then nothing happens.
+cotc_criminal_contract_completed_effect = {
+	cotc_underworld_catalyst_effect = {
+		CATALYST = catalyst_criminal_job_done
+		SECTOR = task_contract_location.county.duchy
+	}
+
+	task_contract_taker ?= {
+		if = {
+			limit = {
+				cotc_has_syndicate_trigger = yes
+				var:cotc_syndicate_turf = root.task_contract_location.county
+			}
+			save_scope_as = cotc_syndicate_boss
+			cotc_syndicate_add_grip_effect = { AMOUNT = cotc_syndicate_grip_gain_value }
+			cotc_crackdown_add_heat_effect = { AMOUNT = cotc_crackdown_heat_per_job_value }
+			cotc_underworld_save_sector_effect = yes
+			cotc_underworld_catalyst_effect = {
+				CATALYST = catalyst_syndicate_entrenched
+				SECTOR = scope:cotc_underworld_sector
+			}
+			send_interface_toast = {
+				type = event_toast_effect_good
+				title = cotc_syndicate_grip_gained_toast
+				left_icon = scope:cotc_syndicate_boss
+				custom_tooltip = cotc_syndicate_grip_gained_tt
+			}
+		}
+	}
+}
+
+##################################################
+# LOCAL CONTRACTS SPAWN
+# Root = the Freelancer. LOCATION = the province being visited.
+##################################################
+
+cotc_populate_local_news_effect = {
+	if = {
+		limit = { has_realm_law = camp_purpose_brigands }
+		populate_task_contracts_for_area = {
+			location = $LOCATION$
+			amount = $AMOUNT$
+			group = {
+				laamp_contracts_criminal_group
+			}
+		}
+	}
+	else = {
+		populate_task_contracts_for_area = {
+			location = $LOCATION$
+			amount = $AMOUNT$
+			group = {
+				laamp_contracts_transport_group
+				laamp_contracts_criminal_group
+				laamp_contracts_diplomacy_group
+				laamp_contracts_hireling_group
+				laamp_contracts_hunting_group
+				laamp_contracts_intrigue_group
+				laamp_contracts_learning_group
+				laamp_contracts_martial_group
+				laamp_contracts_stewardship_group
+				laamp_contracts_justicar_group
+			}
+		}
+	}
+}
+
+##################################################
+# LOCAL CONTRACTS CULL
+# Root = the Freelancer. SECTOR = the duchy title the offers must belong to.
+#
+# The only way found to limit contracts to one sector: spawn a ton and discard what isn't in it.
+##################################################
+
+cotc_local_news_cull_effect = {
+	every_character_task_contract = {
+		limit = {
+			NOT = { is_in_list = cotc_local_news_pre_existing }
+		}
+		if = {
+			limit = {
+				task_contract_location.county.duchy ?= $SECTOR$
+			}
+			add_to_list = cotc_local_news_offers
+		}
+		else = {
+			invalidate_contract = yes
+		}
+	}
+}

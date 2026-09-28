@@ -1,0 +1,606 @@
+﻿##################################################
+# COTC - Freelancer Syndicate effects
+##################################################
+
+# Root = the boss. Registers an Enterprise on the System they are parked in.
+cotc_syndicate_found_effect = {
+	save_scope_as = cotc_syndicate_boss
+	domicile.domicile_location.county = { save_scope_as = cotc_syndicate_system }
+	set_variable = {
+		name = cotc_syndicate_turf
+		value = scope:cotc_syndicate_system
+	}
+	set_variable = {
+		name = cotc_syndicate_grip
+		value = 0
+	}
+	scope:cotc_syndicate_system = {
+		# Clear out anyone the roster is still carrying by mistake before adding to it.
+		cotc_syndicate_prune_roster_effect = yes
+		# The roster is additive - other operators keep theirs.
+		if = {
+			limit = {
+				NOT = {
+					is_target_in_variable_list = {
+						name = cotc_syndicate_operators
+						target = scope:cotc_syndicate_boss
+					}
+				}
+			}
+			add_to_variable_list = {
+				name = cotc_syndicate_operators
+				target = scope:cotc_syndicate_boss
+			}
+		}
+	}
+	# The Sector's Underworld is normally created when the boss settles, in
+	# cotc_freelancer_posture_changed_effect. This call is an idempotent safety
+	# net for any path that reaches an Enterprise without one - without it the
+	# founding catalyst would land nowhere.
+	cotc_underworld_ensure_effect = yes
+	cotc_underworld_catalyst_effect = {
+		CATALYST = catalyst_syndicate_founded
+		SECTOR = scope:cotc_underworld_sector
+	}
+
+	send_interface_toast = {
+		type = event_toast_effect_good
+		title = cotc_found_syndicate_toast
+		left_icon = scope:cotc_syndicate_boss
+		right_icon = scope:cotc_syndicate_system
+		custom_tooltip = cotc_found_syndicate_toast_tt
+	}
+}
+
+# Root = the boss. Removes only THIS Syndicate. Rivals on the same System stay
+cotc_syndicate_clear_effect = {
+	save_scope_as = cotc_syndicate_boss
+	if = {
+		limit = { cotc_has_syndicate_trigger = yes }
+		cotc_underworld_save_sector_effect = yes
+		var:cotc_syndicate_turf ?= {
+			remove_list_variable = {
+				name = cotc_syndicate_operators
+				target = scope:cotc_syndicate_boss
+			}
+		}
+		remove_variable = cotc_syndicate_turf
+	}
+	remove_variable = cotc_syndicate_grip
+	if = {
+		limit = { is_alive = yes }
+		remove_character_flag = cotc_syndicate_extorting
+	}
+}
+
+##################################################
+# SUCCESSION
+##################################################
+
+# Root = the heir who just inherited the Freelancer title.
+# scope:previous_holder = the dead boss.
+cotc_syndicate_inherit_effect = {
+	save_scope_as = cotc_syndicate_heir
+	scope:previous_holder = { save_scope_as = cotc_syndicate_dead_boss }
+
+	set_variable = {
+		name = cotc_syndicate_turf
+		value = scope:cotc_syndicate_dead_boss.var:cotc_syndicate_turf
+	}
+	set_variable = {
+		name = cotc_syndicate_grip
+		value = scope:cotc_syndicate_dead_boss.var:cotc_syndicate_grip
+	}
+	if = {
+		limit = { scope:cotc_syndicate_dead_boss = { has_variable = cotc_syndicate_heat } }
+		set_variable = {
+			name = cotc_syndicate_heat
+			value = scope:cotc_syndicate_dead_boss.var:cotc_syndicate_heat
+		}
+	}
+	# The extortion edge flag travels too
+	if = {
+		limit = { scope:cotc_syndicate_dead_boss = { has_character_flag = cotc_syndicate_extorting } }
+		add_character_flag = cotc_syndicate_extorting
+	}
+
+	# Take the seat on the System's roster before the dead boss gives theirs up.
+	var:cotc_syndicate_turf ?= {
+		if = {
+			limit = {
+				NOT = {
+					is_target_in_variable_list = {
+						name = cotc_syndicate_operators
+						target = scope:cotc_syndicate_heir
+					}
+				}
+			}
+			add_to_variable_list = {
+				name = cotc_syndicate_operators
+				target = scope:cotc_syndicate_heir
+			}
+		}
+	}
+
+	# Clearing the dead boss removes only their roster entry and their variables.
+	scope:cotc_syndicate_dead_boss = {
+		cotc_syndicate_clear_effect = yes
+		remove_variable = cotc_syndicate_heat
+	}
+
+	send_interface_toast = {
+		type = event_toast_effect_neutral
+		title = cotc_syndicate_inherited_toast
+		left_icon = scope:cotc_syndicate_heir
+		right_icon = scope:cotc_syndicate_dead_boss
+		custom_tooltip = cotc_syndicate_inherited_tt
+	}
+}
+
+##################################################
+# GRIP
+##################################################
+
+# Root = the boss. AMOUNT may be negative; grip is clamped to 0-100.
+cotc_syndicate_add_grip_effect = {
+	if = {
+		limit = { cotc_has_syndicate_trigger = yes }
+		change_variable = {
+			name = cotc_syndicate_grip
+			add = $AMOUNT$
+		}
+		if = {
+			limit = { var:cotc_syndicate_grip > 100 }
+			set_variable = { name = cotc_syndicate_grip  value = 100 }
+		}
+		if = {
+			limit = { var:cotc_syndicate_grip < 0 }
+			set_variable = { name = cotc_syndicate_grip  value = 0 }
+		}
+		if = {
+			limit = {
+				var:cotc_syndicate_grip >= cotc_syndicate_grip_suborn_value
+				NOT = { has_character_flag = cotc_syndicate_extorting }
+			}
+			add_character_flag = cotc_syndicate_extorting
+			cotc_underworld_save_sector_effect = yes
+			cotc_underworld_catalyst_effect = {
+				CATALYST = catalyst_system_extorted
+				SECTOR = scope:cotc_underworld_sector
+			}
+		}
+		else_if = {
+			limit = {
+				var:cotc_syndicate_grip < cotc_syndicate_grip_suborn_value
+				has_character_flag = cotc_syndicate_extorting
+			}
+			remove_character_flag = cotc_syndicate_extorting
+		}
+	}
+}
+
+##################################################
+# CLEANUP
+##################################################
+
+# Root = a System (county title). Drops operators who died, lost their
+# Syndicate, or moved their turf elsewhere without going through the clear.
+cotc_syndicate_prune_roster_effect = {
+	if = {
+		limit = { has_variable_list = cotc_syndicate_operators }
+		save_scope_as = cotc_syndicate_system
+		every_in_list = {
+			variable = cotc_syndicate_operators
+			limit = { cotc_syndicate_operator_is_stale_trigger = yes }
+			save_temporary_scope_as = cotc_stale_operator
+			scope:cotc_syndicate_system = {
+				add_to_variable_list = {
+					name = cotc_syndicate_stale
+					target = scope:cotc_stale_operator
+				}
+			}
+		}
+		if = {
+			limit = { has_variable_list = cotc_syndicate_stale }
+			every_in_list = {
+				variable = cotc_syndicate_stale
+				save_temporary_scope_as = cotc_stale_operator
+				scope:cotc_syndicate_system = {
+					remove_list_variable = {
+						name = cotc_syndicate_operators
+						target = scope:cotc_stale_operator
+					}
+				}
+			}
+			clear_variable_list = cotc_syndicate_stale
+		}
+	}
+}
+##################################################
+# COTC - Underworld situation lifecycle
+##################################################
+
+# Root = the boss. Makes sure the Sector they operate in has an Underworld, and
+# leaves it in scope:cotc_underworld_situation.
+cotc_underworld_ensure_effect = {
+	if = {
+		limit = { exists = domicile.domicile_location.county.duchy }
+		domicile.domicile_location.county.duchy = { save_scope_as = cotc_underworld_sector }
+		if = {
+			limit = { scope:cotc_underworld_sector = { NOT = { has_variable = cotc_underworld } } }
+			debug_log = "COTC Underworld: creating an instance"
+			debug_log_scopes = yes
+
+			# start_situation is called in character scope, as the legislature
+			# does - it is not known to work from a title scope.
+			start_situation = {
+				type = cotc_underworld
+				start_phase = underworld_quiet
+				save_scope_as = cotc_underworld_situation
+			}
+
+			# Name the instance BEFORE anything can render it: the situation list
+			# entry is "[Situation...Var('cotc_underworld_sector')...] Underworld".
+			scope:cotc_underworld_situation = {
+				set_variable = {
+					name = cotc_underworld_sector
+					value = scope:cotc_underworld_sector
+				}
+				situation_sub_region:cotc_underworld_sector_region = {
+					add_dejure_title_to_sub_region = scope:cotc_underworld_sector
+				}
+			}
+			scope:cotc_underworld_sector = {
+				set_variable = {
+					name = cotc_underworld
+					value = scope:cotc_underworld_situation
+				}
+			}
+
+			# THE SUB-REGION IS EMPTY WHEN start_situation RUNS, so the engine's
+			# auto_add pass at creation finds nobody inside it - the territory only
+			# arrives on the line after. Without forcing a re-evaluation the
+			# instance stays permanently unpopulated, and a situation nobody
+			# participates in does not appear anywhere.
+			#
+			# recalculate_participant_group is a CHARACTER effect, so it is run
+			# here on the founder and on anyone else already settled in the Sector.
+			recalculate_participant_group = scope:cotc_underworld_situation
+			scope:cotc_underworld_sector = {
+				every_de_jure_county = {
+					limit = { exists = holder }
+					holder = {
+						recalculate_participant_group = scope:cotc_underworld_situation
+					}
+				}
+			}
+		}
+		else = {
+			scope:cotc_underworld_sector.var:cotc_underworld ?= {
+				save_scope_as = cotc_underworld_situation
+			}
+			# A second operator settling in an existing Sector still has to be
+			# evaluated against its groups.
+			recalculate_participant_group = scope:cotc_underworld_situation
+		}
+	}
+}
+
+# Root = the boss. Saves their Sector as scope:cotc_underworld_sector.
+# Call this BEFORE cotc_syndicate_clear_effect
+cotc_underworld_save_sector_effect = {
+	var:cotc_syndicate_turf.duchy ?= { save_scope_as = cotc_underworld_sector }
+}
+# Fire a catalyst on one Sector's Underworld
+cotc_underworld_catalyst_effect = {
+	$SECTOR$.var:cotc_underworld ?= {
+		trigger_situation_catalyst = $CATALYST$
+	}
+}
+
+# Root = the situation. Drops dead or departed Freelancers from every System in the Sector when they have no inheritor
+cotc_underworld_sweep_rosters_effect = {
+	var:cotc_underworld_sector ?= {
+		every_de_jure_county = {
+			limit = { has_variable_list = cotc_syndicate_operators }
+			cotc_syndicate_prune_roster_effect = yes
+		}
+	}
+}
+
+# Root = the situation itself, called from its own on_yearly.
+cotc_underworld_retire_effect = {
+	if = {
+		limit = {
+			# Only once it has actually calmed down. A Sector left entrenched
+			# keeps its instance, and its modifiers, until the phase decays.
+			situation_current_phase = underworld_quiet
+			# Nobody settled here any more...
+			NOT = {
+				any_situation_sub_region = {
+					any_situation_sub_region_participant_group = {
+						participant_group_type = underworld_bosses
+						any_situation_group_participant = { always = yes }
+					}
+				}
+			}
+			# ...and nobody is still working a System in it from outside.
+			trigger_if = {
+				limit = { exists = var:cotc_underworld_sector }
+				var:cotc_underworld_sector = {
+					NOT = {
+						any_de_jure_county = {
+							has_variable_list = cotc_syndicate_operators
+							variable_list_size = { name = cotc_syndicate_operators  value >= 1 }
+						}
+					}
+				}
+			}
+		}
+		end_situation = yes
+	}
+}
+
+cotc_dismantle_syndicate_prep_effect = {
+	save_scope_as = scheme
+	save_scope_value_as = {
+		name = follow_up_event
+		value = event_id:cotc_syndicate_scheme.0010
+	}
+	if = {
+		limit = { NOT = { exists = scope:suppress_next_event } }
+		scheme_owner = { trigger_event = scheme_critical_moments.0002 }
+	}
+}
+
+##################################################
+# COTC - Crackdown effects
+##################################################
+
+# Root = the boss.
+cotc_crackdown_add_heat_effect = {
+	if = {
+		limit = { cotc_has_syndicate_trigger = yes }
+		if = {
+			limit = { NOT = { has_variable = cotc_syndicate_heat } }
+			set_variable = { name = cotc_syndicate_heat  value = 0 }
+		}
+		change_variable = {
+			name = cotc_syndicate_heat
+			add = $AMOUNT$
+		}
+		if = {
+			limit = { var:cotc_syndicate_heat < 0 }
+			set_variable = { name = cotc_syndicate_heat  value = 0 }
+		}
+	}
+}
+
+# Root = the boss. scope:cotc_crackdown_authority is who seized everything
+cotc_syndicate_dismantled_effect = {
+	save_scope_as = cotc_dismantled_boss
+	# Before anything clears, the catalyst at the end needs the sector
+	cotc_underworld_save_sector_effect = yes
+
+	# Assets seized
+	if = {
+		limit = { gold > 0 }
+		if = {
+			limit = { exists = scope:cotc_crackdown_authority }
+			pay_short_term_gold = {
+				target = scope:cotc_crackdown_authority
+				gold = {
+					value = gold
+					multiply = 0.5
+				}
+			}
+		}
+		else = {
+			remove_short_term_gold = {
+				value = gold
+				multiply = 0.5
+			}
+		}
+	}
+	if = {
+		limit = { exists = scope:cotc_crackdown_authority }
+		every_character_artifact = {
+			limit = { NOT = { has_variable = cotc_artifact_untouchable } }
+			set_owner = scope:cotc_crackdown_authority
+		}
+	}
+
+	# Forced back to Roaming
+	if = {
+		limit = { has_realm_law = posture_settled }
+		add_realm_law_skip_effects = posture_roaming
+		cotc_freelancer_posture_changed_effect = yes
+	}
+
+	# The target Snydicate is ended. Rivals are untouched.
+	cotc_syndicate_clear_effect = yes
+	remove_variable = cotc_syndicate_heat
+
+	# Exiled from the System, out of the authority's reach if possible
+	if = {
+		limit = { exists = scope:cotc_crackdown_system }
+		scope:cotc_crackdown_system = {
+			random_neighboring_county = {
+				limit = {
+					exists = holder
+					exists = title_province
+					trigger_if = {
+						limit = { exists = scope:cotc_crackdown_authority }
+						NOT = { holder.top_liege = scope:cotc_crackdown_authority.top_liege }
+					}
+				}
+				title_province = { save_temporary_scope_as = cotc_exile_destination }
+			}
+		}
+		if = {
+			limit = { exists = scope:cotc_exile_destination }
+			move_domicile = scope:cotc_exile_destination
+		}
+	}
+
+	cotc_underworld_catalyst_effect = {
+		CATALYST = catalyst_syndicate_dismantled
+		SECTOR = scope:cotc_underworld_sector
+	}
+	send_interface_toast = {
+		type = event_toast_effect_bad
+		title = cotc_syndicate_dismantled_toast
+		left_icon = scope:cotc_dismantled_boss
+		custom_tooltip = cotc_syndicate_dismantled_tt
+	}
+}
+
+# Root = the boss.
+cotc_crackdown_pulse_effect = {
+	if = {
+		limit = { cotc_has_syndicate_trigger = yes }
+
+		# Heat decay
+		cotc_crackdown_add_heat_effect = { AMOUNT = cotc_crackdown_heat_yearly_decay_negative_value }
+
+		save_scope_as = cotc_syndicate_boss
+		var:cotc_syndicate_turf = { save_scope_as = cotc_crackdown_system }
+		var:cotc_syndicate_turf.holder ?= { save_scope_as = cotc_crackdown_authority }
+
+		if = {
+			limit = {
+				exists = scope:cotc_crackdown_authority
+				cotc_syndicate_is_loudest_trigger = yes
+				cotc_crackdown_authority_will_act_trigger = yes
+			}
+
+			# Interdiction, war declared
+			if = {
+				limit = { cotc_crackdown_interdiction_trigger = yes }
+				cotc_crackdown_interdiction_effect = yes
+			}
+			# Sanction, dissolve the syndicate
+			else_if = {
+				limit = { cotc_crackdown_sanction_trigger = yes }
+				cotc_crackdown_sanction_effect = yes
+			}
+			# Enforcement, scheme against the operation
+			else_if = {
+				limit = { cotc_crackdown_enforcement_trigger = yes }
+				cotc_crackdown_enforcement_effect = yes
+			}
+			# Notice, lower Syndicate income
+			else_if = {
+				limit = { cotc_crackdown_notice_trigger = yes }
+				cotc_crackdown_notice_effect = yes
+			}
+		}
+	}
+}
+
+cotc_crackdown_notice_effect = {
+	if = {
+		limit = { NOT = { has_character_flag = cotc_crackdown_noticed } }
+		add_character_flag = {
+			flag = cotc_crackdown_noticed
+			years = 5
+		}
+		send_interface_toast = {
+			type = event_toast_effect_neutral
+			title = cotc_crackdown_notice_toast
+			left_icon = scope:cotc_crackdown_authority
+			right_icon = scope:cotc_crackdown_system
+			custom_tooltip = cotc_crackdown_notice_tt
+		}
+	}
+}
+
+cotc_crackdown_enforcement_effect = {
+	if = {
+		limit = {
+			scope:cotc_crackdown_authority = {
+				NOT = {
+					any_scheme = {
+						scheme_type = cotc_dismantle_syndicate
+						scheme_target_character = scope:cotc_syndicate_boss
+					}
+				}
+			}
+		}
+		scope:cotc_crackdown_authority = {
+			start_scheme = {
+				type = cotc_dismantle_syndicate
+				target_character = scope:cotc_syndicate_boss
+			}
+		}
+		send_interface_toast = {
+			type = event_toast_effect_bad
+			title = cotc_crackdown_enforcement_toast
+			left_icon = scope:cotc_crackdown_authority
+			right_icon = scope:cotc_crackdown_system
+			custom_tooltip = cotc_crackdown_enforcement_tt
+		}
+	}
+}
+
+cotc_crackdown_sanction_effect = {
+	scope:cotc_crackdown_authority = {
+		open_interaction_window = {
+			interaction = cotc_demand_syndicate_dissolution_interaction
+			actor = scope:cotc_crackdown_authority
+			recipient = scope:cotc_syndicate_boss
+		}
+	}
+}
+
+cotc_crackdown_interdiction_effect = {
+	if = {
+		limit = {
+			NOT = {
+				any_character_war = {
+					primary_attacker = scope:cotc_crackdown_authority
+					primary_defender = scope:cotc_syndicate_boss
+				}
+			}
+		}
+		scope:cotc_crackdown_authority = {
+			start_war = {
+				casus_belli = cotc_interdiction_cb
+				target = scope:cotc_syndicate_boss
+			}
+		}
+		if = {
+			limit = {
+				scope:cotc_syndicate_boss = { cotc_syndicate_status_frontier_trigger = yes }
+				exists = scope:cotc_crackdown_authority.top_liege
+			}
+			scope:cotc_crackdown_authority = {
+				every_character_war = {
+					limit = { primary_defender = scope:cotc_syndicate_boss }
+					save_scope_as = cotc_interdiction_war
+				}
+			}
+			scope:cotc_crackdown_authority.top_liege = {
+				save_scope_as = cotc_crackdown_state
+				spawn_army = {
+					men_at_arms = {
+						type = armored_footmen
+						stacks = 3
+					}
+					levies = 500
+					inheritable = no
+					location = scope:cotc_crackdown_system.title_province
+					war = scope:cotc_interdiction_war
+					name = cotc_interdiction_event_army
+				}
+			}
+		}
+		send_interface_toast = {
+			type = event_toast_effect_bad
+			title = cotc_crackdown_interdiction_toast
+			left_icon = scope:cotc_crackdown_authority
+			right_icon = scope:cotc_crackdown_system
+			custom_tooltip = cotc_crackdown_interdiction_tt
+		}
+	}
+}

@@ -1,0 +1,23 @@
+﻿on_title_gain_inheritance = { on_actions = { cotc_syndicate_on_inherit } }
+yearly_playable_pulse = { on_actions = { cotc_crackdown_yearly } }
+
+cotc_syndicate_on_inherit = {
+	trigger = {
+		exists = scope:previous_holder
+		scope:previous_holder = { cotc_has_syndicate_trigger = yes }
+		scope:title = { is_landless_type_title = yes }
+		is_alive = yes
+	}
+	effect = {
+		cotc_syndicate_inherit_effect = yes
+	}
+}
+
+cotc_crackdown_yearly = {
+	trigger = {
+		cotc_has_syndicate_trigger = yes
+	}
+	effect = {
+		cotc_crackdown_pulse_effect = yes
+	}
+}

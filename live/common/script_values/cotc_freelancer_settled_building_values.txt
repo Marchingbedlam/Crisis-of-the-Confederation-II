@@ -1,4 +1,5 @@
-﻿cotc_settled_communications_room_gold_cost_value = 250
+﻿# General
+cotc_settled_communications_room_gold_cost_value = 250
 cotc_settled_public_lounge_gold_cost_value = 200
 cotc_settled_contract_office_gold_cost_value = 250
 cotc_settled_motor_pool_gold_cost_value = 250
@@ -6,6 +7,17 @@ cotc_settled_recreation_area_gold_cost_value = 200
 cotc_settled_licensed_clinic_gold_cost_value = 200
 cotc_settled_modular_layout_gold_cost_value = 200
 cotc_settled_payroll_department_gold_cost_value = 250
+
+# Outlaws
+cotc_settled_front_business_gold_cost_value = 300
+cotc_settled_protection_desk_gold_cost_value = 250
+cotc_settled_discreet_warehouse_gold_cost_value = 250
+cotc_settled_sanitation_contract_gold_cost_value = 250
+cotc_settled_holding_floor_gold_cost_value = 250
+cotc_settled_legal_retainer_gold_cost_value = 250
+cotc_settled_listening_post_gold_cost_value = 250
+cotc_settled_impound_yard_gold_cost_value = 250
+cotc_settled_enforcer_gym_gold_cost_value = 200
 
 # Quarterly upkeep of a settled Base
 cotc_settled_upkeep_value = {
@@ -25,6 +37,9 @@ cotc_settled_upkeep_value = {
 		limit = { domicile ?= { num_domicile_buildings >= 12 } }
 		add = 30
 	}
+
+	if = { limit = { domicile ?= { has_domicile_parameter = cotc_settled_protection } } add = 20 }
+	if = { limit = { domicile ?= { has_domicile_parameter = cotc_settled_muscle } }     add = 20 }
 
 	if = {
 		limit = { domicile ?= { has_domicile_parameter = cotc_settled_payroll_department } }

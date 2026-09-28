@@ -1,0 +1,65 @@
+﻿l_english:
+ # The Underworld situation
+ situation_type_cotc_underworld: "The Underworld"
+ situation_type_cotc_underworld_desc: "Smugglers and cartels operate in the gaps between authority. Where they go unchecked, the syndicates grow rich and the law grows poor."
+ # One instance per Sector
+ situation_cotc_underworld: "$situation_type_cotc_underworld$ of [Situation.MakeScope.Var('cotc_underworld_sector').Title.GetBaseNameNoTierNoTooltip]"
+ situation_cotc_underworld_desc: "$situation_type_cotc_underworld_desc$"
+
+ situation_group_type_underworld: "$situation_type_cotc_underworld$"
+
+ # Participant groups
+ cotc_underworld_participant_group_underworld_bosses: "Syndicates"
+ cotc_underworld_participant_group_underworld_bosses_desc: "Criminal syndicates operating in this sector, whether settled Outlaws or a criminal state ruling openly."
+ cotc_underworld_participant_group_compromised_authorities: "Compromised Authorities"
+ cotc_underworld_participant_group_compromised_authorities_desc: "Rulers in this sector who are on a syndicate payroll, or who have their own hands in the treasury."
+ cotc_underworld_participant_group_enforcing_authorities: "Authorities"
+ cotc_underworld_participant_group_enforcing_authorities_desc: "Every other governor in this sector. Organised crime costs them revenue, control and the confidence of their subjects."
+
+ # Phases
+ underworld_quiet: "Quiet"
+ underworld_quiet_desc: "What crime there is stays petty and local. The authorities have nothing to answer for."
+ cotc_underworld_underworld_quiet_situation_phase: "Quiet"
+ underworld_stirring: "Stirring"
+ underworld_stirring_desc: "Syndicates have taken root. Nothing the authorities cannot still deny, but the first payments are being made."
+ cotc_underworld_underworld_stirring_situation_phase: "Stirring"
+ underworld_entrenched: "Entrenched"
+ underworld_entrenched_desc: "The syndicates are a fact of life. Officials who object are replaced by ones who do not."
+ cotc_underworld_underworld_entrenched_situation_phase: "Entrenched"
+ underworld_ascendant: "Ascendant"
+ underworld_ascendant_desc: "The underworld outweighs the law. Governors govern where the syndicates permit, and the bosses no longer bother to hide."
+ cotc_underworld_underworld_ascendant_situation_phase: "Ascendant"
+
+ # Modifier sets
+ cotc_underworld_stirring_set: "Effects of a Stirring Underworld"
+ cotc_underworld_entrenched_set: "Effects of an Entrenched Underworld"
+ cotc_underworld_ascendant_set: "Effects of an Ascendant Underworld"
+ situation_parameter_cotc_underworld_rich: "Syndicates in this sector earn considerably more"
+
+ # Catalysts - build-up
+ catalyst_syndicate_founded: "Syndicate Founded"
+ catalyst_syndicate_founded_desc: "A criminal syndicate has established itself in this sector."
+ catalyst_criminal_job_done: "Work Done"
+ catalyst_criminal_job_done_desc: "A criminal contract was seen through somewhere in this sector."
+ catalyst_syndicate_entrenched: "Syndicate Entrenched"
+ catalyst_syndicate_entrenched_desc: "A syndicate has tightened its grip on a system in this sector."
+ catalyst_crackdown_failed: "Crackdown Failed"
+ catalyst_crackdown_failed_desc: "An attempt to dismantle a syndicate came to nothing, and the authorities look weaker for having tried."
+ catalyst_system_extorted: "System Extorted"
+ catalyst_system_extorted_desc: "A System in this Sector is paying a syndicate for the privilege of being left alone."
+ catalyst_syndicate_takeover: "Syndicate Takeover"
+ catalyst_syndicate_takeover_desc: "A syndicate has taken a system outright and now rules it openly."
+
+ # Catalysts - de-escalation
+ catalyst_syndicate_dismantled: "Syndicate Dismantled"
+ catalyst_syndicate_dismantled_desc: "A criminal syndicate has been broken up and its assets seized."
+ catalyst_crackdown_succeeded: "Crackdown Succeeded"
+ catalyst_crackdown_succeeded_desc: "The authorities moved against a syndicate and made it stick."
+ catalyst_boss_imprisoned: "Boss Imprisoned"
+ catalyst_boss_imprisoned_desc: "A syndicate boss is behind bars, and their organisation is arguing over the succession."
+ catalyst_authority_reformed: "Authority Reformed"
+ catalyst_authority_reformed_desc: "A compromised official has been removed and the office cleaned out."
+
+ # Sub-regions
+ cotc_underworld_sub_region_cotc_underworld_sector_region: "[Situation.MakeScope.Var('cotc_underworld_sector').Title.GetBaseNameNoTierNoTooltip]"
+ cotc_underworld_sub_region_cotc_underworld_sector_region_desc: "$SITUATION_SUB_REGION_TOOLTIP_DESC$"

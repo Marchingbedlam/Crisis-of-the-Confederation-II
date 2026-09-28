@@ -1,0 +1,136 @@
+﻿##################################################
+# COTC - Dismantle the Syndicate
+#
+# Success costs the syndicate grip and gold.
+##################################################
+
+cotc_dismantle_syndicate = {
+	skill = intrigue
+	desc = cotc_dismantle_syndicate_desc_general
+	success_desc = cotc_dismantle_syndicate_success_desc
+	icon = icon_scheme_coerce_contribution
+	illustration = "gfx/interface/illustrations/event_scenes/corridor.dds"
+	category = hostile
+	target_type = character
+	is_secret = no
+
+	base_progress_goal = 365
+	speed_per_skill_point = t3_spsp_owner_value
+	speed_per_target_skill_point = t3_spsp_target_value
+	spymaster_speed_per_skill_point = t2_spsp_owner_spy_value
+	target_spymaster_speed_per_skill_point = t2_spsp_owner_spy_value
+	tier_speed = 1
+	base_maximum_success = t1_base_max_success_value
+	minimum_success = 0
+	phases_per_agent_charge = 1
+	success_chance_growth_per_skill_point = t3_scgpsp_value
+
+	allow = {
+		is_adult = yes
+		is_imprisoned = no
+		scope:target = { cotc_has_syndicate_trigger = yes }
+	}
+
+	valid = {
+		scope:target = {
+			is_alive = yes
+			cotc_has_syndicate_trigger = yes
+			var:cotc_syndicate_turf.holder ?= scope:owner
+		}
+	}
+
+	agent_leave_threshold = -25
+	agent_join_chance = {
+		base = 0
+		ai_agent_join_chance_basic_suite_modifier = yes
+	}
+	valid_agent = { is_valid_agent_standard_trigger = yes }
+	agent_groups_owner_perspective = { courtiers councillors vassals scripted_relations }
+
+	odds_prediction = {
+		value = scope:owner.intrigue
+		multiply = 4
+		min = 0
+	}
+
+	base_success_chance = {
+		base = 30
+
+		compare_modifier = {
+			desc = SCHEME_MY_INTRIGUE
+			value = scope:owner.intrigue
+			multiplier = 2
+		}
+		compare_modifier = {
+			desc = SCHEME_TARGET_INTRIGUE
+			value = scope:target.intrigue
+			multiplier = -2
+		}
+
+		# A deeply rooted syndicate is harder to pull out.
+		modifier = {
+			desc = cotc_dismantle_deep_roots_desc
+			add = {
+				value = scope:target.cotc_syndicate_grip_value
+				multiply = -0.3
+			}
+		}
+		modifier = {
+			add = -15
+			scope:target.domicile ?= { has_domicile_parameter = cotc_settled_legal_cover }
+			desc = cotc_settled_legal_cover_desc
+		}
+		modifier = {
+			add = -10
+			scope:target.domicile ?= { has_domicile_parameter = cotc_settled_intel }
+			desc = cotc_settled_intel_desc
+		}
+		modifier = {
+			desc = cotc_dismantle_notoriety_desc
+			add = {
+				value = scope:target.cotc_syndicate_heat_raw_value
+				multiply = 0.1
+			}
+		}
+
+		min = 5
+		max = 90
+	}
+
+	# Always started from script (cotc_crackdown_enforcement_effect)
+	on_start = {
+		set_variable = {
+			name = apply_countermeasures
+			value = flag:indirect
+		}
+		if = {
+			limit = {
+				scheme_owner = { NOT = { has_variable = agents_added } }
+			}
+			add_agent_slot = agent_justiciar
+			add_agent_slot = agent_thug
+			add_agent_slot = agent_infiltrator
+			add_agent_slot = agent_lookout
+		}
+	}
+
+	# The roll lives in cotc_syndicate_scheme.0010
+	on_phase_completed = {
+		suppress_scheme_follow_up_event_till_input_given_effect = yes
+		cotc_dismantle_syndicate_prep_effect = yes
+		cap_schemes_and_fire_reminders_effect = yes
+	}
+
+	on_hud_click = { cotc_dismantle_syndicate_prep_effect = yes }
+
+	# Always AI-owned in practice, so it needs the AI nudge to resolve at all.
+	on_semiyearly = {
+		if = {
+			limit = { scheme_owner = { is_ai = yes } }
+			cotc_dismantle_syndicate_prep_effect = yes
+			purge_ai_scheme_slots_effect = yes
+		}
+	}
+
+	on_invalidated = {}
+}

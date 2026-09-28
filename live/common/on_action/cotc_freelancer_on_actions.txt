@@ -7,17 +7,6 @@ quarterly_playable_pulse = {
 		# Cheap for everyone else: the first check fails fast.
 		cotc_freelancer_posture_reconcile_effect = yes
 
-		if = {
-			limit = {
-				has_realm_law_flag = static_camp_posture
-				NOT = { has_variable = cotc_settled_contract_cooldown }
-			}
-			player_adventurer_contract_generation_on_wait_in_place_effect = yes
-			set_variable = {
-				name = cotc_settled_contract_cooldown
-				years = 1
-			}
-		}
 		# Settled upkeep
 		if = {
 			limit = {

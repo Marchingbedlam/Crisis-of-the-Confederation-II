@@ -1,0 +1,51 @@
+﻿##################################################
+# Posture swap
+##################################################
+
+# Root = the Freelancer. Note the trunk's tier before vanilla razes the domicile.
+cotc_freelancer_note_trunk_effect = {
+	set_variable = {
+		name = cotc_main_trunk_tier
+		value = 0
+	}
+	if = {
+		limit = { domicile ?= { has_domicile_building = camp_main_04 } }
+		set_variable = { name = cotc_main_trunk_tier  value = 4 }
+	}
+	else_if = {
+		limit = { domicile ?= { has_domicile_building = camp_main_03 } }
+		set_variable = { name = cotc_main_trunk_tier  value = 3 }
+	}
+	else_if = {
+		limit = { domicile ?= { has_domicile_building = camp_main_02 } }
+		set_variable = { name = cotc_main_trunk_tier  value = 2 }
+	}
+	else_if = {
+		limit = { domicile ?= { has_domicile_building = camp_main_01 } }
+		set_variable = { name = cotc_main_trunk_tier  value = 1 }
+	}
+}
+
+# Root = the Freelancer. Rebuild the trunk to the tier it was at.
+cotc_freelancer_restore_trunk_effect = {
+	if = {
+		limit = { var:cotc_main_trunk_tier >= 1 }
+		domicile ?= {
+			add_domicile_building = camp_main_01
+			if = {
+				limit = { root.var:cotc_main_trunk_tier >= 2 }
+				add_domicile_building = camp_main_02
+			}
+			if = {
+				limit = { root.var:cotc_main_trunk_tier >= 3 }
+				add_domicile_building = camp_main_03
+			}
+			if = {
+				limit = { root.var:cotc_main_trunk_tier >= 4 }
+				add_domicile_building = camp_main_04
+			}
+		}
+		remove_short_term_gold = cotc_main_trunk_refund_value
+	}
+	remove_variable = cotc_main_trunk_tier
+}

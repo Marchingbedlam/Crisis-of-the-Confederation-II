@@ -1,0 +1,70 @@
+﻿namespace = cotc_syndicate_scheme
+
+##################################################
+# COTC - Syndicate events
+##################################################
+
+# Dismantle the Syndicate resolution
+cotc_syndicate_scheme.0010 = {
+	hidden = yes
+
+	immediate = {
+		scope:scheme = {
+			scheme_owner = { save_scope_as = cotc_crackdown_authority }
+			scheme_target_character = { save_scope_as = cotc_syndicate_boss }
+			random = {
+				chance = scope:scheme.scheme_success_chance
+				save_scope_value_as = {
+					name = cotc_raid_successful
+					value = yes
+				}
+			}
+			if = {
+				limit = { exists = scope:cotc_raid_successful }
+				scope:cotc_syndicate_boss = {
+					cotc_syndicate_add_grip_effect = { AMOUNT = -20 }
+					cotc_crackdown_add_heat_effect = { AMOUNT = -40 }
+					if = {
+						limit = { gold > 0 }
+						pay_short_term_gold = {
+							target = scope:cotc_crackdown_authority
+							gold = {
+								value = gold
+								multiply = 0.25
+							}
+						}
+					}
+					cotc_underworld_save_sector_effect = yes
+					cotc_underworld_catalyst_effect = {
+						CATALYST = catalyst_crackdown_succeeded
+						SECTOR = scope:cotc_underworld_sector
+					}
+					send_interface_toast = {
+						type = event_toast_effect_bad
+						title = cotc_dismantle_syndicate_raid_toast
+						left_icon = scope:cotc_crackdown_authority
+						right_icon = scope:cotc_syndicate_boss
+						custom_tooltip = cotc_dismantle_syndicate_raid_tt
+					}
+				}
+			}
+			else = {
+				# A crackdown that comes to nothing makes the authority look weaker for having tried
+				scope:cotc_syndicate_boss = {
+					cotc_underworld_save_sector_effect = yes
+					cotc_underworld_catalyst_effect = {
+						CATALYST = catalyst_crackdown_failed
+						SECTOR = scope:cotc_underworld_sector
+					}
+					send_interface_toast = {
+						type = event_toast_effect_good
+						title = cotc_dismantle_syndicate_failed_toast
+						left_icon = scope:cotc_syndicate_boss
+						right_icon = scope:cotc_crackdown_authority
+						custom_tooltip = cotc_dismantle_syndicate_failed_tt
+					}
+				}
+			}
+		}
+	}
+}

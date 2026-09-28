@@ -1,0 +1,66 @@
+﻿##################################################
+# COTC - Contract triggers
+##################################################
+
+can_create_criminal_contract_trigger = {
+	$LAAMP$ = {
+		OR = {
+			can_create_task_contract = {
+				type_name = cotc_contract_confidence_scheme
+				employer = $EMPLOYER$
+			}
+			can_create_task_contract = {
+				type_name = cotc_contract_commerce_raid
+				employer = $EMPLOYER$
+			}
+			can_create_task_contract = {
+				type_name = cotc_contract_ledger_intrusion
+				employer = $EMPLOYER$
+			}
+			can_create_task_contract = {
+				type_name = cotc_contract_assassination
+				employer = $EMPLOYER$
+			}
+			can_create_task_contract = {
+				type_name = cotc_contract_abduction
+				employer = $EMPLOYER$
+			}
+			can_create_task_contract = {
+				type_name = cotc_contract_sabotage
+				employer = $EMPLOYER$
+			}
+			can_create_task_contract = {
+				type_name = cotc_contract_treasury_heist
+				employer = $EMPLOYER$
+			}
+			can_create_task_contract = {
+				type_name = cotc_contract_counterfeit_tech
+				employer = $EMPLOYER$
+			}
+			can_create_task_contract = {
+				type_name = cotc_contract_cargo_diversion
+				employer = $EMPLOYER$
+			}
+			can_create_task_contract = {
+				type_name = cotc_contract_shakedown
+				employer = $EMPLOYER$
+			}
+			can_create_task_contract = {
+				type_name = laamp_steal_artifact_contract
+				employer = $EMPLOYER$
+			}
+		}
+	}
+}
+
+# Root = a candidate contract, OTHER = an offer already taken.
+cotc_local_news_distinct_trigger = {
+	trigger_if = {
+		limit = {
+			has_variable = cotc_news_type
+			exists = $OTHER$
+			$OTHER$ = { has_variable = cotc_news_type }
+		}
+		NOT = { var:cotc_news_type = $OTHER$.var:cotc_news_type }
+	}
+}
