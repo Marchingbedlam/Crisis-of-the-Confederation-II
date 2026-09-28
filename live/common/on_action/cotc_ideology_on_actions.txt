@@ -1,0 +1,211 @@
+﻿# HOOKS TO CODE
+on_game_start = {
+	on_actions = { initial_ideology_opinions_on_action }
+}
+random_yearly_everyone_pulse = {
+	on_actions = {
+		liege_opinion_power_base_on_action
+		liege_opinion_legitimacy_on_action
+	}
+}
+on_character_faith_change = {
+	on_actions = {
+		liege_opinion_power_base_on_action_recursive # Opinion of lieges based on power base, recursive
+		liege_opinion_legitimacy_on_action_recursive # Opinion of lieges based on legitimacy, recursive
+		county_opinion_legitimacy_on_action_ruler # County opinion based on legitimacy
+		add_prison_piety_gain_on_action # Monthly piety gain for Vory prisoners
+		remove_prison_piety_gain_on_action
+	}
+}
+on_county_faith_change = {
+	on_actions = {
+		county_opinion_legitimacy_on_action # County opinion based on legitimacy
+	}
+}
+on_government_change = {
+	on_actions = {
+		liege_opinion_power_base_on_action_recursive # Opinion of lieges based on power base, recursive
+		liege_opinion_legitimacy_on_action_recursive # Opinion of lieges based on legitimacy, recursive
+		county_opinion_legitimacy_on_action_ruler # County opinion based on legitimacy
+	}
+}
+on_title_gain = {
+	on_actions = {
+		liege_opinion_power_base_on_action_recursive # Opinion of lieges based on power base, recursive
+		liege_opinion_legitimacy_on_action_recursive # Opinion of lieges based on legitimacy, recursive
+		county_opinion_legitimacy_on_action_scoped_title # County opinion based on legitimacy
+	}
+}
+on_title_loss = {
+	on_actions = {
+		liege_opinion_power_base_on_action_recursive # Opinion of lieges based on power base, recursive
+		liege_opinion_legitimacy_on_action_recursive # Opinion of lieges based on legitimacy, recursive
+	}
+}
+on_imprison = {
+	on_actions = { add_prison_piety_gain_on_action } # Monthly piety gain for Vory prisoners
+}
+on_release_from_prison = {
+	on_actions = { remove_prison_piety_gain_on_action } # Monthly piety gain for Vory prisoners
+}
+# OPINION MAINTENANCE
+initial_ideology_opinions_on_action = {
+	effect = {
+		every_county = { trigger_event = { on_action = county_opinion_legitimacy_on_action } }
+		every_independent_ruler = {
+			trigger_event = { on_action = liege_opinion_power_base_on_action_recursive }
+			trigger_event = { on_action = liege_opinion_legitimacy_on_action_recursive }
+		}
+	}
+}
+liege_opinion_power_base_on_action = {
+	effect = {
+		save_temporary_scope_as = temp_character
+		every_liege_or_above = { add_to_temporary_list = current_lieges }
+		if = {
+			limit = { has_variable_list = power_base_lieges }
+			every_in_list = {
+				variable = power_base_lieges
+				limit = { NOT = { is_in_list = current_lieges } }
+				scope:temp_character = {
+					remove_opinion_safe = { TARGET = PREV MODIFIER = opinion_not_commercial }
+					remove_opinion_safe = { TARGET = PREV MODIFIER = opinion_not_military }
+					remove_opinion_safe = { TARGET = PREV MODIFIER = opinion_not_technocratic }
+					remove_opinion_safe = { TARGET = PREV MODIFIER = opinion_not_theocratic }
+					remove_list_variable = { name = power_base_lieges target = PREV }
+				}
+			}
+		}
+		if = {
+			limit = { is_ruler = yes }
+			every_in_list = {
+				list = current_lieges
+				scope:temp_character = {
+					check_power_base_mismatch_effect = { TARGET = PREV POWER_BASE = commercial }
+					check_power_base_mismatch_effect = { TARGET = PREV POWER_BASE = military }
+					check_power_base_mismatch_effect = { TARGET = PREV POWER_BASE = technocratic }
+					check_power_base_mismatch_effect = { TARGET = PREV POWER_BASE = theocratic }
+				}
+			}
+			every_in_list = {
+				variable = power_base_lieges
+				limit = {
+					scope:temp_character = {
+						NOR = {
+							has_opinion_modifier = { target = PREV modifier = opinion_not_commercial }
+							has_opinion_modifier = { target = PREV modifier = opinion_not_military }
+							has_opinion_modifier = { target = PREV modifier = opinion_not_technocratic }
+							has_opinion_modifier = { target = PREV modifier = opinion_not_theocratic }
+						}
+					}
+				}
+				scope:temp_character = { remove_list_variable = { name = power_base_lieges target = PREV } }
+			}
+		}
+	}
+}
+liege_opinion_power_base_on_action_recursive = {
+	effect = {
+		trigger_event = { on_action = liege_opinion_power_base_on_action }
+		every_subject = { add_to_temporary_list = subjects_and_courtiers }
+		every_courtier_or_guest = { add_to_temporary_list = subjects_and_courtiers }
+		every_in_list = {
+			list = subjects_and_courtiers
+			trigger_event = { on_action = liege_opinion_power_base_on_action_recursive }
+		}
+	}
+}
+liege_opinion_legitimacy_on_action = {
+	effect = {
+		save_temporary_scope_as = temp_character
+		every_liege_or_above = { add_to_temporary_list = current_lieges }
+		if = {
+			limit = { has_variable_list = legitimacy_lieges }
+			every_in_list = {
+				variable = legitimacy_lieges
+				limit = { NOT = { is_in_list = current_lieges } }
+				scope:temp_character = {
+					remove_opinion_safe = { TARGET = PREV MODIFIER = opinion_not_democratic }
+					remove_opinion_safe = { TARGET = PREV MODIFIER = opinion_not_aristocratic }
+					remove_opinion_safe = { TARGET = PREV MODIFIER = opinion_not_meritocratic }
+					remove_list_variable = { name = legitimacy_lieges target = PREV }
+				}
+			}
+		}
+		every_in_list = {
+			list = current_lieges
+			scope:temp_character = {
+				check_legitimacy_mismatch_effect = { TARGET = PREV LEGITIMACY = demo }
+				check_legitimacy_mismatch_effect = { TARGET = PREV LEGITIMACY = aristo }
+				check_legitimacy_mismatch_effect = { TARGET = PREV LEGITIMACY = merito }
+			}
+		}
+		every_in_list = {
+			variable = legitimacy_lieges
+			limit = {
+				scope:temp_character = {
+					NOR = {
+						has_opinion_modifier = { target = PREV modifier = opinion_not_democratic }
+						has_opinion_modifier = { target = PREV modifier = opinion_not_aristocratic }
+						has_opinion_modifier = { target = PREV modifier = opinion_not_meritocratic }
+					}
+				}
+			}
+			scope:temp_character = { remove_list_variable = { name = legitimacy_lieges target = PREV } }
+		}
+	}
+}
+liege_opinion_legitimacy_on_action_recursive = {
+	effect = {
+		trigger_event = { on_action = liege_opinion_legitimacy_on_action }
+		every_subject = { add_to_temporary_list = subjects_and_courtiers }
+		every_courtier_or_guest = { add_to_temporary_list = subjects_and_courtiers }
+		every_in_list = {
+			list = subjects_and_courtiers
+			trigger_event = { on_action = liege_opinion_legitimacy_on_action_recursive }
+		}
+	}
+}
+county_opinion_legitimacy_on_action_ruler = {
+	trigger = { is_ruler = yes }
+	effect = {
+		every_held_title = {
+			title_tier = county
+			trigger_event = { on_action = county_opinion_legitimacy_on_action }
+		}
+	}
+}
+county_opinion_legitimacy_on_action_scoped_title = {
+	trigger = { exists = scope:title }
+	effect = { scope:title = { trigger_event = { on_action = county_opinion_legitimacy_on_action } } }
+}
+county_opinion_legitimacy_on_action = {
+	trigger = {
+		tier = tier_county
+		is_landless_type_title = no
+	}
+	effect = {
+		check_county_legitimacy_mismatch_effect = { LEGITIMACY = demo }
+		check_county_legitimacy_mismatch_effect = { LEGITIMACY = aristo }
+		check_county_legitimacy_mismatch_effect = { LEGITIMACY = merito }
+	}
+}
+# MODIFIER MAINTENANCE
+add_prison_piety_gain_on_action = {
+	trigger = {
+		is_imprisoned = yes
+		faith = { has_doctrine = tenet_thieves_in_law }
+		NOT = { has_character_modifier = modifier_thieves_in_law_imprisoned }
+	}
+	effect = { add_character_modifier = modifier_thieves_in_law_imprisoned }
+}
+remove_prison_piety_gain_on_action = {
+	trigger = {
+		has_character_modifier = modifier_thieves_in_law_imprisoned
+		NAND = {
+			is_imprisoned = yes
+			faith = { has_doctrine = tenet_thieves_in_law }
+		}
+	}
+	effect = { remove_character_modifier = modifier_thieves_in_law_imprisoned }
+}

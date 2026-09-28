@@ -333,3 +333,10 @@ visit_random_court_in_capital = {
 		}
 	}
 }
+# Checks to see whether an opinion modifier exists and removes it if it does
+remove_opinion_safe = {
+	if = {
+		limit = { has_opinion_modifier = { target = $TARGET$ modifier = $MODIFIER$ } }
+		remove_opinion = { target = $TARGET$ modifier = $MODIFIER$ }
+	}
+}

@@ -5,7 +5,7 @@ GetFullPersonalName = {
 	text = {
 		setup_scope = { save_scope_as = custom_loc_character }
 		trigger = {
-			NOT = { culture = terran } # Common uses western name order
+			NOT = { culture = culture:terran } # Common uses western name order
 			OR = {
 				culture = { has_name_list = name_list_cotc_japanese }
 				culture = { has_name_list = name_list_cotc_chinese }
@@ -47,7 +47,7 @@ GetBestName = { # Gives us the name of a character and also their highest politi
 	}
 	text = {
 		setup_scope = { save_scope_as = custom_loc_character }
-		localization_key = "[custom_loc_character.Custom('GetFullPersonalName')]"
+		localization_key = full_personal_name_custom_loc
 	}
 }
 GetBestNameNoState = { # The same, but exclude the name of the title itself
@@ -78,7 +78,7 @@ GetBestNameNoState = { # The same, but exclude the name of the title itself
 	}
 	text = {
 		setup_scope = { save_scope_as = custom_loc_character }
-		localization_key = "[custom_loc_character.Custom('GetFullPersonalName')]"
+		localization_key = full_personal_name_custom_loc
 	}
 }
 GetContextualSingleName = { # Returns either the family name or the given name, depending on whether the former is shared with scope:second
@@ -86,11 +86,11 @@ GetContextualSingleName = { # Returns either the family name or the given name, 
 	text = {
 		setup_scope = { save_scope_as = custom_loc_character }
 		trigger = { house = scope:second.house }
-		localization_key = "[custom_loc_character.GetFirstName]"
+		localization_key = first_name_custom_loc
 	}
 	text = {
 		setup_scope = { save_scope_as = custom_loc_character }
-		localization_key = "[custom_loc_character.GetDynastyHouseName]"
+		localization_key = surname_custom_loc
 	}
 }
 GetSpousesDesc = { # A brief description of this character's spouse or spouses
@@ -103,7 +103,7 @@ GetSpousesDesc = { # A brief description of this character's spouse or spouses
 		}
 		trigger = {
 			any_spouse = {
-				limit = { is_alive = yes }
+				is_alive = yes
 				count = 1
 			}
 		}
@@ -114,7 +114,7 @@ GetSpousesDesc = { # A brief description of this character's spouse or spouses
 		setup_scope = { save_scope_as = custom_loc_character }
 		trigger = {
 			any_spouse = {
-				limit = { is_alive = yes }
+				is_alive = yes
 				count = 2
 			}
 		}
@@ -124,7 +124,7 @@ GetSpousesDesc = { # A brief description of this character's spouse or spouses
 		setup_scope = { save_scope_as = custom_loc_character }
 		trigger = {
 			any_spouse = {
-				limit = { is_alive = yes }
+				is_alive = yes
 				count = 3
 			}
 		}
@@ -134,7 +134,7 @@ GetSpousesDesc = { # A brief description of this character's spouse or spouses
 		setup_scope = { save_scope_as = custom_loc_character }
 		trigger = {
 			any_spouse = {
-				limit = { is_alive = yes }
+				is_alive = yes
 				count > 3
 			}
 		}
@@ -151,7 +151,7 @@ GetChildrenDesc = { # A brief description of this character's child or children
 		}
 		trigger = {
 			any_child = {
-				limit = { is_alive = yes }
+				is_alive = yes
 				count = 1
 			}
 		}
@@ -162,7 +162,7 @@ GetChildrenDesc = { # A brief description of this character's child or children
 		setup_scope = { save_scope_as = custom_loc_character }
 		trigger = {
 			any_child = {
-				limit = { is_alive = yes }
+				is_alive = yes
 				count = 2
 			}
 		}
@@ -172,7 +172,7 @@ GetChildrenDesc = { # A brief description of this character's child or children
 		setup_scope = { save_scope_as = custom_loc_character }
 		trigger = {
 			any_child = {
-				limit = { is_alive = yes }
+				is_alive = yes
 				count = 3
 			}
 		}
@@ -182,7 +182,7 @@ GetChildrenDesc = { # A brief description of this character's child or children
 		setup_scope = { save_scope_as = custom_loc_character }
 		trigger = {
 			any_child = {
-				limit = { is_alive = yes }
+				is_alive = yes
 				count > 3
 			}
 		}
@@ -251,7 +251,7 @@ GetNewsSource = { # Randomized news story source, for the same purpose
 	text = { localization_key = blank_custom_loc }
 }
 GetNewsSourceTitle = { # Randomized title-as-news-source
-	type = title
+	type = landed_title
 	random_valid = yes
 	text = {
 		setup_scope = { save_scope_as = news_source_title }
@@ -324,24 +324,6 @@ GetDeadCharacterLocation = { # Where did the dead character die?
 	# Nowhere?
 	text = { localization_key = blank_custom_loc }
 }
-GetDeadCharacterConsequences = { # What happens to this character's family?
-	type = character
-	
-	# Who inherits the throne of a monarchy?
-	# Did this character have any surviving family?
-	text = {
-		setup_scope = { var:dead_character = { save_scope_as = custom_loc_character } }
-		trigger = {
-			scope:custom_loc_character = {
-				OR = {
-					any_spouse = { is_alive = yes }
-					any_child = { is_alive = yes }
-				}
-			}
-		}
-		localization_key = "[custom_loc_character.Custom('GetDeadCharacterFamily')]"
-	}
-}
 GetDeadCharacterFamily = {
 	type = character
 	text = {
@@ -402,7 +384,7 @@ GetDeadCharacterConsequences = { # How will people react to this character's dea
 	text = {
 		setup_scope = { var:dead_character = { save_scope_as = custom_loc_character } }
 		trigger = { var:dead_character_prestige = 4 }
-		text = { localization_key = exalted_death_custom_loc }
+		localization_key = exalted_death_custom_loc
 	}
 	# Kingdom or Duchy
 	text = {
@@ -417,7 +399,7 @@ GetDeadCharacterConsequences = { # How will people react to this character's dea
 	text = {
 		setup_scope = { var:dead_character = { save_scope_as = custom_loc_character } }
 		trigger = { var:dead_character_prestige = 3 }
-		text = { localization_key = illustrious_death_custom_loc }
+		localization_key = illustrious_death_custom_loc
 	}
 	# Barony
 	text = {

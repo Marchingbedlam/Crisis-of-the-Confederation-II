@@ -1,4 +1,4 @@
-# Gives general information on what kind of ideology this is
+﻿# Gives general information on what kind of ideology this is
 doctrine_political = {
 	icon = "doctrine_political"
 	
@@ -32,7 +32,7 @@ doctrine_criminal = {
 		can_form_crime_syndicates = yes
 	}
 	character_modifier = {
-		monthly_piety_gain_per_dread = 0.03
+		monthly_piety_gain_per_dread_add = 0.03
 	}
 }
 
@@ -205,9 +205,9 @@ doctrine_despotism = {
 		}
 	}
 	parameters = {
-			prefers_despotism = yes
-			opposes_legislature = yes
-			despotic_revolutions = yes
+		prefers_despotism = yes
+		opposes_legislature = yes
+		despotic_revolutions = yes
 	}
 	character_modifier = {
 		tyranny_gain_mult = -0.5
@@ -235,9 +235,9 @@ doctrine_dictatorship = {
 		}
 	}
 	parameters = {
-			prefers_dictatorships = yes
-			opposes_legislature = yes
-			dictatorial_revolutions = yes
+		prefers_dictatorships = yes
+		opposes_legislature = yes
+		dictatorial_revolutions = yes
 	}
 }
 # The ruler is a co-equal governor with some form of parliament
@@ -266,9 +266,9 @@ doctrine_separation_of_powers = {
 		}
 	}
 	parameters = {
-			prefers_presidential_system = yes
-			supports_legislature = yes
-			presidential_revolutions = yes
+		prefers_presidential_system = yes
+		supports_legislature = yes
+		presidential_revolutions = yes
 	}
 }
 # The ruler must defer to some form of parliament which votes on important decisions; no one rules alone
@@ -304,7 +304,7 @@ doctrine_parliamentarianism = {
 	character_modifier = {
 		tyranny_gain_mult = 0.5
 		direct_vassal_opinion = 10
-		county_opinion = -10
+		county_opinion_add = -10
 	}
 }
 
@@ -348,7 +348,7 @@ doctrine_anarchism = {
 	character_modifier = {
 		tyranny_gain_mult = 1.0
 		direct_vassal_opinion = 25
-		county_opinion = -25
+		county_opinion_add = -25
 	}
 }
 doctrine_metroplanetism = {
@@ -695,12 +695,13 @@ doctrine_illegal_technology_allowed = {
 }
 doctrine_illegal_technology_forbidden = {
 	desc = {
-		use_first_valid = yes
-		triggered_desc = {
-			trigger = { doctrine:tenet_human_purity = { is_in_list = selected_doctrines } }
-			desc = doctrine_illegal_technology_evil_desc
+		use_first_valid = {
+			triggered_desc = {
+				trigger = { doctrine:tenet_human_purity = { is_in_list = selected_doctrines } }
+				desc = doctrine_illegal_technology_evil_desc
+			}
+			desc = doctrine_illegal_technology_forbidden_desc
 		}
-		desc = doctrine_illegal_technology_forbidden_desc
 	}
 	piety_cost = {
 		value = faith_doctrine_cost_mid

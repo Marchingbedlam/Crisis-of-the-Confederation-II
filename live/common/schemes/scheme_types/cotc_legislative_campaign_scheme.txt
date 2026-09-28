@@ -33,9 +33,7 @@
 		# We are a reasonable candidate to represent this riding
 		trigger_if = {
 			limit = { scope:scheme = { has_variable = legislature } }
-			scope:owner = {
-				target_is_valid_riding_and_legislature = { RIDING = scope:target LEGISLATURE = scope:scheme.var:legislature }
-			}
+			scope:owner = { can_run_for_riding_and_legislature = { RIDING = scope:target LEGISLATURE = scope:scheme.var:legislature } }
 		}
 		trigger_else = { always = yes }
 	}
@@ -128,7 +126,7 @@
 		}
 		
 		# Trigger a progress event
-		scheme_owner = { trigger_event = { on_actions = cotc_political_campaign_scheme_progress } }
+		scheme_owner = { trigger_event = { on_action = cotc_political_campaign_scheme_progress } }
 	}
 	on_monthly = {
 		save_scope_as = scheme

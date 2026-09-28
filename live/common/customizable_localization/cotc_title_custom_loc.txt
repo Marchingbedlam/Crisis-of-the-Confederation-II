@@ -1507,7 +1507,7 @@ TheocraticMeritocracyBarony = {
 	type = character
 	text = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
-		trigger = { exists = relevant_ideology }
+		trigger = { exists = primary_title.state_faith }
 		localization_key = "shrine_world_cotc_custom_loc"
 	}
 	text = {
@@ -1519,7 +1519,7 @@ TheocraticMeritocracyBaronyPlural = {
 	type = character
 	text = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
-		trigger = { exists = relevant_ideology }
+		trigger = { exists = primary_title.state_faith }
 		localization_key = "shrine_world_plural_cotc_custom_loc"
 	}
 	text = {
@@ -1531,7 +1531,7 @@ TheocraticMeritocracyBaronyAdj = {
 	type = character
 	text = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
-		trigger = { exists = relevant_ideology }
+		trigger = { exists = primary_title.state_faith }
 		localization_key = "shrine_world_adj_cotc_custom_loc"
 	}
 	text = {
@@ -1545,7 +1545,7 @@ TheocraticMeritocracyBaronyRuler = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
 		trigger = {
 			is_female_cotc = yes
-			exists = relevant_ideology
+			exists = primary_title.state_faith
 		}
 		localization_key = "priest_female_cotc_custom_loc"
 	}
@@ -1553,13 +1553,13 @@ TheocraticMeritocracyBaronyRuler = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
 		trigger = {
 			is_male_cotc = yes
-			exists = relevant_ideology
+			exists = primary_title.state_faith
 		}
 		localization_key = "priest_male_cotc_custom_loc"
 	}
 	text = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
-		trigger = { exists = relevant_ideology }
+		trigger = { exists = primary_title.state_faith }
 		localization_key = "priest_enby_cotc_custom_loc"
 	}
 	text = {
@@ -1581,7 +1581,7 @@ TheocraticMeritocracyCounty = {
 	type = character
 	text = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
-		trigger = { exists = relevant_ideology }
+		trigger = { exists = primary_title.state_faith }
 		localization_key = "theocratic_county_cotc_custom_loc"
 	}
 	text = {
@@ -1593,7 +1593,7 @@ TheocraticMeritocracyCountyPlural = {
 	type = character
 	text = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
-		trigger = { exists = relevant_ideology }
+		trigger = { exists = primary_title.state_faith }
 		localization_key = "theocratic_county_plural_cotc_custom_loc"
 	}
 	text = {
@@ -1605,7 +1605,7 @@ TheocraticMeritocracyCountyAdj = {
 	type = character
 	text = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
-		trigger = { exists = relevant_ideology }
+		trigger = { exists = primary_title.state_faith }
 		localization_key = "theocratic_county_adj_cotc_custom_loc"
 	}
 	text = {
@@ -1619,7 +1619,7 @@ TheocraticMeritocracyCountyRuler = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
 		trigger = {
 			is_female_cotc = yes
-			exists = relevant_ideology
+			exists = primary_title.state_faith
 		}
 		localization_key = "theocratic_county_ruler_female_cotc_custom_loc"
 	}
@@ -1627,13 +1627,13 @@ TheocraticMeritocracyCountyRuler = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
 		trigger = {
 			is_male_cotc = yes
-			exists = relevant_ideology
+			exists = primary_title.state_faith
 		}
 		localization_key = "theocratic_county_ruler_male_cotc_custom_loc"
 	}
 	text = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
-		trigger = { exists = relevant_ideology }
+		trigger = { exists = primary_title.state_faith }
 		localization_key = "theocratic_county_ruler_enby_cotc_custom_loc"
 	}
 	text = {
@@ -1712,7 +1712,7 @@ TheocraticMeritocracyDuchy = {
 	type = character
 	text = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
-		trigger = { exists = relevant_ideology }
+		trigger = { exists = primary_title.state_faith }
 		localization_key = "theocratic_duchy_cotc_custom_loc"
 	}
 	text = {
@@ -1724,7 +1724,7 @@ TheocraticMeritocracyDuchyPlural = {
 	type = character
 	text = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
-		trigger = { exists = relevant_ideology }
+		trigger = { exists = primary_title.state_faith }
 		localization_key = "theocratic_duchy_plural_cotc_custom_loc"
 	}
 	text = {
@@ -1736,7 +1736,7 @@ TheocraticMeritocracyDuchyAdj = {
 	type = character
 	text = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
-		trigger = { exists = relevant_ideology }
+		trigger = { exists = primary_title.state_faith }
 		localization_key = "theocratic_duchy_adj_cotc_custom_loc"
 	}
 	text = {
@@ -1750,7 +1750,7 @@ TheocraticMeritocracyDuchyRuler = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
 		trigger = {
 			is_female_cotc = yes
-			exists = relevant_ideology
+			exists = primary_title.state_faith
 		}
 		localization_key = "theocratic_duchy_ruler_female_cotc_custom_loc"
 	}
@@ -1758,13 +1758,13 @@ TheocraticMeritocracyDuchyRuler = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
 		trigger = {
 			is_male_cotc = yes
-			exists = relevant_ideology
+			exists = primary_title.state_faith
 		}
 		localization_key = "theocratic_duchy_ruler_male_cotc_custom_loc"
 	}
 	text = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
-		trigger = { exists = relevant_ideology }
+		trigger = { exists = primary_title.state_faith }
 		localization_key = "theocratic_duchy_ruler_enby_cotc_custom_loc"
 	}
 	text = {
@@ -1843,7 +1843,7 @@ TheocraticMeritocracyKingdom = {
 	type = character
 	text = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
-		trigger = { exists = relevant_ideology }
+		trigger = { exists = primary_title.state_faith }
 		localization_key = "theocratic_kingdom_cotc_custom_loc"
 	}
 	text = {
@@ -1855,7 +1855,7 @@ TheocraticMeritocracyKingdomPlural = {
 	type = character
 	text = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
-		trigger = { exists = relevant_ideology }
+		trigger = { exists = primary_title.state_faith }
 		localization_key = "theocratic_kingdom_plural_cotc_custom_loc"
 	}
 	text = {
@@ -1867,7 +1867,7 @@ TheocraticMeritocracyKingdomAdj = {
 	type = character
 	text = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
-		trigger = { exists = relevant_ideology }
+		trigger = { exists = primary_title.state_faith }
 		localization_key = "theocratic_kingdom_adj_cotc_custom_loc"
 	}
 	text = {
@@ -1881,7 +1881,7 @@ TheocraticMeritocracyKingdomRuler = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
 		trigger = {
 			is_female_cotc = yes
-			exists = relevant_ideology
+			exists = primary_title.state_faith
 		}
 		localization_key = "theocratic_kingdom_ruler_female_cotc_custom_loc"
 	}
@@ -1889,13 +1889,13 @@ TheocraticMeritocracyKingdomRuler = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
 		trigger = {
 			is_male_cotc = yes
-			exists = relevant_ideology
+			exists = primary_title.state_faith
 		}
 		localization_key = "theocratic_kingdom_ruler_male_cotc_custom_loc"
 	}
 	text = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
-		trigger = { exists = relevant_ideology }
+		trigger = { exists = primary_title.state_faith }
 		localization_key = "theocratic_kingdom_ruler_enby_cotc_custom_loc"
 	}
 	text = {
@@ -1997,7 +1997,7 @@ TheocraticMeritocracyEmpire = {
 	type = character
 	text = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
-		trigger = { exists = relevant_ideology }
+		trigger = { exists = primary_title.state_faith }
 		localization_key = "theocratic_empire_cotc_custom_loc"
 	}
 	text = {
@@ -2009,7 +2009,7 @@ TheocraticMeritocracyEmpirePlural = {
 	type = character
 	text = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
-		trigger = { exists = relevant_ideology }
+		trigger = { exists = primary_title.state_faith }
 		localization_key = "theocratic_empire_plural_cotc_custom_loc"
 	}
 	text = {
@@ -2021,7 +2021,7 @@ TheocraticMeritocracyEmpireAdj = {
 	type = character
 	text = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
-		trigger = { exists = relevant_ideology }
+		trigger = { exists = primary_title.state_faith }
 		localization_key = "theocratic_empire_adj_cotc_custom_loc"
 	}
 	text = {
@@ -2035,7 +2035,7 @@ TheocraticMeritocracyEmpireRuler = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
 		trigger = {
 			is_female_cotc = yes
-			exists = relevant_ideology
+			exists = primary_title.state_faith
 		}
 		localization_key = "theocratic_empire_ruler_female_cotc_custom_loc"
 	}
@@ -2043,13 +2043,13 @@ TheocraticMeritocracyEmpireRuler = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
 		trigger = {
 			is_male_cotc = yes
-			exists = relevant_ideology
+			exists = primary_title.state_faith
 		}
 		localization_key = "theocratic_empire_ruler_male_cotc_custom_loc"
 	}
 	text = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
-		trigger = { exists = relevant_ideology }
+		trigger = { exists = primary_title.state_faith }
 		localization_key = "theocratic_empire_ruler_enby_cotc_custom_loc"
 	}
 	text = {
@@ -2151,7 +2151,7 @@ TheocraticMeritocracyHegemony = {
 	type = character
 	text = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
-		trigger = { exists = relevant_ideology }
+		trigger = { exists = primary_title.state_faith }
 		localization_key = "theocratic_hegemony_cotc_custom_loc"
 	}
 	text = {
@@ -2163,7 +2163,7 @@ TheocraticMeritocracyHegemonyPlural = {
 	type = character
 	text = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
-		trigger = { exists = relevant_ideology }
+		trigger = { exists = primary_title.state_faith }
 		localization_key = "theocratic_hegemony_plural_cotc_custom_loc"
 	}
 	text = {
@@ -2175,7 +2175,7 @@ TheocraticMeritocracyHegemonyAdj = {
 	type = character
 	text = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
-		trigger = { exists = relevant_ideology }
+		trigger = { exists = primary_title.state_faith }
 		localization_key = "theocratic_hegemony_adj_cotc_custom_loc"
 	}
 	text = {
@@ -2189,7 +2189,7 @@ TheocraticMeritocracyHegemonyRuler = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
 		trigger = {
 			is_female_cotc = yes
-			exists = relevant_ideology
+			exists = primary_title.state_faith
 		}
 		localization_key = "theocratic_hegemony_ruler_female_cotc_custom_loc"
 	}
@@ -2197,13 +2197,13 @@ TheocraticMeritocracyHegemonyRuler = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
 		trigger = {
 			is_male_cotc = yes
-			exists = relevant_ideology
+			exists = primary_title.state_faith
 		}
 		localization_key = "theocratic_hegemony_ruler_male_cotc_custom_loc"
 	}
 	text = {
 		setup_scope = { primary_title ?= { state_faith ?= { save_scope_as = relevant_ideology } } }
-		trigger = { exists = relevant_ideology }
+		trigger = { exists = primary_title.state_faith }
 		localization_key = "theocratic_hegemony_ruler_enby_cotc_custom_loc"
 	}
 	text = {

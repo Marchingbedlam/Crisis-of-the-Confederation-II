@@ -35,7 +35,7 @@
 			any_scheme = {
 				scheme_type = legislative_election_campaign
 				OR = {
-					scheme_target_title = { character_is_incumbent_in_title { TITLE = THIS CHARACTER = scope:actor } }
+					scheme_target_title = { character_is_incumbent_in_title = { TITLE = THIS CHARACTER = scope:actor } }
 					var:legislature ?= { var:legislature_title ?= { character_is_incumbent_in_title = { TITLE = THIS CHARACTER = scope:actor } } }
 				}
 			}
@@ -93,7 +93,7 @@
 			value = 0
 			scope:recipient = {
 				every_scheme = {
-					scheme_type = legislative_election_campaign
+					type = legislative_election_campaign
 					add = political_campaign_cost_modifier
 				}
 			}
@@ -105,18 +105,18 @@
 	send_options_exclusive = yes
 	send_option = { # No strings attached
 		flag = no_strings_attached
-		localization_key = endorse_political_campaign.tt.no_strings_attached
+		localization = endorse_political_campaign.tt.no_strings_attached
 	}
 	send_option = { # To pay off a hook
 		is_shown = { scope:recipient = { has_usable_hook = scope:actor } }
 		flag = pay_off_hook
-		localization_key = endorse_political_campaign.tt.pay_off_hook
+		localization = endorse_political_campaign.tt.pay_off_hook
 	}
 	send_option = { # For a future favor
 		is_shown = { scope:recipient = { NOT = { has_hook = scope:actor } } }
 		is_valid = { scope:actor = { can_add_hook = { target = scope:recipient type = favor_hook } } }
 		flag = gain_favor
-		localization_key = endorse_political_campaign.tt.gain_favor
+		localization = endorse_political_campaign.tt.gain_favor
 	}
 	
 	on_accept = {

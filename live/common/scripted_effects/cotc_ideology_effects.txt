@@ -1,0 +1,35 @@
+check_power_base_mismatch_effect = {
+	if = {
+		limit = { target_power_base_mismatch_trigger = { TARGET = $TARGET$ POWER_BASE = $POWER_BASE$ } }
+		if = {
+			limit = { NOT = { has_opinion_modifier = { target = $TARGET$ modifier = opinion_not_$POWER_BASE$ } } }
+			add_opinion = { target = $TARGET$ modifier = opinion_not_$POWER_BASE$ }
+			add_to_variable_list = { name = power_base_lieges target = $TARGET$ }
+		}
+	}
+	else = { remove_opinion_safe = { TARGET = $TARGET$ MODIFIER = opinion_not_$POWER_BASE$ } }
+}
+check_legitimacy_mismatch_effect = {
+	if = {
+		limit = { target_legitimacy_mismatch_trigger = { TARGET = $TARGET$ LEGITIMACY = $LEGITIMACY$ } }
+		if = {
+			limit = { NOT = { has_opinion_modifier = { target = $TARGET$ modifier = opinion_not_$LEGITIMACY$cratic } } }
+			add_opinion = { target = $TARGET$ modifier = opinion_not_$LEGITIMACY$cratic }
+			add_to_variable_list = { name = legitimacy_lieges target = $TARGET$ }
+		}
+	}
+	else = { remove_opinion_safe = { TARGET = $TARGET$ MODIFIER = opinion_not_$LEGITIMACY$cratic } }
+}
+check_county_legitimacy_mismatch_effect = {
+	if = {
+		limit = { target_legitimacy_mismatch_trigger = { TARGET = holder LEGITIMACY = $LEGITIMACY$ } }
+		if = {
+			limit = { NOT = { has_county_modifier = modifier_wants_$LEGITIMACY$cracy } }
+			add_county_modifier = modifier_wants_$LEGITIMACY$cracy
+		}
+	}
+	else_if = {
+		limit = { has_county_modifier = modifier_wants_$LEGITIMACY$cracy }
+		remove_county_modifier = modifier_wants_$LEGITIMACY$cracy
+	}
+}

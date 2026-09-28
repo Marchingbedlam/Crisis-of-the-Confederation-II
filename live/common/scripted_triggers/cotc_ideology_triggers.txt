@@ -1,0 +1,12 @@
+﻿target_power_base_mismatch_trigger = {
+	faith = { has_doctrine_parameter = prefers_$POWER_BASE$_power }
+	government_has_flag = government_is_$POWER_BASE$
+	$TARGET$ = { NOT = { government_has_flag = government_is_$POWER_BASE$ } }
+}
+target_legitimacy_mismatch_trigger = {
+	faith = { has_doctrine_parameter = prefers_$LEGITIMACY$cracy }
+	$TARGET$ = {
+		NOT = { government_has_flag = government_is_$LEGITIMACY$cratic }
+		NOT = { government_has_flag = government_is_federal }
+	}
+}
