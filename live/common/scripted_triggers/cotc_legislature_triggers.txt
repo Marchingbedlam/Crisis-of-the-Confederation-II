@@ -95,6 +95,7 @@ is_running_in_riding_for_legislature = {
 		limit = { $LEGISLATURE$.var:legislature_title.tier = tier_hegemony }
 		$RIDING$ = { is_target_in_variable_list = { name = hegemony_candidates target = PREV } }
 	}
+	trigger_else = { always = no }
 }
 
 legislature_blocks_law_trigger = {

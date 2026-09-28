@@ -195,10 +195,6 @@ hold_legislative_election_effect = {
 		clear_variable_list = hegemony_candidates
 	}
 	elect_legislative_election_winner_effect = { LEGISLATURE = $LEGISLATURE$ RIDING = this }
-	every_in_list = {
-		variable = candidates
-		remove_variable = legislative_campaign_score
-	}
 	clear_variable_list = candidates
 	recalc_legislature_parties_effect = yes
 }
@@ -206,7 +202,7 @@ elect_legislative_election_winner_effect = {
 	$LEGISLATURE$ = { save_temporary_scope_as = temp_legislature }
 	$RIDING$ = { save_temporary_scope_as = temp_riding }
 	if = { # Elect the winning candidate
-		limit = { any_in_list = { variable = candidates exists = yes } }
+		limit = { any_in_list = { variable = candidates count >= 1 } }
 		ordered_in_list = {
 			variable = candidates
 			limit = {
@@ -371,13 +367,25 @@ stand_for_legislator_election_effect = {
 }
 drop_out_of_legislator_election_effect = {
 	$RIDING$ = {
-		switch = {
-			trigger = { $LEGISLATURE$.var:legislature_title.tier }
-			tier_county = { remove_list_variable = { name = county_candidates target = PREV } }
-			tier_duchy = { remove_list_variable = { name = duchy_candidates target = PREV } }
-			tier_kingdom = { remove_list_variable = { name = kingdom_candidates target = PREV } }
-			tier_empire = { remove_list_variable = { name = empire_candidates target = PREV } }
-			tier_hegemony = { remove_list_variable = { name = hegemony_candidates target = PREV } }
+		if = { # Switch statements do not work with tier as a trigger
+			limit = { $LEGISLATURE$.var:legislature_title.tier = tier_county }
+			remove_list_variable = { name = county_candidates target = PREV }
+		}
+		else_if = {
+			limit = { $LEGISLATURE$.var:legislature_title.tier = tier_duchy }
+			remove_list_variable = { name = duchy_candidates target = PREV }
+		}
+		else_if = {
+			limit = { $LEGISLATURE$.var:legislature_title.tier = tier_kingdom }
+			remove_list_variable = { name = kingdom_candidates target = PREV }
+		}
+		else_if = {
+			limit = { $LEGISLATURE$.var:legislature_title.tier = tier_empire }
+			remove_list_variable = { name = empire_candidates target = PREV }
+		}
+		else_if = {
+			limit = { $LEGISLATURE$.var:legislature_title.tier = tier_hegemony }
+			remove_list_variable = { name = hegemony_candidates target = PREV }
 		}
 	}
 }

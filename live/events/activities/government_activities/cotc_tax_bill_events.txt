@@ -258,11 +258,11 @@ cotc_tax_bill_events.210 = {
 	
 	immediate = {
 		if = {
-			limit = { tax_code_passed_voter_intent_trigger = { BUDGET = scope:activity } }
+			limit = { tax_code_passed_voter_intent_trigger = { BILL = scope:activity } }
 			complete_activity_intent = yes
 		}
 		if = {
-			limit = { bill_is_ideologically_necessary = { BILL = scope:activity } }
+			limit = { opinion_of_bill > 0 }
 			change_variable = { name = ai_faith_in_democracy add = 1 }
 		}
 		else_if = {
@@ -306,11 +306,11 @@ cotc_tax_bill_events.220 = {
 	
 	immediate = {
 		if = {
-			limit = { tax_code_passed_voter_intent_trigger = { BUDGET = scope:activity } }
+			limit = { tax_code_passed_voter_intent_trigger = { BILL = scope:activity } }
 			complete_activity_intent = yes
 		}
 		if = {
-			limit = { bill_is_ideologically_unacceptable = { BILL = scope:activity } }
+			limit = { opinion_of_bill < 0 }
 			change_variable = { name = ai_faith_in_democracy subtract = 5 }
 		}
 		else = {
@@ -398,11 +398,11 @@ cotc_tax_bill_events.310 = {
 	
 	immediate = {
 		if = {
-			limit = { tax_code_failed_voter_intent_trigger = { BUDGET = scope:activity } }
+			limit = { tax_code_failed_voter_intent_trigger = { BILL = scope:activity } }
 			complete_activity_intent = yes
 		}
 		if = {
-			limit = { bill_is_ideologically_necessary = { BILL = scope:activity } }
+			limit = { opinion_of_bill > 0 }
 			change_variable = { name = ai_faith_in_democracy subtract = 5 }
 		}
 		else = { change_variable = { name = ai_faith_in_democracy subtract = 1 } }
@@ -436,11 +436,11 @@ cotc_tax_bill_events.320 = {
 	
 	immediate = {
 		if = {
-			limit = { tax_code_failed_voter_intent_trigger = { BUDGET = scope:activity } }
+			limit = { tax_code_failed_voter_intent_trigger = { BILL = scope:activity } }
 			complete_activity_intent = yes
 		}
 		if = {
-			limit = { bill_is_ideologically_unacceptable = { BILL = scope:activity } }
+			limit = { opinion_of_bill < 0 }
 			change_variable = { name = ai_faith_in_democracy add = 1 }
 		}
 		else_if = {

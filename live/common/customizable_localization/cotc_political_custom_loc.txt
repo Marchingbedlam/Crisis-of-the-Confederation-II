@@ -112,13 +112,13 @@ GetBillEarmarks = {
 GetPostBillEarmarks = {
 	type = character
 	text = {
-		setup_scope = { save_scope_value_as = { name = pork_value value = pork_value } }
+		setup_scope = { save_scope_value_as = { name = temp_pork_value value = scope:pork_value } }
 		trigger = {
 			trigger_if = {
-				limit = { exists = scope:pork_value }
-				scope:pork_value > 0
+				limit = { exists = scope:temp_pork_value }
+				scope:temp_pork_value > 0
 			}
-			else = { always = no }
+			trigger_else = { always = no }
 		}
 		localization_key = "bill_post_earmarks_custom_loc"
 	}
@@ -160,7 +160,7 @@ GetBillTargetDifficulty = {
 	}
 	text = {
 		trigger = { bill_target_difficulty < 25 }
-		localization_key = "easy_to_sell_target_custom_loc"
+		localization_key = "easy_to_target_bill_custom_loc"
 	}
 	text = { localization_key = "very_easy_to_target_bill_custom_loc" }
 }

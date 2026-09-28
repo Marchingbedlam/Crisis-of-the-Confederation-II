@@ -2283,7 +2283,7 @@ target_theocratic_taxes = {
 		scope:tax_ruler = {
 			every_vassal = {
 				limit = {
-					is_taxable_theocratic_vassal_of = { $LIEGE$ = scope:tax_ruler }
+					is_taxable_theocratic_vassal_of = { LIEGE = scope:tax_ruler }
 					opinion = { target = scope:tax_ruler value < 0 }
 				}
 				subtract = 0.1
@@ -2295,7 +2295,7 @@ target_theocratic_taxes = {
 		scope:tax_ruler = {
 			every_vassal = {
 				limit = {
-					is_taxable_theocratic_vassal_of = { $LIEGE$ = scope:tax_ruler }
+					is_taxable_theocratic_vassal_of = { LIEGE = scope:tax_ruler }
 					opinion = { target = scope:tax_ruler value > 50 }
 				}
 				add = 0.05

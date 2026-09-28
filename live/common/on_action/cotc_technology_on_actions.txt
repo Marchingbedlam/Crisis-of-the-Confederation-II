@@ -54,12 +54,17 @@ yearly_culture_pulse_technology_on_action = {
 # BASIC TECH MAINTENANCE #
 ##########################
 add_culture_techs_globally = { # Run on culture scope
-	trigger = { any_culture_county = { exists = this } } # Don't bother running unless there's at least one county of this culture
+	trigger = { any_culture_county = { is_landless_type_title = no } } # Don't bother running unless there's at least one county of this culture
 	effect = {
 		save_temporary_scope_as = temp_culture
 		every_known_innovation = {
 			save_temporary_scope_as = temp_innovation
-			scope:temp_culture = { every_culture_county = { add_tech_to_county = { TECH = scope:temp_innovation } } }
+			scope:temp_culture = {
+				every_culture_county = {
+					limit = { is_landless_type_title = no }
+					add_tech_to_county = { TECH = scope:temp_innovation }
+				}
+			}
 		}
 	}
 }

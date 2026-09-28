@@ -40,7 +40,7 @@ scripted_effect cotc_announce_political_campaign_progress = {
 		}
 	}
 	every_in_list = {
-		name = temp_interested_parties
+		list = temp_interested_parties
 		send_interface_message = {
 			type = msg_political_campaign_neutral
 			title = cotc_political_campaign_events.$EVENT_TYPE$.notification.title
@@ -102,7 +102,7 @@ scripted_effect cotc_announce_political_campaign_sabotage = {
 		}
 	}
 	every_in_list = {
-		name = temp_interested_parties
+		list = temp_interested_parties
 		send_interface_message = {
 			type = msg_political_campaign_neutral
 			title = cotc_political_campaign_events.$EVENT_TYPE$.notification.title
@@ -159,14 +159,14 @@ cotc_political_campaign_events.100 = { # Hold a campaign rally
 		triggered_desc = {
 			trigger = {
 				exists = scope:legislature
-				faith_hostility_level = { target = scope:candidate.faith value >= 3 }
+				scope:location.faith = { faith_hostility_level = { target = scope:candidate.faith value >= 3 } }
 			}
 			desc = cotc_political_campaign_events.100.legislative.very_hostile_audience
 		}
 		triggered_desc = {
 			trigger = {
 				exists = scope:legislature
-				faith_hostility_level = { target = scope:candidate.faith value >= 2 }
+				scope:location.faith = { faith_hostility_level = { target = scope:candidate.faith value >= 2 } }
 			}
 			desc = cotc_political_campaign_events.100.legislative.hostile_audience
 		}
@@ -179,11 +179,11 @@ cotc_political_campaign_events.100 = { # Hold a campaign rally
 			desc = cotc_political_campaign_events.100.executive.language_barrier
 		}
 		triggered_desc = {
-			trigger = { faith_hostility_level = { target = scope:candidate.faith value >= 3 } }
+			trigger = { scope:location.faith = { faith_hostility_level = { target = scope:candidate.faith value >= 3 } } }
 			desc = cotc_political_campaign_events.100.executive.very_hostile_audience
 		}
 		triggered_desc = {
-			trigger = { faith_hostility_level = { target = scope:candidate.faith value >= 2 } }
+			trigger = { scope:location.faith = { faith_hostility_level = { target = scope:candidate.faith value >= 2 } } }
 			desc = cotc_political_campaign_events.100.executive.hostile_audience
 		}
 		desc = cotc_political_campaign_events.100.executive
@@ -292,7 +292,7 @@ cotc_political_campaign_events.100 = { # Hold a campaign rally
 		}
 	}
 }
-scripted_effect = calculate_skill_political_importance = {
+scripted_effect calculate_skill_political_importance = {
 	save_scope_value_as = {
 		name = military_importance
 		value = {
@@ -374,7 +374,7 @@ scripted_effect = calculate_skill_political_importance = {
 		}
 	}
 }
-scripted_effect = cotc_diplomatic_ad_campaign = {
+scripted_effect cotc_diplomatic_ad_campaign = {
 	duel = {
 		skill = diplomacy
 		value = 12
@@ -434,7 +434,7 @@ scripted_effect = cotc_diplomatic_ad_campaign = {
 		}
 	}
 }
-scripted_effect = cotc_martial_ad_campaign = {
+scripted_effect cotc_martial_ad_campaign = {
 	duel = {
 		skill = martial
 		value = 12
@@ -506,7 +506,7 @@ scripted_effect = cotc_martial_ad_campaign = {
 		}
 	}
 }
-scripted_effect = cotc_stewardship_ad_campaign = {
+scripted_effect cotc_stewardship_ad_campaign = {
 	duel = {
 		skill = stewardship
 		value = 12
@@ -578,7 +578,7 @@ scripted_effect = cotc_stewardship_ad_campaign = {
 		}
 	}
 }
-scripted_effect = cotc_learning_ad_campaign = {
+scripted_effect cotc_learning_ad_campaign = {
 	duel = {
 		skill = learning
 		value = 12
@@ -857,7 +857,7 @@ cotc_political_campaign_events.200 = { # Ad campaign
 		ai_chance = { base = 0 }
 	}
 }
-scripted_effect = cotc_diplomatic_smear_campaign = {
+scripted_effect cotc_diplomatic_smear_campaign = {
 	duel = {
 		skill = intrigue
 		value = scope:rival_diplomacy
@@ -917,7 +917,7 @@ scripted_effect = cotc_diplomatic_smear_campaign = {
 		}
 	}
 }
-scripted_effect = cotc_martial_smear_campaign = {
+scripted_effect cotc_martial_smear_campaign = {
 	duel = {
 		skill = intrigue
 		value = scope:rival_martial
@@ -977,7 +977,7 @@ scripted_effect = cotc_martial_smear_campaign = {
 		}
 	}
 }
-scripted_effect = cotc_stewardship_smear_campaign = {
+scripted_effect cotc_stewardship_smear_campaign = {
 	duel = {
 		skill = intrigue
 		value = scope:rival_stewardship
@@ -1037,7 +1037,7 @@ scripted_effect = cotc_stewardship_smear_campaign = {
 		}
 	}
 }
-scripted_effect = cotc_learning_smear_campaign = {
+scripted_effect cotc_learning_smear_campaign = {
 	duel = {
 		skill = intrigue
 		value = scope:rival_learning

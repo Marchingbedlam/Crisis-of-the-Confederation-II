@@ -196,11 +196,11 @@ legislature_events.101 = {
 scripted_effect cotc_reassign_candidate_to_new_tier = {
 	switch = {
 		trigger = $NEW_TITLE$.tier
-		tier_county = { $RIDING$ = { add_target_to_variable_list = { name = county_candidates target = PREV } } }
-		tier_duchy = { $RIDING$ = { add_target_to_variable_list = { name = duchy_candidates target = PREV } } }
-		tier_kingdom = { $RIDING$ = { add_target_to_variable_list = { name = kingdom_candidates target = PREV } } }
-		tier_empire = { $RIDING$ = { add_target_to_variable_list = { name = empire_candidates target = PREV } } }
-		tier_hegemony = { $RIDING$ = { add_target_to_variable_list = { name = hegemony_candidates target = PREV } } }
+		tier_county = { $RIDING$ = { add_to_variable_list = { name = county_candidates target = PREV } } }
+		tier_duchy = { $RIDING$ = { add_to_variable_list = { name = duchy_candidates target = PREV } } }
+		tier_kingdom = { $RIDING$ = { add_to_variable_list = { name = kingdom_candidates target = PREV } } }
+		tier_empire = { $RIDING$ = { add_to_variable_list = { name = empire_candidates target = PREV } } }
+		tier_hegemony = { $RIDING$ = { add_to_variable_list = { name = hegemony_candidates target = PREV } } }
 	}
 }
 scripted_effect cotc_reassign_candidates_to_new_tier = {
@@ -365,7 +365,7 @@ legislature_events.300 = {
 						recalculate_participant_group = scope:situation
 					}
 				}
-				abolish_legislature_effect = yes
+				abolish_legislature_effect = { LEGISLATURE_TITLE = scope:old_title }
 			}
 		}
 		scope:situation = {

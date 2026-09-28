@@ -35,7 +35,7 @@ title_political_support = {
 political_campaign_cost_modifier = {
 	value = 0
 	if = {
-		limit = { type = legislative_election_campaign }
+		limit = { scheme_type = legislative_election_campaign }
 		var:legislature ?= { var:legislature_title ?= { add = title_basic_cost_multiplier } }
 	}
 	else = { scheme_target_title ?= { add = title_leadership_cost_multiplier } }
@@ -48,7 +48,7 @@ county_election_score = { # Returns scope:temp_candidate's popularity in the sco
 	}
 	# Opinion of incumbent
 	if = {
-		limit = { reverse_is_incumbent_for_title = { CHARACTER = scope:temp_candidate } }
+		limit = { character_is_incumbent_in_title = { CHARACTER = scope:temp_candidate TITLE = this } }
 		add = county_opinion
 	}
 	scope:temp_candidate = {
@@ -257,15 +257,6 @@ legislator_total_score = { # This allows for undisplayed "hidden" variables that
 			has_variable = hidden_campaign_strength
 		}
 		multiply = var:hidden_campaign_strength
-	}
-	# Random fudge factor
-	multiply = {
-		value = {
-			fixed_range = {
-				min = 0.9
-				max = 1.1
-			}
-		}
 	}
 }
 
