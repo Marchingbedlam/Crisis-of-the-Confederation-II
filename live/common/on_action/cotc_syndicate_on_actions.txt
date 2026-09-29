@@ -1,5 +1,6 @@
 ﻿on_title_gain_inheritance = { on_actions = { cotc_syndicate_on_inherit } }
 yearly_playable_pulse = { on_actions = { cotc_crackdown_yearly } }
+on_imprison = { on_actions = { cotc_underworld_boss_imprisoned } }
 
 cotc_syndicate_on_inherit = {
 	trigger = {
@@ -19,5 +20,19 @@ cotc_crackdown_yearly = {
 	}
 	effect = {
 		cotc_crackdown_pulse_effect = yes
+	}
+}
+
+# Root = the prisoner. A de-escalation catalyst. A boss behind bars is not running anything.
+cotc_underworld_boss_imprisoned = {
+	trigger = {
+		cotc_has_syndicate_trigger = yes
+	}
+	effect = {
+		cotc_underworld_save_sector_effect = yes
+		cotc_underworld_catalyst_effect = {
+			CATALYST = catalyst_boss_imprisoned
+			SECTOR = scope:cotc_underworld_sector
+		}
 	}
 }

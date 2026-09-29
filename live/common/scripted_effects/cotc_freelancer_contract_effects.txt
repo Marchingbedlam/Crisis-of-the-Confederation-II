@@ -75,7 +75,7 @@ cotc_criminal_contract_completed_effect = {
 		if = {
 			limit = {
 				cotc_has_syndicate_trigger = yes
-				var:cotc_syndicate_turf = root.task_contract_location.county
+				var:cotc_syndicate_turf.duchy = root.task_contract_location.county.duchy
 			}
 			save_scope_as = cotc_syndicate_boss
 			cotc_syndicate_add_grip_effect = { AMOUNT = cotc_syndicate_grip_gain_value }

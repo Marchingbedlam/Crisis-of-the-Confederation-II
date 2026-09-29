@@ -1,16 +1,5 @@
 ﻿l_english:
  # COTC - Criminal contracts
- #
- # Two halves, and they live on different keys on purpose.
- #
- # The CONTRACT half is ours: cotc_contract_*_contract / _desc_title / _desc, the
- # noticeboard advert the player reads before accepting.
- #
- # The SCHEME half stays on the VANILLA keys, because the new contracts start the
- # vanilla schemes and the scheme window reads the scheme's own loc. Overriding
- # laamp_base_0041_contract_scheme here re-contextualises what the player sees
- # without forking ~2,400 lines of scheme events. Anyone later grepping for
- # laamp_ to find un-migrated content will hit these - they are deliberate.
 
  ##############################
  # Confidence Scheme  (was laamp_base_0041, Confidence Trickster)
@@ -18,6 +7,7 @@
  cotc_contract_confidence_scheme_contract: "$laamp_base_0041_contract_scheme$"
  cotc_contract_confidence_scheme_desc_title: "Persons of interest sought,"
  cotc_contract_confidence_scheme_desc: "The discerning [TaskContract.GetEmployer.GetTitledFirstNameNoTooltip] of [TaskContract.GetEmployer.GetPrimaryTitle.GetNameNoTier] is receiving proposals, and is said to be an easy audience for the right credentials. #EMP Limited#! accommodation provided, #EMP if#! you pass the vetting."
+ cotc_contract_confidence_scheme_request: "This [task_contract|E] requires you to earn [TaskContract.GetEmployer.GetTitledFirstNamePossessive] confidence on fraudulent credentials and then leave before anyone checks them."
 
  # The vanilla scheme, re-contextualised.
  laamp_base_0041_contract_scheme: "Confidence Scheme"
@@ -27,8 +17,9 @@
  # Commerce Raid  (was laamp_base_1041, Ambush Travelers)
  ##############################
  cotc_contract_commerce_raid_contract: "$laamp_base_1041_contract_scheme$"
- cotc_contract_commerce_raid_desc_title: "Crews with a fast hull wanted,"
- cotc_contract_commerce_raid_desc: "Traffic through the lanes of [TaskContract.GetEmployer.GetPrimaryTitle.GetNameNoTier] runs fat and lightly escorted. Nobody is asking where the cargo went, only that the manifests balance afterward."
+ cotc_contract_commerce_raid_desc_title: "Crew with a fast ship wanted,"
+ cotc_contract_commerce_raid_desc: "Traffic through the lanes of [TaskContract.GetEmployer.GetPrimaryTitle.GetNameNoTier] runs fat and lightly escorted."
+ cotc_contract_commerce_raid_request: "This [task_contract|E] requires you to raid the trade lanes through [TaskContract.GetEmployer.GetPrimaryTitle.GetNameNoTier]."
  laamp_base_1041_contract_scheme: "Commerce Raid"
  laamp_base_1041_contract_scheme_action: "Raid the lanes of"
 
@@ -37,7 +28,8 @@
  ##############################
  cotc_contract_ledger_intrusion_contract: "$laamp_base_2041_contract_scheme$"
  cotc_contract_ledger_intrusion_desc_title: "Discreet systems work, well paid,"
- cotc_contract_ledger_intrusion_desc: "The revenue network of [TaskContract.GetEmployer.GetPrimaryTitle.GetNameNoTier] runs on hardware three generations old and credentials nobody has rotated since the last audit. Work it node by node and stop before somebody notices."
+ cotc_contract_ledger_intrusion_desc: "The revenue network of [TaskContract.GetEmployer.GetPrimaryTitle.GetNameNoTier] runs on hardware three generations old and credentials nobody has rotated since the last audit."
+ cotc_contract_ledger_intrusion_request: "This [task_contract|E] requires you to reach the revenue network of [TaskContract.GetEmployer.GetPrimaryTitle.GetNameNoTier] and change the records."
  laamp_base_2041_contract_scheme: "Ledger Intrusion"
  laamp_base_2041_contract_scheme_action: "Drain the accounts of"
 
@@ -46,7 +38,8 @@
  ##############################
  cotc_contract_assassination_contract: "$laamp_base_3011_contract_scheme$"
  cotc_contract_assassination_desc_title: "A problem requiring resolution,"
- cotc_contract_assassination_desc: "[TaskContract.GetEmployer.GetTitledFirstNameNoTooltip] has someone who will not be reasoned with, bought out, or waited out. The third option is being priced."
+ cotc_contract_assassination_desc: "[TaskContract.GetEmployer.GetTitledFirstNameNoTooltip] has someone who will not be reasoned with, bought out, or waited out. Deal with them."
+ cotc_contract_assassination_request: "This [task_contract|E] requires you to see a named individual dead. Discretion is advised."
  laamp_base_3011_contract_scheme: "Assassination"
  laamp_base_3011_contract_scheme_action: "Assassinate"
 
@@ -56,6 +49,7 @@
  cotc_contract_abduction_contract: "$laamp_base_3021_contract_scheme$"
  cotc_contract_abduction_desc_title: "Retrieval work, no questions,"
  cotc_contract_abduction_desc: "Somebody is needed alive and elsewhere, and [TaskContract.GetEmployer.GetTitledFirstNameNoTooltip] is prepared to be generous about how that happens."
+ cotc_contract_abduction_request: "This [task_contract|E] requires you to take a named individual alive and deliver them elsewhere."
  laamp_base_3021_contract_scheme: "Abduction"
  laamp_base_3021_contract_scheme_action: "Abduct"
 
@@ -65,24 +59,27 @@
  cotc_contract_sabotage_contract: "$laamp_base_3031_contract_scheme$"
  cotc_contract_sabotage_desc_title: "Industrial accident required,"
  cotc_contract_sabotage_desc: "A facility in the holdings of a rival to [TaskContract.GetEmployer.GetTitledFirstNameNoTooltip] is to suffer a failure that reads as maintenance. It need not be subtle, only deniable."
+ cotc_contract_sabotage_request: "This [task_contract|E] requires you to put a facility in [TaskContract.GetEmployer.GetPrimaryTitle.GetNameNoTier] out of service, with plausible deniability."
  laamp_base_3031_contract_scheme: "Sabotage"
  laamp_base_3031_contract_scheme_action: "Sabotage a facility for"
 
  ##############################
- # Treasury Heist  (was laamp_base_3041, Heist Treasury)
+ # Vault Heist  (was laamp_base_3041, Heist Treasury)
  ##############################
  cotc_contract_treasury_heist_contract: "$laamp_base_3041_contract_scheme$"
- cotc_contract_treasury_heist_desc_title: "A vault, and a window,"
- cotc_contract_treasury_heist_desc: "The reserves of [TaskContract.GetEmployer.GetPrimaryTitle.GetNameNoTier] sit behind a door that was state of the art a long time ago. There is a window. It is not a long one."
- laamp_base_3041_contract_scheme: "Treasury Heist"
+ cotc_contract_treasury_heist_desc_title: "A vulnerable vault,"
+ cotc_contract_treasury_heist_desc: "The wealthy reserves of [TaskContract.GetEmployer.GetPrimaryTitle.GetNameNoTier] sit behind a door that has its best days behind it."
+ cotc_contract_treasury_heist_request: "This [task_contract|E] requires you to reach [TaskContract.GetEmployer.GetTitledFirstNamePossessive] reserves and leave with as much as can be moved."
+ laamp_base_3041_contract_scheme: "Vault Heist"
  laamp_base_3041_contract_scheme_action: "Crack the vault of"
 
  ##############################
  # Counterfeit Tech  (was laamp_base_4041, Flog Talismans)
  ##############################
  cotc_contract_counterfeit_tech_contract: "$laamp_base_4041_contract_scheme$"
- cotc_contract_counterfeit_tech_desc_title: "Certified hardware, best prices,"
- cotc_contract_counterfeit_tech_desc: "The court of [TaskContract.GetEmployer.GetTitledFirstNameNoTooltip] is in the market for augments with provenance. Provenance can be arranged; the augments are another matter."
+ cotc_contract_counterfeit_tech_desc_title: "Best prices for certified hardware,"
+ cotc_contract_counterfeit_tech_desc: "The court of [TaskContract.GetEmployer.GetTitledFirstNameNoTooltip] is in the market for augments with provenance. Provenance can be arranged; the augments are a different matter."
+ cotc_contract_counterfeit_tech_request: "This [task_contract|E] requires you to pass manufactured hardware off as certified stock, and to be paid before anyone inspects it."
  laamp_base_4041_contract_scheme: "Counterfeit Tech"
  laamp_base_4041_contract_scheme_action: "Sell forgeries to"
 
@@ -90,8 +87,9 @@
  # Cargo Diversion  (was laamp_base_5031, Rustle Animals)
  ##############################
  cotc_contract_cargo_diversion_contract: "$laamp_base_5031_contract_scheme$"
- cotc_contract_cargo_diversion_desc_title: "Freight handlers, discreet,"
+ cotc_contract_cargo_diversion_desc_title: "Freight handlers wanted,"
  cotc_contract_cargo_diversion_desc: "Containers bound for [TaskContract.GetEmployer.GetPrimaryTitle.GetNameNoTier] can be persuaded to arrive somewhere else entirely, provided the paperwork arrives on time and the crew does not."
+ cotc_contract_cargo_diversion_request: "This [task_contract|E] requires you to reroute a sealed consignment with the seals and paperwork intact."
  laamp_base_5031_contract_scheme: "Cargo Diversion"
  laamp_base_5031_contract_scheme_action: "Divert shipments from"
 
@@ -101,17 +99,13 @@
  cotc_contract_shakedown_contract: "$laamp_base_5051_contract_scheme$"
  cotc_contract_shakedown_desc_title: "Collections work, immediate start,"
  cotc_contract_shakedown_desc: "The comfortable districts of [TaskContract.GetEmployer.GetPrimaryTitle.GetNameNoTier] have grown careless about where they walk and what they carry. This is correctable."
+ cotc_contract_shakedown_request: "This [task_contract|E] requires you to shake down the comfortable districts of [TaskContract.GetEmployer.GetPrimaryTitle.GetNameNoTier]."
  laamp_base_5051_contract_scheme: "Shakedown"
  laamp_base_5051_contract_scheme_action: "Shake down the districts of"
 
  ##############################
  # Asset Recovery  (laamp_steal_artifact_contract - key deliberately kept)
- #
- # Re-contextualised by overriding the VANILLA keys, since the contract keeps its
- # vanilla name. The steal_back_artifact scheme's own loc is left alone: that
- # scheme is also run outside any contract, by any ruler, so renaming it would
- # reach well beyond the Outlaw Charter.
  ##############################
  laamp_steal_artifact_contract_contract: "Asset Recovery"
  laamp_steal_artifact_contract_desc_title: "Recovery specialists, paid on delivery,"
- laamp_steal_artifact_contract_desc: "Something belonging to [TaskContract.GetEmployer.GetTitleAsNameNoTooltip] is presently in the wrong hands, and the usual channels have been exhausted. Discretion is assumed. Receipts are not required."
+ laamp_steal_artifact_contract_desc: "Something belonging to [TaskContract.GetEmployer.GetTitleAsNameNoTooltip] is presently in the wrong hands, and the usual channels have been exhausted. Discretion is required."
