@@ -100,66 +100,6 @@ republic_government = {
 	realm_mask_offset = { 0.0 0.1 }
 	realm_mask_scale = { 0.9 0.9 }
 }
-
-<<<<<<< HEAD
-### Brief: theocracy_government
-# Head of faith will always get this if possible
-#
-# This is referenced in code
-#
-theocracy_government = {
-	government_rules = {
-		religious = yes
-		inherit_from_dynastic_government = no
-	}
-
-	primary_holding = church_holding
-	valid_holdings = { castle_holding tribal_holding nomad_holding herder_holding temple_citadel_holding }
-	required_county_holdings = { church_holding castle_holding city_holding }
-
-	ai = {
-		use_legends = no
-	}
-
-	can_get_government = {
-		NOT = {
-			faith = { has_doctrine = doctrine_theocracy_lay_clergy }
-		}
-		#The LAAMP Construct Holding decision
-		trigger_if = {
-			limit = {
-				OR = {
-					has_variable = city_construction_is_temple_citadel
-					has_variable = city_construction_is_castle
-				}
-			}
-			always = no
-		}
-	}
-
-	vassal_contract_group = theocracy_vassal
-
-	# Use flags instead of has_government for moddability if possible (i.e., wherever not visible to the player).
-	flags = {
-		government_is_bureaucratic
-		government_is_meritocratic
-		government_is_despotic
-		government_is_theocracy
-		government_is_unplayable_theocracy
-		government_is_settled
-		government_uses_domain_limit
-	}
-
-	mechanic_type = theocracy
-	is_mechanic_type_default = yes
-
-	color = hsv{ 0.00 0.00 0.78 }
-	realm_mask_offset = { 0.0 0.1 }
-	realm_mask_scale = { 0.9 0.9 }
-}
-
-=======
->>>>>>> 1.20
 ### Brief: clan_government
 clan_government = {
 	government_rules = {
@@ -384,11 +324,8 @@ wanua_government = { # "Wanua"
 		government_enables_naval_raiding
 		government_enables_river_travel
 		may_elevate_co_monarch
-<<<<<<< HEAD
-		government_not_used_by_cotc # Should be replaced with a COTC standard government
-=======
 		government_uses_tribal_authority
->>>>>>> 1.20
+		government_not_used_by_cotc # Should be replaced with a COTC standard government
 	}
 
 	color = rgb{ 85 207 198 }
@@ -616,17 +553,14 @@ administrative_government = {
 		government_uses_domicile_but_not_adventurer
 		government_uses_domain_limit
 		government_uses_admin_province_obligations
-<<<<<<< HEAD
-		government_not_used_by_cotc # Should be replaced with a COTC standard government
-=======
 		government_uses_imperial_bureaucracy
 		government_uses_salary_budget
 		government_uses_military_budget
+		government_not_used_by_cotc # Should be replaced with a COTC standard government
 	}
 
 	ai = {
 		use_legends = yes
->>>>>>> 1.20
 	}
 
 	mechanic_type = administrative
@@ -793,15 +727,12 @@ nomad_government = {
 		land_raiding_movement_speed_from_government
 		can_raze_holdings
 		government_uses_domicile_but_not_adventurer
-<<<<<<< HEAD
-		government_not_used_by_cotc # Should be replaced with a COTC standard government
-=======
 		government_uses_nomadic_authority
+		government_not_used_by_cotc # Should be replaced with a COTC standard government
 	}
 
 	ai = {
 		use_legends = yes
->>>>>>> 1.20
 	}
 
 	mechanic_type = nomad
@@ -979,18 +910,15 @@ celestial_government = {
 		government_uses_admin_province_obligations
 		government_uses_merit_family_aspirations
 		has_special_house_aspirations
-<<<<<<< HEAD
-		government_not_used_by_cotc # Should be replaced with a COTC standard government
-=======
 		government_uses_celestial_bureaucracy
 		government_uses_salary_budget
 		government_uses_military_budget
 		government_uses_ministry_budget
+		government_not_used_by_cotc # Should be replaced with a COTC standard government
 	}
 
 	ai = {
 		use_legends = yes
->>>>>>> 1.20
 	}
 
 	# The hegemon cannot reassign ministers
@@ -1302,17 +1230,14 @@ steppe_admin_government = {
 		government_uses_admin_province_obligations
 		government_uses_merit_family_aspirations
 		has_special_house_aspirations
-<<<<<<< HEAD
-		government_not_used_by_cotc # Should be replaced with a COTC standard government
-=======
 		government_uses_meritocratic_bureaucracy
 		government_uses_salary_budget
 		government_uses_military_budget
+		government_not_used_by_cotc # Should be replaced with a COTC standard government
 	}
 
 	ai = {
 		use_legends = yes
->>>>>>> 1.20
 	}
 
 	currency_levels_cap = {
@@ -1432,17 +1357,14 @@ meritocratic_government = { # e.g. Korea, Dai Viet
 		government_uses_admin_province_obligations
 		government_uses_merit_family_aspirations
 		has_special_house_aspirations
-<<<<<<< HEAD
-		government_not_used_by_cotc # Should be replaced with a COTC standard government
-=======
 		government_uses_meritocratic_bureaucracy
 		government_uses_salary_budget
 		government_uses_military_budget
+		government_not_used_by_cotc # Should be replaced with a COTC standard government
 	}
 
 	ai = {
 		use_legends = yes
->>>>>>> 1.20
 	}
 
 	currency_levels_cap = {
