@@ -6862,11 +6862,11 @@ scripted_trigger 1025_is_renowned_thief_trigger = {
 #Nothing at all!
 scripted_trigger 1025_no_contracts_trigger = {
 	OR = {
-		#All contract types are on cooldown, I guess
+		#COTC: nothing survived the sector-only selection or we asked too recently
 		NOR = { 
-			exists = scope:1025_first_contract
-			exists = scope:1025_second_contract 
-			exists = scope:1025_third_contract 
+			exists = scope:1025_offer_first
+			exists = scope:1025_offer_second 
+			exists = scope:1025_offer_third 
 		}
 		has_variable = 1025_has_contracted_recently
 	} 
@@ -6877,311 +6877,60 @@ scripted_trigger 1025_no_contracts_trigger = {
 ep3_laamp_decision_event.1025 = {
 	type = character_event
 	title = ep3_laamp_decision_event.1025.t
-	window = visit_settlement_window
+	window = cotc_local_news_window
+	##################################################
+	# COTC
+	# Offers are real contracts now and name themselves in the options, so the body
+	# text only has to say whether there is news at all.
+	##################################################
 	desc = {
-		#What're they doing?
 		first_valid = {
-			#We've returned to this scene, now what
-			#Use this when we have all contract types on cooldown. Should be a bored crier.
-			##COOLDOWN
 			triggered_desc = {
 				trigger = { 1025_no_contracts_trigger = yes }
 				desc = ep3_laamp_decision_event.1025.desc_nothing
 			}
-			#RETURN: Tribal - Legendary contract
-			random_valid = {
-				triggered_desc = { 
-					trigger = {
-						scope:visiting_location = { has_holding_type = tribal_holding }
-						exists = scope:been_to_contract
-						scope:contract_loc_tracker ?= 0
-						OR = {
-							scope:1025_first_contract ?= flag:legendary_contract
-							scope:1025_second_contract ?= flag:legendary_contract
-							scope:1025_third_contract ?= flag:legendary_contract
-						}
-					}
-					desc = ep3_laamp_decision_event.1025.desc_tribal_legendary_returned_01 
-				}
-				triggered_desc = { 
-					trigger = {
-						scope:visiting_location = { has_holding_type = tribal_holding }
-						scope:contract_loc_tracker ?= 1
-						OR = {
-							scope:1025_first_contract ?= flag:legendary_contract
-							scope:1025_second_contract ?= flag:legendary_contract
-							scope:1025_third_contract ?= flag:legendary_contract
-						}
-					}
-					desc = ep3_laamp_decision_event.1025.desc_tribal_legendary_returned_02
-				}
-			}
-			#RETURN: Legendary contract
-			random_valid = {
-				triggered_desc = { 
-					trigger = { 
-						exists = scope:been_to_contract
-						scope:contract_loc_tracker ?= 0
-						OR = {
-							scope:1025_first_contract ?= flag:legendary_contract
-							scope:1025_second_contract ?= flag:legendary_contract
-							scope:1025_third_contract ?= flag:legendary_contract
-						}
-					}
-					desc = ep3_laamp_decision_event.1025.desc_legendary_returned_01 
-				}
-				triggered_desc = { 
-					trigger = { 
-						scope:contract_loc_tracker ?= 1
-						OR = {
-							scope:1025_first_contract ?= flag:legendary_contract
-							scope:1025_second_contract ?= flag:legendary_contract
-							scope:1025_third_contract ?= flag:legendary_contract
-						}
-					}
-					desc = ep3_laamp_decision_event.1025.desc_legendary_returned_02
-				}
-			}
-			#RETURN: Tribal - No legendary contract
-			random_valid = {
-				triggered_desc = { 
-					trigger = {
-						scope:visiting_location = { has_holding_type = tribal_holding }
-						exists = scope:been_to_contract
-						scope:contract_loc_tracker ?= 0
-					}
-					desc = ep3_laamp_decision_event.1025.desc_tribal_returned_01 
-				}
-				triggered_desc = { 
-					trigger = {
-						scope:visiting_location = { has_holding_type = tribal_holding }
-						scope:contract_loc_tracker ?= 1 
-					}
-					desc = ep3_laamp_decision_event.1025.desc_tribal_returned_02
-				}
-			}
-			#RETURN: No legendary contract
-			random_valid = {
-				triggered_desc = { 
-					trigger = {
-						exists = scope:been_to_contract
-						scope:contract_loc_tracker ?= 0
-					}
-					desc = ep3_laamp_decision_event.1025.desc_returned_01 
-				}
-				triggered_desc = { 
-					trigger = { scope:contract_loc_tracker ?= 1 }
-					desc = ep3_laamp_decision_event.1025.desc_returned_02
-				}
-			}
-			#FIRST TIME: Tribal - Legendary contract - Reused Elder
 			triggered_desc = {
-				trigger = {
-					scope:visiting_location = { has_holding_type = tribal_holding }
-					exists = scope:laamp_recurring_town_crier
-					NOR = { 
-						exists = scope:been_to_contract
-						has_variable = 1025_has_contracted_recently
-					}
-					OR = {
-						scope:1025_first_contract ?= flag:legendary_contract
-						scope:1025_second_contract ?= flag:legendary_contract
-						scope:1025_third_contract ?= flag:legendary_contract
-					}
-				}
-				desc = ep3_laamp_decision_event.1025.desc_tribal_legendary_reused_crier
+				trigger = { exists = scope:1025_offer_third }
+				desc = cotc_local_news_desc_3
 			}
-			#FIRST TIME: Legendary contract - Reused Town Crier
 			triggered_desc = {
-				trigger = {
-					exists = scope:laamp_recurring_town_crier
-					NOR = { 
-						exists = scope:been_to_contract
-						has_variable = 1025_has_contracted_recently
-					}
-					OR = {
-						scope:1025_first_contract ?= flag:legendary_contract
-						scope:1025_second_contract ?= flag:legendary_contract
-						scope:1025_third_contract ?= flag:legendary_contract
-					}
-				}
-				desc = ep3_laamp_decision_event.1025.desc_legendary_reused_crier
+				trigger = { exists = scope:1025_offer_second }
+				desc = cotc_local_news_desc_2
 			}
-			#FIRST TIME: Tribal - Legendary contract
-			triggered_desc = {
-				trigger = {
-					scope:visiting_location = { has_holding_type = tribal_holding }
-					NOR = { 
-						exists = scope:been_to_contract
-						has_variable = 1025_has_contracted_recently
-					}
-					OR = {
-						scope:1025_first_contract ?= flag:legendary_contract
-						scope:1025_second_contract ?= flag:legendary_contract
-						scope:1025_third_contract ?= flag:legendary_contract
-					}
-				}
-				desc = ep3_laamp_decision_event.1025.desc_tribal_legendary
-			}
-			#FIRST TIME: Legendary contract
-			triggered_desc = {
-				trigger = {
-					NOR = { 
-						exists = scope:been_to_contract
-						has_variable = 1025_has_contracted_recently
-					}
-					OR = {
-						scope:1025_first_contract ?= flag:legendary_contract
-						scope:1025_second_contract ?= flag:legendary_contract
-						scope:1025_third_contract ?= flag:legendary_contract
-					}
-				}
-				desc = ep3_laamp_decision_event.1025.desc_legendary
-			}
-			#FIRST TIME: Tribal - No legendary contract - Reused Town Crier
-			triggered_desc = {
-				trigger = {
-					scope:visiting_location = { has_holding_type = tribal_holding }
-					exists = scope:laamp_recurring_town_crier
-					NOR = { 
-						exists = scope:been_to_contract
-						has_variable = 1025_has_contracted_recently
-					}
-				}
-				desc = ep3_laamp_decision_event.1025.desc_tribal_reused_crier
-			}
-			#FIRST TIME: No legendary contract - Reused Town Crier
-			triggered_desc = {
-				trigger = {
-					exists = scope:laamp_recurring_town_crier
-					NOR = { 
-						exists = scope:been_to_contract
-						has_variable = 1025_has_contracted_recently
-					}
-				}
-				desc = ep3_laamp_decision_event.1025.desc_reused_crier
-			}
-			#FIRST TIME: Tribal - No legendary contract
-			triggered_desc = {
-				trigger = {
-					scope:visiting_location = { has_holding_type = tribal_holding }
-					NOR = { 
-						exists = scope:been_to_contract
-						has_variable = 1025_has_contracted_recently
-					}
-				}
-				desc = ep3_laamp_decision_event.1025.desc_tribal
-			}
-			#FIRST TIME: No legendary contract
-			triggered_desc = {
-				trigger = {
-					NOR = { 
-						exists = scope:been_to_contract
-						has_variable = 1025_has_contracted_recently
-					}
-				}
-				desc = ep3_laamp_decision_event.1025.desc
-			}
+			desc = cotc_local_news_desc_1
 		}
-		#Concatenated and outsourced to custom_loc - trust me, this is less cursed than the alternative
-		#A exists
-		triggered_desc = {
-			trigger = { 
-				exists = scope:1025_first_contract
-				NOR = {
-					exists = scope:1025_second_contract
-					exists = scope:1025_third_contract
+		# The sign off, after the articles. It lives here rather than in
+		# a custom loc because a custom loc cannot see cotc_local_news_sector
+		first_valid = {
+			triggered_desc = {
+				trigger = { 1025_no_contracts_trigger = yes }
+				desc = cotc_news_signoff_none
+			}
+			triggered_desc = {
+				trigger = {
+					has_variable = cotc_news_network
+					var:cotc_news_network = flag:network_1
 				}
+				desc = cotc_news_signoff_1
 			}
-			desc = ep3_laamp_decision_event.1025.desc_concatenated_A
-		}
-		#AB exists
-		triggered_desc = {
-			trigger = { 
-				exists = scope:1025_first_contract
-				exists = scope:1025_second_contract
-				NOT = { exists = scope:1025_third_contract }
-			}
-			desc = ep3_laamp_decision_event.1025.desc_concatenated_AB
-		}
-		#ABC exists
-		triggered_desc = {
-			trigger = { 
-				exists = scope:1025_first_contract
-				exists = scope:1025_second_contract
-				exists = scope:1025_third_contract
-			}
-			desc = ep3_laamp_decision_event.1025.desc_concatenated_ABC
-		}
-		#B exists
-		triggered_desc = {
-			trigger = { 
-				exists = scope:1025_second_contract
-				NOR = {
-					exists = scope:1025_first_contract
-					exists = scope:1025_third_contract
+			triggered_desc = {
+				trigger = {
+					has_variable = cotc_news_network
+					var:cotc_news_network = flag:network_2
 				}
+				desc = cotc_news_signoff_2
 			}
-			desc = ep3_laamp_decision_event.1025.desc_concatenated_B
-		}
-		#BC exists
-		triggered_desc = {
-			trigger = { 
-				NOT = { exists = scope:1025_first_contract }
-				exists = scope:1025_second_contract
-				exists = scope:1025_third_contract
-			}
-			desc = ep3_laamp_decision_event.1025.desc_concatenated_BC
-		}
-		#C exists
-		triggered_desc = {
-			trigger = { 
-				exists = scope:1025_third_contract
-				NOR = {
-					exists = scope:1025_first_contract
-					exists = scope:1025_second_contract
+			triggered_desc = {
+				trigger = {
+					has_variable = cotc_news_network
+					var:cotc_news_network = flag:network_3
 				}
+				desc = cotc_news_signoff_3
 			}
-			desc = ep3_laamp_decision_event.1025.desc_concatenated_C
-		}
-		#AC exists
-		triggered_desc = {
-			trigger = { 
-				exists = scope:1025_first_contract
-				exists = scope:1025_third_contract
-				NOT = { exists = scope:1025_second_contract }
-			}
-			desc = ep3_laamp_decision_event.1025.desc_concatenated_AC
+			desc = cotc_news_signoff_none
 		}
 	}
 	theme = landless_adventurer
-	override_sound = { reference = "event:/SFX/Events/Themes/sfx_event_theme_type_activity" }
-	override_background = {
-		trigger = { 1000_is_a_nomadic_holding_trigger = yes }
-		reference = terrain_settlement_no_owner
-	}
-	override_background = { reference = garden_location }
-	left_portrait = {
-		trigger = { exists = scope:visiting_partner }
-		character = scope:visiting_partner
-		animation = survey
-	}
-	center_portrait = {
-		character = root
-		triggered_animation = {
-			trigger = { 1025_no_contracts_trigger = yes }
-			animation = worry
-		}
-		animation = interested
-	}
-	right_portrait = {
-		character = scope:laamp_town_crier
-		triggered_animation = {
-			trigger = { 1025_no_contracts_trigger = yes }
-			animation = boredom
-		}
-		animation = debating
-	}
 	immediate = {
 		#To prevent the character, for whatever reason, managing to not have the variable be removed when exiting VS
 		temporarily_lock_visit_settlement_effect = yes
@@ -7280,126 +7029,176 @@ ep3_laamp_decision_event.1025 = {
 			}
 			#Remember the Town Crier
 			1010_remember_vendor_character_effect = { GUILD = crier CHARACTER = scope:laamp_town_crier }
-			#First Contract
-			if = {
-				limit = {
-					NOT = { exists = scope:1025_first_contract }
+			##################################################
+			# COTC: LOCAL NEWS
+			#
+			# Vanilla rolled three contract GROUPS here and spawned two contracts
+			# of whichever group you picked. We spawn real jobs up front, throw
+			# away any that landed outside this Sector, and offer the survivors.
+			#
+			# Why this way round: the spawn radius is not scriptable, and
+			# populate_task_contracts_for_area chooses its own employer engine
+			# side, so there is no way to ask for "a job in this duchy". Spawning
+			# wide and culling is the only lever. The over-spawn amount is a
+			# tuning knob - cotc_local_news_overspawn_value.
+			#
+			# All of this is hidden: the culled contracts exist for a fraction of
+			# a tick and are never seen.
+			##################################################
+			hidden_effect = {
+				every_character_task_contract = { add_to_list = cotc_local_news_pre_existing }
+				cotc_populate_local_news_effect = {
+					LOCATION = scope:visiting_location
+					AMOUNT = cotc_local_news_overspawn_value
 				}
-				#Did we, or someone else, check for contracts here recently?
+				scope:visiting_location.county.duchy ?= { save_scope_as = cotc_local_news_sector }
+				cotc_local_news_cull_effect = { SECTOR = scope:cotc_local_news_sector }
+				# Tag every survivor before picking. cotc_news_type is the dedupe
+				# key below; cotc_news_article is the piece that runs.
+				every_in_list = {
+					list = cotc_local_news_offers
+					cotc_local_news_tag_type_effect = yes
+				}
+				# Up to three survivors become the offers. Fewer is normal in a
+				# thinly held Sector; none is handled by the exit option.
+				# Each offer also saves its System as a scope of its own.
+				#
+				# A saved CONTRACT scope only exposes GetType.GetName in text -
+				# that is the single form vanilla ever uses from a scope
+				# ([ongoing_contract.GetType.GetName], [task_contract.GetType.GetName]).
+				# GetTaskContractRequest and the rest are GUI datacontext promotes
+				# and render as their own literal key in an event. Titles and
+				# characters have no such limitation, so anything beyond the job
+				# name is reached by saving it as a title scope here.
+				#
+				# Picked at random, each pick barred from repeating a type already
+				# taken, so the board cannot offer the same job twice in different
+				# Systems. GUARD EACH PICK ON A VALID CANDIDATE EXISTING - the
+				# guard carries the same limit as the pick, because a pool of three
+				# contracts that are all one type yields exactly one offer.
+				#
+				# This replaced ordered_in_list, which was wrong twice over: an
+				# out-of-range position does NOT leave the scope unset, it resolves
+				# to an element already taken, and position says nothing about type.
+				if = {
+					limit = { any_in_list = { list = cotc_local_news_offers  count >= 1 } }
+					random_in_list = {
+						list = cotc_local_news_offers
+						save_scope_as = 1025_offer_first
+						task_contract_location.county ?= { save_scope_as = 1025_offer_first_system }
+					}
+				}
 				if = {
 					limit = {
-						scope:visiting_location = { has_variable = 1025_saved_first_contract_type }
+						any_in_list = {
+							list = cotc_local_news_offers
+							cotc_local_news_distinct_trigger = { OTHER = scope:1025_offer_first }
+							count >= 1
+						}
 					}
-					#Translating values from variable to flag translates to number?
-					1025_translate_variable_into_flag_effect = { NUM = first }
+					random_in_list = {
+						list = cotc_local_news_offers
+						limit = { cotc_local_news_distinct_trigger = { OTHER = scope:1025_offer_first } }
+						save_scope_as = 1025_offer_second
+						task_contract_location.county ?= { save_scope_as = 1025_offer_second_system }
+					}
 				}
-				#Otherwise generate a new type
-				else = {
-					1025_randomize_and_remember_contract_type_effect = { NUM = first }
-				}	
-			}
-			#Set up the employer, if necessary
-			if = {
-				limit = { exists = scope:1025_first_contract }
-				1025_generate_employer_effect = { NUM = first }
-			}
-			#Second Contract
-			if = {
-				limit = {
-					NOT = { exists = scope:1025_second_contract }
-				}
-				#Did we, or someone else, check for contracts here recently?
 				if = {
 					limit = {
-						scope:visiting_location = { has_variable = 1025_saved_second_contract_type }
+						any_in_list = {
+							list = cotc_local_news_offers
+							cotc_local_news_distinct_trigger = { OTHER = scope:1025_offer_first }
+							cotc_local_news_distinct_trigger = { OTHER = scope:1025_offer_second }
+							count >= 1
+						}
 					}
-					#Translating values from variable to flag
-					1025_translate_variable_into_flag_effect = { NUM = second }
+					random_in_list = {
+						list = cotc_local_news_offers
+						limit = {
+							cotc_local_news_distinct_trigger = { OTHER = scope:1025_offer_first }
+							cotc_local_news_distinct_trigger = { OTHER = scope:1025_offer_second }
+						}
+						save_scope_as = 1025_offer_third
+						task_contract_location.county ?= { save_scope_as = 1025_offer_third_system }
+					}
 				}
-				#Otherwise generate a new type
-				else = {
-					1025_randomize_and_remember_contract_type_effect = { NUM = second }
-				}
-			}
-			#Set up the employer, if necessary
-			if = {
-				limit = { exists = scope:1025_second_contract }
-				1025_generate_employer_effect = { NUM = second }
-			}
-			#If no legendary contract, Third Contract
-			if = {
-				limit = {
-					NOT = { exists = scope:1025_third_contract }
-				}
-				#Did we, or someone else, check for contracts here recently?
+				# Translate each offer into a character variable the news custom
+				# loc can actually read - see cotc_local_news_effects.txt for why
+				# a contract-scope trigger does not work there.
+				cotc_local_news_clear_flags_effect = yes
 				if = {
+					limit = { exists = scope:1025_offer_first }
+					cotc_local_news_flag_effect = { SLOT = first }
+				}
+				if = {
+					limit = { exists = scope:1025_offer_second }
+					cotc_local_news_flag_effect = { SLOT = second }
+				}
+				if = {
+					limit = { exists = scope:1025_offer_third }
+					cotc_local_news_flag_effect = { SLOT = third }
+				}
+
+				# Which masthead is running the feed today.
+				cotc_local_news_network_effect = yes
+
+				# Anything spawned beyond the three we offer is not on the board.
+				every_in_list = {
+					list = cotc_local_news_offers
 					limit = {
-						scope:visiting_location = { has_variable = 1025_saved_third_contract_type }
+						NOR = {
+							this = scope:1025_offer_first
+							this = scope:1025_offer_second
+							this = scope:1025_offer_third
+						}
 					}
-					#Translating values from variable to flag
-					1025_translate_variable_into_flag_effect = { NUM = third }
+					invalidate_contract = yes
 				}
-				#Otherwise generate a new type
-				else = {
-					1025_randomize_and_remember_contract_type_effect = { NUM = third }
-				}
-			}
-			#Set up the employer, if necessary
-			if = {
-				limit = { exists = scope:1025_third_contract }
-				1025_generate_employer_effect = { NUM = third }
-			}
-		}
+			}		}
 	}
 	#Contract A
 	option = {
+		# The offer names itself - this is a real contract, already created.
 		name = ep3_laamp_decision_event.1025.a
-		trigger = { 
-			exists = scope:1025_first_contract
-			1025_is_renowned_thief_trigger = { NUM = first }
+		trigger = { exists = scope:1025_offer_first }
+		# Taking one job means the others were never yours. They are invalidated
+		# rather than left on the map, so the board is a choice and not a windfall.
+		hidden_effect = {
+			scope:1025_offer_second ?= { invalidate_contract = yes }
+			scope:1025_offer_third ?= { invalidate_contract = yes }
 		}
-		show_as_unavailable = { exists = scope:1025_first_contract }
-		#Remove the remember-variable for A
-		scope:visiting_location = { remove_variable ?= 1025_saved_first_contract_type }
-		#Spawn contract(s)
-		1025_option_picked_spawn_contract_effect = { NUM = first }
-		#Pick tooltip and set up the cooldown for the contract type
-		1025_option_tooltip_and_cooldown_contract_type_effect = { NUM = first }
 		#Done here; go back to the main event
+		cotc_local_news_clear_flags_effect = yes
 		1025_finished_contract_effect = yes
 	}
 	#Contract B
 	option = {
+		# The offer names itself - this is a real contract, already created.
 		name = ep3_laamp_decision_event.1025.b
-		trigger = { 
-			exists = scope:1025_second_contract
-			1025_is_renowned_thief_trigger = { NUM = second }
+		trigger = { exists = scope:1025_offer_second }
+		# Taking one job means the others were never yours. They are invalidated
+		# rather than left on the map, so the board is a choice and not a windfall.
+		hidden_effect = {
+			scope:1025_offer_first ?= { invalidate_contract = yes }
+			scope:1025_offer_third ?= { invalidate_contract = yes }
 		}
-		show_as_unavailable = { exists = scope:1025_second_contract }
-		#Remove the remember-variable for B
-		scope:visiting_location = { remove_variable ?= 1025_saved_second_contract_type }
-		#Spawn contract(s)
-		1025_option_picked_spawn_contract_effect = { NUM = second }
-		#Pick tooltip and set up the cooldown for the contract type
-		1025_option_tooltip_and_cooldown_contract_type_effect = { NUM = second }
 		#Done here; go back to the main event
+		cotc_local_news_clear_flags_effect = yes
 		1025_finished_contract_effect = yes
 	}
 	#Contract C
 	option = {
+		# The offer names itself - this is a real contract, already created.
 		name = ep3_laamp_decision_event.1025.c
-		trigger = { 
-			exists = scope:1025_third_contract
-			1025_is_renowned_thief_trigger = { NUM = third }
+		trigger = { exists = scope:1025_offer_third }
+		# Taking one job means the others were never yours. They are invalidated
+		# rather than left on the map, so the board is a choice and not a windfall.
+		hidden_effect = {
+			scope:1025_offer_first ?= { invalidate_contract = yes }
+			scope:1025_offer_second ?= { invalidate_contract = yes }
 		}
-		show_as_unavailable = { exists = scope:1025_third_contract }
-		#Remove the remember-variable for C
-		scope:visiting_location = { remove_variable ?= 1025_saved_third_contract_type }
-		#Spawn contract(s)
-		1025_option_picked_spawn_contract_effect = { NUM = third }
-		#Pick tooltip and set up the cooldown for the contract type
-		1025_option_tooltip_and_cooldown_contract_type_effect = { NUM = third }
 		#Done here; go back to the main event
+		cotc_local_news_clear_flags_effect = yes
 		1025_finished_contract_effect = yes
 	}
 	#I want to do something else
@@ -7409,20 +7208,26 @@ ep3_laamp_decision_event.1025 = {
 			trigger = {
 				NOT = { 
 					exists = scope:been_to_contract
-					exists = scope:1025_first_contract
-					exists = scope:1025_second_contract
-					exists = scope:1025_third_contract
+					exists = scope:1025_offer_first
+					exists = scope:1025_offer_second
+					exists = scope:1025_offer_third
 				}
 			}
 			text = ep3_laamp_decision_event.1025.d_nothing
 		}
 		name = ep3_laamp_decision_event.1025.d
+		# Walking away means none of the offers were taken, so none of them exist.
+		hidden_effect = {
+			scope:1025_offer_first ?= { invalidate_contract = yes }
+			scope:1025_offer_second ?= { invalidate_contract = yes }
+			scope:1025_offer_third ?= { invalidate_contract = yes }
+		}
 		if = {
 			limit = { 
 				NOT = { 
-					exists = scope:1025_first_contract
-					exists = scope:1025_second_contract
-					exists = scope:1025_third_contract
+					exists = scope:1025_offer_first
+					exists = scope:1025_offer_second
+					exists = scope:1025_offer_third
 				}
 			}
 			save_scope_value_as = {
@@ -7432,6 +7237,7 @@ ep3_laamp_decision_event.1025 = {
 		}
 		#For desc flavor
 		else = { save_scope_as = been_to_contract }
+		cotc_local_news_clear_flags_effect = yes
 		#Go back to the main event
 		1001_return_to_second_effect = yes
 	}

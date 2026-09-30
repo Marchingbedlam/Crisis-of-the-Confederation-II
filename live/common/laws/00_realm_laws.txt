@@ -837,15 +837,6 @@ camp_purpose = {
 
 		can_keep = { realm_law_use_camp_purpose = yes }
 
-		# COTC: A settled Base cannot register as Charters defined by movement
-		can_pass = {
-			custom_tooltip = {
-				subject = root
-				text = cotc_charter_requires_roaming_tt
-				NOT = { has_realm_law = posture_settled }
-			}
-		}
-
 		pass_cost = {
 			prestige = {
 				if = {
@@ -969,17 +960,9 @@ camp_purpose = {
 		flag = unlocks_baggage_train_negotiators
 		flag = unlocks_camp_fire_juicy_rumors
 		flag = unlocks_proving_grounds_the_stick_game
+		flag = unlocks_cotc_settled_outlaws_branch
 
 		can_keep = { realm_law_use_camp_purpose = yes }
-
-		# COTC: A settled Base cannot register as Charters defined by movement
-		can_pass = {
-			custom_tooltip = {
-				subject = root
-				text = cotc_charter_requires_roaming_tt
-				NOT = { has_realm_law = posture_settled }
-			}
-		}
 
 		pass_cost = {
 			prestige = {

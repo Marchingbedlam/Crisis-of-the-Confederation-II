@@ -1,0 +1,154 @@
+﻿##################################################
+# COTC - The Underworld
+#
+# ONE SITUATION PER SECTOR, created when a Syndicate is founded in it
+# Retired once the Sector is quiet and empty
+##################################################
+
+cotc_underworld = {
+	situation_group_type = underworld
+	sort_order = 90
+	map_mode = sub_regions
+
+	sub_regions = {
+		cotc_underworld_sector_region = { map_color = rgb{ 120 20 40 } }
+	}
+
+	participant_groups = {
+		# First valid group wins, so bosses are tested before authorities.
+		underworld_bosses = {
+			icon = "gfx/interface/icons/flat_icons/intrigue.dds"
+			map_color = rgb{ 180 30 30 }
+			auto_add_rulers = yes
+			auto_add_landless_rulers = yes
+			require_realm_in_sub_region = no
+			require_domicile_in_sub_region = yes
+			is_character_valid = {
+				OR = {
+					government_has_flag = government_is_criminal
+					AND = {
+						government_has_flag = government_is_landless_adventurer
+						has_realm_law_flag = static_camp_posture
+						has_realm_law = camp_purpose_brigands
+					}
+				}
+			}
+		}
+		enforcing_authorities = {
+			icon = "gfx/interface/icons/flat_icons/martial.dds"
+			map_color = rgb{ 60 90 170 }
+			auto_add_rulers = yes
+			auto_add_landless_rulers = no
+			require_realm_in_sub_region = yes
+			is_character_valid = { is_landed = yes }
+		}
+	}
+
+	on_yearly = {
+		cotc_underworld_sweep_rosters_effect = yes
+		cotc_underworld_retire_effect = yes
+	}
+
+	on_end = {
+		var:cotc_underworld_sector ?= { remove_variable = cotc_underworld }
+	}
+
+	start_phase = underworld_quiet
+	phases = {
+		underworld_quiet = {
+			future_phases = {
+				underworld_stirring = {
+					takeover_type = points
+					takeover_points = 3
+					catalysts = {
+						catalyst_syndicate_founded = 2
+						catalyst_syndicate_entrenched = 1
+						catalyst_system_extorted = 2
+						catalyst_crackdown_failed = 1
+						catalyst_criminal_job_done = 1
+						catalyst_syndicate_dismantled = -2
+						catalyst_crackdown_succeeded = -1
+						catalyst_boss_imprisoned = -1
+					}
+				}
+			}
+		}
+		underworld_stirring = {
+			max_duration = { days = 5475 }
+			max_duration_next_phase = random_non_takeover
+			future_phases = {
+				underworld_quiet = { takeover_type = untyped }
+				underworld_entrenched = {
+					takeover_type = points
+					takeover_points = 5
+					catalysts = {
+						catalyst_syndicate_entrenched = 1
+						catalyst_system_extorted = 2
+						catalyst_syndicate_takeover = 3
+						catalyst_crackdown_failed = 2
+						catalyst_criminal_job_done = 1
+						catalyst_syndicate_dismantled = -2
+						catalyst_crackdown_succeeded = -1
+						catalyst_boss_imprisoned = -1
+					}
+				}
+			}
+			modifier_sets = {
+				cotc_underworld_stirring_set = {
+					underworld_bosses = {
+						character_modifier = { owned_scheme_secrecy_add = 5 }
+					}
+				}
+			}
+		}
+		underworld_entrenched = {
+			max_duration = { days = 4380 }
+			max_duration_next_phase = random_non_takeover
+			future_phases = {
+				underworld_stirring = { takeover_type = untyped }
+				underworld_ascendant = {
+					takeover_type = points
+					takeover_points = 6
+					catalysts = {
+						catalyst_syndicate_takeover = 3
+						catalyst_system_extorted = 2
+						catalyst_crackdown_failed = 2
+						catalyst_criminal_job_done = 1
+						catalyst_syndicate_dismantled = -2
+						catalyst_crackdown_succeeded = -1
+						catalyst_boss_imprisoned = -1
+					}
+				}
+			}
+			modifier_sets = {
+				cotc_underworld_entrenched_set = {
+					underworld_bosses = {
+						character_modifier = { owned_scheme_secrecy_add = 10 }
+						parameters = { cotc_underworld_rich = yes }
+					}
+					enforcing_authorities = {
+						county_modifier = { tax_mult = -0.1  county_opinion_add = -5 }
+					}
+				}
+			}
+		}
+		underworld_ascendant = {
+			max_duration = { days = 3650 }
+			max_duration_next_phase = random_non_takeover
+			future_phases = {
+				underworld_entrenched = { takeover_type = untyped }
+			}
+			modifier_sets = {
+				cotc_underworld_ascendant_set = {
+					underworld_bosses = {
+						character_modifier = { owned_scheme_secrecy_add = 15  monthly_prestige = 0.5 }
+						parameters = { cotc_underworld_rich = yes }
+					}
+					enforcing_authorities = {
+						county_modifier = { tax_mult = -0.2  county_opinion_add = -10  monthly_county_control_decline_add = -0.5 }
+					}
+				}
+			}
+		}
+	}
+}

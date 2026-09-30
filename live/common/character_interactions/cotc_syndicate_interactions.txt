@@ -1,0 +1,80 @@
+﻿##################################################
+# COTC - Syndicate interactions
+##################################################
+
+# Authority cracks down
+cotc_demand_syndicate_dissolution_interaction = {
+	icon = icon_scheme_coerce_contribution
+	category = interaction_category_laamp
+	interface_priority = 70
+	common_interaction = no
+	popup_on_receive = yes
+	needs_recipient_to_open = no
+
+	desc = cotc_demand_syndicate_dissolution_desc
+
+	is_shown = {
+		scope:recipient = { cotc_has_syndicate_trigger = yes }
+		scope:actor = { this = scope:recipient.var:cotc_syndicate_turf.holder }
+	}
+
+	auto_accept = no
+
+	on_accept = {
+		scope:recipient = {
+			save_scope_as = cotc_syndicate_boss
+			# The clear wipes the turf, so resolve the Sector first.
+			cotc_underworld_save_sector_effect = yes
+			cotc_syndicate_clear_effect = yes
+			remove_variable = cotc_syndicate_heat
+			add_character_flag = {
+				flag = cotc_syndicate_dissolved
+				years = 10
+			}
+			cotc_underworld_catalyst_effect = {
+				CATALYST = catalyst_syndicate_dismantled
+				SECTOR = scope:cotc_underworld_sector
+			}
+		}
+		scope:actor = {
+			add_prestige = medium_prestige_gain
+		}
+	}
+
+	on_decline = {
+		scope:actor = {
+			start_war = {
+				casus_belli = cotc_interdiction_cb
+				target = scope:recipient
+			}
+		}
+		scope:recipient = {
+			add_opinion = {
+				target = scope:actor
+				modifier = cotc_squeezed_opinion
+				opinion = -20
+			}
+		}
+	}
+
+	ai_accept = {
+		base = -50
+		# Nobody folds while they are still winning.
+		modifier = {
+			add = -60
+			scope:recipient = { var:cotc_syndicate_grip >= cotc_syndicate_grip_suborn_value }
+			desc = cotc_dissolution_ai_grip_desc
+		}
+		# Folding beats being interdicted by someone who can obviously win.
+		modifier = {
+			add = 90
+			scope:recipient.current_military_strength < scope:actor.military_strength_75_percent_value
+			desc = cotc_dissolution_ai_outgunned_desc
+		}
+		modifier = {
+			add = 40
+			scope:recipient = { cotc_syndicate_status_frontier_trigger = yes }
+			desc = cotc_dissolution_ai_frontier_desc
+		}
+	}
+}

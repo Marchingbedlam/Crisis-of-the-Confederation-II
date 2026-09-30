@@ -1,0 +1,27 @@
+﻿##################################################
+# COTC - Posture swap
+##################################################
+cotc_main_trunk_refund_value = {
+	value = 0
+	if = {
+		limit = { var:cotc_main_trunk_tier = 4 }
+		add = {
+			value = camp_main_04_domicile_building_gold_cost_value
+			multiply = camp_refund_mult_value
+		}
+	}
+	else_if = {
+		limit = { var:cotc_main_trunk_tier = 3 }
+		add = {
+			value = camp_main_03_domicile_building_gold_cost_value
+			multiply = camp_refund_mult_value
+		}
+	}
+	else_if = {
+		limit = { var:cotc_main_trunk_tier = 2 }
+		add = {
+			value = camp_main_02_domicile_building_gold_cost_value
+			multiply = camp_refund_mult_value
+		}
+	}
+}

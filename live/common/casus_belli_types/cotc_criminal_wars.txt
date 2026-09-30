@@ -1,0 +1,678 @@
+﻿##################################################
+# COTC - Syndicate Takeover
+#
+# A copy of vanilla's ep3_laamp_adventurer_county_invasion with four differences
+#
+#   1. target_titles = none    - syndicate takes the one System they built, nothing else.
+#   2. grip replaces prestige  - the gates are grip >= cotc_syndicate_grip_takeover_value 
+#                                AND being the dominant operator on that System.
+#   3. cheaper                 - cotc_syndicate_takeover_cb_cost
+##################################################
+cotc_syndicate_takeover_cb = {
+	icon = invasion
+	group = invasion
+
+	combine_into_one = yes
+	should_show_war_goal_subview = yes
+	mutually_exclusive_titles = { always = yes }
+	allow_hostages = no
+
+	allowed_for_character = { 
+		ep3_adventurer_invasion_allowed_for_character_trigger = yes
+		scope:defender.highest_held_title_tier >= tier_county
+		cotc_has_syndicate_trigger = yes
+		custom_tooltip = {
+			subject = root
+			text = cotc_syndicate_takeover_needs_grip_tt
+			var:cotc_syndicate_grip >= cotc_syndicate_grip_takeover_value
+		}
+		cotc_syndicate_is_dominant_trigger = yes
+	}
+
+	allowed_for_character_display_regardless = { 
+		ep3_adventurer_invasion_allowed_for_character_display_regardless_trigger = yes
+	}
+
+	allowed_against_character = { ep3_adventurer_landless_allowed_against_character_trigger = yes }
+
+	target_titles = none
+	target_title_tier = county
+	target_de_jure_regions_above = yes
+	ignore_effect = change_title_holder
+
+	# No ai_can_target_all_titles - target_titles = none, so there is only ever one.
+	ai_score_mult = {
+		value = ep3_laamp_invasion_ai_targeting_value
+		
+		add = frankokratia_leader_protection_value #Set back to 0. Declaring war on the frankokratia leader can really ruin the whole thing
+	}
+
+	valid_to_start = {
+		scope:target = {
+			is_landless_type_title = no
+			# The takeover is of the System the Syndicate is in
+			this = scope:attacker.var:cotc_syndicate_turf
+			# Also make sure you can't war for, like, the Papal States
+			trigger_if = {
+				limit = { holder.faith ?= root.faith }
+				NOT = {
+					holder ?= { is_theocratic_lessee = yes }
+				}
+			}
+		}
+	}
+
+	should_invalidate = { ep3_adventurer_landless_should_invalidate_trigger = yes }
+
+	on_invalidated_desc = msg_duchy_conquest_war_invalidated_message #Re-use
+	
+	on_invalidated = {}
+
+	cost = {
+		piety = {
+			add = ep3_laamp_invasion_base_piety_cost
+			multiply = common_cb_piety_cost_multiplier
+			multiply = common_claim_reduction_cost_multiplier_core
+			multiply = 0.5 #Half it for Counties
+		}
+		prestige = {
+			value = cotc_syndicate_takeover_cb_cost
+			multiply = common_cb_prestige_cost_multiplier
+			multiply = common_claim_reduction_cost_multiplier_core
+		}
+	}
+
+	on_declaration = {
+		on_declared_war = yes
+		scope:attacker.var:adventurer_invasion_supporter ?= { save_scope_as = supporter }
+		if = {
+			limit = { ep3_adventurer_sponsorship_valid_trigger = yes }
+			scope:attacker = {
+				# Save scopes and cleanup variables
+				set_variable = {
+					name = adventurer_invasion_supporter
+					value = scope:attacker.var:adventurer_invasion_supporter
+				}
+				scope:war ?= {
+					set_variable = {
+						name = adventurer_invasion_supporter
+						value = scope:attacker.var:adventurer_invasion_supporter
+					}
+				}
+				scope:attacker.var:adventurer_invasion_supporter ?= {
+					set_variable = {
+						name = adventurer_invasion_supportee
+						value = scope:attacker
+					}
+				}
+				# Opinion loss
+				reverse_add_opinion = {
+					target = scope:defender
+					modifier = sponsored_laamp_invasion_against_me_opinion
+				}
+				# Support
+				send_interface_toast = {
+					type = msg_troops_gained
+					title = ep3_laamp_sponsor_troops_tt
+					left_icon = scope:supporter
+					right_icon = scope:defender
+					if = {
+						limit = { exists = scope:supporter.var:adventurer_invasion_request_soldiers }
+						capital_barony = { save_scope_as = capital_barony }
+						spawn_army = {
+							men_at_arms = {
+								type = armored_footmen
+								stacks = 3
+							}
+							men_at_arms = {
+								type = accolade_maa_archers
+								stacks = 4
+							}
+							men_at_arms = {
+								type = armored_horsemen
+								stacks = 2
+							}
+							levies = 100
+							inheritable = yes
+							location = scope:attacker.capital_province
+							war = scope:war
+							war_keep_on_attacker_victory = yes
+							save_scope_as = new_army
+							name = ep3_laamp_invasion_event_army
+						}
+						scope:supporter = { remove_variable = adventurer_invasion_request_soldiers }
+					}
+					if = {
+						limit = { exists = scope:supporter.var:adventurer_invasion_join_war }
+						scope:war ?= { add_attacker = scope:supporter }
+						scope:supporter = { remove_variable = adventurer_invasion_join_war }
+					}
+				}
+			}
+		}
+		else_if = {
+			limit = {
+				OR = {
+					scope:supporter ?= scope:defender
+					scope:supporter.top_liege ?= scope:defender.top_liege
+				}
+			}
+			scope:attacker = { ep3_laamp_supporter_invalidated_effect = yes }
+		}
+	}
+
+	on_victory_desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					scope:attacker = { is_local_player = yes }
+				}
+				desc = county_conquest_cb_victory_desc_attacker
+			}
+			desc = county_conquest_cb_victory_desc
+		}
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					exists = scope:attacker.var:adventurer_invasion_supporter
+					ep3_adventurer_sponsorship_valid_trigger = no
+				}
+				desc = {
+					desc = ep3_laamp_sponsor_no_support_tt
+					triggered_desc = {
+						trigger = {
+							scope:attacker.var:adventurer_invasion_supporter ?= { var:adventurer_invasion_target != scope:defender }
+						}
+						desc = ep3_laamp_sponsor_target_tt
+					}
+					triggered_desc = {
+						trigger = {
+							scope:attacker.var:adventurer_invasion_supporter ?= {
+								OR = {
+									this = scope:defender
+									top_liege = scope:defender.top_liege
+								}
+							}
+						}
+						desc = ep3_laamp_sponsor_defender_tt
+					}
+					triggered_desc = {
+						trigger = {
+							scope:attacker.var:adventurer_invasion_supporter ?= { is_allied_to = scope:defender }
+						}
+						desc = ep3_laamp_sponsor_ally_tt
+					}
+					triggered_desc = {
+						trigger = {
+							scope:attacker.var:adventurer_invasion_supporter ?= { is_spouse_of = scope:defender }
+						}
+						desc = ep3_laamp_sponsor_spouse_tt
+					}
+					triggered_desc = {
+						trigger = {
+							scope:attacker.var:adventurer_invasion_supporter ?= {
+								this != scope:defender
+								is_close_family_of = scope:defender
+								opinion = {
+									target = scope:defender
+									value >= -25
+								}
+							}
+						}
+						desc = ep3_laamp_sponsor_family_tt
+					}
+					triggered_desc = {
+						trigger = {
+							scope:attacker.var:adventurer_invasion_supporter ?= {
+								OR = {
+									has_relation_friend = scope:defender
+									has_relation_lover = scope:defender
+								}
+							}
+						}
+						desc = ep3_laamp_sponsor_relation_tt
+					}
+					triggered_desc = {
+						trigger = {
+							scope:attacker.var:adventurer_invasion_supporter ?= {
+								any_character_war = {
+									primary_attacker = scope:attacker.var:adventurer_invasion_supporter
+									primary_defender = scope:defender
+								}
+							}
+						}
+						desc = ep3_laamp_sponsor_attacking_tt
+					}
+					triggered_desc = {
+						trigger = {
+							scope:attacker.var:adventurer_invasion_supporter ?= {
+								NOT = { in_diplomatic_range = scope:defender }
+							}
+						}
+						desc = ep3_laamp_sponsor_range_tt
+					}
+				}
+			}
+			triggered_desc = {
+				trigger = {
+					exists = scope:attacker.var:adventurer_invasion_supporter.var:adventurer_invasion_join_war
+					exists = scope:attacker.var:adventurer_invasion_supporter.var:adventurer_invasion_request_soldiers
+				}
+				desc = ep3_laamp_sponsor_support_both_tt
+			}
+			triggered_desc = {
+				trigger = { exists = scope:attacker.var:adventurer_invasion_supporter.var:adventurer_invasion_join_war }
+				desc = ep3_laamp_sponsor_support_join_tt
+			}
+			triggered_desc = {
+				trigger = { exists = scope:attacker.var:adventurer_invasion_supporter.var:adventurer_invasion_request_soldiers }
+				desc = ep3_laamp_sponsor_support_soldiers_tt
+			}
+			triggered_desc = {
+				trigger = {
+					exists = scope:attacker.var:adventurer_invasion_supporter
+					ep3_adventurer_sponsorship_valid_trigger = yes
+				}
+				desc = ep3_laamp_sponsor_support_tt
+			}
+		}
+	}
+
+	on_victory = {
+		scope:attacker = {
+			add_character_flag = {
+				flag = domicile_culture_and_faith_check
+				days = 1
+			}
+			# Save target
+			ordered_in_list = {
+				list = target_titles
+				order_by = tier
+				save_scope_as = target
+			}
+			scope:defender = {
+				every_held_title = {
+					limit = { duchy ?= scope:target }
+					add_to_list = target_titles
+				}
+			}
+			# Organise general results for the attacker.
+			if = {
+				limit = { ep3_adventurer_invasion_sponsorship_applies_trigger = yes }
+				var:adventurer_invasion_supporter = { save_scope_as = supporter }
+				ep3_laamp_support_variable_cleanup_effect = yes
+				conquest_supporter_memory_variable_effect = yes
+			}
+			ep3_landless_invasion_titles_taken_effect = {
+				TITLE_GIVER = scope:defender
+				TITLE_RECEIVER = scope:attacker
+				TITLE = scope:target
+				TITLE_LIST = target_titles
+			}
+			### Set a new capital.
+			#### We prefer the de jure capital of the other.
+			if = {
+				limit = {
+					scope:target.title_capital_county = { is_in_list = target_titles }
+				}
+				scope:target.title_capital_county = {
+					save_temporary_scope_as = new_capital
+					scope:attacker = { set_realm_capital = scope:new_capital }
+				}
+			}
+			### Otherwise, tribals go by pure levy count.
+			else_if = {
+				limit = {
+					scope:attacker = { government_has_flag = government_is_tribal }
+				}
+				ordered_in_list = {
+					list = target_titles
+					limit = { tier = tier_county }
+					order_by = total_county_levies
+					save_temporary_scope_as = new_capital
+					scope:attacker = { set_realm_capital = scope:new_capital }
+				}
+			}
+			### If nomadic, they will prefer county fertility
+			else_if = {
+				limit = {
+					any_in_list = {
+						list = target_titles
+						tier = tier_county
+						uses_county_fertility = yes 
+					}
+				}
+				ordered_in_list = {
+					list = target_titles
+					limit = { tier = tier_county }
+					order_by =  county_fertility
+					save_temporary_scope_as = new_capital
+					scope:attacker = { set_realm_capital = scope:new_capital }
+				}
+			}
+			### Generally everyone prefers the highest development.
+			else = {
+				ordered_in_list = {
+					list = target_titles
+					limit = { tier = tier_county }
+					order_by = development_level
+					save_temporary_scope_as = new_capital
+					scope:attacker = { set_realm_capital = scope:new_capital }
+				}
+			}
+			## Seizing control so things *vaguely* work.
+			custom_tooltip = fp1_varangian_adventurer_conquest.summaries.control_rebate
+			scope:attacker = { trigger_event = fp1_varangian_adventures.0001 }
+			# Finally, general cleanup.
+			ep3_become_landed_cleanup_effect = yes
+			# Prestige Progress for the Attacker
+			add_prestige_experience = minor_prestige_value
+		}
+
+		# Allies on both sides get full prestige value for helping in the war, based on their war participation.
+		modify_allies_of_participants_fame_values = {
+			WINNER = scope:attacker
+			FAME_BASE = medium_prestige_value
+			IS_RELIGIOUS_WAR = no
+			WINNER_ALLY_FAME_SCALE = 1
+			LOSER_ALLY_FAME_SCALE = 1
+		}
+
+		# Break alliances now out of diplo range
+		scope:attacker = {
+			every_ally = {
+				limit = {
+					NOT = { in_diplomatic_range = scope:attacker }
+				}
+				break_alliance = scope:attacker
+			}
+		}
+
+		# Truce
+		add_truce_attacker_victory_effect = yes
+
+		# FP1: note the victory for future memorialisation via stele (if applicable).
+		scope:attacker = { fp1_remember_recent_conquest_victory_effect = yes }
+
+		debug_log_scopes = yes
+
+		# EP3: note gold gained from military assistance/join war contracts and their war contribution threshold
+		laamp_as_mercenary_payout_tooltip_effect = yes
+
+		# COTC: tier 3 interference. A great power designates you a national security problem, 
+		# and any legislature becomes the first casualty. catalyst_coup has been declared.
+		if = {
+			limit = {
+				scope:defender = { is_independent_ruler = no }
+				exists = scope:defender.top_liege
+				scope:defender.top_liege = {
+					can_vassals_be_attacked = yes
+					exists = primary_title.var:legislature
+				}
+			}
+			scope:defender.top_liege.primary_title.var:legislature ?= {
+				trigger_situation_catalyst = {
+					catalyst = catalyst_coup
+					character = scope:defender.top_liege
+				}
+			}
+		}
+
+		# COTC: the Syndicate has served its purpose
+		scope:attacker = {
+			save_scope_as = cotc_syndicate_boss
+			cotc_underworld_save_sector_effect = yes
+			cotc_underworld_catalyst_effect = {
+				CATALYST = catalyst_syndicate_takeover
+				SECTOR = scope:cotc_underworld_sector
+			}
+			cotc_syndicate_clear_effect = yes
+		}
+	}
+
+	on_white_peace_desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:defender = { is_local_player = yes } }
+				desc = county_conquest_cb_white_peace_desc_defender
+			}
+			desc = county_conquest_cb_white_peace_desc
+		}
+	}
+
+	on_white_peace = {
+		scope:attacker = { ep3_laamp_support_variable_cleanup_effect = yes }
+
+		#EP2 accolade glory gain for winning against higher ranked enemy
+		scope:defender = { accolade_defender_war_end_glory_gain_low_effect = yes }
+
+		# Prestige loss for the attacker
+		scope:attacker = {
+			add_prestige = {
+				value = miniscule_prestige_value #Less for counties
+				multiply = -1.0
+			}
+			stress_impact = {
+				ambitious = medium_stress_impact_gain
+				arrogant = medium_stress_impact_gain
+			}
+		}
+
+		# Allies on both sides get full prestige value for helping in the war, based on their war participation.
+		modify_allies_of_participants_fame_values = {
+			WINNER = scope:attacker # Not important as the scales are identical
+			FAME_BASE = medium_prestige_value
+			IS_RELIGIOUS_WAR = no
+			WINNER_ALLY_FAME_SCALE = 1
+			LOSER_ALLY_FAME_SCALE = 1
+		}
+
+		scope:defender = {
+			stress_impact = {
+				arrogant = medium_stress_impact_gain
+			}
+		}
+
+		add_truce_white_peace_effect = yes
+
+		# EP3: note gold gained from military assistance/join war contracts and their war contribution threshold
+		laamp_as_mercenary_payout_tooltip_effect = yes
+	}
+
+	on_defeat_desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:defender = { is_local_player = yes } }
+				desc = county_conquest_cb_defeat_desc_defender
+			}
+			triggered_desc = {
+				trigger = {
+					scope:attacker = {
+						is_local_player = yes
+						has_targeting_faction = yes
+					}
+				}
+				desc = county_conquest_cb_defeat_desc_attacker
+			}
+			desc = county_conquest_cb_defeat_desc
+		}
+	}
+
+	on_defeat = {
+		scope:attacker = { ep3_laamp_support_variable_cleanup_effect = yes }
+
+		scope:defender = { 
+			mandala_peacemaker_perk_serenity_effect = yes
+			#EP2 accolade glory gain for winning against higher ranked enemy
+			accolade_defender_war_end_glory_gain_high_effect = yes
+			# Prestige for Defender
+			add_prestige_war_defender_effect = {
+				PRESTIGE_VALUE = medium_prestige_value
+			}
+		}
+
+		# Prestige loss for the attacker
+		scope:attacker = {
+			pay_short_term_gold_reparations_effect = {
+				GOLD_VALUE = 2 #Less for counties
+			}
+			add_prestige = {
+				value = medium_prestige_value #Less for counties
+				multiply = -1.0
+			}
+		}
+
+		# Allies on both sides get full prestige value for helping in the war, based on their war participation.
+		modify_allies_of_participants_fame_values = {
+			WINNER = scope:defender
+			FAME_BASE = medium_prestige_value
+			IS_RELIGIOUS_WAR = no
+			WINNER_ALLY_FAME_SCALE = 1
+			LOSER_ALLY_FAME_SCALE = 1
+		}
+
+		add_truce_attacker_defeat_effect = yes
+
+		scope:attacker = {
+			save_temporary_scope_as = loser
+		}
+
+		on_lost_aggression_war_discontent_loss = yes
+
+		# EP3: note gold gained from military assistance/join war contracts and their war contribution threshold
+		laamp_as_mercenary_payout_tooltip_effect = yes
+	}
+
+	transfer_behavior = transfer
+
+	on_primary_attacker_death = inherit
+	on_primary_defender_death = inherit
+
+	attacker_allies_inherit = yes
+	defender_allies_inherit = yes
+
+	war_name = "COTC_CARTEL_TAKEOVER_WAR_NAME"
+	war_name_base = "COTC_CARTEL_TAKEOVER_WAR_NAME_BASE"
+	cb_name = "COTC_CARTEL_TAKEOVER_CB_NAME"
+
+	interface_priority = 79
+
+	use_de_jure_wargoal_only = yes
+
+	attacker_wargoal_percentage = 0.8
+	
+	max_attacker_score_from_battles = 75
+
+	max_defender_score_from_occupation = 150
+	max_attacker_score_from_occupation = 150
+}
+
+##################################################
+# COTC - Interdiction
+#
+# When a sanction is refused, the authority declares war on the syndicate
+#
+# Winning runs cotc_syndicate_dismantled_effect
+# Losing costs public face
+##################################################
+
+cotc_interdiction_cb = {
+	icon = apprehend_adventurer
+	group = subjugation
+
+	# scope:defender is NOT always set when allowed_for_character is evaluated -
+	# the engine also asks "could this character ever use this CB" with no target,
+	# and referencing it there logs "Undefined event target 'defender'" on every
+	# AI pass. Everything about the target belongs in allowed_against_character,
+	# whose root IS the defender and where scope:attacker is available.
+	allowed_for_character = {
+		is_landed = yes
+	}
+
+	allowed_against_character = {
+		government_has_flag = government_is_landless_adventurer
+		cotc_has_syndicate_trigger = yes
+		var:cotc_syndicate_turf.holder ?= scope:attacker
+	}
+
+	target_titles = none
+	ignore_effect = change_title_holder
+
+	should_invalidate = {
+		scope:defender = { cotc_has_syndicate_trigger = no }
+	}
+	on_invalidated_desc = msg_duchy_conquest_war_invalidated_message
+	on_invalidated = {}
+
+	cost = {
+		prestige = {
+			value = cotc_interdiction_cb_cost
+			multiply = common_cb_prestige_cost_multiplier
+		}
+	}
+
+	on_declaration = {
+		on_declared_war = yes
+	}
+
+	on_victory_desc = {
+		desc = cotc_interdiction_victory_desc
+	}
+	on_victory = {
+		scope:attacker = { save_scope_as = cotc_crackdown_authority }
+		scope:defender.var:cotc_syndicate_turf ?= { save_scope_as = cotc_crackdown_system }
+		scope:defender = {
+			cotc_syndicate_dismantled_effect = yes
+		}
+		# The one place the ladder ends in a cell.
+		scope:attacker = {
+			imprison = {
+				target = scope:defender
+				type = dungeon
+			}
+		}
+		add_truce_attacker_victory_effect = yes
+	}
+
+	on_white_peace_desc = {
+		desc = cotc_interdiction_white_peace_desc
+	}
+	on_white_peace = {
+		add_truce_white_peace_effect = yes
+	}
+
+	on_defeat_desc = {
+		desc = cotc_interdiction_defeat_desc
+	}
+	on_defeat = {
+		scope:defender = {
+			save_scope_as = cotc_syndicate_boss
+			cotc_crackdown_add_heat_effect = { AMOUNT = -60 }
+			cotc_syndicate_add_grip_effect = { AMOUNT = 10 }
+			cotc_underworld_save_sector_effect = yes
+			cotc_underworld_catalyst_effect = {
+				CATALYST = catalyst_crackdown_failed
+				SECTOR = scope:cotc_underworld_sector
+			}
+		}
+		add_truce_attacker_defeat_effect = yes
+	}
+
+	transfer_behavior = transfer
+
+	on_primary_attacker_death = inherit
+	on_primary_defender_death = invalidate
+
+	attacker_allies_inherit = yes
+	defender_allies_inherit = yes
+
+	war_name = "COTC_INTERDICTION_WAR_NAME"
+	war_name_base = "COTC_INTERDICTION_WAR_NAME_BASE"
+	cb_name = "COTC_INTERDICTION_CB_NAME"
+
+	interface_priority = 78
+
+	max_attacker_score_from_battles = 100
+	max_defender_score_from_occupation = 100
+	max_attacker_score_from_occupation = 100
+}

@@ -1,0 +1,320 @@
+﻿##################################################
+# COTC - Asset Recovery
+#
+# This contract keeps its key on purpose because it borrows vanilla's steal_back_artifact
+# and the key is named in around twenty places across eight vanilla files.
+##################################################
+laamp_steal_artifact_contract = {
+	group = laamp_contracts_criminal_group
+	icon = "gfx/interface/icons/character_interactions/icon_scheme_steal_back_artifact.dds"
+	travel = yes
+	use_diplomatic_range = no
+	is_criminal = yes
+
+	# Validity Triggers
+	valid_to_create = {
+		# Standard triggers.
+		valid_laamp_basic_trigger = {
+			EMPLOYER = scope:employer
+			LAAMP = root
+		}
+		employer_has_treasury_to_offer_job_trigger = yes
+		valid_laamp_sensible_start_trigger = yes
+		# Specific flavour triggers.
+		scope:employer = {
+			OR = {
+				#target any artifact you have a claim on
+				any_claimed_artifact = {
+					artifact_owner = {
+						is_within_diplo_range = { CHARACTER = root }
+					}
+				}
+				#or if you are greedy target at least a masterwork artifact of someone that is up to 1 tier above you
+				AND = {
+					ai_greed >= 50
+					any_neighboring_top_liege_realm_owner = {
+						highest_held_title_tier <= {
+							value = scope:employer.highest_held_title_tier
+							add = 1
+						}
+						any_character_artifact = {
+							artifact_high_rarity_trigger = yes
+						}
+					}
+				}
+			}
+		}
+	}
+
+	valid_to_keep = {
+		exists = root.var:task_contract_object
+		root.var:task_contract_object = {
+			artifact_owner != root.task_contract_employer
+		}
+		task_contract_target = {
+			NOT = {
+				has_opinion_modifier = {
+					target = root.task_contract_taker
+					modifier = stole_artifact_from_me
+				}
+			}
+		}
+		# Standard triggers.
+		valid_laamp_basic_trigger = {
+			EMPLOYER = root.task_contract_employer
+			LAAMP = root.task_contract_taker
+		}
+	}
+
+	valid_to_accept = {
+		# Standard triggers.
+		valid_laamp_basic_accept_only_trigger = yes
+		valid_laamp_basic_trigger = {
+			EMPLOYER = scope:employer
+			LAAMP = root
+		}
+	}
+	valid_to_continue = {
+		exists = root.var:task_contract_object
+		root.var:task_contract_object = {
+			artifact_owner != root.task_contract_employer
+		}
+		task_contract_target = {
+			NOT = {
+				has_opinion_modifier = {
+					target = root.task_contract_taker
+					modifier = stole_artifact_from_me
+				}
+			}
+		}
+		# Standard triggers.
+		valid_laamp_basic_trigger = {
+			EMPLOYER = root.task_contract_employer
+			LAAMP = root.task_contract_taker
+		}
+	}
+
+	weight = {
+		# Standard weights.
+		value = task_contract_weight_interesting_quite_rare_value
+		add = laamp_contracts_weight_up_intrigue_value
+		if = {
+			limit = {
+				employs_court_position = master_thief_camp_officer
+			}
+			add = 50
+		}
+		add = task_contract_weight_employer_contact_list_value
+		scope:employer = { multiply = task_contract_weight_by_tier_value }
+	}
+
+	# On_Actions
+	on_create = {
+		scope:contract = {
+			save_scope_as = task_contract
+			task_contract_employer = {
+				if = {
+					limit = {
+						any_claimed_artifact = {
+							artifact_owner = {
+								is_within_diplo_range = { CHARACTER = scope:task_contract.task_contract_taker }
+							}
+							save_temporary_scope_as = claimed_artifact
+						}
+					}
+					scope:claimed_artifact = {
+						save_scope_as = task_contract_object
+						artifact_owner = {
+							save_scope_as = task_contract_target
+						}
+					}
+				}
+				else = {
+					random_neighboring_top_liege_realm_owner = {
+						limit = {
+							highest_held_title_tier <= {
+								value = scope:task_contract.task_contract_employer.highest_held_title_tier
+								add = 1
+							}
+							any_character_artifact = {
+								artifact_high_rarity_trigger = yes
+								save_temporary_scope_as = claimed_artifact
+							}
+						}
+						scope:claimed_artifact = {
+							save_scope_as = task_contract_object
+						}
+						save_scope_as = task_contract_target
+					}
+				}
+			}
+			set_task_contract_target = scope:task_contract_target
+			set_variable = {
+				name = task_contract_employer
+				value = scope:task_contract.task_contract_employer
+			}
+			set_variable = {
+				name = task_contract_target
+				value = scope:task_contract_target
+			}
+			set_variable = {
+				name = task_contract_object
+				value = scope:task_contract_object
+			}
+			# Make our gold rewards static.
+			grab_gold_fuzz_number_effect = yes
+			set_variable = {
+				name = gold_success_standard
+				value = task_contract_taker.task_contract_success_gold_gain_full_value
+			}
+		}
+	}
+
+	on_accepted = {
+		task_contract_taker = { play_sound_effect = "event:/DLC/EP3/SFX/UI/Contracts/ep3_ui_contracts_accept_contract" }
+		save_scope_as = task_contract
+		task_contract_taker = {
+			trigger_event = ep3_contract_event.0009
+		}
+	}
+
+	on_invalidated = {
+		if = {
+			limit = {
+				root.task_contract_taker = {
+					any_character_active_contract = {
+						this = root
+					}
+				}
+			}
+			task_contract_employer = {
+				save_scope_as = task_contract_employer
+			}
+			save_scope_value_as = {
+				name = task_contract_tier
+				value = root.task_contract_tier
+			}
+			var:task_contract_destination = {
+				save_scope_as = task_contract_destination
+			}
+			var:task_contract_target = {
+				save_scope_as = task_contract_target
+			}
+
+			task_contract_taker = {
+				set_variable = {
+					name = invalidated_task_contract_type
+					value = flag:laamp_steal_artifact_contract
+				}
+			}
+			if = {
+				limit = {
+					task_contract_employer = {
+						is_alive = no
+					}
+				}
+				task_contract_employer.primary_title.holder ?= {
+					save_scope_as = employer_heir
+				}
+				task_contract_taker = {
+					save_scope_value_as = {
+						name = task_contract_invalidation_reason
+						value = flag:employer_dead
+					}
+					trigger_event = ep3_contract_event.0012
+				
+				}
+			}
+			else_if = {
+				limit = {
+					scope:task_contract_target = {
+						is_alive = no
+					}
+				}
+				task_contract_taker = {
+					save_scope_value_as = {
+						name = task_contract_invalidation_reason
+						value = flag:target_dead
+					}
+					trigger_event = ep3_contract_event.0012
+				}
+			}
+		}
+	}
+	task_contract_reward = {
+		success_standard = {
+			effect = {
+				task_contract_taker = { play_sound_effect = "event:/DLC/EP3/SFX/UI/Contracts/ep3_ui_contracts_success_on_contract" }
+				save_scope_as = task_contract
+				var:task_contract_object = {
+					save_scope_as = task_contract_object
+				}
+				task_contract_taker = {
+					send_interface_toast = {
+						title = laamp_transport_contract.success
+						left_icon = scope:task_contract.task_contract_taker
+						right_icon = scope:task_contract.task_contract_employer
+						root = {
+							save_scope_value_as = { name = extra_reward value = flag:no }
+							# Standard Rewards.
+							laamp_rewards_disburse_ordinary_currency_effect = {
+								GOLD = scope:task_contract.var:gold_success_standard
+								PRESTIGE = task_contract_success_prestige_gain_full_value
+								PIETY = 0
+								PROVISIONS = task_contract_success_provisions_gain_minor_value
+								OPINION = task_contract_opinion_standard_reward_value
+								OPINION_TYPE = succeeded_task_contract_opinion
+								CONTACT = yes
+								CONTACT_HOOK = yes
+								EXTRA_REWARD = scope:extra_reward
+							}
+						}
+					}
+					# Update gallowsbait score.
+					laamp_rewards_apply_criminal_xp_effect = {
+						TRACK = thief
+						XP_MIN = gallowsbait_xp_medium_gain
+						XP_MAX = gallowsbait_xp_medium_gain
+					}
+				}
+				hidden_effect = {
+					scope:task_contract_object = {
+						set_owner = scope:task_contract.task_contract_employer
+					}
+				}
+			}
+		}
+		failure_standard = {
+			positive = no
+			effect = {
+				task_contract_taker = { play_sound_effect = "event:/DLC/EP3/SFX/UI/Contracts/ep3_ui_contracts_failure_on_contract" }
+				save_scope_as = task_contract
+				save_scope_value_as = { name = extra_reward value = flag:no }
+				# Standard Penalties.
+				laamp_rewards_disburse_ordinary_currency_effect = {
+					GOLD = 0
+					PRESTIGE = task_contract_failure_prestige_loss_full_value
+					PIETY = 0
+					PROVISIONS = task_contract_failure_provisions_gain_minor_value
+					OPINION = task_contract_opinion_standard_failure_value
+					OPINION_TYPE = failed_task_contract_opinion
+					CONTACT = no
+					CONTACT_HOOK = no
+					EXTRA_REWARD = scope:extra_reward
+				}
+				task_contract_taker = {
+					# Update gallowsbait score.
+					laamp_rewards_apply_criminal_xp_effect = {
+						TRACK = thief
+						XP_MIN = gallowsbait_xp_minor_gain
+						XP_MAX = gallowsbait_xp_minor_gain
+					}
+				}
+			}
+		}
+	}
+	# COTC: increase Underworld grip
+	on_completed = {
+		cotc_criminal_contract_completed_effect = yes
+	}
+}

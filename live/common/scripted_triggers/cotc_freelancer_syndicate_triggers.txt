@@ -1,0 +1,130 @@
+﻿##################################################
+# COTC - Syndicate triggers
+##################################################
+
+cotc_has_syndicate_trigger = {
+	exists = var:cotc_syndicate_turf
+}
+
+# The turf still has a holder - guards every status read below.
+cotc_syndicate_turf_is_held_trigger = {
+	cotc_has_syndicate_trigger = yes
+	exists = var:cotc_syndicate_turf.holder
+}
+
+##################################################
+# TARGET STATUS - difficulty states
+##################################################
+
+# 1 Independent - the holder is independent and answers to nobody.
+cotc_syndicate_status_independent_trigger = {
+	cotc_syndicate_turf_is_held_trigger = yes
+	var:cotc_syndicate_turf.holder = { is_independent_ruler = yes }
+}
+
+# 2 Protected - a vassal whose liege is pulled into any war against them.
+cotc_syndicate_status_protected_trigger = {
+	cotc_syndicate_turf_is_held_trigger = yes
+	var:cotc_syndicate_turf.holder = { is_independent_ruler = no }
+	var:cotc_syndicate_turf.holder.top_liege = { can_vassals_be_attacked = no }
+}
+
+# 3 Frontier - a vassal of a great power, left to fight alone.
+cotc_syndicate_status_frontier_trigger = {
+	cotc_syndicate_turf_is_held_trigger = yes
+	var:cotc_syndicate_turf.holder = { is_independent_ruler = no }
+	var:cotc_syndicate_turf.holder.top_liege = { can_vassals_be_attacked = yes }
+}
+
+##################################################
+# DOMINANCE
+#
+# Taking the System needs grip AND the highest grip
+##################################################
+
+cotc_syndicate_is_dominant_trigger = {
+	cotc_has_syndicate_trigger = yes
+	custom_tooltip = {
+		subject = root
+		text = cotc_syndicate_not_dominant_tt
+		var:cotc_syndicate_turf = {
+			NOT = {
+				any_in_list = {
+					variable = cotc_syndicate_operators
+					this != root
+					var:cotc_syndicate_grip > root.var:cotc_syndicate_grip
+				}
+			}
+		}
+	}
+}
+
+# Cleanup trigger
+cotc_syndicate_operator_is_stale_trigger = {
+	OR = {
+		is_alive = no
+		cotc_has_syndicate_trigger = no
+		NOT = { var:cotc_syndicate_turf = prev }
+	}
+}
+
+
+##################################################
+# COTC - Crackdown triggers
+##################################################
+
+cotc_crackdown_notice_trigger = {
+	cotc_has_syndicate_trigger = yes
+	cotc_syndicate_heat_value >= 25
+	cotc_syndicate_heat_value < 75
+}
+
+cotc_crackdown_enforcement_trigger = {
+	cotc_has_syndicate_trigger = yes
+	cotc_syndicate_heat_value >= 75
+	cotc_syndicate_heat_value < 150
+}
+
+cotc_crackdown_sanction_trigger = {
+	cotc_has_syndicate_trigger = yes
+	cotc_syndicate_heat_value >= 150
+	cotc_syndicate_heat_value < 250
+}
+
+cotc_crackdown_interdiction_trigger = {
+	cotc_has_syndicate_trigger = yes
+	cotc_syndicate_heat_value >= 250
+}
+
+# With several Syndicates in a System the authority picks the loudest
+# Keeping grip high and heat low will make a rival take the raid for you
+cotc_syndicate_is_loudest_trigger = {
+	cotc_has_syndicate_trigger = yes
+	var:cotc_syndicate_turf = {
+		NOT = {
+			any_in_list = {
+				variable = cotc_syndicate_operators
+				this != root
+				cotc_syndicate_heat_value > root.cotc_syndicate_heat_value
+			}
+		}
+	}
+}
+
+# Root = the boss, scope:cotc_crackdown_authority = who would act.
+cotc_crackdown_authority_will_act_trigger = {
+	exists = scope:cotc_crackdown_authority
+	scope:cotc_crackdown_authority = {
+		is_alive = yes
+		is_imprisoned = no
+		NOT = { has_trait = incapable }
+		# Do not start what you cannot finish.
+		current_military_strength >= root.military_strength_75_percent_value
+	}
+	# Nobody raids the crew currently doing a job for them.
+	NOT = {
+		any_character_task_contract = {
+			task_contract_employer = scope:cotc_crackdown_authority
+		}
+	}
+}

@@ -1,0 +1,115 @@
+﻿##################################################
+# COTC - Local news
+#
+# ADDING AN ARTICLE: a line in that arm's random_list, an arm per slot in
+# cotc_contract_news_custom_loc.txt, and the loc key
+cotc_local_news_tag_type_effect = {
+	if = {
+		limit = { has_task_contract_type = cotc_contract_confidence_scheme }
+		set_variable = { name = cotc_news_type  value = flag:confidence_scheme }
+		random_list = {
+			1 = { set_variable = { name = cotc_news_article  value = flag:confidence_scheme_1 } }
+		}
+	}
+	else_if = {
+		limit = { has_task_contract_type = cotc_contract_commerce_raid }
+		set_variable = { name = cotc_news_type  value = flag:commerce_raid }
+		random_list = {
+			1 = { set_variable = { name = cotc_news_article  value = flag:commerce_raid_1 } }
+		}
+	}
+	else_if = {
+		limit = { has_task_contract_type = cotc_contract_ledger_intrusion }
+		set_variable = { name = cotc_news_type  value = flag:ledger_intrusion }
+		random_list = {
+			1 = { set_variable = { name = cotc_news_article  value = flag:ledger_intrusion_1 } }
+		}
+	}
+	else_if = {
+		limit = { has_task_contract_type = cotc_contract_assassination }
+		set_variable = { name = cotc_news_type  value = flag:assassination }
+		random_list = {
+			1 = { set_variable = { name = cotc_news_article  value = flag:assassination_1 } }
+		}
+	}
+	else_if = {
+		limit = { has_task_contract_type = cotc_contract_abduction }
+		set_variable = { name = cotc_news_type  value = flag:abduction }
+		random_list = {
+			1 = { set_variable = { name = cotc_news_article  value = flag:abduction_1 } }
+		}
+	}
+	else_if = {
+		limit = { has_task_contract_type = cotc_contract_sabotage }
+		set_variable = { name = cotc_news_type  value = flag:sabotage }
+		random_list = {
+			1 = { set_variable = { name = cotc_news_article  value = flag:sabotage_1 } }
+		}
+	}
+	else_if = {
+		limit = { has_task_contract_type = cotc_contract_treasury_heist }
+		set_variable = { name = cotc_news_type  value = flag:treasury_heist }
+		random_list = {
+			1 = { set_variable = { name = cotc_news_article  value = flag:treasury_heist_1 } }
+		}
+	}
+	else_if = {
+		limit = { has_task_contract_type = cotc_contract_counterfeit_tech }
+		set_variable = { name = cotc_news_type  value = flag:counterfeit_tech }
+		random_list = {
+			1 = { set_variable = { name = cotc_news_article  value = flag:counterfeit_tech_1 } }
+		}
+	}
+	else_if = {
+		limit = { has_task_contract_type = cotc_contract_cargo_diversion }
+		set_variable = { name = cotc_news_type  value = flag:cargo_diversion }
+		random_list = {
+			1 = { set_variable = { name = cotc_news_article  value = flag:cargo_diversion_1 } }
+		}
+	}
+	else_if = {
+		limit = { has_task_contract_type = cotc_contract_shakedown }
+		set_variable = { name = cotc_news_type  value = flag:shakedown }
+		random_list = {
+			1 = { set_variable = { name = cotc_news_article  value = flag:shakedown_1 } }
+		}
+	}
+	else_if = {
+		limit = { has_task_contract_type = laamp_steal_artifact_contract }
+		set_variable = { name = cotc_news_type  value = flag:asset_recovery }
+		random_list = {
+			1 = { set_variable = { name = cotc_news_article  value = flag:asset_recovery_1 } }
+		}
+	}
+}
+
+# Root = the character
+cotc_local_news_flag_effect = {
+	if = {
+		limit = { scope:1025_offer_$SLOT$ ?= { has_variable = cotc_news_article } }
+		set_variable = {
+			name = cotc_news_$SLOT$
+			value = scope:1025_offer_$SLOT$.var:cotc_news_article
+		}
+	}
+	else = {
+		set_variable = { name = cotc_news_$SLOT$  value = flag:generic }
+	}
+}
+
+# Root = the character. Every entry is a whole sign-off line
+# Avoided custom loc since it has no access to the scope
+cotc_local_news_network_effect = {
+	random_list = {
+		1 = { set_variable = { name = cotc_news_network  value = flag:network_1 } }
+		2 = { set_variable = { name = cotc_news_network  value = flag:network_2 } }
+		3 = { set_variable = { name = cotc_news_network  value = flag:network_3 } }
+	}
+}
+
+cotc_local_news_clear_flags_effect = {
+	remove_variable = cotc_news_first
+	remove_variable = cotc_news_second
+	remove_variable = cotc_news_third
+	remove_variable = cotc_news_network
+}
