@@ -5,26 +5,9 @@
 ###################################
 
 fp3_rich_in_diversity_achievement = {
-<<<<<<< HEAD
 	possible = { 
 		always = no
 		has_fp3_dlc_trigger = yes
-=======
-	possible = {  }
-	happened = {
-		custom_description = {
-			text = fp3_rich_in_diversity_achievement_trigger
-			is_ai = no
-			OR = {
-				rite = { rite_has_tenet = tenet_tax_nonbelievers }
-				faith = { has_doctrine = special_doctrine_jizya }
-			}
-			any_vassal = {
-				faith != root.faith
-				count >= 10
-			}
-		}
->>>>>>> 1.20
 	}
 	happened = { always = no }
 }
@@ -46,50 +29,17 @@ fp3_mulct_them_dry_achievement = {
 }
 
 fp3_the_umma_strikes_back_achievement = {
-<<<<<<< HEAD
 	possible = { 
 		always = no
 		has_fp3_dlc_trigger = yes
-=======
-	possible = {
-
-		exists = global_var:fp3_the_umma_strikes_back_achievement_tracker
-	}
-	happened = {
-		custom_description = {
-			text = fp3_the_umma_strikes_back_achievement_trigger
-			is_ai = no
-			exists = global_var:fp3_the_umma_strikes_back_achievement_tracker
-			has_title = title:e_arabia
-			has_title = title:d_sunni
-			rite = { rite_has_doctrine = muhammad_succession_sunni_doctrine }
-			faith = { prev = religious_head }
-		}
->>>>>>> 1.20
 	}
 	happened = { always = no }
 }
 
-<<<<<<< HEAD
 fp3_royal_flush_achievement = {
 	possible = { 
 		always = no
 		has_fp3_dlc_trigger = yes
-=======
-fp3_royal_flush_achievement = { # Achievement for commiting sassasinations
-	possible = {  }
-	happened = {
-		custom_description = {
-			text = fp3_royal_flush_achievement_trigger
-			is_ai = no
-			rite = {
-				rite_has_tenet = tenet_fp3_fedayeen
-			}
-			has_character_flag = fp3_assassinated_tier1
-			has_character_flag = fp3_assassinated_tier2
-			has_character_flag = fp3_assassinated_tier3
-		}
->>>>>>> 1.20
 	}
 	happened = { always = no }
 }
