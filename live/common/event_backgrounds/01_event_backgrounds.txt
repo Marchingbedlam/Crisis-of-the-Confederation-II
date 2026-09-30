@@ -478,18 +478,7 @@ temple = {
 		trigger = {
 			trigger_if = {
 				limit = { exists = scope:bg_override_char }
-<<<<<<< HEAD
 				scope:bg_override_char = { primary_title = title:e_byzantium }
-=======
-				scope:bg_override_char = {
-					is_roman_emperor_primary_title_trigger = yes
-					capital_county ?= title:c_byzantion
-				}
-			}
-			trigger_else = {
-				is_roman_emperor_primary_title_trigger = yes
-				capital_county ?= title:c_byzantion
->>>>>>> 1.20
 			}
 			trigger_else = { primary_title = title:e_byzantium }
 		}
@@ -1534,9 +1523,6 @@ council_chamber = {
 
 ### COURTYARD ###
 courtyard = {
-<<<<<<< HEAD
-	background = { #Nomads
-=======
 	background = { #Christian clergy, Gothic
 		trigger = {
 			trigger_if = {
@@ -1625,14 +1611,6 @@ courtyard = {
 					location.rite = {
 						rite_has_doctrine = special_doctrine_is_western_christian_faith
 					}
-					location = {
-						NOR = {
-							terrain = desert
-							terrain = desert_mountains
-							terrain = drylands
-							terrain = oasis
-						}
-					}
 				}
 			}
 			trigger_else = {
@@ -1646,14 +1624,6 @@ courtyard = {
 				}
 				location.rite = {
 					rite_has_doctrine = special_doctrine_is_western_christian_faith
-				}
-				location = {
-					NOR = {
-						terrain = desert
-						terrain = desert_mountains
-						terrain = drylands
-						terrain = oasis
-					}
 				}
 			}
 		}
@@ -1690,7 +1660,6 @@ courtyard = {
 		ambience = "event:/DLC/EP3/SFX/Events/Event_Images/ep3_evn_eventimage_orthodox_holy_site"
 	}
 	background = { #Nomadic MENA
->>>>>>> 1.20
 		trigger = {
 			trigger_if = {
 				limit = { exists = scope:bg_override_char }
@@ -6280,23 +6249,11 @@ market = {
 			trigger_if = {
 				limit = { exists = scope:bg_override_char }
 				scope:bg_override_char = {
-<<<<<<< HEAD
 					location.county.holder ?= { government_has_flag = government_is_nomadic }
 				}
 			}
 			trigger_else = {
 				location.county.holder ?= { government_has_flag = government_is_nomadic }
-=======
-					location.county.holder ?= {
-						government_has_flag = government_is_in_steppe
-					}
-				}
-			}
-			trigger_else = {
-				location.county.holder ?= {
-					government_has_flag = government_is_in_steppe
-				}
->>>>>>> 1.20
 			}
 		}
 		reference = "gfx/interface/illustrations/event_scenes/mpo_hunt_steppe.dds"
@@ -8605,7 +8562,6 @@ throne_room = {
 			trigger_if = {
 				limit = { exists = scope:bg_override_char }
 				scope:bg_override_char = {
-<<<<<<< HEAD
 					OR = {
 						location = province:2
 						AND = {
@@ -8627,13 +8583,6 @@ throne_room = {
 						}
 					}
 				}
-=======
-					show_byzantion_throne_room_background = yes
-				}
-			}
-			trigger_else = {
-				show_byzantion_throne_room_background = yes
->>>>>>> 1.20
 			}
 		}
 		reference = "gfx/interface/illustrations/event_scenes/ep3_byzantine_throne_room.dds"
@@ -9006,19 +8955,11 @@ throne_room_scope = {
 		trigger = {
 			scope:background_throne_room_scope = {
 				OR = {
-<<<<<<< HEAD
 					capital_province ?= province:2
 					AND = {
 						primary_title = title:e_byzantium
 						title:c_avalon = {
 							any_de_jure_top_liege = { this = root } 
-=======
-					capital_province ?= title:b_constantinople.title_province
-					AND = {
-						is_roman_emperor_primary_title_trigger = yes
-						title:c_byzantion = {
-							any_de_jure_top_liege = { this = scope:background_throne_room_scope }
->>>>>>> 1.20
 						}
 					}
 				}
@@ -11478,21 +11419,12 @@ holy_site_generic_scope = {
 			OR = {
 				AND = {
 					exists = scope:activity
-<<<<<<< HEAD
-					scope:activity.activity_location.faith = faith:orthodox
-=======
 					scope:activity.activity_location ?= {
 						religion = religion:christianity_religion
 						OR = {
 							AND = {
 								culture = { has_graphical_mediterranean_culture_group_trigger = yes }
 								faith = faith:orthodox
-							}
-							county.title_province = {
-								geographical_region = graphical_mena
-								geographical_region = graphical_india
-								geographical_region = world_europe_south_east
-								geographical_region = world_asia_minor
 							}
 						}
 					}
@@ -11504,14 +11436,7 @@ holy_site_generic_scope = {
 							culture = { has_graphical_mediterranean_culture_group_trigger = yes }
 							faith = faith:orthodox
 						}
-						county.title_province = {
-							geographical_region = graphical_mena
-							geographical_region = graphical_india
-							geographical_region = world_europe_south_east
-							geographical_region = world_asia_minor
-						}
 					}
->>>>>>> 1.20
 				}
 				scope:holy_site_scope.faith ?= faith:orthodox
 			}
@@ -12970,14 +12895,10 @@ ep2_involved_activity = {
 				limit = { exists = scope:bg_override_char }
 				scope:bg_override_char = {
 					involved_activity ?= { has_activity_type = activity_wedding }
-<<<<<<< HEAD
-					location.culture = { has_graphical_india_culture_group_trigger = yes }
-=======
 					OR = {
 						location ?= { steppe_building_gfx_use_indian_trigger = yes }
 						location.culture ?= { has_graphical_india_culture_group_trigger = yes }
 					}
->>>>>>> 1.20
 				}
 			}
 			trigger_else = {
@@ -14735,16 +14656,12 @@ bp2_university_scope = {
 	}
 	background = {	#Indian garden
 		trigger = {
-<<<<<<< HEAD
-			scope:background_university_scope.culture = { has_graphical_india_culture_group_trigger = yes }
-=======
 			scope:background_university_scope = {
 				OR = {
 					culture = { has_graphical_india_culture_group_trigger = yes }
 					steppe_building_gfx_use_indian_trigger = yes
 				}
 			}
->>>>>>> 1.20
 		}
 		reference = "gfx/interface/illustrations/event_scenes/bp2_indian_garden.dds"
 		environment = "environment_bp2_garden_india_day"
