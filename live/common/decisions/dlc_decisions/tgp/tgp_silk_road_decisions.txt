@@ -1,4 +1,5 @@
 ﻿# #Decisions for East Asia
+# ### Visit a Silk Road Market ###
 # visit_silk_road_market_decision = {
 	# picture = {
 		# reference = "gfx/interface/illustrations/decisions/tgp_silk_road.dds"
@@ -17,15 +18,12 @@
 		# hegemony = 36
 	# }
 
-<<<<<<< HEAD
 	# is_shown = {
+		# exists = situation:silk_road_situation
 		# OR = {
-			# is_ai = no
 			# any_character_situation = { situation_type = silk_road_situation }
+			# is_ai = no
 		# }
-		# has_tgp_dlc_trigger = yes
-		# is_playable_character = yes
-
 		# #There is no point in showing this decision if you cannot benefit from going at all:
 		# OR = {
 			# silk_road_valid_market_to_visit_trigger = { SUB_REGION = china }
@@ -35,28 +33,10 @@
 			# silk_road_valid_market_to_visit_trigger = { SUB_REGION = transcaspia }
 			# silk_road_valid_market_to_visit_trigger = { SUB_REGION = occident }
 		# }
-	# }
-=======
-	is_shown = {
-		exists = situation:silk_road_situation
-		OR = {
-			any_character_situation = { situation_type = silk_road_situation }
-			is_ai = no
-		}
-		#There is no point in showing this decision if you cannot benefit from going at all:
-		OR = {
-			silk_road_valid_market_to_visit_trigger = { SUB_REGION = china }
-			silk_road_valid_market_to_visit_trigger = { SUB_REGION = tibet }
-			silk_road_valid_market_to_visit_trigger = { SUB_REGION = india }
-			silk_road_valid_market_to_visit_trigger = { SUB_REGION = central_asia }
-			silk_road_valid_market_to_visit_trigger = { SUB_REGION = transcaspia }
-			silk_road_valid_market_to_visit_trigger = { SUB_REGION = occident }
-		}
-		is_playable_character = yes
+		# is_playable_character = yes
 
-		has_tgp_dlc_trigger = yes
-	}
->>>>>>> 1.20
+		# has_tgp_dlc_trigger = yes
+	# }
 
 	# is_valid = {
 		# is_adult = yes
@@ -239,12 +219,12 @@
 			# }
 		# }
 		# item = { # Dunhuang
-			# value = c_luobupo
+			# value = c_shazhou
 			# is_shown = { always = yes }
 			# is_valid = {
 				# custom_tooltip = {
 					# text = no_building_at_silk_road_market_desc
-					# title:c_luobupo = { # Dunhuang
+					# title:c_shazhou = { # Dunhuang
 						# any_county_province = { has_building_with_flag = silk_road_node }
 					# }
 	            # }
@@ -261,7 +241,7 @@
 					# limit = {
 						# root.location = {
 							# squared_distance = {
-								# target = title:c_luobupo.title_province # Dunhuang
+								# target = title:c_shazhou.title_province # Dunhuang
 								# value <= squared_distance_small
 							# }
 						# }
@@ -272,7 +252,7 @@
 					# limit = {
 						# root.location = {
 							# squared_distance = {
-								# target = title:c_luobupo.title_province # Dunhuang
+								# target = title:c_shazhou.title_province # Dunhuang
 								# value <= squared_distance_large
 							# }
 						# }
@@ -283,7 +263,7 @@
 					# limit = {
 						# root.location = {
 							# squared_distance = {
-								# target = title:c_luobupo.title_province # Dunhuang
+								# target = title:c_shazhou.title_province # Dunhuang
 								# value > squared_distance_huge
 							# }
 						# }
@@ -415,8 +395,8 @@
 			# scope:c_lahur = { # Lahur
 				# title:c_lahur = { tgp_silk_road_decision_scope_effect = yes }
 			# }
-			# scope:c_luobupo = { # Dunhuang
-				# title:c_luobupo = { tgp_silk_road_decision_scope_effect = yes }
+			# scope:c_shazhou = { # Dunhuang
+				# title:c_shazhou = { tgp_silk_road_decision_scope_effect = yes }
 			# }
 			# scope:c_lhasa = { # Lhasa
 				# title:c_lhasa = { tgp_silk_road_decision_scope_effect = yes }

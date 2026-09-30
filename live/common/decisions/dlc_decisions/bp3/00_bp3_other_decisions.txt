@@ -39,10 +39,6 @@ choose_designated_terrain_decision = {
 	decision_group_type = major
 
 	is_shown = {
-<<<<<<< HEAD
-		is_landed = no
-=======
->>>>>>> 1.20
 		has_perk = mustering_the_troops_perk
 		NOR = {
 			landless_inspector_terrain_master_trigger = { TERRAIN = woodlands }
@@ -598,56 +594,29 @@ choose_master_terrain_decision = {
 	# decision_group_type = major
 	# sort_order = 50
 
-<<<<<<< HEAD
 	# is_shown = {
+		# culture ?= {
+			# OR = {
+				# has_cultural_pillar = heritage_central_germanic
+				# has_cultural_pillar = heritage_byzantine
+			# }
+		# }
+		# any_held_title = {
+			# OR = {
+				# de_jure_liege ?= title:d_crimea
+				# this = title:d_azov
+				# de_jure_liege ?= title:d_azov
+				# this = title:d_crimea
+			# }
+		# }
+		# highest_held_title_tier <= tier_kingdom
 		# NOT = {
 			# is_target_in_global_variable_list = {
 				# name = unavailable_unique_decisions
 				# target = flag:flag_bosporan_kingdom
 			# }
 		# }
-		# culture = {
-			# OR = {
-				# has_cultural_pillar = heritage_central_germanic
-				# has_cultural_pillar = heritage_byzantine
-			# }
-		# }
-		# highest_held_title_tier <= tier_kingdom
-		# any_held_title = {
-			# OR = {
-				# de_jure_liege = title:d_crimea
-				# de_jure_liege = title:d_azov
-				# this = title:d_crimea
-				# this = title:d_azov
-			# }
-		# }
 	# }
-=======
-	is_shown = {
-		culture ?= {
-			OR = {
-				has_cultural_pillar = heritage_central_germanic
-				has_cultural_pillar = heritage_byzantine
-			}
-		}
-		any_held_title = {
-			OR = {
-				de_jure_liege ?= title:d_crimea
-				this = title:d_azov
-				de_jure_liege ?= title:d_azov
-				this = title:d_crimea
-			}
-		}
-		highest_held_title_tier <= tier_kingdom
-		NOT = {
-			is_target_in_global_variable_list = {
-				name = unavailable_unique_decisions
-				target = flag:flag_bosporan_kingdom
-			}
-		}
-	}
->>>>>>> 1.20
-
 	# is_valid = {
 		# completely_controls = title:d_crimea
 		# completely_controls = title:d_azov
@@ -811,39 +780,23 @@ choose_master_terrain_decision = {
 	# decision_group_type = major
 	# sort_order = 50
 
-<<<<<<< HEAD
 	# is_shown = {
+		# culture ?= { has_cultural_pillar = heritage_frankish }
+		# OR = {
+			# has_title = title:k_france
+			# has_title = title:k_aquitaine
+		# }
+		# NOR = {
+			# title:k_aquitaine = { is_titular = yes }
+			# title:k_france = { is_titular = yes }
+		# }
 		# NOT = {
 			# is_target_in_global_variable_list = {
 				# name = unavailable_unique_decisions
 				# target = flag:merged_aquitaine
 			# }
 		# }
-		# culture = { has_cultural_pillar = heritage_frankish }
-		# OR = {
-			# has_title = title:k_aquitaine
-			# has_title = title:k_france
-		# }
 	# }
-=======
-	is_shown = {
-		culture ?= { has_cultural_pillar = heritage_frankish }
-		OR = {
-			has_title = title:k_france
-			has_title = title:k_aquitaine
-		}
-		NOR = {
-			title:k_aquitaine = { is_titular = yes }
-			title:k_france = { is_titular = yes }
-		}
-		NOT = {
-			is_target_in_global_variable_list = {
-				name = unavailable_unique_decisions
-				target = flag:merged_aquitaine
-			}
-		}
-	}
->>>>>>> 1.20
 
 	# is_valid = {
 		# has_title = title:k_aquitaine

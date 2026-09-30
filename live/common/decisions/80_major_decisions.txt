@@ -422,21 +422,10 @@ convert_whole_realm_to_feudalism_decision = {
 				}
 			}
 		}
-<<<<<<< HEAD
-		trigger_if = {
-			limit = { 
-				government_has_flag = government_is_wanua
-				is_ai = yes
-			}
-			faith = { has_doctrine = doctrine_monotheist }
-		}
-		custom_description = {
-=======
 	}
 
 	is_valid_showing_failures_only = {
 		custom_tooltip = {
->>>>>>> 1.20
 			text = permafrost_feudal_ban
 			NOT = { culture = { has_cultural_parameter = permafrost_cannot_become_feudal } }
 		}
@@ -1822,64 +1811,8 @@ found_university_decision = {
 		always = no # Universities are now built like normal special buildings so they can be seen in the Economy Mapmode, keeping this decision around in case we want to retool it into something else
 		highest_held_title_tier >= tier_duchy
 		any_sub_realm_barony = {
-<<<<<<< HEAD
-			OR = { #A place where universities historically existed early
-				this = title:b_avalon_iii
-				this = title:b_avalon_iii
-				this = title:b_avalon_iii
-				this = title:b_avalon_iii
-				this = title:b_avalon_iii
-				this = title:b_avalon_iii
-				this = title:b_avalon_iii
-				this = title:b_avalon_iii
-				this = title:b_avalon_iii
-				this = title:b_avalon_iii
-				this = title:b_avalon_iii
-				this = title:b_avalon_iii
-				this = title:b_avalon_iii			
-				this = title:b_avalon_iii			
-				this = title:b_avalon_iii
-				this = title:b_avalon_iii
-				this = title:b_avalon_iii
-				this = title:b_avalon_iii
-				this = title:b_avalon_iii
-				this = title:b_avalon_iii
-				this = title:b_avalon_iii
-				this = title:b_avalon_iii
-				this = title:b_avalon_iii
-				this = title:b_avalon_iii
-			}
 			title_province = {
-=======
-			title_province ?= {
->>>>>>> 1.20
 				has_university_building_trigger = no
-			}
-			OR = { #A place where universities historically existed early
-				this = title:b_coimbra
-				this = title:b_milano
-				this = title:b_barcelona
-				this = title:b_messina
-				this = title:b_lund
-				this = title:b_fes
-				this = title:b_cambridge
-				this = title:b_madrid
-				this = title:b_padua
-				this = title:b_salamanca
-				this = title:b_pisa
-				this = title:b_ferrara
-				this = title:b_dumbarton
-				this = title:b_tirakka
-				this = title:b_cairo
-				this = title:b_vienna
-				this = title:b_turin
-				this = title:b_krakow
-				this = title:b_speyer
-				this = title:b_bologna
-				this = title:b_leipzig
-				this = title:b_napoli
-				this = title:b_oxford
-				this = title:b_siena
 			}
 		}
 	}
@@ -2351,25 +2284,14 @@ lunatic_building_decision = {
 	# ai_check_interval = 0
 	# desc = found_witch_coven_decision_desc
 
-<<<<<<< HEAD
 	# is_shown = {
 		# OR = {
 			# has_trait = witch
 			# any_secret = { type = secret_witch }
 		# }
-		# exists = house
 		# NOT = { house = { has_house_modifier = witch_coven } }
+		# exists = house
 	# }
-=======
-	is_shown = {
-		OR = {
-			has_trait = witch
-			any_secret = { type = secret_witch }
-		}
-		NOT = { house = { has_house_modifier = witch_coven } }
-		exists = house
-	}
->>>>>>> 1.20
 
 	# is_valid = {
 		# is_house_head = yes

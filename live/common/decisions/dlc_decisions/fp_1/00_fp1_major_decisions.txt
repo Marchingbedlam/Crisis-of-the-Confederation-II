@@ -14,6 +14,7 @@
 # # by Ewan Cowhig Croft						#
 # #############################################
 
+# ### Secure the High Kingdom of the North Sea ###
 # secure_high_kingdom_north_sea_decision = {
 	# picture = {
 		# reference = "gfx/interface/illustrations/decisions/fp1_decision_raise_runestone.dds"
@@ -32,36 +33,42 @@
 	# desc = secure_high_kingdom_north_sea_decision_desc
 	# selection_tooltip = secure_high_kingdom_north_sea_decision_tooltip
 
-<<<<<<< HEAD
 	# is_shown = {
+		# #Can't already be an empire.
+		# highest_held_title_tier = tier_kingdom
+		# is_independent_ruler = yes
+		# #Must be within the North/West Germanic cultural sphere.
+		# OR = {
+			# culture ?= { has_cultural_pillar = heritage_north_germanic }
+			# culture ?= { has_cultural_pillar = heritage_west_germanic }
+		# }
+		# OR = { # Must hold one of the related king titles, and have part of your realm in the other region
+			# AND = {
+				# OR = {
+					# has_title = title:k_norway
+					# has_title = title:k_denmark
+				# }
+				# any_sub_realm_county = {
+					# title_province = { geographical_region = world_europe_west_britannia }
+				# }
+			# }
+			# AND = {
+				# has_title = title:k_england
+				# any_sub_realm_county = {
+					# title_province = { geographical_region = world_europe_north }
+				# }
+			# }
+		# }
 		# #DLC check.
 		# has_fp1_dlc_trigger = yes
 		# #Standard filter checks.
 		# is_playable_character = yes
 		# exists = dynasty
 		# OR = {
-			# government_has_flag = government_is_tribal
 			# government_has_flag = government_is_feudal
+			# government_has_flag = government_is_tribal
 			# government_has_flag = government_is_clan
 		# }
-		# #Must be within the North/West Germanic cultural sphere.
-		# OR = {
-			# culture = { has_cultural_pillar = heritage_north_germanic }
-			# culture = { has_cultural_pillar = heritage_west_germanic }
-		# }
-		# #Must be in the vague region.
-		# any_held_title = {
-			# title_tier = county
-			# title_province = {
-				# OR = {
-					# geographical_region = world_europe_west_britannia
-					# geographical_region = world_europe_west_germania
-					# geographical_region = world_europe_north
-				# }
-			# }
-		# }
-		# #Can't already be an empire.
-		# highest_held_title_tier <= tier_kingdom
 		# #Not repeatable.
 		# NOT = {
 			# is_target_in_global_variable_list = {
@@ -69,32 +76,89 @@
 				# target = flag:flag_secured_high_kingdom_north_sea
 			# }
 		# }
-		# #Eliminate edge-cases where we've lost all territory in one of the component kingdoms.
-		# title:k_england = { is_titular = no }
-		# title:k_denmark = { is_titular = no }
-		# title:k_norway = { is_titular = no }
+		# # One of the original kingdoms is not titular
+		# OR = {
+			# title:k_norway = {
+				# is_titular = no 
+				# holder ?= root
+			# }
+			# title:k_denmark = {
+				# is_titular = no 
+				# holder ?= root
+			# }
+			# title:k_england = { 
+				# is_titular = no 
+				# holder ?= root
+			# }
+		# }
 	# }
 
 	# is_valid = {
 		# #Must be independent.
-		# top_liege = this
+		# is_independent_ruler = yes
 		# #Should have a decent prestige level.
 		# prestige_level >= high_prestige_level
 		# #Completely controls the core regions of their kingdoms.
 		# completely_controls_region = dlc_fp1_region_core_north_sea
-		# #Has ruled each kingdom for a very long time.
-		# has_title = title:k_norway
-		# has_title = title:k_england
-		# has_title = title:k_denmark
-		# title:k_norway = { title_held_years >= 30 }
-		# title:k_england = { title_held_years >= 30 }
-		# title:k_denmark = { title_held_years >= 30 }
+		# #Has ruled one of the kingdoms for a very long time.
+		# trigger_if = {
+			# limit = {
+				# title:k_norway = { is_titular = no }
+			# }
+			# has_title = title:k_norway
+		# }
+		# trigger_if = {
+			# limit = {
+				# title:k_england = { is_titular = no }
+			# }
+			# has_title = title:k_england
+		# }
+		# trigger_if = {
+			# limit = {
+				# title:k_denmark = { is_titular = no }
+			# }
+			# has_title = title:k_denmark
+		# }
+		# OR = {
+			# trigger_if = {
+				# limit = {
+					# title:k_norway = { is_titular = no }
+				# }
+				# title:k_norway = { 
+					# save_temporary_scope_as = temp_scope
+					# custom_tooltip = {
+						# text = secure_high_kingdom_denmark_held_years
+						# title_held_years >= 10 
+					# }
+				# }
+			# }
+			# trigger_if = {
+				# limit = {
+					# title:k_england = { is_titular = no }
+				# }
+				# title:k_england = {
+					# save_temporary_scope_as = temp_scope
+					# custom_tooltip = {
+						# text = secure_high_kingdom_denmark_held_years
+						# title_held_years >= 10 
+					# }
+				# }
+			# }
+			# trigger_if = {
+				# limit = {
+					# title:k_denmark = { is_titular = no }
+				# }
+				# title:k_denmark = {
+					# save_temporary_scope_as = temp_scope
+					# custom_tooltip = {
+						# text = secure_high_kingdom_denmark_held_years
+						# title_held_years >= 10 
+					# }
+				# }
+			# }
+		# }
 		# #Just confirm that becoming an empire will prevent you from achieving this one.
 		# highest_held_title_tier < tier_empire
-		# #Must be in/adjacent to the Viking Age.
-		# NOT = {
-			# culture = { has_cultural_era_or_later = culture_era_high_medieval }
-		# }
 		# # If the Danelaw is still in existence, this must be resolved first.
 		# trigger_if = {
 			# limit = {
@@ -105,152 +169,13 @@
 				# always = no
 			# }
 		# }
+		# trigger_if = {
+			# limit = {
+				# NOT = { faith = { has_doctrine_parameter = unreformed } }
+			# }
+			# rule_title_creation_imperial_power_projection_title_creation_trigger = yes
+		# }
 	# }
-=======
-	is_shown = {
-		#Can't already be an empire.
-		highest_held_title_tier = tier_kingdom
-		is_independent_ruler = yes
-		#Must be within the North/West Germanic cultural sphere.
-		OR = {
-			culture ?= { has_cultural_pillar = heritage_north_germanic }
-			culture ?= { has_cultural_pillar = heritage_west_germanic }
-		}
-		OR = { # Must hold one of the related king titles, and have part of your realm in the other region
-			AND = {
-				OR = {
-					has_title = title:k_norway
-					has_title = title:k_denmark
-				}
-				any_sub_realm_county = {
-					title_province = { geographical_region = world_europe_west_britannia }
-				}
-			}
-			AND = {
-				has_title = title:k_england
-				any_sub_realm_county = {
-					title_province = { geographical_region = world_europe_north }
-				}
-			}
-		}
-		#DLC check.
-		has_fp1_dlc_trigger = yes
-		#Standard filter checks.
-		is_playable_character = yes
-		exists = dynasty
-		OR = {
-			government_has_flag = government_is_feudal
-			government_has_flag = government_is_tribal
-			government_has_flag = government_is_clan
-		}
-		#Not repeatable.
-		NOT = {
-			is_target_in_global_variable_list = {
-				name = unavailable_unique_decisions
-				target = flag:flag_secured_high_kingdom_north_sea
-			}
-		}
-		# One of the original kingdoms is not titular
-		OR = {
-			title:k_norway = {
-				is_titular = no 
-				holder ?= root
-			}
-			title:k_denmark = {
-				is_titular = no 
-				holder ?= root
-			}
-			title:k_england = { 
-				is_titular = no 
-				holder ?= root
-			}
-		}
-	}
-
-	is_valid = {
-		#Must be independent.
-		is_independent_ruler = yes
-		#Should have a decent prestige level.
-		prestige_level >= high_prestige_level
-		#Completely controls the core regions of their kingdoms.
-		completely_controls_region = dlc_fp1_region_core_north_sea
-		#Has ruled one of the kingdoms for a very long time.
-		trigger_if = {
-			limit = {
-				title:k_norway = { is_titular = no }
-			}
-			has_title = title:k_norway
-		}
-		trigger_if = {
-			limit = {
-				title:k_england = { is_titular = no }
-			}
-			has_title = title:k_england
-		}
-		trigger_if = {
-			limit = {
-				title:k_denmark = { is_titular = no }
-			}
-			has_title = title:k_denmark
-		}
-		OR = {
-			trigger_if = {
-				limit = {
-					title:k_norway = { is_titular = no }
-				}
-				title:k_norway = { 
-					save_temporary_scope_as = temp_scope
-					custom_tooltip = {
-						text = secure_high_kingdom_denmark_held_years
-						title_held_years >= 10 
-					}
-				}
-			}
-			trigger_if = {
-				limit = {
-					title:k_england = { is_titular = no }
-				}
-				title:k_england = {
-					save_temporary_scope_as = temp_scope
-					custom_tooltip = {
-						text = secure_high_kingdom_denmark_held_years
-						title_held_years >= 10 
-					}
-				}
-			}
-			trigger_if = {
-				limit = {
-					title:k_denmark = { is_titular = no }
-				}
-				title:k_denmark = {
-					save_temporary_scope_as = temp_scope
-					custom_tooltip = {
-						text = secure_high_kingdom_denmark_held_years
-						title_held_years >= 10 
-					}
-				}
-			}
-		}
-		#Just confirm that becoming an empire will prevent you from achieving this one.
-		highest_held_title_tier < tier_empire
-		# If the Danelaw is still in existence, this must be resolved first.
-		trigger_if = {
-			limit = {
-				title:k_danelaw = { is_titular = no }
-			}
-			custom_description = {
-				text = secure_high_kingdom_north_sea_decision_solve_danelaw
-				always = no
-			}
-		}
-		trigger_if = {
-			limit = {
-				NOT = { faith = { has_doctrine_parameter = unreformed } }
-			}
-			rule_title_creation_imperial_power_projection_title_creation_trigger = yes
-		}
-	}
->>>>>>> 1.20
 
 	# is_valid_showing_failures_only = {
 		# is_alive = yes
@@ -331,6 +256,7 @@
 # # by Ewan Cowhig Croft						#
 # #############################################
 
+# ### Found the Capital of the Rus' ###
 # found_capital_of_the_rus_decision = {
 	# picture = {
 		# reference = "gfx/interface/illustrations/decisions/fp1_decision_raise_runestone.dds"
@@ -349,31 +275,9 @@
 	# desc = found_capital_of_the_rus_decision_desc
 	# selection_tooltip = found_capital_of_the_rus_decision_tooltip
 
-<<<<<<< HEAD
 	# is_shown = {
-		# #DLC check.
-		# has_fp1_dlc_trigger = yes
-		# #Standard filter checks.
-		# is_playable_character = yes
-		# exists = dynasty
-		# #Must be within the North Germanic cultural sphere.
-		# OR = {
-			# culture = { has_cultural_pillar = heritage_north_germanic }
-			# has_culture = culture:norman
-			# has_character_modifier = embraced_local_traditions_modifier
-			# dynasty ?= {
-				# has_dynasty_modifier = settled_norse_dynasty_modifier
-			# }
-		# }
-		# #Must be in the current de jure title:e_russia: since this decision involves title:e_russia very intimately, we don't want a custom region.
-		# any_held_title = {
-			# title_tier = county
-			# empire = title:e_russia
-		# }
 		# #Aaaaaaand it's already happened in 1066, albeit with less gameplay benefits.
 		# NOT = { game_start_date >= 1066.09.15 }
-		# #Year is before 1100, just to keep this from getting weird if no one manages it early.
-		# current_date < 1100.1.1
 		# #Not repeatable.
 		# NOT = {
 			# is_target_in_global_variable_list = {
@@ -381,41 +285,28 @@
 				# target = flag:flag_founded_capital_of_rus
 			# }
 		# }
+		# #Year is before 1100, just to keep this from getting weird if no one manages it early.
+		# current_date < 1100.1.1
+		# #Must be in the current de jure title:e_russia: since this decision involves title:e_russia very intimately, we don't want a custom region.
+		# any_held_title = {
+			# empire ?= title:e_russia
+			# title_tier = county
+		# }
+		# #Must be within the North Germanic cultural sphere.
+		# OR = {
+			# culture ?= { has_cultural_pillar = heritage_north_germanic }
+			# has_culture = culture:norman
+			# has_character_modifier = embraced_local_traditions_modifier
+			# dynasty ?= {
+				# has_dynasty_modifier = settled_norse_dynasty_modifier
+			# }
+		# }
+		# exists = dynasty
+		# #Standard filter checks.
+		# is_playable_character = yes
+		# #DLC check.
+		# has_fp1_dlc_trigger = yes
 	# }
-=======
-	is_shown = {
-		#Aaaaaaand it's already happened in 1066, albeit with less gameplay benefits.
-		NOT = { game_start_date >= 1066.09.15 }
-		#Not repeatable.
-		NOT = {
-			is_target_in_global_variable_list = {
-				name = unavailable_unique_decisions
-				target = flag:flag_founded_capital_of_rus
-			}
-		}
-		#Year is before 1100, just to keep this from getting weird if no one manages it early.
-		current_date < 1100.1.1
-		#Must be in the current de jure title:e_russia: since this decision involves title:e_russia very intimately, we don't want a custom region.
-		any_held_title = {
-			empire ?= title:e_russia
-			title_tier = county
-		}
-		#Must be within the North Germanic cultural sphere.
-		OR = {
-			culture ?= { has_cultural_pillar = heritage_north_germanic }
-			has_culture = culture:norman
-			has_character_modifier = embraced_local_traditions_modifier
-			dynasty ?= {
-				has_dynasty_modifier = settled_norse_dynasty_modifier
-			}
-		}
-		exists = dynasty
-		#Standard filter checks.
-		is_playable_character = yes
-		#DLC check.
-		has_fp1_dlc_trigger = yes
-	}
->>>>>>> 1.20
 
 	# is_valid = {
 		# #Must be independent.
@@ -429,7 +320,7 @@
 			# prestige_level >= very_high_prestige_level
 			# AND = {
 				# prestige_level >= high_prestige_level
-				# completely_controls = title:c_avalon
+				# completely_controls = title:c_kiev
 			# }
 		# }
 		# #Repeat the time limit concern just so that the player knows it's a thing.
@@ -527,6 +418,7 @@
 # #############################################
 
 # # This decision is intentionally fairly whimsical, and in no way intended to reflect historical reality or possibility, nor is it in any way affiliated with affiliated with the Isle of Mann Tourism Board.
+# ### Elevate the Kingdom of Mann & the Isles ###
 # elevate_mann_and_the_isles_decision = {
 	# picture = {
 		# reference = "gfx/interface/illustrations/decisions/decision_found_kingdom.dds"
@@ -545,27 +437,24 @@
 	# desc = elevate_mann_and_the_isles_decision_desc
 	# selection_tooltip = elevate_mann_and_the_isles_decision_tooltip
 
-<<<<<<< HEAD
 	# is_shown = {
-		# #DLC check.
-		# has_fp1_dlc_trigger = yes
-		# #Standard filter checks.
-		# is_playable_character = yes
-		# exists = dynasty
-		# OR = {
-			# government_has_flag = government_is_tribal
-			# government_has_flag = government_is_feudal
-			# government_has_flag = government_is_clan
-		# }
-		# #Must be within the North Germanic cultural sphere.
-		# OR = {
-			# culture = { has_cultural_pillar = heritage_north_germanic }
-			# has_culture = culture:norman
-		# }
 		# #Must be in the vague region.
 		# any_held_title = {
 			# title_tier = county
-			# title_province = { geographical_region = world_europe_west_britannia }
+			# title_province ?= { geographical_region = world_europe_west_britannia }
+		# }
+		# #Must be within the North Germanic cultural sphere.
+		# OR = {
+			# culture ?= { has_cultural_pillar = heritage_north_germanic }
+			# has_culture = culture:norman
+		# }
+		# #DLC check.
+		# has_fp1_dlc_trigger = yes
+		# exists = dynasty
+		# OR = {
+			# government_has_flag = government_is_feudal
+			# government_has_flag = government_is_tribal
+			# government_has_flag = government_is_clan
 		# }
 		# #Can't already be a kingdom.
 		# highest_held_title_tier <= tier_duchy
@@ -576,40 +465,9 @@
 				# target = flag:flag_elevated_mann_and_the_isles
 			# }
 		# }
+		# #Standard filter checks.
+		# is_playable_character = yes
 	# }
-=======
-	is_shown = {
-		#Must be in the vague region.
-		any_held_title = {
-			title_tier = county
-			title_province ?= { geographical_region = world_europe_west_britannia }
-		}
-		#Must be within the North Germanic cultural sphere.
-		OR = {
-			culture ?= { has_cultural_pillar = heritage_north_germanic }
-			has_culture = culture:norman
-		}
-		#DLC check.
-		has_fp1_dlc_trigger = yes
-		exists = dynasty
-		OR = {
-			government_has_flag = government_is_feudal
-			government_has_flag = government_is_tribal
-			government_has_flag = government_is_clan
-		}
-		#Can't already be a kingdom.
-		highest_held_title_tier <= tier_duchy
-		#Not repeatable.
-		NOT = {
-			is_target_in_global_variable_list = {
-				name = unavailable_unique_decisions
-				target = flag:flag_elevated_mann_and_the_isles
-			}
-		}
-		#Standard filter checks.
-		is_playable_character = yes
-	}
->>>>>>> 1.20
 
 	# is_valid = {
 		# #Must be independent.
@@ -619,7 +477,7 @@
 		# #Should have the highest prestige level.
 		# prestige_level >= max_prestige_level
 		# #Completely controls Mann.
-		# has_title = title:c_avalon
+		# has_title = title:c_isle_of_man
 		# has_title = title:d_the_isles
 		# #Can't already be a kingdom; show this here too so people aren't caught unawares.
 		# highest_held_title_tier <= tier_duchy
@@ -687,6 +545,7 @@
 # # by Ewan Cowhig Croft						#
 # #############################################
 
+# ### Forge the Jomsvikings ###
 # forge_the_jomsvikings_decision = {
 	# picture = {
 		# reference = "gfx/interface/illustrations/decisions/fp1_decision_forge_jomsvikings.dds"
@@ -705,41 +564,22 @@
 	# desc = forge_the_jomsvikings_decision_desc
 	# selection_tooltip = forge_the_jomsvikings_decision_tooltip
 
-<<<<<<< HEAD
 	# is_shown = {
-		# # DLC check.
-		# has_fp1_dlc_trigger = yes
-		# # Standard filter checks.
-		# is_playable_character = yes
-		# exists = dynasty
-		# OR = {
-			# government_has_flag = government_is_tribal
-			# government_has_flag = government_is_feudal
-			# government_has_flag = government_is_clan
-		# }
-		# # Must follow an unreformed Germanic faith.
-		# faith = { fp1_valid_norse_faith_for_jomsvikings_trigger = yes }
 		# # Jomsvikings cannot have existed already.
 		# fp1_jomsvikings_have_not_existed_trigger = yes
+		# # Must follow an unreformed Germanic faith.
+		# faith ?= { fp1_valid_norse_faith_for_jomsvikings_trigger = yes }
+		# OR = {
+			# government_has_flag = government_is_feudal
+			# government_has_flag = government_is_tribal
+			# government_has_flag = government_is_clan
+		# }
+		# exists = dynasty
+		# # Standard filter checks.
+		# is_playable_character = yes
+		# # DLC check.
+		# has_fp1_dlc_trigger = yes
 	# }
-=======
-	is_shown = {
-		# Jomsvikings cannot have existed already.
-		fp1_jomsvikings_have_not_existed_trigger = yes
-		# Must follow an unreformed Germanic faith.
-		faith ?= { fp1_valid_norse_faith_for_jomsvikings_trigger = yes }
-		OR = {
-			government_has_flag = government_is_feudal
-			government_has_flag = government_is_tribal
-			government_has_flag = government_is_clan
-		}
-		exists = dynasty
-		# Standard filter checks.
-		is_playable_character = yes
-		# DLC check.
-		has_fp1_dlc_trigger = yes
-	}
->>>>>>> 1.20
 
 	# is_valid = {
 		# # Must be independent.
