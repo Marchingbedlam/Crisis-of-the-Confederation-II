@@ -18,7 +18,7 @@ norman_conquest_cb = {
 
 	is_allowed_claim_title = {
 		scope:claimant =  {
-			NOT = { has_trait = incapable }
+			is_incapable = no
 			is_imprisoned = no
 			OR = {
 				this = scope:attacker
@@ -321,7 +321,7 @@ norman_conquest_cb = {
 				value = scope:cb_prestige_factor # Set by 'setup_claim_cb'
 				multiply = -5
 			}
-			stress_impact = {
+			stress_and_fulfillment_impact = {
  				ambitious = medium_stress_impact_gain
  				arrogant = medium_stress_impact_gain
  			}
@@ -355,7 +355,7 @@ norman_conquest_cb = {
 		}
 
 		scope:defender = {
-			stress_impact = {
+			stress_and_fulfillment_impact = {
 				arrogant = medium_stress_impact_gain
 			}
 		}
@@ -504,7 +504,7 @@ norwegian_invasion_cb = {
 
 	is_allowed_claim_title = {
 		scope:claimant =  {
-			NOT = { has_trait = incapable }
+			is_incapable = no
 			is_imprisoned = no
 			OR = {
 				this = scope:attacker
@@ -900,7 +900,7 @@ norwegian_invasion_cb = {
 				value = scope:cb_prestige_factor # Set by 'setup_claim_cb'
 				multiply = -5
 			}
-			stress_impact = {
+			stress_and_fulfillment_impact = {
 				ambitious = medium_stress_impact_gain
 				arrogant = medium_stress_impact_gain
 			}
@@ -934,7 +934,7 @@ norwegian_invasion_cb = {
 		}
 
 		scope:defender = {
-			stress_impact = {
+			stress_and_fulfillment_impact = {
 				arrogant = medium_stress_impact_gain
 			}
 		}
@@ -1291,7 +1291,7 @@ sons_of_lothbrok_invasion_cb = {
 				value = minor_prestige_value
 				multiply = -1.0
 			}
-			stress_impact = {
+			stress_and_fulfillment_impact = {
 				ambitious = medium_stress_impact_gain
 				arrogant = medium_stress_impact_gain
 			}
@@ -1307,7 +1307,7 @@ sons_of_lothbrok_invasion_cb = {
 		}
 
 		scope:defender = {
-			stress_impact = {
+			stress_and_fulfillment_impact = {
 				arrogant = medium_stress_impact_gain
 			}
 		}
@@ -2056,7 +2056,10 @@ azariqa_rebellion_cb = {
 		
 		hidden_effect = {
 			scope:attacker = {
-				faith = { save_scope_as = faith }
+				detach_rite_to_new_faith = {
+					target = rite:azariqa
+					save_scope_as = faith
+				}
 				set_up_dynamic_temporal_hof_title_effect = { NEW_HOLDER = scope:attacker }
 			}
 		}
@@ -2117,14 +2120,14 @@ azariqa_rebellion_cb = {
 
 		scope:attacker = {
 			add_prestige = mongol_invasion_cb_prestige_white_peace
-			stress_impact = {
+			stress_and_fulfillment_impact = {
 				ambitious = medium_stress_impact_gain
 				arrogant = medium_stress_impact_gain
 			}
 		}
 
 		scope:defender = {
-			stress_impact = {
+			stress_and_fulfillment_impact = {
 				arrogant = medium_stress_impact_gain
 			}
 		}
@@ -2450,7 +2453,7 @@ raiktor_claim_cb = {
 	on_white_peace = {
 		scope:attacker = {
 			show_pow_release_message_effect = yes
-			stress_impact = {
+			stress_and_fulfillment_impact = {
  				ambitious = medium_stress_impact_gain
  				arrogant = medium_stress_impact_gain
  			}
@@ -2495,7 +2498,7 @@ raiktor_claim_cb = {
 		}
 		# Defender neither gains nor loses any prestige.
 		scope:defender = {
-			stress_impact = {
+			stress_and_fulfillment_impact = {
  				arrogant = medium_stress_impact_gain
  			}
 		}
@@ -2695,7 +2698,7 @@ raiktor_conquest_cb = {
 		scope:attacker = {
 			random_courtier = {
 				limit = {
-					has_character_flag = raiktor
+					has_variable = raiktor
 				}
 				save_scope_as = vassal_to_be
 			}
@@ -2832,14 +2835,14 @@ raiktor_conquest_cb = {
 
 		scope:attacker = {
 			add_prestige = mongol_invasion_cb_prestige_white_peace
-			stress_impact = {
+			stress_and_fulfillment_impact = {
 				ambitious = medium_stress_impact_gain
 				arrogant = medium_stress_impact_gain
 			}
 		}
 
 		scope:defender = {
-			stress_impact = {
+			stress_and_fulfillment_impact = {
 				arrogant = medium_stress_impact_gain
 			}
 		}
@@ -3453,7 +3456,7 @@ diarch_vassalisation_cb = {
 				value = minor_prestige_value
 				multiply = -1.0
 			}
-			stress_impact = {
+			stress_and_fulfillment_impact = {
 				ambitious = medium_stress_impact_gain
 				arrogant = medium_stress_impact_gain
 			}
@@ -3469,7 +3472,7 @@ diarch_vassalisation_cb = {
 		}
 		
 		scope:defender = {
-			stress_impact = {
+			stress_and_fulfillment_impact = {
 				arrogant = medium_stress_impact_gain
 			}
 		}
@@ -3725,7 +3728,7 @@ remove_regent_cb = {
 				value = minor_prestige_value
 				multiply = -1.0
 			}
-			stress_impact = {
+			stress_and_fulfillment_impact = {
 				ambitious = medium_stress_impact_gain
 				arrogant = medium_stress_impact_gain
 			}
@@ -3753,7 +3756,7 @@ remove_regent_cb = {
 					}
 				}
 			}
-			stress_impact = {
+			stress_and_fulfillment_impact = {
 				arrogant = medium_stress_impact_gain
 			}
 		}

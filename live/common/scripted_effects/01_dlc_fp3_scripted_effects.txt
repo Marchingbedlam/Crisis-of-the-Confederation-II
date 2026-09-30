@@ -31,15 +31,13 @@ destroy_the_magi_scripted_effect = {
 
 	faith = {
 		change_fervor = {
-			value = 50
+			value = major_fervor_gain
 			desc = fervor_gain_magi_destroyed
 		}
 		if = {
-			limit = { 
-				AND = {
-					has_doctrine = doctrine_spiritual_head 
-					has_doctrine = doctrine_theocracy_temporal
-				}
+			limit = {
+				has_doctrine = doctrine_spiritual_head
+				main_rite = { rite_has_doctrine = doctrine_theocracy_temporal }
 			}
 			custom_tooltip = replace_the_high_priest_effect_tooltip
 			hidden_effect = {
@@ -83,7 +81,7 @@ destroy_the_magi_scripted_effect = {
 			}
 			else_if = {
 				limit = {
-					faith = { has_doctrine = doctrine_major_branch_behdin }
+					rite = { rite_has_doctrine = doctrine_major_branch_behdin }
 				}
 				add_opinion = {
 					target = root
@@ -98,19 +96,19 @@ opinion_based_on_sky_burial_viewpoint_scripted_effect = {
 	if = {
 		limit = {
 			OR = {
-				faith = { has_doctrine_parameter = sky_burials_active }
+				rite = { rite_has_parameter = sky_burials_active }
 				has_trait = compassionate
 				has_trait = cynical
 				has_trait = trusting 
 				has_trait = forgiving 
 				AND = {
-					NOT = {	faith = { has_doctrine_parameter = sky_burials_active }	}
+					NOT = {	rite = { rite_has_parameter = sky_burials_active }	}
 					ai_compassion >= medium_positive_ai_value
 					ai_zeal <= medium_positive_ai_value
 				}
 				AND = {
-					NOT = {	faith = { has_doctrine_parameter = sky_burials_active }	}
-					faith = { has_doctrine = doctrine_pluralism_pluralistic }
+					NOT = {	rite = { rite_has_parameter = sky_burials_active }	}
+					rite = { rite_has_doctrine = doctrine_pluralism_pluralistic }
 					ai_zeal <= medium_positive_ai_value
 				}
 			}	
@@ -142,19 +140,19 @@ opinion_based_on_sky_burial_viewpoint_for_relatives_scripted_effect = {
 	if = {
 		limit = {
 			OR = {
-				faith = { has_doctrine_parameter = sky_burials_active }
+				rite = { rite_has_parameter = sky_burials_active }
 				has_trait = compassionate
 				has_trait = cynical
 				has_trait = trusting 
 				has_trait = forgiving 
 				AND = {
-					NOT = {	faith = { has_doctrine_parameter = sky_burials_active }	}
+					NOT = {	rite = { rite_has_parameter = sky_burials_active }	}
 					ai_compassion >= medium_positive_ai_value
 					ai_zeal <= medium_positive_ai_value
 				}
 				AND = {
-					NOT = {	faith = { has_doctrine_parameter = sky_burials_active }	}
-					faith = { has_doctrine = doctrine_pluralism_pluralistic }
+					NOT = {	rite = { rite_has_parameter = sky_burials_active }	}
+					rite = { rite_has_doctrine = doctrine_pluralism_pluralistic }
 					ai_zeal <= medium_positive_ai_value
 				}
 			}	
@@ -800,8 +798,14 @@ spawn_zanj_leader_character_effect = {
 		age = { 55 65 }
 		name = "Muhammad"
 		gender = male
+<<<<<<< HEAD
 		faith = faith:zayidi
 		location = title:c_avalon.title_province
+=======
+		faith = faith:shia
+		rite = rite:zayidi
+		location = title:c_basra.title_province
+>>>>>>> 1.20
 		culture = culture:bedouin
 
 		dynasty = none
@@ -812,8 +816,14 @@ spawn_zanj_leader_character_effect = {
 	create_character = {
 		age = { 55 65 }
 		gender = female
+<<<<<<< HEAD
 		faith = faith:azariqa
 		location = title:c_avalon.title_province
+=======
+		faith = faith:kharijite
+		rite = rite:azariqa
+		location = title:c_basra.title_province
+>>>>>>> 1.20
 		culture = culture:bedouin
 
 		dynasty = none
@@ -825,8 +835,14 @@ spawn_zanj_leader_character_effect = {
 		age = { 25 35 }
 		name = "Ali"
 		gender = male
+<<<<<<< HEAD
 		faith = faith:zayidi
 		location = title:c_avalon.title_province
+=======
+		faith = faith:shia
+		rite = rite:zayidi
+		location = title:c_basra.title_province
+>>>>>>> 1.20
 		culture = culture:bedouin
 		father = scope:zanj_leader_father
 		mother = scope:zanj_leader_mother
@@ -873,8 +889,14 @@ spawn_zanj_representative_character_effect = {
 	create_character = {
 		age = { 30 40 }
 		gender_female_chance = 50
+<<<<<<< HEAD
 		faith = faith:azariqa
 		location = title:c_avalon.title_province
+=======
+		faith = faith:kharijite
+		rite = rite:azariqa
+		location = title:c_basra.title_province
+>>>>>>> 1.20
 		culture = culture:east_bantu
 
 		dynasty = none
@@ -994,7 +1016,8 @@ create_zanj_courtier_effect = {
 	hidden_effect = {
 		create_character = {
 			location = $LOCATION$
-			faith = faith:azariqa
+			faith = faith:kharijite
+			rite = rite:azariqa
 			culture = culture:east_bantu
 			dynasty = none
 			age = { 18 30 }
@@ -1010,7 +1033,8 @@ create_zanj_courtier_effect = {
 create_zanj_vassal_effect = {
 	hidden_effect = {
 		create_character = {
-			faith = faith:azariqa
+			faith = faith:kharijite
+			rite = rite:azariqa
 			culture = culture:east_bantu
 			gender_female_chance = 50
 			age = { 18 30 }

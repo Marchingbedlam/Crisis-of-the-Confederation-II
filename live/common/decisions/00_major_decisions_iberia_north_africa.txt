@@ -13,6 +13,7 @@
 	# }
 	# desc = form_portugal_decision_desc
 
+<<<<<<< HEAD
 	# is_shown = {
 		# culture = { has_cultural_pillar = heritage_iberian }
 		# NOT = {
@@ -25,6 +26,20 @@
 			# is_title_created = no
 		# }
 	# }
+=======
+	is_shown = {
+		culture ?= { has_cultural_pillar = heritage_iberian }
+		NOT = {
+			is_target_in_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:form_portugal_decision
+			}
+		}
+		title:k_portugal = {
+			is_title_created = no
+		}
+	}
+>>>>>>> 1.20
 
 	# is_valid = {
 		# culture = { has_cultural_pillar = heritage_iberian }
@@ -148,6 +163,7 @@
 	# }
 	# desc = unite_the_spanish_thrones_decision_desc
 
+<<<<<<< HEAD
 	# is_shown = {
 		# culture = { has_cultural_pillar = heritage_iberian }
 		# game_start_date >= 1000.1.1
@@ -167,6 +183,27 @@
 		# }
 		# highest_held_title_tier < tier_empire
 	# }
+=======
+	is_shown = {
+		culture ?= { has_cultural_pillar = heritage_iberian }
+		game_start_date >= 1000.1.1
+		OR = {
+			calc_true_if = { #At least 2 of the titles has de jure land
+				amount >= 2
+				title:k_castille = { any_in_de_jure_hierarchy = { tier = tier_county } }
+				title:k_leon = { any_in_de_jure_hierarchy = { tier = tier_county } }
+				title:k_spanish_galicia = { any_in_de_jure_hierarchy = { tier = tier_county } }
+			}
+		}
+		NOT = {
+			is_target_in_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:unite_the_spanish_thrones_decision
+			}
+		}
+		highest_held_title_tier < tier_empire
+	}
+>>>>>>> 1.20
 
 	# is_valid = {
 		# culture = { has_cultural_pillar = heritage_iberian }
@@ -286,6 +323,7 @@
 		# }
 	# }
 
+<<<<<<< HEAD
 	#is_shown = {
 	#	OR = {
 	#		culture_has_african_heritage_pillar_trigger = yes
@@ -324,6 +362,46 @@
 	#		}
 	#	}
 	#}
+=======
+	is_shown = {
+		capital_province ?= { geographical_region = world_africa }
+		OR = {
+			culture_has_african_heritage_pillar_trigger = yes
+			culture ?= {
+				OR = {
+					this = culture:egyptian # Arabic, not ancient
+					any_parent_culture_or_above = {
+						OR = {
+							# North
+							has_cultural_pillar = heritage_berber
+							has_cultural_pillar = heritage_somalian
+							# East
+							has_cultural_pillar = heritage_bantu
+							has_cultural_pillar = heritage_west_african
+							this = culture:egyptian # Arabic, not ancient
+							has_cultural_pillar = heritage_yoruba
+							has_cultural_pillar = heritage_akan
+							has_cultural_pillar = heritage_east_african
+							has_cultural_pillar = heritage_senegambian
+							# West
+							has_cultural_pillar = heritage_akan
+							has_cultural_pillar = heritage_sahelian
+							has_cultural_pillar = heritage_egyptian
+							# Central
+							has_cultural_pillar = heritage_central_african
+						}
+					}
+				}
+			}
+		}
+		NOT = {
+			is_target_in_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:unite_africa_decision
+			}
+		}
+	}
+>>>>>>> 1.20
 
 	# is_valid = {
 		# completely_controls_region = world_africa
@@ -385,6 +463,7 @@
 	# }
 	# desc = avenge_the_battle_of_tours_decision_desc
 
+<<<<<<< HEAD
 	# is_shown = {
 		# faith = { religion_tag = islam_religion }
 		# capital_province ?= {
@@ -402,6 +481,25 @@
 			# }
 		# }
 	# }
+=======
+	is_shown = {
+		faith ?= { religion_tag = islam_religion }
+		capital_province ?= {
+			OR = {
+				geographical_region = world_europe_west_iberia
+				geographical_region = world_europe_west_francia
+				geographical_region = world_africa_north_west
+				geographical_region = custom_south_francia
+			}
+		}
+		NOT = {
+			is_target_in_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:avenge_the_battle_of_tours_decision
+			}
+		}
+	}
+>>>>>>> 1.20
 
 	# is_valid = {
 		# completely_controls_region = world_europe_west_iberia
@@ -416,6 +514,7 @@
 		# gain_holy_legend_seed_tooltip_effect = yes
 		# save_scope_as = avenger
 
+<<<<<<< HEAD
 		# #Christian penalty scope save
 		# title:e_france = {
 			# random_de_jure_county_holder = { #If there's a big christian presence in France
@@ -439,6 +538,22 @@
 				# }
 			# }
 		# }
+=======
+		#Christian penalty scope save
+		title:e_france = {
+			ordered_de_jure_county_holder = { #If there's a big christian presence in France
+				limit = {
+					faith = { religion_tag = christianity_religion }
+					culture = { has_cultural_pillar = heritage_frankish }
+					highest_held_title_tier >= tier_duchy
+				}
+				order_by = primary_title.tier
+				faith = {
+					save_scope_as = frankish_christian_faith
+				}
+			}
+		}
+>>>>>>> 1.20
 
 		# show_as_tooltip = { avenge_the_battle_of_tours_decision_effects = yes } #Actually applied in iberia_north_africa.0015 - Prestige, religion bonuses
 
@@ -480,6 +595,7 @@
 	# }
 	# desc = declare_canarias_decision_desc
 
+<<<<<<< HEAD
 	# is_shown = {
 		# OR = {
 			# culture = { has_cultural_pillar = heritage_iberian }
@@ -496,6 +612,24 @@
 			# }
 		# }
 	# }
+=======
+	is_shown = {
+		OR = {
+			culture ?= { has_cultural_pillar = heritage_iberian }
+			faith ?= faith:north_african_acham_pagan
+			has_primary_title = title:d_canarias
+		}
+		any_sub_realm_county = {
+			duchy = title:d_canarias
+		}
+		NOT = {
+			is_target_in_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:declare_canarias_decision
+			}
+		}
+	}
+>>>>>>> 1.20
 
 	# is_valid = {
 
@@ -628,6 +762,7 @@
 	# desc = form_the_kingdom_of_aragon_decision_desc
 	# selection_tooltip = form_the_kingdom_of_aragon_decision_tooltip
 
+<<<<<<< HEAD
 	# is_shown = {
 		# is_playable_character = yes # Redundancy check
 		# # Can't form Aragon if Aragon already formed.
@@ -644,6 +779,24 @@
 			# }
 		# }
 	# }
+=======
+	is_shown = {
+		# Can't form Aragon if Aragon already formed.
+		game_start_date < 1035.10.18
+		# Aaaaand it can't have happened already.
+		NOT = {
+			is_target_in_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:flag_formed_kingdom_of_aragon
+			}
+		}
+		# Cast a broad net for folks who might like to try this.
+		capital_province ?= { geographical_region = dlc_fp2_form_aragon_region }
+		# Not relevant for characters who are already kings.
+		highest_held_title_tier <= tier_duchy
+		is_playable_character = yes # Redundancy check
+	}
+>>>>>>> 1.20
 
 	# is_valid = {
 		# top_liege = this
@@ -770,6 +923,7 @@
 	# ai_will_do = { base = 100 }
 # }
 
+<<<<<<< HEAD
 # ##################################################
 # # Bind the Faith to Rome
 # # by Ewan Cowhig Croft
@@ -1179,6 +1333,12 @@
 # # Champion the Faith of the Country Basques
 # # by Ewan Cowhig Croft
 # ##################################################
+=======
+##################################################
+# Champion the Faith of the Country Basques
+# by Ewan Cowhig Croft
+##################################################
+>>>>>>> 1.20
 
 # favour_the_countryside_basques_decision = {
 	# picture = {
@@ -1220,6 +1380,7 @@
 	# desc = favour_the_countryside_basques_decision_desc
 	# selection_tooltip = favour_the_countryside_basques_decision_tooltip
 
+<<<<<<< HEAD
 	# is_shown = {
 		# # Standard filter checks.
 		# is_playable_character = yes
@@ -1293,6 +1454,84 @@
 		# # For the sake of feasibility, we require independence. Lieges of any kind really complicate likely outcomes.
 		# top_liege = this
 	# }
+=======
+	is_shown = {
+		exists = dynasty
+		# Must either have a Basque county or be Basque/recently Basque (in some form).
+		OR = {
+			favour_the_countryside_basques_counts_as_basque_trigger = yes
+			any_held_title = {
+				title_tier = county
+				favour_the_countryside_basques_counts_as_basque_trigger = yes
+			}
+		}
+		# Standard filter checks.
+		is_playable_character = yes
+		# And we're before 1200 or so, so there's enough non-Christianised ways left to try and forge something meaningful out of it.
+		current_date <= 1200.1.1
+		# Plus, we're at least vaguely within the area that'll need to be held.
+		any_sub_realm_county = {
+			title_province = {
+				OR = {
+					geographical_region = world_europe_west_francia
+					geographical_region = world_europe_west_iberia
+				}
+			}
+		}
+		# Filter out anyone who's their own HoF, since they can't convert.
+		trigger_if = {
+			limit = { exists = faith.religious_head }
+			this != faith.religious_head
+		}
+		# The decision cannot have been taken yet.
+		NOT = {
+			is_target_in_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:favoured_the_old_basque_ways
+			}
+		}
+	}
+
+	is_valid = {
+		# You need some clear spiritual reasons for pulling the switcharoo.
+		## We keep these isolated in a scripted trigger file so that we can maintain easy parity between the decision rationales & the event desc rationales.
+		OR = {
+			custom_description = {
+				text = favour_the_countryside_basques_decision.have_sinful_piety_level
+				favour_the_countryside_basques_rationale_negative_piety_level_trigger = yes
+			}
+			favour_the_countryside_basques_rationale_sinful_traits_trigger = yes
+			custom_description = {
+				text = favour_the_countryside_basques_decision.you_have_x_or_more_traits_virtuous_to_basque_paganism
+				favour_the_countryside_basques_rationale_virtuous_basque_pagan_traits_trigger = yes
+			}
+			favour_the_countryside_basques_rationale_excommunicated_trigger = yes
+			# AI need to be cynical to access the decision, so we require a little something extra from them first.
+			favour_the_countryside_basques_rationale_naked_cynicism_trigger = yes
+			custom_description = {
+				text = favour_the_countryside_basques_decision.rival_of_your_head_of_faith
+				favour_the_countryside_basques_rationale_hof_rivalry_trigger = yes
+			}
+		}
+		# You must completely control at least X counties from within the (generously diasporic) region of Old Vasconia.
+		custom_description = {
+			text = favour_the_countryside_basques_decision.completely_control_X_counties_from_old_vasconia
+			any_county_in_region = {
+				region = dlc_fp2_old_vasconia
+				count >= favour_the_countryside_basques_decision_counties_to_control_value
+				save_temporary_scope_as = county_temp
+				root = { completely_controls = scope:county_temp }
+			}
+		}
+		# We repeat the date clause here so that folks know they're on a timer.
+		custom_description = {
+			text = favour_the_countryside_basques_decision.before_last_date
+			current_date <= 1200.1.1
+		}
+		# For the sake of feasibility, we require independence. Lieges of any kind really complicate likely outcomes.
+		top_liege = this
+	}
+>>>>>>> 1.20
 
 	# is_valid_showing_failures_only = {
 		# is_available_at_peace_adult = yes
@@ -1452,6 +1691,7 @@
 	# desc = restore_old_vasconia_decision_desc
 	# selection_tooltip = restore_old_vasconia_decision_tooltip
 
+<<<<<<< HEAD
 	# is_shown = {
 		# is_ruler = yes
 		# is_landed = yes
@@ -1476,6 +1716,32 @@
 		# }
 		# highest_held_title_tier <= tier_kingdom
 	# }
+=======
+	is_shown = {
+		is_landed = yes
+		OR = {
+			government_has_flag = government_is_republic
+			government_has_flag = government_is_feudal
+			government_has_flag = government_is_clan
+		}
+		exists = dynasty # Everyone should have a dynasty, but in case they don't...
+		OR = {
+			culture ?= culture:basque	#Must be Basque
+			culture ?= {
+				has_cultural_pillar = heritage_iberian
+				any_parent_culture_or_above = { this = culture:basque }
+			}
+		}
+		highest_held_title_tier <= tier_kingdom
+		NOT = {	#You can only do it once.
+			is_target_in_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:flag_restored_old_vasconia
+			}
+		}
+		is_ruler = yes
+	}
+>>>>>>> 1.20
 
 	# is_valid = {
 		# top_liege = this

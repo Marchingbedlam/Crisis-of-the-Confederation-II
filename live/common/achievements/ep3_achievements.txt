@@ -1,41 +1,153 @@
+<<<<<<< HEAD
 ﻿ep3_01_the_old_man_of_the_mountain_achievement = {
 	possible = { always = no }
 	happened = { always = no }
+=======
+﻿# 01. The Old Man of the Mountain
+ep3_01_the_old_man_of_the_mountain_achievement = {
+	possible = {
+
+	}
+	happened = {
+		custom_description = {
+			text = the_old_man_of_the_mountain_achievement_trigger
+			this = character:41702
+			exists = global_var:finished_the_old_man_of_the_mountain_achievement
+		}
+	}
+>>>>>>> 1.20
 }
 
 ep3_02_band_of_brothers_achievement = {
+<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
+=======
+	possible = {
+
+	}
+	happened = {
+		custom_description = {
+			text = band_of_brothers_trigger
+			has_government = landless_adventurer_government
+			any_courtier = {
+				count >= 10
+				is_alive = yes
+			}
+			any_courtier = {
+				count = all
+				opinion = {
+					target = root
+					value >= 40 # sync with define:NDomicile|TEMPERAMENT_THRESHOLD_HIGH
+				}
+			}
+		}
+	}
+>>>>>>> 1.20
 }
 
 ep3_03_mio_cid_achievement = {
+<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
+=======
+	possible = {
+
+	}
+	happened = {
+		custom_description = {
+			text = mio_cid_achievement_trigger
+			this = character:107590
+			exists = global_var:finished_mio_cid_achievement
+		}
+	}
+>>>>>>> 1.20
 }
 
 ep3_04_birthright_achievement = {
+<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
+=======
+	possible = {
+
+	}
+	happened = {
+		custom_description = {
+			text = birthright_achievement_trigger
+			exists = global_var:finished_birthright_achievement
+		}
+	}
+>>>>>>> 1.20
 }
 
 ep3_05_historically_inaccurate_achievement = {
+<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
+=======
+	possible = {
+
+	}
+	happened = {
+		custom_description = {
+			text = historically_inaccurate_achievement_trigger
+			exists = global_var:finished_historically_inaccurate_achievement
+		}
+	}
+>>>>>>> 1.20
 }
 
 ep3_06_quantum_leap_achievement = {
+<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
+=======
+	possible = {
+
+	}
+	happened = {
+		custom_description = {
+			text = quantum_leap_achievement_trigger
+			exists = global_var:achievement_quantum_leap_count_tracker
+			global_var:achievement_quantum_leap_count_tracker >= 5
+		}
+	}
+>>>>>>> 1.20
 }
 
 ep3_07_kingdom_of_heaven_achievement = {
+<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
+=======
+	possible = {
+
+	}
+	happened = {
+		custom_description = {
+			text = kingdom_of_heaven_achievement_trigger
+			exists = global_var:finished_kingdom_of_heaven_achievement
+		}
+	}
+>>>>>>> 1.20
 }
 
 ep3_08_new_management_achievement = {
+<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
+=======
+	possible = {
+
+	}
+	happened = {
+		custom_description = {
+			text = new_management_achievement_trigger
+			exists = global_var:finished_new_management_achievement
+		}
+	}
+>>>>>>> 1.20
 }
 
 ep3_09_rags_to_riches_to_rags_to_riches_achievement = {
@@ -49,51 +161,214 @@ ep3_10_tamar_mepe_achievement = {
 }
 
 ep3_11_despoiler_of_byzantium_achievement = {
+<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
+=======
+	possible = {
+
+	}
+	happened = {
+		custom_description = {
+			text = despoiler_of_byzantium_achievement_trigger
+			has_title = title:e_latin_empire
+			has_trait = despoiler_of_byzantium
+		}
+	}
+>>>>>>> 1.20
 }
 
 ep3_12_chaos_is_a_ladder_achievement = {
+<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
+=======
+	possible = {
+
+	}
+	happened = {
+		custom_description = {
+			text = chaos_is_a_ladder_achievement_trigger
+			government_has_mechanic = administrative
+			house ?= { is_dominant_family = yes }
+		}
+	}
+>>>>>>> 1.20
 }
 
 ep3_13_epic_paperwork_achievement = {
+<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
+=======
+	possible = {
+
+	}
+	happened = {
+		custom_description = {
+			text = epic_paperwork_achievement_trigger
+			exists = global_var:achieved_epic_paperwork_achievement
+		}
+	}
+>>>>>>> 1.20
 }
 
 ep3_14_against_the_odds_achievement = {
+<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
+=======
+	possible = {
+
+	}
+	happened = {
+		custom_description = {
+			text = against_the_odds_achievement_trigger
+			exists = global_var:achieved_against_the_odds_achievement
+		}
+	}
+>>>>>>> 1.20
 }
 
 ep3_15_in_good_estate_achievement = {
+<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
+=======
+	possible = {
+
+	}
+	happened = {
+		custom_description = {
+			text = in_good_estate_achievement_trigger
+			domicile ?= {
+				has_domicile_building_or_higher = estate_main_05
+				calc_true_if = {
+					amount >= 6
+					has_domicile_building_or_higher = temple_small_01
+					has_domicile_building_or_higher = barracks_01
+					has_domicile_building_or_higher = watchtower_01
+					has_domicile_building_or_higher = guardhouse_01
+					has_domicile_building_or_higher = garden_01
+					has_domicile_building_or_higher = stable_01
+					has_domicile_building_or_higher = workshop_01
+					has_domicile_building_or_higher = storage_01
+					has_domicile_building_or_higher = market_01
+					has_domicile_building_or_higher = grazing_land_01
+					has_domicile_building_or_higher = grain_field_01
+					has_domicile_building_or_higher = vineyard_01
+					has_domicile_building_or_higher = olive_01
+					has_domicile_building_or_higher = silk_01
+				}
+			}
+		}
+	}
+>>>>>>> 1.20
 }
 
 ep3_16_i_got_a_permit_achievement = {
+<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
+=======
+	possible = {
+
+	}
+	happened = {
+		custom_description = {
+			text = i_got_a_permit_achievement_trigger
+			exists = global_var:achieved_i_got_a_permit_achievement
+		}
+	}
+>>>>>>> 1.20
 }
 
 ep3_17_despotic_achievement = {
+<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
+=======
+	possible = {
+
+	}
+	happened = {
+		custom_description = {
+			text = despotic_achievement_trigger
+			top_liege != this
+			liege ?= {
+				may_appoint_co_emperors_trigger = yes
+				has_diarchy_type = co_emperorship
+				diarch ?= root
+			}
+			government_has_mechanic = administrative
+			highest_held_title_tier = tier_kingdom
+		}
+	}
+>>>>>>> 1.20
 }
 
 ep3_18_byzywork_achievement = {
+<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
+=======
+	possible = {
+
+	}
+	happened = {
+		custom_description = {
+			text = byzywork_achievement_trigger
+			highest_held_title_tier < tier_empire
+			house ?= {
+				any_house_member = {
+					count >= 5
+					top_liege != this
+					government_has_mechanic = administrative
+					highest_held_title_tier >= tier_duchy
+					top_liege = root.top_liege
+					this != root
+				}
+			}
+		}
+	}
+>>>>>>> 1.20
 }
 
 ep3_19_not_content_to_serve_achievement = {
+<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
+=======
+	possible = {
+
+		OR = {
+			this = character:34281
+			this = character:215009
+		}
+	}
+	happened = {
+		custom_description = {
+			text = not_content_to_serve_achievement_trigger
+			has_title = title:e_byzantium
+		}
+	}
+>>>>>>> 1.20
 }
 
 ep3_20_started_from_the_bottom_now_were_ere_achievement = {
+<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
+=======
+	possible = {
+
+	}
+	happened = {
+		custom_description = {
+			text = started_from_the_bottom_now_were_ere_achievement_trigger
+			exists = global_var:started_from_the_bottom_now_were_ere_procure
+			has_title = title:e_byzantium
+		}
+	}
+>>>>>>> 1.20
 }

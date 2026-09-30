@@ -1,4 +1,5 @@
 ﻿hostility_group = {
+<<<<<<< HEAD
 	category = "not_creatable"
 
 	doctrine_types = {
@@ -9,92 +10,53 @@
 		pagan_hostility_doctrine
 		eastern_hostility_doctrine
 	}
+=======
+	category = not_creatable
+>>>>>>> 1.20
 }
 
 doctrine_marriage_type = {
-	category = "marriage"
-
-	doctrine_types = {
-		doctrine_monogamy
-		doctrine_polygamy
-		doctrine_concubines
-	}
+	category = marriage
+	divergence = sequence
 }
 
 doctrine_divorce = {
-	category = "marriage"
-
-	doctrine_types = {
-		doctrine_divorce_disallowed
-		doctrine_divorce_approval
-		doctrine_divorce_allowed
-	}
+	category = marriage
+	divergence = sequence
 }
 
 doctrine_bastardry = {
-	category = "marriage"
-
-	doctrine_types = {
-		doctrine_bastardry_none
-		doctrine_bastardry_legitimization
-		doctrine_bastardry_all
-	}
+	category = marriage
+	divergence = sequence
 }
 
 doctrine_homosexuality = {
-	category = "crimes"
-
-	doctrine_types = {
-		doctrine_homosexuality_crime
-		doctrine_homosexuality_shunned
-		doctrine_homosexuality_accepted
-	}
+	category = crimes
+	divergence = sequence
 }
 
 doctrine_deviancy = {
-	category = "crimes"
-
-	doctrine_types = {
-		doctrine_deviancy_crime
-		doctrine_deviancy_shunned
-		doctrine_deviancy_accepted
-		doctrine_deviancy_virtuous
-	}
+	category = crimes
+	divergence = sequence
 }
 
 doctrine_adultery_men = {
-	category = "crimes"
-
-	doctrine_types = {
-		doctrine_adultery_men_crime
-		doctrine_adultery_men_shunned
-		doctrine_adultery_men_accepted
-	}
+	category = crimes
+	divergence = sequence
 }
 
 doctrine_adultery_women = {
-	category = "crimes"
-
-	doctrine_types = {
-		doctrine_adultery_women_crime
-		doctrine_adultery_women_shunned
-		doctrine_adultery_women_accepted
-	}
+	category = crimes
+	divergence = sequence
 }
 
 doctrine_kinslaying = {
-	category = "crimes"
-
-	doctrine_types = {
-		doctrine_kinslaying_any_dynasty_member_crime
-		doctrine_kinslaying_extended_family_crime
-		doctrine_kinslaying_close_kin_crime
-		doctrine_kinslaying_shunned
-		doctrine_kinslaying_accepted
-	}
+	category = crimes
+	divergence = sequence
 }
 
 doctrine_witchcraft = {
+<<<<<<< HEAD
 	category = "not_creatable" # People in the 31st century do not believe in witches
 
 	doctrine_types = {
@@ -103,139 +65,74 @@ doctrine_witchcraft = {
 		doctrine_witchcraft_accepted
 		doctrine_witchcraft_virtuous
 	}
+=======
+	category = crimes
+	divergence = sequence
+>>>>>>> 1.20
 }
 
 doctrine_gender = {
-	category = "main_group"
-
-	doctrine_types = {
-		doctrine_gender_male_dominated
-		doctrine_gender_equal
-		doctrine_gender_female_dominated
-	}
+	category = main_group
+	divergence = sequence
 }
 
 doctrine_consanguinity = {
-	category = "marriage"
-
-	doctrine_types = {
-		doctrine_consanguinity_dynastic
-		doctrine_consanguinity_restricted
-		doctrine_consanguinity_cousins
-		doctrine_consanguinity_aunt_nephew_and_uncle_niece
-		doctrine_consanguinity_unrestricted
-	}
+	category = marriage
+	divergence = sequence
 }
 
 doctrine_pluralism = {
-	category = "main_group"
-
-	doctrine_types = {
-		doctrine_pluralism_fundamentalist
-		doctrine_pluralism_righteous
-		doctrine_pluralism_pluralistic
-	}
+	category = main_group
+	divergence = sequence
 }
 
 doctrine_theocracy = {
-	category = "main_group"
-
-	doctrine_types = {
-		doctrine_theocracy_temporal
-		doctrine_theocracy_lay_clergy
-	}
+	category = main_group
+	divergence = sequence
 }
 
 doctrine_head_of_faith = {
-	category = "main_group"
-
-	doctrine_types = {
-		doctrine_no_head
-		doctrine_spiritual_head
-		doctrine_temporal_head
-	}
+	category = main_group
+	main_rite = yes
 }
 
 doctrine_clerical_function = {
-	category = "clergy"
-
-	doctrine_types = {
-		doctrine_clerical_function_taxation
-		doctrine_clerical_function_alms_and_pacification
-		doctrine_clerical_function_recruitment
-	}
+	category = clergy
 }
 
 doctrine_clerical_gender = {
-	category = "clergy"
-
-	doctrine_types = {
-		doctrine_clerical_gender_male_only
-		doctrine_clerical_gender_female_only
-		doctrine_clerical_gender_either
-	}
+	category = clergy
+	divergence = sequence
 }
 
 doctrine_clerical_marriage = {
-	category = "clergy"
-
-	doctrine_types = {
-		doctrine_clerical_marriage_allowed
-		doctrine_clerical_marriage_disallowed
-	}
+	category = clergy
+	divergence = sequence
 }
 
 doctrine_clerical_succession = {
-	category = "clergy"
-
-	doctrine_types = {
-		doctrine_clerical_succession_temporal_appointment
-		doctrine_clerical_succession_spiritual_appointment
-		doctrine_clerical_succession_temporal_fixed_appointment
-		doctrine_clerical_succession_spiritual_fixed_appointment
-	}
+	category = clergy
 }
 
 doctrine_pilgrimage = {
-	category = "main_group"
-
-	doctrine_types = {
-		doctrine_pilgrimage_forbidden
-		doctrine_pilgrimage_encouraged
-		doctrine_pilgrimage_local_rites
-		doctrine_pilgrimage_mandatory
-		doctrine_pilgrimage_mandatory_hajj
-	}
+	category = main_group
+	divergence = sequence
 }
 
 doctrine_funeral = {
-	category = "clergy"
-
-	doctrine_types = {
-		doctrine_funeral_stoic
-		doctrine_funeral_bewailment
-		doctrine_funeral_cremation
-		doctrine_funeral_sky_burial
-		doctrine_funeral_mummification
-		doctrine_family_rites
-	}
+	category = clergy
 }
 
 doctrine_coronation = {
-	category = "clergy"
+	category = clergy
 
 	is_available_on_create = {
 		has_ach_dlc_trigger = yes
 	}
-
-	doctrine_types = {
-		doctrine_no_anointment
-		doctrine_anointment_permitted
-		doctrine_imperial_anointment
-	}
 }
 
 doctrine_theism = {
+<<<<<<< HEAD
 	category = "main_group"
 
 	doctrine_types = {
@@ -244,25 +141,21 @@ doctrine_theism = {
 		doctrine_monotheist
 		doctrine_polytheist
 	}
+=======
+	category = main_group
+>>>>>>> 1.20
 }
 
 doctrine_muhammad_succession = {
-	category = "main_group"
+	category = main_group
 
 	is_available_on_create = {
 		religion_tag = islam_religion
 	}
-
-	doctrine_types = {
-		muhammad_succession_sunni_doctrine
-		muhammad_succession_shia_doctrine
-		muhammad_succession_muhakkima_doctrine
-		muhammad_succession_zandaqa_doctrine
-	}
 }
 
 doctrine_temple_authority = {
-	category = "main_group"
+	category = main_group
 
 	is_available_on_create = {
 		# Available only to Judaism-derived faiths
@@ -273,21 +166,15 @@ doctrine_temple_authority = {
 			has_doctrine = temple_authority_samaritan_torah_doctrine
 		}
 	}
-
-	doctrine_types = {
-		temple_authority_rabbinic_doctrine
-		temple_authority_toric_doctrine
-		temple_authority_kohanim_doctrine
-		temple_authority_samaritan_torah_doctrine
-	}
 }
 
 doctrine_zoroastrian_branches = {
-	category = "main_group"
+	category = main_group
 
 	is_available_on_create = {
 		religion_tag = zoroastrianism_religion
 	}
+<<<<<<< HEAD
 
 	doctrine_types = {
 		doctrine_major_branch_behdin
@@ -401,50 +288,47 @@ doctrine_core_tenets = {
 		tenet_preservation
 		tenet_takamin
 	}
+=======
+>>>>>>> 1.20
 }
 
 is_christian_faith = {
-	category = "special"
-	
+	category = special
+
 	is_available_on_create = {
 		has_doctrine = special_doctrine_is_christian_faith
-	}
-
-	doctrine_types = {
-		special_doctrine_is_christian_faith
 	}
 }
 
 is_islamic_faith = {
-	category = "special"
-	
+	category = special
+
 	is_available_on_create = {
 		has_doctrine = special_doctrine_is_islamic_faith
-	}
-
-	doctrine_types = {
-		special_doctrine_is_islamic_faith
 	}
 }
 
 is_jewish_faith = {
-	category = "special"
-	
+	category = special
+
 	is_available_on_create = {
 		has_doctrine = special_doctrine_is_jewish_faith
 	}
-
-	doctrine_types = {
-		special_doctrine_is_jewish_faith
-	}
 }
 
+<<<<<<< HEAD
 is_hindu_faith = {
 	category = "special"
 	
+=======
+is_eastern_faith = {
+	category = special
+
+>>>>>>> 1.20
 	is_available_on_create = {
 		has_doctrine = special_doctrine_is_hindu_faith
 	}
+<<<<<<< HEAD
 
 	doctrine_types = {
 		special_doctrine_is_hindu_faith
@@ -454,33 +338,51 @@ is_hindu_faith = {
 is_buddhist_faith = {
 	category = "special"
 	
+=======
+}
+
+is_sinitic_faith = {
+	category = special
+
+>>>>>>> 1.20
 	is_available_on_create = {
 		has_doctrine = special_doctrine_is_buddhist_faith
 	}
+<<<<<<< HEAD
 
 	doctrine_types = {
 		special_doctrine_is_buddhist_faith
 	}
+=======
+>>>>>>> 1.20
 }
 
 is_hostile_to_maitreya = {
-	category = "not_creatable"
+	category = not_creatable
 
-	doctrine_types = {
-		special_doctrine_maitreya_hostility
-		special_doctrine_is_maitreya
+	is_available_on_create = {
+		religion_tag = buddhism_religion
 	}
 }
 
+# This is assigned per faith so portraits can tell Western Christianity from Eastern
+christian_tradition_classification = {
+	category = not_creatable
+
+	is_available_on_create = {
+		religion_tag = christianity_religion
+	}
+}
+
+preservation = {
+	category = not_creatable
+}
+
 is_gnostic_faith = {
-	category = "special"
-	
+	category = special
+
 	is_available_on_create = {
 		has_doctrine = special_doctrine_is_gnostic_faith
-	}
-
-	doctrine_types = {
-		special_doctrine_is_gnostic_faith
 	}
 }
 
@@ -509,110 +411,89 @@ is_nahua_faith = {
 }
 
 special_tolerance = {
-	category = "main_group"
-	
+	category = main_group
 	is_available_on_create = {
-		always = no # Goes away when creating a new Faith
+		OR = {
+			has_doctrine = special_doctrine_ecumenical_christian
+			has_doctrine = special_doctrine_ecumenical_miaphysite
+		}
 	}
 
-	doctrine_types = {
-		special_doctrine_ecumenical_christian
+	doctrine_lock = faith
+}
+
+has_clerical_electors = {
+	category = not_creatable
+
+	is_available_on_create = {
+		has_doctrine_group = has_clerical_electors
 	}
+
+	doctrine_lock = faith
 }
 
 heresy_hostility = {
-	category = "not_creatable"
+	category = not_creatable
 
 	is_available_on_create = {
 		has_doctrine = heresy_hostility_doctrine
 	}
-
-	doctrine_types = {
-		heresy_hostility_doctrine
-	}
 }
 
 nudity_doctrine = {
-	category = "special"
+	category = special
 
 	is_available_on_create = {
 		has_doctrine = special_doctrine_naked_priests
 	}
-
-	doctrine_types = {
-		special_doctrine_naked_priests
-	}
 }
 
 unreformed_faith = {
-	category = "not_creatable"
+	category = not_creatable
 
 	is_available_on_create = {
 		# Goes away on reformation
 		always = no
 	}
-
-	doctrine_types = {
-		unreformed_faith_doctrine
-		west_african_unreformed_faith_doctrine
-	}
 }
 
 divine_destiny = {
-	category = "special"
+	category = special
 
 	is_available_on_create = {
 		has_doctrine = divine_destiny_doctrine
 	}
-
-	doctrine_types = {
-		divine_destiny_doctrine
-	}
 }
 
 adoptionist_school = {
-	category = "special"
-	
+	category = special
+
 	is_available_on_create = {
 		# Removed on reformation.
 		always = no
-	}
-
-	doctrine_types = {
-		special_doctrine_adoptionist_school_elipandic_doctrine
-		special_doctrine_adoptionist_school_felicitous_doctrine
-		special_doctrine_adoptionist_school_radical_doctrine
 	}
 }
 
 not_allowed_to_hof = {
-	category = "special"
+	category = special
 
 	is_available_on_create = {
 		# Removed on reformation.
 		always = no
-	}
-
-	doctrine_types = {
-		special_doctrine_not_allowed_to_hof
 	}
 }
 
 #Game rule only
 full_tolerance = {
-	category = "special"
+	category = special
 
 	is_available_on_create = {
 		has_doctrine = special_doctrine_full_tolerance
 	}
-
-	doctrine_types = {
-		special_doctrine_full_tolerance
-	}
 }
 
 has_jizya_doctrine = {
-	category = "special"
+	category = special
 
 	is_available_on_create = {
 		OR = {
@@ -620,21 +501,32 @@ has_jizya_doctrine = {
 			has_doctrine = special_doctrine_is_islamic_faith
 		}
 	}
-
-	doctrine_types = {
-		special_doctrine_jizya
-	}
 }
 
 immaterial_harmony = {
-	category = "special"
-	
+	category = special
+
 	is_available_on_create = {
 		has_doctrine = special_doctrine_immaterial_harmony
 	}
+}
 
-	doctrine_types = {
-		special_doctrine_immaterial_harmony
+monasticism_group = {
+	category = clergy
+	divergence = sequence
+}
+
+sacraments_group = {
+	category = clergy
+}
+
+pope_blessing = {
+	category = special
+	
+	doctrine_lock = rite
+
+	is_available_on_create = {
+		always = no
 	}
 }
 

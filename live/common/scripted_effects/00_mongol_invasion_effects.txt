@@ -236,7 +236,7 @@ form_the_mongol_empire_effect = {
 				has_realm_law = uncrowned
 				has_realm_law = crowned_king
 			}
-			faith = { has_doctrine = doctrine_imperial_anointment }
+			rite = { rite_has_doctrine = doctrine_imperial_anointment }
 		}
 		if = {
 			limit = {
@@ -803,6 +803,13 @@ spawn_temujins_court_effect = {
 	if = {
 		limit = {
 			is_married = no
+			NOT = {
+				character:172004 ?= {
+					any_former_spouse = {
+						this = scope:temujin
+					}
+				}
+			}
 		}
 		if = {
 			limit = {
@@ -972,6 +979,7 @@ spawn_temujins_court_effect = {
 		employer = scope:temujin
 		template = new_warrior_character
 		faith = scope:temujin.faith
+		rite = scope:temujin.rite
 		culture = scope:temujin.culture
 	}
 	create_character = {
@@ -979,6 +987,7 @@ spawn_temujins_court_effect = {
 		employer = scope:temujin
 		template = new_warrior_character
 		faith = scope:temujin.faith
+		rite = scope:temujin.rite
 		culture = scope:temujin.culture
 	}
 	create_character = {
@@ -986,6 +995,7 @@ spawn_temujins_court_effect = {
 		employer = scope:temujin
 		template = new_warrior_character
 		faith = scope:temujin.faith
+		rite = scope:temujin.rite
 		culture = scope:temujin.culture
 	}
 	create_character = {
@@ -993,6 +1003,7 @@ spawn_temujins_court_effect = {
 		employer = scope:temujin
 		template = new_warrior_character
 		faith = scope:temujin.faith
+		rite = scope:temujin.rite
 		culture = scope:temujin.culture
 	}
 	create_character = {
@@ -1000,6 +1011,7 @@ spawn_temujins_court_effect = {
 		employer = scope:temujin
 		template = new_warrior_character
 		faith = scope:temujin.faith
+		rite = scope:temujin.rite
 		culture = scope:temujin.culture
 	}
 	create_character = {
@@ -1007,6 +1019,7 @@ spawn_temujins_court_effect = {
 		employer = scope:temujin
 		template = new_warrior_character
 		faith = scope:temujin.faith
+		rite = scope:temujin.rite
 		culture = scope:temujin.culture
 	}
 	create_character = {
@@ -1014,6 +1027,7 @@ spawn_temujins_court_effect = {
 		employer = scope:temujin
 		template = new_warrior_character
 		faith = scope:temujin.faith
+		rite = scope:temujin.rite
 		culture = scope:temujin.culture
 	}
 	create_character = {
@@ -1021,6 +1035,7 @@ spawn_temujins_court_effect = {
 		employer = scope:temujin
 		template = new_warrior_character
 		faith = scope:temujin.faith
+		rite = scope:temujin.rite
 		culture = scope:temujin.culture
 	}
 	
@@ -1029,28 +1044,28 @@ spawn_temujins_court_effect = {
 		gender_female_chance = temujin_soldier_female_chance
 		employer = scope:temujin
 		template = new_siege_engineer
-		faith = faith:shangqing
+		faith = faith:shangqing_faith
 		culture = culture:han
 	}
 	create_character = {
 		gender_female_chance = temujin_soldier_female_chance
 		employer = scope:temujin
 		template = new_siege_engineer
-		faith = faith:shangqing
+		faith = faith:shangqing_faith
 		culture = culture:han
 	}
 	create_character = {
 		gender_female_chance = temujin_soldier_female_chance
 		employer = scope:temujin
 		template = new_siege_engineer
-		faith = faith:shangqing
+		faith = faith:shangqing_faith
 		culture = culture:han
 	}
 	create_character = {
 		gender_female_chance = temujin_soldier_female_chance
 		employer = scope:temujin
 		template = new_siege_engineer
-		faith = faith:shangqing
+		faith = faith:shangqing_faith
 		culture = culture:han
 	}
 }
@@ -1189,6 +1204,7 @@ spawn_dynamic_mongol_court_effect = {
 		employer = scope:temujin
 		template = new_warrior_character
 		faith = scope:temujin.faith
+		rite = scope:temujin.rite
 		culture = scope:temujin.culture
 	}
 	create_character = {
@@ -1196,6 +1212,7 @@ spawn_dynamic_mongol_court_effect = {
 		employer = scope:temujin
 		template = new_warrior_character
 		faith = scope:temujin.faith
+		rite = scope:temujin.rite
 		culture = scope:temujin.culture
 	}
 	create_character = {
@@ -1203,6 +1220,7 @@ spawn_dynamic_mongol_court_effect = {
 		employer = scope:temujin
 		template = new_warrior_character
 		faith = scope:temujin.faith
+		rite = scope:temujin.rite
 		culture = scope:temujin.culture
 	}
 	create_character = {
@@ -1210,6 +1228,7 @@ spawn_dynamic_mongol_court_effect = {
 		employer = scope:temujin
 		template = new_warrior_character
 		faith = scope:temujin.faith
+		rite = scope:temujin.rite
 		culture = scope:temujin.culture
 	}
 	create_character = {
@@ -1217,6 +1236,7 @@ spawn_dynamic_mongol_court_effect = {
 		employer = scope:temujin
 		template = new_warrior_character
 		faith = scope:temujin.faith
+		rite = scope:temujin.rite
 		culture = scope:temujin.culture
 	}
 	create_character = {
@@ -1224,6 +1244,7 @@ spawn_dynamic_mongol_court_effect = {
 		employer = scope:temujin
 		template = new_warrior_character
 		faith = scope:temujin.faith
+		rite = scope:temujin.rite
 		culture = scope:temujin.culture
 	}
 	create_character = {
@@ -1231,6 +1252,7 @@ spawn_dynamic_mongol_court_effect = {
 		employer = scope:temujin
 		template = new_warrior_character
 		faith = scope:temujin.faith
+		rite = scope:temujin.rite
 		culture = scope:temujin.culture
 	}
 	create_character = {
@@ -1238,6 +1260,7 @@ spawn_dynamic_mongol_court_effect = {
 		employer = scope:temujin
 		template = new_warrior_character
 		faith = scope:temujin.faith
+		rite = scope:temujin.rite
 		culture = scope:temujin.culture
 	}
 	
@@ -1246,28 +1269,28 @@ spawn_dynamic_mongol_court_effect = {
 		gender_female_chance = temujin_soldier_female_chance
 		employer = scope:temujin
 		template = new_siege_engineer
-		faith = faith:shangqing
+		faith = faith:shangqing_faith
 		culture = culture:han
 	}
 	create_character = {
 		gender_female_chance = temujin_soldier_female_chance
 		employer = scope:temujin
 		template = new_siege_engineer
-		faith = faith:shangqing
+		faith = faith:shangqing_faith
 		culture = culture:han
 	}
 	create_character = {
 		gender_female_chance = temujin_soldier_female_chance
 		employer = scope:temujin
 		template = new_siege_engineer
-		faith = faith:shangqing
+		faith = faith:shangqing_faith
 		culture = culture:han
 	}
 	create_character = {
 		gender_female_chance = temujin_soldier_female_chance
 		employer = scope:temujin
 		template = new_siege_engineer
-		faith = faith:shangqing
+		faith = faith:shangqing_faith
 		culture = culture:han
 	}
 }
@@ -5646,19 +5669,19 @@ shift_counties_on_mongol_succession_effect = {
 		scope:old_mongol_emperor = {
 			every_vassal = {
 				limit = {
-					NOR = {
-						has_character_flag = should_be_vassalized_by_ilkhanate
-						has_character_flag = should_be_vassalized_by_golden_horde
-						has_character_flag = should_be_vassalized_by_chagatai
-						has_character_flag = should_be_vassalized_by_red_horde
-						has_character_flag = should_be_vassalized_by_white_horde
-						has_character_flag = should_be_vassalized_by_aarlud_khanate
-						has_character_flag = should_be_vassalized_by_togskol_khanate
-						has_character_flag = should_be_vassalized_by_baruun_khanate
-						has_character_flag = should_be_vassalized_by_mongolia
-						has_character_flag = should_be_vassalized_by_great_yuan
-						has_character_flag = should_be_vassalized_by_blue_horde
-						has_character_flag = should_be_vassalized_by_omnod_dalai_khanate
+					has_none_of_variables = {
+						name = should_be_vassalized_by_ilkhanate
+						name = should_be_vassalized_by_golden_horde
+						name = should_be_vassalized_by_chagatai
+						name = should_be_vassalized_by_red_horde
+						name = should_be_vassalized_by_white_horde
+						name = should_be_vassalized_by_aarlud_khanate
+						name = should_be_vassalized_by_togskol_khanate
+						name = should_be_vassalized_by_baruun_khanate
+						name = should_be_vassalized_by_mongolia
+						name = should_be_vassalized_by_great_yuan
+						name = should_be_vassalized_by_blue_horde
+						name = should_be_vassalized_by_omnod_dalai_khanate
 					}
 					capital_province = {
 						geographical_region = special_mongol_empire_ilkhanate_region
@@ -5679,19 +5702,19 @@ shift_counties_on_mongol_succession_effect = {
 		scope:old_mongol_emperor = {
 			every_vassal = {
 				limit = {
-					NOR = {
-						has_character_flag = should_be_vassalized_by_ilkhanate
-						has_character_flag = should_be_vassalized_by_golden_horde
-						has_character_flag = should_be_vassalized_by_chagatai
-						has_character_flag = should_be_vassalized_by_red_horde
-						has_character_flag = should_be_vassalized_by_white_horde
-						has_character_flag = should_be_vassalized_by_aarlud_khanate
-						has_character_flag = should_be_vassalized_by_togskol_khanate
-						has_character_flag = should_be_vassalized_by_baruun_khanate
-						has_character_flag = should_be_vassalized_by_mongolia
-						has_character_flag = should_be_vassalized_by_great_yuan
-						has_character_flag = should_be_vassalized_by_blue_horde
-						has_character_flag = should_be_vassalized_by_omnod_dalai_khanate
+					has_none_of_variables = {
+						name = should_be_vassalized_by_ilkhanate
+						name = should_be_vassalized_by_golden_horde
+						name = should_be_vassalized_by_chagatai
+						name = should_be_vassalized_by_red_horde
+						name = should_be_vassalized_by_white_horde
+						name = should_be_vassalized_by_aarlud_khanate
+						name = should_be_vassalized_by_togskol_khanate
+						name = should_be_vassalized_by_baruun_khanate
+						name = should_be_vassalized_by_mongolia
+						name = should_be_vassalized_by_great_yuan
+						name = should_be_vassalized_by_blue_horde
+						name = should_be_vassalized_by_omnod_dalai_khanate
 					}
 					capital_province = {
 						geographical_region = special_mongol_empire_golden_horde_region
@@ -5712,19 +5735,19 @@ shift_counties_on_mongol_succession_effect = {
 		scope:old_mongol_emperor = {
 			every_vassal = {
 				limit = {
-					NOR = {
-						has_character_flag = should_be_vassalized_by_ilkhanate
-						has_character_flag = should_be_vassalized_by_golden_horde
-						has_character_flag = should_be_vassalized_by_chagatai
-						has_character_flag = should_be_vassalized_by_red_horde
-						has_character_flag = should_be_vassalized_by_white_horde
-						has_character_flag = should_be_vassalized_by_aarlud_khanate
-						has_character_flag = should_be_vassalized_by_togskol_khanate
-						has_character_flag = should_be_vassalized_by_baruun_khanate
-						has_character_flag = should_be_vassalized_by_mongolia
-						has_character_flag = should_be_vassalized_by_great_yuan
-						has_character_flag = should_be_vassalized_by_blue_horde
-						has_character_flag = should_be_vassalized_by_omnod_dalai_khanate
+					has_none_of_variables = {
+						name = should_be_vassalized_by_ilkhanate
+						name = should_be_vassalized_by_golden_horde
+						name = should_be_vassalized_by_chagatai
+						name = should_be_vassalized_by_red_horde
+						name = should_be_vassalized_by_white_horde
+						name = should_be_vassalized_by_aarlud_khanate
+						name = should_be_vassalized_by_togskol_khanate
+						name = should_be_vassalized_by_baruun_khanate
+						name = should_be_vassalized_by_mongolia
+						name = should_be_vassalized_by_great_yuan
+						name = should_be_vassalized_by_blue_horde
+						name = should_be_vassalized_by_omnod_dalai_khanate
 					}
 					capital_province = {
 						geographical_region = special_mongol_empire_chagatai_region
@@ -5745,19 +5768,19 @@ shift_counties_on_mongol_succession_effect = {
 		scope:old_mongol_emperor = {
 			every_vassal = {
 				limit = {
-					NOR = {
-						has_character_flag = should_be_vassalized_by_ilkhanate
-						has_character_flag = should_be_vassalized_by_golden_horde
-						has_character_flag = should_be_vassalized_by_chagatai
-						has_character_flag = should_be_vassalized_by_red_horde
-						has_character_flag = should_be_vassalized_by_white_horde
-						has_character_flag = should_be_vassalized_by_aarlud_khanate
-						has_character_flag = should_be_vassalized_by_togskol_khanate
-						has_character_flag = should_be_vassalized_by_baruun_khanate
-						has_character_flag = should_be_vassalized_by_mongolia
-						has_character_flag = should_be_vassalized_by_great_yuan
-						has_character_flag = should_be_vassalized_by_blue_horde
-						has_character_flag = should_be_vassalized_by_omnod_dalai_khanate
+					has_none_of_variables = {
+						name = should_be_vassalized_by_ilkhanate
+						name = should_be_vassalized_by_golden_horde
+						name = should_be_vassalized_by_chagatai
+						name = should_be_vassalized_by_red_horde
+						name = should_be_vassalized_by_white_horde
+						name = should_be_vassalized_by_aarlud_khanate
+						name = should_be_vassalized_by_togskol_khanate
+						name = should_be_vassalized_by_baruun_khanate
+						name = should_be_vassalized_by_mongolia
+						name = should_be_vassalized_by_great_yuan
+						name = should_be_vassalized_by_blue_horde
+						name = should_be_vassalized_by_omnod_dalai_khanate
 					}
 					capital_province = {
 						geographical_region = special_mongol_empire_great_yuan_region
@@ -5778,19 +5801,19 @@ shift_counties_on_mongol_succession_effect = {
 		scope:old_mongol_emperor = {
 			every_vassal = {
 				limit = {
-					NOR = {
-						has_character_flag = should_be_vassalized_by_ilkhanate
-						has_character_flag = should_be_vassalized_by_golden_horde
-						has_character_flag = should_be_vassalized_by_chagatai
-						has_character_flag = should_be_vassalized_by_red_horde
-						has_character_flag = should_be_vassalized_by_white_horde
-						has_character_flag = should_be_vassalized_by_aarlud_khanate
-						has_character_flag = should_be_vassalized_by_togskol_khanate
-						has_character_flag = should_be_vassalized_by_baruun_khanate
-						has_character_flag = should_be_vassalized_by_mongolia
-						has_character_flag = should_be_vassalized_by_great_yuan
-						has_character_flag = should_be_vassalized_by_blue_horde
-						has_character_flag = should_be_vassalized_by_omnod_dalai_khanate
+					has_none_of_variables = {
+						name = should_be_vassalized_by_ilkhanate
+						name = should_be_vassalized_by_golden_horde
+						name = should_be_vassalized_by_chagatai
+						name = should_be_vassalized_by_red_horde
+						name = should_be_vassalized_by_white_horde
+						name = should_be_vassalized_by_aarlud_khanate
+						name = should_be_vassalized_by_togskol_khanate
+						name = should_be_vassalized_by_baruun_khanate
+						name = should_be_vassalized_by_mongolia
+						name = should_be_vassalized_by_great_yuan
+						name = should_be_vassalized_by_blue_horde
+						name = should_be_vassalized_by_omnod_dalai_khanate
 					}
 					capital_province = {
 						geographical_region = special_mongol_empire_red_horde_region
@@ -5811,19 +5834,19 @@ shift_counties_on_mongol_succession_effect = {
 		scope:old_mongol_emperor = {
 			every_vassal = {
 				limit = {
-					NOR = {
-						has_character_flag = should_be_vassalized_by_ilkhanate
-						has_character_flag = should_be_vassalized_by_golden_horde
-						has_character_flag = should_be_vassalized_by_chagatai
-						has_character_flag = should_be_vassalized_by_red_horde
-						has_character_flag = should_be_vassalized_by_white_horde
-						has_character_flag = should_be_vassalized_by_aarlud_khanate
-						has_character_flag = should_be_vassalized_by_togskol_khanate
-						has_character_flag = should_be_vassalized_by_baruun_khanate
-						has_character_flag = should_be_vassalized_by_mongolia
-						has_character_flag = should_be_vassalized_by_great_yuan
-						has_character_flag = should_be_vassalized_by_blue_horde
-						has_character_flag = should_be_vassalized_by_omnod_dalai_khanate
+					has_none_of_variables = {
+						name = should_be_vassalized_by_ilkhanate
+						name = should_be_vassalized_by_golden_horde
+						name = should_be_vassalized_by_chagatai
+						name = should_be_vassalized_by_red_horde
+						name = should_be_vassalized_by_white_horde
+						name = should_be_vassalized_by_aarlud_khanate
+						name = should_be_vassalized_by_togskol_khanate
+						name = should_be_vassalized_by_baruun_khanate
+						name = should_be_vassalized_by_mongolia
+						name = should_be_vassalized_by_great_yuan
+						name = should_be_vassalized_by_blue_horde
+						name = should_be_vassalized_by_omnod_dalai_khanate
 					}
 					capital_province = {
 						geographical_region = special_mongol_empire_white_horde_region
@@ -5844,19 +5867,19 @@ shift_counties_on_mongol_succession_effect = {
 		scope:old_mongol_emperor = {
 			every_vassal = {
 				limit = {
-					NOR = {
-						has_character_flag = should_be_vassalized_by_ilkhanate
-						has_character_flag = should_be_vassalized_by_golden_horde
-						has_character_flag = should_be_vassalized_by_chagatai
-						has_character_flag = should_be_vassalized_by_red_horde
-						has_character_flag = should_be_vassalized_by_white_horde
-						has_character_flag = should_be_vassalized_by_aarlud_khanate
-						has_character_flag = should_be_vassalized_by_togskol_khanate
-						has_character_flag = should_be_vassalized_by_baruun_khanate
-						has_character_flag = should_be_vassalized_by_mongolia
-						has_character_flag = should_be_vassalized_by_great_yuan
-						has_character_flag = should_be_vassalized_by_blue_horde
-						has_character_flag = should_be_vassalized_by_omnod_dalai_khanate
+					has_none_of_variables = {
+						name = should_be_vassalized_by_ilkhanate
+						name = should_be_vassalized_by_golden_horde
+						name = should_be_vassalized_by_chagatai
+						name = should_be_vassalized_by_red_horde
+						name = should_be_vassalized_by_white_horde
+						name = should_be_vassalized_by_aarlud_khanate
+						name = should_be_vassalized_by_togskol_khanate
+						name = should_be_vassalized_by_baruun_khanate
+						name = should_be_vassalized_by_mongolia
+						name = should_be_vassalized_by_great_yuan
+						name = should_be_vassalized_by_blue_horde
+						name = should_be_vassalized_by_omnod_dalai_khanate
 					}
 					capital_province = {
 						geographical_region = special_mongol_empire_blue_horde_region
@@ -5877,19 +5900,19 @@ shift_counties_on_mongol_succession_effect = {
 		scope:old_mongol_emperor = {
 			every_vassal = {
 				limit = {
-					NOR = {
-						has_character_flag = should_be_vassalized_by_ilkhanate
-						has_character_flag = should_be_vassalized_by_golden_horde
-						has_character_flag = should_be_vassalized_by_chagatai
-						has_character_flag = should_be_vassalized_by_red_horde
-						has_character_flag = should_be_vassalized_by_white_horde
-						has_character_flag = should_be_vassalized_by_aarlud_khanate
-						has_character_flag = should_be_vassalized_by_togskol_khanate
-						has_character_flag = should_be_vassalized_by_baruun_khanate
-						has_character_flag = should_be_vassalized_by_mongolia
-						has_character_flag = should_be_vassalized_by_great_yuan
-						has_character_flag = should_be_vassalized_by_blue_horde
-						has_character_flag = should_be_vassalized_by_omnod_dalai_khanate
+					has_none_of_variables = {
+						name = should_be_vassalized_by_ilkhanate
+						name = should_be_vassalized_by_golden_horde
+						name = should_be_vassalized_by_chagatai
+						name = should_be_vassalized_by_red_horde
+						name = should_be_vassalized_by_white_horde
+						name = should_be_vassalized_by_aarlud_khanate
+						name = should_be_vassalized_by_togskol_khanate
+						name = should_be_vassalized_by_baruun_khanate
+						name = should_be_vassalized_by_mongolia
+						name = should_be_vassalized_by_great_yuan
+						name = should_be_vassalized_by_blue_horde
+						name = should_be_vassalized_by_omnod_dalai_khanate
 					}
 					capital_province = {
 						geographical_region = special_mongol_empire_omnod_dalai_khanate_region
@@ -5910,19 +5933,19 @@ shift_counties_on_mongol_succession_effect = {
 		scope:old_mongol_emperor = {
 			every_vassal = {
 				limit = {
-					NOR = {
-						has_character_flag = should_be_vassalized_by_ilkhanate
-						has_character_flag = should_be_vassalized_by_golden_horde
-						has_character_flag = should_be_vassalized_by_chagatai
-						has_character_flag = should_be_vassalized_by_red_horde
-						has_character_flag = should_be_vassalized_by_white_horde
-						has_character_flag = should_be_vassalized_by_aarlud_khanate
-						has_character_flag = should_be_vassalized_by_togskol_khanate
-						has_character_flag = should_be_vassalized_by_baruun_khanate
-						has_character_flag = should_be_vassalized_by_mongolia
-						has_character_flag = should_be_vassalized_by_great_yuan
-						has_character_flag = should_be_vassalized_by_blue_horde
-						has_character_flag = should_be_vassalized_by_omnod_dalai_khanate
+					has_none_of_variables = {
+						name = should_be_vassalized_by_ilkhanate
+						name = should_be_vassalized_by_golden_horde
+						name = should_be_vassalized_by_chagatai
+						name = should_be_vassalized_by_red_horde
+						name = should_be_vassalized_by_white_horde
+						name = should_be_vassalized_by_aarlud_khanate
+						name = should_be_vassalized_by_togskol_khanate
+						name = should_be_vassalized_by_baruun_khanate
+						name = should_be_vassalized_by_mongolia
+						name = should_be_vassalized_by_great_yuan
+						name = should_be_vassalized_by_blue_horde
+						name = should_be_vassalized_by_omnod_dalai_khanate
 					}
 					capital_province = {
 						geographical_region = special_mongol_empire_aarlud_khanate_region
@@ -5943,19 +5966,19 @@ shift_counties_on_mongol_succession_effect = {
 		scope:old_mongol_emperor = {
 			every_vassal = {
 				limit = {
-					NOR = {
-						has_character_flag = should_be_vassalized_by_ilkhanate
-						has_character_flag = should_be_vassalized_by_golden_horde
-						has_character_flag = should_be_vassalized_by_chagatai
-						has_character_flag = should_be_vassalized_by_red_horde
-						has_character_flag = should_be_vassalized_by_white_horde
-						has_character_flag = should_be_vassalized_by_aarlud_khanate
-						has_character_flag = should_be_vassalized_by_togskol_khanate
-						has_character_flag = should_be_vassalized_by_baruun_khanate
-						has_character_flag = should_be_vassalized_by_mongolia
-						has_character_flag = should_be_vassalized_by_great_yuan
-						has_character_flag = should_be_vassalized_by_blue_horde
-						has_character_flag = should_be_vassalized_by_omnod_dalai_khanate
+					has_none_of_variables = {
+						name = should_be_vassalized_by_ilkhanate
+						name = should_be_vassalized_by_golden_horde
+						name = should_be_vassalized_by_chagatai
+						name = should_be_vassalized_by_red_horde
+						name = should_be_vassalized_by_white_horde
+						name = should_be_vassalized_by_aarlud_khanate
+						name = should_be_vassalized_by_togskol_khanate
+						name = should_be_vassalized_by_baruun_khanate
+						name = should_be_vassalized_by_mongolia
+						name = should_be_vassalized_by_great_yuan
+						name = should_be_vassalized_by_blue_horde
+						name = should_be_vassalized_by_omnod_dalai_khanate
 					}
 					capital_province = {
 						geographical_region = special_mongol_empire_togskol_khanate_region
@@ -5976,19 +5999,19 @@ shift_counties_on_mongol_succession_effect = {
 		scope:old_mongol_emperor = {
 			every_vassal = {
 				limit = {
-					NOR = {
-						has_character_flag = should_be_vassalized_by_ilkhanate
-						has_character_flag = should_be_vassalized_by_golden_horde
-						has_character_flag = should_be_vassalized_by_chagatai
-						has_character_flag = should_be_vassalized_by_red_horde
-						has_character_flag = should_be_vassalized_by_white_horde
-						has_character_flag = should_be_vassalized_by_aarlud_khanate
-						has_character_flag = should_be_vassalized_by_togskol_khanate
-						has_character_flag = should_be_vassalized_by_baruun_khanate
-						has_character_flag = should_be_vassalized_by_mongolia
-						has_character_flag = should_be_vassalized_by_great_yuan
-						has_character_flag = should_be_vassalized_by_blue_horde
-						has_character_flag = should_be_vassalized_by_omnod_dalai_khanate
+					has_none_of_variables = {
+						name = should_be_vassalized_by_ilkhanate
+						name = should_be_vassalized_by_golden_horde
+						name = should_be_vassalized_by_chagatai
+						name = should_be_vassalized_by_red_horde
+						name = should_be_vassalized_by_white_horde
+						name = should_be_vassalized_by_aarlud_khanate
+						name = should_be_vassalized_by_togskol_khanate
+						name = should_be_vassalized_by_baruun_khanate
+						name = should_be_vassalized_by_mongolia
+						name = should_be_vassalized_by_great_yuan
+						name = should_be_vassalized_by_blue_horde
+						name = should_be_vassalized_by_omnod_dalai_khanate
 					}
 					capital_province = {
 						geographical_region = special_mongol_empire_baruun_khanate_region
@@ -6009,19 +6032,19 @@ shift_counties_on_mongol_succession_effect = {
 		scope:old_mongol_emperor = {
 			every_vassal = {
 				limit = {
-					NOR = {
-						has_character_flag = should_be_vassalized_by_ilkhanate
-						has_character_flag = should_be_vassalized_by_golden_horde
-						has_character_flag = should_be_vassalized_by_chagatai
-						has_character_flag = should_be_vassalized_by_red_horde
-						has_character_flag = should_be_vassalized_by_white_horde
-						has_character_flag = should_be_vassalized_by_aarlud_khanate
-						has_character_flag = should_be_vassalized_by_togskol_khanate
-						has_character_flag = should_be_vassalized_by_baruun_khanate
-						has_character_flag = should_be_vassalized_by_mongolia
-						has_character_flag = should_be_vassalized_by_great_yuan
-						has_character_flag = should_be_vassalized_by_blue_horde
-						has_character_flag = should_be_vassalized_by_omnod_dalai_khanate
+					has_none_of_variables = {
+						name = should_be_vassalized_by_ilkhanate
+						name = should_be_vassalized_by_golden_horde
+						name = should_be_vassalized_by_chagatai
+						name = should_be_vassalized_by_red_horde
+						name = should_be_vassalized_by_white_horde
+						name = should_be_vassalized_by_aarlud_khanate
+						name = should_be_vassalized_by_togskol_khanate
+						name = should_be_vassalized_by_baruun_khanate
+						name = should_be_vassalized_by_mongolia
+						name = should_be_vassalized_by_great_yuan
+						name = should_be_vassalized_by_blue_horde
+						name = should_be_vassalized_by_omnod_dalai_khanate
 					}
 					capital_province = {
 						NOR = {
@@ -6063,19 +6086,19 @@ shift_counties_on_mongol_succession_effect = {
 		scope:mongolia_ruler = {
 			every_vassal_or_below = {
 				limit = {
-					NOR = {
-						has_character_flag = should_be_vassalized_by_ilkhanate
-						has_character_flag = should_be_vassalized_by_golden_horde
-						has_character_flag = should_be_vassalized_by_chagatai
-						has_character_flag = should_be_vassalized_by_red_horde
-						has_character_flag = should_be_vassalized_by_white_horde
-						has_character_flag = should_be_vassalized_by_aarlud_khanate
-						has_character_flag = should_be_vassalized_by_togskol_khanate
-						has_character_flag = should_be_vassalized_by_baruun_khanate
-						has_character_flag = should_be_vassalized_by_mongolia
-						has_character_flag = should_be_vassalized_by_great_yuan
-						has_character_flag = should_be_vassalized_by_blue_horde
-						has_character_flag = should_be_vassalized_by_omnod_dalai_khanate
+					has_none_of_variables = {
+						name = should_be_vassalized_by_ilkhanate
+						name = should_be_vassalized_by_golden_horde
+						name = should_be_vassalized_by_chagatai
+						name = should_be_vassalized_by_red_horde
+						name = should_be_vassalized_by_white_horde
+						name = should_be_vassalized_by_aarlud_khanate
+						name = should_be_vassalized_by_togskol_khanate
+						name = should_be_vassalized_by_baruun_khanate
+						name = should_be_vassalized_by_mongolia
+						name = should_be_vassalized_by_great_yuan
+						name = should_be_vassalized_by_blue_horde
+						name = should_be_vassalized_by_omnod_dalai_khanate
 					}
 				}
 				if = {
@@ -6359,19 +6382,19 @@ shift_counties_on_mongol_succession_effect = {
 		scope:ilkhanate_ruler = {
 			every_vassal_or_below = {
 				limit = {
-					NOR = {
-						has_character_flag = should_be_vassalized_by_ilkhanate
-						has_character_flag = should_be_vassalized_by_golden_horde
-						has_character_flag = should_be_vassalized_by_chagatai
-						has_character_flag = should_be_vassalized_by_red_horde
-						has_character_flag = should_be_vassalized_by_white_horde
-						has_character_flag = should_be_vassalized_by_aarlud_khanate
-						has_character_flag = should_be_vassalized_by_togskol_khanate
-						has_character_flag = should_be_vassalized_by_baruun_khanate
-						has_character_flag = should_be_vassalized_by_mongolia
-						has_character_flag = should_be_vassalized_by_great_yuan
-						has_character_flag = should_be_vassalized_by_blue_horde
-						has_character_flag = should_be_vassalized_by_omnod_dalai_khanate
+					has_none_of_variables = {
+						name = should_be_vassalized_by_ilkhanate
+						name = should_be_vassalized_by_golden_horde
+						name = should_be_vassalized_by_chagatai
+						name = should_be_vassalized_by_red_horde
+						name = should_be_vassalized_by_white_horde
+						name = should_be_vassalized_by_aarlud_khanate
+						name = should_be_vassalized_by_togskol_khanate
+						name = should_be_vassalized_by_baruun_khanate
+						name = should_be_vassalized_by_mongolia
+						name = should_be_vassalized_by_great_yuan
+						name = should_be_vassalized_by_blue_horde
+						name = should_be_vassalized_by_omnod_dalai_khanate
 					}
 				}
 				if = {
@@ -6679,19 +6702,19 @@ shift_counties_on_mongol_succession_effect = {
 		scope:golden_horde_ruler = {
 			every_vassal_or_below = {
 				limit = {
-					NOR = {
-						has_character_flag = should_be_vassalized_by_ilkhanate
-						has_character_flag = should_be_vassalized_by_golden_horde
-						has_character_flag = should_be_vassalized_by_chagatai
-						has_character_flag = should_be_vassalized_by_red_horde
-						has_character_flag = should_be_vassalized_by_white_horde
-						has_character_flag = should_be_vassalized_by_aarlud_khanate
-						has_character_flag = should_be_vassalized_by_togskol_khanate
-						has_character_flag = should_be_vassalized_by_baruun_khanate
-						has_character_flag = should_be_vassalized_by_mongolia
-						has_character_flag = should_be_vassalized_by_great_yuan
-						has_character_flag = should_be_vassalized_by_blue_horde
-						has_character_flag = should_be_vassalized_by_omnod_dalai_khanate
+					has_none_of_variables = {
+						name = should_be_vassalized_by_ilkhanate
+						name = should_be_vassalized_by_golden_horde
+						name = should_be_vassalized_by_chagatai
+						name = should_be_vassalized_by_red_horde
+						name = should_be_vassalized_by_white_horde
+						name = should_be_vassalized_by_aarlud_khanate
+						name = should_be_vassalized_by_togskol_khanate
+						name = should_be_vassalized_by_baruun_khanate
+						name = should_be_vassalized_by_mongolia
+						name = should_be_vassalized_by_great_yuan
+						name = should_be_vassalized_by_blue_horde
+						name = should_be_vassalized_by_omnod_dalai_khanate
 					}
 				}
 				if = {
@@ -6999,19 +7022,19 @@ shift_counties_on_mongol_succession_effect = {
 		scope:chagatai_ruler = {
 			every_vassal_or_below = {
 				limit = {
-					NOR = {
-						has_character_flag = should_be_vassalized_by_ilkhanate
-						has_character_flag = should_be_vassalized_by_golden_horde
-						has_character_flag = should_be_vassalized_by_chagatai
-						has_character_flag = should_be_vassalized_by_red_horde
-						has_character_flag = should_be_vassalized_by_white_horde
-						has_character_flag = should_be_vassalized_by_aarlud_khanate
-						has_character_flag = should_be_vassalized_by_togskol_khanate
-						has_character_flag = should_be_vassalized_by_baruun_khanate
-						has_character_flag = should_be_vassalized_by_mongolia
-						has_character_flag = should_be_vassalized_by_great_yuan
-						has_character_flag = should_be_vassalized_by_blue_horde
-						has_character_flag = should_be_vassalized_by_omnod_dalai_khanate
+					has_none_of_variables = {
+						name = should_be_vassalized_by_ilkhanate
+						name = should_be_vassalized_by_golden_horde
+						name = should_be_vassalized_by_chagatai
+						name = should_be_vassalized_by_red_horde
+						name = should_be_vassalized_by_white_horde
+						name = should_be_vassalized_by_aarlud_khanate
+						name = should_be_vassalized_by_togskol_khanate
+						name = should_be_vassalized_by_baruun_khanate
+						name = should_be_vassalized_by_mongolia
+						name = should_be_vassalized_by_great_yuan
+						name = should_be_vassalized_by_blue_horde
+						name = should_be_vassalized_by_omnod_dalai_khanate
 					}
 				}
 				if = {
@@ -7320,19 +7343,19 @@ shift_counties_on_mongol_succession_effect = {
 		scope:great_yuan_ruler = {
 			every_vassal_or_below = {
 				limit = {
-					NOR = {
-						has_character_flag = should_be_vassalized_by_ilkhanate
-						has_character_flag = should_be_vassalized_by_golden_horde
-						has_character_flag = should_be_vassalized_by_chagatai
-						has_character_flag = should_be_vassalized_by_red_horde
-						has_character_flag = should_be_vassalized_by_white_horde
-						has_character_flag = should_be_vassalized_by_aarlud_khanate
-						has_character_flag = should_be_vassalized_by_togskol_khanate
-						has_character_flag = should_be_vassalized_by_baruun_khanate
-						has_character_flag = should_be_vassalized_by_mongolia
-						has_character_flag = should_be_vassalized_by_great_yuan
-						has_character_flag = should_be_vassalized_by_blue_horde
-						has_character_flag = should_be_vassalized_by_omnod_dalai_khanate
+					has_none_of_variables = {
+						name = should_be_vassalized_by_ilkhanate
+						name = should_be_vassalized_by_golden_horde
+						name = should_be_vassalized_by_chagatai
+						name = should_be_vassalized_by_red_horde
+						name = should_be_vassalized_by_white_horde
+						name = should_be_vassalized_by_aarlud_khanate
+						name = should_be_vassalized_by_togskol_khanate
+						name = should_be_vassalized_by_baruun_khanate
+						name = should_be_vassalized_by_mongolia
+						name = should_be_vassalized_by_great_yuan
+						name = should_be_vassalized_by_blue_horde
+						name = should_be_vassalized_by_omnod_dalai_khanate
 					}
 				}
 				if = {
@@ -7628,19 +7651,19 @@ shift_counties_on_mongol_succession_effect = {
 		scope:red_horde_ruler = {
 			every_vassal_or_below = {
 				limit = {
-					NOR = {
-						has_character_flag = should_be_vassalized_by_ilkhanate
-						has_character_flag = should_be_vassalized_by_golden_horde
-						has_character_flag = should_be_vassalized_by_chagatai
-						has_character_flag = should_be_vassalized_by_red_horde
-						has_character_flag = should_be_vassalized_by_white_horde
-						has_character_flag = should_be_vassalized_by_aarlud_khanate
-						has_character_flag = should_be_vassalized_by_togskol_khanate
-						has_character_flag = should_be_vassalized_by_baruun_khanate
-						has_character_flag = should_be_vassalized_by_mongolia
-						has_character_flag = should_be_vassalized_by_great_yuan
-						has_character_flag = should_be_vassalized_by_blue_horde
-						has_character_flag = should_be_vassalized_by_omnod_dalai_khanate
+					has_none_of_variables = {
+						name = should_be_vassalized_by_ilkhanate
+						name = should_be_vassalized_by_golden_horde
+						name = should_be_vassalized_by_chagatai
+						name = should_be_vassalized_by_red_horde
+						name = should_be_vassalized_by_white_horde
+						name = should_be_vassalized_by_aarlud_khanate
+						name = should_be_vassalized_by_togskol_khanate
+						name = should_be_vassalized_by_baruun_khanate
+						name = should_be_vassalized_by_mongolia
+						name = should_be_vassalized_by_great_yuan
+						name = should_be_vassalized_by_blue_horde
+						name = should_be_vassalized_by_omnod_dalai_khanate
 					}
 				}
 				if = {
@@ -7948,19 +7971,19 @@ shift_counties_on_mongol_succession_effect = {
 		scope:white_horde_ruler = {
 			every_vassal_or_below = {
 				limit = {
-					NOR = {
-						has_character_flag = should_be_vassalized_by_ilkhanate
-						has_character_flag = should_be_vassalized_by_golden_horde
-						has_character_flag = should_be_vassalized_by_chagatai
-						has_character_flag = should_be_vassalized_by_red_horde
-						has_character_flag = should_be_vassalized_by_white_horde
-						has_character_flag = should_be_vassalized_by_aarlud_khanate
-						has_character_flag = should_be_vassalized_by_togskol_khanate
-						has_character_flag = should_be_vassalized_by_baruun_khanate
-						has_character_flag = should_be_vassalized_by_mongolia
-						has_character_flag = should_be_vassalized_by_great_yuan
-						has_character_flag = should_be_vassalized_by_blue_horde
-						has_character_flag = should_be_vassalized_by_omnod_dalai_khanate
+					has_none_of_variables = {
+						name = should_be_vassalized_by_ilkhanate
+						name = should_be_vassalized_by_golden_horde
+						name = should_be_vassalized_by_chagatai
+						name = should_be_vassalized_by_red_horde
+						name = should_be_vassalized_by_white_horde
+						name = should_be_vassalized_by_aarlud_khanate
+						name = should_be_vassalized_by_togskol_khanate
+						name = should_be_vassalized_by_baruun_khanate
+						name = should_be_vassalized_by_mongolia
+						name = should_be_vassalized_by_great_yuan
+						name = should_be_vassalized_by_blue_horde
+						name = should_be_vassalized_by_omnod_dalai_khanate
 					}
 				}
 				if = {
@@ -8269,19 +8292,19 @@ shift_counties_on_mongol_succession_effect = {
 		scope:blue_horde_ruler = {
 			every_vassal_or_below = {
 				limit = {
-					NOR = {
-						has_character_flag = should_be_vassalized_by_ilkhanate
-						has_character_flag = should_be_vassalized_by_golden_horde
-						has_character_flag = should_be_vassalized_by_chagatai
-						has_character_flag = should_be_vassalized_by_red_horde
-						has_character_flag = should_be_vassalized_by_white_horde
-						has_character_flag = should_be_vassalized_by_aarlud_khanate
-						has_character_flag = should_be_vassalized_by_togskol_khanate
-						has_character_flag = should_be_vassalized_by_baruun_khanate
-						has_character_flag = should_be_vassalized_by_mongolia
-						has_character_flag = should_be_vassalized_by_great_yuan
-						has_character_flag = should_be_vassalized_by_blue_horde
-						has_character_flag = should_be_vassalized_by_omnod_dalai_khanate
+					has_none_of_variables = {
+						name = should_be_vassalized_by_ilkhanate
+						name = should_be_vassalized_by_golden_horde
+						name = should_be_vassalized_by_chagatai
+						name = should_be_vassalized_by_red_horde
+						name = should_be_vassalized_by_white_horde
+						name = should_be_vassalized_by_aarlud_khanate
+						name = should_be_vassalized_by_togskol_khanate
+						name = should_be_vassalized_by_baruun_khanate
+						name = should_be_vassalized_by_mongolia
+						name = should_be_vassalized_by_great_yuan
+						name = should_be_vassalized_by_blue_horde
+						name = should_be_vassalized_by_omnod_dalai_khanate
 					}
 				}
 				if = {
@@ -8589,19 +8612,19 @@ shift_counties_on_mongol_succession_effect = {
 		scope:omnod_dalai_khanate_ruler = {
 			every_vassal_or_below = {
 				limit = {
-					NOR = {
-						has_character_flag = should_be_vassalized_by_ilkhanate
-						has_character_flag = should_be_vassalized_by_golden_horde
-						has_character_flag = should_be_vassalized_by_chagatai
-						has_character_flag = should_be_vassalized_by_red_horde
-						has_character_flag = should_be_vassalized_by_white_horde
-						has_character_flag = should_be_vassalized_by_aarlud_khanate
-						has_character_flag = should_be_vassalized_by_togskol_khanate
-						has_character_flag = should_be_vassalized_by_baruun_khanate
-						has_character_flag = should_be_vassalized_by_mongolia
-						has_character_flag = should_be_vassalized_by_great_yuan
-						has_character_flag = should_be_vassalized_by_blue_horde
-						has_character_flag = should_be_vassalized_by_omnod_dalai_khanate
+					has_none_of_variables = {
+						name = should_be_vassalized_by_ilkhanate
+						name = should_be_vassalized_by_golden_horde
+						name = should_be_vassalized_by_chagatai
+						name = should_be_vassalized_by_red_horde
+						name = should_be_vassalized_by_white_horde
+						name = should_be_vassalized_by_aarlud_khanate
+						name = should_be_vassalized_by_togskol_khanate
+						name = should_be_vassalized_by_baruun_khanate
+						name = should_be_vassalized_by_mongolia
+						name = should_be_vassalized_by_great_yuan
+						name = should_be_vassalized_by_blue_horde
+						name = should_be_vassalized_by_omnod_dalai_khanate
 					}
 				}
 				if = {
@@ -8909,19 +8932,19 @@ shift_counties_on_mongol_succession_effect = {
 		scope:aarlud_khanate_ruler = {
 			every_vassal_or_below = {
 				limit = {
-					NOR = {
-						has_character_flag = should_be_vassalized_by_ilkhanate
-						has_character_flag = should_be_vassalized_by_golden_horde
-						has_character_flag = should_be_vassalized_by_chagatai
-						has_character_flag = should_be_vassalized_by_red_horde
-						has_character_flag = should_be_vassalized_by_white_horde
-						has_character_flag = should_be_vassalized_by_aarlud_khanate
-						has_character_flag = should_be_vassalized_by_togskol_khanate
-						has_character_flag = should_be_vassalized_by_baruun_khanate
-						has_character_flag = should_be_vassalized_by_mongolia
-						has_character_flag = should_be_vassalized_by_great_yuan
-						has_character_flag = should_be_vassalized_by_blue_horde
-						has_character_flag = should_be_vassalized_by_omnod_dalai_khanate
+					has_none_of_variables = {
+						name = should_be_vassalized_by_ilkhanate
+						name = should_be_vassalized_by_golden_horde
+						name = should_be_vassalized_by_chagatai
+						name = should_be_vassalized_by_red_horde
+						name = should_be_vassalized_by_white_horde
+						name = should_be_vassalized_by_aarlud_khanate
+						name = should_be_vassalized_by_togskol_khanate
+						name = should_be_vassalized_by_baruun_khanate
+						name = should_be_vassalized_by_mongolia
+						name = should_be_vassalized_by_great_yuan
+						name = should_be_vassalized_by_blue_horde
+						name = should_be_vassalized_by_omnod_dalai_khanate
 					}
 				}
 				if = {
@@ -9229,19 +9252,19 @@ shift_counties_on_mongol_succession_effect = {
 		scope:togskol_khanate_ruler = {
 			every_vassal_or_below = {
 				limit = {
-					NOR = {
-						has_character_flag = should_be_vassalized_by_ilkhanate
-						has_character_flag = should_be_vassalized_by_golden_horde
-						has_character_flag = should_be_vassalized_by_chagatai
-						has_character_flag = should_be_vassalized_by_red_horde
-						has_character_flag = should_be_vassalized_by_white_horde
-						has_character_flag = should_be_vassalized_by_aarlud_khanate
-						has_character_flag = should_be_vassalized_by_togskol_khanate
-						has_character_flag = should_be_vassalized_by_baruun_khanate
-						has_character_flag = should_be_vassalized_by_mongolia
-						has_character_flag = should_be_vassalized_by_great_yuan
-						has_character_flag = should_be_vassalized_by_blue_horde
-						has_character_flag = should_be_vassalized_by_omnod_dalai_khanate
+					has_none_of_variables = {
+						name = should_be_vassalized_by_ilkhanate
+						name = should_be_vassalized_by_golden_horde
+						name = should_be_vassalized_by_chagatai
+						name = should_be_vassalized_by_red_horde
+						name = should_be_vassalized_by_white_horde
+						name = should_be_vassalized_by_aarlud_khanate
+						name = should_be_vassalized_by_togskol_khanate
+						name = should_be_vassalized_by_baruun_khanate
+						name = should_be_vassalized_by_mongolia
+						name = should_be_vassalized_by_great_yuan
+						name = should_be_vassalized_by_blue_horde
+						name = should_be_vassalized_by_omnod_dalai_khanate
 					}
 				}
 				if = {
@@ -9549,19 +9572,19 @@ shift_counties_on_mongol_succession_effect = {
 		scope:mongolia_ruler = {
 			every_vassal_or_below = {
 				limit = {
-					NOR = {
-						has_character_flag = should_be_vassalized_by_ilkhanate
-						has_character_flag = should_be_vassalized_by_golden_horde
-						has_character_flag = should_be_vassalized_by_chagatai
-						has_character_flag = should_be_vassalized_by_red_horde
-						has_character_flag = should_be_vassalized_by_white_horde
-						has_character_flag = should_be_vassalized_by_aarlud_khanate
-						has_character_flag = should_be_vassalized_by_togskol_khanate
-						has_character_flag = should_be_vassalized_by_baruun_khanate
-						has_character_flag = should_be_vassalized_by_mongolia
-						has_character_flag = should_be_vassalized_by_great_yuan
-						has_character_flag = should_be_vassalized_by_blue_horde
-						has_character_flag = should_be_vassalized_by_omnod_dalai_khanate
+					has_none_of_variables = {
+						name = should_be_vassalized_by_ilkhanate
+						name = should_be_vassalized_by_golden_horde
+						name = should_be_vassalized_by_chagatai
+						name = should_be_vassalized_by_red_horde
+						name = should_be_vassalized_by_white_horde
+						name = should_be_vassalized_by_aarlud_khanate
+						name = should_be_vassalized_by_togskol_khanate
+						name = should_be_vassalized_by_baruun_khanate
+						name = should_be_vassalized_by_mongolia
+						name = should_be_vassalized_by_great_yuan
+						name = should_be_vassalized_by_blue_horde
+						name = should_be_vassalized_by_omnod_dalai_khanate
 					}
 				}
 				if = {
@@ -9977,7 +10000,7 @@ grant_suitable_title_to_candidate_effect = {
 			trigger = {
 				exists = global_var:creatable_great_yuan
 				NOT = { exists = global_var:great_yuan_handed_out }
-				NOT = { exists = scope:great_yuan_title.holder }
+				NOT = { exists = title:e_great_yuan.holder }
 			}
 			# Weight the chance by how much territory you hold there
 			modifier = {
@@ -10202,6 +10225,7 @@ break_up_mongol_empire_effect = { # Intended to run in the Mongol Emperor's scop
 					CHARACTER = scope:old_mongol_emperor
 				}
 				is_alive = yes
+				tgp_is_any_minister = no
 			}
 			change_global_variable = {
 				name = number_of_mongol_heir_candidates
@@ -11203,8 +11227,422 @@ form_the_mongol_empire_player_effect = {
 			remove_realm_law = nomadic_authority_3
 		}
 		if = {
+<<<<<<< HEAD
 			limit = { has_realm_law = nomadic_authority_4 }
 			remove_realm_law = nomadic_authority_4
+=======
+			limit = {
+				NOT = {
+					any_in_list = {
+						list = potential_holders
+						is_available_adult = yes
+					}
+				}
+			}
+			create_character = {
+				location = scope:county_of_origin.title_province
+				culture = scope:county_of_origin.culture
+				faith = scope:county_of_origin.faith
+				rite = scope:county_of_origin.rite
+				gender_female_chance = 50
+				age = 32
+				save_scope_as = backup_character
+			}
+			scope:backup_character = {
+				add_to_list = potential_holders
+			}
+		}
+		
+		random_in_list = {
+			list = potential_holders
+			limit = {
+				is_available_adult = yes
+				has_claim_on = scope:county_of_origin
+				faith = {
+					has_dominant_ruling_gender = prev
+				}
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				culture = scope:county_of_origin.culture
+				faith = scope:county_of_origin.faith
+				faith = {
+					has_dominant_ruling_gender = prev
+				}
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				culture = scope:county_of_origin.culture
+				faith = {
+					has_dominant_ruling_gender = prev
+				}
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				faith = scope:county_of_origin.faith
+				faith = {
+					has_dominant_ruling_gender = prev
+				}
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				faith = {
+					has_dominant_ruling_gender = prev
+				}
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				has_claim_on = scope:county_of_origin
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				culture = scope:county_of_origin.culture
+				faith = scope:county_of_origin.faith
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				culture = scope:county_of_origin.culture
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				faith = scope:county_of_origin.faith
+			}
+			alternative_limit = {
+				is_available_adult = yes
+			}
+			
+			save_scope_as = new_county_holder
+			add_character_flag = {
+				flag = domicile_culture_and_faith_check
+				days = 1
+			}
+			
+			create_title_and_vassal_change = {
+				type = granted
+				save_scope_as = change
+				add_claim_on_loss = no
+			}
+			every_in_list = {
+				list = disconnected_counties
+				limit = {
+					OR = {
+						holder.top_liege = scope:mongol_exclaves_target
+						holder = scope:mongol_exclaves_target
+					}
+					is_connected_to = {
+						target = scope:county_of_origin
+					}
+					NOT ={
+						is_connected_to = {
+							target = scope:mongol_exclaves_target.capital_province.county
+						}
+					}
+				}
+				change_title_holder = {
+					holder = scope:new_county_holder
+					change = scope:change
+				}
+				#scope:new_county_holder = { get_title = prev }
+			}
+			resolve_title_and_vassal_change = scope:change
+
+			create_title_and_vassal_change = {
+				type = swear_fealty
+				save_scope_as = change
+				add_claim_on_loss = no
+			}
+			change_liege = {
+				liege = primary_title.empire.holder
+				change = scope:change
+			}
+			resolve_title_and_vassal_change = scope:change
+			# This system should not generate strange-culture nomads
+			if = {
+				limit = {
+					government_has_flag = government_is_nomadic
+					domicile.domicile_culture != scope:new_county_holder.capital_county.culture
+				}
+				domicile = {
+					set_domicile_culture = scope:new_county_holder.capital_county.culture
+				}
+			}
+			if = {
+				limit = {
+					government_has_flag = government_is_nomadic
+					domicile.domicile_faith != scope:new_county_holder.capital_county.faith
+				}
+				domicile = {
+					set_domicile_faith = scope:new_county_holder.capital_county.faith
+				}
+			}
+			if = { # Just in case they need to create a duchy
+				limit = {
+					gold < 500
+				}
+				add_gold = 500
+			}
+		}
+		remove_from_list = disconnected_counties
+	}
+	
+	#Make the rest independent
+	every_in_list = { # Release Kings first
+		list = disconnected_counties
+		
+		limit = {
+			holder.primary_title.tier = tier_kingdom
+			NOR = {
+				holder = scope:mongol_exclaves_target
+				holder = {
+					any_sub_realm_title = {
+						tier = tier_county
+						NOT = { is_in_list = disconnected_counties }
+					}
+				}
+			}
+		}
+		holder = {
+			create_title_and_vassal_change = {
+				type = independency
+				save_scope_as = change
+				add_claim_on_loss = no
+			}
+			becomes_independent = {
+				change = scope:change
+			}
+			resolve_title_and_vassal_change = scope:change
+		}
+	}
+	
+	every_in_list = { # Release Dukes second
+		list = disconnected_counties
+		
+		limit = {
+			holder.primary_title.tier = tier_duchy
+			NOR = {
+				holder = scope:mongol_exclaves_target
+				holder = {
+					any_sub_realm_title = {
+						tier = tier_county
+						NOT = { is_in_list = disconnected_counties }
+					}
+				}
+			}
+		}
+		holder = {
+			create_title_and_vassal_change = {
+				type = independency
+				save_scope_as = change
+				add_claim_on_loss = no
+			}
+			becomes_independent = {
+				change = scope:change
+			}
+			resolve_title_and_vassal_change = scope:change
+		}
+	}
+	
+	every_in_list = { # Release Counts last
+		list = disconnected_counties
+		
+		limit = {
+			holder.primary_title.tier = tier_county
+			NOR = {
+				holder = scope:mongol_exclaves_target
+				holder = {
+					any_sub_realm_title = {
+						tier = tier_county
+						NOT = { is_in_list = disconnected_counties }
+					}
+				}
+			}
+		}
+		holder = {
+			create_title_and_vassal_change = {
+				type = independency
+				save_scope_as = change
+				add_claim_on_loss = no
+			}
+			becomes_independent = {
+				change = scope:change
+			}
+			resolve_title_and_vassal_change = scope:change
+		}
+	}
+	
+	every_in_list = { # Finally, release contiguous areas under someone from the pool
+		list = disconnected_counties
+		
+		limit = {
+			OR = {
+				holder.top_liege = scope:mongol_exclaves_target
+				holder = scope:mongol_exclaves_target
+			}
+		}
+		
+		save_scope_as = county_of_origin
+		
+		every_pool_character = {
+			province = scope:county_of_origin.title_province
+			limit = {
+				is_available_adult = yes
+			}
+			add_to_list = potential_holders
+		}
+		
+		every_pool_character = {
+			province = scope:county_of_origin.holder.capital_province
+			limit = {
+				is_available_adult = yes
+			}
+			add_to_list = potential_holders
+		}
+		
+		if = {
+			limit = {
+				NOT = {
+					any_in_list = {
+						list = potential_holders
+						is_available_adult = yes
+					}
+				}
+			}
+			create_character = {
+				location = scope:county_of_origin.title_province
+				culture = scope:county_of_origin.culture
+				faith = scope:county_of_origin.faith
+				rite = scope:county_of_origin.rite
+				gender_female_chance = 50
+				age = 32
+				save_scope_as = backup_character
+			}
+			scope:backup_character = {
+				add_to_list = potential_holders
+			}
+		}
+		
+		random_in_list = {
+			list = potential_holders
+			limit = {
+				is_available_adult = yes
+				has_claim_on = scope:county_of_origin
+				faith = {
+					has_dominant_ruling_gender = prev
+				}
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				culture = scope:county_of_origin.culture
+				faith = scope:county_of_origin.faith
+				faith = {
+					has_dominant_ruling_gender = prev
+				}
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				culture = scope:county_of_origin.culture
+				faith = {
+					has_dominant_ruling_gender = prev
+				}
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				faith = scope:county_of_origin.faith
+				faith = {
+					has_dominant_ruling_gender = prev
+				}
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				faith = {
+					has_dominant_ruling_gender = prev
+				}
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				has_claim_on = scope:county_of_origin
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				culture = scope:county_of_origin.culture
+				faith = scope:county_of_origin.faith
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				culture = scope:county_of_origin.culture
+			}
+			alternative_limit = {
+				is_available_adult = yes
+				faith = scope:county_of_origin.faith
+			}
+			alternative_limit = {
+				is_available_adult = yes
+			}
+			
+			save_scope_as = new_county_holder
+			add_character_flag = {
+				flag = domicile_culture_and_faith_check
+				days = 1
+			}
+			#get_title = scope:county_of_origin
+			
+			create_title_and_vassal_change = {
+				type = independency
+				save_scope_as = change
+				add_claim_on_loss = no
+			}
+			every_in_list = {
+				list = disconnected_counties
+				limit = {
+					OR = {
+						holder.top_liege = scope:mongol_exclaves_target
+						holder = scope:mongol_exclaves_target
+					}
+					is_connected_to = {
+						target = scope:county_of_origin
+					}
+					NOT ={
+						is_connected_to = {
+							target = scope:mongol_exclaves_target.capital_province.county
+						}
+					}
+				}
+				change_title_holder = {
+					holder = scope:new_county_holder
+					change = scope:change
+				}
+				#scope:new_county_holder = { get_title = prev }
+			}
+			becomes_independent = {
+				change = scope:change
+			}
+			resolve_title_and_vassal_change = scope:change
+			# This system should not generate strange-culture nomads
+			if = {
+				limit = {
+					government_has_flag = government_is_nomadic
+					domicile.domicile_culture != scope:new_county_holder.capital_county.culture
+				}
+				domicile = {
+					set_domicile_culture = scope:new_county_holder.capital_county.culture
+				}
+			}
+			if = {
+				limit = {
+					government_has_flag = government_is_nomadic
+					domicile.domicile_faith != scope:new_county_holder.capital_county.faith
+				}
+				domicile = {
+					set_domicile_faith = scope:new_county_holder.capital_county.faith
+				}
+			}
+			if = { # Just in case they need to create a duchy
+				limit = {
+					gold < 500
+				}
+				add_gold = 500
+			}
+>>>>>>> 1.20
 		}
 	}
 	add_realm_law_skip_effects = nomadic_authority_5

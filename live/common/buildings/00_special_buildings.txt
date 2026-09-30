@@ -319,7 +319,67 @@ olympic_yards_02 = {
 uranium_keep_01 = {
 
 	construction_time = very_slow_construction_time
+<<<<<<< HEAD
 	effect_desc = counts_as_infrastructure_desc
+=======
+
+	type_icon = "icon_structure_grand_library_of_baghdad.dds"
+	
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+	
+	cost_gold = 3000
+
+	character_modifier = {
+		learning_per_prestige_level = 1
+		monthly_lifestyle_xp_gain_mult = 0.15
+		different_culture_opinion = 10
+		cultural_head_fascination_mult = 0.10
+		rite_creation_piety_cost_mult = -0.1
+		monthly_dynasty_prestige_mult = 0.05
+	}
+	county_modifier = {
+		tax_mult = 0.2
+		development_growth = 0.3
+		development_growth_factor = 0.2
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_learning
+	flag = special_university
+}
+
+##########
+# The Tower of London
+##########
+
+the_tower_of_london_01 = {
+
+	asset = {
+		type = pdxmesh
+		name = "building_special_tower_of_london_mesh"
+	}
+
+	effect_desc = {
+		triggered_desc = {
+			trigger = { has_dlc_feature = roads_to_power }
+			desc = tower_of_london_pacification_effect
+		}
+	}
+
+	construction_time = very_slow_construction_time
+
+>>>>>>> 1.20
 	type_icon = "icon_structure_tower_of_london.dds"
 	
 	can_construct_potential = {
@@ -487,6 +547,818 @@ minaean_university_01 = {
 wildlife_koloss_01 = {
 
 	construction_time = very_slow_construction_time
+<<<<<<< HEAD
+=======
+	
+	type_icon = "lugo_walls.dds" 
+	
+	can_construct_potential = {
+	}
+	
+	cost_gold = 300
+
+	county_holder_character_modifier = {
+		learning = 1
+		monthly_dynasty_prestige_mult = 0.05
+	}
+
+	province_modifier = {
+		monthly_income = 1
+		garrison_size = 0.1
+		fort_level = 1
+		travel_danger = -10
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_martial
+}
+
+##########
+# Rock of Gibraltar  
+##########
+
+rock_of_gibraltar_01 = {
+	
+	asset = {
+		type = pdxmesh
+		name = "fp2_building_special_rock_of_gibraltar_01_a_mesh" 
+	}
+
+
+	construction_time = very_slow_construction_time
+	
+	type_icon = "gibraltar.dds" 
+	
+	can_construct_potential = {
+	}
+	
+	cost_gold = 300
+	
+	character_modifier = {
+		stewardship = 1
+		diplomatic_range_mult = 0.2
+	}
+
+	province_modifier = {
+		fort_level = 1
+		defender_holding_advantage = normal_building_advantage_tier_1
+	}
+
+	county_modifier = {
+		development_growth_factor = 0.1	
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_natural_feature
+	flag = is_mountain
+}
+
+##########
+# Aljaferia Palace  
+##########
+
+aljaferia_palace_01 = {
+	
+	asset = {
+		type = pdxmesh
+		name = "fp2_building_special_aljaferia_mesh"
+	}
+
+	construction_time = very_slow_construction_time
+	
+	type_icon = "aljaferia.dds" 
+	
+	can_construct = {
+		scope:holder.culture = {
+			has_innovation = innovation_hoardings 
+		}
+	}
+	
+	cost_gold = 1000
+	
+	character_modifier = {
+		monthly_dynasty_prestige_mult = 0.05
+		diplomacy_per_prestige_level = 1
+	}
+	max_garrison = good_building_max_garrison_tier_2
+	province_modifier = {
+		defender_holding_advantage = normal_building_advantage_tier_3
+		fort_level = good_building_fort_level_tier_2
+		stationed_maa_damage_mult = normal_maa_damage_tier_2
+		stationed_maa_toughness_mult = normal_maa_toughness_tier_2
+		stationed_siege_weapon_siege_value_mult = normal_maa_siege_value_tier_2
+		travel_danger = -20
+	}
+	county_modifier = {
+		tax_mult = 0.05
+		monthly_county_control_growth_add = 0.5
+	}
+	
+	ai_value = {
+		base = 100
+		culture_likely_to_fortify_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_martial
+}
+
+##########
+# Tower of Hercules  
+##########
+
+tower_of_hercules_01 = {
+	
+	asset = {
+		type = pdxmesh
+		name = "fp2_building_special_tower_of_hercules_mesh"
+	}
+
+	construction_time = very_slow_construction_time
+	
+	type_icon = "hercules.dds" 
+	
+	can_construct_potential = {
+	}
+	
+	cost_gold = 300
+	
+	character_modifier = {
+		naval_movement_speed_mult = 0.25
+		embarkation_cost_mult = -0.25
+	}
+
+	province_modifier = { 
+		monthly_income = 1 
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_learning
+}
+
+##########
+# City Walls of Toledo 
+##########
+
+city_wall_of_toledo_01 = {
+	
+	asset = {
+		type = pdxmesh
+		name = "fp2_building_special_toledo_city_walls_01_a_mesh"
+	}
+
+	construction_time = very_slow_construction_time
+	
+	type_icon = "toledo.dds" 
+	
+	can_construct_potential = {
+	}
+	
+	cost_gold = 1000
+
+	county_modifier = {
+		defender_holding_advantage = 5
+		development_growth_factor = 0.1
+		development_growth = 0.3
+		tax_mult = 0.1
+		hostile_raid_time = 0.5
+	}
+	
+	province_modifier = {
+		garrison_size = 0.25
+		fort_level = 2
+		travel_danger = -20
+	}
+
+	ai_value = {
+		base = 100
+		culture_likely_to_fortify_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_martial
+}
+
+##########
+# Alcazar de Segovia  
+##########
+
+alcazar_of_segovia_01 = {
+	
+	asset = {
+		type = pdxmesh
+		name = "fp2_building_special_alcazar_de_segovia_01_a_mesh"
+	}
+
+	construction_time = very_slow_construction_time
+	
+	type_icon = "alcazar_segovia.dds" 
+	
+	can_construct = {
+		scope:holder.culture = {
+			has_innovation = innovation_hoardings 
+		}
+	}
+	
+	cost_gold = 1000
+	
+	character_modifier = {
+		monthly_dynasty_prestige_mult = 0.05
+		martial_per_prestige_level = 1
+	}
+	max_garrison = good_building_max_garrison_tier_2
+	province_modifier = {
+		defender_holding_advantage = normal_building_advantage_tier_3
+		fort_level = good_building_fort_level_tier_2
+		stationed_maa_damage_mult = normal_maa_damage_tier_2
+		stationed_maa_toughness_mult = normal_maa_toughness_tier_2
+		stationed_siege_weapon_siege_value_mult = normal_maa_siege_value_tier_2
+		travel_danger = -20
+	}
+	county_modifier = {
+		tax_mult = 0.05
+		monthly_county_control_growth_add = 0.5
+	}
+	
+	ai_value = {
+		base = 100
+		culture_likely_to_fortify_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_martial
+}
+
+##########
+# The Santiago de Compostela Archcathedral Basilica 
+##########
+
+holy_site_basilica_santiago_01 = {
+
+	asset = {
+		type = pdxmesh
+		name = "fp2_building_special_basilica_santiago_mesh"
+	}
+
+	construction_time = very_slow_construction_time
+
+	type_icon = "compostela.dds"  
+	
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+	
+	is_enabled = {
+		custom_description = {
+			text = holy_site_muslim_christian_or_holy_site_trigger
+			OR = {
+				islam_or_syncretic_with_islam_trigger = { CHARACTER = scope:holder }
+				christianity_or_syncretic_with_christianity_trigger = { CHARACTER = scope:holder }
+				custom_description = {
+					text = holy_site_building_trigger
+					barony = {
+						is_holy_site_of = scope:holder.faith
+					}
+				}
+			}
+		}
+	}
+	
+	cost_gold = 1000
+
+	character_modifier = {
+		monthly_piety = 0.25
+		monthly_dynasty_prestige_mult = 0.05
+		holy_order_hire_cost_mult = -0.15
+		clergy_opinion = 5
+		learn_language_scheme_phase_duration_add = medium_scheme_phase_duration_bonus_value
+	}
+	
+	county_modifier = {
+		tax_mult = 0.3
+		development_growth_factor = 0.2
+		development_growth = 0.2
+	}
+	
+	province_modifier = {
+		monthly_income = 3
+	}
+
+	on_complete = {
+		#Regular Mandala Boon
+		mandala_built_piety_duchy_building_t3_effect = yes
+	}
+	
+	ai_value = {
+		base = 100
+		ai_pious_building_preference_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+	flag = religious_studies_location
+}
+
+##########
+# Sancutary of Imam Reza
+##########
+
+imam_reza_shrine_01 = {
+	
+	asset = {
+		type = pdxmesh
+		name = "fp3_building_special_imam_reza_shrine_01_a_mesh"
+		soundeffect = { soundeffect = "event:/DLC/FP3/SFX/Ambience/3DMapEmitters/Holdings/fp3_ambience_3D_holdings_imamrezashrine" }
+		
+	}
+
+	construction_time = very_slow_construction_time
+
+	type_icon = "icon_structure_imam_reza_shrine.dds"
+	
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+
+	is_enabled = {
+		custom_description = {
+			text = holy_site_muslim_or_holy_site_trigger
+			OR = {
+				islam_or_syncretic_with_islam_trigger = { CHARACTER = scope:holder }
+				custom_description = {
+					text = holy_site_building_trigger
+					barony = {
+						is_holy_site_of = scope:holder.faith
+					}
+				}
+			}
+		}
+	}
+	
+	show_disabled = yes
+	
+	cost_gold = 1000
+
+	character_modifier = {
+		monthly_piety = 0.2
+		learning_per_piety_level = 1
+		shia_opinion = 10
+		advantage_against_coreligionists = 5
+		monthly_dynasty_prestige_mult = 0.05
+	}
+
+
+	province_modifier = {
+		monthly_income = 2
+	}
+	
+	county_modifier = {
+		tax_mult = 0.15
+		development_growth_factor = 0.55
+	}
+
+	on_complete = {
+		#Regular Mandala Boon
+		mandala_built_piety_duchy_building_t3_effect = yes
+	}
+
+	ai_value = {
+		base = 100
+		ai_pious_building_preference_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious # religious tomb/complex
+	flag = holy_building
+	flag = religious_studies_location
+}
+
+##########
+# Dome of Soltaniyeh
+##########
+
+soltaniyeh_01 = {
+	
+	asset = {
+		type = pdxmesh
+		name = "fp3_building_special_soltaniyeh_01_a_mesh"
+		soundeffect = { soundeffect = "event:/DLC/FP3/SFX/Ambience/3DMapEmitters/Holdings/fp3_ambience_3D_holdings_soltaniyeh" }	
+	}
+
+	construction_time = very_slow_construction_time
+	
+	type_icon = "icon_structure_soltaniyeh.dds" 
+
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+	
+	can_construct = {
+		scope:holder = {
+			culture = {
+				has_innovation = innovation_development_03
+			}
+		}
+	}
+	
+	cost_gold = 1000
+	
+	character_modifier = {
+		monthly_piety_gain_per_knight_mult = 0.03
+		monthly_dynasty_prestige_mult = 0.05
+		clan_government_opinion_same_faith = 5
+		cultural_head_fascination_mult = 0.1
+	}
+
+	county_modifier = {
+		development_growth_factor = 0.1
+	}
+
+	on_complete = {
+		#Regular Mandala Boon
+		mandala_built_piety_duchy_building_t3_effect = yes
+	}
+
+	ai_value = {
+		base = 100
+		ai_pious_building_preference_modifier = yes
+		culture_likely_to_fortify_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_wonder # monumental tomb
+	flag = holy_building
+}
+
+##########
+# Ruins of the Palace of Ctesiphon
+##########
+
+palace_of_ctesiphon_01 = {
+
+	construction_time = very_slow_construction_time
+	
+	type_icon = "icon_structure_palace_of_ctesiphon.dds" 
+	
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+	
+	cost_gold = 3000 
+
+	character_modifier = {
+		zoroastrianism_religion_opinion = 5
+	}
+
+	county_holder_character_modifier = {
+		learning = 1
+	}
+	
+	county_modifier = {
+		build_speed = -0.1 # Baghdad was constructed using stones from Ctesiphon
+	}
+	
+	next_building = palace_of_ctesiphon_02
+	
+	ai_value = {
+		base = 100
+		culture_likely_to_fortify_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_learning # ancient ruin
+}
+
+palace_of_ctesiphon_02 = {
+	
+	asset = {
+		type = pdxmesh
+		name = "fp3_building_special_palace_of_ctesiphon_01_a_mesh"
+	}
+
+	construction_time = very_slow_construction_time
+	
+	type_icon = "icon_structure_palace_of_ctesiphon.dds" 
+
+	can_construct = {
+		scope:holder = {
+			AND = {
+				OR = {
+					zoroastrian_or_syncretic_with_eastern_trigger = { CHARACTER = scope:holder }
+					faith = faith:manichaean_faith
+					faith = faith:nestorian
+					faith = faith:hellenic_pagan
+				}
+				highest_held_title_tier >= tier_kingdom
+				top_liege = this
+			}
+		}
+	}
+
+	show_disabled = yes
+	
+	cost_gold = 2000
+
+	character_modifier = {
+		monthly_dynasty_prestige_mult = 0.05
+		monthly_prestige_gain_per_happy_powerful_vassal_add = 0.2
+		diplomacy_per_piety_level = 1
+		title_creation_cost_mult = -0.25
+		persian_opinion = 5
+		zoroastrianism_religion_opinion = 5
+	}
+
+	county_modifier = {
+		build_prestige_cost = -0.2
+		build_gold_cost = -0.2
+	}
+	
+	province_modifier = {
+		monthly_income = 2
+	}
+	
+	ai_value = {
+		base = 100
+		culture_likely_to_fortify_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_learning # ancient ruin
+}
+
+##########
+# Falak-ol-Aflak
+##########
+
+falak_ol_aflak_citadel_01 = {
+	
+	asset = {
+		type = pdxmesh
+		name = "fp3_building_special_falak_ol_aflak_citadel_01_a_mesh"
+	}
+
+	construction_time = very_slow_construction_time
+	
+	type_icon = "icon_structure_falak_ol_aflak_citadel.dds" 
+
+	can_construct_showing_failures_only = {
+		scope:holder.culture = {
+			has_innovation = innovation_hoardings 
+		}
+	}
+	
+	cost_gold = 1000
+	
+	character_modifier = {
+		desert_mountains_attrition_mult = -0.5
+	}
+	max_garrison = good_building_max_garrison_tier_2
+	province_modifier = {
+		defender_holding_advantage = normal_building_advantage_tier_3
+		fort_level = good_building_fort_level_tier_2
+		stationed_maa_damage_mult = normal_maa_damage_tier_2
+		stationed_maa_toughness_mult = normal_maa_toughness_tier_2
+		stationed_siege_weapon_siege_value_mult = normal_maa_siege_value_tier_2
+	}
+	county_modifier = {
+		tax_mult = 0.05
+		monthly_county_control_growth_add = 0.5
+		county_opinion_add = 10
+	}
+	
+	ai_value = {
+		base = 100
+		culture_likely_to_fortify_modifier = yes
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_martial # fortress
+}
+
+##########
+# Minarets of Jam
+##########
+
+minarets_and_remains_of_jam_01 = {
+	
+	asset = {
+		type = pdxmesh
+		name = "fp3_building_special_minaret_and_remains_of_jam_01_a_mesh"
+		soundeffect = { soundeffect = "event:/DLC/FP3/SFX/Ambience/3DMapEmitters/Holdings/fp3_ambience_3D_holdings_minaret" }	
+	}
+
+	construction_time = very_slow_construction_time
+	
+	type_icon = "icon_structure_minaret_and_remains_of_jam.dds" 
+
+	can_construct = {
+		islam_or_syncretic_with_islam_trigger = { CHARACTER = scope:holder }
+	}
+	
+	is_enabled = {
+		custom_description = {
+			text = holy_site_muslim_or_holy_site_trigger
+			OR = {
+				islam_or_syncretic_with_islam_trigger = { CHARACTER = scope:holder }
+				custom_description = {
+					text = holy_site_building_trigger
+					barony = {
+						is_holy_site_of = scope:holder.faith
+					}
+				}
+			}
+		}
+	}
+	
+	show_disabled = yes
+	
+	cost_gold = 1000
+	
+	character_modifier = {
+		monthly_dynasty_prestige_mult = 0.05
+		monthly_piety_gain_per_knight_add = 0.1
+		stewardship_per_prestige_level = 1
+		clan_government_opinion_same_faith = 5
+	}
+
+	county_modifier = {
+		tax_mult = 0.05
+		monthly_county_control_growth_add = 0.5
+	}
+	
+	ai_value = {
+		base = 100
+		culture_likely_to_fortify_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious # religious monument
+	flag = holy_building
+}
+
+##########
+# Great Wall of Gorgan
+##########
+
+great_wall_of_gorgan_01 = {
+
+	construction_time = very_slow_construction_time
+	
+	type_icon = "icon_structure_great_wall_of_gorgan.dds" 
+	
+	can_construct = {
+		scope:holder.culture = {
+			has_innovation = innovation_hoardings 
+		}
+	}
+	
+	cost_gold = 1000
+	
+	province_modifier = {
+		build_gold_cost = -0.1
+		fort_level = 1
+		garrison_size = 0.25
+		hostile_raid_time = 0.25
+	}
+	
+	ai_value = {
+		base = 100
+		culture_likely_to_fortify_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_martial # wall
+}
+
+##########
+# Lake Maharloo
+##########
+
+maharloo_lake_01 = {
+
+	asset = {
+		type = pdxmesh
+		name = "fp3_building_special_maharloo_lake_01_a_mesh"
+	}
+
+	construction_time = very_slow_construction_time
+	
+	type_icon = "icon_structure_maharloo_lake.dds" 
+	
+	can_construct_potential = {
+	}
+	
+	cost_gold = 300
+	
+	character_modifier = {
+		learning = 1 
+		stress_loss_mult = 0.1
+	}
+
+	county_modifier = {
+		county_opinion_add = 5
+		development_growth = 0.1
+		development_growth_factor = 0.6
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_natural_feature # lake
+}
+
+##########
+# Rainbow Mountains
+##########
+
+rainbow_mountains_01 = {
+>>>>>>> 1.20
 	effect_desc = hunting_grounds_desc
 	type_icon = "icon_structure_petra.dds"
 	
@@ -497,8 +1369,1147 @@ wildlife_koloss_01 = {
 	cost_gold = 3000
 
 	county_modifier = {
+<<<<<<< HEAD
 		tax_mult = -0.1
 		development_growth_factor = -0.1
+=======
+		hostile_raid_time = 0.5
+		travel_danger = -20
+		development_growth_factor = 0.2
+		levy_size = 0.3
+	}
+
+	province_modifier = {
+		defender_holding_advantage = normal_building_advantage_tier_3
+		fort_level = good_building_fort_level_tier_2
+		garrison_size = 0.2
+	}
+	
+	ai_value = {
+		base = 100
+		culture_likely_to_fortify_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_martial
+}
+
+##########
+# Church of St. Lazarus
+##########
+saint_lazarus = {
+	asset = {
+		type = pdxmesh
+		name = ep3_church_saint_lazarus_mesh
+	}
+	construction_time = slow_construction_time
+
+	type_icon = "icon_structure_saint_lazarus.dds"
+
+	cost_gold = 750
+
+	can_construct = {
+
+	}
+	
+	is_enabled = {
+		christianity_or_syncretic_with_christianity_trigger = { CHARACTER = scope:holder }
+	}
+
+	character_modifier = {
+		monthly_piety = 0.3
+		monthly_county_control_growth_factor = 0.05
+		same_faith_opinion = 5
+		monthly_dynasty_prestige_mult = 0.05
+	}
+	
+	county_modifier = {
+		development_growth = 0.2
+		county_opinion_add = 5
+	}
+
+	province_modifier = {
+		monthly_income = 0.4
+	}
+
+	on_complete = {
+		#Regular Mandala Boon
+		mandala_built_piety_duchy_building_t3_effect = yes
+	}
+	
+	ai_value = {
+		base = 100
+		ai_pious_building_preference_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+}
+
+##########
+# Sumela Monastery
+##########
+sumela_monastery_01 = {
+	asset = {
+		type = pdxmesh
+		name = ep3_sumela_monastery_01_a_mesh
+	}
+	construction_time = slow_construction_time
+
+	type_icon = "icon_structure_sumela_monastery.dds"
+
+	cost_gold = 1000
+
+	can_construct = {
+
+	}
+	
+	is_enabled = {
+		christianity_or_syncretic_with_christianity_trigger = { CHARACTER = scope:holder }
+	}
+
+	character_modifier = {
+		monthly_piety = 0.3
+		monthly_county_control_growth_factor = 0.05
+		same_faith_opinion = 5
+		clergy_opinion = 5
+	}
+	
+	county_modifier = {
+		development_growth = 0.1
+		development_growth_factor = 0.1
+		county_opinion_add = 5
+		tax_mult = 0.1
+	}
+
+	province_modifier = {
+		monthly_income = 0.2
+	}
+
+	on_complete = {
+		#Regular Mandala Boon
+		mandala_built_piety_duchy_building_t3_effect = yes
+	}
+
+	next_building = sumela_monastery_02
+	
+	ai_value = {
+		base = 100
+		ai_pious_building_preference_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+}
+
+sumela_monastery_02 = {
+	asset = {
+		type = pdxmesh
+		name = ep3_sumela_monastery_01_b_mesh
+	}
+	construction_time = very_slow_construction_time
+
+	type_icon = "icon_structure_sumela_monastery.dds"
+
+	cost_gold = 750
+
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+
+	can_construct = {
+		christianity_or_syncretic_with_christianity_trigger = { CHARACTER = scope:holder }
+	}
+	
+	is_enabled = {
+		christianity_or_syncretic_with_christianity_trigger = { CHARACTER = scope:holder }
+	}
+
+	character_modifier = {
+		monthly_piety = 0.4
+		monthly_county_control_growth_factor = 0.1
+		same_faith_opinion = 5
+		clergy_opinion = 10
+		monthly_dynasty_prestige_mult = 0.05
+	}
+	
+	county_modifier = {
+		development_growth = 0.2
+		development_growth_factor = 0.2
+		county_opinion_add = 5
+		tax_mult = 0.2
+	}
+
+	province_modifier = {
+		monthly_income = 0.4
+	}
+
+	on_complete = {
+		#Regular Mandala Boon
+		mandala_built_piety_duchy_building_t3_effect = yes
+	}
+	
+	ai_value = {
+		base = 100
+		ai_pious_building_preference_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+}
+
+##########
+# Patras Castle
+##########
+patras_castle = {
+	asset = {
+		type = pdxmesh
+		name = ep3_patras_castle_01_a_mesh
+	}
+	construction_time = slow_construction_time
+
+	type_icon = "icon_structure_patras_castle.dds"
+
+	cost_gold = 1000
+
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+
+	can_construct = {
+		
+	}
+
+	character_modifier = {
+		monthly_dynasty_prestige_mult = 0.05
+		monthly_influence = 0.1
+		monthly_influence_mult = 0.05
+	}
+	
+	county_modifier = {
+		hostile_raid_time = 0.75
+		travel_danger = -20
+		development_growth_factor = 0.1
+		levy_size = 0.2
+		county_opinion_add = 10
+	}
+
+	province_modifier = {
+		defender_holding_advantage = normal_building_advantage_tier_3
+		fort_level = good_building_fort_level_tier_2
+		garrison_size = 0.2
+		stationed_maa_damage_mult = normal_maa_damage_tier_1
+		stationed_maa_toughness_mult = normal_maa_toughness_tier_1
+	}
+	
+	ai_value = {
+		base = 100
+		culture_likely_to_fortify_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_martial
+}
+
+##########
+# Maiden's Tower
+##########
+maiden_tower = {
+	asset = {
+		type = pdxmesh
+		name = ep3_maidens_tower_01_a_mesh
+	}
+	construction_time = slow_construction_time
+
+	type_icon = "icon_structure_maiden_tower.dds"
+
+	cost_gold = 750
+
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+
+	can_construct = {
+		
+	}
+
+	character_modifier = {
+		monthly_dynasty_prestige_mult = 0.05
+		monthly_influence = 0.1
+		monthly_influence_mult = 0.05
+	}
+	
+	county_modifier = {
+		hostile_raid_time = 1
+		travel_danger = -25
+		county_opinion_add = 5
+		tax_mult = 0.2
+	}
+
+	province_modifier = {
+		defender_holding_advantage = normal_building_advantage_tier_4
+		fort_level = good_building_fort_level_tier_1
+		stationed_maa_damage_mult = normal_maa_damage_tier_2
+		stationed_maa_toughness_mult = normal_maa_toughness_tier_2
+		monthly_income = 2
+	}
+	
+	ai_value = {
+		base = 100
+		culture_likely_to_fortify_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_martial
+}
+
+##########
+# Despots' Palace at Mystras
+##########
+despot_palace = {
+	asset = {
+		type = pdxmesh
+		name = ep3_despots_palace_mesh
+	}
+	construction_time = very_slow_construction_time
+
+	type_icon = "icon_structure_despot_palace.dds"
+
+	cost_gold = 1200
+
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+
+	can_construct = {
+		scope:holder.culture = {
+			has_innovation = innovation_primogeniture
+			has_cultural_pillar = heritage_byzantine
+		}
+	}
+
+	character_modifier = {
+		monthly_dynasty_prestige_mult = 0.1
+		powerful_vassal_opinion = 5
+		monthly_prestige_gain_per_happy_powerful_vassal_add = 0.15
+		courtly_opinion = 5
+		parochial_opinion = 5
+		legitimacy_gain_mult = 0.1
+		monthly_influence = 0.2
+		monthly_influence_mult = 0.3
+	}
+	
+	county_modifier = {
+		monthly_county_control_growth_add = 0.5
+		county_opinion_add = 20
+		tax_mult = 0.3
+		development_growth_factor = 0.2
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_diplomatic
+}
+
+##########
+# Meteora
+##########
+meteora_01 = {
+	asset = {
+		type = pdxmesh
+		name = ep3_meteora_01_mesh
+	}
+	construction_time = slow_construction_time
+
+	type_icon = "icon_structure_meteora.dds"
+
+	cost_gold = 500
+
+	can_construct = {
+
+	}
+	
+	is_enabled = {
+		scope:holder.rite = {
+			rite_has_doctrine = special_doctrine_is_eastern_christian_faith
+		}
+	}
+
+	character_modifier = {
+		monthly_piety = 0.2
+	}
+	
+	county_modifier = {
+		development_growth = 0.1
+		development_growth_factor = 0.1
+		county_opinion_add = 10
+		tax_mult = 0.1
+	}
+
+	province_modifier = {
+		monthly_income = 0.4
+	}
+
+	on_complete = {
+		#Regular Mandala Boon
+		mandala_built_piety_duchy_building_t3_effect = yes
+	}
+
+	next_building = meteora_02
+	
+	ai_value = {
+		base = 100
+		ai_pious_building_preference_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+}
+
+meteora_02 = {
+	asset = {
+		type = pdxmesh
+		name = ep3_meteora_02_mesh
+	}
+	construction_time = very_slow_construction_time
+
+	type_icon = "icon_structure_meteora.dds"
+
+	cost_gold = 1000
+
+	can_construct = {
+		scope:holder.culture = {
+			has_innovation = innovation_cranes
+		}
+	}
+	
+	is_enabled = {
+		scope:holder.rite = {
+			rite_has_doctrine = special_doctrine_is_eastern_christian_faith
+		}
+	}
+
+	character_modifier = {
+		monthly_piety = 0.3
+		monthly_county_control_growth_factor = 0.05
+		clergy_opinion = 5
+		parochial_opinion = 5
+		zealot_opinion = 5
+		zealot_tax_contribution_mult = 0.2
+		zealot_levy_contribution_mult = 0.2
+	}
+	
+	county_modifier = {
+		development_growth = 0.2
+		development_growth_factor = 0.1
+		county_opinion_add = 10
+		tax_mult = 0.2
+	}
+
+	province_modifier = {
+		monthly_income = 0.5
+	}
+
+	on_complete = {
+		#Regular Mandala Boon
+		mandala_built_piety_duchy_building_t3_effect = yes
+	}
+	
+	ai_value = {
+		base = 100
+		ai_pious_building_preference_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+}
+
+##########
+# Mt. Athos
+##########
+mount_athos_01 = {
+	asset = {
+		type = pdxmesh
+		name = ep3_athos_monasteries_01_a_mesh
+	}
+	construction_time = slow_construction_time
+
+	type_icon = "icon_structure_mount_athos.dds"
+
+	cost_gold = 300
+
+	can_construct = {
+
+	}
+	
+	is_enabled = {
+		scope:holder.rite = {
+			rite_has_doctrine = special_doctrine_is_eastern_christian_faith
+		}
+	}
+
+	character_modifier = {
+		religious_vassal_opinion = 5
+	}
+	
+	county_modifier = {
+		development_growth = 0.1
+		development_growth_factor = 0.1
+		tax_mult = 0.1
+	}
+
+	province_modifier = {
+		monthly_income = 0.1
+	}
+
+	next_building = mount_athos_02
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+}
+
+mount_athos_02 = {
+	asset = {
+		type = pdxmesh
+		name = ep3_athos_monasteries_01_a_mesh
+	}
+	construction_time = slow_construction_time
+
+	type_icon = "icon_structure_mount_athos.dds"
+
+	cost_gold = 600
+
+	can_construct = {
+
+	}
+	
+	is_enabled = {
+		scope:holder.rite = {
+			rite_has_doctrine = special_doctrine_is_eastern_christian_faith
+		}
+	}
+
+	character_modifier = {
+		monthly_piety = 0.2
+		religious_vassal_opinion = 10
+		zealot_opinion = 5
+		clergy_opinion = 5
+	}
+	
+	county_modifier = {
+		development_growth = 0.15
+		development_growth_factor = 0.15
+		county_opinion_add = 5
+		tax_mult = 0.2
+	}
+
+	province_modifier = {
+		monthly_income = 0.3
+	}
+
+	on_complete = {
+		#Regular Mandala Boon
+		mandala_built_piety_duchy_building_t3_effect = yes
+	}
+
+	next_building = mount_athos_03
+	
+	ai_value = {
+		base = 100
+		ai_pious_building_preference_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+}
+
+mount_athos_03 = {
+	asset = {
+		type = pdxmesh
+		name = ep3_athos_monasteries_01_b_mesh
+	}
+	construction_time = very_slow_construction_time
+
+	type_icon = "icon_structure_mount_athos.dds"
+
+	cost_gold = 1000
+
+	can_construct = {
+		scope:holder.culture = {
+			has_innovation = innovation_cranes
+		}
+	}
+	
+	is_enabled = {
+		scope:holder.rite = {
+			rite_has_doctrine = special_doctrine_is_eastern_christian_faith
+		}
+	}
+
+	character_modifier = {
+		monthly_piety = 0.4
+		cultural_head_fascination_mult = 0.10
+		rite_creation_piety_cost_mult = -0.1
+		religious_vassal_opinion = 10
+		zealot_opinion = 10
+		clergy_opinion = 10
+	}
+	
+	county_modifier = {
+		development_growth = 0.3
+		development_growth_factor = 0.3
+		county_opinion_add = 10
+		tax_mult = 0.3
+	}
+
+	province_modifier = {
+		monthly_income = 0.4
+	}
+
+	on_complete = {
+		#Regular Mandala Boon
+		mandala_built_piety_duchy_building_t3_effect = yes
+	}
+
+	ai_value = {
+		base = 100
+		ai_pious_building_preference_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+}
+
+##########
+# Sant'Apollinare Nuovo
+##########
+apollinare_nuovo = {
+	asset = {
+		type = pdxmesh
+		name = ep3_basilica_sant_apollinare_nuovo_mesh
+	}
+	construction_time = slow_construction_time
+
+	type_icon = "icon_structure_apollinare_nuovo.dds"
+
+	cost_gold = 1000
+
+	can_construct = {
+		
+	}
+	
+	is_enabled = {
+		christianity_or_syncretic_with_christianity_trigger = { CHARACTER = scope:holder }
+	}
+
+	character_modifier = {
+		monthly_piety = 0.2
+		religious_vassal_opinion = 5
+		monthly_county_control_growth_factor = 0.1
+		zealot_opinion = 5
+		clergy_opinion = 5
+	}
+	
+	county_modifier = {
+		development_growth = 0.25
+		development_growth_factor = 0.25
+		county_opinion_add = 10
+		tax_mult = 0.3
+	}
+
+	province_modifier = {
+		monthly_income = 0.5
+	}
+
+	on_complete = {
+		#Regular Mandala Boon
+		mandala_built_piety_duchy_building_t3_effect = yes
+	}
+
+	ai_value = {
+		base = 100
+		ai_pious_building_preference_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+}
+
+##########
+# Saint Chatherine's Monastery
+##########
+saint_catherine = {
+	asset = {
+		type = pdxmesh
+		name = ep3_saint_catherine_monastery_mesh
+	}
+	construction_time = slow_construction_time
+
+	type_icon = "icon_structure_saint_catherine.dds"
+
+	cost_gold = 1000
+
+	can_construct = {
+		
+	}
+	
+	is_enabled = {
+		christianity_or_syncretic_with_christianity_trigger = { CHARACTER = scope:holder }
+	}
+
+	character_modifier = {
+		monthly_piety = 0.3
+		religious_vassal_opinion = 5
+		monthly_county_control_growth_factor = 0.2
+		monthly_lifestyle_xp_gain_mult = 0.10
+		cultural_head_fascination_mult = 0.10
+		zealot_opinion = 5
+		clergy_opinion = 5
+	}
+	
+	county_modifier = {
+		development_growth = 0.3
+		development_growth_factor = 0.3
+		tax_mult = 0.3
+	}
+
+	province_modifier = {
+		monthly_income = 1
+		fort_level = good_building_fort_level_tier_1
+	}
+
+	on_complete = {
+		#Regular Mandala Boon
+		mandala_built_piety_duchy_building_t3_effect = yes
+	}
+
+	ai_value = {
+		base = 100
+		ai_pious_building_preference_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+}
+
+##########
+# Jvari Monastery
+##########
+jvari_monastery = {
+	asset = {
+		type = pdxmesh
+		name = ep3_jvari_monastery_01_a_mesh
+	}
+	construction_time = slow_construction_time
+
+	type_icon = "icon_structure_jvari_monastery.dds"
+
+	cost_gold = 700
+
+	can_construct = {
+		
+	}
+	
+	is_enabled = {
+		christianity_or_syncretic_with_christianity_trigger = { CHARACTER = scope:holder }
+	}
+
+	character_modifier = {
+		monthly_piety = 0.3
+		religious_vassal_opinion = 5
+		zealot_opinion = 5
+		clergy_opinion = 10
+		monthly_county_control_growth_factor = 0.1
+	}
+	
+	county_modifier = {
+		development_growth = 0.1
+		development_growth_factor = 0.15
+		tax_mult = 0.3
+		county_opinion_add = 10
+	}
+
+	province_modifier = {
+		monthly_income = 1
+	}
+
+	on_complete = {
+		#Regular Mandala Boon
+		mandala_built_piety_duchy_building_t3_effect = yes
+	}
+
+	ai_value = {
+		base = 100
+		ai_pious_building_preference_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+}
+
+##########
+# Etchmiadzin Cathedral
+##########
+etchmiadzin_cathedral = {
+	asset = {
+		type = pdxmesh
+		name = ep3_etchmiadzin_cathedral_01_a_mesh
+	}
+	construction_time = very_slow_construction_time
+
+	type_icon = "icon_structure_etchmiadzin_cathedral.dds"
+
+	cost_gold = 1000
+
+	can_construct = {
+		
+	}
+	
+	is_enabled = {
+		scope:holder.rite = rite:armenian_rite
+	}
+
+	character_modifier = {
+		monthly_piety = 0.4
+		religious_vassal_opinion = 10
+		zealot_opinion = 10
+		clergy_opinion = 10
+		monthly_dynasty_prestige_mult = 0.05
+		same_faith_opinion = 5
+	}
+	
+	county_modifier = {
+		development_growth = 0.2
+		development_growth_factor = 0.15
+		tax_mult = 0.3
+		county_opinion_add = 10
+	}
+
+	province_modifier = {
+		monthly_income = 1
+	}
+
+	on_complete = {
+		#Regular Mandala Boon
+		mandala_built_piety_duchy_building_t3_effect = yes
+	}
+
+	ai_value = {
+		base = 100
+		ai_pious_building_preference_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+}
+
+##########
+# Cattolica di Stilo
+##########
+cattolica_stilo = {
+	asset = {
+		type = pdxmesh
+		name = ep3_cattolica_di_stilo_mesh
+	}
+	construction_time = slow_construction_time
+
+	type_icon = "icon_structure_cattolica_stilo.dds"
+
+	cost_gold = 750
+
+	can_construct = {
+		christianity_or_syncretic_with_christianity_trigger = { CHARACTER = scope:holder }
+	}
+	
+	is_enabled = {
+		christianity_or_syncretic_with_christianity_trigger = { CHARACTER = scope:holder }
+	}
+
+	character_modifier = {
+		monthly_piety = 0.5
+		religious_vassal_opinion = 5
+		zealot_opinion = 5
+		clergy_opinion = 5
+		holy_order_hire_cost_mult = -0.15
+	}
+	
+	county_modifier = {
+		development_growth = 0.15
+		development_growth_factor = 0.15
+		tax_mult = 0.1
+		county_opinion_add = 10
+	}
+
+	province_modifier = {
+		monthly_income = 0.2
+	}
+
+	on_complete = {
+		#Regular Mandala Boon
+		mandala_built_piety_duchy_building_t3_effect = yes
+	}
+
+	ai_value = {
+		base = 100
+		ai_pious_building_preference_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+}
+
+##########
+# Hosios Loukas
+##########
+hosios_loukas = {
+	construction_time = slow_construction_time
+
+	type_icon = "icon_structure_hosios_loukas.dds"
+
+	cost_gold = 1000
+
+	can_construct = {
+		christianity_or_syncretic_with_christianity_trigger = { CHARACTER = scope:holder }
+	}
+	
+	is_enabled = {
+		christianity_or_syncretic_with_christianity_trigger = { CHARACTER = scope:holder }
+	}
+
+	character_modifier = {
+		monthly_piety = 0.2
+		religious_vassal_opinion = 5
+		zealot_opinion = 5
+		clergy_opinion = 5
+		monthly_prestige = 0.3
+		monthly_influence = 0.2
+		negate_health_penalty_add = 0.05
+	}
+	
+	county_modifier = {
+		development_growth = 0.2
+		development_growth_factor = 0.2
+		tax_mult = 0.4
+	}
+
+	province_modifier = {
+		monthly_income = 1
+	}
+
+	on_complete = {
+		#Regular Mandala Boon
+		mandala_built_piety_duchy_building_t3_effect = yes
+	}
+
+	ai_value = {
+		base = 100
+		ai_pious_building_preference_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+}
+
+##########
+# Church of Saint Sophia, Ohrid
+##########
+sofia_ohrid = {
+	asset = {
+		type = pdxmesh
+		name = ep3_church_saint_sophia_ohrid_01_a_mesh
+	}
+	construction_time = very_slow_construction_time
+
+	type_icon = "icon_structure_sofia_ohrid.dds"
+
+	cost_gold = 1000
+
+	can_construct = {
+		christianity_or_syncretic_with_christianity_trigger = { CHARACTER = scope:holder }
+	}
+	
+	is_enabled = {
+		christianity_or_syncretic_with_christianity_trigger = { CHARACTER = scope:holder }
+	}
+
+	character_modifier = {
+		monthly_piety = 0.3
+		religious_vassal_opinion = 5
+		zealot_opinion = 5
+		clergy_opinion = 10
+		monthly_county_control_growth_factor = 0.05
+		monthly_dynasty_prestige_mult = 0.05
+	}
+	
+	county_modifier = {
+		development_growth = 0.3
+		development_growth_factor = 0.3
+		tax_mult = 0.2
+	}
+
+	province_modifier = {
+		monthly_income = 0.5
+	}
+
+	on_complete = {
+		#Regular Mandala Boon
+		mandala_built_piety_duchy_building_t3_effect = yes
+	}
+
+	ai_value = {
+		base = 100
+		ai_pious_building_preference_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+}
+
+##########
+# Fairy Chimneys
+##########
+fairy_chimneys = {
+	asset = {
+		type = pdxmesh
+		name = ep3_fairy_chimneys_01_a_mesh
+	}
+	construction_time = very_slow_construction_time
+
+	type_icon = "icon_structure_fairy_chimneys.dds"
+	
+	can_construct_potential = {
+		
+	}
+	
+	is_enabled = {
+		
+	}
+	
+	cost_gold = 250
+	
+	county_modifier = {
+		development_growth_factor = 0.1
+		development_growth = 0.2
+		hostile_raid_time = 0.5
+		defender_holding_advantage = 5
+>>>>>>> 1.20
 	}
 	
 	province_modifier = {
@@ -658,6 +2669,352 @@ altair_core_02 = {
 	}
 	county_modifier = {
 		tax_mult = 0.1
+<<<<<<< HEAD
+=======
+		development_growth_factor = 0.1
+		development_growth = 0.1
+	}
+	
+	province_modifier = {
+		monthly_income = 1
+	}
+
+	on_complete = {
+		#Regular Mandala Boon
+		mandala_built_piety_duchy_building_t3_effect = yes
+	}
+	
+	ai_value = {
+		base = 100
+		ai_pious_building_preference_modifier = yes
+		culture_likely_to_fortify_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+}
+
+itsukushima_jinja_02 = {
+	asset = {
+		type = pdxmesh
+		name = "tgp_building_special_itsukushima_mesh"
+	}
+
+	construction_time = very_slow_construction_time
+	
+	type_icon = "icon_structure_torii_gate.dds"
+
+	is_enabled = {
+		custom_description = {
+			text = holy_site_shinto_or_holy_site_trigger
+			OR = {
+				scope:holder.religion = religion:shintoism_religion
+				custom_description = {
+					text = holy_site_building_trigger
+					barony = { is_holy_site_of = scope:holder.faith }
+				}
+				scope:holder.faith = { has_doctrine = special_doctrine_immaterial_harmony }
+			}
+		}
+	}
+	
+	show_disabled = yes
+	
+	cost_gold = 1000
+
+	character_modifier = {
+		monthly_piety = 0.5
+		monthly_dynasty_prestige_mult = 0.1
+		embarkation_cost_mult = -0.2
+	}
+	
+	county_modifier = {
+		tax_mult = 0.3
+		development_growth_factor = 0.3
+		development_growth = 0.2
+	}
+	
+	province_modifier = {
+		monthly_income = 2
+	}
+
+	on_complete = {
+		#Regular Mandala Boon
+		mandala_built_piety_duchy_building_t3_effect = yes
+	}
+	
+	ai_value = {
+		base = 100
+		ai_pious_building_preference_modifier = yes
+		culture_likely_to_fortify_modifier = yes
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+}
+
+##########
+# Heian Palace
+##########
+
+heian_palace_01 = {
+	asset = {
+		type = pdxmesh
+		name = "tgp_building_special_heian_kyo_mesh"
+	}
+
+	construction_time = very_slow_construction_time
+	
+	type_icon = "icon_structure_heian_palace.dds"
+	
+	show_disabled = yes
+	
+	cost_gold = 1000
+
+	character_modifier = {
+		court_grandeur_baseline_add = 10
+		monthly_dynasty_prestige_mult = 0.1
+		diplomacy_per_influence_level = 1
+		courtly_opinion = 5
+		monthly_influence_mult = 0.05
+	}
+	county_modifier = {
+		tax_mult = 0.3
+		development_growth_factor = 0.2
+	}
+	province_modifier = {
+		fort_level = 2
+		defender_holding_advantage = 5
+	}
+	levy = 2000
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_diplomatic
+}
+
+##########
+# Ise Jingu
+##########
+
+ise_jingu_01 = {
+	construction_time = very_slow_construction_time
+	
+	type_icon = "icon_structure_torii_gate.dds"
+	
+	show_disabled = yes
+	
+	cost_gold = 1000
+
+	character_modifier = {
+		monthly_piety = 0.25
+		monthly_dynasty_prestige_mult = 0.05
+		character_travel_speed_mult = 0.05
+	}
+	
+	county_modifier = {
+		tax_mult = 0.1
+		development_growth_factor = 0.1
+		development_growth = 0.1
+	}
+	
+	province_modifier = {
+		monthly_income = 1
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+}
+
+##########
+# Kofuku-ji
+##########
+
+kofuku_ji_01 = {
+	construction_time = very_slow_construction_time
+	
+	type_icon = "icon_structure_cathedral_buddhist.dds"
+	
+	show_disabled = yes
+	
+	cost_gold = 1000
+
+	character_modifier = {
+		monthly_piety = 0.25
+		monthly_dynasty_prestige_mult = 0.05
+		rite_creation_piety_cost_mult = -0.1
+	}
+	
+	county_modifier = {
+		tax_mult = 0.2
+		development_growth_factor = 0.2
+		development_growth = 0.15
+	}
+	
+	province_modifier = {
+		monthly_income = 2
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+	flag = religious_studies_location
+}
+
+##########
+# Enryaku-ji (延暦寺)
+##########
+
+enryaku_ji_01 = {
+	construction_time = very_slow_construction_time
+	
+	type_icon = "icon_structure_cathedral_buddhist.dds"
+	
+	show_disabled = yes
+	
+	cost_gold = 1000
+
+	character_modifier = {
+		monthly_piety = 0.25
+		monthly_dynasty_prestige_mult = 0.05
+		rite_creation_piety_cost_mult = -0.1
+	}
+	
+	county_modifier = {
+		tax_mult = 0.2
+		development_growth_factor = 0.2
+		development_growth = 0.15
+	}
+	
+	province_modifier = {
+		monthly_income = 2
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+	flag = religious_studies_location
+}
+
+##########
+# Dazaifu
+##########
+
+dazaifu_01 = {
+	construction_time = very_slow_construction_time
+	
+	type_icon = "icon_structure_shaolin_monastery.dds"
+	
+	show_disabled = yes
+	
+	cost_gold = 1000
+
+	character_modifier = {
+		monthly_prestige = 0.25
+		monthly_county_control_growth_factor = 0.1
+		build_speed = -0.1
+		diplomacy_per_influence_level = 1
+	}
+
+	character_government_modifier = {
+		parameter = government_is_administrative
+		monthly_influence = 0.5
+	}
+	
+	county_modifier = {
+		tax_mult = 0.1
+		development_growth_factor = 0.15
+		development_growth = 0.1
+	}
+	
+	province_modifier = {
+		fort_level = 2
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_economic
+}
+
+##########
+# Chinjufu
+##########
+
+chinjufu_01 = {
+	construction_time = very_slow_construction_time
+	
+	type_icon = "icon_structure_shaolin_monastery.dds"
+	
+	show_disabled = yes
+	
+	cost_gold = 1000
+
+	character_modifier = {
+		monthly_prestige = 0.1
+		glory_hound_opinion = 5
+		vassal_limit = 1
+		defender_advantage = 4
+	}
+	
+	county_modifier = {
+		hostile_raid_time = 0.5
+>>>>>>> 1.20
 		levy_size = 0.2
 		development_growth_factor = 0.1
 	}
@@ -685,6 +3042,599 @@ altair_core_03 = {
 		name = "building_special_mines_mesh"
 	}
 
+<<<<<<< HEAD
+=======
+	construction_time = very_slow_construction_time
+	
+	type_icon = "icon_structure_shaolin_monastery.dds"
+	
+	show_disabled = yes
+	
+	cost_gold = 1000
+
+	character_modifier = {
+		monthly_piety = 0.25
+		monthly_dynasty_prestige_mult = 0.05
+		levy_reinforcement_rate_same_faith = 0.15
+		monthly_county_control_growth_factor = 0.05
+	}
+	
+	county_modifier = {
+		tax_mult = 0.2
+		development_growth_factor = 0.2
+		development_growth = 0.15
+	}
+	
+	province_modifier = {
+		monthly_income = 2
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+	flag = religious_studies_location
+}
+
+##########
+# Byeok-ran Port - 碧瀾渡 (벽란도)
+##########
+
+byeokran_port_01 = {
+	construction_time = very_slow_construction_time
+	
+	type_icon = "icon_structure_quanzhou_seaport.dds"
+	
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+	
+	cost_gold = 1000
+	
+	character_modifier = {
+		monthly_income = 1
+		parochial_opinion = 5
+		naval_movement_speed_mult = 0.1
+		embarkation_cost_mult = -0.1
+	}
+	
+	county_modifier = {
+		tax_mult = 0.15
+		development_growth_factor = 0.15
+		development_growth = 0.1
+	}
+	
+	province_modifier = {
+		monthly_income = 2
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_economic
+}
+
+##########
+# Mount Baekdu
+##########
+
+mount_baekdu_01 = {
+
+	construction_time = very_slow_construction_time
+	
+	type_icon = "icon_structure_mount_apo.dds"
+
+	is_enabled = {
+		custom_description = {
+			text = holy_site_building_trigger
+			barony = { is_holy_site_of = scope:holder.faith }
+		}
+	}
+	
+	show_disabled = yes
+	
+	cost_gold = 1000
+	
+	character_modifier = {
+		monthly_piety = 0.25
+		monthly_dynasty_prestige_mult = 0.05
+		stress_loss_mult = 0.1
+	}
+	
+	county_modifier = {
+		county_opinion_add = 5
+		tax_mult = 0.1
+	}
+	
+	province_modifier = {
+		fort_level = 2
+		defender_holding_advantage = 6
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = travel_point_of_interest_stress_relief
+	flag = travel_point_of_interest_natural_feature # mountain
+	flag = is_mountain
+	flag = holy_building
+}
+
+##########
+# Dâu Temple
+##########
+
+dau_temple_01 = {
+	construction_time = very_slow_construction_time
+
+	type_icon = "icon_structure_dau.dds"
+	
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+
+	is_enabled = {
+
+	}
+	
+	cost_gold = 1000
+	
+	character_modifier = {
+		learning_per_piety_level = 1
+		health = 0.10
+	}
+
+	county_holder_character_modifier = {
+		buddhism_religion_opinion = 5
+	}
+
+	county_modifier = {
+		tax_mult = 0.1
+		development_growth = 0.10
+		epidemic_resistance = 10
+	}
+	province_modifier = {
+		monthly_income = 2
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+}
+
+##########
+# Liuhe Pagoda
+##########
+
+liuhe_pagoda_01 = {
+	construction_time = very_slow_construction_time
+
+	type_icon = "icon_structure_liuhe_pagoda.dds"
+	
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+
+	is_enabled = {
+
+	}
+	
+	cost_gold = 1250
+	
+	character_modifier = {
+		monthly_county_control_growth_factor = 0.15
+		monthly_piety_gain_mult = 0.10
+		monthly_prestige_gain_mult = 0.05
+		clergy_opinion = 5
+	}
+	county_modifier = {
+		tax_mult = 0.15
+		development_growth = 0.10
+		travel_danger = -10
+	}
+	province_modifier = {
+		monthly_income = 2
+	}
+
+	on_complete = {
+		#Regular Mandala Boon
+		mandala_built_piety_duchy_building_t3_effect = yes
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+}
+
+##########
+# Muaro Jambi Temple Compounds
+##########
+
+muaro_jambi_01 = {
+	construction_time = very_slow_construction_time
+
+	type_icon = "icon_structure_mauro_jambi.dds"
+	
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+
+	is_enabled = {
+
+	}
+	
+	cost_gold = 1000
+	
+	character_modifier = {
+		monthly_county_control_growth_factor = 0.10
+		martial_per_piety_level = 1
+		direct_vassal_opinion = 5
+	}
+	county_modifier = {
+		tax_mult = 0.10
+	}
+	province_modifier = {
+		monthly_income = 1
+		fort_level = 2
+		levy_size = 0.1
+		travel_danger = -20
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = travel_point_of_interest_martial
+	flag = holy_building
+}
+
+##########
+# Hanging Temple
+##########
+
+hanging_temple_01 = {
+	construction_time = very_slow_construction_time
+
+	type_icon = "icon_structure_hanging_temple.dds"
+	
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+
+	is_enabled = {
+
+	}
+	
+	cost_gold = 2000
+	
+	character_modifier = {
+		piety_level_impact_mult = 0.1
+		monthly_piety_gain_per_legitimacy_level_mult = 0.05
+		taoism_religion_opinion = 5
+		buddhism_religion_opinion = 5
+		confucianism_religion_opinion = 5
+	}
+
+	province_modifier = {
+		monthly_income = 1
+	}
+
+	county_modifier = {
+		tax_mult = 0.1
+		development_growth = 0.1
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+}
+
+##########
+# Pagoda of Fogong Temple
+##########
+
+pagoda_of_fogong_temple_01 = {
+	construction_time = very_slow_construction_time
+
+	type_icon = "icon_structure_fogong_temple_pagoda.dds"
+	
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+
+	is_enabled = {
+
+	}
+	
+	cost_gold = 2000
+	
+	character_modifier = {
+		monthly_piety_from_buildings_mult = 0.1
+		monthly_piety_gain_per_legitimacy_level_mult = 0.05
+		buddhism_religion_opinion = 5
+		zealot_opinion = 5
+		monthly_dynasty_prestige_mult = 0.1
+	}
+
+	province_modifier = {
+		monthly_income = 1.5
+		artifact_decay_reduction_mult = -0.15
+	}
+
+	county_modifier = {
+		tax_mult = 0.1
+		development_growth = 0.1
+		county_opinion_add = 5
+	}
+
+	on_complete = {
+		#Regular Mandala Boon
+		mandala_built_piety_duchy_building_t3_effect = yes
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+}
+
+##########
+# Plain of Jars
+##########
+
+plain_of_jars_01 = {
+	construction_time = very_slow_construction_time
+
+	type_icon = "icon_structure_plain_of_jars.dds"
+	
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+
+	is_enabled = {
+
+	}
+	
+	cost_gold = 2000
+	
+	character_modifier = {
+		stress_loss_per_piety_level = 0.1
+		diplomatic_range_mult = 0.20
+		intrigue_per_piety_level = 1
+		levy_reinforcement_rate_same_faith = 0.1
+	}
+
+	province_modifier = {
+		monthly_income = 1
+	}
+
+	county_modifier = {
+		travel_danger = -20
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+}
+
+##########
+# Dieng Plateau
+##########
+
+dieng_plateau_01 = {
+	construction_time = very_slow_construction_time
+
+	type_icon = "icon_structure_dieng_pleateau.dds"
+	
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+
+	is_enabled = {
+
+	}
+	
+	cost_gold = 2000
+	
+	character_modifier = {
+		stress_loss_per_piety_level = 0.1
+		dread_gain_mult = 0.15
+		intrigue = 1
+		monthly_piety_gain_per_dread_mult = 0.05
+		learning = 1
+	}
+
+	province_modifier = {
+		
+	}
+
+	county_modifier = {
+		monthly_county_control_decline_add = 0.5
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+}
+
+##########
+# Mount Apo
+##########
+
+mount_apo_01 = {
+
+	construction_time = very_slow_construction_time
+	
+	type_icon = "icon_structure_mount_apo.dds"
+
+	is_enabled = {
+
+	}
+	
+	show_disabled = yes
+	
+	cost_gold = 1000
+	
+	character_modifier = {
+		piety_level_impact_mult = 0.25
+		rite_creation_piety_cost_mult = -0.1
+		stress_loss_mult = 0.05
+		realm_priest_opinion = 10
+	}
+	
+	county_modifier = {
+		monthly_county_control_growth_factor = 0.1
+	}
+	
+	province_modifier = {
+		monthly_income = 1
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = travel_point_of_interest_stress_relief
+	flag = travel_point_of_interest_natural_feature # mountain
+	flag = is_mountain
+	flag = holy_building
+}
+
+##########
+# Besakih Temple
+##########
+
+besakih_temple_01 = {
+	construction_time = very_slow_construction_time
+
+	type_icon = "icon_structure_besakih.dds"
+	
+	can_construct_potential = {
+		building_requirement_tribal = no
+	}
+
+	is_enabled = {
+
+	}
+	
+	cost_gold = 2000
+	
+	character_modifier = {
+		monthly_piety_gain_per_knight_mult = 0.03
+		hinduism_religion_opinion = 10
+		monthly_dynasty_prestige_mult = 0.1
+		learning = 1
+		legitimacy_gain_mult = 0.1
+	}
+
+	province_modifier = {
+		monthly_income = 2
+	}
+
+	county_modifier = {
+		tax_mult = 0.15
+		development_growth = 0.15
+	}
+
+	on_complete = {
+		#Regular Mandala Boon
+		mandala_built_piety_duchy_building_t3_effect = yes
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = holy_building
+}
+
+##########
+# Gongsanseong Fortress
+##########
+
+gongsanseong_fortress_01 = {
+>>>>>>> 1.20
 	construction_time = slow_construction_time
 
 	type_icon = "icon_structure_mines.dds"
@@ -700,13 +3650,344 @@ altair_core_03 = {
 		}
 	}
 	
+<<<<<<< HEAD
 	cost_gold = expensive_building_tier_5_cost
+=======
+	show_disabled = yes
+	
+	cost_gold = 1000
+
+	effect_desc = {
+		desc = unlocks_building_desc
+		triggered_desc = {
+			trigger = { has_dlc_feature = tours_and_tournaments }
+			desc = university_toto_effect_desc
+		}
+		triggered_desc = {
+			trigger = { has_dlc_feature = royal_court }
+			desc = university_roco_effect_desc
+		}
+		desc = university_effect_desc
+	}
+
+	county_holder_character_modifier = {
+		learning = 2
+		monthly_lifestyle_xp_gain_mult = 0.1
+		cultural_head_fascination_mult = 0.05
+	}
+
+	county_modifier = {
+		development_growth_factor = 0.2
+		development_growth = 0.2
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_learning
+	flag = special_university
+}
+
+##########
+# Shigu Academy
+##########
+
+shigu_academy_01 = {
+	construction_time = very_slow_construction_time
+	
+	type_icon = "icon_structure_shaolin_monastery.dds"
+
+	can_construct_potential = {
+		building_requirement_tribal = no
+		building_university_requirement = yes
+	}
+	
+	can_construct = {
+		scope:holder = {
+			highest_held_title_tier >= tier_duchy
+			prestige_level >= 4
+		}
+		county = {
+			development_level >= 30
+		}
+	}
+	
+	show_disabled = yes
+	
+	cost_gold = 1000
+
+	effect_desc = {
+		desc = unlocks_building_desc
+		triggered_desc = {
+			trigger = { has_dlc_feature = tours_and_tournaments }
+			desc = university_toto_effect_desc
+		}
+		triggered_desc = {
+			trigger = { has_dlc_feature = royal_court }
+			desc = university_roco_effect_desc
+		}
+		desc = university_effect_desc
+	}
+
+	county_holder_character_modifier = {
+		learning_per_prestige_level = 1
+		monthly_lifestyle_xp_gain_mult = 0.1
+		monthly_dynasty_prestige = 0.1
+	}
+
+	county_modifier = {
+		development_growth_factor = 0.2
+		development_growth = 0.2
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_learning
+	flag = special_university
+}
+
+##########
+# Culai Academy
+##########
+
+culai_academy_01 = {
+	construction_time = very_slow_construction_time
+	
+	type_icon = "icon_structure_shaolin_monastery.dds"
+
+	can_construct_potential = {
+		building_requirement_tribal = no
+		building_university_requirement = yes
+	}
+	
+	can_construct = {
+		scope:holder = {
+			highest_held_title_tier >= tier_duchy
+			prestige_level >= 4
+		}
+		county = {
+			development_level >= 30
+		}
+	}
+	
+	show_disabled = yes
+	
+	cost_gold = 1000
+
+	effect_desc = {
+		desc = unlocks_building_desc
+		triggered_desc = {
+			trigger = { has_dlc_feature = tours_and_tournaments }
+			desc = university_toto_effect_desc
+		}
+		triggered_desc = {
+			trigger = { has_dlc_feature = royal_court }
+			desc = university_roco_effect_desc
+		}
+		desc = university_effect_desc
+	}
+
+	county_holder_character_modifier = {
+		learning_per_piety_level = 1
+		monthly_lifestyle_xp_gain_mult = 0.1
+		monthly_prestige = 0.05
+	}
+
+	county_modifier = {
+		development_growth_factor = 0.2
+		development_growth = 0.2
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_learning
+	flag = special_university
+}
+
+##########
+# Lize Academy
+##########
+
+lize_academy_01 = {
+	construction_time = very_slow_construction_time
+	
+	type_icon = "icon_structure_shaolin_monastery.dds"
+
+	can_construct_potential = {
+		building_requirement_tribal = no
+		building_university_requirement = yes
+	}
+	
+	can_construct = {
+		scope:holder = {
+			highest_held_title_tier >= tier_duchy
+			prestige_level >= 4
+		}
+		county = {
+			development_level >= 30
+		}
+	}
+	
+	show_disabled = yes
+	
+	cost_gold = 1000
+
+	effect_desc = {
+		desc = unlocks_building_desc
+		triggered_desc = {
+			trigger = { has_dlc_feature = tours_and_tournaments }
+			desc = university_toto_effect_desc
+		}
+		triggered_desc = {
+			trigger = { has_dlc_feature = royal_court }
+			desc = university_roco_effect_desc
+		}
+		desc = university_effect_desc
+	}
+
+	county_holder_character_modifier = {
+		learning_per_merit_level = 1
+		monthly_lifestyle_xp_gain_mult = 0.1
+		prestige_level_impact_mult = 0.15
+	}
+
+	county_modifier = {
+		development_growth_factor = 0.2
+		development_growth = 0.2
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_learning
+	flag = special_university
+}
+
+##########
+# Maoshan Academy
+##########
+
+maoshan_academy_01 = {
+	construction_time = very_slow_construction_time
+	
+	type_icon = "icon_structure_shaolin_monastery.dds"
+	
+	show_disabled = yes
+	
+	cost_gold = 1000
+
+	effect_desc = {
+		desc = unlocks_building_desc
+		triggered_desc = {
+			trigger = { has_dlc_feature = tours_and_tournaments }
+			desc = university_toto_effect_desc
+		}
+		triggered_desc = {
+			trigger = { has_dlc_feature = royal_court }
+			desc = university_roco_effect_desc
+		}
+		desc = university_effect_desc
+	}
+
+	character_modifier = {
+		monthly_piety = 0.25
+		monthly_dynasty_prestige_mult = 0.05
+		rite_creation_piety_cost_mult = -0.1
+	}
+	
+	county_modifier = {
+		tax_mult = 0.2
+		development_growth_factor = 0.2
+		development_growth = 0.15
+	}
+>>>>>>> 1.20
 	
 	province_modifier = {
 		monthly_income = gold_mine_generic_building_tax_tier_3
 		stationed_siege_weapon_siege_value_mult = high_maa_siege_value_tier_3
 		build_gold_cost = 0.1
 	}
+<<<<<<< HEAD
+=======
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = travel_point_of_interest_learning
+	flag = special_university
+	flag = religious_studies_location
+}
+
+##########
+# Tiantai Monasteries
+##########
+
+tiantai_monasteries_01 = {
+	construction_time = very_slow_construction_time
+	
+	type_icon = "icon_structure_shaolin_monastery.dds"
+	
+	show_disabled = yes
+	
+	cost_gold = 1000
+
+	effect_desc = {
+		desc = unlocks_building_desc
+		triggered_desc = {
+			trigger = { has_dlc_feature = tours_and_tournaments }
+			desc = university_toto_effect_desc
+		}
+		triggered_desc = {
+			trigger = { has_dlc_feature = royal_court }
+			desc = university_roco_effect_desc
+		}
+		desc = university_effect_desc
+	}
+
+	character_modifier = {
+		monthly_piety = 0.20
+		rite_creation_piety_cost_mult = -0.05
+	}
+	
+>>>>>>> 1.20
 	county_modifier = {
 		tax_mult = 0.15
 		levy_size = 0.3
@@ -728,8 +4009,132 @@ altair_core_03 = {
 	flag = special_mine_iron
 }
 
+<<<<<<< HEAD
 altair_core_04 = {
 	effect_desc = counts_as_infrastructure_desc
+=======
+##########
+# Jizu Shan Temples
+##########
+
+jizu_shan_temples_01 = {
+	construction_time = very_slow_construction_time
+	
+	type_icon = "icon_structure_shaolin_monastery.dds"
+	
+	show_disabled = yes
+	
+	cost_gold = 1000
+
+	effect_desc = {
+		desc = unlocks_building_desc
+		triggered_desc = {
+			trigger = { has_dlc_feature = tours_and_tournaments }
+			desc = university_toto_effect_desc
+		}
+		triggered_desc = {
+			trigger = { has_dlc_feature = royal_court }
+			desc = university_roco_effect_desc
+		}
+		desc = university_effect_desc
+	}
+
+	character_modifier = {
+		monthly_piety = 0.20
+		rite_creation_piety_cost_mult = -0.05
+	}
+	
+	county_modifier = {
+		tax_mult = 0.1
+		development_growth_factor = 0.15
+		development_growth = 0.1
+	}
+	
+	province_modifier = {
+		monthly_income = 1.5
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = travel_point_of_interest_learning
+	flag = holy_building
+	flag = special_university
+	flag = religious_studies_location
+}
+
+##########
+# Nanhua Temple
+##########
+
+nanhua_temple_01 = {
+	construction_time = very_slow_construction_time
+	
+	type_icon = "icon_structure_shaolin_monastery.dds"
+	
+	show_disabled = yes
+	
+	cost_gold = 1000
+
+	effect_desc = {
+		desc = unlocks_building_desc
+		triggered_desc = {
+			trigger = { has_dlc_feature = tours_and_tournaments }
+			desc = university_toto_effect_desc
+		}
+		triggered_desc = {
+			trigger = { has_dlc_feature = royal_court }
+			desc = university_roco_effect_desc
+		}
+		desc = university_effect_desc
+	}
+
+	character_modifier = {
+		monthly_piety = 0.20
+		rite_creation_piety_cost_mult = -0.05
+	}
+	
+	county_modifier = {
+		tax_mult = 0.1
+		development_growth_factor = 0.15
+		development_growth = 0.1
+	}
+	
+	province_modifier = {
+		monthly_income = 1.5
+	}
+	
+	ai_value = {
+		base = 100
+		modifier = { # Fill all building slots before going for special buildings
+			factor = 0
+			free_building_slots > 0
+		}
+	}
+	
+	type = special
+
+	flag = travel_point_of_interest_religious
+	flag = travel_point_of_interest_learning
+	flag = holy_building
+	flag = special_university
+	flag = religious_studies_location
+}
+
+##########
+# Mozu Tombs
+##########
+
+mozu_tombs = {
+>>>>>>> 1.20
 
 	asset = {
 		type = pdxmesh

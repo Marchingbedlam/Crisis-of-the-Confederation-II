@@ -17,6 +17,7 @@
 		# hegemony = 0
 	# }
 
+<<<<<<< HEAD
 	# is_shown = {
 		# faith = { #this is a decision for religious underdogs, needing a mountain home
 			# OR = { 
@@ -24,9 +25,25 @@
 				# has_doctrine = tenet_cthonic_redoubts
 			# }
 		# }
+=======
+	is_shown = {
+		#Must be in the region
+		any_held_title = {
+			title_tier = county
+			title_province ?= {
+				OR = {
+					geographical_region = world_middle_east_persia 
+					geographical_region = world_middle_east_arabia
+					geographical_region = world_asia_minor
+					geographical_region = world_middle_east_jerusalem
+				}
+			}
+		}
+>>>>>>> 1.20
 
 		# NOT = { exists = root.faith.religious_head }
 			
+<<<<<<< HEAD
 		# is_playable_character = yes 
 		# exists = dynasty #just for sanity 
 
@@ -65,6 +82,38 @@
 				# has_doctrine = tenet_cthonic_redoubts
 			# }
 		# }
+=======
+		#this is a decision for religious underdogs, needing a mountain home
+		OR = {
+			rite ?= { rite_has_tenet = tenet_cthonic_redoubts }
+			rite ?= { rite_has_doctrine = doctrine_heretic_branch_zandik }
+		}
+		is_playable_character = yes 
+
+		#Not repeatable.
+		NOT = {
+			is_target_in_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:restored_badd_fortress #so it can't happen twice
+			}
+		}
+		#Can't already be an empire, that'd ruin the underdog theme 
+		highest_held_title_tier <= tier_kingdom
+		exists = dynasty #just for sanity 
+	}
+
+	is_valid = {
+		#Should have decent piety
+		piety_level >= medium_piety_level 
+		#Completely controls Badd
+		has_title = title:c_tabriz 
+		has_title = title:b_ahar 
+		#again, a decision for religious underdogs, needing a mountain home
+		OR = {
+			rite = { rite_has_doctrine = doctrine_heretic_branch_zandik }
+			rite = { rite_has_tenet = tenet_cthonic_redoubts }
+		}
+>>>>>>> 1.20
 
 		# custom_tooltip = {
 			# text = babak_fortress_faith_requirements 
@@ -170,6 +219,7 @@
 	# sort_order = 70
 	# ai_check_interval = 0
 
+<<<<<<< HEAD
 	# is_shown = { #this is a decision for religious underdogs that have risen to prominence
 		# faith = { 
 			# AND = {
@@ -193,11 +243,35 @@
 			# }
 		# }
 	# }
+=======
+	is_shown = { #this is a decision for religious underdogs that have risen to prominence
+		is_ai = no #we don't want the AI to complicate things here 
+		#Not repeatable.
+		NOT = {
+			is_target_in_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:destroyed_the_magi #so it can't happen twice
+			}
+		}
+
+		exists = dynasty #just for sanity 
+
+		is_playable_character = yes 
+		NOT = { exists = root.faith.religious_head } #if you have restored the Zoroastrian priesthood, you wouldn't wanna destroy it 
+		rite ?= {
+			rite_has_doctrine = doctrine_heretic_branch_zandik
+			rite_has_doctrine = doctrine_theocracy_temporal
+		}
+
+		faith ?= { has_doctrine = doctrine_spiritual_head }
+	}
+>>>>>>> 1.20
 
 	# is_valid = {
 		
 		# piety_level >= high_piety_level
 		
+<<<<<<< HEAD
 		# faith = { has_doctrine = doctrine_heretic_branch_zandik }
 		
 		# custom_description = {
@@ -213,6 +287,23 @@
 			# }
 		# }
 	# }
+=======
+		rite = { rite_has_doctrine = doctrine_heretic_branch_zandik }
+		
+		custom_description = {
+			text = "restore_high_priesthood_holy_sites"
+			faith = {
+				any_holy_site_barony = {
+					OR = {
+						county.holder = root
+						county.holder.top_liege = { this = root }
+					}
+					count >= 3
+				}
+			}
+		}
+	}
+>>>>>>> 1.20
 
 	# is_valid_showing_failures_only = {
 		# is_landed = yes
@@ -244,6 +335,7 @@
 	# }
 # }
 
+<<<<<<< HEAD
 # kindle_royal_fire_decision = {
 	# title = kindle_royal_fire_decision
 	# picture = {
@@ -258,6 +350,24 @@
 		# religion = religion:zoroastrianism_religion
 		# NOT = { has_character_modifier = fp3_royal_fire_modifier }		
 	# }
+=======
+### Kindle Royal Fire ###
+kindle_royal_fire_decision = {
+	title = kindle_royal_fire_decision
+	picture = {
+		reference = "gfx/interface/illustrations/decisions/fp3/fp3_decision_foundation.dds"
+	}
+	decision_group_type = religious
+	desc = kindle_royal_fire_decision_desc
+	selection_tooltip = kindle_royal_fire_decision_tooltip
+	sort_order = 90
+
+	is_shown = {
+		religion ?= religion:zoroastrianism_religion
+		NOT = { has_character_modifier = fp3_royal_fire_modifier }		
+		is_playable_character = yes 
+	}
+>>>>>>> 1.20
 
 	# is_valid = {
 		# highest_held_title_tier >= tier_kingdom
@@ -313,6 +423,7 @@
 	# }
 # }
 
+<<<<<<< HEAD
 # ###################################
 # # Embrace Zoroastrianism
 # # Adopt a Zoroastrian faith in secret, provided one of your counties follows the chosen faith
@@ -332,6 +443,29 @@
 		# NOT = { has_religion = religion:zoroastrianism_religion }
 		# current_date <= 960.1.1
 	# }
+=======
+###################################
+# Embrace Zoroastrianism
+# Adopt a Zoroastrian faith in secret, provided one of your counties follows the chosen faith
+###################################
+### Embrace Zoroastrianism ###
+fp3_embrace_zoroastrianism_decision = {
+	picture = {
+		reference = "gfx/interface/illustrations/event_scenes/fp3_temple.dds"
+	}
+	decision_group_type = religious
+	desc = fp3_embrace_zoroastrianism_decision_desc
+	selection_tooltip = fp3_embrace_zoroastrianism_decision_tooltip
+	sort_order = 120
+	
+	is_shown = {
+		current_date <= 960.1.1
+		# Narratively, this decision is about embracing the faith of your ancestors over newer "modern" faiths
+		# Therefore, this decision should not be available to Zoroastrians looking to change their sect
+		NOT = { has_religion = religion:zoroastrianism_religion }
+		culture ?= { has_cultural_pillar = heritage_iranian }
+	}
+>>>>>>> 1.20
 
 	# is_valid = {
 		# # Don't grant more than 1 secret faith at once

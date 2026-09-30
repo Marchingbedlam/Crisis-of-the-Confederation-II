@@ -68,6 +68,7 @@ scripted_effect create_el_cid_story = {
 cid.0001 = {
 	type = character_event
 	window = fullscreen_event
+	queue_icon = "gfx/interface/icons/splash_icons/splash_byzantine.dds"
 	title = cid.0001.t
 	desc = {
 		desc = cid.0001.desc.intro
@@ -829,9 +830,7 @@ cid.1020 = {
 		custom_tooltip = cid_loyalty_counter_very_negative
 		if = {
 			limit = {
-				NOT = {
-					can_set_relation_lover_trigger = { CHARACTER = scope:spouse }
-				}
+				can_set_relation_lover_trigger = { CHARACTER = scope:spouse }
 			}
 			set_relation_lover = {
 				target = scope:spouse
@@ -1019,6 +1018,9 @@ cid.1040 = {
 				add = 2
 			}
 		}
+		stress_and_fulfillment_impact = {
+			zealous = minor_stress_impact_loss
+		}
 		ai_chance = {
 			base = 1000 # Historically determined
 		}
@@ -1031,6 +1033,9 @@ cid.1040 = {
 		change_variable = {
 			name = cid_loyalty_counter
 			add = 1
+		}
+		stress_and_fulfillment_impact = {
+			forgiving = minor_stress_impact_loss
 		}
 		ai_chance = {
 			base = 1000 # Historically determined
@@ -1048,6 +1053,9 @@ cid.1040 = {
 		change_variable = {
 			name = cid_loyalty_counter
 			add = -1
+		}
+		stress_and_fulfillment_impact = {
+			vengeful = minor_stress_impact_loss
 		}
 		ai_chance = {
 			base = 0
@@ -1361,7 +1369,7 @@ scripted_trigger cid_2010_possible_child_trigger = {
 	trigger_if = {
 		limit = {
 			NOR = {
-				faith = { has_doctrine = doctrine_polygamy }
+				rite = { rite_has_doctrine = doctrine_polygamy }
 				allowed_more_spouses = yes
 			}
 		}
@@ -1386,6 +1394,7 @@ scripted_effect cid_2010_create_proposed_spouse_effect = {
 		location = scope:liege.location
 		culture = scope:liege.location.culture
 		faith = scope:liege.location.faith
+		rite = scope:liege.location.rite
 		gender_female_chance = $CHANCE$
 		save_scope_as = proposed_spouse
 	}
@@ -1446,6 +1455,7 @@ cid.2010 = {
 				location = scope:liege.location
 				culture = scope:liege.location.culture
 				faith = scope:liege.location.faith
+				rite = scope:liege.location.rite
 				gender_female_chance = root_faith_dominant_gender_adjusted_female_chance
 				save_scope_as = herald
 			}
@@ -1869,6 +1879,7 @@ cid.4010 = {
 				location = scope:liege.location
 				culture = scope:liege.location.culture
 				faith = scope:liege.location.faith
+				rite = scope:liege.location.rite
 				gender_female_chance = root_faith_dominant_gender_adjusted_female_chance
 				save_scope_as = herald
 			}

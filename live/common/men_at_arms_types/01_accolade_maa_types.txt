@@ -286,7 +286,20 @@ accolade_maa_lancers = {
 	type = heavy_cavalry
 	
 	can_recruit = {
+<<<<<<< HEAD
 		always = no
+=======
+		any_accolade = {
+			accolade_attribute_level = {
+				type = lancer_attribute
+				level >= 2
+			}
+		}
+		NOT = {
+			culture = { has_cultural_parameter = strength_in_numbers_heavy_maa_ban }
+		}
+		NOT = { exists = scope:title }
+>>>>>>> 1.20
 	}
 
 	max_regiments = 1
@@ -457,6 +470,9 @@ accolade_maa_elephantiers = {
 				type = elephantry_attribute
 				level >= 2
 			}
+		}
+		NOT = {
+			culture = { has_cultural_parameter = strength_in_numbers_heavy_maa_ban }
 		}
 		NOT = { exists = scope:title }
 	}

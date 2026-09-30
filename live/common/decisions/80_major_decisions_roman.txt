@@ -16,6 +16,7 @@
 		# hegemony = 0
 	# }
 
+<<<<<<< HEAD
 	# is_shown = {
 		# is_ruler = yes
 		# is_playable_character = yes
@@ -35,6 +36,27 @@
 			# government_allows = administrative
 		# }
 	# }
+=======
+	is_shown = {
+		has_title = title:e_byzantium
+		is_playable_character = yes
+		NOT = { primary_title = title:e_hre }
+		NOT = { primary_title = title:e_italy }
+		NOT = {  #Can only do it once.
+			is_target_in_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:flag_restored_roman_empire
+			}
+		}
+		OR = {
+			government_has_flag = government_is_republic
+			government_has_mechanic = administrative
+			government_has_flag = government_is_feudal
+			government_has_flag = government_is_clan
+		}
+		is_ruler = yes
+	}
+>>>>>>> 1.20
 
 	# is_valid = {
 		# prestige_level >= max_prestige_level
@@ -56,6 +78,7 @@
 		# completely_controls = title:d_thessalonika
 	# }
 
+<<<<<<< HEAD
 	# is_valid_showing_failures_only = {
 		# is_landed = yes
 		# is_capable_adult = yes
@@ -99,6 +122,37 @@
 	# ai_potential = {
 		# always = yes
 	# }
+=======
+	effect = {
+		custom_tooltip = restore_roman_empire_decision_effect_tooltip
+		show_as_tooltip = {
+			create_roman_empire_scripted_effect = yes
+		}
+		if = {
+			limit = {
+				has_ep3_dlc_trigger = yes
+			}
+			trigger_event = ep3_roman_restoration.0100
+		}
+		else = {
+			trigger_event = roman_restoration.0001
+		}
+		hidden_effect = {
+			add_to_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:flag_restored_roman_empire
+			}
+			set_global_variable = {
+				name = flag_restored_roman_empire
+				value = root
+			}
+		}
+	}
+
+	ai_potential = {
+		always = yes
+	}
+>>>>>>> 1.20
 
 	# ai_will_do = {
 		# base = 100
@@ -124,6 +178,7 @@
 		# hegemony = 0
 	# }
 
+<<<<<<< HEAD
 	# is_shown = {
 		# is_ruler = yes
 		# is_playable_character = yes
@@ -146,6 +201,30 @@
 			# government_has_flag = government_is_administrative
 		# }
 	# }
+=======
+	is_shown = {
+		has_title = title:e_hre
+		is_playable_character = yes
+		OR = {
+			NOT = { has_title = title:e_byzantium } # Prioritize Byzaboos
+			primary_title ?= title:e_hre
+		}
+		NOT = { primary_title = title:e_italy }
+		NOT = {  #Can only do it once.
+			is_target_in_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:flag_restored_roman_empire
+			}
+		}
+		OR = {
+			government_has_flag = government_is_republic
+			government_has_flag = government_is_feudal
+			government_has_flag = government_is_clan
+			government_has_mechanic = administrative
+		}
+		is_ruler = yes
+	}
+>>>>>>> 1.20
 
 	# is_valid = {
 		# prestige_level >= max_prestige_level
@@ -172,6 +251,7 @@
 		# is_imprisoned = no
 		# top_liege = this
 
+<<<<<<< HEAD
 		# OR = {
 			# religion = { is_in_family = rf_abrahamic }
 			# religion = religion:hellenism_religion
@@ -203,6 +283,31 @@
 	# ai_potential = {
 		# always = yes
 	# }
+=======
+	effect = {
+		custom_tooltip = restore_roman_empire_decision_effect_tooltip
+		show_as_tooltip = {
+			create_roman_empire_holy_scripted_effect = yes
+		}
+		trigger_event = {
+			id = roman_restoration.0003
+		}
+		hidden_effect = {
+			add_to_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:flag_restored_roman_empire
+			}
+			set_global_variable = {
+				name = flag_restored_roman_empire
+				value = root
+			}
+		}
+	}
+
+	ai_potential = {
+		always = yes
+	}
+>>>>>>> 1.20
 
 	# ai_will_do = {
 		# base = 100
@@ -228,6 +333,7 @@
 		# hegemony = 0
 	# }
 
+<<<<<<< HEAD
 	# is_shown = {
 		# is_ruler = yes
 		# is_playable_character = yes
@@ -257,6 +363,37 @@
 			# government_has_flag = government_is_administrative
 		# }
 	# }
+=======
+	is_shown = {
+		is_target_in_global_variable_list = { #Only available after unifying Italy.
+			name = unavailable_unique_decisions
+			target = flag:flag_unified_italian_empire
+		}
+		is_playable_character = yes
+		has_title = title:e_italy
+		OR = {
+			NAND = {
+				has_title = title:e_byzantium #Prioritize Byzaboos
+				has_title = title:e_hre #And the Germans
+			}
+			primary_title ?= title:e_italy
+		}
+		NOT = {  #Can only do it once.
+			is_target_in_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:flag_restored_roman_empire
+			}
+		}
+		culture ?= { has_cultural_pillar = heritage_latin }
+		OR = {
+			government_has_flag = government_is_republic
+			government_has_flag = government_is_feudal
+			government_has_flag = government_is_clan
+			government_has_mechanic = administrative
+		}
+		is_ruler = yes
+	}
+>>>>>>> 1.20
 
 	# is_valid = {
 		# prestige_level >= max_prestige_level
@@ -284,6 +421,7 @@
 		# is_imprisoned = no
 		# top_liege = this
 
+<<<<<<< HEAD
 		# OR = {
 			# religion = { is_in_family = rf_abrahamic }
 			# religion = religion:hellenism_religion
@@ -315,6 +453,31 @@
 	# ai_potential = {
 		# always = yes
 	# }
+=======
+	effect = {
+		custom_tooltip = restore_roman_empire_decision_effect_tooltip
+		show_as_tooltip = {
+			create_roman_empire_italy_scripted_effect = yes
+		}
+		trigger_event = {
+			id = roman_restoration.0150
+		}
+		hidden_effect = {
+			add_to_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:flag_restored_roman_empire
+			}
+			set_global_variable = {
+				name = flag_restored_roman_empire
+				value = root
+			}
+		}
+	}
+
+	ai_potential = {
+		always = yes
+	}
+>>>>>>> 1.20
 
 	# ai_will_do = {
 		# base = 100
@@ -340,6 +503,7 @@
 		# hegemony = 0
 	# }
 
+<<<<<<< HEAD
 	# is_shown = {
 		# is_ruler = yes
 		# is_playable_character = yes
@@ -379,6 +543,47 @@
 			# }
 		# }
 	# }
+=======
+	is_shown = {
+		is_landed = yes # Laamps don't need to know about this
+		OR = {
+			culture ?= { has_cultural_pillar = heritage_turkic }
+			religion ?= religion:islam_religion
+		}
+		is_playable_character = yes
+		OR = {
+			top_liege ?= this
+			top_liege ?= { faith.religion = faith:sunni.religion }
+		}
+		capital_province ?= {
+			OR = {
+				geographical_region = world_persian_empire
+				geographical_region = world_asia_minor
+				geographical_region = custom_greater_armenia
+			}
+		}
+		OR = {
+			highest_held_title_tier < 4 #Dukes or lower, splitting off from Persia.
+			AND = {
+				top_liege ?= this #Or just a fancy way to get a new King title.
+				highest_held_title_tier < 5
+			}
+		}
+		NOT = {  #Can only do it once.
+			is_target_in_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:flag_formed_rum_sultanate
+			}
+		}
+		NOR = {
+			top_liege ?= { is_roman_emperor_trigger = yes }
+			exists = title:k_rum.holder
+		}
+		NOT = { faith.religion = religion:christianity_religion }
+		NOT = { culture = culture:greek }
+		is_ruler = yes
+	}
+>>>>>>> 1.20
 
 	# is_valid = {
 		# prestige_level >= high_prestige_level
@@ -429,6 +634,7 @@
 	# }
 # }
 
+<<<<<<< HEAD
 # mend_the_great_schism_decision = {
 	# picture = {
 		# reference = "gfx/interface/illustrations/decisions/decision_major_religion.dds"
@@ -436,6 +642,17 @@
 	# desc = mend_the_great_schism_decision_desc
 	# selection_tooltip = mend_the_great_schism_decision_tooltip
 	# decision_group_type = major
+=======
+### Mend the Great Schism ### conquest path, still valid, but since PAM it has a twin decision with a diplomatic route
+mend_the_great_schism_decision = {
+	picture = {
+		reference = "gfx/interface/illustrations/decisions/pam_decision_send_legatine_mission.dds"
+	}
+	desc = mend_the_great_schism_decision_desc
+	selection_tooltip = mend_the_great_schism_decision_tooltip
+	decision_group_type = religious
+	sort_order = 1
+>>>>>>> 1.20
 
 	# ai_check_interval_by_tier = {
 		# barony = 0
@@ -446,6 +663,7 @@
 		# hegemony = 120
 	# }
 
+<<<<<<< HEAD
 	# is_shown = {
 		# is_ruler = yes
 		# is_playable_character = yes
@@ -517,6 +735,91 @@
 	# ai_potential = {
 		# always = yes
 	# }
+=======
+	is_shown = {
+		faith.religion ?= faith:catholic.religion #Christian Only
+		is_playable_character = yes
+		# Schism has happened
+		has_global_variable = pam_great_schism_decision_taken
+		NOT = { has_global_variable = pam_great_schism_prevented }
+		NOT = {  #Can only do it once.
+			is_target_in_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:flag_mended_great_schism
+			}
+		}
+		is_ruler = yes
+	}
+
+	is_valid = {
+		highest_held_title_tier > 4 #Only Emperors+
+		piety_level >= max_piety_level
+		custom_tooltip = {
+			text = pam_christian_church_stability_tt
+			top_participant_group:the_christian_church ?= {
+				has_participant_group_parameter = the_christian_church_mending_the_schism_active
+			}
+		}
+		completely_controls = title:c_byzantion
+		completely_controls = title:c_antiocheia
+		completely_controls = title:c_jerusalem
+		completely_controls = title:c_alexandria
+		completely_controls = title:c_roma
+		custom_description = {
+			text = "mend_schism_byzantion_bishop"
+			title:c_byzantion.holder.faith = root.faith  #Either own County directly, or have a vassal of same religion.
+		}
+		custom_description = {
+			text = "mend_schism_antiocheia_bishop"
+			title:c_antiocheia.holder.faith = root.faith #Either own County directly, or have a vassal of same religion.
+		}
+		custom_description = {
+			text = "mend_schism_jerusalem_bishop"
+			title:c_jerusalem.holder.faith = root.faith #Either own County directly, or have a vassal of same religion.
+		}
+		custom_description = {
+			text = "mend_schism_alexandria_bishop"
+			title:c_alexandria.holder.faith = root.faith #Either own County directly, or have a vassal of same religion.
+		}
+		custom_description = {
+			text = "mend_schism_roma_bishop"
+			title:c_roma.holder.faith = root.faith #Either own County directly, or have a vassal of same religion.
+		}
+	}
+
+	is_valid_showing_failures_only = {
+		is_landed = yes
+		is_capable_adult = yes
+		is_imprisoned = no
+		top_liege = this
+		custom_tooltip = {
+			text = you_caused_great_schism
+			NOT = { has_variable = pam_caused_the_great_schism_var }
+		}
+	}
+
+	effect = {
+		gain_holy_legend_seed_tooltip_effect = yes
+		show_as_tooltip = {
+			mend_great_schism_scripted_effect = yes
+		}
+		pam_mend_great_schism_reward_effect = {
+			MODIFIER = pam_mended_great_schism_military_dynasty_modifier
+			CHARACTER_MODIFIER = pam_mended_great_schism_military_character_modifier
+		}
+		trigger_event = roman_restoration.0100
+		hidden_effect = {
+			add_to_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:flag_mended_great_schism
+			}
+		}
+	}
+
+	ai_potential = {
+		always = yes
+	}
+>>>>>>> 1.20
 
 	# ai_will_do = {
 		# base = 100
@@ -540,6 +843,7 @@
 		# hegemony = 0
 	# }
 
+<<<<<<< HEAD
 	# is_shown = {
 		# is_ruler = yes
 		# is_playable_character = yes
@@ -552,6 +856,20 @@
 			# title:c_avalon.holder = { this = root }
 		# }
 	# }
+=======
+	is_shown = {
+		has_title = title:e_byzantium
+		NOT = { capital_county = { this = title:c_byzantion } }
+		is_playable_character = yes
+		OR = {
+			title:c_byzantion.holder ?= { this = root }
+			title:c_byzantion.holder ?= {
+				any_liege_or_above = { this = root }
+			}
+		}
+		is_ruler = yes
+	}
+>>>>>>> 1.20
 
 	# is_valid_showing_failures_only = {
 		# is_landed = yes
@@ -629,6 +947,7 @@
 		# hegemony = 12
 	# }
 
+<<<<<<< HEAD
 	# is_shown = {
 		# is_ruler = yes
 		# is_playable_character = yes
@@ -641,6 +960,20 @@
 			# title:c_avalon.holder = { this = root }
 		# }
 	# }
+=======
+	is_shown = {
+		has_title = title:h_roman_empire
+		is_playable_character = yes
+		NOT = { capital_county = { this = title:c_roma } }
+		OR = {
+			title:c_roma.holder ?= { this = root }
+			title:c_roma.holder ?= {
+				any_liege_or_above = { this = root }
+			}
+		}
+		is_ruler = yes
+	}
+>>>>>>> 1.20
 
 	# is_valid_showing_failures_only = {
 		# is_landed = yes
@@ -667,6 +1000,7 @@
 			# }
 			# resolve_title_and_vassal_change = scope:change
 
+<<<<<<< HEAD
 		# }
 		# set_realm_capital = title:c_avalon
 	# }
@@ -674,6 +1008,15 @@
 	# ai_potential = {
 		# has_title = title:h_roman_empire
 	# }
+=======
+		}
+		set_realm_capital = title:c_roma
+	}
+
+	ai_potential = {
+		has_title = title:h_roman_empire
+	}
+>>>>>>> 1.20
 
 	# ai_will_do = { #Do it always, for coherence.
 		# base = 100
@@ -697,6 +1040,7 @@
 		# hegemony = 60
 	# }
 
+<<<<<<< HEAD
 	# is_shown = {
 		# is_ruler = yes
 		# is_playable_character = yes
@@ -704,6 +1048,15 @@
 		# NOT = { faith = { exists = religious_head } }
 		# highest_held_title_tier > 3 #Only Kings and Emperors
 	# }
+=======
+	is_shown = {
+		highest_held_title_tier > 3 #Only Kings and Emperors
+		faith ?= faith:iconoclast
+		is_playable_character = yes
+		NOT = { faith = { exists = religious_head } }
+		is_ruler = yes
+	}
+>>>>>>> 1.20
 
 	# is_valid = {
 		# completely_controls = title:c_avalon
@@ -717,6 +1070,7 @@
 		# top_liege = this
 	# }
 
+<<<<<<< HEAD
 	# effect = {
 		# custom_tooltip = establish_iconoclast_patriarchate_decision_effect_tooltip
 		# trigger_event = {
@@ -727,6 +1081,18 @@
 	# ai_potential = {
 		# always = yes
 	# }
+=======
+	effect = {
+		custom_tooltip = establish_iconoclast_patriarchate_decision_effect_tooltip
+		trigger_event = {
+			id = roman_restoration.0120
+		}
+	}
+
+	ai_potential = {
+		always = yes
+	}
+>>>>>>> 1.20
 
 	# ai_will_do = {
 		# base = 100
@@ -757,6 +1123,7 @@
 		# hegemony = 60
 	# }
 
+<<<<<<< HEAD
 	# is_shown = {
 		# is_ruler = yes
 		# is_playable_character = yes
@@ -764,6 +1131,15 @@
 		# NOT = { faith = { exists = religious_head } }
 		# highest_held_title_tier > 3 #Only Kings and Emperors
 	# }
+=======
+	is_shown = {
+		highest_held_title_tier > 3 #Only Kings and Emperors
+		faith ?= faith:orthodox
+		NOT = { faith = { exists = religious_head } }
+		is_playable_character = yes
+		is_ruler = yes
+	}
+>>>>>>> 1.20
 
 	# is_valid = {
 		# completely_controls = title:c_avalon
@@ -777,6 +1153,7 @@
 		# top_liege = this
 	# }
 
+<<<<<<< HEAD
 	# effect = {
 		# custom_tooltip = restore_ecumenical_patriarchate_decision_effect_tooltip
 		# trigger_event = {
@@ -787,6 +1164,18 @@
 	# ai_potential = {
 		# always = yes
 	# }
+=======
+	effect = {
+		custom_tooltip = restore_ecumenical_patriarchate_decision_effect_tooltip
+		trigger_event = {
+			id = roman_restoration.0122
+		}
+	}
+
+	ai_potential = {
+		always = yes
+	}
+>>>>>>> 1.20
 
 	# ai_will_do = {
 		# base = 100
@@ -817,6 +1206,7 @@
 		# hegemony = 12
 	# }
 
+<<<<<<< HEAD
 	# is_shown = {
 		# is_ruler = yes
 		# is_playable_character = yes
@@ -824,6 +1214,15 @@
 		# NOT = { faith = { exists = religious_head } }
 		# highest_held_title_tier > 3 #Only Kings and Emperors
 	# }
+=======
+	is_shown = {
+		highest_held_title_tier > 3 #Only Kings and Emperors
+		faith ?= faith:catholic
+		NOT = { faith = { exists = religious_head } }
+		is_playable_character = yes
+		is_ruler = yes
+	}
+>>>>>>> 1.20
 
 	# is_valid = {
 		# completely_controls = title:c_avalon
@@ -841,6 +1240,7 @@
 		# top_liege = this
 	# }
 
+<<<<<<< HEAD
 	# effect = {
 		# custom_tooltip = restore_papacy_decision_effect_tooltip
 		# show_as_tooltip = {
@@ -856,6 +1256,23 @@
 		# highest_held_title_tier > 3 #Only Kings and Emperors
 		# NOT = { faith = { exists = religious_head } }
 	# }
+=======
+	effect = {
+		custom_tooltip = restore_papacy_decision_effect_tooltip
+		show_as_tooltip = {
+			restore_papacy_scripted_effect = yes
+		}
+		trigger_event = {
+			id = roman_restoration.0124
+		}
+	}
+
+	ai_potential = {
+		faith = faith:catholic
+		highest_held_title_tier > 3 #Only Kings and Emperors
+		NOT = { faith = { exists = religious_head } }
+	}
+>>>>>>> 1.20
 
 	# ai_will_do = { #Always do it when possible.
 		# base = 100
@@ -886,6 +1303,7 @@
 		# hegemony = 12
 	# }
 
+<<<<<<< HEAD
 	# is_shown = {
 		# is_ruler = yes
 		# is_playable_character = yes
@@ -933,6 +1351,53 @@
 			# }
 		# }
 	# }
+=======
+	is_shown = {
+		faith ?= faith:catholic
+		NOT = { title:c_roma.holder = { has_title = title:k_papal_state } }
+		is_playable_character = yes
+		NOR = {
+			has_title = title:k_papal_state
+			is_roman_emperor_excluding_byzantium_trigger = yes
+		}
+		NOT = { capital_county = { this = title:c_roma } }
+		title:k_papal_state.holder ?= {
+			NOR = {
+				has_opinion_modifier = { #Not accepting it if you conquered it yourself.
+					target = root
+					modifier = declared_war
+				}
+				has_opinion_modifier = { #Not accepting it if you conquered it yourself.
+					target = root
+					modifier = revoked_title
+				}
+			}
+		}
+		NOT = { has_character_flag = flag_already_given_rome_once }
+		is_ruler = yes
+	}
+
+	is_valid_showing_failures_only = {
+		is_landed = yes
+		is_capable_adult = yes
+		is_imprisoned = no
+		top_liege = this
+		highest_held_title_tier > 3 #Only Kings and Emperors
+		custom_tooltip = {
+			text = hof_exists_tt
+			faith = { exists = religious_head }
+		}
+		custom_tooltip = {
+			text = rome_held_by_you_or_vassal_tt
+			OR = {
+				title:c_roma.holder = {
+					any_liege_or_above = { this = root }
+				}
+				title:c_roma.holder = { this = root }
+			}
+		}
+	}
+>>>>>>> 1.20
 
 	# effect = {
 		# add_piety = 1000
@@ -950,6 +1415,7 @@
 		# }
 		# resolve_title_and_vassal_change = scope:change
 
+<<<<<<< HEAD
 		# title:k_papal_state.holder = {
 			# set_realm_capital = title:c_avalon
 			# add_opinion = {
@@ -963,6 +1429,21 @@
 		# faith = faith:catholic
 		# highest_held_title_tier > 3 #Only Kings and Emperors
 	# }
+=======
+		title:k_papal_state.holder = {
+			set_realm_capital = title:c_roma
+			add_opinion = {
+				target = prev
+				modifier = restored_papacy_opinion
+			}
+		}
+	}
+
+	ai_potential = {
+		faith = faith:catholic
+		highest_held_title_tier > 3 #Only Kings and Emperors
+	}
+>>>>>>> 1.20
 
 	# ai_will_do = { #Do it always, for coherence.
 		# base = 100
@@ -1003,6 +1484,7 @@
 		# hegemony = 60
 	# }
 
+<<<<<<< HEAD
 	# is_shown = {
 		# is_ruler = yes
 		# is_playable_character = yes
@@ -1024,6 +1506,30 @@
 			# }
 		# }
 	# }
+=======
+	is_shown = {
+		highest_held_title_tier > 3 #Only Kings and Emperors
+		capital_province ?= { #Indians could not possibly care...
+			OR = {
+				geographical_region = world_europe
+				geographical_region = world_middle_east
+				geographical_region = world_africa_north
+			}
+		}
+		faith:catholic = {
+			faith_hostility_level = {
+				target = root.faith
+				value >= faith_hostile_level
+			}
+		}
+		is_playable_character = yes
+		title:k_papal_state.holder.faith ?= faith:catholic # To avoid it showing for Chalcedonianism
+		faith:catholic = {
+			has_doctrine = doctrine_spiritual_head
+		}
+		is_ruler = yes
+	}
+>>>>>>> 1.20
 
 	# is_valid = {
 		# trigger_if = {
@@ -1043,6 +1549,7 @@
 		# top_liege = this
 	# }
 
+<<<<<<< HEAD
 	# effect = {
 		# custom_tooltip = dismantle_papacy_decision_effect_tooltip
 		# gain_holy_legend_seed_tooltip_effect = yes
@@ -1063,6 +1570,28 @@
 	# ai_potential = {
 		# always = yes
 	# }
+=======
+	effect = {
+		custom_tooltip = dismantle_papacy_decision_effect_tooltip
+		gain_holy_legend_seed_tooltip_effect = yes
+		hidden_effect = {
+			legend_seed_great_deed_faith_effect = {
+				ANTAGONIST = title:k_papal_state.holder
+				OLD_FAITH = title:k_papal_state.holder.faith
+			}
+		}
+		show_as_tooltip = {
+			destroy_papacy_scripted_effect = yes
+		}
+		trigger_event = {
+			id = roman_restoration.0130
+		}
+	}
+
+	ai_potential = {
+		always = yes
+	}
+>>>>>>> 1.20
 
 	# ai_will_do = { #Do it always.
 		# base = 100
@@ -1087,6 +1616,7 @@
 		# hegemony = 120
 	# }
 
+<<<<<<< HEAD
 	# is_shown = {
 		# culture = { has_cultural_pillar = heritage_latin }
 		# is_ruler = yes
@@ -1112,6 +1642,32 @@
 			# }
 		# }
 	# }
+=======
+	is_shown = {
+		highest_held_title_tier > 2 #Dukes and above
+		culture ?= { has_cultural_pillar = heritage_latin }
+		is_playable_character = yes
+		capital_province ?= { geographical_region = world_europe_south_italy }
+		NOR = {
+			#Can only do it once.
+			is_target_in_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:flag_unified_italian_empire
+			}
+			#Too late.
+			is_target_in_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:flag_restored_roman_empire
+			}
+			#Too late.
+			is_target_in_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:flag_reformed_carolingian_empire
+			}
+		}
+		is_ruler = yes
+	}
+>>>>>>> 1.20
 
 	# is_valid = {
 		# prestige_level >= very_high_prestige_level
@@ -1130,6 +1686,7 @@
 		# is_at_war = no
 	# }
 
+<<<<<<< HEAD
 	# effect = {
 		# gain_heroic_legend_seed_tooltip_effect = yes
 		# custom_tooltip = unify_italian_empire_decision_effect_tooltip
@@ -1151,6 +1708,29 @@
 	# ai_potential = {
 		# always = yes
 	# }
+=======
+	effect = {
+		gain_heroic_legend_seed_tooltip_effect = yes
+		custom_tooltip = unify_italian_empire_decision_effect_tooltip
+		trigger_event = {
+			id = roman_restoration.0140
+		}
+		hidden_effect = {
+			add_to_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:flag_unified_italian_empire
+			}
+			set_global_variable = {
+				name = flag_unified_italian_empire
+				value = root
+			}
+		}
+	}
+
+	ai_potential = {
+		always = yes
+	}
+>>>>>>> 1.20
 
 	# ai_will_do = {
 		# base = 100
@@ -1175,6 +1755,7 @@
 		# hegemony = 120
 	# }
 
+<<<<<<< HEAD
 	# is_shown = {
 		# exists = title:e_hre.holder #Must exist in the first place...
 		# NOT = {
@@ -1192,6 +1773,26 @@
 			# has_character_flag = flag_emperor_challenged_hre #Applied in war.
 		# }
 	# }
+=======
+	is_shown = {
+		OR = {
+			culture ?= { has_cultural_pillar = heritage_latin }
+			culture ?= { has_cultural_pillar = heritage_byzantine }
+		}
+		is_roman_emperor_trigger = yes
+		has_none_of_variables = {
+			#Once an Emperor throws the challenge, he has only one chance to dismantle the Empire.
+			name = flag_emperor_challenging_hre #Applied below.
+			name = flag_emperor_challenged_hre #Applied in war.
+		}
+		NOT = {
+			root = title:e_hre.holder #That'd be awkward...
+		}
+		exists = title:e_hre.holder #Must exist in the first place...
+		is_playable_character = yes
+		is_ruler = yes
+	}
+>>>>>>> 1.20
 
 	# is_valid = {
 		# prestige_level >= max_prestige_level
@@ -1217,6 +1818,7 @@
 		# prestige = 2000
 	# }
 
+<<<<<<< HEAD
 	# effect = {
 		# custom_tooltip = dismantle_holy_pretender_decision_effect_tooltip
 		# trigger_event = {
@@ -1227,6 +1829,18 @@
 	# ai_potential = {
 		# has_trait = ambitious
 	# }
+=======
+	effect = {
+		custom_tooltip = dismantle_holy_pretender_decision_effect_tooltip
+		trigger_event = {
+			id = roman_restoration.0160
+		}
+	}
+
+	ai_potential = {
+		has_trait = ambitious
+	}
+>>>>>>> 1.20
 
 	# ai_will_do = {
 		# base = 100
@@ -1250,6 +1864,7 @@
 		# hegemony = 120
 	# }
 
+<<<<<<< HEAD
 	#is_shown = {
 	#	exists = title:e_byzantium.holder #Must exist in the first place...
 	#	NOT = {
@@ -1291,11 +1906,56 @@
 		# top_liege = this
 		# is_at_war = no
 	# }
+=======
+	is_shown = {
+		OR = {
+			culture ?= { has_cultural_pillar = heritage_central_germanic }
+			culture ?= { has_cultural_pillar = heritage_frankish }
+			culture ?= { has_cultural_pillar = heritage_latin }
+		}
+		is_playable_character = yes
+		OR = {
+			has_title = title:e_hre
+			is_roman_emperor_trigger = yes
+		}
+		has_none_of_variables = {
+			#Once an Emperor throws the challenge, he has only one chance to dismantle the Empire.
+			name = flag_emperor_challenging_byz #Applied below.
+			name = flag_emperor_challenged_byz #Applied in war.
+		}
+		NOT = {
+			root = title:e_byzantium.holder #That'd be awkward...
+		}
+		exists = title:e_byzantium.holder #Must exist in the first place...
+		is_ruler = yes
+	}
+
+	is_valid = {
+		prestige_level >= max_prestige_level
+		#All the Italian Peninsula
+		completely_controls_region = world_europe_south_italy
+		#And Epirus/Hellas (Greek foothold).
+		completely_controls = title:d_dyrrachion
+		completely_controls = title:d_cephalonia
+		completely_controls = title:d_epirus
+		completely_controls = title:d_athens
+		completely_controls = title:d_achaia
+	}
+
+	is_valid_showing_failures_only = {
+		is_landed = yes
+		is_capable_adult = yes
+		is_imprisoned = no
+		top_liege = this
+		is_at_war = no
+	}
+>>>>>>> 1.20
 
 	# cost = {
 		# prestige = 2000
 	# }
 
+<<<<<<< HEAD
 	# effect = {
 		# custom_tooltip = dismantle_byz_pretender_decision_effect_tooltip
 		# trigger_event = {
@@ -1306,6 +1966,18 @@
 	# ai_potential = {
 		# has_trait = ambitious
 	# }
+=======
+	effect = {
+		custom_tooltip = dismantle_byz_pretender_decision_effect_tooltip
+		trigger_event = {
+			id = roman_restoration.0170
+		}
+	}
+
+	ai_potential = {
+		has_trait = ambitious
+	}
+>>>>>>> 1.20
 
 	# ai_will_do = {
 		# base = 100
@@ -1335,6 +2007,7 @@
 	# desc = rebuke_roman_revanchism_sicily_desc
 	# selection_tooltip = rebuke_roman_revanchism_sicily_tooltip
 
+<<<<<<< HEAD
 	# is_shown = {
 		# # Standard filter checks.
 		# is_playable_character = yes
@@ -1360,6 +2033,33 @@
 			# }
 		# }
 	# }
+=======
+	is_shown = {
+		# Has land in Sicily.
+		any_held_title = {
+			title_tier = county
+			title_province ?= { geographical_region = custom_sicily }
+		}
+		# Sicily is still under the ERE.
+		title:e_byzantium = { is_de_jure_liege_or_above_target = title:k_sicily }
+		# Outside the ERE.
+		NOR = {
+			any_liege_or_above = { has_title = title:e_byzantium }
+			has_title = title:e_byzantium
+		}
+		# Aaaaaaand it's already happened in 1178.
+		NOT = { game_start_date >= 1178.10.1 }
+		# Not repeatable.
+		NOT = {
+			is_target_in_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:flag_rebuked_roman_claim_to_sicily
+			}
+		}
+		# Standard filter checks.
+		is_playable_character = yes
+	}
+>>>>>>> 1.20
 
 	# is_valid = {
 		# # Must be independent.

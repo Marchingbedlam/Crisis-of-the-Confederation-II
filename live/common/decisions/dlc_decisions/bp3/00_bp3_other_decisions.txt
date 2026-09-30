@@ -39,13 +39,20 @@ choose_designated_terrain_decision = {
 	decision_group_type = major
 
 	is_shown = {
+<<<<<<< HEAD
 		is_landed = no
+=======
+>>>>>>> 1.20
 		has_perk = mustering_the_troops_perk
 		NOR = {
 			landless_inspector_terrain_master_trigger = { TERRAIN = woodlands }
 			landless_inspector_terrain_master_trigger = { TERRAIN = highlands }
 			landless_inspector_terrain_master_trigger = { TERRAIN = lowlands }
 			landless_inspector_terrain_master_trigger = { TERRAIN = drylands }
+		}
+		OR = {
+			is_landed = no
+			government_has_flag = government_is_nomadic
 		}
 	}
 
@@ -196,8 +203,13 @@ choose_master_terrain_decision = {
 	decision_group_type = major
 
 	is_shown = {
-		is_landed = no
 		has_perk = personal_touch_perk
+		OR = {
+			landless_inspector_terrain_master_trigger = { TERRAIN = woodlands }
+			landless_inspector_terrain_master_trigger = { TERRAIN = highlands }
+			landless_inspector_terrain_master_trigger = { TERRAIN = lowlands }
+			landless_inspector_terrain_master_trigger = { TERRAIN = drylands }
+		}
 		NOR = {
 			# Woodlands
 			has_character_modifier = master_terrain_forest_modifier
@@ -218,12 +230,7 @@ choose_master_terrain_decision = {
 			has_character_modifier = master_terrain_desert_modifier
 			has_character_modifier = master_terrain_oasis_modifier
 		}
-		OR = {
-			landless_inspector_terrain_master_trigger = { TERRAIN = woodlands }
-			landless_inspector_terrain_master_trigger = { TERRAIN = highlands }
-			landless_inspector_terrain_master_trigger = { TERRAIN = lowlands }
-			landless_inspector_terrain_master_trigger = { TERRAIN = drylands }
-		}
+		is_landed = no
 	}
 
 	widget = {
@@ -591,6 +598,7 @@ choose_master_terrain_decision = {
 	# decision_group_type = major
 	# sort_order = 50
 
+<<<<<<< HEAD
 	# is_shown = {
 		# NOT = {
 			# is_target_in_global_variable_list = {
@@ -614,6 +622,31 @@ choose_master_terrain_decision = {
 			# }
 		# }
 	# }
+=======
+	is_shown = {
+		culture ?= {
+			OR = {
+				has_cultural_pillar = heritage_central_germanic
+				has_cultural_pillar = heritage_byzantine
+			}
+		}
+		any_held_title = {
+			OR = {
+				de_jure_liege ?= title:d_crimea
+				this = title:d_azov
+				de_jure_liege ?= title:d_azov
+				this = title:d_crimea
+			}
+		}
+		highest_held_title_tier <= tier_kingdom
+		NOT = {
+			is_target_in_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:flag_bosporan_kingdom
+			}
+		}
+	}
+>>>>>>> 1.20
 
 	# is_valid = {
 		# completely_controls = title:d_crimea
@@ -778,6 +811,7 @@ choose_master_terrain_decision = {
 	# decision_group_type = major
 	# sort_order = 50
 
+<<<<<<< HEAD
 	# is_shown = {
 		# NOT = {
 			# is_target_in_global_variable_list = {
@@ -791,6 +825,25 @@ choose_master_terrain_decision = {
 			# has_title = title:k_france
 		# }
 	# }
+=======
+	is_shown = {
+		culture ?= { has_cultural_pillar = heritage_frankish }
+		OR = {
+			has_title = title:k_france
+			has_title = title:k_aquitaine
+		}
+		NOR = {
+			title:k_aquitaine = { is_titular = yes }
+			title:k_france = { is_titular = yes }
+		}
+		NOT = {
+			is_target_in_global_variable_list = {
+				name = unavailable_unique_decisions
+				target = flag:merged_aquitaine
+			}
+		}
+	}
+>>>>>>> 1.20
 
 	# is_valid = {
 		# has_title = title:k_aquitaine
@@ -889,8 +942,6 @@ enact_legacy_of_adventurer_decision = {
 	}
 
 	is_shown = {
-		# DLC check.
-		has_ep3_dlc_trigger = yes
 		is_landless_adventurer = yes
 		NOT = { has_trait = gallowsbait }
 		NOT = { 
@@ -898,6 +949,8 @@ enact_legacy_of_adventurer_decision = {
 				has_house_modifier = legacy_adventurer_house_modifier
 			}
 		}
+		# DLC check.
+		has_ep3_dlc_trigger = yes
 	}
 
 	is_valid = {
