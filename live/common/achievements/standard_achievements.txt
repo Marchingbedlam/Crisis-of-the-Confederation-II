@@ -4,7 +4,6 @@
 }
 
 way_of_life_achievement = {
-<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
 }
@@ -12,124 +11,6 @@ way_of_life_achievement = {
 a_legacy_to_last_the_ages_achievement = {
 	possible = { always = no }
 	happened = { always = no }
-=======
-	possible = {
-		NOR = {
-			AND = {
-				has_perk = diplomat_perk
-				has_perk = august_perk
-				has_perk = family_man_perk
-			}
-			AND = {
-				has_perk = schemer_perk
-				has_perk = seducer_perk
-				has_perk = torturer_perk
-			}
-			AND = {
-				has_perk = whole_of_body_perk
-				has_perk = erudite_perk
-				has_perk = theologian_perk
-			}
-			AND = {
-				has_perk = strategist_perk
-				has_perk = overseer_perk
-				has_perk = gallant_perk
-			}
-			AND = {
-				has_perk = avaricious_perk
-				has_perk = architect_perk
-				has_perk = administrator_perk
-			}
-		}
-	}
-	happened = {
-		custom_description = {
-			text = way_of_life_achievement_trigger
-			OR = {
-				AND = {
-					has_perk = diplomat_perk
-					has_perk = august_perk
-					has_perk = family_man_perk
-				}
-				AND = {
-					has_perk = schemer_perk
-					has_perk = seducer_perk
-					has_perk = torturer_perk
-				}
-				AND = {
-					has_perk = whole_of_body_perk
-					has_perk = erudite_perk
-					has_perk = theologian_perk
-				}
-				AND = {
-					has_perk = strategist_perk
-					has_perk = overseer_perk
-					has_perk = gallant_perk
-				}
-				AND = {
-					has_perk = avaricious_perk
-					has_perk = architect_perk
-					has_perk = administrator_perk
-				}
-			}
-		}
-	}
-}
-
-a_legacy_to_last_the_ages_achievement = {
-	possible = {
-		dynasty ?= {
-			NOR = {
-				has_dynasty_perk = blood_legacy_5
-				has_dynasty_perk = warfare_legacy_5
-				has_dynasty_perk = law_legacy_5
-				has_dynasty_perk = guile_legacy_5
-				has_dynasty_perk = erudition_legacy_5
-				has_dynasty_perk = glory_legacy_5
-				has_dynasty_perk = kin_legacy_5
-				has_dynasty_perk = fp1_adventure_legacy_5
-				has_dynasty_perk = fp1_pillage_legacy_5
-				has_dynasty_perk = ep1_culture_legacy_5
-				has_dynasty_perk = fp2_urbanism_legacy_5
-				has_dynasty_perk = fp2_coterie_legacy_5
-				has_dynasty_perk = fp3_khvarenah_legacy_5
-			}
-		}
-	}
-	happened = {
-		custom_description = {
-			text = a_legacy_to_last_the_ages_achievement_trigger
-			dynasty = {
-				OR = {
-					has_dynasty_perk = blood_legacy_5
-					has_dynasty_perk = warfare_legacy_5
-					has_dynasty_perk = law_legacy_5
-					has_dynasty_perk = guile_legacy_5
-					has_dynasty_perk = erudition_legacy_5
-					has_dynasty_perk = glory_legacy_5
-					has_dynasty_perk = kin_legacy_5
-					#FP1
-					has_dynasty_perk = fp1_adventure_legacy_5
-					has_dynasty_perk = fp1_pillage_legacy_5
-					#EP1
-					has_dynasty_perk = ep1_culture_legacy_5
-					#FP2
-					has_dynasty_perk = fp2_urbanism_legacy_5
-					has_dynasty_perk = fp2_coterie_legacy_5
-					#FP3
-					has_dynasty_perk = fp3_khvarenah_legacy_5
-					#EP2
-					has_dynasty_perk = ep2_activities_legacy_5
-					#CE1
-					has_dynasty_perk = ce1_heroic_legacy_5
-					has_dynasty_perk = ce1_legitimacy_legacy_5
-					#EP3
-					has_dynasty_perk = ep3_administrative_legacy_5
-				}
-			}
-		}
-	}
->>>>>>> 1.20
 }
 
 a_house_of_my_own_achievement = {
@@ -168,7 +49,6 @@ last_count_first_king_achievement = {
 }
 
 prolific_achievement = {
-<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
 }
@@ -176,36 +56,6 @@ prolific_achievement = {
 a_name_known_throughout_the_world_achievement = {
 	possible = { always = no }
 	happened = { always = no }
-=======
-	possible = {
-
-	}
-	happened = {
-		custom_description = {
-			text = prolific_achievement_trigger
-			dynasty ?= {
-				any_dynasty_member = {
-					count >= 100
-					is_alive = yes
-				}
-			}
-		}
-	}
-}
-
-a_name_known_throughout_the_world_achievement = {
-	possible = {
-
-	}
-	happened = {
-		custom_description = {
-			text = a_name_known_throughout_the_world_achievement_trigger
-			dynasty ?= {
-				dynasty_prestige_level >= max_dynasty_prestige_level
-			}
-		}
-	}
->>>>>>> 1.20
 }
 
 end_of_an_era_achievement = {
@@ -229,28 +79,8 @@ seven_holy_cities_achievement = {
 }
 
 frankokratia_achievement = {
-<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
-=======
-	possible = {
-		
-	}
-	happened = {
-		custom_description = {
-			text = frankokratia_achievement_trigger
-			completely_controls = title:k_thessalonika
-			culture = culture:french
-			faith = faith:catholic
-			NOR = {
-				is_roman_emperor_trigger = yes
-				any_liege_or_above = {
-					is_roman_emperor_trigger = yes
-				}
-			}
-		}
-	}
->>>>>>> 1.20
 }
 
 celebrity_achievement = {
@@ -284,26 +114,8 @@ followed_by_shadows_achievement = {
 }
 
 what_nepotism_achievement = {
-<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
-=======
-	possible = {
-
-	}
-	happened = {
-		custom_description = {
-			text = what_nepotism_achievement_trigger
-			dynasty ?= {
-				any_dynasty_member = {
-					count >= 10
-					highest_held_title_tier >= tier_kingdom
-					top_liege = this
-				}
-			}
-		}
-	}
->>>>>>> 1.20
 }
 
 rise_from_the_ashes_achievement = {
@@ -317,20 +129,8 @@ the_emerald_isle_achievement = {
 }
 
 from_rags_to_riches_achievement = {
-<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
-=======
-	possible = {
-		has_global_variable = achievement_rags_to_riches_valid
-	}
-	happened = {
-		custom_description = {
-			text = from_rags_to_riches_achievement_trigger
-			highest_held_title_tier >= tier_empire
-		}
-	}
->>>>>>> 1.20
 }
 
 give_a_dog_a_bone_achievement = {
@@ -459,31 +259,8 @@ a_perfect_circle_achievement = {
 }
 
 carolingian_consolidation_achievement = {
-<<<<<<< HEAD
 	possible = { always = no }
 	happened = { always = no }
-=======
-	possible = {
-		root.dynasty ?= {
-			this = dynasty:25061
-		}
-	}
-	happened = {
-		custom_description = {
-			text = carolingian_consolidation_achievement_trigger
-			top_liege = this
-			NOT = {
-				root.dynasty = {
-					any_dynasty_member = {
-						is_playable_character = yes
-						top_liege = this
-						this != root
-					}
-				}
-			}
-		}
-	}
->>>>>>> 1.20
 }
 
 moving_up_in_the_world_achievement = {

@@ -107,32 +107,9 @@ ep2_12_fly_my_pretty_achievement = {
 
 # 13. Pathway to Heaven
 ep2_13_pathway_to_heaven_achievement = {
-<<<<<<< HEAD
 	possible = { 
 		always = no
 		has_ep2_dlc_trigger = yes
-=======
-	possible = {
-		exists = global_var:started_pathway_to_heaven_achievement
-		
-	}
-	happened = {
-		custom_description = {
-			text = pathway_to_heaven_achievement_trigger
-			faith = {
-				any_holy_site_barony = {
-					count = all
-					save_temporary_scope_as = holy_site_temp
-					root = {
-						is_target_in_variable_list = {
-							name = pathway_to_heaven_achievement_tally
-							target = scope:holy_site_temp
-						}
-					}
-				}
-			}
-		}
->>>>>>> 1.20
 	}
 	happened = { always = no }
 }
