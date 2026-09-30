@@ -23,11 +23,6 @@
 						government_is_japanese_trigger = yes
 					}
 				}
-<<<<<<< HEAD
-				ai_zeal >= 100
-			}
-		}
-=======
 				OR = {
 					ai_zeal >= 100
 					has_character_modifier = pam_sf_demon_torment_modifier
@@ -36,7 +31,6 @@
 		}
 		ai_activity_war_check = yes
 		ai_activity_coronation_check = yes
->>>>>>> 1.20
 	}
 
 	can_start_showing_failures_only = {
@@ -91,14 +85,9 @@
 		}
 		#Are you mandatory Hajj and Mecca is your capital?
 		trigger_if = {
-			limit = { 
-<<<<<<< HEAD
+			limit = {
 				faith = { has_doctrine_parameter = mandatory_hajj }
-				capital_province.barony ?= title:b_avalon_iii
-=======
-				rite = { rite_has_parameter = mandatory_hajj }
-				capital_province.barony ?= title:b_makka
->>>>>>> 1.20
+				capital_province.barony ?= title:b_earth
 				is_landless_adventurer = no
 			}
 			custom_tooltip = {
@@ -230,21 +219,18 @@
 		# Holy site cooldown should block province selection (map color/click) just like pin selection.
 		trigger_if = {
 			limit = {
-<<<<<<< HEAD
 				scope:special_option = flag:pilgrimage_type_hajj
 				exists = barony
 			}
 			custom_tooltip = {
 				text = activity_pilgrimage.is_location_valid.hajj_mecca
-				barony = title:b_avalon_iii
+				barony = title:b_earth
 			}
 		}
 		#You only get to visit any particular holy site once every 5 years
 		custom_tooltip = { 
 			text = activity_pilgrimage.is_location_valid.recently_visited
 			NOT = {
-=======
->>>>>>> 1.20
 				scope:host = {
 					any_memory = {
 						has_variable = pilgrimage_destination
@@ -1515,7 +1501,7 @@
 					trigger_if = {
 						limit = {
 							exists = capital_province
-							NOT = { capital_province.barony = title:b_avalon_iii }
+							NOT = { capital_province.barony = title:b_earth }
 						}
 						custom_tooltip = {
 							text = activity_pilgrimage.is_valid.hajjed_recently
@@ -1536,7 +1522,7 @@
 						text = activity_pilgrimage.is_location_valid.capital_is_mecca
 						NAND = {
 							exists = capital_province
-							capital_province.barony = title:b_avalon_iii
+							capital_province.barony = title:b_earth
 							is_landless_adventurer = no
 						}
 					}
