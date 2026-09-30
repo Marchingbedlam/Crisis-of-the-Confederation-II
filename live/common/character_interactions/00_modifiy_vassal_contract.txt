@@ -14,20 +14,12 @@
 
 	is_shown = {
 		scope:recipient = {
-<<<<<<< HEAD
-			this != scope:actor
-			liege ?= scope:actor # this excludes tributary contracts by default
-			is_ruler = yes
-			vassal_contract_has_modifiable_obligations = yes
-			NOT = { government_has_flag = government_is_meritocratic }
-=======
 			this != scope:puppet_or_actor
 			liege ?= scope:puppet_or_actor
 			is_tributary = no # this excludes tributary contracts by default
 			is_ruler = yes
 			vassal_contract_has_modifiable_obligations = yes
 			NOT = { government_has_mechanic = administrative }
->>>>>>> 1.20
 			NOT = { government_has_flag = government_is_nomadic }
 		}
 	}
@@ -39,13 +31,8 @@
 	can_send = {
 		#Mandala gets special treatment
 		trigger_if = {
-<<<<<<< HEAD
-			limit = { 
-				scope:actor = { government_has_flag = government_is_mandala }
-=======
 			limit = {
 				scope:puppet_or_actor = { government_has_flag = government_is_mandala }
->>>>>>> 1.20
 			}
 			custom_tooltip = {
 				text = liege_modify_vassal_contract_mandala_cooldown
@@ -338,15 +325,6 @@ vassal_modify_vassal_contract_interaction = {
 	notification_text = MODIFY_VASSAL_CONTRACT_NOTIFICATION_TO_LIEGE
 
 	is_shown = {
-<<<<<<< HEAD
-		scope:recipient = {
-			top_liege != this
-			this != scope:actor
-			liege ?= scope:actor # this excludes tributary contracts by default
-			vassal_contract_has_modifiable_obligations = yes
-			NOT = { government_allows = administrative }
-			NOT = { government_has_flag = government_is_nomadic }
-=======
 		scope:puppet_or_actor = {
 			liege ?= scope:recipient
 			this != scope:recipient
@@ -356,7 +334,6 @@ vassal_modify_vassal_contract_interaction = {
 				government_has_mechanic = administrative
 				government_has_flag = government_is_nomadic
 			}
->>>>>>> 1.20
 		}
 	}
 
@@ -367,13 +344,8 @@ vassal_modify_vassal_contract_interaction = {
 	can_send = {
 		#Mandala gets special treatment
 		trigger_if = {
-<<<<<<< HEAD
-			limit = { 
-				scope:recipient = { government_has_flag = government_is_mandala }
-=======
 			limit = {
 				scope:puppet_or_actor = { government_has_flag = government_is_mandala }
->>>>>>> 1.20
 			}
 			custom_tooltip = {
 				text = vassal_modify_vassal_contract_mandala_cooldown
@@ -571,12 +543,8 @@ vassal_modify_vassal_contract_interaction = {
 	}
 	send_option = {
 		is_shown = {
-<<<<<<< HEAD
-			scope:recipient = { is_diarch_of_target = scope:actor }
-=======
 			scope:puppet_or_actor = { is_diarch_of_target = scope:recipient }
 			scope:recipient = { has_diarchy_parameter = diarch_gets_a_free_change_on_vassal_contract }
->>>>>>> 1.20
 		}
 		is_valid = {
 			scope:puppet_or_actor = {
@@ -590,10 +558,7 @@ vassal_modify_vassal_contract_interaction = {
 					}
 				}
 			}
-<<<<<<< HEAD
-=======
 			scope:recipient = { has_diarchy_active_parameter = diarch_gets_a_free_change_on_vassal_contract }
->>>>>>> 1.20
 		}
 		flag = diarch
 		localization = CALL_IN_DIARCH_RIGHTS
@@ -628,10 +593,7 @@ ai_only_liege_modify_vassal_contract_interaction = {
 		}
 		scope:recipient = {
 			this != scope:actor
-<<<<<<< HEAD
-=======
 			liege ?= scope:actor
->>>>>>> 1.20
 			NOT = {
 				has_strong_hook = scope:actor
 			}
@@ -716,11 +678,8 @@ ai_only_liege_modify_vassal_contract_admin_province_interaction = {
 		}
 		scope:recipient = {
 			this != scope:actor
-<<<<<<< HEAD
-=======
 			liege ?= scope:actor
 			is_tributary = no
->>>>>>> 1.20
 			NOT = {
 				has_strong_hook = scope:actor
 			}
@@ -792,12 +751,7 @@ ai_only_vassal_modify_vassal_contract_interaction = {
 	is_shown = {
 		scope:actor = {
 			has_usable_hook = scope:recipient
-<<<<<<< HEAD
-			vassal_contract_can_be_modified_trigger = yes
-			does_ai_vassal_in_vassal_contract_desire_obligation_change = yes
-=======
 			liege ?= scope:recipient
->>>>>>> 1.20
 		}
 		scope:recipient = {
 			this != scope:actor
@@ -869,12 +823,8 @@ admin_liege_modify_vassal_contract_interaction = {
 
 	is_shown = {
 		scope:recipient = {
-<<<<<<< HEAD
-			this != scope:actor
-=======
 			this != scope:puppet_or_actor
 			liege ?= scope:puppet_or_actor
->>>>>>> 1.20
 			OR = {
 				is_landed = yes
 				is_councillor_of = scope:puppet_or_actor.top_liege
@@ -1084,8 +1034,6 @@ admin_liege_modify_vassal_contract_interaction = {
 								add_realm_law_skip_effects = celestial_appointment_succession_law
 							}
 						}
-<<<<<<< HEAD
-=======
 						# Update the succession law for meritocratic province types if applicable - That way, we don't have to wait until the current law invalidates.
 						else_if = {
 							limit = {
@@ -1131,7 +1079,6 @@ admin_liege_modify_vassal_contract_interaction = {
 								add_realm_law_skip_effects = japanese_military_appointment_succession_law
 							}
 						}
->>>>>>> 1.20
 					}
 				}
 			}
@@ -1159,15 +1106,8 @@ admin_vassal_modify_vassal_contract_interaction = {
 	notification_text = MODIFY_VASSAL_CONTRACT_NOTIFICATION_TO_LIEGE
 
 	is_shown = {
-<<<<<<< HEAD
-		scope:actor = {
-			top_liege != this
-			this != scope:recipient
-			liege ?= scope:recipient # this excludes tributary contracts by default
-=======
 		scope:puppet_or_actor = {
 			government_has_mechanic = administrative
->>>>>>> 1.20
 			vassal_contract_has_modifiable_obligations = yes
 			tgp_is_ceremonial_liege_trigger = no
 			top_liege != this
@@ -1329,8 +1269,6 @@ admin_vassal_modify_vassal_contract_interaction = {
 								add_realm_law_skip_effects = celestial_appointment_succession_law
 							}
 						}
-<<<<<<< HEAD
-=======
 						# Update the succession law for meritocratic province types if applicable - That way, we don't have to wait until the current law invalidates.
 						else_if = {
 							limit = {
@@ -1376,7 +1314,6 @@ admin_vassal_modify_vassal_contract_interaction = {
 								add_realm_law_skip_effects = japanese_military_appointment_succession_law
 							}
 						}
->>>>>>> 1.20
 					}
 				}
 			}
@@ -1569,14 +1506,9 @@ nomad_liege_modify_vassal_contract_interaction = {
 
 	is_shown = {
 		scope:recipient = {
-<<<<<<< HEAD
-			NOT = { this = scope:actor }
-			liege ?= scope:actor # this excludes tributary contracts by default
-=======
 			this != scope:puppet_or_actor
 			liege ?= scope:puppet_or_actor
 			is_tributary = no # this excludes tributary contracts by default
->>>>>>> 1.20
 			is_ruler = yes
 			vassal_contract_has_modifiable_obligations = yes
 			government_has_flag = government_is_nomadic
@@ -1822,35 +1754,13 @@ nomad_vassal_modify_vassal_contract_interaction = {
 
 	send_name = "nomad_vassal_modify_vassal_contract_interaction_send"
 	desc = nomad_vassal_modify_vassal_contract_interaction_desc
-<<<<<<< HEAD
-	
-	redirect = {
-		# need to reverse the role for the UI to work properly
-		scope:recipient = {
-			save_scope_as = secondary_recipient
-		}
-		scope:actor = {
-			save_scope_as = recipient
-		}
-
-		scope:secondary_recipient = {
-			save_scope_as = actor
-		}
-	}
-=======
->>>>>>> 1.20
 
 	is_shown = {
 		scope:puppet_or_actor = {
 			is_independent_ruler = no
-<<<<<<< HEAD
-			NOT = { this = scope:actor }
-			liege ?= scope:actor # this excludes tributary contracts by default
-=======
 			this != scope:recipient
 			liege ?= scope:recipient
 			is_tributary = no # this excludes tributary contracts by default
->>>>>>> 1.20
 			vassal_contract_has_modifiable_obligations = yes
 			government_has_flag = government_is_nomadic
 		}
@@ -2047,13 +1957,8 @@ suzerain_modify_tributary_contract_interaction = {
 	can_send = {
 		#Mandala gets special treatment
 		trigger_if = {
-<<<<<<< HEAD
-			limit = { 
-				scope:actor = { government_has_flag = government_is_mandala }
-=======
 			limit = {
 				scope:puppet_or_actor = { government_has_flag = government_is_mandala }
->>>>>>> 1.20
 			}
 			custom_tooltip = {
 				text = suzerain_modify_subject_contract_mandala_cooldown
@@ -2536,11 +2441,7 @@ subject_modify_tributary_contract_interaction = {
 				if = { # the Chinese Emperor cares less since they get tribute through missions as well
 					limit = { 
 						scope:new_value < 0
-<<<<<<< HEAD
-						scope:actor = { 
-=======
 						scope:puppet_or_actor = {
->>>>>>> 1.20
 							OR = {
 								has_subject_contract_group = tributary_celestial
 								has_subject_contract_group = tributary_hegemonic

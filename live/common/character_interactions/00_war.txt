@@ -13,10 +13,6 @@
 		scope:recipient != scope:puppet_or_actor
 		# Only differs from puppet_or_actor on puppet actions; a puppet cannot be ordered to attack their own puppeteer
 		scope:recipient != scope:actor
-<<<<<<< HEAD
-		scope:recipient = { is_playable_character = yes }
-		scope:actor = { NOT = { is_at_war_with = scope:recipient } }
-=======
 		scope:recipient = {
 			is_playable_character = yes
 		}
@@ -25,13 +21,11 @@
 				is_at_war_with = scope:recipient
 			}
 		}
->>>>>>> 1.20
 	}
 
 	is_valid_showing_failures_only = {
 		scope:puppet_or_actor = {
 			trigger_if = {
-<<<<<<< HEAD
 				limit = { NOT = { government_has_flag = can_start_war_with_raised_troops } }
 				NOT = { has_raised_armies = yes }
 			}
@@ -211,7 +205,8 @@
 		trigger_if = {
 			limit = { scope:actor = { is_confederation_member = yes } }
 			NOT = { scope:recipient = { is_member_of_confederation = scope:actor.confederation } }
-=======
+		}
+		trigger_if = {
 				limit = { government_has_flag = government_is_theocracy }
 				custom_tooltip = {
 					text = theocratic_government_war_restriction
@@ -222,7 +217,6 @@
 				has_any_display_cb_on = scope:recipient
 			}
 			allows_declaring_war_against_target_trigger = { TARGET = scope:recipient }
->>>>>>> 1.20
 		}
 	}
 
