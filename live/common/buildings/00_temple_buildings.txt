@@ -132,16 +132,6 @@ temple_01 = {
 			limit = { county.holder.culture = { has_cultural_parameter = extra_piety_from_temple_construction } }
 			county.holder = { add_piety = omega_piety_gain }
 		}
-<<<<<<< HEAD
-		else = { county.holder ?= { add_piety = massive_piety_gain } }
-		save_scope_as = temple_location
-		if = {
-			limit = { county.holder.culture = { has_cultural_parameter = more_fervor_on_church_construction } }
-			county.holder.faith = { change_fervor = { value = 5 desc = fervor_gain_built_temple_holding } }
-		}
-		else = {
-			county.holder.faith = { change_fervor = { value = 1 desc = fervor_gain_built_temple_holding } }
-=======
 		else = {
 			county.holder ?= { add_piety = massive_piety_gain }
 		}
@@ -165,7 +155,6 @@ temple_01 = {
 					desc = fervor_gain_built_temple_holding
 				}
 			}
->>>>>>> 1.20
 		}
 		if = {
 			limit = { county.holder.culture = { has_cultural_parameter = prestige_from_temple_construction } }
@@ -953,12 +942,9 @@ propaganda_02 = {
 			has_building_or_higher = temple_01
 			has_building_or_higher = temple_citadel_01
 		}
-<<<<<<< HEAD
 		culture = {
 			has_innovation = innovation_city_planning
 		}
-=======
->>>>>>> 1.20
 		has_dlc_feature = legends
 		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
@@ -1399,22 +1385,9 @@ research_labs_01 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
-<<<<<<< HEAD
 		OR = {
 			has_building_or_higher = temple_01
 			has_building_or_higher = temple_citadel_01
-=======
-		trigger_if = {
-			limit = {
-				scope:holder.rite = {
-					NOT = { rite_has_parameter = monastic_schools_allowed_in_every_holding_type }
-				}
-			}
-			OR = {
-				has_holding_type = church_holding
-				has_holding_type = temple_citadel_holding
-			}
->>>>>>> 1.20
 		}
 		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
@@ -2052,22 +2025,9 @@ bureaucracy_02 = {
 	construction_time = standard_construction_time
 
 	can_construct_potential = {
-<<<<<<< HEAD
 		OR = {
 			has_building_or_higher = temple_01
 			has_building_or_higher = temple_citadel_01
-=======
-		trigger_if = {
-			limit = {
-				scope:holder.rite = {
-					NOT = { rite_has_parameter = monastic_schools_allowed_in_every_holding_type }
-				}
-			}
-			OR = {
-				has_holding_type = church_holding
-				has_holding_type = temple_citadel_holding
-			}
->>>>>>> 1.20
 		}
 		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
@@ -2102,24 +2062,10 @@ bureaucracy_02 = {
 bureaucracy_03 = {
 	construction_time = standard_construction_time
 
-<<<<<<< HEAD
 	can_construct_potential = {
 		OR = {
 			has_building_or_higher = temple_01
 			has_building_or_higher = temple_citadel_01
-=======
-	can_construct = {
-		trigger_if = {
-			limit = {
-				scope:holder.rite = {
-					NOT = { rite_has_parameter = monastic_schools_allowed_in_every_holding_type }
-				}
-			}
-			OR = {
-				has_holding_type = church_holding
-				has_holding_type = temple_citadel_holding
-			}
->>>>>>> 1.20
 		}
 		culture = {
 			has_innovation = innovation_city_planning
@@ -2157,24 +2103,10 @@ bureaucracy_03 = {
 bureaucracy_04 = {
 	construction_time = standard_construction_time
 
-<<<<<<< HEAD
 	can_construct_potential = {
 		OR = {
 			has_building_or_higher = temple_02
 			has_building_or_higher = temple_citadel_02
-=======
-	can_construct = {
-		trigger_if = {
-			limit = {
-				scope:holder.rite = {
-					NOT = { rite_has_parameter = monastic_schools_allowed_in_every_holding_type }
-				}
-			}
-			OR = {
-				has_holding_type = church_holding
-				has_holding_type = temple_citadel_holding
-			}
->>>>>>> 1.20
 		}
 		culture = {
 			has_innovation = innovation_city_planning
@@ -2212,24 +2144,10 @@ bureaucracy_04 = {
 bureaucracy_05 = {
 	construction_time = standard_construction_time
 
-<<<<<<< HEAD
 	can_construct_potential = {
 		OR = {
 			has_building_or_higher = temple_02
 			has_building_or_higher = temple_citadel_02
-=======
-	can_construct = {
-		trigger_if = {
-			limit = {
-				scope:holder.rite = {
-					NOT = { rite_has_parameter = monastic_schools_allowed_in_every_holding_type }
-				}
-			}
-			OR = {
-				has_holding_type = church_holding
-				has_holding_type = temple_citadel_holding
-			}
->>>>>>> 1.20
 		}
 		culture = {
 			has_innovation = innovation_city_planning
@@ -2267,24 +2185,10 @@ bureaucracy_05 = {
 bureaucracy_06 = {
 	construction_time = standard_construction_time
 
-<<<<<<< HEAD
 	can_construct_potential = {
 		OR = {
 			has_building_or_higher = temple_04
 			has_building_or_higher = temple_citadel_04
-=======
-	can_construct = {
-		trigger_if = {
-			limit = {
-				scope:holder.rite = {
-					NOT = { rite_has_parameter = monastic_schools_allowed_in_every_holding_type }
-				}
-			}
-			OR = {
-				has_holding_type = church_holding
-				has_holding_type = temple_citadel_holding
-			}
->>>>>>> 1.20
 		}
 		culture = {
 			has_innovation = innovation_city_planning
@@ -2322,24 +2226,10 @@ bureaucracy_06 = {
 bureaucracy_07 = {
 	construction_time = standard_construction_time
 
-<<<<<<< HEAD
 	can_construct_potential = {
 		OR = {
 			has_building_or_higher = temple_04
 			has_building_or_higher = temple_citadel_04
-=======
-	can_construct = {
-		trigger_if = {
-			limit = {
-				scope:holder.rite = {
-					NOT = { rite_has_parameter = monastic_schools_allowed_in_every_holding_type }
-				}
-			}
-			OR = {
-				has_holding_type = church_holding
-				has_holding_type = temple_citadel_holding
-			}
->>>>>>> 1.20
 		}
 		culture = {
 			has_innovation = innovation_city_planning
@@ -2382,19 +2272,6 @@ bureaucracy_08 = {
 		OR = {
 			has_building_or_higher = temple_04
 			has_building_or_higher = temple_citadel_04
-=======
-	can_construct = {
-		trigger_if = {
-			limit = {
-				scope:holder.rite = {
-					NOT = { rite_has_parameter = monastic_schools_allowed_in_every_holding_type }
-				}
-			}
-			OR = {
-				has_holding_type = church_holding
-				has_holding_type = temple_citadel_holding
-			}
->>>>>>> 1.20
 		}
 		culture = {
 			has_innovation = innovation_city_planning
@@ -2436,12 +2313,6 @@ diplomatic_corps_01 = {
 		OR = {
 			has_building_or_higher = temple_01
 			has_building_or_higher = temple_citadel_01
-<<<<<<< HEAD
-=======
-		}
-		scope:holder.rite = {
-			rite_has_parameter = can_build_megaliths
->>>>>>> 1.20
 		}
 		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
@@ -2449,19 +2320,6 @@ diplomatic_corps_01 = {
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
 	}
-
-<<<<<<< HEAD
-=======
-	is_enabled = {
-		custom_tooltip = {
-			text = province_is_of_a_megalith_faith_tt
-			county.rite = { rite_has_parameter = can_build_megaliths }
-		}
-	}
-
-	show_disabled = yes
-
->>>>>>> 1.20
 	cost_gold = normal_building_tier_1_cost
 
 	character_modifier = {
@@ -2501,12 +2359,6 @@ diplomatic_corps_02 = {
 		OR = {
 			has_building_or_higher = temple_01
 			has_building_or_higher = temple_citadel_01
-<<<<<<< HEAD
-=======
-		}
-		scope:holder.rite = {
-			rite_has_parameter = can_build_megaliths
->>>>>>> 1.20
 		}
 		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
@@ -2514,17 +2366,6 @@ diplomatic_corps_02 = {
 	can_construct_showing_failures_only = {
 		#building_requirement_tribal = no
 	}
-
-<<<<<<< HEAD
-=======
-	is_enabled = {
-		custom_tooltip = {
-			text = province_is_of_a_megalith_faith_tt
-			county.rite = { rite_has_parameter = can_build_megaliths }
-		}
-	}
-
->>>>>>> 1.20
 	cost_gold = normal_building_tier_2_cost
 
 	character_modifier = {
@@ -2553,12 +2394,6 @@ diplomatic_corps_03 = {
 		OR = {
 			has_building_or_higher = temple_01
 			has_building_or_higher = temple_citadel_01
-<<<<<<< HEAD
-=======
-		}
-		scope:holder.rite = {
-			rite_has_parameter = can_build_megaliths
->>>>>>> 1.20
 		}
 		culture = {
 			has_innovation = innovation_city_planning
@@ -2569,17 +2404,6 @@ diplomatic_corps_03 = {
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
 	}
-
-<<<<<<< HEAD
-=======
-	is_enabled = {
-		custom_tooltip = {
-			text = province_is_of_a_megalith_faith_tt
-			county.rite = { rite_has_parameter = can_build_megaliths }
-		}
-	}
-
->>>>>>> 1.20
 	cost_gold = normal_building_tier_3_cost
 
 	character_modifier = {
@@ -2608,12 +2432,6 @@ diplomatic_corps_04 = {
 		OR = {
 			has_building_or_higher = temple_02
 			has_building_or_higher = temple_citadel_02
-<<<<<<< HEAD
-=======
-		}
-		scope:holder.rite = {
-			rite_has_parameter = can_build_megaliths
->>>>>>> 1.20
 		}
 		culture = {
 			has_innovation = innovation_city_planning
@@ -2624,17 +2442,6 @@ diplomatic_corps_04 = {
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
 	}
-
-<<<<<<< HEAD
-=======
-	is_enabled = {
-		custom_tooltip = {
-			text = province_is_of_a_megalith_faith_tt
-			county.rite = { rite_has_parameter = can_build_megaliths }
-		}
-	}
-
->>>>>>> 1.20
 	cost_gold = normal_building_tier_4_cost
 
 	character_modifier = {
@@ -2664,12 +2471,6 @@ diplomatic_corps_05 = {
 		OR = {
 			has_building_or_higher = temple_02
 			has_building_or_higher = temple_citadel_02
-<<<<<<< HEAD
-=======
-		}
-		scope:holder.rite = {
-			rite_has_parameter = can_build_megaliths
->>>>>>> 1.20
 		}
 		culture = {
 			has_innovation = innovation_city_planning
@@ -2680,17 +2481,6 @@ diplomatic_corps_05 = {
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
 	}
-
-<<<<<<< HEAD
-=======
-	is_enabled = {
-		custom_tooltip = {
-			text = province_is_of_a_megalith_faith_tt
-			county.rite = { rite_has_parameter = can_build_megaliths }
-		}
-	}
-
->>>>>>> 1.20
 	cost_gold = normal_building_tier_5_cost
 
 	character_modifier = {
@@ -2718,16 +2508,8 @@ diplomatic_corps_06 = {
 
 	can_construct_potential = {
 		OR = {
-<<<<<<< HEAD
 			has_building_or_higher = temple_04
 			has_building_or_higher = temple_citadel_04
-=======
-			has_building_or_higher = temple_02
-			has_building_or_higher = temple_citadel_02
-		}
-		scope:holder.rite = {
-			rite_has_parameter = can_build_megaliths
->>>>>>> 1.20
 		}
 		culture = {
 			has_innovation = innovation_city_planning
@@ -2738,17 +2520,6 @@ diplomatic_corps_06 = {
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
 	}
-
-<<<<<<< HEAD
-=======
-	is_enabled = {
-		custom_tooltip = {
-			text = province_is_of_a_megalith_faith_tt
-			county.rite = { rite_has_parameter = can_build_megaliths }
-		}
-	}
-
->>>>>>> 1.20
 	cost_gold = normal_building_tier_5_cost
 
 	character_modifier = {
@@ -2776,16 +2547,8 @@ diplomatic_corps_07 = {
 
 	can_construct_potential = {
 		OR = {
-<<<<<<< HEAD
 			has_building_or_higher = temple_04
 			has_building_or_higher = temple_citadel_04
-=======
-			has_building_or_higher = temple_02
-			has_building_or_higher = temple_citadel_02
-		}
-		scope:holder.rite = {
-			rite_has_parameter = can_build_megaliths
->>>>>>> 1.20
 		}
 		culture = {
 			has_innovation = innovation_city_planning
@@ -2796,17 +2559,6 @@ diplomatic_corps_07 = {
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
 	}
-
-<<<<<<< HEAD
-=======
-	is_enabled = {
-		custom_tooltip = {
-			text = province_is_of_a_megalith_faith_tt
-			county.rite = { rite_has_parameter = can_build_megaliths }
-		}
-	}
-
->>>>>>> 1.20
 	cost_gold = normal_building_tier_5_cost
 
 	character_modifier = {
@@ -2834,16 +2586,8 @@ diplomatic_corps_08 = {
 
 	can_construct_potential = {
 		OR = {
-<<<<<<< HEAD
 			has_building_or_higher = temple_04
 			has_building_or_higher = temple_citadel_04
-=======
-			has_building_or_higher = temple_02
-			has_building_or_higher = temple_citadel_02
-		}
-		scope:holder.rite = {
-			rite_has_parameter = can_build_megaliths
->>>>>>> 1.20
 		}
 		culture = {
 			has_innovation = innovation_city_planning
@@ -2854,17 +2598,6 @@ diplomatic_corps_08 = {
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
 	}
-
-<<<<<<< HEAD
-=======
-	is_enabled = {
-		custom_tooltip = {
-			text = province_is_of_a_megalith_faith_tt
-			county.rite = { rite_has_parameter = can_build_megaliths }
-		}
-	}
-
->>>>>>> 1.20
 	cost_gold = normal_building_tier_5_cost
 
 	character_modifier = {
