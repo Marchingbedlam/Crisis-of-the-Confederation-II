@@ -40,9 +40,6 @@ create_landless_adventurer_title_effect = {
 	$FLAVOR_CHAR$ = { save_scope_as = adventurer_flavor_char }
 	hidden_effect = {
 		random_list = {
-<<<<<<< HEAD
-			10 = {
-=======
 			#Acclaimed knights become laamps interaction
 			10000 = {
 				trigger = {
@@ -175,7 +172,6 @@ create_landless_adventurer_title_effect = {
 				}
 			}
 			5 = {
->>>>>>> 1.20
 				create_adventurer_title = {
 					name = cotc_adventurer_name_01
 					holder = scope:new_landless_adventurer
@@ -188,27 +184,7 @@ create_landless_adventurer_title_effect = {
 					exists = scope:new_landless_adventurer_house
 				}
 				create_adventurer_title = {
-<<<<<<< HEAD
 					name = cotc_adventurer_name_02
-=======
-					name = adventurer_name_002
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			5 = {
-				create_adventurer_title = {
-					name = adventurer_name_003
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			5 = {
-				create_adventurer_title = {
-					name = adventurer_name_004
->>>>>>> 1.20
 					holder = scope:new_landless_adventurer
 					article = DEFAULT_TITLE_NAME_ARTICLE
 					save_scope_as = new_title
@@ -219,27 +195,7 @@ create_landless_adventurer_title_effect = {
 					exists = scope:new_landless_adventurer_county
 				}
 				create_adventurer_title = {
-<<<<<<< HEAD
 					name = cotc_adventurer_name_03
-=======
-					name = adventurer_name_005
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			5 = {
-				create_adventurer_title = {
-					name = adventurer_name_006
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			5 = {
-				create_adventurer_title = {
-					name = adventurer_name_007
->>>>>>> 1.20
 					holder = scope:new_landless_adventurer
 					article = DEFAULT_TITLE_NAME_ARTICLE
 					save_scope_as = new_title
@@ -250,263 +206,7 @@ create_landless_adventurer_title_effect = {
 					exists = scope:new_landless_adventurer_county
 				}
 				create_adventurer_title = {
-<<<<<<< HEAD
 					name = cotc_adventurer_name_04
-=======
-					name = adventurer_name_008
-					holder = scope:new_landless_adventurer
-					save_scope_as = new_title
-				}
-			}
-			5 = {
-				create_adventurer_title = {
-					name = adventurer_name_009
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			3 = {
-				trigger = {
-					exists = scope:new_landless_adventurer_location
-				}
-				create_adventurer_title = {
-					name = adventurer_name_010
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			3 = {
-				trigger = {
-					exists = scope:new_landless_adventurer_location
-				}
-				create_adventurer_title = {
-					name = adventurer_name_011
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			3 = {
-				trigger = {
-					exists = scope:new_landless_adventurer_location
-				}
-				create_adventurer_title = {
-					name = adventurer_name_012
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			3 = {
-				trigger = {
-					scope:new_landless_adventurer.ai_zeal > 0
-				}
-				create_adventurer_title = {
-					name = adventurer_name_013
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			3 = {
-				trigger = {
-					scope:new_landless_adventurer.ai_zeal > 0
-				}
-				create_adventurer_title = {
-					name = adventurer_name_014
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			3 = {
-				trigger = {
-					scope:new_landless_adventurer.ai_zeal > 0
-				}
-				create_adventurer_title = {
-					name = adventurer_name_015
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			3 = {
-				trigger = {
-					OR = {
-						has_martial_lifestyle_trait_trigger = yes
-						ai_boldness >= medium_positive_ai_value
-						has_trait = education_martial_prowess_1
-						has_trait = education_martial_prowess_2
-						has_trait = education_martial_prowess_3
-						has_trait = education_martial_prowess_4
-						has_education_martial_trigger = yes
-					}
-				}
-				create_adventurer_title = {
-					name = adventurer_name_016
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			3 = {
-				trigger = {
-					OR = {
-						has_martial_lifestyle_trait_trigger = yes
-						has_trait = lifestyle_blademaster
-						has_trait = education_martial_prowess_1
-						has_trait = education_martial_prowess_2
-						has_trait = education_martial_prowess_3
-						has_trait = education_martial_prowess_4
-						has_education_martial_trigger = yes
-					}
-				}
-				create_adventurer_title = {
-					name = adventurer_name_017
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			3 = {
-				trigger = {
-					scope:new_landless_adventurer.ai_zeal > medium_negative_ai_value
-					scope:new_landless_adventurer.ai_boldness >= 0
-					NOT = {
-						scope:new_landless_adventurer = {
-							faith.religion = religion:west_african_bori_religion
-						}
-					}
-				}
-				create_adventurer_title = {
-					name = adventurer_name_018
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			3 = {
-				trigger = {
-					scope:new_landless_adventurer.ai_zeal > medium_negative_ai_value
-					scope:new_landless_adventurer.ai_greed >= 0
-					NOT = {
-						scope:new_landless_adventurer = {
-							faith.religion = religion:west_african_bori_religion
-						}
-					}
-				}
-				create_adventurer_title = {
-					name = adventurer_name_019
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			3 = {
-				trigger = {
-					scope:new_landless_adventurer.ai_zeal > medium_negative_ai_value
-					scope:new_landless_adventurer.ai_compassion >= 0
-					NOT = {
-						scope:new_landless_adventurer = {
-							faith.religion = religion:west_african_bori_religion
-						}
-					}
-				}
-				create_adventurer_title = {
-					name = adventurer_name_020
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			3 = {
-				trigger = {
-					exists = scope:new_landless_adventurer_location.county
-				}
-				scope:new_landless_adventurer_location.county = {
-					save_scope_as = new_landless_adventurer_county
-				}
-				create_adventurer_title = {
-					name = adventurer_name_021
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			3 = {
-				create_adventurer_title = {
-					name = adventurer_name_022
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			5 = {
-				trigger = {
-					exists = scope:new_landless_adventurer_house
-				}
-				create_adventurer_title = {
-					name = adventurer_name_023
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			5 = {
-				trigger = {
-					scope:new_landless_adventurer.ai_zeal > medium_negative_ai_value
-					scope:new_landless_adventurer.ai_rationality >= 0
-					#Many names using Allah already
-					NOT = {
-						scope:new_landless_adventurer = {
-							faith.religion = religion:islam_religion
-						}
-					}
-				}
-				create_adventurer_title = {
-					name = adventurer_name_024
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			3 = {
-				trigger = {
-					scope:new_landless_adventurer.ai_zeal < low_negative_ai_value
-					scope:new_landless_adventurer.ai_compassion < medium_negative_ai_value
-				}
-				create_adventurer_title = {
-					name = adventurer_name_025
-					holder = scope:new_landless_adventurer
-					article = DEFAULT_TITLE_NAME_ARTICLE
-					save_scope_as = new_title
-				}
-			}
-			5 = {
-				create_adventurer_title = {
-					name = adventurer_name_0026
-					holder = scope:new_landless_adventurer
-					save_scope_as = new_title
-				}
-			}
-			1 = {
-				trigger = {
-					exists = scope:new_landless_adventurer.culture
-					OR = {
-						has_martial_lifestyle_trait_trigger = yes
-						ai_boldness >= medium_positive_ai_value
-						has_trait = education_martial_prowess_1
-						has_trait = education_martial_prowess_2
-						has_trait = education_martial_prowess_3
-						has_trait = education_martial_prowess_4
-						has_education_martial_trigger = yes
-					}
-				}
-				create_adventurer_title = {
-					name = adventurer_name_0027
->>>>>>> 1.20
 					holder = scope:new_landless_adventurer
 					article = DEFAULT_TITLE_NAME_ARTICLE
 					save_scope_as = new_title
@@ -1100,74 +800,6 @@ ep3_become_landed_transfer_effect = {
 		$TITLE_RECEIVER$ = { becomes_independent = { change = scope:title_change } }
 	}
 	resolve_title_and_vassal_change = scope:title_change
-<<<<<<< HEAD
-	# Because target may be either a title or a character, we check if a scope value has been set up in advance if this is being called from the Seize Realm scheme specifically
-	if = {
-		limit = { exists = scope:old_government_type }
-		scope:old_government_type = { save_scope_as = old_government }
-	}
-	# Set government type
-	if = {
-		# COTC: a settling Freelancer's Charter decides their government, not the seller's.
-		limit = { exists = scope:cotc_settling_freelancer }
-		scope:cotc_settling_freelancer = { cotc_freelancer_settle_government_effect = yes }
-	}
-	else_if = {
-		limit = { exists = scope:old_government }
-		# We don't expect to actually trigger most of the below, as most are not valid targets to begin with, but all are included for completeness and mod support
-		switch = {
-			trigger = scope:old_government
-			flag:feudal = {
-				change_government = feudal_government
-			}
-			flag:republic = {
-				change_government = republic_government
-			}
-			flag:theocracy = {
-				change_government = theocracy_government
-			}
-			flag:clan = {
-				change_government = clan_government
-			}
-			flag:tribal = {
-				change_government = tribal_government
-			}
-			flag:wanua = {
-				change_government = wanua_government
-			}
-			flag:holy_order = {
-				change_government = holy_order_government
-			}
-			flag:administrative = {
-				change_government = administrative_government
-			}
-			flag:nomad = {
-				#Did you demand a herder's pastureland?
-				if = {
-					limit = {
-						scope:new_capital.title_province = {
-							has_holding = yes
-							NOT = { has_holding_type = nomad_holding }
-						}
-					}
-					scope:new_capital.title_province = { set_holding_type = nomad_holding }
-				}
-				change_government = nomad_government
-			}
-			flag:herder = {
-				change_government = herder_government
-			}
-			flag:celestial = {
-				change_government = celestial_government
-			}
-			flag:mandala = {
-				if = {
-					limit = {
-						faith = { has_doctrine = doctrine_polytheist }
-					}
-					change_government = mandala_government
-					#Sort out the House shenanigans
-=======
 	if = {
 		limit = {
 			$REASON$ = flag:purchased
@@ -1199,7 +831,6 @@ ep3_become_landed_transfer_effect = {
 				trigger = scope:old_government
 				government_type:nomad_government = {
 					#Did you demand a herder's pastureland?
->>>>>>> 1.20
 					if = {
 						limit = {
 							scope:new_capital.title_province = {
@@ -3341,27 +2972,6 @@ create_noble_family_effect = {
 	if = {
 		limit = { scope:government_giver ?= { government_allows = noble_families } }
 		if = {
-<<<<<<< HEAD
-			limit = { scope:new_noble_family_holder = { NOT = { any_held_title = { is_noble_family_title = yes } } } }
-			scope:new_noble_family_holder = { create_noble_family_for_current_government = yes }
-		}
-		scope:new_title.holder ?= {
-			save_scope_as = noble_family_head
-			scope:new_title = { set_coa = scope:noble_family_head.house }
-		}
-		custom_description = { text = create_noble_family_tt }
-
-		#Notifications
-		every_player = {
-			limit = {
-				top_liege = scope:new_noble_family_holder.top_liege
-				this != scope:new_noble_family_holder
-				highest_held_title_tier <= tier_kingdom # Don't bother keeping big realms informed about every single minor family
-			}
-			trigger_event = {
-				id = ep3_emperor_yearly.2410
-				days = 1
-=======
 			limit = {
 				is_ruler = no
 			}
@@ -3537,7 +3147,6 @@ create_noble_family_effect = {
 					id = ep3_emperor_yearly.2410
 					days = 1
 				}
->>>>>>> 1.20
 			}
 		}
 	}
