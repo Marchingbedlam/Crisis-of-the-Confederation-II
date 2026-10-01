@@ -1,22 +1,4 @@
-<<<<<<< HEAD
-﻿# Geographical regions
-# Regions can be declared with one or more of the following fields:
-#	kingdoms = { }, takes de-jure kingdom title names declared in landed_titles.txts 
-#	duchies = { }, takes duchy title names declared in landed_titles.txt
-#	counties = { }, takes county title names declared in landed_titles.txt
-#	provinces = { }, takes province id numbers declared in /history/provinces
-#	regions = { }, a region can also include other regions, however the subregions needs to be declared before the parent region.
-#		E.g. If the region world_europe contains the region world_europe_west then world_europe_west needs to be declared as a region before (i.e. higher up in this file) world_europe.
-
-# Regions provide the following modifiers:
-# key + _development_growth
-# key + _development_growth_factor
-# This requires "generate_modifiers = yes" in the region
-
-###########################################################################
-=======
-﻿###########################################################################
->>>>>>> 1.20
+﻿﻿###########################################################################
 # World Regions
 #	These groups are mutually exclusive on the same tier & should cover every part of the map
 ###########################################################################
@@ -71,15 +53,12 @@
 # > world_asia_japan
 # > world_asia_sakhalin_hokkaido
 # >> world_asia_southeast_mainland
-<<<<<<< HEAD
-=======
 # >>> world_asia_vietnam
 # >>> world_asia_cambodia
 # >>> world_asia_thailand
 # >>> world_asia_malaysia
 # >>> world_burma
 # >>>> custom_arakan_mountains
->>>>>>> 1.20
 # >> world_asia_southeast_islands
 # >>> world_asia_philippines
 # >>> world_asia_borneo
@@ -197,17 +176,6 @@ world_europe_west = {
 world_europe_north = {
 }
 world_europe_south_east = {
-<<<<<<< HEAD
-=======
-	duchies = {
-		#West ERE
-		d_thrace d_strymon d_thessalonika d_thessaly d_dyrrachion d_cephalonia d_epirus d_athens d_achaia d_krete d_cyprus d_vidin d_turnovo d_dobrudja d_bulgaria d_philippopolis d_rashka d_macva d_slavonia d_croatia d_dalmatia d_usora
-		#d_adrianopolis d_karvuna d_dioclea
-		d_bosna d_lower_bosna d_krain d_istria d_ragusa d_duklja
-		#Wallachia
-		d_oltenia d_muntenia d_transylvanian_alps
-	}
->>>>>>> 1.20
 }
 world_europe_south_italy = {
 }
@@ -271,15 +239,6 @@ world_asia_shiwei_steppe = {
 }
 
 world_asia_khitan_steppe = {
-<<<<<<< HEAD
-=======
-	duchies = {
-		#Khitan/Liao
-		d_LIAO_zhongjing d_LIAO_dongjing d_liaoxi d_yanyun_yuyi
-
-		d_em_tataria d_em_wuguguo d_gobi_dadaels d_gobi_shatuoguo d_gobi_ongi
-	}
->>>>>>> 1.20
 }
 
 world_asia_north_east = {
@@ -287,43 +246,12 @@ world_asia_north_east = {
 world_asia_sakhalin_hokkaido = {
 }
 world_asia_japan = {
-<<<<<<< HEAD
-=======
-	duchies = {
-		# TSUKUSHI
-		d_north_saikaido d_south_saikaido
-		# YAMATO
-		d_kinai d_nankaido d_east_sanindo d_west_sanindo d_west_sanyodo d_east_sanyodo
-		# AZUMA
-		d_east_bando d_west_bando d_tokaido d_tosando d_hokurikudo
-		# MICHINOKU
-		d_hitakami d_nushiro
-		# RUUCUU
-		d_ruucuu
-	}
->>>>>>> 1.20
 }
 world_asia_korea = {
 }
 world_asia_southeast = {
 }
 world_asia_southeast_mainland = {
-<<<<<<< HEAD
-=======
-	regions = {
- 		world_asia_thailand world_asia_cambodia world_asia_vietnam world_asia_malaysia world_burma
-	}
-}
-world_asia_vietnam = {
-	duchies = {
-		d_hai_dong d_thang_long d_lam_tay d_nghe_an d_indrapura d_vijaya d_baigaur
-	}
-}
-world_asia_cambodia = {
-	duchies = {
-		d_angkor d_vyadhapura d_ratanakiri d_angkor_borey
-	}
->>>>>>> 1.20
 }
 world_asia_thailand = {
 }
@@ -456,16 +384,6 @@ material_cloth_cotton = {
 }
 
 material_metal_wootz = {
-<<<<<<< HEAD
-=======
-	regions = {
-		world_india_deccan
-		world_india_bengal
-		world_india_rajastan
-		world_asia_china
-		world_asia_southeast_mainland
-	}
->>>>>>> 1.20
 }
 
 material_metal_damascus = {
@@ -481,36 +399,9 @@ material_hsb_ivory_imported = {
 }
 
 material_hsb_ivory_native = {
-<<<<<<< HEAD
 }
 
 material_hsb_mother_of_pearl = {
-=======
-	regions = {
-		world_india_deccan
-		world_india_bengal
-		world_india_rajastan
-		world_africa_west
-		world_africa_east
-		world_asia_southeast_mainland
-		world_asia_indonesia
-	}
-}
-
-material_hsb_mother_of_pearl = {
-	regions = {
-		world_africa_north
-		world_europe_south_italy
-		world_india_deccan
-		world_middle_east_arabia
-		world_africa_east
-		world_europe_west_iberia
-		world_asia_southeast
-		world_asia_korea
-		world_asia_china
-		world_asia_japan
-	}
->>>>>>> 1.20
 }
 
 material_hsb_tortoiseshell = {
@@ -714,131 +605,6 @@ custom_polabia = {
 }
 
 custom_beth_nahrain = {
-<<<<<<< HEAD
-=======
-	duchies = {
-		#Syria
-		d_damascus d_aleppo d_antioch d_edessa d_homs d_lebanon d_palmyra
-		#Jerusalem
-		d_oultrejourdain d_palestine d_urdunn
-		#Jazira
-		d_diyarrabia d_diyarmudar d_diyarbakr d_euphrates
-		#Mesopotamia
-		d_kermanshah d_basra d_baghdad d_samarra d_kurdistan d_wasit d_kufa
-	}
-}
-
-custom_carthaginian_empire = {
-	generate_modifiers = yes
-	regions = {
-		custom_carthage
-		custom_tripolitania
-		custom_mauretania
-		custom_carthago_nova
-	}
-}
-
-custom_carthage = {
-	duchies = {
-		#Tunis
-		d_tunis d_gabes d_kairouan d_kroumerie d_jerid
-		#Scicili & Sardinia
-		d_sicily d_sardinia
-	}
-}
-
-custom_tripolitania = {
-	duchies = {
-		d_tripolitania d_syrte
-	}
-}
-
-custom_mauretania = {
-	duchies = {
-		d_bejaia d_zab d_alger d_tlemcen d_rif
-	}
-}
-
-custom_carthago_nova = {
-	duchies = {
-		d_sevilla d_granada d_murcia d_valencia
-	}
-}
-
-custom_cumbria = {
-	generate_modifiers = yes
-	duchies = {
-		d_galloway
-	}
-	counties = {
-		c_westmorland c_cumberland c_lanarkshire
-	}
-}
-
-###########################################################################
-# Graphical Regions
-###########################################################################
-
-graphical_western = {
-	graphical = yes
-	color = { 255 0 0 }
-	regions = {
-		custom_west_francia_minus_mediterranean
-		world_europe_west_germania world_europe_west_britannia world_europe_east world_europe_north
-	}
-}
-
-graphical_mena = {
-	graphical = yes
-	color = { 255 255 0 }
-	regions = {
-		world_africa world_middle_east
-	}
-}
-
-graphical_india = {
-	graphical = yes
-	color = { 0 255 0 }
-	regions = {
-		world_india world_tibet world_asia_southeast_islands
-		# Asia Southeast Mainland
-		world_burma world_asia_thailand world_asia_cambodia world_asia_malaysia
-	}
-}
-
-graphical_mediterranean = {
-	graphical = yes
-	color = { 0 0 255 }
-	regions = {
-		world_europe_west_iberia world_europe_south custom_south_francia custom_burgundy world_asia_minor
-	}
-}
-
-graphical_steppe = {
-	graphical = yes
-	color = { 0 255 255 }
-	regions = {
-		world_steppe_tarim world_steppe_west world_steppe_central
-	}
-}
-
-graphical_siberia = {
-	graphical = yes
-	color = { 0 255 155 }
-	regions = {
-		world_siberia
-	}
-}
-
-graphical_east_asia = {
-	graphical = yes
-	color = { 155 255 155 }
-	regions = {
-		world_asia_north_east world_asia_korea world_asia_china world_asia_sakhalin_hokkaido world_asia_japan world_steppe_east
-		# Asia Southeast Mainland
-		world_asia_vietnam
-	}
->>>>>>> 1.20
 }
 
 ##############################
@@ -886,32 +652,6 @@ world_jazira = { #k_jazira
 
 # Start area
 special_mongol_empire_start_region = {
-<<<<<<< HEAD
-=======
-	duchies = {
-		#Roughly historical ~1206
-		#k_otuken
-		d_orkhon d_ogrash d_selenga_valley d_EM_onon d_EM_wajiezi d_EM_yujuelu
-		#k_naimania
-		d_ovorkhangai d_arkhangai d_khovsgol d_gobi_altai d_ubsunur_hollow d_zavkhan d_khovd
-		#k_buryatia
-		d_uda_valley d_dauria d_bargujin_tukum d_baigaluuls d_tsagaanbaigal
-		#k_gobi
-		d_em_tataria d_gobi_ongi d_gobi_shatuoguo d_gobi_dadaels d_em_wuguguo
-
-		#Not first historical priority, but still core Eastern steppe
-		#k_tuva
-		d_togina d_tannu_ola d_western_sayan d_katu_yaryk
-		#k_khakassia
-		d_khakass_hollow d_blue_khakassia d_shoria d_kargassia d_eastern_sayan
-		#k_angara
-		d_yenisei_kan d_chuna_valley d_lena d_angara
-
-		# k_shiwei
-		d_SW_qingxingan d_SW_lingxiguo d_SW_ruzheguo d_SW_puyudao d_SW_sushenguo d_SW_heicheziguo d_SW_dashiweiguo
-
-	}
->>>>>>> 1.20
 }
 
 #The Eastern Steppe and Northern China
@@ -1004,23 +744,6 @@ special_mongol_empire_great_yuan_region = {
 }
 
 great_yuan_de_jure_region = {
-<<<<<<< HEAD
-=======
-	duchies = {
-		#k_henan
-		d_dongji d_biansong d_shanguo d_zhenghua d_chenxu
-		#k_qingxu
-		d_ziqing d_yanhai d_xusi d_yuncao
-		#k_hebei
-		d_weibo d_xingming d_chengde d_cangjing d_heyang
-		#k_hedong
-		d_hedong d_yanmen d_hezhong d_zelu
-		#k_youji
-		d_youzhou d_yideng d_yingmo
-		#k_daibei
-		d_yunshuo d_sanggan d_xinan
-	}
->>>>>>> 1.20
 }
 
 special_mongol_empire_blue_horde_region = {
@@ -1297,30 +1020,6 @@ dlc_fp3_eastern_persian_frontier_regions = {
 }
 
 dlc_fp3_greater_persian_frontier_regions = {
-<<<<<<< HEAD
-=======
-	duchies = {
-		#Sindh
-		d_sauvira d_bhakkar
-		#Punjab
-		d_multan d_lahore d_gandhara
-		# k_syr_darya
-		d_syr_darya d_chah d_muyunkum d_talas_alatau
-		# k_oghuz_il
-		d_transcaspiana d_garabogazkol d_jemba d_aral_il d_barsuki d_aral_karakum
-		# k_daylam
-		d_daylam d_tabaristan d_gurgan d_azerbaijan
-	}
-	regions = {
-		world_khorasan
-		world_transoxiana
-		world_makran
-		world_kabulistan
-		world_mesopotamia
-		world_asia_minor
-		world_jazira
-	}
->>>>>>> 1.20
 }
 
 dlc_fp3_seljuk_birth_region = {
@@ -1407,41 +1106,6 @@ dlc_mpo_867_nomads = {
 }
 
 dlc_mpo_1066_nomads = {
-<<<<<<< HEAD
-=======
-	duchies = {
-		#Pontic Steppe
-		d_yedisan d_kizilyedisan d_levedia d_red_levedia d_don_valley d_tana d_khazaria
-		#Volga Bulgaria
-		d_bashkiria d_sakmara d_uraltau d_aqtobe d_bugurslan d_vogulia
-
-		#Turkestan
-		d_transcaspiana d_garabogazkol d_barsuki d_aral_karakum d_zhetysu d_tarbagatai d_jemba d_aral_il d_muyunkum d_talas_alatau d_alakol d_ili-alatau d_syr_darya
-		#Cumania
-		d_kurgan d_mugodzhar_hills d_atyrau d_manatau d_turgay d_kokturgay d_kush-murun d_tobol-ishim d_saryarka d_qyzylsaryarka d_kazakh d_atbasar d_kentarlau d_karkaraly d_karabas d_tokumbay d_betpa d_semey d_jinghiz d_degelen
-
-		#Dzungaria
-		d_altay d_akaltay d_beshbalik d_gurbantunggut d_naiman_gobi d_altaishan
-		#Mongolia
-		d_orkhon d_ogrash d_selenga_valley d_ovorkhangai d_arkhangai d_khovsgol d_gobi_altai d_ubsunur_hollow d_zavkhan d_khovd
-		d_togina d_tannu_ola d_western_sayan d_katu_yaryk
-		# buryatia
-		d_uda_valley d_dauria d_bargujin_tukum d_baigaluuls d_tsagaanbaigal d_lena d_angara d_eastern_sayan d_chuna_valley d_kargassia d_blue_khakassia d_shoria d_khakass_hollow d_yenisei_kan
-
-		d_lanikaz d_kulyndy_steppe d_baraba_steppe d_ala_tau d_salair d_aley
-	}
-	counties = {
-		# d_pecheneg and d_itil, omitting counties controlled by Volga Bulgaria
-			# d_pecheneg
-			c_yaitsk c_qyzylyaitsk
-			# d_itil
-			c_itil c_saqsin
-		# d_azov, omitting counties controlled by Ruthenia
-			c_khumar c_azov
-		# d_crimea, omitting counties controlled by Byzantium
-			c_perekop c_kalos_limen
-	}
->>>>>>> 1.20
 }
 
 dlc_mpo_1178_nomads = {
@@ -1456,24 +1120,6 @@ dlc_mpo_steppe_east_buryatia_addon = {
 }
 
 dlc_mpo_steppe_east_andong_addon = {
-<<<<<<< HEAD
-=======
-	duchies = {
-		d_LIAO_zhongjing d_liaoxi d_yanyun_yuyi
-		d_LIAO_shangjing d_LIAO_linhuang
-		d_SW_heicheziguo d_SW_dashiweiguo
-		d_SW_lingxiguo d_SW_qingxingan d_SW_puyudao d_SW_ruzheguo d_SW_sushenguo
-	}
-}
-
-dlc_mpo_steppe_east_china_addon = {
-	duchies = {
-		# k_xia
-		d_tiande d_langshan d_xiutu d_juyan
-		# k_daibei
-		d_sanggan d_xinan
-	}
->>>>>>> 1.20
 }
 
 dlc_mpo_steppe_central_siberia_addon = {
@@ -1532,385 +1178,36 @@ tgp_silk_road_region = {
 }
 
 dlc_tgp_silk_road_route_china = {
-<<<<<<< HEAD
-=======
-	counties = {
-	# Bejing to Weizhou, via Kaifeng and Chang'an
-		c_youzhou # Beijing
-		c_zhuozhou
-		c_mozhou
-		c_hejian
-		c_jizhou
-		c_beizhou
-		c_bozhou_1
-		c_weizhou
-		c_puzhou_2
-		c_huazhou
-		c_bianzhou # Kaifeng
-		c_zhengzhou
-		c_henan
-		c_shanzhou_2
-		c_guozhou
-		c_huayin
-		c_jingzhao # Chang'an
-		c_fengxiang
-		c_longzhou_2
-		c_qinzhou_1
-		c_weizhou_2
-	# Chang'an to Chengdu
-		c_yangzhou_1
-		c_xingyuan
-		c_lizhou_2
-		c_jianzhou_1
-		c_mianzhou
-		c_tongchuan
-		c_hanzhou
-		c_chengdu
-		c_qiongzhou
-		c_meizhou
-		c_yazhou_2
-		c_qiongbu
-	# Chengdu to Nanhai, via Changsha
-		# c_chengdu
-		c_jianyang
-		c_puzhou
-		c_suining
-		c_yuzhou_2
-		c_fuzhou_4
-		c_zhongzhou
-		c_wanzhou
-		c_kuizhou
-		c_guizhou
-		c_xiazhou_1
-		c_liyang
-		c_yuezhou_1
-		c_tanzhou # Changsha
-		c_hengzhou
-		c_chenzhou_1
-		c_lianzhou
-		c_yingde
-		c_guangzhou_1 # Nanhai
-	# Kaifeng to Suzhou
-		# c_bianzhou # Kaifeng
-		c_huaining
-		c_songzhou
-		c_bozhou
-		c_yingzhou
-		c_haozhou
-		c_chuzhou_2
-		c_yangzhou
-		c_jiangning
-		c_runzhou
-		c_changzhou
-		c_suzhou_2 # Suzhou
-	#Dali to Tibet
-		c_dali
-		c_jianchuan
-	}
->>>>>>> 1.20
 }
 
 tgp_silk_road_china_region = { # Omitting k_xia and k_hexi from the standard world_asia_china definition so it can be plugged into the Central Asia region instead
 }
 
 dlc_tgp_silk_road_route_tibet = {
-<<<<<<< HEAD
-=======
-	counties = {
-	# Dawu to Dhankar (connecting to Lahur via Kangra)
-		c_dawu
-		c_nyagrong
-		c_pelyul
-		c_gonjo
-		c_lhatok
-		c_qamdo
-		c_dengqen
-		c_sog
-		c_lhari
-		c_gyama
-		c_lhunzhub
-		c_lhasa
-		c_nyemo
-		c_gyangze
-		c_xigaze
-		c_sagya
-		c_nyalam
-		c_gyirong
-		c_kyakyaru
-		c_zhongba
-		c_cuonaco
-		c_kyunglung
-		c_tsaparang
-		c_demchok
-		c_leh
-		c_padum
-		c_darcha
-		c_dhankar
-		c_markam
-		c_deqen
-	}
->>>>>>> 1.20
 }
 
 tgp_silk_road_tibet_region = {
 }
 
 dlc_tgp_silk_road_route_india = {
-<<<<<<< HEAD
-=======
-	counties = {
-	# Kathmandu to Pataliputra
-		# c_nyalam
-		c_kathmandu
-		c_simaramapura
-		c_mithila
-		# c_magadha
-	# Kanyakubja to Gauda to Chatigama
-		# c_gwalior
-		c_kanyakubja
-		c_asni
-		c_prayaga
-		c_varanasi
-		c_sasaram
-		c_magadha
-		c_mudgagiri
-		c_gauda
-		c_bikrampur
-		c_samatata
-	# Lahur to Khambhat
-		# c_lahur
-		c_tribandapura
-		c_hisar
-		c_delhi
-		c_mathura
-		c_sripatha
-		c_gwalior
-		c_candhoba
-		c_sarangpur
-		c_ujjayini
-		c_dhara
-		c_dadhipadra
-		c_vadodara
-		c_khetaka
-
-	# Bamian to Debul
-		# c_upper_ghur
-		c_bamian
-		c_kabul
-		c_purushapura
-		c_nandana
-		c_bhera
-		c_lahur
-		c_dipalpur
-		c_multan
-		c_uch
-		c_vijnot
-		c_aror
-		c_siwistan
-		c_mansura
-		c_debul
-
-	# Kanggra to Lahur
-		# c_dhankar
-		c_kangra
-		c_trigarta
-		# c_lahur
-	}
->>>>>>> 1.20
 }
 
 tgp_silk_road_india_region = {
 }
 
 dlc_tgp_silk_road_route_central_asia = {
-<<<<<<< HEAD
-=======
-	counties = {
-
-	# Merv to Kashgar
-		c_merv
-		c_amol
-		c_firabr
-		c_bukhara
-		c_dabusiya
-		c_zarafshan
-		c_samarkand
-		c_oshrusana
-		c_khojand
-		c_nasaiya
-		c_uzgend
-		c_terek_pass
-		c_kashgar
-	# Kashgar to Yumen, northern route
-		# c_kashgar
-		c_maralbeshi
-		c_aksu
-		c_kucha
-		c_luntai
-		c_karashar
-		c_kumtag
-		c_dafang
-		c_luobupo
-		c_hehe
-		c_shazhou
-		c_guazhou
-		c_xincheng
-		c_yumen
-	# Kashgar to Dunhuang, southern route
-		# c_kashgar
-		c_yarkand
-		c_karghalik
-		c_khotan
-		c_dondan_oilik
-		c_keriya
-		c_cherchen
-		c_charkliq
-		c_dunhuang
-		# c_luobupo
-	# Yumen to Lanzhou
-		c_ganzhou
-		c_fanhe
-		c_liangzhou
-		c_guangwu
-		c_lanzhou_1
-	}
->>>>>>> 1.20
 }
 
 tgp_silk_road_central_asia_region = {
 }
 
 dlc_tgp_silk_road_route_transcaspia = {
-<<<<<<< HEAD
-=======
-	counties = {
-		#
-	# Chah (connected to Khojand) to Aralkizil
-		c_chah
-		c_otrar
-		c_shavgar
-		c_sighnaq
-		c_jend
-		c_kara-mugai
-		c_raimskoe
-		c_ak-dzulpas
-		c_barsuki
-		c_namastau
-		c_baisary
-		c_kainar
-		c_atyrau
-		c_saqsin
-		c_itil
-		c_beksima
-		c_sarkel
-		c_azov
-		c_khumar
-		c_tmutarakan
-		c_zichia
-		c_maghas
-		c_cabardinia
-		c_svaneti
-		c_kartli
-		c_tbilisi
-		c_hayk
-		# and thence to c_dvin
-	# Darghan (connected to Amol) to Aralkizil
-		c_darghan
-		c_khiva
-		c_zamakhshar
-		c_gurganj
-		c_aralkizil
-		# c_namastau
-	}
->>>>>>> 1.20
 }
 
 tgp_silk_road_transcaspia_region = {
 }
 
 dlc_tgp_silk_road_route_occident = {
-<<<<<<< HEAD
-=======
-	counties = {
-	# Constantinople to Dvin
-		c_byzantion
-		c_bithynia
-		c_prusa
-		c_phrygia
-		c_galatia
-		c_charsianon
-		c_sebasteia # see below for leg connecting with Cairo
-		c_satala
-		c_mesopotamia
-		c_theodosiopolis
-		c_turuberan
-		c_bagrewand
-		c_dvin
-
-	# Cairo up to Sivas/Sebasteia
-		c_cairo
-		c_sharkiya
-		c_damietta
-		c_farama
-		c_ghazza
-		c_jaffa
-		c_acre
-		c_tiberias
-		c_damascus
-		c_juwair
-		c_qaryatan
-		c_homs
-		c_hama
-		c_qinnasrin
-		c_aleppo
-		c_aintab
-		c_edessa
-		c_amida
-		c_melitene
-		c_azysia
-		# c_sebasteia
-
-	# Dvin to Herat
-		# c_dvin
-		c_suenik
-		c_tabriz
-		c_maragha
-		c_hamadan
-		c_rayy
-		c_khuwar
-		c_damghan
-		c_baihaq
-		c_nishapur
-		c_bakharz
-		c_herat
-		c_ghur
-		c_upper_ghur
-		# c_bamian
-
-	# Merv to Nishapur
-		# c_merv
-		#c_sarakhs
-		#c_tus
-		# c_nishapur
-
-	# Aleppo to Hamadan via Baghdad
-		# c_aleppo
-		c_dausar
-		c_raqqa
-		c_khabur
-		c_hadithat-ana
-		c_anbar
-		c_baghdad
-		c_hulwan
-		c_kermanshah
-		c_dinawar
-		# c_hamadan
-
-	# little bonus additions: Antioch and Jerusalem
-		c_antiocheia
-		c_jerusalem
-	}
->>>>>>> 1.20
 }
 
 tgp_silk_road_occident_region = {
@@ -2003,31 +1300,8 @@ sea_aral_sea = {
 }
 ### Hunts
 
-<<<<<<< HEAD
 # Antelope Spread
 hunt_animal_antelope_region = {
-=======
-# Deer Spread
-hunt_animal_deer_region = {
-	regions = {
-		# Europe
-		world_europe
-		# Africa
-		world_africa_north_west
-		# Asia
-		world_middle_east_jerusalem world_middle_east_persia world_asia_minor world_steppe_east world_steppe_central world_siberia world_steppe_west world_india world_asia
-	}
-}
-
-# Antelope Spread
-hunt_animal_antelope_region = {
-	regions = {
-		# Africa
-		world_africa
-		# Asia
-		world_middle_east world_steppe world_tibet world_india world_asia_china world_asia_southeast_mainland
-	}
->>>>>>> 1.20
 }
 
 # Gazelle Spread
@@ -2037,23 +1311,6 @@ hunt_animal_gazelle_region = {
 
 # Boar Spread
 hunt_animal_boar_region = {
-<<<<<<< HEAD
-=======
-	regions = {
-		# Europe
-		world_europe_west world_europe_east world_europe_south
-		# Africa
-		world_africa_north_west
-		# Asia
-		world_asia_minor world_steppe_west world_steppe_central world_steppe_east world_siberia world_middle_east_jerusalem world_middle_east_persia world_india world_asia
-	}
-	duchies = {
-		# Southern Scandinavia
-		d_slesvig d_sjaelland d_jylland d_skane d_smaland d_viken d_vastergotland d_ostergotland d_finland d_savo d_karelia d_bergslagen d_svealand
-		# Egypt
-		d_diyarmudar d_diyarbakr d_sinai d_cairo d_delta d_al-said d_alexandria d_cyrenaica d_nobatia d_shamir d_makuria
-	}
->>>>>>> 1.20
 }
 
 # Bear Spread
@@ -2062,24 +1319,6 @@ hunt_animal_bear_region = {
 
 # Big Cat Spread
 hunt_animal_big_cat_region = {
-<<<<<<< HEAD
-=======
-	regions = {
-		# Africa
-		world_africa # Leopard/Lion
-		# Asia
-		world_middle_east # Leopard/Lion
-		world_india # Leopard/Lion/Tiger
-		world_steppe_east world_tibet # Snow Leopard
-		world_asia_korea
-		world_asia_china
-		world_asia_sakhalin_hokkaido
-		world_asia_southeast_mainland
-		world_asia_borneo
-		world_asia_sulawesi_maluku
-		world_asia_indonesia
-	}
->>>>>>> 1.20
 }
 
 # Bison Spread
@@ -2124,17 +1363,6 @@ greek_backwater_modifier_region = {
 }
 
 custom_ep3_restore_rome_eastern_empire = {
-<<<<<<< HEAD
-=======
-	regions = {
-		world_asia_minor world_middle_east world_africa_east world_india world_steppe world_tibet world_europe_south_east world_europe_east world_asia world_siberia
-	}
-
-	duchies = {
-		#Egypt
-		d_cyrenaica d_alexandria d_delta d_cairo d_al-wahat d_al-said d_eastern_desert
-	}
->>>>>>> 1.20
 }
 
 black_sea_coast_region = {
@@ -2151,13 +1379,6 @@ seasonal_region_bengal = {
 }
 
 seasonal_region_peninsular_southeast_asia = {
-<<<<<<< HEAD
-=======
-	regions = {
-		#Burma, Thailand, Laos, Cambodia
-		world_asia_southeast_mainland
-	}
->>>>>>> 1.20
 }
 
 seasonal_region_maritime_southeast_asia = {
@@ -2173,49 +1394,9 @@ mpo_region_permafrost = {
 }
 
 cp4_music_area = {
-<<<<<<< HEAD
 }
 
 sami_nomad_area = {
-=======
-	duchies = {
-		# Sapmi
-		d_aarjetje d_duortnoseatnu d_giemajohka d_guoldat d_vuovdisamieana
-		# Dulo
-		d_kazan
-		# Perm
-		d_udmurtia d_ural d_perm
-		# Vladimir
-		d_nizhny_novgorod
-		# Bjarmalan
-		d_vologda d_chudia d_ustyug d_biarmia
-		# Novgorod
-		d_vepsia d_novgorod d_luki d_opolye
-		# Norway
-		d_halogaland d_bergslagen d_trandalog d_jamtland d_dalir d_vestlandi d_agder d_viken d_skane
-		# Siberia
-		d_martyuba d_ostyaki d_pelym d_konda d_kazym d_sibir d_ishim d_tara d_vasyugan_mire d_baraba_steppe d_kulyndy_steppe
-		#k_amur
-		d_eman_boli d_eman_sikhotebei d_eman_samagero d_eman_nivkhia d_eman_amar d_eman_bureya
-		# Shiwei
-		d_SW_lingxiguo d_SW_qingxingan d_SW_puyudao d_SW_ruzheguo  d_SW_sushenguo
-	}
-	regions = {
-		custom_swedish
-		custom_eastern_baltic
-	}
-}
-
-sami_nomad_area = {
-	duchies = {
-		#Sweden
-		d_norrland
-		#Sapmi
-		d_aarjetje d_duortnoseatnu d_giemajohka d_guoldat d_vuovdisamieana
-		# Norway
-		d_halogaland d_jamtland
-	}
->>>>>>> 1.20
 }
 
 karelia_nomad_area = {
@@ -2240,19 +1421,6 @@ horn_of_africa_nomad_area = {
 }
 
 nubia_nomad_area = {
-<<<<<<< HEAD
-=======
-	duchies = {
-		#Abyssinia
-		d_aksum d_dahlaks d_lasta d_gondar d_gojjam d_showa
-		#Damot
-		d_damot d_kaffa d_sharka
-		#k_nubia
-		d_nobatia d_makuria d_shamir d_alwa d_sennar
-		#k_blemmyia
-		d_naqis d_bazin d_baqlin
-	}
->>>>>>> 1.20
 }
 
 eastern_plateau_nomad_area = {
