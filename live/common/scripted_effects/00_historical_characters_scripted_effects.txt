@@ -1508,56 +1508,6 @@
 			spawn_historical_characters_boilerplate_effect = yes
 		}
 	}
-<<<<<<< HEAD
-	if = { # John Wycliffe
-		limit = {
-			current_year >= 1340
-			current_year <= 1346
-			NOT = { exists = global_var:hchar_john_wycliffe }
-		}
-		set_global_variable = { name = hchar_john_wycliffe value = yes }
-		title:b_avalon_iii = {
-			save_scope_as = birth_location
-			create_character = {
-				age = 20
-				name = "John"
-				dynasty_house = house:house_wycliffe
-				gender_female_chance = 0
-				random_traits = no
-				location = scope:birth_location.title_province
-				faith = faith:lollard
-				culture = scope:birth_location.title_province.culture
-				trait = education_learning_4
-				trait = zealous
-				trait = brave
-				trait = stubborn
-				trait = theologian
-				trait = devoted
-				diplomacy = { min_template_high_skill max_template_high_skill }
-				martial = { min_template_low_skill max_template_low_skill }
-				stewardship = { min_template_high_skill max_template_high_skill }
-				intrigue = { min_template_low_skill max_template_low_skill }
-				learning = { min_template_high_skill max_template_high_skill }
-				prowess = { min_template_low_skill max_template_low_skill }
-				save_scope_as = historical_character
-			}
-			scope:historical_character ?= {
-				historical_character_finalization_effect = yes
-				set_variable = john_wycliffe
-				save_scope_as = major
-				create_inspiration = religious_inspiration
-				add_character_flag = ai_will_not_convert
-				add_piety = 5000
-				add_character_modifier = {
-					modifier = vow_of_poverty_modifier
-				}
-			}
-			if = { limit = { has_variable = john_wycliffe } } # Error suppression
-			spawn_historical_characters_boilerplate_effect = yes
-		}
-	}
-=======
->>>>>>> 1.20
 	if = { # Héloïse d'Argenteuil & Peter Abelard
 		limit = {
 			current_year >= 1110
@@ -1839,12 +1789,8 @@
 				random_traits = no
 				location = scope:birth_location.title_province
 				faith = scope:birth_location.title_province.faith
-<<<<<<< HEAD
-				culture = title:b_avalon_iii.title_province.culture
-=======
 				rite = scope:birth_location.title_province.rite
-				culture = title:b_paris.title_province.culture
->>>>>>> 1.20
+				culture = title:b_avalon_iii.title_province.culture
 				trait = education_diplomacy_3
 				trait = brave
 				trait = diligent
@@ -2011,14 +1957,9 @@
 				gender_female_chance = 0
 				random_traits = no
 				location = scope:birth_location.title_province
-<<<<<<< HEAD
 				faith = title:b_avalon_iii.title_province.faith
+				rite = title:b_avalon_iii.title_province.rite
 				culture = title:b_avalon_iii.title_province.culture
-=======
-				faith = title:b_barcelona.title_province.faith
-				rite = title:b_barcelona.title_province.rite
-				culture = title:b_barcelona.title_province.culture
->>>>>>> 1.20
 				trait = education_learning_4
 				trait = cynical
 				trait = diligent
@@ -2107,14 +2048,9 @@
 				gender_female_chance = 0
 				random_traits = no
 				location = scope:birth_location.title_province
-<<<<<<< HEAD
 				faith = title:b_avalon_iii.title_province.faith
+				rite = title:b_avalon_iii.title_province.rite
 				culture = title:b_avalon_iii.title_province.culture
-=======
-				faith = title:b_balkh.title_province.faith
-				rite = title:b_balkh.title_province.rite
-				culture = title:b_balkh.title_province.culture
->>>>>>> 1.20
 				trait = education_learning_4
 				trait = compassionate
 				trait = diligent
@@ -3029,14 +2965,9 @@
 				gender_female_chance = 0
 				random_traits = no
 				location = scope:birth_location.title_province
-<<<<<<< HEAD
 				faith = title:b_avalon_iii.title_province.faith
+				rite = title:b_avalon_iii.title_province.rite
 				culture = title:b_avalon_iii.title_province.culture
-=======
-				faith = title:b_constantinople.title_province.faith
-				rite = title:b_constantinople.title_province.rite
-				culture = title:b_constantinople.title_province.culture
->>>>>>> 1.20
 				trait = education_learning_2
 				trait = patient
 				trait = diligent
@@ -3771,14 +3702,9 @@
 				gender_female_chance = 0
 				random_traits = no
 				location = scope:birth_location.title_province
-<<<<<<< HEAD
 				faith = title:b_avalon_iii.title_province.faith
+				rite = title:b_avalon_iii.title_province.rite
 				culture = title:b_avalon_iii.title_province.culture
-=======
-				faith = title:b_constantinople.title_province.faith
-				rite = title:b_constantinople.title_province.rite
-				culture = title:b_constantinople.title_province.culture
->>>>>>> 1.20
 				trait = education_intrigue_5
 				trait = gregarious
 				trait = ambitious
@@ -3818,14 +3744,9 @@
 				gender_female_chance = 0
 				random_traits = no
 				location = scope:birth_location.title_province
-<<<<<<< HEAD
 				faith = title:b_avalon_iii.title_province.faith
+				rite = title:b_avalon_iii.title_province.rite
 				culture = title:b_avalon_iii.title_province.culture
-=======
-				faith = title:b_constantinople.title_province.faith
-				rite = title:b_constantinople.title_province.rite
-				culture = title:b_constantinople.title_province.culture
->>>>>>> 1.20
 				trait = education_diplomacy_4
 				trait = zealous
 				trait = patient
@@ -4082,14 +4003,9 @@
 				gender_female_chance = 0
 				random_traits = no
 				location = scope:birth_location.title_province
-<<<<<<< HEAD
 				faith = title:b_avalon_iii.title_province.faith
+				rite = title:b_avalon_iii.title_province.rite
 				culture = title:b_avalon_iii.title_province.culture
-=======
-				faith = title:b_constantinople.title_province.faith
-				rite = title:b_constantinople.title_province.rite
-				culture = title:b_maragha.title_province.culture
->>>>>>> 1.20
 				trait = education_martial_5
 				trait = brave
 				trait = trusting
@@ -4624,14 +4540,9 @@
 				gender_female_chance = 0
 				random_traits = no
 				location = scope:birth_location.title_province
-<<<<<<< HEAD
 				faith = title:b_avalon_iii.title_province.faith
+				rite = title:b_avalon_iii.title_province.rite
 				culture = title:b_avalon_iii.title_province.culture
-=======
-				faith = title:b_roma.title_province.faith
-				rite = title:b_roma.title_province.rite
-				culture = title:b_roma.title_province.culture
->>>>>>> 1.20
 				trait = education_martial_5
 				trait = greedy
 				trait = ambitious

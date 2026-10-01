@@ -41,11 +41,6 @@ has_partition_succession_realm_law_trigger = {
 	}
 }
 
-<<<<<<< HEAD
-realm_law_use_crown_authority = { government_has_flag = government_uses_crown_authority }
-
-realm_law_use_tribal_authority = { government_has_flag = government_is_tribal }
-=======
 can_increase_government_authority = {
 	realm_law_authority_level_max = no
 	realm_law_use_government_authority = yes
@@ -177,47 +172,30 @@ realm_law_use_church_authority = {
 realm_law_use_tribal_authority = {
 	government_has_flag = government_uses_tribal_authority
 }
->>>>>>> 1.20
 
 realm_law_use_camp_purpose = { government_has_flag = government_is_landless_adventurer }
 
-<<<<<<< HEAD
-realm_law_use_imperial_bureaucracy = { always = no }
-=======
 realm_law_use_imperial_bureaucracy = {
 	government_has_flag = government_uses_imperial_bureaucracy
 }
->>>>>>> 1.20
 
 realm_law_use_nomadic_authority = { government_has_flag = government_is_nomadic }
 
-<<<<<<< HEAD
-realm_law_use_celestial_bureaucracy = { always = no }
-=======
 realm_law_use_celestial_bureaucracy = {
 	government_has_flag = government_uses_celestial_bureaucracy
 }
->>>>>>> 1.20
 
 realm_law_is_mandala = { government_has_flag = government_is_mandala }
 
-<<<<<<< HEAD
-realm_law_use_meritocratic_bureaucracy = { always = no }
-=======
 realm_law_use_meritocratic_bureaucracy = {
 	government_has_flag = government_uses_meritocratic_bureaucracy
 }
->>>>>>> 1.20
 
 realm_uses_treasury_laws_trigger = { government_allows = treasury }
 
-<<<<<<< HEAD
-realm_law_use_japanese_bureaucracy = { government_is_japanese_trigger = yes }
-=======
 realm_law_use_japanese_bureaucracy = {
 	government_has_flag = government_uses_japanese_bureaucracy
 }
->>>>>>> 1.20
 
 can_have_confederate_partition_succession_law_trigger = {
 	OR = {
@@ -399,11 +377,6 @@ can_keep_single_heir_youngest_succession_law_trigger = {
 }
 
 can_have_single_heir_youngest_succession_law_trigger = {
-<<<<<<< HEAD
-	custom_description = {
-		text = succession_laws_must_have_aristocratic_government
-		government_has_flag = government_is_aristocratic
-=======
 	culture = {
 		has_innovation = innovation_primogeniture
 	}
@@ -437,7 +410,6 @@ can_have_single_heir_youngest_succession_law_trigger = {
 			government_has_mechanic = administrative
 		}
 		is_independent_ruler = yes
->>>>>>> 1.20
 	}
 }
 
@@ -459,10 +431,7 @@ can_have_single_heir_dynasty_house_trigger = {
 		text = succession_laws_must_have_aristocratic_government
 		government_has_flag = government_is_aristocratic
 	}
-<<<<<<< HEAD
-=======
 	NOT = { government_has_mechanic = administrative }
->>>>>>> 1.20
 }
 
 can_have_bishop_theocratic_succession_law_trigger = {
@@ -619,17 +588,10 @@ can_change_acclamation_succession_law_trigger = {
 
 can_have_appointment_succession_law_trigger = {
 	has_ep3_dlc_trigger = yes
-<<<<<<< HEAD
-	government_allows = administrative
-	custom_description = {
-		text = succession_laws_must_have_bureaucratic_government
-		government_has_flag = government_is_bureaucratic
-=======
 	government_has_mechanic = administrative
 	NOR = {
 		government_has_flag = government_has_merit
 		government_has_flag = government_is_japan_administrative
->>>>>>> 1.20
 	}
 	is_independent_ruler = no
 }
@@ -648,31 +610,6 @@ can_change_appointment_succession_law_trigger = {
 	has_ep3_dlc_trigger = yes
 }
 
-<<<<<<< HEAD
-can_have_appointment_succession_law_trigger = {
-	has_ep3_dlc_trigger = yes
-	government_allows = administrative
-	custom_description = {
-		text = succession_laws_must_have_bureaucratic_government
-		government_has_flag = government_is_bureaucratic
-	}
-	is_independent_ruler = no
-}
-
-can_keep_appointment_succession_law_trigger = {
-	has_ep3_dlc_trigger = yes
-	trigger_if = {
-		limit = {
-			has_realm_law = appointment_succession_law 
-		}
-		can_have_appointment_succession_law_trigger = yes
-	}
-}
-
-can_change_appointment_succession_law_trigger = {
-	has_ep3_dlc_trigger = yes
-}
-=======
 # Scope's $AUTHORITY$ authority law level is at least $CHARACTER$'s
 has_higher_or_equal_authority_trigger = {
 	OR = {
@@ -704,4 +641,3 @@ has_higher_or_equal_authority_trigger = {
 		}
 	}
 }
->>>>>>> 1.20
