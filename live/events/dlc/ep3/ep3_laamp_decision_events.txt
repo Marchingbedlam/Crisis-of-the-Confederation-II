@@ -443,21 +443,13 @@ ep3_laamp_decision_event.1000 = {
 			random_valid = {
 				triggered_desc = { 
 					trigger = { 
-<<<<<<< HEAD
-						scope:visiting_location = { has_holding_type = tribal_holding }
-=======
 						scope:visiting_location = { holding_is_tribal = yes }
->>>>>>> 1.20
 					}
 					desc = ep3_laamp_decision_event.1000.desc_intro_tribal_holding_01
 				}
 				triggered_desc = { 
 					trigger = { 
-<<<<<<< HEAD
-						scope:visiting_location = { has_holding_type = tribal_holding }
-=======
 						scope:visiting_location = { holding_is_tribal = yes }
->>>>>>> 1.20
 					}
 					desc = ep3_laamp_decision_event.1000.desc_intro_tribal_holding_02
 				}
@@ -1052,11 +1044,7 @@ ep3_laamp_decision_event.1000 = {
 		override_background = {
 			trigger = { 
 				1000_time_to_go_home_trigger = yes
-<<<<<<< HEAD
-				scope:visiting_location = { has_holding_type = tribal_holding }
-=======
 				scope:visiting_location = { holding_is_tribal = yes }
->>>>>>> 1.20
 			}
 			reference = bp1_bonfire
 		}
@@ -1077,15 +1065,12 @@ ep3_laamp_decision_event.1000 = {
 			}
 			reference = village
 		}
-<<<<<<< HEAD
-=======
 		override_background = {
 			trigger = { 
 				scope:visiting_location = { holding_is_nomad = yes }
 			}
 			reference = mpo_camp_steppe
 		}
->>>>>>> 1.20
 		#Constantinople
 		override_background = { 
 			trigger = { exists = scope:is_constantinople }
@@ -1756,11 +1741,7 @@ ep3_laamp_decision_event.1001 = {
 			#FIRST TIME
 			triggered_desc = {
 				trigger = {
-<<<<<<< HEAD
-					scope:visiting_location = { has_holding_type = tribal_holding }
-=======
 					scope:visiting_location = { holding_is_tribal = yes }
->>>>>>> 1.20
 					NOT = { exists = scope:been_to_second }
 				}
 				desc = ep3_laamp_decision_event.1001.desc_intro_nomads
@@ -2120,11 +2101,7 @@ ep3_laamp_decision_event.1001 = {
 		override_background = {
 			trigger = { 
 				1000_time_to_go_home_trigger = yes
-<<<<<<< HEAD
-				scope:visiting_location = { has_holding_type = tribal_holding }
-=======
 				scope:visiting_location = { holding_is_tribal = yes }
->>>>>>> 1.20
 			}
 			reference = bp1_bonfire
 		}
@@ -2145,15 +2122,12 @@ ep3_laamp_decision_event.1001 = {
 			}
 			reference = village
 		}
-<<<<<<< HEAD
-=======
 		override_background = {
 			trigger = { 
 				scope:visiting_location = { holding_is_nomad = yes }
 			}
 			reference = mpo_camp_steppe
 		}
->>>>>>> 1.20
 		#Constantinople
 		override_background = { 
 			trigger = { exists = scope:is_constantinople }
@@ -3290,11 +3264,7 @@ ep3_laamp_decision_event.1010 = {
 	theme = stewardship
 	override_background = {
 		trigger = {
-<<<<<<< HEAD
-			scope:visiting_location = { has_holding_type = tribal_holding }
-=======
 			scope:visiting_location = { holding_is_tribal = yes }
->>>>>>> 1.20
 		}
 		reference = army_camp
 	}
@@ -6881,209 +6851,13 @@ ep3_laamp_decision_event.1025 = {
 				trigger = { 1025_no_contracts_trigger = yes }
 				desc = ep3_laamp_decision_event.1025.desc_nothing
 			}
-<<<<<<< HEAD
 			triggered_desc = {
 				trigger = { exists = scope:1025_offer_third }
 				desc = cotc_local_news_desc_3
-=======
-			#RETURN: Tribal - Legendary contract
-			random_valid = {
-				triggered_desc = { 
-					trigger = {
-						scope:visiting_location = { holding_is_tribal = yes }
-						exists = scope:been_to_contract
-						scope:contract_loc_tracker ?= 0
-						OR = {
-							scope:1025_first_contract ?= flag:legendary_contract
-							scope:1025_second_contract ?= flag:legendary_contract
-							scope:1025_third_contract ?= flag:legendary_contract
-						}
-					}
-					desc = ep3_laamp_decision_event.1025.desc_tribal_legendary_returned_01 
-				}
-				triggered_desc = { 
-					trigger = {
-						scope:visiting_location = { holding_is_tribal = yes }
-						scope:contract_loc_tracker ?= 1
-						OR = {
-							scope:1025_first_contract ?= flag:legendary_contract
-							scope:1025_second_contract ?= flag:legendary_contract
-							scope:1025_third_contract ?= flag:legendary_contract
-						}
-					}
-					desc = ep3_laamp_decision_event.1025.desc_tribal_legendary_returned_02
-				}
-			}
-			#RETURN: Legendary contract
-			random_valid = {
-				triggered_desc = { 
-					trigger = { 
-						exists = scope:been_to_contract
-						scope:contract_loc_tracker ?= 0
-						OR = {
-							scope:1025_first_contract ?= flag:legendary_contract
-							scope:1025_second_contract ?= flag:legendary_contract
-							scope:1025_third_contract ?= flag:legendary_contract
-						}
-					}
-					desc = ep3_laamp_decision_event.1025.desc_legendary_returned_01 
-				}
-				triggered_desc = { 
-					trigger = { 
-						scope:contract_loc_tracker ?= 1
-						OR = {
-							scope:1025_first_contract ?= flag:legendary_contract
-							scope:1025_second_contract ?= flag:legendary_contract
-							scope:1025_third_contract ?= flag:legendary_contract
-						}
-					}
-					desc = ep3_laamp_decision_event.1025.desc_legendary_returned_02
-				}
-			}
-			#RETURN: Tribal - No legendary contract
-			random_valid = {
-				triggered_desc = { 
-					trigger = {
-						scope:visiting_location = { holding_is_tribal = yes }
-						exists = scope:been_to_contract
-						scope:contract_loc_tracker ?= 0
-					}
-					desc = ep3_laamp_decision_event.1025.desc_tribal_returned_01 
-				}
-				triggered_desc = { 
-					trigger = {
-						scope:visiting_location = { holding_is_tribal = yes }
-						scope:contract_loc_tracker ?= 1 
-					}
-					desc = ep3_laamp_decision_event.1025.desc_tribal_returned_02
-				}
-			}
-			#RETURN: No legendary contract
-			random_valid = {
-				triggered_desc = { 
-					trigger = {
-						exists = scope:been_to_contract
-						scope:contract_loc_tracker ?= 0
-					}
-					desc = ep3_laamp_decision_event.1025.desc_returned_01 
-				}
-				triggered_desc = { 
-					trigger = { scope:contract_loc_tracker ?= 1 }
-					desc = ep3_laamp_decision_event.1025.desc_returned_02
-				}
-			}
-			#FIRST TIME: Tribal - Legendary contract - Reused Elder
-			triggered_desc = {
-				trigger = {
-					scope:visiting_location = { holding_is_tribal = yes }
-					exists = scope:laamp_recurring_town_crier
-					NOR = { 
-						exists = scope:been_to_contract
-						has_variable = 1025_has_contracted_recently
-					}
-					OR = {
-						scope:1025_first_contract ?= flag:legendary_contract
-						scope:1025_second_contract ?= flag:legendary_contract
-						scope:1025_third_contract ?= flag:legendary_contract
-					}
-				}
-				desc = ep3_laamp_decision_event.1025.desc_tribal_legendary_reused_crier
->>>>>>> 1.20
 			}
 			triggered_desc = {
-<<<<<<< HEAD
 				trigger = { exists = scope:1025_offer_second }
 				desc = cotc_local_news_desc_2
-=======
-				trigger = {
-					exists = scope:laamp_recurring_town_crier
-					NOR = { 
-						exists = scope:been_to_contract
-						has_variable = 1025_has_contracted_recently
-					}
-					OR = {
-						scope:1025_first_contract ?= flag:legendary_contract
-						scope:1025_second_contract ?= flag:legendary_contract
-						scope:1025_third_contract ?= flag:legendary_contract
-					}
-				}
-				desc = ep3_laamp_decision_event.1025.desc_legendary_reused_crier
-			}
-			#FIRST TIME: Tribal - Legendary contract
-			triggered_desc = {
-				trigger = {
-					scope:visiting_location = { holding_is_tribal = yes }
-					NOR = { 
-						exists = scope:been_to_contract
-						has_variable = 1025_has_contracted_recently
-					}
-					OR = {
-						scope:1025_first_contract ?= flag:legendary_contract
-						scope:1025_second_contract ?= flag:legendary_contract
-						scope:1025_third_contract ?= flag:legendary_contract
-					}
-				}
-				desc = ep3_laamp_decision_event.1025.desc_tribal_legendary
-			}
-			#FIRST TIME: Legendary contract
-			triggered_desc = {
-				trigger = {
-					NOR = { 
-						exists = scope:been_to_contract
-						has_variable = 1025_has_contracted_recently
-					}
-					OR = {
-						scope:1025_first_contract ?= flag:legendary_contract
-						scope:1025_second_contract ?= flag:legendary_contract
-						scope:1025_third_contract ?= flag:legendary_contract
-					}
-				}
-				desc = ep3_laamp_decision_event.1025.desc_legendary
-			}
-			#FIRST TIME: Tribal - No legendary contract - Reused Town Crier
-			triggered_desc = {
-				trigger = {
-					scope:visiting_location = { holding_is_tribal = yes }
-					exists = scope:laamp_recurring_town_crier
-					NOR = { 
-						exists = scope:been_to_contract
-						has_variable = 1025_has_contracted_recently
-					}
-				}
-				desc = ep3_laamp_decision_event.1025.desc_tribal_reused_crier
-			}
-			#FIRST TIME: No legendary contract - Reused Town Crier
-			triggered_desc = {
-				trigger = {
-					exists = scope:laamp_recurring_town_crier
-					NOR = { 
-						exists = scope:been_to_contract
-						has_variable = 1025_has_contracted_recently
-					}
-				}
-				desc = ep3_laamp_decision_event.1025.desc_reused_crier
-			}
-			#FIRST TIME: Tribal - No legendary contract
-			triggered_desc = {
-				trigger = {
-					scope:visiting_location = { holding_is_tribal = yes }
-					NOR = { 
-						exists = scope:been_to_contract
-						has_variable = 1025_has_contracted_recently
-					}
-				}
-				desc = ep3_laamp_decision_event.1025.desc_tribal
-			}
-			#FIRST TIME: No legendary contract
-			triggered_desc = {
-				trigger = {
-					NOR = { 
-						exists = scope:been_to_contract
-						has_variable = 1025_has_contracted_recently
-					}
-				}
-				desc = ep3_laamp_decision_event.1025.desc
->>>>>>> 1.20
 			}
 			desc = cotc_local_news_desc_1
 		}
@@ -7152,11 +6926,7 @@ ep3_laamp_decision_event.1025 = {
 					#_Elder_
 					trigger_if = {
 						limit = { 
-<<<<<<< HEAD
-							scope:visiting_location = { has_holding_type = tribal_holding }
-=======
 							scope:visiting_location = { holding_is_tribal = yes }
->>>>>>> 1.20
 						}
 						age >= 50
 					}
@@ -7179,11 +6949,7 @@ ep3_laamp_decision_event.1025 = {
 						#_Elder_
 						trigger_if = {
 							limit = { 
-<<<<<<< HEAD
-								scope:visiting_location = { has_holding_type = tribal_holding }
-=======
 								scope:visiting_location = { holding_is_tribal = yes }
->>>>>>> 1.20
 							}
 							age >= 50
 						}
@@ -7199,11 +6965,7 @@ ep3_laamp_decision_event.1025 = {
 				#Create Elder to stuff in pool
 				if = {
 					limit = { 
-<<<<<<< HEAD
-						scope:visiting_location = { has_holding_type = tribal_holding }
-=======
 						scope:visiting_location = { holding_is_tribal = yes }
->>>>>>> 1.20
 					}
 					create_character = {
 						template = generic_peasant_character
@@ -8599,11 +8361,7 @@ ep3_laamp_decision_event.1030 = {
 				25 = {
 					#More common in Tribal/No Settlement
 					modifier = { 
-<<<<<<< HEAD
-						scope:visiting_location = { has_holding_type = tribal_holding }
-=======
 						scope:visiting_location = { holding_is_tribal = yes }
->>>>>>> 1.20
 						factor = 2
 					}
 					#Has this person been our thief in the past 10 years?
@@ -9505,11 +9263,7 @@ ep3_laamp_decision_event.1031 = {
 	}
 	override_background = {
 		trigger = { 
-<<<<<<< HEAD
-			scope:visiting_location = { has_holding_type = tribal_holding } 
-=======
 			scope:visiting_location = { holding_is_tribal = yes }
->>>>>>> 1.20
 		}
 		reference = bp1_kitchen_western
 	}
@@ -10008,11 +9762,7 @@ scripted_effect 1033_generate_character_effect = {
 		10 = {
 			#Some variation
 			modifier = {
-<<<<<<< HEAD
-				scope:visiting_location = { has_holding_type = tribal_holding }
-=======
 				scope:visiting_location = { holding_is_tribal = yes }
->>>>>>> 1.20
 				factor = 2
 			}
 			create_character = {
@@ -10063,11 +9813,7 @@ scripted_effect 1033_generate_character_effect = {
 		#Intrigue
 		10 = {
 			modifier = {
-<<<<<<< HEAD
-				scope:visiting_location = { has_holding_type = tribal_holding }
-=======
 				scope:visiting_location = { holding_is_tribal = yes }
->>>>>>> 1.20
 				factor = 2
 			}
 			create_character = {
@@ -10103,11 +9849,7 @@ scripted_effect 1033_generate_character_effect = {
 		#... witch
 		5 = {
 			modifier = {
-<<<<<<< HEAD
-				scope:visiting_location = { has_holding_type = tribal_holding }
-=======
 				scope:visiting_location = { holding_is_tribal = yes }
->>>>>>> 1.20
 				factor = 2
 			}
 			create_character = {
@@ -10246,11 +9988,7 @@ scripted_effect 1033_set_cost_effect = {
             #Cheaper out in the wilds
             if = {
                 limit = { 
-<<<<<<< HEAD
-                    scope:visiting_location = { has_holding_type = tribal_holding }
-=======
                     scope:visiting_location = { holding_is_tribal = yes }
->>>>>>> 1.20
                 }
                 multiply = 0.6
             }
@@ -10988,11 +10726,7 @@ ep3_laamp_decision_event.1035 = {
 	}
 	override_background = {
 		trigger = { 
-<<<<<<< HEAD
-			scope:visiting_location = { has_holding_type = tribal_holding } 
-=======
 			scope:visiting_location = { holding_is_tribal = yes }
->>>>>>> 1.20
 		}
 		reference = tavern
 	}
@@ -12072,11 +11806,7 @@ ep3_laamp_decision_event.1037 = {
 					#Go outside of the city to drink, eh
 					if = {
 						limit = {
-<<<<<<< HEAD
-							scope:visiting_location = { has_holding_type = tribal_holding }
-=======
 							scope:visiting_location = { holding_is_tribal = yes }
->>>>>>> 1.20
 						}
 						multiply = 0.5
 					}
