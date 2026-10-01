@@ -1,0 +1,78 @@
+state_capacity = {
+	required_government_flag = { government_uses_state_capacity }
+	default = state_capacity_0
+	cumulative = yes
+	flag = realm_law
+}
+
+military_provinces_laws = {
+	default = military_provinces_self_determined_law
+	cumulative = no
+	flag = imperial_policy
+}
+commercial_provinces_laws = {
+	default = commercial_provinces_self_determined_law
+	cumulative = no
+	flag = imperial_policy
+}
+technocratic_provinces_laws = {
+	default = technocratic_provinces_self_determined_law
+	cumulative = no
+	flag = imperial_policy
+}
+theocratic_provinces_laws = {
+	default = theocratic_provinces_self_determined_law
+	cumulative = no
+	flag = imperial_policy
+}
+
+military_province_tax_law = {
+	required_government_flag = { government_has_legislature }
+	default = military_province_tax_law_2
+	cumulative = no
+	flag = province_tax_law
+	flag = military_province_tax_law
+}
+commercial_province_tax_law = {
+	required_government_flag = { government_has_legislature }
+	default = commercial_province_tax_law_2
+	cumulative = no
+	flag = province_tax_law
+	flag = commercial_province_tax_law
+}
+technocratic_province_tax_law = {
+	required_government_flag = { government_has_legislature }
+	default = technocratic_province_tax_law_2
+	cumulative = no
+	flag = province_tax_law
+	flag = technocratic_province_tax_law
+}
+theocratic_province_tax_law = {
+	required_government_flag = { government_has_legislature }
+	default = theocratic_province_tax_law_0
+	cumulative = no
+	flag = province_tax_law
+	flag = theocratic_province_tax_law
+}
+
+legislative_term_length_law = {
+	required_government_flag = { government_has_legislature }
+	can_change_law_group = { legislature_blocks_law_trigger = no }
+	default = four_year_terms_law
+	cumulative = no
+}
+party_legality_law = {
+	required_government_flag = { government_has_legislature }
+	can_change_law_group = { legislature_blocks_law_trigger = no }
+	default = extremists_banned_law
+	cumulative = no
+}
+
+posture = {
+	required_government_flag = { government_is_landless_adventurer }
+	default = posture_roaming
+	cumulative = no
+	flag = realm_law
+	# GUI hook: lets window_my_realm.gui tell this group from camp_purpose
+	flag = cotc_posture_law
+}

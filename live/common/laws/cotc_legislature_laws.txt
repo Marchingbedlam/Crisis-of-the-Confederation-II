@@ -1,103 +1,112 @@
-﻿legislative_term_length_law = {
-	can_change_law_group = { legislature_blocks_law_trigger = no }
-	default = four_year_terms_law
-	
-	two_year_terms_law = {
-		can_keep = { should_have_legislature_trigger = yes }
-		can_pass = { legislature_blocks_law_trigger = no }
-		should_start_with = { always = no }
-		modifier = { }
-		shown_in_encyclopedia = no
-		on_pass = { }
-		ai_will_do = { value = 0 }
-	}
-	four_year_terms_law = {
-		can_keep = { should_have_legislature_trigger = yes }
-		can_pass = { legislature_blocks_law_trigger = no }
-		should_start_with = { always = yes }
-		modifier = { }
-		shown_in_encyclopedia = no
-		on_pass = { }
-		ai_will_do = { value = 0 }
-	}
-	six_year_terms_law = {
-		can_keep = { should_have_legislature_trigger = yes }
-		can_pass = { legislature_blocks_law_trigger = no }
-		should_start_with = { always = no }
-		modifier = { }
-		shown_in_encyclopedia = no
-		on_pass = { }
-		ai_will_do = { value = 0 }
-	}
-	eight_year_terms_law = {
-		can_keep = { should_have_legislature_trigger = yes }
-		can_pass = { legislature_blocks_law_trigger = no }
-		should_start_with = { always = no }
-		modifier = { }
-		shown_in_encyclopedia = no
-		on_pass = { }
-		ai_will_do = { value = 0 }
-	}
-	ten_year_terms_law = {
-		can_keep = { should_have_legislature_trigger = yes }
-		can_pass = { legislature_blocks_law_trigger = no }
-		should_start_with = { always = no }
-		modifier = { }
-		shown_in_encyclopedia = no
-		on_pass = { }
-		ai_will_do = { value = 0 }
-	}
+﻿two_year_terms_law = {
+	law_group_type = legislative_term_length_law
+	index = 0
+	can_keep = { should_have_legislature_trigger = yes }
+	can_pass = { legislature_blocks_law_trigger = no }
+	should_start_with = { always = no }
+	modifier = { }
+	shown_in_encyclopedia = no
+	on_pass = { }
+	ai_will_do = { value = 0 }
 }
-party_legality_law = {
-	can_change_law_group = { legislature_blocks_law_trigger = no }
-	default = extremists_banned_law
-	
-	single_party_law = { # Only state ideology allowed
-		can_keep = {
-			should_have_legislature_trigger = yes
-			government_allows = state_faith
-		}
-		can_pass = { legislature_blocks_law_trigger = no }
-		should_start_with = { always = no }
-		modifier = { different_faith_opinion = -20 }
-		shown_in_encyclopedia = no
-		on_pass = { }
-		ai_will_do = { value = 0 }
+four_year_terms_law = {
+	law_group_type = legislative_term_length_law
+	index = 1
+	can_keep = { should_have_legislature_trigger = yes }
+	can_pass = { legislature_blocks_law_trigger = no }
+	should_start_with = { always = yes }
+	modifier = { }
+	shown_in_encyclopedia = no
+	on_pass = { }
+	ai_will_do = { value = 0 }
+}
+six_year_terms_law = {
+	law_group_type = legislative_term_length_law
+	index = 2
+	can_keep = { should_have_legislature_trigger = yes }
+	can_pass = { legislature_blocks_law_trigger = no }
+	should_start_with = { always = no }
+	modifier = { }
+	shown_in_encyclopedia = no
+	on_pass = { }
+	ai_will_do = { value = 0 }
+}
+eight_year_terms_law = {
+	law_group_type = legislative_term_length_law
+	index = 3
+	can_keep = { should_have_legislature_trigger = yes }
+	can_pass = { legislature_blocks_law_trigger = no }
+	should_start_with = { always = no }
+	modifier = { }
+	shown_in_encyclopedia = no
+	on_pass = { }
+	ai_will_do = { value = 0 }
+}
+ten_year_terms_law = {
+	law_group_type = legislative_term_length_law
+	index = 4
+	can_keep = { should_have_legislature_trigger = yes }
+	can_pass = { legislature_blocks_law_trigger = no }
+	should_start_with = { always = no }
+	modifier = { }
+	shown_in_encyclopedia = no
+	on_pass = { }
+	ai_will_do = { value = 0 }
+}
+
+single_party_law = { # Only state ideology allowed
+	law_group_type = party_legality_law
+	index = 0
+	can_keep = {
+		should_have_legislature_trigger = yes
+		government_allows = state_faith
 	}
-	restricted_parties_law = { # Astray ideologies allowed
-		can_keep = {
-			should_have_legislature_trigger = yes
-			government_allows = state_faith
-		}
-		can_pass = { legislature_blocks_law_trigger = no }
-		should_start_with = { always = no }
-		modifier = { different_faith_opinion = -10 }
-		shown_in_encyclopedia = no
-		on_pass = { }
-		ai_will_do = { value = 0 }
+	can_pass = { legislature_blocks_law_trigger = no }
+	should_start_with = { always = no }
+	modifier = { different_faith_opinion = -20 }
+	shown_in_encyclopedia = no
+	on_pass = { }
+	ai_will_do = { value = 0 }
+}
+restricted_parties_law = { # Astray ideologies allowed
+	law_group_type = party_legality_law
+	index = 1
+	can_keep = {
+		should_have_legislature_trigger = yes
+		government_allows = state_faith
 	}
-	extremists_banned_law = { # Hostile ideologies allowed
-		can_keep = {
-			should_have_legislature_trigger = yes
-			government_allows = state_faith
-		}
-		can_pass = { legislature_blocks_law_trigger = no }
-		should_start_with = { always = yes }
-		modifier = { different_faith_opinion = -5 }
-		shown_in_encyclopedia = no
-		on_pass = { }
-		ai_will_do = { value = 0 }
+	can_pass = { legislature_blocks_law_trigger = no }
+	should_start_with = { always = no }
+	modifier = { different_faith_opinion = -10 }
+	shown_in_encyclopedia = no
+	on_pass = { }
+	ai_will_do = { value = 0 }
+}
+extremists_banned_law = { # Hostile ideologies allowed
+	law_group_type = party_legality_law
+	index = 2
+	can_keep = {
+		should_have_legislature_trigger = yes
+		government_allows = state_faith
 	}
-	freedom_of_thought_law = { # All ideologies allowed
-		can_keep = {
-			should_have_legislature_trigger = yes
-			government_allows = state_faith
-		}
-		can_pass = { legislature_blocks_law_trigger = no }
-		should_start_with = { always = no }
-		modifier = { different_faith_opinion = 5 }
-		shown_in_encyclopedia = no
-		on_pass = { }
-		ai_will_do = { value = 0 }
+	can_pass = { legislature_blocks_law_trigger = no }
+	should_start_with = { always = yes }
+	modifier = { different_faith_opinion = -5 }
+	shown_in_encyclopedia = no
+	on_pass = { }
+	ai_will_do = { value = 0 }
+}
+freedom_of_thought_law = { # All ideologies allowed
+	law_group_type = party_legality_law
+	index = 3
+	can_keep = {
+		should_have_legislature_trigger = yes
+		government_allows = state_faith
 	}
+	can_pass = { legislature_blocks_law_trigger = no }
+	should_start_with = { always = no }
+	modifier = { different_faith_opinion = 5 }
+	shown_in_encyclopedia = no
+	on_pass = { }
+	ai_will_do = { value = 0 }
 }

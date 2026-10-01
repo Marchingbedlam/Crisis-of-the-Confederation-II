@@ -1422,671 +1422,8 @@ grand_chancellor_law = {
 			}
 			add = 20
 		}
-<<<<<<< HEAD
-
-		on_pass = {
-			## Set cooldown
-			set_variable = {
-				name = admin_law_cooldown
-				years = @admin_law_cooldown_value
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	celestial_army_vassal_law_1 = {
-		modifier = {
-			men_at_arms_cap = -2
-			men_at_arms_title_cap = 1
-		}
-
-		can_keep = {
-			realm_law_use_celestial_bureaucracy = yes
-			is_independent_ruler = no
-			trigger_if = {
-				limit = {
-					liege = { is_independent_ruler = yes }
-				}
-				liege = { has_realm_law = celestial_army_liege_law_1 }
-			}
-			trigger_else = {
-				liege = { has_realm_law = celestial_army_vassal_law_1 }
-			}
-		}
-
-		can_pass = {
-			trigger_if = {
-				limit = {
-					liege = {
-						OR = {
-							has_realm_law = celestial_army_liege_law_1
-							has_realm_law = celestial_army_vassal_law_1
-						}
-					}
-				}
-				custom_tooltip = {
-					text = imperial_bureaucracy_pending_law_change
-					always = no
-				}
-			}
-		}
-
-		pass_cost = {
-			prestige = {
-				add = admin_law_prestige_cost
-			}
-		}
-
-		on_pass = {
-			## Set cooldown
-			set_variable = {
-				name = admin_law_cooldown
-				years = @admin_law_cooldown_value
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	celestial_army_vassal_law_2 = {
-		modifier = {
-			men_at_arms_cap = -20
-			men_at_arms_title_cap = 2
-		}
-
-		can_keep = {
-			realm_law_use_celestial_bureaucracy = yes
-			is_independent_ruler = no
-			trigger_if = {
-				limit = {
-					liege = { is_independent_ruler = yes }
-				}
-				liege = { has_realm_law = celestial_army_liege_law_2 }
-			}
-			trigger_else = {
-				liege = { has_realm_law = celestial_army_vassal_law_2 }
-			}
-		}
-
-		can_pass = {
-			trigger_if = {
-				limit = {
-					liege = {
-						OR = {
-							has_realm_law = celestial_army_liege_law_2
-							has_realm_law = celestial_army_vassal_law_2
-						}
-					}
-				}
-				custom_tooltip = {
-					text = imperial_bureaucracy_pending_law_change
-					always = no
-				}
-			}
-		}
-
-		pass_cost = {
-			prestige = {
-				add = admin_law_prestige_cost
-			}
-		}
-
-		on_pass = {
-			## Set cooldown
-			set_variable = {
-				name = admin_law_cooldown
-				years = @admin_law_cooldown_value
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	celestial_army_vassal_law_3 = {
-		modifier = {
-			men_at_arms_cap = -20
-			men_at_arms_title_cap = 4
-		}
-
-		can_keep = {
-			realm_law_use_celestial_bureaucracy = yes
-			is_independent_ruler = no
-			trigger_if = {
-				limit = {
-					liege = { is_independent_ruler = yes }
-				}
-				liege = { has_realm_law = celestial_army_liege_law_3 }
-			}
-			trigger_else = {
-				liege = { has_realm_law = celestial_army_vassal_law_3 }
-			}
-		}
-
-		can_pass = {
-			trigger_if = {
-				limit = {
-					liege = {
-						OR = {
-							has_realm_law = celestial_army_liege_law_3
-							has_realm_law = celestial_army_vassal_law_3
-						}
-					}
-				}
-				custom_tooltip = {
-					text = imperial_bureaucracy_pending_law_change
-					always = no
-				}
-			}
-		}
-
-		pass_cost = {
-			prestige = {
-				add = admin_law_prestige_cost
-			}
-		}
-
-		on_pass = {
-			## Set cooldown
-			set_variable = {
-				name = admin_law_cooldown
-				years = @admin_law_cooldown_value
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-}
-
-celestial_retirement_law = {
-	default = celestial_retirement_law_5
-	cumulative = no
-	flag = admin_law
-
-	celestial_retirement_law_0 = {
-		flag = celestial_retirement_age_0
-		flag = celestial_retirement_law
-
-		can_keep = {
-			realm_law_use_celestial_bureaucracy = yes
-			trigger_if = {
-				limit = {
-					top_liege = this
-				}
-				custom_tooltip = {
-					text = have_celestial_bureaucracy_1_or_higher
-					NOT = { realm_law_group_at_minimum_level = celestial_bureaucracy }
-				}
-			}
-			trigger_if = {
-				limit = {
-					top_liege != this
-				}
-				liege = { has_realm_law = celestial_retirement_law_0 }
-			}
-		}
-
-		can_pass = {
-			trigger_if = {
-				limit = {
-					top_liege = this
-				}
-				custom_tooltip = {
-					text = admin_law_cooldown_desc
-					NOT = { has_variable = admin_law_cooldown }
-				}
-			}
-			trigger_if = {
-				limit = {
-					top_liege != this
-					liege = { has_realm_law = province_border_law_1 }
-				}
-				custom_tooltip = {
-					text = imperial_bureaucracy_pending_law_change
-					always = no
-				}
-			}
-		}
-
-		pass_cost = {
-			prestige = {
-				add = admin_law_prestige_cost
-			}
-		}
-
-		on_pass = {
-			## Set cooldown
-			set_variable = {
-				name = admin_law_cooldown
-				years = @admin_law_cooldown_value
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	celestial_retirement_law_1 = {
-		flag = celestial_retirement_age_1
-		flag = celestial_retirement_law
-
-		can_keep = {
-			realm_law_use_celestial_bureaucracy = yes
-			trigger_if = {
-				limit = {
-					top_liege = this
-				}
-				custom_tooltip = {
-					text = have_celestial_bureaucracy_1_or_higher
-					NOT = { realm_law_group_at_minimum_level = celestial_bureaucracy }
-				}
-			}
-			trigger_if = {
-				limit = {
-					top_liege != this
-				}
-				liege = { has_realm_law = celestial_retirement_law_1 }
-			}
-		}
-
-		can_pass = {
-			trigger_if = {
-				limit = {
-					top_liege = this
-				}
-				custom_tooltip = {
-					text = admin_law_cooldown_desc
-					NOT = { has_variable = admin_law_cooldown }
-				}
-			}
-			trigger_if = {
-				limit = {
-					top_liege != this
-					liege = { has_realm_law = celestial_retirement_law_1 }
-				}
-				custom_tooltip = {
-					text = imperial_bureaucracy_pending_law_change
-					always = no
-				}
-			}
-		}
-
-		pass_cost = {
-			prestige = {
-				add = admin_law_prestige_cost
-			}
-		}
-
-		on_pass = {
-			## Set cooldown
-			set_variable = {
-				name = admin_law_cooldown
-				years = @admin_law_cooldown_value
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	celestial_retirement_law_2 = {
-		flag = celestial_retirement_age_2
-		flag = celestial_retirement_law
-
-		can_keep = {
-			realm_law_use_celestial_bureaucracy = yes
-			trigger_if = {
-				limit = {
-					top_liege = this
-				}
-				custom_tooltip = {
-					text = have_celestial_bureaucracy_1_or_higher
-					NOT = { realm_law_group_at_minimum_level = celestial_bureaucracy }
-				}
-			}
-			trigger_if = {
-				limit = {
-					top_liege != this
-				}
-				liege = { has_realm_law = celestial_retirement_law_2 }
-			}
-		}
-
-		can_pass = {
-			trigger_if = {
-				limit = {
-					top_liege = this
-				}
-				custom_tooltip = {
-					text = admin_law_cooldown_desc
-					NOT = { has_variable = admin_law_cooldown }
-				}
-			}
-			trigger_if = {
-				limit = {
-					top_liege != this
-					liege = { has_realm_law = celestial_retirement_law_2 }
-				}
-				custom_tooltip = {
-					text = imperial_bureaucracy_pending_law_change
-					always = no
-				}
-			}
-		}
-
-		pass_cost = {
-			prestige = {
-				add = admin_law_prestige_cost
-			}
-		}
-
-		on_pass = {
-			## Set cooldown
-			set_variable = {
-				name = admin_law_cooldown
-				years = @admin_law_cooldown_value
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	celestial_retirement_law_3 = {
-		flag = celestial_retirement_age_3
-		flag = celestial_retirement_law
-
-		can_keep = {
-			realm_law_use_celestial_bureaucracy = yes
-			trigger_if = {
-				limit = {
-					top_liege = this
-				}
-				custom_tooltip = {
-					text = have_celestial_bureaucracy_1_or_higher
-					NOT = { realm_law_group_at_minimum_level = celestial_bureaucracy }
-				}
-			}
-			trigger_if = {
-				limit = {
-					top_liege != this
-				}
-				liege = { has_realm_law = celestial_retirement_law_3 }
-			}
-		}
-
-		can_pass = {
-			trigger_if = {
-				limit = {
-					top_liege = this
-				}
-				custom_tooltip = {
-					text = admin_law_cooldown_desc
-					NOT = { has_variable = admin_law_cooldown }
-				}
-			}
-			trigger_if = {
-				limit = {
-					top_liege != this
-					liege = { has_realm_law = celestial_retirement_law_3 }
-				}
-				custom_tooltip = {
-					text = imperial_bureaucracy_pending_law_change
-					always = no
-				}
-			}
-		}
-
-		pass_cost = {
-			prestige = {
-				add = admin_law_prestige_cost
-			}
-		}
-
-		on_pass = {
-			## Set cooldown
-			set_variable = {
-				name = admin_law_cooldown
-				years = @admin_law_cooldown_value
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	celestial_retirement_law_4 = {
-		flag = celestial_retirement_age_4
-		flag = celestial_retirement_law
-
-		can_keep = {
-			realm_law_use_celestial_bureaucracy = yes
-			trigger_if = {
-				limit = {
-					top_liege = this
-				}
-				custom_tooltip = {
-					text = have_celestial_bureaucracy_1_or_higher
-					NOT = { realm_law_group_at_minimum_level = celestial_bureaucracy }
-				}
-			}
-			trigger_if = {
-				limit = {
-					top_liege != this
-				}
-				liege = { has_realm_law = celestial_retirement_law_4 }
-			}
-		}
-
-		can_pass = {
-			trigger_if = {
-				limit = {
-					top_liege = this
-				}
-				custom_tooltip = {
-					text = admin_law_cooldown_desc
-					NOT = { has_variable = admin_law_cooldown }
-				}
-			}
-			trigger_if = {
-				limit = {
-					top_liege != this
-					liege = { has_realm_law = celestial_retirement_law_4 }
-				}
-				custom_tooltip = {
-					text = imperial_bureaucracy_pending_law_change
-					always = no
-				}
-			}
-		}
-
-		pass_cost = {
-			prestige = {
-				add = admin_law_prestige_cost
-			}
-		}
-
-		on_pass = {
-			## Set cooldown
-			set_variable = {
-				name = admin_law_cooldown
-				years = @admin_law_cooldown_value
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	celestial_retirement_law_5 = {
-		flag = celestial_retirement_age_5
-		flag = celestial_retirement_law
-
-		can_keep = {
-			realm_law_use_celestial_bureaucracy = yes
-			trigger_if = {
-				limit = {
-					top_liege != this
-				}
-				liege = { has_realm_law = celestial_retirement_law_5 }
-			}
-		}
-
-		can_pass = {
-			trigger_if = {
-				limit = {
-					top_liege != this
-					liege = { has_realm_law = celestial_retirement_law_5 }
-				}
-				custom_tooltip = {
-					text = imperial_bureaucracy_pending_law_change
-					always = no
-				}
-			}
-		}
-
-		on_pass = {
-			## Set cooldown
-			set_variable = {
-				name = admin_law_cooldown
-				years = @admin_law_cooldown_value
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-}
-
-# BORDER WARS
-border_wars_laws = {
-	default = top_liege_redirected_to_border_wars_law
-	cumulative = no
-	flag = imperial_policy
-
-	top_liege_redirected_to_border_wars_law = {
-		flag = top_liege_redirected_to_border_wars_law
-
-		can_keep = {
-			is_landed = yes
-			highest_held_title_tier >= tier_duchy
-			#Empire or lower tier
-		    highest_held_title_tier < tier_hegemony
-	    	#Small realm size
-	    	sub_realm_size < border_war_sized_realm_value
-	    	#Not an antagonitsic house
-	    	house ?= { NOT = { has_house_unity_stage = antagonistic } }
-	    	#Not defending in any civil wars
-	    	NOT = {
-	    		any_character_war = {
-	    			primary_defender = root
-	    			using_civil_war_cb_trigger = yes
-	    		}
-	    	}
-	    }
-
-	    modifier = { can_vassals_be_attacked = no }
-
-		ai_will_do = { value = 0 }
-	}
-
-	top_liege_not_redirected_to_border_wars_law = {
-		flag = top_liege_not_redirected_to_border_wars_law
-
-		can_keep = {
-	        is_independent_ruler = yes
-			is_landed = yes
-			highest_held_title_tier >= tier_duchy
-			custom_description = {
-	    		text = border_wars_laws_triggers
-	    		value = sub_realm_size
-			    OR = {
-			    	#hegemonies
-			    	highest_held_title_tier >= tier_hegemony
-			    	#any large realm
-			    	sub_realm_size >= border_war_sized_realm_value
-			    	#antagonistic houses
-			    	house ?= { has_house_unity_stage = antagonistic }
-			    	#defending in a civil war
-		    		any_character_war = {
-		    			primary_defender = root
-		    			using_civil_war_cb_trigger = yes
-		    		}
-				}
-			}
-		}
-
-		should_start_with = {
-		    OR = {
-		    	#hegemonies
-		    	highest_held_title_tier >= tier_hegemony
-		    	#any large realm
-		    	sub_realm_size >= border_war_sized_realm_value
-		    	#antagonistic houses
-		    	house ?= { has_house_unity_stage = antagonistic }
-		    	#defending in a civil war
-	    		any_character_war = {
-	    			primary_defender = root
-	    			using_civil_war_cb_trigger = yes
-	    		}
-			}
-		}
-
-		modifier = { can_vassals_be_attacked = yes }
-
-		ai_will_do = { value = 0 }
-	}
-}
-
-# REGENCY
-grand_secretariat_laws = {
-	default = grand_chancellor_law
-	cumulative = no
-	flag = imperial_policy
-
-	grand_chancellor_law = {
-		flag = grand_chancellor_law
-		can_have = {
-			has_title = title:h_china
-			government_has_flag = government_is_celestial
-		}
-		can_pass = {
-			exists = title:e_minister_chancellor.holder
-	 		OR = {
-	 			situation:dynastic_cycle ?= {
-	 				situation_current_phase = situation_dynastic_cycle_phase_stability_advancement
-	 			}
-	 			is_movement_in_power = {
-	 				MOVEMENT = advancement_movement
-	 			}
-	 		}
-			custom_tooltip = {
-				text = admin_law_cooldown_desc
-				NOT = { has_variable = admin_law_cooldown }
-			}
-		}
-
-		on_pass = {
-			hidden_effect = {
-				designate_diarch = title:e_minister_chancellor.holder
-=======
 		if = {
 			limit = {
->>>>>>> 1.20
 				diarch = {
 					has_variable = asked_to_be_secretary_director
 				}
@@ -2352,584 +1689,6 @@ candidate_score_prestige_law = {
 		is_movement_in_power = {
 			MOVEMENT = conservative_movement
 		}
-<<<<<<< HEAD
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_salary_budget_allocation = 0.0
-
-			vassal_opinion = -30
-			vassal_tax_mult = -0.3
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		on_pass = {
-			add_legitimacy = {
-				value = treasury_budget_law_change_legitimacy_loss_base
-				multiply = 4
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_salary_5 = {
-		shown_in_encyclopedia = no
-
-		flag = salary_budget_law_major_negative_impact
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_salary_budget_allocation = 0.05
-
-			vassal_opinion = -25
-			vassal_tax_mult = -0.25
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		on_pass = {
-			add_legitimacy = {
-				value = treasury_budget_law_change_legitimacy_loss_base
-				multiply = 4
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_salary_10 = {
-		shown_in_encyclopedia = no
-
-		flag = salary_budget_law_major_negative_impact
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_salary_budget_allocation = 0.10
-
-			vassal_opinion = -20
-			vassal_tax_mult = -0.20
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		on_pass = {
-			add_legitimacy = {
-				value = treasury_budget_law_change_legitimacy_loss_base
-				multiply = 3
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_salary_15 = {
-		shown_in_encyclopedia = no
-
-		flag = salary_budget_law_major_negative_impact
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_salary_budget_allocation = 0.15
-
-			vassal_opinion = -15
-			vassal_tax_mult = -0.15
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		on_pass = {
-			add_legitimacy = {
-				value = treasury_budget_law_change_legitimacy_loss_base
-				multiply = 2
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_salary_20 = {
-		shown_in_encyclopedia = no
-
-		flag = salary_budget_law_major_negative_impact
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_salary_budget_allocation = 0.20
-
-			vassal_opinion = -10
-			vassal_tax_mult = -0.1
-		}
-
-		on_pass = {
-			add_legitimacy = {
-				value = treasury_budget_law_change_legitimacy_loss_base
-				multiply = 1
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_salary_25 = {
-		shown_in_encyclopedia = no
-
-		flag = salary_budget_law_minor_negative_impact
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_salary_budget_allocation = 0.25
-
-			vassal_opinion = -5
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_salary_30 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		should_start_with = {
-			always = yes
-		}
-
-		modifier = {
-			treasury_salary_budget_allocation = 0.30
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_salary_35 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_salary_budget_allocation = 0.35
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_salary_40 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_salary_budget_allocation = 0.40
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_salary_45 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_salary_budget_allocation = 0.45
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_salary_50 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_salary_budget_allocation = 0.50
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_salary_55 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_salary_budget_allocation = 0.55
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_salary_60 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_salary_budget_allocation = 0.60
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_salary_65 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_salary_budget_allocation = 0.65
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_salary_70 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_salary_budget_allocation = 0.70
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_salary_75 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_salary_budget_allocation = 0.75
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_salary_80 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_salary_budget_allocation = 0.80
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_salary_85 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_salary_budget_allocation = 0.85
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_salary_90 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_salary_budget_allocation = 0.90
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_salary_95 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_salary_budget_allocation = 0.95
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_salary_100 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_salary_budget_allocation = 1.00
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-=======
 		can_pass_candidate_score_prestige_law_trigger = yes
 		custom_tooltip = {
 			text = admin_law_cooldown_desc
@@ -2955,7 +1714,6 @@ candidate_score_prestige_law = {
 
 	ai_will_do = { #AI can only do it if convinced through Movement Petition
 		value = 0
->>>>>>> 1.20
 	}
 }
 
@@ -2973,17 +1731,10 @@ budget_allocation_salary_0 = {
 		is_independent_ruler = yes
 	}
 
-<<<<<<< HEAD
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-=======
+	can_pass = { legislature_blocks_law_trigger = no }
+	
 	modifier = {
 		treasury_salary_budget_allocation = 0.0
->>>>>>> 1.20
 
 		vassal_opinion = -30
 		vassal_tax_mult = -0.3
@@ -2994,559 +1745,6 @@ budget_allocation_salary_0 = {
 			add = change_admin_budget_law_prestige_cost
 		}
 	}
-
-<<<<<<< HEAD
-	budget_allocation_ministry_5 = {
-		shown_in_encyclopedia = no
-
-		flag = ministry_budget_law_major_negative_impact
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_ministry_budget_allocation = 0.05
-
-			vassal_tax_mult = -0.15
-			monthly_legitimacy_add = -15
-			courtly_opinion = -25
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		on_pass = {
-			add_legitimacy = {
-				value = treasury_budget_law_change_legitimacy_loss_base
-				multiply = 4
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_ministry_10 = {
-		shown_in_encyclopedia = no
-
-		flag = ministry_budget_law_major_negative_impact
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_ministry_budget_allocation = 0.10
-
-			vassal_tax_mult = -0.1
-			monthly_legitimacy_add = -10
-			courtly_opinion = -20
-		}
-
-		on_pass = {
-			add_legitimacy = {
-				value = treasury_budget_law_change_legitimacy_loss_base
-				multiply = 3
-			}
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-
-	budget_allocation_ministry_15 = {
-		shown_in_encyclopedia = no
-
-		flag = ministry_budget_law_major_negative_impact
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_ministry_budget_allocation = 0.15
-
-			vassal_tax_mult = -0.05
-			monthly_legitimacy_add = -5
-			courtly_opinion = -15
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		on_pass = {
-			add_legitimacy = {
-				value = treasury_budget_law_change_legitimacy_loss_base
-				multiply = 1
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_ministry_20 = {
-		shown_in_encyclopedia = no
-
-		flag = ministry_budget_law_minor_negative_impact
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_ministry_budget_allocation = 0.20
-
-			courtly_opinion = -10
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_ministry_25 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_ministry_budget_allocation = 0.25
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_ministry_30 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		ai_will_do = {
-			value = 0
-		}
-
-		should_start_with = {
-			always = yes
-		}
-
-		modifier = {
-			treasury_ministry_budget_allocation = 0.30
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_ministry_35 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_ministry_budget_allocation = 0.35
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_ministry_40 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_ministry_budget_allocation = 0.40
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_ministry_45 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_ministry_budget_allocation = 0.45
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_ministry_50 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_ministry_budget_allocation = 0.50
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_ministry_55 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_ministry_budget_allocation = 0.55
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_ministry_60 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_ministry_budget_allocation = 0.60
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_ministry_65 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_ministry_budget_allocation = 0.65
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_ministry_70 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_ministry_budget_allocation = 0.70
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_ministry_75 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_ministry_budget_allocation = 0.75
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_ministry_80 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_ministry_budget_allocation = 0.80
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_ministry_85 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_ministry_budget_allocation = 0.85
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_ministry_90 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_ministry_budget_allocation = 0.9
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_ministry_95 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_ministry_budget_allocation = 0.95
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_ministry_100 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_ministry_budget_allocation = 1.0
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-=======
 	on_pass = {
 		add_legitimacy = {
 			value = treasury_budget_law_change_legitimacy_loss_base
@@ -3556,7 +1754,6 @@ budget_allocation_salary_0 = {
 
 	ai_will_do = {
 		value = 0
->>>>>>> 1.20
 	}
 }
 
@@ -3573,575 +1770,19 @@ budget_allocation_salary_5 = {
 		is_independent_ruler = yes
 	}
 
+	can_pass = { legislature_blocks_law_trigger = no }
+
 	modifier = {
 		treasury_salary_budget_allocation = 0.05
-
-<<<<<<< HEAD
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-=======
 		vassal_opinion = -25
 		vassal_tax_mult = -0.25
 	}
->>>>>>> 1.20
 
 	pass_cost = {
 		prestige = {
 			add = change_admin_budget_law_prestige_cost
 		}
 	}
-
-<<<<<<< HEAD
-	budget_allocation_military_5 = {
-		shown_in_encyclopedia = no
-
-		flag = military_budget_law_major_negative_impact
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_military_budget_allocation = 0.05
-
-			glory_hound_opinion = -30
-			army_damage_mult = -0.3
-			army_toughness_mult = -0.3
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		on_pass = {
-			add_legitimacy = {
-				value = treasury_budget_law_change_legitimacy_loss_base
-				multiply = 2
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_military_10 = {
-		shown_in_encyclopedia = no
-
-		flag = military_budget_law_major_negative_impact
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_military_budget_allocation = 0.10
-
-			glory_hound_opinion = -25
-			army_damage_mult = -0.2
-			army_toughness_mult = -0.2
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		on_pass = {
-			add_legitimacy = {
-				value = treasury_budget_law_change_legitimacy_loss_base
-				multiply = 1
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-
-	budget_allocation_military_15 = {
-		shown_in_encyclopedia = no
-
-		flag = military_budget_law_major_negative_impact
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_military_budget_allocation = 0.15
-
-			glory_hound_opinion = -20
-			army_damage_mult = -0.1
-			army_toughness_mult = -0.1
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_military_20 = {
-		shown_in_encyclopedia = no
-
-		flag = military_budget_law_minor_negative_impact
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		should_start_with = {
-			always = yes
-		}
-
-		modifier = {
-			treasury_military_budget_allocation = 0.20
-
-			glory_hound_opinion = -10
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_military_25 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_military_budget_allocation = 0.25
-
-			glory_hound_opinion = -5
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_military_30 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		ai_will_do = {
-			value = 0
-		}
-
-		modifier = {
-			treasury_military_budget_allocation = 0.30
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_military_35 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_military_budget_allocation = 0.35
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_military_40 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_military_budget_allocation = 0.40
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_military_45 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_military_budget_allocation = 0.45
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_military_50 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_military_budget_allocation = 0.50
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_military_55 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_military_budget_allocation = 0.55
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_military_60 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_military_budget_allocation = 0.60
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_military_65 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_military_budget_allocation = 0.65
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_military_70 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_military_budget_allocation = 0.70
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_military_75 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_military_budget_allocation = 0.75
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_military_80 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_military_budget_allocation = 0.8
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_military_85 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_military_budget_allocation = 0.85
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_military_90 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_military_budget_allocation = 0.9
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_military_95 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_military_budget_allocation = 0.95
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-	}
-
-	budget_allocation_military_100 = {
-		shown_in_encyclopedia = no
-
-		can_keep = {
-			realm_uses_treasury_laws_trigger = yes
-			is_independent_ruler = yes
-		}
-		
-		can_pass = { legislature_blocks_law_trigger = no }
-
-		modifier = {
-			treasury_military_budget_allocation = 1.0
-		}
-
-		pass_cost = {
-			prestige = {
-				add = change_admin_budget_law_prestige_cost
-			}
-		}
-
-		ai_will_do = {
-			value = 0
-		}
-=======
 	on_pass = {
 		add_legitimacy = {
 			value = treasury_budget_law_change_legitimacy_loss_base
@@ -4166,6 +1807,8 @@ budget_allocation_salary_10 = {
 		government_has_flag = government_uses_salary_budget
 		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_salary_budget_allocation = 0.10
@@ -4205,6 +1848,8 @@ budget_allocation_salary_15 = {
 		is_independent_ruler = yes
 	}
 
+	can_pass = { legislature_blocks_law_trigger = no }
+
 	modifier = {
 		treasury_salary_budget_allocation = 0.15
 
@@ -4243,6 +1888,8 @@ budget_allocation_salary_20 = {
 		is_independent_ruler = yes
 	}
 
+	can_pass = { legislature_blocks_law_trigger = no }
+
 	modifier = {
 		treasury_salary_budget_allocation = 0.20
 
@@ -4275,6 +1922,8 @@ budget_allocation_salary_25 = {
 		is_independent_ruler = yes
 	}
 
+	can_pass = { legislature_blocks_law_trigger = no }
+
 	modifier = {
 		treasury_salary_budget_allocation = 0.25
 
@@ -4302,6 +1951,8 @@ budget_allocation_salary_30 = {
 		government_has_flag = government_uses_salary_budget
 		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	should_start_with = {
 		always = yes
@@ -4333,6 +1984,8 @@ budget_allocation_salary_35 = {
 		is_independent_ruler = yes
 	}
 
+	can_pass = { legislature_blocks_law_trigger = no }
+
 	modifier = {
 		treasury_salary_budget_allocation = 0.35
 	}
@@ -4358,6 +2011,8 @@ budget_allocation_salary_40 = {
 		government_has_flag = government_uses_salary_budget
 		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_salary_budget_allocation = 0.40
@@ -4385,6 +2040,8 @@ budget_allocation_salary_45 = {
 		is_independent_ruler = yes
 	}
 
+	can_pass = { legislature_blocks_law_trigger = no }
+
 	modifier = {
 		treasury_salary_budget_allocation = 0.45
 	}
@@ -4410,6 +2067,8 @@ budget_allocation_salary_50 = {
 		government_has_flag = government_uses_salary_budget
 		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_salary_budget_allocation = 0.50
@@ -4437,6 +2096,8 @@ budget_allocation_salary_55 = {
 		is_independent_ruler = yes
 	}
 
+	can_pass = { legislature_blocks_law_trigger = no }
+
 	modifier = {
 		treasury_salary_budget_allocation = 0.55
 	}
@@ -4462,6 +2123,8 @@ budget_allocation_salary_60 = {
 		government_has_flag = government_uses_salary_budget
 		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_salary_budget_allocation = 0.60
@@ -4489,6 +2152,8 @@ budget_allocation_salary_65 = {
 		is_independent_ruler = yes
 	}
 
+	can_pass = { legislature_blocks_law_trigger = no }
+
 	modifier = {
 		treasury_salary_budget_allocation = 0.65
 	}
@@ -4514,6 +2179,8 @@ budget_allocation_salary_70 = {
 		government_has_flag = government_uses_salary_budget
 		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_salary_budget_allocation = 0.70
@@ -4541,6 +2208,8 @@ budget_allocation_salary_75 = {
 		is_independent_ruler = yes
 	}
 
+	can_pass = { legislature_blocks_law_trigger = no }
+
 	modifier = {
 		treasury_salary_budget_allocation = 0.75
 	}
@@ -4566,6 +2235,8 @@ budget_allocation_salary_80 = {
 		government_has_flag = government_uses_salary_budget
 		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_salary_budget_allocation = 0.80
@@ -4593,6 +2264,8 @@ budget_allocation_salary_85 = {
 		is_independent_ruler = yes
 	}
 
+	can_pass = { legislature_blocks_law_trigger = no }
+
 	modifier = {
 		treasury_salary_budget_allocation = 0.85
 	}
@@ -4618,6 +2291,8 @@ budget_allocation_salary_90 = {
 		government_has_flag = government_uses_salary_budget
 		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_salary_budget_allocation = 0.90
@@ -4645,6 +2320,8 @@ budget_allocation_salary_95 = {
 		is_independent_ruler = yes
 	}
 
+	can_pass = { legislature_blocks_law_trigger = no }
+
 	modifier = {
 		treasury_salary_budget_allocation = 0.95
 	}
@@ -4671,6 +2348,8 @@ budget_allocation_salary_100 = {
 		is_independent_ruler = yes
 	}
 
+	can_pass = { legislature_blocks_law_trigger = no }
+
 	modifier = {
 		treasury_salary_budget_allocation = 1.00
 	}
@@ -4696,8 +2375,11 @@ budget_allocation_ministry_0 = {
 	flag = ministry_budget_law_major_negative_impact
 
 	can_keep = {
-		tgp_has_access_to_ministry_trigger = yes
+		government_has_flag = government_uses_ministry_budget
+		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_ministry_budget_allocation = 0
@@ -4734,8 +2416,11 @@ budget_allocation_ministry_5 = {
 	flag = ministry_budget_law_major_negative_impact
 
 	can_keep = {
-		tgp_has_access_to_ministry_trigger = yes
+		government_has_flag = government_uses_ministry_budget
+		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_ministry_budget_allocation = 0.05
@@ -4772,8 +2457,11 @@ budget_allocation_ministry_10 = {
 	flag = ministry_budget_law_major_negative_impact
 
 	can_keep = {
-		tgp_has_access_to_ministry_trigger = yes
+		government_has_flag = government_uses_ministry_budget
+		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_ministry_budget_allocation = 0.10
@@ -4810,8 +2498,11 @@ budget_allocation_ministry_15 = {
 	flag = ministry_budget_law_major_negative_impact
 
 	can_keep = {
-		tgp_has_access_to_ministry_trigger = yes
+		government_has_flag = government_uses_ministry_budget
+		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_ministry_budget_allocation = 0.15
@@ -4848,8 +2539,11 @@ budget_allocation_ministry_20 = {
 	flag = ministry_budget_law_minor_negative_impact
 
 	can_keep = {
-		tgp_has_access_to_ministry_trigger = yes
+		government_has_flag = government_uses_ministry_budget
+		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_ministry_budget_allocation = 0.20
@@ -4875,8 +2569,11 @@ budget_allocation_ministry_25 = {
 	shown_in_encyclopedia = no
 
 	can_keep = {
-		tgp_has_access_to_ministry_trigger = yes
+		government_has_flag = government_uses_ministry_budget
+		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_ministry_budget_allocation = 0.25
@@ -4900,8 +2597,11 @@ budget_allocation_ministry_30 = {
 	shown_in_encyclopedia = no
 
 	can_keep = {
-		tgp_has_access_to_ministry_trigger = yes
+		government_has_flag = government_uses_ministry_budget
+		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	ai_will_do = {
 		value = 0
@@ -4933,8 +2633,11 @@ budget_allocation_ministry_35 = {
 	shown_in_encyclopedia = no
 
 	can_keep = {
-		tgp_has_access_to_ministry_trigger = yes
+		government_has_flag = government_uses_ministry_budget
+		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_ministry_budget_allocation = 0.35
@@ -4958,8 +2661,11 @@ budget_allocation_ministry_40 = {
 	shown_in_encyclopedia = no
 
 	can_keep = {
-		tgp_has_access_to_ministry_trigger = yes
+		government_has_flag = government_uses_ministry_budget
+		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_ministry_budget_allocation = 0.40
@@ -4983,8 +2689,11 @@ budget_allocation_ministry_45 = {
 	shown_in_encyclopedia = no
 
 	can_keep = {
-		tgp_has_access_to_ministry_trigger = yes
+		government_has_flag = government_uses_ministry_budget
+		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_ministry_budget_allocation = 0.45
@@ -5008,8 +2717,11 @@ budget_allocation_ministry_50 = {
 	shown_in_encyclopedia = no
 
 	can_keep = {
-		tgp_has_access_to_ministry_trigger = yes
+		government_has_flag = government_uses_ministry_budget
+		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_ministry_budget_allocation = 0.50
@@ -5033,8 +2745,11 @@ budget_allocation_ministry_55 = {
 	shown_in_encyclopedia = no
 
 	can_keep = {
-		tgp_has_access_to_ministry_trigger = yes
+		government_has_flag = government_uses_ministry_budget
+		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_ministry_budget_allocation = 0.55
@@ -5058,8 +2773,11 @@ budget_allocation_ministry_60 = {
 	shown_in_encyclopedia = no
 
 	can_keep = {
-		tgp_has_access_to_ministry_trigger = yes
+		government_has_flag = government_uses_ministry_budget
+		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_ministry_budget_allocation = 0.60
@@ -5083,8 +2801,11 @@ budget_allocation_ministry_65 = {
 	shown_in_encyclopedia = no
 
 	can_keep = {
-		tgp_has_access_to_ministry_trigger = yes
+		government_has_flag = government_uses_ministry_budget
+		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_ministry_budget_allocation = 0.65
@@ -5108,8 +2829,11 @@ budget_allocation_ministry_70 = {
 	shown_in_encyclopedia = no
 
 	can_keep = {
-		tgp_has_access_to_ministry_trigger = yes
+		government_has_flag = government_uses_ministry_budget
+		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_ministry_budget_allocation = 0.70
@@ -5133,8 +2857,11 @@ budget_allocation_ministry_75 = {
 	shown_in_encyclopedia = no
 
 	can_keep = {
-		tgp_has_access_to_ministry_trigger = yes
+		government_has_flag = government_uses_ministry_budget
+		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_ministry_budget_allocation = 0.75
@@ -5158,8 +2885,11 @@ budget_allocation_ministry_80 = {
 	shown_in_encyclopedia = no
 
 	can_keep = {
-		tgp_has_access_to_ministry_trigger = yes
+		government_has_flag = government_uses_ministry_budget
+		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_ministry_budget_allocation = 0.80
@@ -5183,8 +2913,11 @@ budget_allocation_ministry_85 = {
 	shown_in_encyclopedia = no
 
 	can_keep = {
-		tgp_has_access_to_ministry_trigger = yes
+		government_has_flag = government_uses_ministry_budget
+		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_ministry_budget_allocation = 0.85
@@ -5208,8 +2941,11 @@ budget_allocation_ministry_90 = {
 	shown_in_encyclopedia = no
 
 	can_keep = {
-		tgp_has_access_to_ministry_trigger = yes
+		government_has_flag = government_uses_ministry_budget
+		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_ministry_budget_allocation = 0.9
@@ -5233,8 +2969,11 @@ budget_allocation_ministry_95 = {
 	shown_in_encyclopedia = no
 
 	can_keep = {
-		tgp_has_access_to_ministry_trigger = yes
+		government_has_flag = government_uses_ministry_budget
+		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_ministry_budget_allocation = 0.95
@@ -5258,8 +2997,11 @@ budget_allocation_ministry_100 = {
 	shown_in_encyclopedia = no
 
 	can_keep = {
-		tgp_has_access_to_ministry_trigger = yes
+		government_has_flag = government_uses_ministry_budget
+		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_ministry_budget_allocation = 1.0
@@ -5329,6 +3071,8 @@ budget_allocation_military_5 = {
 		is_independent_ruler = yes
 	}
 
+	can_pass = { legislature_blocks_law_trigger = no }
+
 	modifier = {
 		treasury_military_budget_allocation = 0.05
 
@@ -5367,6 +3111,8 @@ budget_allocation_military_10 = {
 		government_has_flag = government_uses_military_budget
 		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_military_budget_allocation = 0.10
@@ -5407,6 +3153,8 @@ budget_allocation_military_15 = {
 		is_independent_ruler = yes
 	}
 
+	can_pass = { legislature_blocks_law_trigger = no }
+
 	modifier = {
 		treasury_military_budget_allocation = 0.15
 
@@ -5438,6 +3186,8 @@ budget_allocation_military_20 = {
 		government_has_flag = government_uses_military_budget
 		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	should_start_with = {
 		always = yes
@@ -5471,6 +3221,8 @@ budget_allocation_military_25 = {
 		is_independent_ruler = yes
 	}
 
+	can_pass = { legislature_blocks_law_trigger = no }
+
 	modifier = {
 		treasury_military_budget_allocation = 0.25
 
@@ -5498,6 +3250,8 @@ budget_allocation_military_30 = {
 		government_has_flag = government_uses_military_budget
 		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	ai_will_do = {
 		value = 0
@@ -5529,6 +3283,8 @@ budget_allocation_military_35 = {
 		is_independent_ruler = yes
 	}
 
+	can_pass = { legislature_blocks_law_trigger = no }
+
 	modifier = {
 		treasury_military_budget_allocation = 0.35
 	}
@@ -5554,6 +3310,8 @@ budget_allocation_military_40 = {
 		government_has_flag = government_uses_military_budget
 		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_military_budget_allocation = 0.40
@@ -5581,6 +3339,8 @@ budget_allocation_military_45 = {
 		is_independent_ruler = yes
 	}
 
+	can_pass = { legislature_blocks_law_trigger = no }
+
 	modifier = {
 		treasury_military_budget_allocation = 0.45
 	}
@@ -5606,6 +3366,8 @@ budget_allocation_military_50 = {
 		government_has_flag = government_uses_military_budget
 		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_military_budget_allocation = 0.50
@@ -5633,6 +3395,8 @@ budget_allocation_military_55 = {
 		is_independent_ruler = yes
 	}
 
+	can_pass = { legislature_blocks_law_trigger = no }
+
 	modifier = {
 		treasury_military_budget_allocation = 0.55
 	}
@@ -5658,6 +3422,8 @@ budget_allocation_military_60 = {
 		government_has_flag = government_uses_military_budget
 		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_military_budget_allocation = 0.60
@@ -5685,6 +3451,8 @@ budget_allocation_military_65 = {
 		is_independent_ruler = yes
 	}
 
+	can_pass = { legislature_blocks_law_trigger = no }
+
 	modifier = {
 		treasury_military_budget_allocation = 0.65
 	}
@@ -5710,6 +3478,8 @@ budget_allocation_military_70 = {
 		government_has_flag = government_uses_military_budget
 		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_military_budget_allocation = 0.70
@@ -5737,6 +3507,8 @@ budget_allocation_military_75 = {
 		is_independent_ruler = yes
 	}
 
+	can_pass = { legislature_blocks_law_trigger = no }
+
 	modifier = {
 		treasury_military_budget_allocation = 0.75
 	}
@@ -5762,6 +3534,8 @@ budget_allocation_military_80 = {
 		government_has_flag = government_uses_military_budget
 		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_military_budget_allocation = 0.8
@@ -5789,6 +3563,8 @@ budget_allocation_military_85 = {
 		is_independent_ruler = yes
 	}
 
+	can_pass = { legislature_blocks_law_trigger = no }
+
 	modifier = {
 		treasury_military_budget_allocation = 0.85
 	}
@@ -5814,6 +3590,8 @@ budget_allocation_military_90 = {
 		government_has_flag = government_uses_military_budget
 		is_independent_ruler = yes
 	}
+
+	can_pass = { legislature_blocks_law_trigger = no }
 
 	modifier = {
 		treasury_military_budget_allocation = 0.9
@@ -5841,6 +3619,8 @@ budget_allocation_military_95 = {
 		is_independent_ruler = yes
 	}
 
+	can_pass = { legislature_blocks_law_trigger = no }
+
 	modifier = {
 		treasury_military_budget_allocation = 0.95
 	}
@@ -5867,6 +3647,8 @@ budget_allocation_military_100 = {
 		is_independent_ruler = yes
 	}
 
+	can_pass = { legislature_blocks_law_trigger = no }
+
 	modifier = {
 		treasury_military_budget_allocation = 1.0
 	}
@@ -5879,6 +3661,5 @@ budget_allocation_military_100 = {
 
 	ai_will_do = {
 		value = 0
->>>>>>> 1.20
 	}
 }
