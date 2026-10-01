@@ -567,30 +567,6 @@ on_rite_created = {
 		}
 		check_for_equal_doctrine_effect = yes
 		# Set up diff-faith HoFs.
-<<<<<<< HEAD
-		faith = {
-			# If we have a diff-faith HoF, we want to account for that.
-			## Faiths with the Rite tenet get to keep their old HoF.
-			if = {
-				limit = {
-					# Assuming they exist.
-					exists = scope:old_faith.religious_head
-					# & have the appropriate doctrine parameter.
-					has_doctrine_parameter = maintains_head_of_faith_on_creation
-				}
-				set_religious_head_title = scope:old_faith.religious_head_title
-				# Pilgrims also get to keep ecumenism.
-				if = {
-					limit = {
-						scope:old_faith = { has_doctrine = special_doctrine_ecumenical_christian }
-					}
-					add_doctrine = special_doctrine_ecumenical_christian
-				}
-			}
-			## Otherwise, everyone else should lose their HoF, so we don't need to do anything.
-		}
-		# Achievements.
-=======
 		if = {
 			limit = { exists = faith.religious_head }
 			trigger_event = head_of_faith.0100
@@ -598,102 +574,6 @@ on_rite_created = {
 		# Achievements.
 		root = {
 			add_achievement_flag_effect = { FLAG = achievement_its_not_a_cult_flag }
-		}
-		if = {
-			limit = {
-				scope:old_faith = {
-					religion_tag = west_african_religion
-					has_doctrine_parameter = unreformed
-				}
-			}
-			add_achievement_global_variable_effect = {
-				VARIABLE = achievement_mother_of_us_all_siguic
-				VALUE = yes
-			}
-		}
-		if = {
-			limit = {
-				scope:old_faith = {
-					religion_tag = west_african_orisha_religion
-					has_doctrine_parameter = unreformed
-				}
-			}
-			add_achievement_global_variable_effect = {
-				VARIABLE = achievement_mother_of_us_all_orisha
-				VALUE = yes
-			}
-		}
-		if = {
-			limit = {
-				scope:old_faith = {
-					religion_tag = west_african_bori_religion
-					has_doctrine_parameter = unreformed
-				}
-			}
-			add_achievement_global_variable_effect = {
-				VARIABLE = achievement_mother_of_us_all_bori
-				VALUE = yes
-			}
-		}
-		if = {
-			limit = {
-				scope:old_faith = {
-					religion_tag = west_african_roog_religion
-					has_doctrine_parameter = unreformed
-				}
-			}
-			add_achievement_global_variable_effect = {
-				VARIABLE = achievement_mother_of_us_all_roog_sene
-				VALUE = yes
-			}
-		}
-		if = {
-			limit = {
-				scope:old_faith = {
-					religion_tag = akom_religion
-					has_doctrine_parameter = unreformed
-				}
-			}
-			add_achievement_global_variable_effect = {
-				VARIABLE = achievement_mother_of_us_all_akom
-				VALUE = yes
-			}
-		}
-		if = {
-			limit = {
-				scope:old_faith = {
-					religion_tag = kushitism_religion
-					has_doctrine_parameter = unreformed
-				}
-			}
-			add_achievement_global_variable_effect = {
-				VARIABLE = achievement_mother_of_us_all_kushitism
-				VALUE = yes
-			}
-		}
-		if = {
-			limit = {
-				scope:old_faith = {
-					religion_tag = waaqism_religion
-					has_doctrine_parameter = unreformed
-				}
-			}
-			add_achievement_global_variable_effect = {
-				VARIABLE = achievement_mother_of_us_all_waaqism
-				VALUE = yes
-			}
-		}
-		if = {
-			limit = {
-				scope:old_faith = {
-					religion_tag = north_african_religion
-					has_doctrine_parameter = unreformed
-				}
-			}
-			add_achievement_global_variable_effect = {
-				VARIABLE = achievement_mother_of_us_all_achamanism
-				VALUE = yes
-			}
 		}
 		# Catalysts
 		if = {
@@ -717,7 +597,6 @@ on_rite_created = {
 		}
 		pam_tenet_popularity_on_rite_created_effect = yes
 	}
->>>>>>> 1.20
 
 	events = {
 		faith_conversion.0001 # Convert capital county
@@ -1114,8 +993,6 @@ on_rite_change = {
 			}
 		}
 
-<<<<<<< HEAD
-=======
 		# Achievements
 		if = {
 			limit = { is_ai = no }
@@ -1129,7 +1006,6 @@ on_rite_change = {
 			}
 		}
 
->>>>>>> 1.20
 		# Hostage story cycle
 		if = {
 			limit = {

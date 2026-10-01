@@ -32,8 +32,6 @@
 # Does *not* provide scope:transfer_type
 on_title_destroyed = {
 	effect = {
-<<<<<<< HEAD
-=======
 		scope:landed_title.var:administrative_ui_special_title ?= {
 			owner = { destroy_title = prev }
 		}
@@ -54,7 +52,6 @@ on_title_destroyed = {
 			}
 			admin_change_government_effect = yes
 		}
->>>>>>> 1.20
 		# Adjust the size of the laamps tally.
 		else_if = {
 			limit = {
@@ -4847,12 +4844,6 @@ on_vassal_gained = {
 # It is also fired for rulers gaining independence, those can be identified by checking current liege
 on_vassal_change = {
 	effect = {
-<<<<<<< HEAD
-		### If a county admin character becomes the top-liege's direct vassal, ensure that they have a noble family title
-		trigger_event = { on_action = make_direct_vassal_noble_family_on_action }
-		trigger_event = { on_action = make_independent_ruler_noble_family_on_action }
-		trigger_event = { on_action = make_landless_noble_direct_vassal_of_top_liege_on_action }
-=======
 		# usually, diarch must be vassal or courtier
 		diarchy_validation_check_effect = yes
 		### If a admin duke-tier character becomes the top-liege's direct vassal, ensure that they have a noble family title
@@ -4968,7 +4959,6 @@ on_vassal_change = {
 			}
 			root = { efg_recalculate_contested_empire_for_faith_effect = yes }
 		}
->>>>>>> 1.20
 		### Independent Celestial rulers who become direct vassals of a top liege adopt Military obligations if they have title troops - Everyone else will default to Standard.
 		if = {
 			limit = {
