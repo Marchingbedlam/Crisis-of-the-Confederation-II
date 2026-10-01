@@ -180,12 +180,7 @@ pregnancy.1002 = {
 		first_valid = {
 			triggered_desc = {
 				trigger = {
-<<<<<<< HEAD
-					this = character:1 # You are Temüjin
-					scope:mother = { has_variable = borte_first_child_var }
-=======
 					scope:mother = { has_variable = suppress_bastardy }
->>>>>>> 1.20
 				}
 				desc = pregnancy.1002.d.borte
 			}
@@ -210,14 +205,7 @@ pregnancy.1002 = {
 			trigger = {
 				OR = {
 					has_any_bad_relationship_with_character_trigger = { CHARACTER = root }
-<<<<<<< HEAD
-					AND = {
-						scope:mother = { has_variable = borte_first_child_var }
-						this = character:1
-					}
-=======
 					scope:mother = { has_variable = suppress_bastardy }
->>>>>>> 1.20
 				}
 			}
 			animation = stress
@@ -920,10 +908,7 @@ pregnancy.2050 = {
 
 	trigger = {
 		# If we are married and/or have concubines, but all of them are women as well, it's a bastard!
-<<<<<<< HEAD
-=======
 		any_consort = {}  # count = all return true if list is empty!
->>>>>>> 1.20
 		any_consort = {
 			is_female = yes
 			count = all

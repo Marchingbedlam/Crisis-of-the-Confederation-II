@@ -403,16 +403,10 @@ hasan_sabbah.1022 = {
 			}
 			hidden_effect = {
 				if = {
-<<<<<<< HEAD
-					limit = { NOT = { character:1 = faith:nizari } }
+					limit = { NOT = { character:1.rite = rite:nizari } }
 					character:1 = {
-						set_character_faith = faith:nizari
-=======
-					limit = { NOT = { character:41706.rite = rite:nizari } }
-					character:41706 = {
 						set_character_faith = faith:shia
 						set_character_rite = rite:nizari
->>>>>>> 1.20
 					}
 				}
 			}
@@ -492,13 +486,8 @@ hasan_sabbah.1030 = {
 	}
 
 	immediate = {
-<<<<<<< HEAD
-		faith:ismaili.religious_head = { save_scope_as = new_ismaili_caliph }
-		character:1 ?= {
-=======
 		faith:shia.religious_head = { save_scope_as = new_ismaili_caliph }
-		character:41706 ?= {
->>>>>>> 1.20
+		character:1 ?= {
 			liege = { save_scope_as = liege }
 			save_scope_as = nizar
 			if = {
