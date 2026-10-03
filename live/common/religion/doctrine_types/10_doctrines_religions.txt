@@ -1,35 +1,49 @@
-<<<<<<< HEAD
 ﻿political_hostility_doctrine = {
-	parameters = {
-		hostility_same_religion = 1
-		hostility_same_family = 2
-		hostility_others = 1
-		hostility_override_criminal_hostility_doctrine = 3
-		hostility_override_tenet_upstanding_citizens = 1
+	doctrine_group_type = hostility_group
+	index = 4
+	divergence = 30
+	
+	special_parameters = {
+		hostility_levels = {
+			same_religion = astray
+			same_family = hostile
+			unrelated = astray
+			hostility_override_criminal_hostility_doctrine = 3
+			hostility_override_tenet_upstanding_citizens = 1
+		}
+		hostility_level_override = {
+			criminal_hostility_doctrine = evil
+			tenet_upstanding_citizens = astray
+		}
 	}
 }
 religious_hostility_doctrine = {
-	parameters = {
-		hostility_same_religion = 1
-		hostility_same_family = 2
-		hostility_others = 3
-		hostility_override_criminal_hostility_doctrine = 3
-		hostility_override_tenet_upstanding_citizens = 2
+	doctrine_group_type = hostility_group
+	index = 5
+	divergence = 30
+	special_parameters = {
+		hostility_levels = {
+			same_religion = astray
+			same_family = hostile
+			unrelated = hostile
+		}
+		hostility_level_override = {
+			criminal_hostility_doctrine = evil
+			tenet_upstanding_citizens = hostile
+		}
 	}
 }
 criminal_hostility_doctrine = {
-	parameters = {
-		hostility_same_religion = 2
-		hostility_same_family = 2
-		hostility_others = 2
+	doctrine_group_type = hostility_group
+	index = 6
+	special_parameters = {
+		hostility_levels = {
+			same_religion = hostile
+			same_family = hostile
+			unrelated = hostile
+		}
 	}
 }
-abrahamic_hostility_doctrine = {
-	parameters = {
-		hostility_same_religion = 2
-		hostility_same_family = 3
-		hostility_others = 3
-=======
 ﻿abrahamic_hostility_doctrine = {
 	doctrine_group_type = hostility_group
 	index = 0
@@ -41,7 +55,6 @@ abrahamic_hostility_doctrine = {
 			same_family = evil
 			unrelated = evil
 		}
->>>>>>> 1.20
 	}
 }
 pagan_hostility_doctrine = {
@@ -50,12 +63,6 @@ pagan_hostility_doctrine = {
 	divergence = 30
 
 	visible = no
-<<<<<<< HEAD
-	parameters = {
-		hostility_same_religion = 1
-		hostility_same_family = 2
-		hostility_others = 3
-=======
 
 	special_parameters = {
 		hostility_levels = {
@@ -63,7 +70,6 @@ pagan_hostility_doctrine = {
 			same_family = hostile
 			unrelated = evil
 		}
->>>>>>> 1.20
 	}
 }
 eastern_hostility_doctrine = {
@@ -78,9 +84,6 @@ eastern_hostility_doctrine = {
 			unrelated = hostile
 		}
 	}
-<<<<<<< HEAD
-}
-=======
 }
 
 sinitic_hostility_doctrine = {
@@ -96,4 +99,3 @@ sinitic_hostility_doctrine = {
 		}
 	}
 }
->>>>>>> 1.20

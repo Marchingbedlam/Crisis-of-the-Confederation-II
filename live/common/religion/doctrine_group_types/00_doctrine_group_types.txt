@@ -1,18 +1,5 @@
 ﻿hostility_group = {
-<<<<<<< HEAD
-	category = "not_creatable"
-
-	doctrine_types = {
-		political_hostility_doctrine
-		religious_hostility_doctrine
-		criminal_hostility_doctrine
-		abrahamic_hostility_doctrine
-		pagan_hostility_doctrine
-		eastern_hostility_doctrine
-	}
-=======
 	category = not_creatable
->>>>>>> 1.20
 }
 
 doctrine_marriage_type = {
@@ -56,19 +43,8 @@ doctrine_kinslaying = {
 }
 
 doctrine_witchcraft = {
-<<<<<<< HEAD
-	category = "not_creatable" # People in the 31st century do not believe in witches
-
-	doctrine_types = {
-		doctrine_witchcraft_crime
-		doctrine_witchcraft_shunned
-		doctrine_witchcraft_accepted
-		doctrine_witchcraft_virtuous
-	}
-=======
-	category = crimes
+	category = not_creatable # People in the 31st century do not believe in witches
 	divergence = sequence
->>>>>>> 1.20
 }
 
 doctrine_gender = {
@@ -89,6 +65,7 @@ doctrine_pluralism = {
 doctrine_theocracy = {
 	category = main_group
 	divergence = sequence
+	is_available_on_create = { has_doctrine = doctrine_religious }
 }
 
 doctrine_head_of_faith = {
@@ -98,25 +75,30 @@ doctrine_head_of_faith = {
 
 doctrine_clerical_function = {
 	category = clergy
+	is_available_on_create = { has_doctrine = doctrine_religious }
 }
 
 doctrine_clerical_gender = {
 	category = clergy
 	divergence = sequence
+	is_available_on_create = { has_doctrine = doctrine_religious }
 }
 
 doctrine_clerical_marriage = {
 	category = clergy
 	divergence = sequence
+	is_available_on_create = { has_doctrine = doctrine_religious }
 }
 
 doctrine_clerical_succession = {
 	category = clergy
+	is_available_on_create = { has_doctrine = doctrine_religious }
 }
 
 doctrine_pilgrimage = {
 	category = main_group
 	divergence = sequence
+	is_available_on_create = { has_doctrine = doctrine_religious }
 }
 
 doctrine_funeral = {
@@ -128,29 +110,20 @@ doctrine_coronation = {
 
 	is_available_on_create = {
 		has_ach_dlc_trigger = yes
+		has_doctrine = doctrine_religious
 	}
 }
 
 doctrine_theism = {
-<<<<<<< HEAD
-	category = "main_group"
-
-	doctrine_types = {
-		doctrine_atheist
-		doctrine_secular
-		doctrine_monotheist
-		doctrine_polytheist
-	}
-=======
 	category = main_group
->>>>>>> 1.20
+	divergence = category
 }
 
 doctrine_muhammad_succession = {
 	category = main_group
 
 	is_available_on_create = {
-		religion_tag = islam_religion
+		has_doctrine = special_doctrine_is_islamic_faith
 	}
 }
 
@@ -159,12 +132,7 @@ doctrine_temple_authority = {
 
 	is_available_on_create = {
 		# Available only to Judaism-derived faiths
-		OR = {
-			has_doctrine = temple_authority_rabbinic_doctrine
-			has_doctrine = temple_authority_toric_doctrine
-			has_doctrine = temple_authority_kohanim_doctrine
-			has_doctrine = temple_authority_samaritan_torah_doctrine
-		}
+		has_doctrine = special_doctrine_is_jewish_faith
 	}
 }
 
@@ -174,122 +142,6 @@ doctrine_zoroastrian_branches = {
 	is_available_on_create = {
 		religion_tag = zoroastrianism_religion
 	}
-<<<<<<< HEAD
-
-	doctrine_types = {
-		doctrine_major_branch_behdin
-		doctrine_heretic_branch_zandik
-	}
-}
-
-doctrine_core_tenets = {
-	category = "core_tenets"
-
-	number_of_picks = 3
-
-	doctrine_types = {
-		# COTC Tenets
-		tenet_capitalism
-		tenet_planned_economy
-		tenet_federalism
-		tenet_spacer_values
-		tenet_cyberneticism
-		tenet_bio_directionism
-		tenet_genetic_dynasties
-		tenet_human_purity
-		tenet_chivalry
-		tenet_philanthropy
-		tenet_united_front
-		tenet_upstanding_citizens
-		tenet_thieves_in_law
-		tenet_ritual_tattoos
-		tenet_atonement_through_sacrifice
-		tenet_ritual_hallucinogens
-		# Christian Faith Tenets
-		tenet_aniconism
-		tenet_alexandrian_catechism
-		tenet_armed_pilgrimages
-		tenet_carnal_exaltation
-		tenet_communal_identity
-		tenet_communion
-		tenet_consolamentum
-		tenet_divine_marriage
-		tenet_gnosticism
-		tenet_mendicant_preachers
-		tenet_monasticism
-		tenet_pacifism
-		tenet_pentarchy
-		tenet_unrelenting_faith
-		tenet_vows_of_poverty
-		tenet_pastoral_isolation
-		tenet_rite
-		# Muslim Faith Tenets
-		tenet_adaptive
-		tenet_esotericism
-		tenet_legalism
-		tenet_literalism
-		tenet_reincarnation
-		tenet_religious_legal_pronouncements
-		tenet_struggle_submission
-		tenet_false_conversion_sanction
-		tenet_tax_nonbelievers
-		# Eastern Faith Tenets
-		tenet_asceticism
-		tenet_bhakti
-		tenet_dharmic_pacifism
-		tenet_inner_journey
-		tenet_ritual_hospitality
-		# Pagan Faith Tenets
-		tenet_adorcism
-		tenet_ancestor_worship
-		tenet_astrology
-		tenet_hedonistic
-		tenet_human_sacrifice
-		tenet_mystical_birthright
-		tenet_ritual_celebrations
-		tenet_sacred_childbirth
-		tenet_sanctity_of_nature
-		tenet_sun_worship
-		tenet_warmonger
-		tenet_gruesome_festivals
-		tenet_cthonic_redoubts
-		tenet_household_gods
-		# Syncretic Faith Tenets
-		tenet_eastern_syncretism
-		tenet_unreformed_syncretism
-		tenet_christian_syncretism
-		tenet_islamic_syncretism
-		tenet_jewish_syncretism
-		tenet_mechanic_syncretism
-		tenet_nahua_syncretism
-		# Custom Faith Tenets
-		tenet_exaltation_of_pain
-		tenet_natural_primitivism
-		tenet_pursuit_of_power
-		tenet_ritual_cannibalism
-		tenet_sacred_shadows
-		tenet_polyamory
-		tenet_sacrificial_ceremonies
-		tenet_megaliths
-		# FP3 Tenets
-		tenet_fp3_fedayeen
-		tenet_communal_possessions
-		# TGP Tenets
-		tenet_pure_land
-		tenet_no_mind
-		tenet_mountain_worship
-		tenet_extinction_of_dharma
-		tenet_cranial_trophies
-		tenet_pursuit_of_knowledge
-		tenet_benevolent_governance
-		tenet_filial_piety
-		tenet_harmonious_society
-		tenet_sacred_destruction
-		tenet_preservation
-		tenet_takamin
-	}
-=======
->>>>>>> 1.20
 }
 
 is_christian_faith = {
@@ -316,52 +168,27 @@ is_jewish_faith = {
 	}
 }
 
-<<<<<<< HEAD
 is_hindu_faith = {
-	category = "special"
-	
-=======
-is_eastern_faith = {
 	category = special
-
->>>>>>> 1.20
+	
 	is_available_on_create = {
 		has_doctrine = special_doctrine_is_hindu_faith
-	}
-<<<<<<< HEAD
-
-	doctrine_types = {
-		special_doctrine_is_hindu_faith
 	}
 }
 
 is_buddhist_faith = {
-	category = "special"
-	
-=======
-}
-
-is_sinitic_faith = {
 	category = special
-
->>>>>>> 1.20
+	
 	is_available_on_create = {
 		has_doctrine = special_doctrine_is_buddhist_faith
 	}
-<<<<<<< HEAD
-
-	doctrine_types = {
-		special_doctrine_is_buddhist_faith
-	}
-=======
->>>>>>> 1.20
 }
 
 is_hostile_to_maitreya = {
 	category = not_creatable
 
 	is_available_on_create = {
-		religion_tag = buddhism_religion
+		has_doctrine = special_doctrine_is_buddhist_faith
 	}
 }
 
@@ -370,7 +197,7 @@ christian_tradition_classification = {
 	category = not_creatable
 
 	is_available_on_create = {
-		religion_tag = christianity_religion
+		has_doctrine = special_doctrine_is_christian_faith
 	}
 }
 
@@ -387,26 +214,18 @@ is_gnostic_faith = {
 }
 
 is_mechanic_faith = {
-	category = "special"
+	category = special
 	
 	is_available_on_create = {
 		has_doctrine = special_doctrine_is_mechanic_faith
 	}
-
-	doctrine_types = {
-		special_doctrine_is_mechanic_faith
-	}
 }
 
 is_nahua_faith = {
-	category = "special"
+	category = special
 	
 	is_available_on_create = {
 		has_doctrine = special_doctrine_is_nahua_faith
-	}
-
-	doctrine_types = {
-		special_doctrine_is_nahua_faith
 	}
 }
 
@@ -514,10 +333,12 @@ immaterial_harmony = {
 monasticism_group = {
 	category = clergy
 	divergence = sequence
+	is_available_on_create = { has_doctrine = doctrine_religious }
 }
 
 sacraments_group = {
 	category = clergy
+	is_available_on_create = { has_doctrine = doctrine_religious }
 }
 
 pope_blessing = {
@@ -530,100 +351,51 @@ pope_blessing = {
 	}
 }
 
+# COTC DOCTRINE TYPES
 doctrine_ideology_type = {
-	category = "main_group"
-	
-	doctrine_types = {
-		doctrine_political
-		doctrine_religious
-		doctrine_criminal
-	}
+	category = main_group
 }
 
 doctrine_legitimacy = {
-	category = "politics"
-	
-	doctrine_types = {
-		doctrine_democracy
-		doctrine_aristocracy
-		doctrine_meritocracy
-		doctrine_no_legitimacy
-	}
+	category = politics
+	divergence = category
 }
 
 doctrine_power_base = {
-	category = "politics"
-	
-	doctrine_types = {
-		doctrine_commercial_power
-		doctrine_military_power
-		doctrine_technocratic_power
-		doctrine_theocratic_power
-	}
+	category = politics
+	divergence = category
 }
 
 doctrine_authority = {
-	category = "politics"
-	
-	doctrine_types = {
-		doctrine_despotism
-		doctrine_dictatorship
-		doctrine_separation_of_powers
-		doctrine_parliamentarianism
-		doctrine_anarchism
-	}
+	category = politics
+	divergence = sequence
 }
 
 doctrine_commonality = {
-	category = "politics"
-	
-	doctrine_types = {
-		doctrine_metroplanetism
-		doctrine_commonality_pluralism
-		doctrine_separatism
-		doctrine_anti_metroplanetism
-		doctrine_particularism
-	}
+	category = politics
+	divergence = category
 }
 
 doctrine_extortion = {
-	category = "crimes"
+	category = crimes
 	is_available_on_create = { has_doctrine = doctrine_criminal }
-	
-	doctrine_types = {
-		doctrine_extortion_allowed
-		doctrine_extortion_forbidden
-	}
+	divergence = sequence
 }
 
 doctrine_piracy = {
-	category = "crimes"
-	is_available_on_create = { has_doctrine  = doctrine_criminal }
-	
-	doctrine_types = {
-		doctrine_piracy_encouraged
-		doctrine_piracy_allowed
-		doctrine_piracy_forbidden
-	}
+	category = crimes
+	is_available_on_create = { has_doctrine = doctrine_criminal }
+	divergence = sequence
 }
 
 doctrine_smuggling = {
-	category = "crimes"
+	category = crimes
 	is_available_on_create = { has_doctrine = doctrine_criminal }
-	
-	doctrine_types = {
-		doctrine_smuggling_allowed
-		doctrine_smuggling_restricted
-		doctrine_smuggling_forbidden
-	}
+	divergence = sequence
 }
 
 doctrine_illegal_technology = {
-	category = "crimes"
+	category = crimes
 	is_available_on_create = { has_doctrine = doctrine_criminal }
-	
-	doctrine_types = {
-		doctrine_illegal_technology_allowed
-		doctrine_illegal_technology_forbidden
-	}
+	divergence = sequence
 }

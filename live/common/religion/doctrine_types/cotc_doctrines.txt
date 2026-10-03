@@ -1,35 +1,41 @@
 ﻿# Gives general information on what kind of ideology this is
 doctrine_political = {
+	doctrine_group_type = doctrine_ideology_type
+	index = 0
 	icon = "doctrine_political"
 	
 	piety_cost = { value = 0 } # Should never be able to change this anyway
 	is_shown = { has_doctrine = political_hostility_doctrine } # Unchangeable
 	can_pick = { has_doctrine = political_hostility_doctrine } # Unchangeable
 	parameters = {
-		secular_administrators = yes
+		secular_administrators
 	}
 }
 doctrine_religious = {
+	doctrine_group_type = doctrine_ideology_type
+	index = 1
 	icon = "doctrine_religious"
 	
 	piety_cost = { value = 0 } # Should never be able to change this anyway
 	is_shown = { has_doctrine = religious_hostility_doctrine } # Unchangeable
 	can_pick = { has_doctrine = religious_hostility_doctrine } # Unchangeable
 	parameters = {
-		religious_administrators = yes
+		religious_administrators
 	}
 }
 doctrine_criminal = {
+	doctrine_group_type = doctrine_ideology_type
+	index = 2
 	icon = "doctrine_criminal"
 	
 	piety_cost = { value = 0 } # Should never be able to change this anyway
 	is_shown = { has_doctrine = criminal_hostility_doctrine } # Unchangeable
 	can_pick = { has_doctrine = criminal_hostility_doctrine } # Unchangeable
 	parameters = {
-		secular_administrators = yes
-		doctrine_parameter_sanctioned_assassinations = yes
-		unlock_voluntary_laampdom_faith = yes
-		can_form_crime_syndicates = yes
+		secular_administrators
+		doctrine_parameter_sanctioned_assassinations
+		unlock_voluntary_laampdom_faith
+		can_form_crime_syndicates
 	}
 	character_modifier = {
 		monthly_piety_gain_per_dread_add = 0.03
@@ -38,7 +44,11 @@ doctrine_criminal = {
 
 # These determine which top-level succession laws are allowed
 doctrine_democracy = {
+	doctrine_group_type = doctrine_legitimacy
+	index = 0
 	icon = "doctrine_democracy"
+	
+	divergence = 50
 	
 	piety_cost = {
 		value = faith_doctrine_cost_high
@@ -48,12 +58,16 @@ doctrine_democracy = {
 		}
 	}
 	parameters = {
-		prefers_democracy = yes
-		democratic_revolutions = yes
+		prefers_democracy
+		democratic_revolutions
 	}
 }
 doctrine_aristocracy = {
+	doctrine_group_type = doctrine_legitimacy
+	index = 1
 	icon = "doctrine_aristocracy"
+	
+	divergence = 50
 	
 	piety_cost = {
 		value = faith_doctrine_cost_high
@@ -63,12 +77,16 @@ doctrine_aristocracy = {
 		}
 	}
 	parameters = {
-		prefers_aristocracy = yes
-		aristocratic_revolutions = yes
+		prefers_aristocracy
+		aristocratic_revolutions
 	}
 }
 doctrine_meritocracy = {
+	doctrine_group_type = doctrine_legitimacy
+	index = 2
 	icon = "doctrine_meritocracy"
+	
+	divergence = 50
 	
 	piety_cost = {
 		value = faith_doctrine_cost_high
@@ -78,12 +96,16 @@ doctrine_meritocracy = {
 		}
 	}
 	parameters = {
-		prefers_meritocracy = yes
-		meritocratic_revolutions = yes
+		prefers_meritocracy
+		meritocratic_revolutions
 	}
 }
 doctrine_no_legitimacy = {
+	doctrine_group_type = doctrine_legitimacy
+	index = 3
 	icon = "doctrine_no_legitimacy"
+	
+	divergence = 75
 	
 	piety_cost = {
 		value = faith_doctrine_cost_high
@@ -99,7 +121,7 @@ doctrine_no_legitimacy = {
 		}
 	}
 	parameters = {
-		neutral_revolutions = yes
+		neutral_revolutions
 	}
 	character_modifier = {
 		opinion_of_liege = -20
@@ -108,7 +130,11 @@ doctrine_no_legitimacy = {
 
 # These determine the "best" holding type; rulers of the chosen type will resent reporting to other types of rulers
 doctrine_commercial_power = {
+	doctrine_group_type = doctrine_power_base
+	index = 0
 	icon = "doctrine_commercial_power"
+	
+	divergence = 30
 	
 	piety_cost = {
 		value = faith_doctrine_cost_high
@@ -118,12 +144,16 @@ doctrine_commercial_power = {
 		}
 	}
 	parameters = {
-		prefers_commercial_power = yes
-		commercial_revolutions = yes
+		prefers_commercial_power
+		commercial_revolutions
 	}
 }
 doctrine_military_power = {
+	doctrine_group_type = doctrine_power_base
+	index = 1
 	icon = "doctrine_military_power"
+	
+	divergence = 30
 	
 	piety_cost = {
 		value = faith_doctrine_cost_high
@@ -133,12 +163,16 @@ doctrine_military_power = {
 		}
 	}
 	parameters = {
-		prefers_military_power = yes
-		military_revolutions = yes
+		prefers_military_power
+		military_revolutions
 	}
 }
 doctrine_technocratic_power = {
+	doctrine_group_type = doctrine_power_base
+	index = 2
 	icon = "doctrine_technocratic_power"
+	
+	divergence = 30
 	
 	is_shown = { NOT = { has_doctrine = religious_hostility_doctrine } }
 	piety_cost = {
@@ -154,12 +188,16 @@ doctrine_technocratic_power = {
 		}
 	}
 	parameters = {
-		prefers_technocratic_power = yes
-		technocratic_revolutions = yes
+		prefers_technocratic_power
+		technocratic_revolutions
 	}
 }
 doctrine_theocratic_power = {
+	doctrine_group_type = doctrine_power_base
+	index = 3
 	icon = "doctrine_theocratic_power"
+	
+	divergence = 30
 	
 	is_shown = { has_doctrine = religious_hostility_doctrine }
 	piety_cost = {
@@ -175,14 +213,17 @@ doctrine_theocratic_power = {
 		}
 	}
 	parameters = {
-		prefers_theocratic_power = yes
-		theocratic_revolutions = yes
+		prefers_theocratic_power
+		theocratic_revolutions
 	}
 }
 
 # This determines how much authority rulers are supposed to have
 # The ruler holds absolute power and there is no distinction between ruler and state
 doctrine_despotism = {
+	doctrine_group_type = doctrine_authority
+	index = 0
+	divergence = 0
 	icon = "doctrine_despotism"
 	
 	piety_cost = {
@@ -205,9 +246,9 @@ doctrine_despotism = {
 		}
 	}
 	parameters = {
-		prefers_despotism = yes
-		opposes_legislature = yes
-		despotic_revolutions = yes
+		prefers_despotism
+		opposes_legislature
+		despotic_revolutions
 	}
 	character_modifier = {
 		tyranny_gain_mult = -0.5
@@ -217,6 +258,9 @@ doctrine_despotism = {
 }
 # The ruler is a dictator but remains part of a greater legal state
 doctrine_dictatorship = {
+	doctrine_group_type = doctrine_authority
+	index = 1
+	divergence = 50
 	icon = "doctrine_dictatorship"
 	
 	piety_cost = {
@@ -235,13 +279,16 @@ doctrine_dictatorship = {
 		}
 	}
 	parameters = {
-		prefers_dictatorships = yes
-		opposes_legislature = yes
-		dictatorial_revolutions = yes
+		prefers_dictatorships
+		opposes_legislature
+		dictatorial_revolutions
 	}
 }
 # The ruler is a co-equal governor with some form of parliament
 doctrine_separation_of_powers = {
+	doctrine_group_type = doctrine_authority
+	index = 2
+	divergence = 100
 	icon = "doctrine_separation_of_powers"
 	
 	piety_cost = {
@@ -273,6 +320,9 @@ doctrine_separation_of_powers = {
 }
 # The ruler must defer to some form of parliament which votes on important decisions; no one rules alone
 doctrine_parliamentarianism = {
+	doctrine_group_type = doctrine_authority
+	index = 3
+	divergence = 150
 	icon = "doctrine_parliamentarianism"
 	
 	piety_cost = {
@@ -297,9 +347,9 @@ doctrine_parliamentarianism = {
 		}
 	}
 	parameters = {
-			prefers_parliamentary_system = yes
-			supports_legislature = yes
-			parliamentary_revolutions = yes
+			prefers_parliamentary_system
+			supports_legislature
+			parliamentary_revolutions
 	}
 	character_modifier = {
 		tyranny_gain_mult = 0.5
@@ -310,6 +360,9 @@ doctrine_parliamentarianism = {
 
 # The ruler should be almost entirely a figurehead, with real power in the hands of the citizens
 doctrine_anarchism = {
+	doctrine_group_type = doctrine_authority
+	index = 4
+	divergence = 200
 	icon = "doctrine_anarchism"
 	
 	piety_cost = {
@@ -342,8 +395,8 @@ doctrine_anarchism = {
 		}
 	}
 	parameters = {
-		prefers_anarchy = yes
-		anarchist_revolutions = yes
+		prefers_anarchy
+		anarchist_revolutions
 	}
 	character_modifier = {
 		tyranny_gain_mult = 1.0
@@ -352,6 +405,9 @@ doctrine_anarchism = {
 	}
 }
 doctrine_metroplanetism = {
+	doctrine_group_type = doctrine_commonality
+	index = 0
+	divergence = 25
 	icon = "doctrine_metroplanetism"
 	
 	piety_cost = {
@@ -383,13 +439,20 @@ doctrine_metroplanetism = {
 		}
 	}
 	parameters = {
-		can_join_the_confederation = yes
-		will_not_secede_from_the_confederation = yes
-		reveres_earth = yes
-		hostility_override_doctrine_particularism = 3
+		can_join_the_confederation
+		will_not_secede_from_the_confederation
+		reveres_earth
+	}
+	special_parameters = {
+		hostility_level_override = {
+			doctrine_particularism = evil
+		}
 	}
 }
 doctrine_commonality_pluralism = {
+	doctrine_group_type = doctrine_commonality
+	index = 1
+	divergence = 0
 	icon = "doctrine_commonality_pluralism"
 	
 	piety_cost = {
@@ -403,12 +466,17 @@ doctrine_commonality_pluralism = {
 			multiply = faith_changed_doctrine_cost_mult_four_step
 		}
 	}
-	parameters = {
-		hostility_override_doctrine_particularism = 3
+	special_parameters = {
+		hostility_level_override = {
+			doctrine_particularism = evil
+		}
 	}
 }
 
 doctrine_separatism = {
+	doctrine_group_type = doctrine_commonality
+	index = 2
+	divergence = 20
 	icon = "doctrine_separatism"
 	
 	piety_cost = {
@@ -435,12 +503,19 @@ doctrine_separatism = {
 		}
 	}
 	parameters = {
-		anti_imperialist = yes
-		hostility_override_doctrine_particularism = 3
+		anti_imperialist
+	}
+	special_parameters = {
+		hostility_level_override = {
+			doctrine_particularism = evil
+		}
 	}
 }
 
 doctrine_anti_metroplanetism = {
+	doctrine_group_type = doctrine_commonality
+	index = 3
+	divergence = 25
 	icon = "doctrine_anti_metroplanetism"
 	
 	piety_cost = {
@@ -467,13 +542,20 @@ doctrine_anti_metroplanetism = {
 		}
 	}
 	parameters = {
-		hates_the_confederation = yes
-		hates_earth = yes
-		hostility_override_doctrine_metroplanetism = 3
-		hostility_override_doctrine_particularism = 3
+		hates_the_confederation
+		hates_earth
+	}
+	special_parameters = {
+		hostility_level_override = {
+			doctrine_metroplanetism = evil
+			doctrine_particularism = evil
+		}
 	}
 }
 doctrine_particularism = {
+	doctrine_group_type = doctrine_commonality
+	index = 4
+	divergence = 200
 	icon = "doctrine_particularism"
 	
 	piety_cost = {
@@ -499,8 +581,15 @@ doctrine_particularism = {
 			multiply = faith_changed_doctrine_cost_mult_two_step
 		}
 	}
+	
+	traits = {
+		sins = {
+			compassionate = { weight = 100 scale = 1 } # "the sin of empathy"
+		}
+	}
+	
 	parameters = {
-		can_deport_foreigners = yes
+		can_deport_foreigners
 	}
 	character_modifier = {
 		opinion_of_different_culture = -25
@@ -509,6 +598,10 @@ doctrine_particularism = {
 
 # Criminal Activities for criminal ideologies
 doctrine_extortion_allowed = {
+	doctrine_group_type = doctrine_extortion
+	index = 0
+	divergence = 0
+	
 	piety_cost = {
 		value = faith_doctrine_cost_mid
 		if = {
@@ -517,12 +610,16 @@ doctrine_extortion_allowed = {
 		}
 	}
 	parameters = {
-		can_extort_provinces = yes
-		can_extort_rulers = yes
-		can_offer_loans = yes
+		can_extort_provinces
+		can_extort_rulers
+		can_offer_loans
 	}
 }
 doctrine_extortion_forbidden = {
+	doctrine_group_type = doctrine_extortion
+	index = 1
+	divergence = 5
+	
 	piety_cost = {
 		value = faith_doctrine_cost_mid
 		if = {
@@ -544,6 +641,10 @@ doctrine_extortion_forbidden = {
 	}
 }
 doctrine_piracy_encouraged = {
+	doctrine_group_type = doctrine_piracy
+	index = 0
+	divergence = 0
+	
 	piety_cost = {
 		value = faith_doctrine_cost_mid
 		if = {
@@ -562,10 +663,10 @@ doctrine_piracy_encouraged = {
 		}
 	}
 	parameters = {
-		can_raid = yes
-		conquest_cb_enabled = yes
-		warmonger = yes
-		clergy_can_fight = yes
+		can_raid
+		conquest_cb_enabled
+		warmonger
+		clergy_can_fight
 	}
 	character_modifier = {
 		nebula_supply_limit_mult = 0.5
@@ -573,6 +674,10 @@ doctrine_piracy_encouraged = {
 	}
 }
 doctrine_piracy_allowed = {
+	doctrine_group_type = doctrine_piracy
+	index = 1
+	divergence = 5
+	
 	piety_cost = {
 		value = faith_doctrine_cost_mid
 		if = {
@@ -587,7 +692,7 @@ doctrine_piracy_allowed = {
 		}
 	}
 	parameters = {
-		can_raid = yes
+		can_raid
 	}
 	character_modifier = {
 		nebula_supply_limit_mult = 0.5
@@ -595,6 +700,10 @@ doctrine_piracy_allowed = {
 	}
 }
 doctrine_piracy_forbidden = {
+	doctrine_group_type = doctrine_piracy
+	index = 2
+	divergence = 10
+	
 	piety_cost = {
 		value = faith_doctrine_cost_mid
 		if = {
@@ -619,6 +728,10 @@ doctrine_piracy_forbidden = {
 	}
 }
 doctrine_smuggling_allowed = {
+	doctrine_group_type = doctrine_smuggling
+	index = 0
+	divergence = 0
+	
 	piety_cost = {
 		value = faith_doctrine_cost_mid
 		if = {
@@ -631,12 +744,16 @@ doctrine_smuggling_allowed = {
 		}
 	}
 	parameters = {
-		can_trade_drugs = yes
-		can_smuggle = yes
+		can_trade_drugs
+		can_smuggle
 	}
 }
 
 doctrine_smuggling_restricted = {
+	doctrine_group_type = doctrine_smuggling
+	index = 1
+	divergence = 5
+	
 	piety_cost = {
 		value = faith_doctrine_cost_mid
 		if = {
@@ -645,11 +762,15 @@ doctrine_smuggling_restricted = {
 		}
 	}
 	parameters = {
-		can_smuggle = yes
+		can_smuggle
 	}
 }
 
 doctrine_smuggling_forbidden = {
+	doctrine_group_type = doctrine_smuggling
+	index = 2
+	divergence = 10
+	
 	piety_cost = {
 		value = faith_doctrine_cost_mid
 		if = {
@@ -674,6 +795,10 @@ doctrine_smuggling_forbidden = {
 	}
 }
 doctrine_illegal_technology_allowed = {
+	doctrine_group_type = doctrine_illegal_technology
+	index = 0
+	divergence = 0
+	
 	piety_cost = {
 		value = faith_doctrine_cost_mid
 		if = {
@@ -688,12 +813,16 @@ doctrine_illegal_technology_allowed = {
 		}
 	}
 	parameters = {
-		can_perform_illegal_cybersurgery = yes
-		can_perform_illegal_gene_modding = yes
-		can_perform_illegal_cloning = yes
+		can_perform_illegal_cybersurgery
+		can_perform_illegal_gene_modding
+		can_perform_illegal_cloning
 	}
 }
 doctrine_illegal_technology_forbidden = {
+	doctrine_group_type = doctrine_illegal_technology
+	index = 1
+	divergence = 5
+	
 	desc = {
 		use_first_valid = {
 			triggered_desc = {

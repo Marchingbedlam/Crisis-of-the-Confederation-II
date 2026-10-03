@@ -1,14 +1,12 @@
 ﻿special_doctrine_is_christian_faith = {
-<<<<<<< HEAD
+	doctrine_group_type = is_christian_faith
+	icon = "special_doctrine_teachings_of_jesus"
+	
 	traits = {
 		virtues = { forgiving compassionate chaste }
 		sins = { vengeful sadistic lustful }
 	}
-=======
-	doctrine_group_type = is_christian_faith
-	icon = "special_doctrine_teachings_of_jesus"
-
->>>>>>> 1.20
+	
 	parameters = {
 		special_doctrine_is_christian_faith
 		christian_syncretic_recipient
@@ -30,17 +28,14 @@
 }
 
 special_doctrine_is_islamic_faith = {
-<<<<<<< HEAD
-
+	doctrine_group_type = is_islamic_faith
+	icon = "special_doctrine_teachings_of_the_prophet"
+	
 	traits = {
 		virtues = { temperate generous just }
 		sins = { gluttonous greedy arbitrary drunkard }
 	}
-=======
-	doctrine_group_type = is_islamic_faith
-	icon = "special_doctrine_teachings_of_the_prophet"
 
->>>>>>> 1.20
 	parameters = {
 		islamic_syncretic_recipient
 	}
@@ -57,18 +52,14 @@ special_doctrine_is_islamic_faith = {
 	}
 }
 
-<<<<<<< HEAD
-special_doctrine_is_jewish_faith = {	
+special_doctrine_is_jewish_faith = {
+	doctrine_group_type = is_jewish_faith
+	icon = "special_doctrine_teachings_of_moses"
+	
 	traits = {
 		virtues = { patient compassionate just }
 		sins = { cynical lustful greedy }
 	}
-=======
-special_doctrine_is_jewish_faith = {
-	doctrine_group_type = is_jewish_faith
-	icon = "special_doctrine_teachings_of_moses"
-
->>>>>>> 1.20
 	parameters = {
 		jewish_syncretic_recipient
 	}
@@ -85,9 +76,10 @@ special_doctrine_is_jewish_faith = {
 	}
 }
 
-<<<<<<< HEAD
 special_doctrine_is_hindu_faith = {
-
+	doctrine_group_type = is_hindu_faith
+	icon = "special_doctrine_multireligious_interweaving"
+	
 	traits = {
 		virtues = {
 			temperate
@@ -100,12 +92,6 @@ special_doctrine_is_hindu_faith = {
 			ambitious
 		}
 	}
-=======
-special_doctrine_is_eastern_faith = {
-	doctrine_group_type = is_eastern_faith
-	icon = "special_doctrine_multireligious_interweaving"
-
->>>>>>> 1.20
 	parameters = {
 		eastern_syncretic_recipient
 	}
@@ -122,8 +108,9 @@ special_doctrine_is_eastern_faith = {
 	}
 }
 
-<<<<<<< HEAD
 special_doctrine_is_buddhist_faith = {
+	doctrine_group_type = is_buddhist_faith
+	icon = "special_doctrine_multireligious_interweaving"
 
 	traits = {
 		virtues = {
@@ -139,28 +126,18 @@ special_doctrine_is_buddhist_faith = {
 		}
 	}
 	parameters = {
-		# Since doctrines cannot modify other faith's views of us, only our view of others, all Eastern faiths are given this special doctrine which makes them friendlier to Faiths with the Eastern Syncretism tenet.
-		hostility_override_tenet_eastern_syncretism = 1
-		eastern_syncretic_recipient_opinion_active = yes
-		opinion_of_eastern_syncretic_actor_opinion_active = 30
-=======
-special_doctrine_is_sinitic_faith = {
-	doctrine_group_type = is_sinitic_faith
-	icon = "special_doctrine_sinitic_cosmology"
-
-	parameters = {
-		sinitic_syncretic_recipient
+		eastern_syncretic_recipient
 	}
+
 	special_parameters = {
 		# Since doctrines cannot modify other faith's views of us, only our view of others, all Eastern faiths are given this special doctrine which makes them friendlier to Faiths with the Eastern Syncretism tenet.
 		hostility_level_override = {
-			tenet_sinitic_syncretism = astray
+			tenet_eastern_syncretism = astray
 		}
 		
 		parameter_opinion_override = {
-			sinitic_syncretic_actor = 30
+			eastern_syncretic_actor = 30
 		}
->>>>>>> 1.20
 	}
 }
 
@@ -193,34 +170,54 @@ special_doctrine_is_gnostic_faith = {
 		stewardship = -2
 	}
 }
-special_doctrine_is_mechanic_faith = {	
-	parameters = {
-		hostility_override_tenet_mechanic_syncretism = 0
-		mechanic_syncretic_recipient_opinion_active = yes
-		opinion_of_mechanic_syncretic_actor_opinion_active = 30
-	}
+special_doctrine_is_mechanic_faith = {
+	doctrine_group_type = is_mechanic_faith
+	
 	traits = {
 		virtues = { calm humble patient }
 		sins = { wrathful arbitrary }
 	}
-	character_modifier = { development_growth_factor = 0.1 }
-}
-special_doctrine_is_nahua_faith = {	
+	
 	parameters = {
-		hostility_override_tenet_nahua_syncretism = 0
-		nahua_syncretic_recipient_opinion_active = yes
-		opinion_of_nahua_syncretic_actor_opinion_active = 30
+		special_doctrine_is_mechanic_faith
+		mechanic_syncretic_recipient
 	}
+
+	special_parameters = {
+		# Since doctrines cannot modify other faith's views of us, only our view of others, all Christian faiths are given this special doctrine which makes them friendlier to Faiths with the Christian Syncretism tenet.
+		hostility_level_override = {
+ 			tenet_mechanic_syncretism = astray
+		}
+		parameter_opinion_override = {
+			mechanic_syncretic_actor = 30
+		}
+	}
+}
+special_doctrine_is_nahua_faith = {
+	doctrine_group_type = is_nahua_faith
+	
 	traits = {
 		virtues = { brave generous scarred flagellant }
 		sins = { craven greedy }
 	}
-	character_modifier = { development_growth_factor = 0.1 }
+	
+	parameters = {
+		special_doctrine_is_nahua_faith
+		nahua_syncretic_recipient
+	}
+
+	special_parameters = {
+		# Since doctrines cannot modify other faith's views of us, only our view of others, all Christian faiths are given this special doctrine which makes them friendlier to Faiths with the Christian Syncretism tenet.
+		hostility_level_override = {
+ 			tenet_nahua_syncretism = astray
+		}
+		parameter_opinion_override = {
+			nahua_syncretic_actor = 30
+		}
+	}
 }
 
 special_doctrine_ecumenical_christian = {
-<<<<<<< HEAD
-=======
 	doctrine_group_type = special_tolerance
 	icon = "special_doctrine_ecumenical_christian"
 
@@ -255,7 +252,6 @@ special_doctrine_has_clerical_electors = {
 
 	visible = no
 
->>>>>>> 1.20
 	parameters = {
 		has_clerical_electors
 	}
@@ -524,9 +520,6 @@ special_doctrine_is_maitreya = {
 	icon = "special_doctrine_default"
 	index = 1
 	visible = no
-<<<<<<< HEAD
-}
-=======
 }
 
 # Used by portrait/appearance triggers
@@ -566,4 +559,3 @@ special_doctrine_pope_blessing = {
 		special_doctrine_pope_blessing_divergence # For loc
 	}
 }
->>>>>>> 1.20
