@@ -14,9 +14,7 @@ PixelShader = {
 		MipFilter = "Linear"
 		SampleModeU = "Wrap"
 		SampleModeV = "Wrap"
-		# Top level only: below High texture quality the engine drops the top mip of any mipped
-		# texture, and the stars are drawn at about 1:1. Source with mips: cotc_star_layer_1.dds
-		File = "gfx/map/environment/cotc_star_layer_1_single.dds"
+		File = "gfx/map/environment/cotc_star_layer.dds"
 		srgb = yes
 	}
 

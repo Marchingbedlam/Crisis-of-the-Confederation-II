@@ -84,12 +84,14 @@ PixelShader = {
 			0.00283721f, 0.00281406f, 0.00230133f, 0.00204149f,
 		};
 
-		void COTC_ApplyNebula(inout float3 Color, inout float Alpha, float3 WorldSpacePos, float Visibility)
+		void COTC_ApplyNebula(inout float3 Color, inout float Alpha, float3 WorldSpacePos, float Visibility, float2 PixelPos)
 		{
 			if (Visibility <= 0.0f)
 			{
 				return;
 			}
+
+			float SliceJitter = COTC_InterleavedGradientNoise(PixelPos + float2(113.0f, 71.0f));
 
 			float3 ToCameraNorm                   = normalize(CameraPosition - WorldSpacePos);
 			float  CeilingParallaxDistance        = (COTC_NEBULA_CEILING_Y - WorldSpacePos.y)/ToCameraNorm.y;
@@ -106,7 +108,7 @@ PixelShader = {
 
 			for (int i = 0; i < COTC_NEBULA_LAYERS; i++)
 			{
-				float  LayerRelativeHeight            = (float(i) + 0.5f)/float(COTC_NEBULA_LAYERS);
+				float  LayerRelativeHeight            = (float(i) + SliceJitter)/float(COTC_NEBULA_LAYERS);
 				float2 CurrentParallaxWorldSpacePosXZ = lerp(FloorParallaxWorldSpacePosXZ, CeilingParallaxWorldSpacePosXZ, LayerRelativeHeight);
 
 				float2 MaskUV = CurrentParallaxWorldSpacePosXZ*WorldSpaceToDetail;
@@ -126,7 +128,7 @@ PixelShader = {
 
 				float2 CloudUV         = RotatedCloudPosXZ*COTC_NEBULA_LAYER_INV_TILE[i] + RotOffset.zw;
 				float  CloudSample     = PdxTex2DLod0(COTC_Nebula_Cloud, CloudUV).r;
-				float  CloudMultiplier = lerp(1.0f - COTC_NEBULA_CLOUD_CONTRAST, 1.0f + COTC_NEBULA_CLOUD_CONTRAST, CloudSample);
+				float  CloudMultiplier = max(lerp(1.0f - COTC_NEBULA_CLOUD_CONTRAST, 1.0f + COTC_NEBULA_CLOUD_CONTRAST, CloudSample), 0.0f);
 
 				float LayerDensity = MaskSample.a*CloudMultiplier*COTC_NEBULA_DENSITY/float(COTC_NEBULA_LAYERS);
 
