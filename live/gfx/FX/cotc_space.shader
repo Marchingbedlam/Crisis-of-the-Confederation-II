@@ -371,7 +371,7 @@ PixelShader =
 				float EdgeVisibility = COTC_GetMapEdgeFade( ColorMapCoords ) * SurroundMaskValue;
 				if ( EdgeVisibility <= 0.0f )
 				{
-					return COTC_DitherOutput( COTC_ApplyBackgroundEffects( float3( 0.0f, 0.0f, 0.0f ), 0.0f, 0.0f, Input.WorldSpacePos, 2, Input.Position.xy ), Input.Position.xy );
+					return COTC_DitherOutput( COTC_ApplyBackgroundEffects( float3( 0.0f, 0.0f, 0.0f ), 0.0f, 0.0f, Input.WorldSpacePos, 2 ), Input.Position.xy );
 				}
 
 				float HeightFactor = COTC_GetProvinceColorFade();
@@ -432,7 +432,7 @@ PixelShader =
 
 				COTC_ApplyHighlightColor(Color, ColorMapCoords);
 
-				return COTC_DitherOutput( COTC_ApplyBackgroundEffects( Color, Alpha, EdgeVisibility, Input.WorldSpacePos, StarLayerMult, Input.Position.xy ), Input.Position.xy );
+				return COTC_DitherOutput( COTC_ApplyBackgroundEffects( Color, Alpha, EdgeVisibility, Input.WorldSpacePos, StarLayerMult ), Input.Position.xy );
 			}
 		]]
 	}

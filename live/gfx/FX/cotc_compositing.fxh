@@ -10,6 +10,13 @@ PixelShader = {
 			DstAlpha = OutAlpha;
 		}
 
+		// OpenGL has no unroll hint and computes it per pixel.
+		#ifndef PDX_OPENGL
+			#define COTC_UNROLL_EXACT(ITERATIONS_COUNT) [unroll(ITERATIONS_COUNT)]
+		#else
+			#define COTC_UNROLL_EXACT(ITERATIONS_COUNT)
+		#endif
+
 		static const float COTC_DITHER_STRENGTH = 1.0f;
 
 		float COTC_InterleavedGradientNoise( float2 PixelPos )
