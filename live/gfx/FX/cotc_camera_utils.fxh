@@ -4,10 +4,16 @@ Includes = {
 
 PixelShader = {
 	Code [[
+		// Height the camera loses per unit travelled along its look direction
+		float COTC_GetCameraLookDown()
+		{
+			return max( -CameraLookAtDir.y, 0.1f );
+		}
+
 		// Same quantities as ZOOM_STEPS in common/defines/graphic/cotc_graphics.txt
 		float COTC_GetZoomDistance()
 		{
-			return CameraPosition.y / max( -CameraLookAtDir.y, 0.1f );
+			return CameraPosition.y / COTC_GetCameraLookDown();
 		}
 
 		float COTC_GetCameraPitchCos()

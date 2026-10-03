@@ -30,6 +30,116 @@ Includes = {
 	#END MOD
 }
 
+# Top level so the vertex shader can do the starlight lookup once per vertex
+TextureSampler COTC_Starlight_Mask
+{
+	Index = 41
+	MagFilter = "Linear"
+	MinFilter = "Linear"
+	MipFilter = "Linear"
+	SampleModeU = "Clamp"
+	SampleModeV = "Clamp"
+	File = "gfx/map/terrain/cotc_starlight_mask.png"
+	#srgb = yes
+}
+
+# Baked RGB-mask -> XYZ coordinate lookup table (see generated/cotc_starlight_coord.fxh).
+TextureSampler COTC_Starlight_Coord_LUT
+{
+	Index = 42
+	MagFilter = "Point"
+	MinFilter = "Point"
+	MipFilter = "Point"
+	SampleModeU = "Clamp"
+	SampleModeV = "Clamp"
+	File = "gfx/FX/generated/cotc_starlight_coord_lut.dds"
+}
+
+Code
+[[
+	// Pack an 8-bit RGB triple (0-255) into a single 24-bit key.
+	uint PackColorKey( uint3 StarlightRgb )
+	{
+		return ( StarlightRgb.r << 16 ) | ( StarlightRgb.g << 8 ) | StarlightRgb.b;
+	}
+
+	// Wang-style finalizer
+	// MUST stay bit-identical to hash_color_key() in bake_starlight.py
+	uint HashColorKey( uint Key )
+	{
+		Key = ( Key ^ 61u ) ^ ( Key >> 16 );
+		Key *= 9u;
+		Key = Key ^ ( Key >> 4 );
+		Key *= 0x27d4eb2du;
+		Key = Key ^ ( Key >> 15 );
+		return Key;
+	}
+
+	// Center-of-texel UV for a linear slot index. RowOffset picks the band:
+	// 0 = key, STARLIGHT_LUT_ROWS = data0, 2*STARLIGHT_LUT_ROWS = data1.
+	float2 StarlightLUTSlotUV( uint Slot, uint RowOffset )
+	{
+		uint x = Slot % STARLIGHT_LUT_W;
+		uint y = Slot / STARLIGHT_LUT_W + RowOffset;
+		return ( float2( x, y ) + 0.5f ) / float2( STARLIGHT_LUT_W, STARLIGHT_LUT_ROWS * STARLIGHT_LUT_BANDS );
+	}
+
+	// Reassemble a 16-bit unsigned value from a (low, high) byte pair.
+	uint Unpack16( float Lo, float Hi )
+	{
+		return (uint)round( Lo * 255.0f ) + ( (uint)round( Hi * 255.0f ) << 8 );
+	}
+
+	float3 LookupStarlightCoord( uint3 StarlightRgb )
+	{
+		float3 StarCoord = float3( 0.0f, 0.0f, 0.0f );
+
+		uint Key  = PackColorKey( StarlightRgb );
+		uint Slot = HashColorKey( Key ) & STARLIGHT_LUT_TABLE_MASK;
+
+		for ( uint i = 0u; i <= STARLIGHT_LUT_TABLE_MASK; ++i )
+		{
+			float4 KeyTexel = PdxTex2DLod0( COTC_Starlight_Coord_LUT, StarlightLUTSlotUV( Slot, 0u ) );
+
+			if ( KeyTexel.a < 0.5f )
+			{
+				return StarCoord; // empty slot -> starlight not in table
+			}
+
+			uint3 StoredRGB = (uint3)round( KeyTexel.rgb * 255.0f );
+			if ( all( StoredRGB == StarlightRgb ) )
+			{
+				float4 Data0 = PdxTex2DLod0( COTC_Starlight_Coord_LUT, StarlightLUTSlotUV( Slot, STARLIGHT_LUT_ROWS ) );
+				float4 Data1 = PdxTex2DLod0( COTC_Starlight_Coord_LUT, StarlightLUTSlotUV( Slot, STARLIGHT_LUT_ROWS * 2u ) );
+				StarCoord = float3(
+					Unpack16( Data0.r, Data0.g ),   // X
+					Unpack16( Data0.b, Data0.a ),   // Y
+					Unpack16( Data1.r, Data1.g ) ); // Z
+				return StarCoord;
+			}
+
+			Slot = ( Slot + 1u ) & STARLIGHT_LUT_TABLE_MASK; // wrap around
+		}
+
+		return StarCoord;
+	}
+
+	// One star lights the whole object, so look it up at the object pivot
+	float3 COTC_GetStarlightPos( float4x4 WorldMatrix )
+	{
+		#if defined( COTC_NO_SHADOW )
+			return float3( 0.0f, 0.0f, 0.0f );
+		#else
+			float3 Pivot = mul( WorldMatrix, float4( 0.0f, 0.0f, 0.0f, 1.0f ) ).xyz;
+			float2 DetailCoordinates = Pivot.xz * WorldSpaceToDetail;
+			DetailCoordinates.y = 1.0f - DetailCoordinates.y;
+			float4 StarlightMask = PdxTex2DLod0( COTC_Starlight_Mask, DetailCoordinates );
+			uint3 StarlightRgb = (uint3)round( saturate( StarlightMask.rgb ) * 255.0f );
+			return LookupStarlightCoord( StarlightRgb );
+		#endif
+	}
+]]
+
 PixelShader =
 {
 	TextureSampler DiffuseMap
@@ -104,30 +214,6 @@ PixelShader =
 		#srgb = yes
 	}
 
-	TextureSampler COTC_Starlight_Mask
-	{
-		Index = 41
-		MagFilter = "Linear"
-		MinFilter = "Linear"
-		MipFilter = "Linear"
-		SampleModeU = "Clamp"
-		SampleModeV = "Clamp"
-		File = "gfx/map/terrain/cotc_starlight_mask.png"
-		#srgb = yes
-	}
-
-	# Baked RGB-mask -> XYZ coordinate lookup table (see generated/cotc_starlight_coord.fxh).
-	TextureSampler COTC_Starlight_Coord_LUT
-	{
-		Index = 42
-		MagFilter = "Point"
-		MinFilter = "Point"
-		MipFilter = "Point"
-		SampleModeU = "Clamp"
-		SampleModeV = "Clamp"
-		File = "gfx/FX/generated/cotc_starlight_coord_lut.dds"
-	}
-
 	# MOD(COTC) - vanilla surround mask
 	TextureSampler COTC_SurroundMask
 	{
@@ -187,6 +273,7 @@ VertexStruct VS_OUTPUT
 	float2 UV1				: TEXCOORD4;
 	float3 WorldSpacePos	: TEXCOORD5;
 	uint InstanceIndex 	: TEXCOORD6;
+	float3 StarlightPos		: TEXCOORD7;
 };
 
 VertexShader =
@@ -231,6 +318,7 @@ VertexShader =
 			{
 				VS_OUTPUT Out = ConvertOutput( PdxMeshVertexShaderStandard( Input ) );
 				Out.InstanceIndex = Input.InstanceIndices.y;
+				Out.StarlightPos = COTC_GetStarlightPos( PdxMeshGetWorldMatrix( Input.InstanceIndices.y ) );
 				return Out;
 			}
 		]]
@@ -244,8 +332,10 @@ VertexShader =
 		[[
 			PDX_MAIN
 			{
-				VS_OUTPUT Out = ConvertOutput( PdxMeshVertexShader( PdxMeshConvertInput( Input ), 0/*Skinning data not supported*/, UnpackAndGetMapObjectWorldMatrix( Input.InstanceIndex24_Opacity8 ) ) );
+				float4x4 WorldMatrix = UnpackAndGetMapObjectWorldMatrix( Input.InstanceIndex24_Opacity8 );
+				VS_OUTPUT Out = ConvertOutput( PdxMeshVertexShader( PdxMeshConvertInput( Input ), 0/*Skinning data not supported*/, WorldMatrix ) );
 				Out.InstanceIndex = Input.InstanceIndex24_Opacity8;
+				Out.StarlightPos = COTC_GetStarlightPos( WorldMatrix );
 				return Out;
 			}
 		]]
@@ -259,73 +349,6 @@ PixelShader =
 		static const float COTC_STAR_EMISSIVE_BOOST			= 4.0f;
 		static const float COTC_BLACK_HOLE_EMISSIVE_BOOST	= 5.0f;
 		static const float COTC_NEUTRON_EMISSIVE_BOOST		= 3.0f;
-
-		// Pack an 8-bit RGB triple (0-255) into a single 24-bit key.
-		uint PackColorKey( uint3 StarlightRgb )
-		{
-			return ( StarlightRgb.r << 16 ) | ( StarlightRgb.g << 8 ) | StarlightRgb.b;
-		}
-
-		// Wang-style finalizer
-		// MUST stay bit-identical to hash_color_key() in bake_starlight.py
-		uint HashColorKey( uint Key )
-		{
-			Key = ( Key ^ 61u ) ^ ( Key >> 16 );
-			Key *= 9u;
-			Key = Key ^ ( Key >> 4 );
-			Key *= 0x27d4eb2du;
-			Key = Key ^ ( Key >> 15 );
-			return Key;
-		}
-
-		// Center-of-texel UV for a linear slot index. RowOffset picks the band:
-		// 0 = key, STARLIGHT_LUT_ROWS = data0, 2*STARLIGHT_LUT_ROWS = data1.
-		float2 StarlightLUTSlotUV( uint Slot, uint RowOffset )
-		{
-			uint x = Slot % STARLIGHT_LUT_W;
-			uint y = Slot / STARLIGHT_LUT_W + RowOffset;
-			return ( float2( x, y ) + 0.5f ) / float2( STARLIGHT_LUT_W, STARLIGHT_LUT_ROWS * STARLIGHT_LUT_BANDS );
-		}
-
-		// Reassemble a 16-bit unsigned value from a (low, high) byte pair.
-		uint Unpack16( float Lo, float Hi )
-		{
-			return (uint)round( Lo * 255.0f ) + ( (uint)round( Hi * 255.0f ) << 8 );
-		}
-
-		float3 LookupStarlightCoord( uint3 StarlightRgb )
-		{
-			float3 StarCoord = float3( 0.0f, 0.0f, 0.0f );
-
-			uint Key  = PackColorKey( StarlightRgb );
-			uint Slot = HashColorKey( Key ) & STARLIGHT_LUT_TABLE_MASK;
-
-			for ( uint i = 0u; i <= STARLIGHT_LUT_TABLE_MASK; ++i )
-			{
-				float4 KeyTexel = PdxTex2DLod0( COTC_Starlight_Coord_LUT, StarlightLUTSlotUV( Slot, 0u ) );
-
-				if ( KeyTexel.a < 0.5f )
-				{
-					return StarCoord; // empty slot -> starlight not in table
-				}
-
-				uint3 StoredRGB = (uint3)round( KeyTexel.rgb * 255.0f );
-				if ( all( StoredRGB == StarlightRgb ) )
-				{
-					float4 Data0 = PdxTex2DLod0( COTC_Starlight_Coord_LUT, StarlightLUTSlotUV( Slot, STARLIGHT_LUT_ROWS ) );
-					float4 Data1 = PdxTex2DLod0( COTC_Starlight_Coord_LUT, StarlightLUTSlotUV( Slot, STARLIGHT_LUT_ROWS * 2u ) );
-					StarCoord = float3(
-						Unpack16( Data0.r, Data0.g ),   // X
-						Unpack16( Data0.b, Data0.a ),   // Y
-						Unpack16( Data1.r, Data1.g ) ); // Z
-					return StarCoord;
-				}
-
-				Slot = ( Slot + 1u ) & STARLIGHT_LUT_TABLE_MASK; // wrap around
-			}
-
-			return StarCoord;
-		}
 	]]
 
 	MainCode COTC_PS_plane
@@ -341,6 +364,16 @@ PixelShader =
 			PDX_MAIN
 			{
 				float2 ColorMapCoords =  Input.WorldSpacePos.xz *  WorldSpaceToTerrain0To1;
+
+				// The map colour and nebula fade with this; the stars carry on past the map edge.
+				// Off the map only the stars are left, so skip everything else there.
+				float SurroundMaskValue = 1.0f - PdxTex2D( COTC_SurroundMask, float2( ColorMapCoords.x, 1.0f - ColorMapCoords.y ) ).b;
+				float EdgeVisibility = COTC_GetMapEdgeFade( ColorMapCoords ) * SurroundMaskValue;
+				if ( EdgeVisibility <= 0.0f )
+				{
+					return COTC_ApplyBackgroundEffects( float3( 0.0f, 0.0f, 0.0f ), 0.0f, 0.0f, Input.WorldSpacePos, 2 );
+				}
+
 				float HeightFactor = COTC_GetProvinceColorFade();
 				float ProvinceStrength = 1.0f - HeightFactor;
 
@@ -354,16 +387,22 @@ PixelShader =
 				float CloudMaskValue = PlaneMask.r;
 				float SystemMaskValue = PlaneMask.g;
 				float SectorMaskValue = PlaneMask.b;
+				float SectorOpacity = COTC_GetSectorOpacity();
 				float SectorFillAmount = 0.0f;
 				if(SectorMaskValue > 0.0f && HeightFactor > 0.0f)
 				{
-					SectorMaskValue = lerp(SectorMaskValue, PlaneMask.a, 1.0);
-					COTC_ApplySectorFill( ProvinceOverlayColor, SectorFillAmount, ColorMapCoords, SectorMaskValue );
+					SectorMaskValue = PlaneMask.a;
+
+					// The fill's final alpha is scaled by all of these; below one 8-bit step it cannot show
+					if ( HeightFactor * SectorOpacity * EdgeVisibility > COTC_FILL_MASK_EPSILON )
+					{
+						COTC_ApplySectorFill( ProvinceOverlayColor, SectorFillAmount, ColorMapCoords, SectorMaskValue );
+					}
 				}
 
 				float Alpha = max( PlaneMask.a, SectorFillAmount ) / 2.5;
 				Alpha *= 1.0f - ProvinceStrength;
-				Alpha *= COTC_GetSectorOpacity();
+				Alpha *= SectorOpacity;
 
 				float3 Color = lerp(ProvinceOverlayColor, 0.0f, ProvinceStrength);
 
@@ -383,15 +422,17 @@ PixelShader =
 					RegionLayerMult = 2.0f;
 				}
 
+				// The plane mask is clamp-sampled, so off the map it would smear the edge regions outward
+				if ( any( ColorMapCoords < 0.0f ) || any( ColorMapCoords > 1.0f ) )
+				{
+					RegionLayerMult = 2.0f;
+				}
+
 				int StarLayerMult = int( round( lerp( 2.0f, RegionLayerMult, HeightFactor ) ) );
 
 				COTC_ApplyHighlightColor(Color, ColorMapCoords);
-				COTC_ApplyBackgroundEffects( Color, Alpha, Input.WorldSpacePos, StarLayerMult );
 
-				float SurroundMaskValue = 1.0f - PdxTex2D( COTC_SurroundMask, float2( ColorMapCoords.x, 1.0f - ColorMapCoords.y ) ).b;
-				Alpha *= COTC_GetMapEdgeFade( ColorMapCoords ) * SurroundMaskValue;
-
-				return float4(Color, Alpha);
+				return COTC_ApplyBackgroundEffects( Color, Alpha, EdgeVisibility, Input.WorldSpacePos, StarLayerMult );
 			}
 		]]
 	}
@@ -504,7 +545,8 @@ PixelShader =
 				float ProvinceStrength = COTC_GetProvinceColorFade();
 				float Alpha = Diffuse.a;
 				SMaterialProperties MaterialProps = GetMaterialProperties( Diffuse.rgb, Normal, Properties.a, Properties.g, Properties.b );
-				SLightingProperties LightingProps = GetSunLightingProperties( Input.WorldSpacePos, ShadowTexture );
+				// Every neutron effect is COTC_NO_SHADOW, so skip the PCF shadow taps
+				SLightingProperties LightingProps = GetSunLightingProperties( Input.WorldSpacePos, 1.0f );
 				float3 Color = COTC_CalculateSunLighting( MaterialProps, LightingProps, EnvironmentMap, ProvinceStrength );
 
 				float2 ColorMapCoords =  Input.WorldSpacePos.xz *  WorldSpaceToTerrain0To1;
@@ -618,16 +660,12 @@ PixelShader =
 				SLightingProperties LightingProps;
 
 				#if defined( COTC_NO_SHADOW )
-					LightingProps = GetSunLightingProperties( Input.WorldSpacePos, ShadowTexture );
+					// Unshadowed, so skip the PCF shadow taps
+					LightingProps = GetSunLightingProperties( Input.WorldSpacePos, 1.0f );
 					Color = COTC_CalculateSunLighting( MaterialProps, LightingProps, EnvironmentMap, ProvinceStrength );
 				#else
-					float2 DetailCoordinates = Input.WorldSpacePos.xz * WorldSpaceToDetail;
-					DetailCoordinates.y = 1.0f - DetailCoordinates.y;
-					float4 StarlightMask = PdxTex2DLod0( COTC_Starlight_Mask, DetailCoordinates );
-					uint3 StarlightRgb = (uint3)round( saturate( StarlightMask.rgb ) * 255.0f );
-					float3 StarlightPos = LookupStarlightCoord( StarlightRgb );
-
-					LightingProps = COTC_GetSunLightingProperties( Input.WorldSpacePos, StarlightPos, ShadowTexture );
+					// Looked up per vertex at the object pivot
+					LightingProps = COTC_GetSunLightingProperties( Input.WorldSpacePos, Input.StarlightPos, ShadowTexture );
 					Color = COTC_CalculateSunLighting( MaterialProps, LightingProps, EnvironmentMap, 1.0 );
 				#endif
 
