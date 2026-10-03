@@ -143,372 +143,7 @@ window = {
 					layoutpolicy_vertical = expanding
 
 					### SCHEMES
-<<<<<<< HEAD
-					scrollbox = {
-						name = "schemes"
-						visible = "[IntrigueWindow.IsTabShown( 'schemes' )]"
-						layoutpolicy_horizontal = expanding
-						layoutpolicy_vertical = expanding
-
-						state = {
-							name = _show
-							using = Animation_FadeIn_Quick
-						}
-
-						state = {
-							name = _hide
-							alpha = 0
-						}
-
-						background = {
-							texture = "gfx/interface/skinned/illustrations/council/bg_council_spymaster.dds"
-							margin = { -5 0 }
-							fittype = end
-							alpha = 0.3
-
-							modify_texture = {
-								texture = "gfx/interface/component_masks/mask_fade_vertical.dds"
-								blend_mode = alphamultiply
-								mirror = vertical
-							}
-						}
-
-						blockoverride "scrollbox_content"
-						{
-							## My Schemes
-							vbox = {
-								name = "my_own_schemes"
-								widgetid = "my_own_schemes"
-								layoutpolicy_horizontal = expanding
-								spacing = 10
-								
-								vbox = {
-									name = "my_research_projects"
-									visible = "[GetPlayer.HasLandedTitles]"
-									datacontext = "[IntrigueWindow.GetContractSchemes]"
-									layoutpolicy_horizontal = expanding
-
-									text_label_center = {
-										layoutpolicy_horizontal = expanding
-										text = "[research_projects_cotc|E]"
-									}
-
-									vbox = {
-										name = "my_own_research_projects"
-										visible = "[SkillSchemeGroup.HasSchemes]"
-										datamodel = "[SkillSchemeGroup.GetSchemes]"
-										layoutpolicy_horizontal = expanding
-
-										item = {
-											widget_own_scheme_item = {
-												layoutpolicy_horizontal = expanding
-											}
-										}
-									}
-
-									text_multi = {
-										name = "no_own_research_projects"
-										visible = "[Not(SkillSchemeGroup.HasSchemes)]"
-										layoutpolicy_horizontal = expanding
-										minimumsize = { 0 110  }
-
-										text = "SCHEME_WINDOW_NOT_OWNED_RESEARCH_PROJECTS"
-										default_format = "#low;italic"
-										align = center
-
-										background = {
-											using = Background_Area
-										}
-									}
-								}
-
-								vbox = {
-									name = "my_contract_schemes"
-									visible = "[And( SkillSchemeGroup.HasSchemes, Not( GetPlayer.HasLandedTitles ) )]"
-									datacontext = "[IntrigueWindow.GetContractSchemes]"
-									layoutpolicy_horizontal = expanding
-
-									text_label_center = {
-										layoutpolicy_horizontal = expanding
-										text = "[contract_schemes|E]"
-									}
-
-									vbox = {
-										name = "my_own_contract_schemes"
-										visible = "[SkillSchemeGroup.HasSchemes]"
-										datamodel = "[SkillSchemeGroup.GetSchemes]"
-										layoutpolicy_horizontal = expanding
-
-										item = {
-											widget_own_scheme_item = {
-												layoutpolicy_horizontal = expanding
-											}
-										}
-									}
-								}
-
-								vbox = {
-									name = "my_hostile_schemes"
-									datacontext = "[IntrigueWindow.GetHostileSchemes]"
-									layoutpolicy_horizontal = expanding
-
-									text_label_center = {
-										layoutpolicy_horizontal = expanding
-										text = "[hostile_schemes|E]"
-									}
-
-									vbox = {
-										name = "my_own_hostile_schemes"
-										visible = "[SkillSchemeGroup.HasSchemes]"
-										datamodel = "[SkillSchemeGroup.GetSchemes]"
-										layoutpolicy_horizontal = expanding
-
-										item = {
-											widget_own_scheme_item = {
-												layoutpolicy_horizontal = expanding
-											}
-										}
-									}
-
-									text_multi = {
-										name = "no_own_hostile_schemes"
-										visible = "[Not(SkillSchemeGroup.HasSchemes)]"
-										layoutpolicy_horizontal = expanding
-										minimumsize = { 0 110  }
-
-										text = "SCHEME_WINDOW_NOT_OWNED_SCHEMES"
-										default_format = "#low;italic"
-										align = center
-
-										background = {
-											using = Background_Area
-										}
-									}
-								}
-
-								vbox = {
-									name = "my_personal_schemes"
-									datacontext = "[IntrigueWindow.GetPersonalSchemes]"
-									layoutpolicy_horizontal = expanding
-
-									text_label_center = {
-										layoutpolicy_horizontal = expanding
-										text = "[personal_schemes|E]"
-									}
-
-									vbox = {
-										name = "my_own_personal_schemes"
-										widgetid = "my_own_personal_schemes"
-										visible = "[SkillSchemeGroup.HasSchemes]"
-										datamodel = "[SkillSchemeGroup.GetSchemes]"
-										layoutpolicy_horizontal = expanding
-
-										item = {
-											widget_own_scheme_item = {
-												layoutpolicy_horizontal = expanding
-											}
-										}
-									}
-
-									text_multi = {
-										name = "no_own_personal_schemes"
-										visible = "[Not(SkillSchemeGroup.HasSchemes)]"
-										layoutpolicy_horizontal = expanding
-										minimumsize = { 0 110  }
-
-										text = "SCHEME_WINDOW_NOT_OWNED_SCHEMES"
-										default_format = "#low;italic"
-										align = center
-
-										background = {
-											using = Background_Area
-										}
-									}
-								}
-
-								vbox = {
-									name = "my_political_schemes"
-									datacontext = "[IntrigueWindow.GetPoliticalSchemes]"
-									visible = "[Or(GetPlayer.GetGovernment.HasRule( 'administrative' ), Or(GetPlayer.GetGovernment.IsType( 'japan_feudal_government' ), Or( GetPlayer.GetTopLiege.GetGovernment.HasRule( 'administrative' ), GetPlayer.GetGovernment.IsType( 'mandala_government' ) ) ) )]"
-									layoutpolicy_horizontal = expanding
-
-									text_label_center = {
-										layoutpolicy_horizontal = expanding
-										text = "[political_schemes|E]"
-									}
-
-									vbox = {
-										name = "my_own_political_schemes"
-										visible = "[SkillSchemeGroup.HasSchemes]"
-										datamodel = "[SkillSchemeGroup.GetSchemes]"
-										layoutpolicy_horizontal = expanding
-
-										item = {
-											widget_own_scheme_item = {
-												layoutpolicy_horizontal = expanding
-											}
-										}
-									}
-
-									text_multi = {
-										name = "no_own_political_schemes"
-										visible = "[Not(SkillSchemeGroup.HasSchemes)]"
-										layoutpolicy_horizontal = expanding
-										minimumsize = { 0 110  }
-
-										text = "SCHEME_WINDOW_NOT_OWNED_SCHEMES"
-										default_format = "#low;italic"
-										align = center
-
-										background = {
-											using = Background_Area
-										}
-									}
-								}
-							}
-
-							## Known schemes
-							vbox = {
-								name = "discovered_schemes"
-								layoutpolicy_horizontal = expanding
-								margin_top = 10
-
-								# text_label_center = {
-								# 	name = "label"
-								# 	layoutpolicy_horizontal = expanding
-
-								# 	text = "SCHEME_WINDOW_KNOWN_SCHEMES_TITLE"
-
-								# 	icon = {
-								# 		name = "discovered_icon"
-								# 		position = { 5 -5 }
-								# 		size = { 35 35 }
-								# 		texture = "gfx/interface/icons/schemes/icon_discovered_scheme.dds"
-								# 	}
-								# }
-
-								hbox = {
-									layoutpolicy_horizontal = expanding
-
-									expand = {}
-
-									margin = { 0 -4 } #Uses a negative margin to make the header be the same height as regular text labels. Doesn't affect any of the content.
-									margin_right = 35 #Margin to offset the icon size
-
-									background = {
-										margin_left = 40
-										margin_right = 40
-
-										texture = "gfx/interface/component_tiles/tile_title_bg_01.dds"
-										spriteType = Corneredtiled
-										spriteborder = { 40 8 }
-										texture_density = 2
-
-										modify_texture = {
-											name = "mask"
-											texture = "gfx/interface/component_masks/mask_fade_horizontal_middle_thick.dds"
-											spriteType = Corneredstretched
-											spriteborder = { 0 0 }
-											blend_mode = alphamultiply
-										}
-									}
-
-									icon = {
-										name = "discovered_icon"
-										size = { 35 35 }
-										texture = "gfx/interface/icons/schemes/icon_discovered_scheme.dds"
-									}
-
-									text_single = {
-										text = "SCHEME_WINDOW_KNOWN_SCHEMES_TITLE"
-										align = nobaseline
-									}
-
-									expand = {}
-								}
-
-								vbox = {
-									name = "known_schemes_grid"
-									visible = "[IntrigueWindow.HasKnownSchemes]"
-									datamodel = "[IntrigueWindow.GetKnownSchemes]"
-									layoutpolicy_horizontal = expanding
-
-									item = {
-										vbox_discovered_scheme_item = {
-											layoutpolicy_horizontal = expanding
-										}
-									}
-								}
-
-								text_multi = {
-									name = "no_own_schemes"
-									visible = "[Not(IntrigueWindow.HasKnownSchemes)]"
-									layoutpolicy_horizontal = expanding
-									minimumsize = { 0 110  }
-
-									text = "SCHEME_WINDOW_NOT_KNOWN_SCHEMES"
-									default_format = "#low"
-									align = center
-
-									background = {
-										using = Background_Area
-									}
-								}
-							}
-						}
-					}
-
-					## Autofill agent button
-					hbox = {
-						visible = "[IntrigueWindow.IsTabShown( 'schemes' )]"
-						layoutpolicy_horizontal = expanding
-						margin = { 10 10 }
-						spacing = 5
-
-						tooltip = "SCHEME_WINDOW_AUTO_ASSIGN_AGENTS_TOOLTIP"
-
-						divider = {
-							layoutpolicy_horizontal = expanding
-
-							modify_texture = {
-								texture = "gfx/interface/component_masks/mask_fade_horizontal_thick.dds"
-								blend_mode = alphamultiply
-							}
-						}
-
-						icon = {
-							size = { 30 30 }
-							texture = "gfx/interface/icons/message_feed/spy_master.dds"
-						}
-
-						button_checkbox_label = {
-							size = { 30 30 }
-							onclick = "[IntrigueWindow.ToggleAutoAssigningAgents]"
-
-							blockoverride "checkbox"
-							{
-								checked = "[IntrigueWindow.IsAutoAssigningAgents]"
-							}
-
-							blockoverride "text"
-							{
-								text = "SCHEME_WINDOW_AUTO_ASSIGN_AGENTS"
-							}
-						}
-
-						divider = {
-							layoutpolicy_horizontal = expanding
-
-							modify_texture = {
-								texture = "gfx/interface/component_masks/mask_fade_horizontal_thick.dds"
-								blend_mode = alphamultiply
-								mirror = horizontal
-							}
-						}
-					}
-=======
 					schemes_tab_vbox = {}
->>>>>>> 1.20
 
 					### HOOKS AND SECRETS
 					hooks_secrets_scrollbox = {}
@@ -1342,6 +977,7 @@ types IntrigueWindowTypes
 		### SCHEMES
 		scrollbox = {
 			name = "schemes"
+			visible = "[IntrigueWindow.IsTabShown( 'schemes' )]"
 			layoutpolicy_horizontal = expanding
 			layoutpolicy_vertical = expanding
 
@@ -1376,10 +1012,50 @@ types IntrigueWindowTypes
 					widgetid = "my_own_schemes"
 					layoutpolicy_horizontal = expanding
 					spacing = 10
+					
+					vbox = {
+						name = "my_research_projects"
+						visible = "[GetPlayer.HasLandedTitles]"
+						datacontext = "[IntrigueWindow.GetContractSchemes]"
+						layoutpolicy_horizontal = expanding
+
+						text_label_center = {
+							layoutpolicy_horizontal = expanding
+							text = "[research_projects_cotc|E]"
+						}
+
+						vbox = {
+							name = "my_own_research_projects"
+							visible = "[SkillSchemeGroup.HasSchemes]"
+							datamodel = "[SkillSchemeGroup.GetSchemes]"
+							layoutpolicy_horizontal = expanding
+
+							item = {
+								widget_own_scheme_item = {
+									layoutpolicy_horizontal = expanding
+								}
+							}
+						}
+
+						text_multi = {
+							name = "no_own_research_projects"
+							visible = "[Not(SkillSchemeGroup.HasSchemes)]"
+							layoutpolicy_horizontal = expanding
+							minimumsize = { 0 110  }
+
+							text = "SCHEME_WINDOW_NOT_OWNED_RESEARCH_PROJECTS"
+							default_format = "#low;italic"
+							align = center
+
+							background = {
+								using = Background_Area
+							}
+						}
+					}
 
 					vbox = {
 						name = "my_contract_schemes"
-						visible = "[SkillSchemeGroup.HasSchemes]"
+						visible = "[And( SkillSchemeGroup.HasSchemes, Not( GetPlayer.HasLandedTitles ) )]"
 						datacontext = "[IntrigueWindow.GetContractSchemes]"
 						layoutpolicy_horizontal = expanding
 
@@ -1391,9 +1067,9 @@ types IntrigueWindowTypes
 						vbox = {
 							name = "my_own_contract_schemes"
 							visible = "[SkillSchemeGroup.HasSchemes]"
+							datamodel = "[SkillSchemeGroup.GetSchemes]"
 							layoutpolicy_horizontal = expanding
 
-							datamodel = "[SkillSchemeGroup.GetSchemes]"
 							item = {
 								widget_own_scheme_item = {
 									layoutpolicy_horizontal = expanding
@@ -1415,9 +1091,9 @@ types IntrigueWindowTypes
 						vbox = {
 							name = "my_own_hostile_schemes"
 							visible = "[SkillSchemeGroup.HasSchemes]"
+							datamodel = "[SkillSchemeGroup.GetSchemes]"
 							layoutpolicy_horizontal = expanding
 
-							datamodel = "[SkillSchemeGroup.GetSchemes]"
 							item = {
 								widget_own_scheme_item = {
 									layoutpolicy_horizontal = expanding
@@ -1455,9 +1131,9 @@ types IntrigueWindowTypes
 							name = "my_own_personal_schemes"
 							widgetid = "my_own_personal_schemes"
 							visible = "[SkillSchemeGroup.HasSchemes]"
+							datamodel = "[SkillSchemeGroup.GetSchemes]"
 							layoutpolicy_horizontal = expanding
 
-							datamodel = "[SkillSchemeGroup.GetSchemes]"
 							item = {
 								widget_own_scheme_item = {
 									layoutpolicy_horizontal = expanding
@@ -1484,7 +1160,7 @@ types IntrigueWindowTypes
 					vbox = {
 						name = "my_political_schemes"
 						datacontext = "[IntrigueWindow.GetPoliticalSchemes]"
-						visible = "[Or(GetPlayer.GetGovernment.HasMechanic( 'administrative' ), Or(GetPlayer.GetGovernment.IsType( 'japan_feudal_government' ), Or( GetPlayer.GetTopLiege.GetGovernment.HasMechanic( 'administrative' ), GetPlayer.GetGovernment.IsType( 'mandala_government' ) ) ) )]"
+						visible = "[Or(GetPlayer.GetGovernment.HasRule( 'administrative' ), Or(GetPlayer.GetGovernment.IsType( 'japan_feudal_government' ), Or( GetPlayer.GetTopLiege.GetGovernment.HasRule( 'administrative' ), GetPlayer.GetGovernment.IsType( 'mandala_government' ) ) ) )]"
 						layoutpolicy_horizontal = expanding
 
 						text_label_center = {
@@ -1495,9 +1171,9 @@ types IntrigueWindowTypes
 						vbox = {
 							name = "my_own_political_schemes"
 							visible = "[SkillSchemeGroup.HasSchemes]"
+							datamodel = "[SkillSchemeGroup.GetSchemes]"
 							layoutpolicy_horizontal = expanding
 
-							datamodel = "[SkillSchemeGroup.GetSchemes]"
 							item = {
 								widget_own_scheme_item = {
 									layoutpolicy_horizontal = expanding
@@ -1527,6 +1203,20 @@ types IntrigueWindowTypes
 					name = "discovered_schemes"
 					layoutpolicy_horizontal = expanding
 					margin_top = 10
+
+					# text_label_center = {
+					# 	name = "label"
+					# 	layoutpolicy_horizontal = expanding
+
+					# 	text = "SCHEME_WINDOW_KNOWN_SCHEMES_TITLE"
+
+					# 	icon = {
+					# 		name = "discovered_icon"
+					# 		position = { 5 -5 }
+					# 		size = { 35 35 }
+					# 		texture = "gfx/interface/icons/schemes/icon_discovered_scheme.dds"
+					# 	}
+					# }
 
 					hbox = {
 						layoutpolicy_horizontal = expanding
@@ -1571,9 +1261,9 @@ types IntrigueWindowTypes
 					vbox = {
 						name = "known_schemes_grid"
 						visible = "[IntrigueWindow.HasKnownSchemes]"
+						datamodel = "[IntrigueWindow.GetKnownSchemes]"
 						layoutpolicy_horizontal = expanding
 
-						datamodel = "[IntrigueWindow.GetKnownSchemes]"
 						item = {
 							vbox_discovered_scheme_item = {
 								layoutpolicy_horizontal = expanding
@@ -1601,6 +1291,7 @@ types IntrigueWindowTypes
 
 		## Autofill agent button
 		hbox = {
+			visible = "[IntrigueWindow.IsTabShown( 'schemes' )]"
 			layoutpolicy_horizontal = expanding
 			margin = { 10 10 }
 			spacing = 5

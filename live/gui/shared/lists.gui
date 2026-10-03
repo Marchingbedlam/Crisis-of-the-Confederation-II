@@ -2518,11 +2518,7 @@ types Lists
 			}
 
 			icon = {
-<<<<<<< HEAD
-				visible = "[Or( Character.GetGovernment.HasGovernmentFlag( 'government_is_herder' ), Or( Character.IsBaronOrUnlanded, Or( Or( And( Not( SubjectContract.UsesObligationLevels), Not( SubjectContract.IsTributary ) ), Character.GetPrimaryTitle.IsNobleFamilyTitle ) , And( Character.GetGovernment.HasRule( 'administrative' ), LessThanOrEqualTo_int32( Character.GetPrimaryTitle.GetTierFrame, Character.GetGovernment.GetMainAdministrativeTier ) ) ) ) ) ]"
-=======
 				visible = "[Or( Character.GetGovernment.HasGovernmentFlag( 'government_is_herder' ), Or( Character.IsBaronOrUnlanded, Or( Or( And( Not( SubjectContract.UsesObligationLevels), Not( SubjectContract.IsTributary ) ), Character.GetPrimaryTitle.IsNobleFamilyTitle ) , And( Character.GetGovernment.HasMechanic( 'administrative' ), LessThanOrEqualTo_int32( Character.GetPrimaryTitle.GetTierFrame, Character.GetGovernment.GetMinAppointmentTier ) ) ) ) ) ]"
->>>>>>> 1.20
 				size = { 42 42 }
 				texture = "gfx/interface/icons/symbols/icon_cross.dds"
 				tooltip = "MY_REALM_WINDOW_NO_FEUDAL_CONTRACT_TT"
@@ -2530,11 +2526,7 @@ types Lists
 			}
 
 			hbox_vassal_contract_button = {
-<<<<<<< HEAD
-				visible = "[Not( Or( Character.GetGovernment.HasGovernmentFlag( 'government_is_herder' ), Or( Character.IsBaronOrUnlanded, Or( Or( And( Not( SubjectContract.UsesObligationLevels), Not( SubjectContract.IsTributary ) ), Character.GetPrimaryTitle.IsNobleFamilyTitle ) , And( Character.GetGovernment.HasRule( 'administrative' ), LessThanOrEqualTo_int32( Character.GetPrimaryTitle.GetTierFrame, Character.GetGovernment.GetMainAdministrativeTier ) ) ) ) ) ) ]"
-=======
 				visible = "[Not( Or( Character.GetGovernment.HasGovernmentFlag( 'government_is_herder' ), Or( Character.IsBaronOrUnlanded, Or( Or( And( Not( SubjectContract.UsesObligationLevels), Not( SubjectContract.IsTributary ) ), Character.GetPrimaryTitle.IsNobleFamilyTitle ) , And( Character.GetGovernment.HasMechanic( 'administrative' ), LessThanOrEqualTo_int32( Character.GetPrimaryTitle.GetTierFrame, Character.GetGovernment.GetMinAppointmentTier ) ) ) ) ) ) ]"
->>>>>>> 1.20
 			}
 
 			hbox_vassal_list_icons = {}

@@ -74,18 +74,6 @@ window = {
 
 				hbox_tab_buttons = {
 					name = "administration_tabs"
-
-<<<<<<< HEAD
-					blockoverride "tab_name"
-					{
-						text = "[PdxGuiTabItem.LocalizeTab( 'administraction_tab' )]"
-					}
-
-					blockoverride "on_click"
-					{
-						onclick = "[CloseGameView( 'admin_vassal_detail_view' )]"
-						onclick = "[GetVariableSystem.Clear( 'show_prominent_appointment' )]"
-=======
 					button_tab = {
 						name = "open_family_tab"
 						shortcut = "tab_1"
@@ -186,7 +174,6 @@ window = {
 							texture = "gfx/interface/icons/flat_icons/title.dds"
 							down = "[GetVariableSystem.Exists( 'themes' )]"
 						}
->>>>>>> 1.20
 					}
 				}
 
@@ -916,14 +903,8 @@ types GovernmentAdministrationThemes
 						text = "ADMIN_WINDOW_THEME_GOVERNOR_EFFICIENCY"
 						align = nobaseline
 						default_format = "#low"
-<<<<<<< HEAD
-						max_width = 80
-
-						tooltip = "ADMIN_WINDOW_THEME_GOVERNOR_EFFICIENCY_TT"
-=======
 						max_width = 90
 						min_width = 90
->>>>>>> 1.20
 					}
 
 					text_single = {
@@ -1903,9 +1884,6 @@ types GovernmentAdministration
 				}
 			}
 		}
-
-<<<<<<< HEAD
-=======
 		# Investment cap - Only for admin realms who doesn't use merit
 		vbox = {
 			name = "government_panel_investment_cap_area"
@@ -1950,8 +1928,6 @@ types GovernmentAdministration
 				expand = {}
 			}
 		}
-
->>>>>>> 1.20
 		#exams
 		vbox = {
 			name = "government_panel_exam_area" #lesson_china_exam uses this
