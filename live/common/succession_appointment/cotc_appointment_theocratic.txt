@@ -15,10 +15,12 @@
 			}
 			scope:appointer = {
 				if = {
-					limit = { primary_title ?= = { exists = state_faith } }
-					primary_title ?=.state_faith = { save_temporary_scope_as = relevant_faith }
+					limit = { primary_title ?= { exists = state_faith } }
+					primary_title.state_faith = { save_temporary_scope_as = relevant_faith }
+					primary_title.state_rite = { save_temporary_scope_as = relevant_rite }
 				}
 				faith = { save_temporary_scope_as = relevant_faith }
+				rite = { save_temporary_scope_as = relevant_rite }
 			}
 			# Base - Based on learning
 			add = {
@@ -64,7 +66,7 @@
 							ai_zeal > 0
 						}
 					}
-					trait_is_criminal_in_faith_trigger = { TRAIT = trait:deviant FAITH = scope:relevant_faith GENDER_CHARACTER = root }
+					trait_is_criminal_in_rite_trigger = { TRAIT = trait:deviant RITE = scope:relevant_rite GENDER_CHARACTER = root }
 				}
 				add = {
 					value = -30
@@ -80,7 +82,7 @@
 							ai_zeal > 0
 						}
 					}
-					trait_is_criminal_in_faith_trigger = { TRAIT = trait:incestuous FAITH = scope:relevant_faith GENDER_CHARACTER = root }
+					trait_is_criminal_in_rite_trigger = { TRAIT = trait:incestuous RITE = scope:relevant_rite GENDER_CHARACTER = root }
 				}
 				add = {
 					value = -30
@@ -96,7 +98,7 @@
 							ai_zeal > 0
 						}
 					}
-					trait_is_criminal_in_faith_trigger = { TRAIT = trait:sodomite FAITH = scope:relevant_faith GENDER_CHARACTER = root }
+					trait_is_criminal_in_rite_trigger = { TRAIT = trait:sodomite RITE = scope:relevant_rite GENDER_CHARACTER = root }
 				}
 				add = {
 					value = -30
@@ -112,7 +114,7 @@
 							ai_zeal > 0
 						}
 					}
-					trait_is_criminal_in_faith_trigger = { TRAIT = trait:cannibal FAITH = scope:relevant_faith GENDER_CHARACTER = root }
+					trait_is_criminal_in_rite_trigger = { TRAIT = trait:cannibal RITE = scope:relevant_rite GENDER_CHARACTER = root }
 				}
 				add = {
 					value = -30
@@ -128,7 +130,7 @@
 							ai_zeal > 0
 						}
 					}
-					trait_is_criminal_in_faith_trigger = { TRAIT = trait:kinslayer_1 FAITH = scope:relevant_faith GENDER_CHARACTER = root }
+					trait_is_criminal_in_rite_trigger = { TRAIT = trait:kinslayer_1 RITE = scope:relevant_rite GENDER_CHARACTER = root }
 				}
 				add = {
 					value = -30
@@ -144,7 +146,7 @@
 							ai_zeal > 0
 						}
 					}
-					trait_is_criminal_in_faith_trigger = { TRAIT = trait:kinslayer_2 FAITH = scope:relevant_faith GENDER_CHARACTER = root }
+					trait_is_criminal_in_rite_trigger = { TRAIT = trait:kinslayer_2 RITE = scope:relevant_rite GENDER_CHARACTER = root }
 				}
 				add = {
 					value = -30
@@ -160,7 +162,7 @@
 							ai_zeal > 0
 						}
 					}
-					trait_is_criminal_in_faith_trigger = { TRAIT = trait:kinslayer_3 FAITH = scope:relevant_faith GENDER_CHARACTER = root }
+					trait_is_criminal_in_rite_trigger = { TRAIT = trait:kinslayer_3 RITE = scope:relevant_rite GENDER_CHARACTER = root }
 				}
 				add = {
 					value = -30
@@ -176,7 +178,7 @@
 							ai_zeal > 0
 						}
 					}
-					trait_is_criminal_in_faith_trigger = { TRAIT = trait:adulterer FAITH = scope:relevant_faith GENDER_CHARACTER = root }
+					trait_is_criminal_in_rite_trigger = { TRAIT = trait:adulterer RITE = scope:relevant_rite GENDER_CHARACTER = root }
 				}
 				add = {
 					value = -30
@@ -192,7 +194,7 @@
 							ai_zeal > 0
 						}
 					}
-					trait_is_criminal_in_faith_trigger = { TRAIT = trait:fornicator FAITH = scope:relevant_faith GENDER_CHARACTER = root }
+					trait_is_criminal_in_rite_trigger = { TRAIT = trait:fornicator RITE = scope:relevant_rite GENDER_CHARACTER = root }
 				}
 				add = {
 					value = -30
@@ -255,7 +257,7 @@
 				}
 			}
 			else_if = {
-				limit = { primary_title ?= = { target_is_de_jure_liege_or_above = scope:title } }
+				limit = { primary_title ?= { target_is_de_jure_liege_or_above = scope:title } }
 				add = {
 					value = 20
 					desc = is_de_jure_vassal_desc

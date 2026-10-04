@@ -326,57 +326,58 @@ allows_declaring_war_against_target_trigger = {
 			limit = {
 				government_has_mechanic = administrative
 			}
-			# internal war
-			trigger_if = {
-				limit = { top_liege = scope:defender_check.top_liege }
-				trigger_if = {
-					limit = {
-						scope:defender_check = { government_has_mechanic = administrative }
-						top_liege != scope:defender_check
-					}
-					custom_tooltip = {
-						text = admin_cannot_declare_internal_wars
-						always = no
-					}
-				}
-			}
-			trigger_else = {
-				trigger_if = { # Admin - Laws prevent all vassals from declaring war
-					limit = {
-						top_liege = {
-							has_realm_law_flag = admin_vassal_wars_banned
-						}
-					}
-					custom_tooltip = {
-						text = admin_all_vassal_wars_banned
-						always = no
-					}
-				}
-				trigger_else = {
-					trigger_if = { # Admin - Laws only allow frontier and naval themes to declare war
-						limit = {
-							top_liege = {
-								has_realm_law_flag = admin_vassal_wars_restricted
-							}
-						}
-						custom_tooltip = {
-							text = admin_all_vassal_wars_banned
-							admin_governor_allows_declaring_war_trigger = yes
-						}
-					}
-					trigger_if = { # Admin - Laws only allow frontier and naval themes to declare war IF they have permission
-						limit = {
-							top_liege = {
-								has_realm_law_flag = admin_vassal_wars_permission_only
-							}
-						}
-						custom_tooltip = {
-							text = admin_vassal_wars_permission_only_desc
-							has_variable = admin_permission_to_declare_war
-						}
-					}
-				}
-			}
+			# COTC: admin war restrictions disabled
+			# # internal war
+			# trigger_if = {
+				# limit = { top_liege = scope:defender_check.top_liege }
+				# trigger_if = {
+					# limit = {
+						# scope:defender_check = { government_has_mechanic = administrative }
+						# top_liege != scope:defender_check
+					# }
+					# custom_tooltip = {
+						# text = admin_cannot_declare_internal_wars
+						# always = no
+					# }
+				# }
+			# }
+			# trigger_else = {
+				# trigger_if = { # Admin - Laws prevent all vassals from declaring war
+					# limit = {
+						# top_liege = {
+							# has_realm_law_flag = admin_vassal_wars_banned
+						# }
+					# }
+					# custom_tooltip = {
+						# text = admin_all_vassal_wars_banned
+						# always = no
+					# }
+				# }
+				# trigger_else = {
+					# trigger_if = { # Admin - Laws only allow frontier and naval themes to declare war
+						# limit = {
+							# top_liege = {
+								# has_realm_law_flag = admin_vassal_wars_restricted
+							# }
+						# }
+						# custom_tooltip = {
+							# text = admin_all_vassal_wars_banned
+							# admin_governor_allows_declaring_war_trigger = yes
+						# }
+					# }
+					# trigger_if = { # Admin - Laws only allow frontier and naval themes to declare war IF they have permission
+						# limit = {
+							# top_liege = {
+								# has_realm_law_flag = admin_vassal_wars_permission_only
+							# }
+						# }
+						# custom_tooltip = {
+							# text = admin_vassal_wars_permission_only_desc
+							# has_variable = admin_permission_to_declare_war
+						# }
+					# }
+				# }
+			# }
 		}
 		trigger_else = {
 			trigger_if = {

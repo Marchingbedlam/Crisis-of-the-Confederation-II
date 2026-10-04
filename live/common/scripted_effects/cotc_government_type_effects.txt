@@ -639,7 +639,7 @@ become_technocratic_effect = {
 		}
 		if = {
 			limit = { exists = scope:state_ideology }
-			every_held_title = { set_state_faith = scope:state_ideology }
+			every_held_title = { set_state_rite = scope:state_ideology.main_rite }
 		}
 	}
 }
@@ -687,7 +687,7 @@ become_theocratic_effect = {
 		}
 		if = {
 			limit = { exists = scope:state_ideology }
-			every_held_title = { set_state_faith = scope:state_ideology }
+			every_held_title = { set_state_rite = scope:state_ideology.main_rite }
 		}
 	}
 }
@@ -1033,6 +1033,6 @@ become_specified_state_government = {
 			government_allows = state_faith
 			exists = scope:new_state_ideology
 		}
-		every_held_title = { set_state_faith = scope:new_state_ideology }
+		every_held_title = { set_state_rite = scope:new_state_ideology.main_rite }
 	}
 }

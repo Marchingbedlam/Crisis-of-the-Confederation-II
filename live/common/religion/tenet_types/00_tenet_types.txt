@@ -5953,3 +5953,93 @@ tenet_takamin = { # Should be reworked as a general "hunter of hunters" deal, wi
 #		sins = { craven = 2}
 #	}
 #}
+
+tenet_sinitic_syncretism = {
+	icon = tenet_harmonious_society
+
+	piety_cost = {
+		if = {
+			limit = {
+				OR = {
+					rite_religion_tag = buddhism_religion
+					rite_has_doctrine = pagan_hostility_doctrine
+				}
+			}
+			value = faith_tenet_cost_low
+		}
+		else_if = {
+			limit = {
+				rite_religion_tag = islam_religion
+			}
+			value = faith_tenet_cost_high
+		}
+		else = {
+			value = faith_tenet_cost_mid
+		}
+
+		# Multiplier for keeping same tenet
+		if = {
+			limit = { rite_has_parameter = sinitic_syncretic_actor }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+	}
+
+	can_pick = {
+		NOT = {
+			has_doctrine = sinitic_hostility_doctrine
+		}
+		custom_description = {
+			text = incompatible_tenet_gnosticism_trigger
+			NOT = {
+				tenet:tenet_gnosticism = { is_in_list = selected_doctrines }
+			}
+		}
+		unique_syncretism_trigger = yes
+		trigger_if = {
+			limit = { scope:actor ?= { is_ai = yes } }
+			scope:actor = { pam_ai_meaningful_sinitic_presence_trigger = yes }
+		}
+	}
+
+	can_pick_as_personal_tenet = {
+		NOT = {
+			faith = { has_doctrine = sinitic_hostility_doctrine }
+		}
+		trigger_if = {
+			limit = { is_ai = yes }
+			pam_ai_meaningful_sinitic_presence_trigger = yes
+		}
+	}
+
+	parameters = {
+		#For loc:
+		sinitic_syncretic_actor
+		tenet_sinitic_syncretism_study_rite_bonus
+		unreformed_syncretic_conversion_malus_active
+	}
+
+	personal_tenet_parameters = {
+		tenet_syncretism_invite_religious_exiles
+		tenet_syncretism_county_bonus
+		tenet_sinitic_syncretism_study_rite_bonus
+	}
+
+	special_parameters = {
+		hostility_level_override = {
+			sinitic_hostility_doctrine = astray
+		}
+		parameter_opinion_override = {
+			#Sync this to syncretic_mutual_opinion_bonus_value
+			sinitic_syncretic_recipient = 30
+		}
+	}
+
+	traits = {
+		virtues = { 
+			honest = { weight = 15 scale = 1 }
+		}
+		sins = { 
+			wrathful = { weight = 10 scale = 1 }
+		}
+	}
+}

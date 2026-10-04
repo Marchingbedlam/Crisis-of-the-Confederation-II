@@ -559,3 +559,42 @@ special_doctrine_pope_blessing = {
 		special_doctrine_pope_blessing_divergence # For loc
 	}
 }
+
+special_doctrine_is_eastern_faith = {
+	doctrine_group_type = is_eastern_faith
+	icon = "special_doctrine_multireligious_interweaving"
+
+	parameters = {
+		eastern_syncretic_recipient
+	}
+
+	special_parameters = {
+		# Since doctrines cannot modify other faith's views of us, only our view of others, all Eastern faiths are given this special doctrine which makes them friendlier to Faiths with the Eastern Syncretism tenet.
+		hostility_level_override = {
+			tenet_eastern_syncretism = astray
+		}
+		
+		parameter_opinion_override = {
+			eastern_syncretic_actor = 30
+		}
+	}
+}
+
+special_doctrine_is_sinitic_faith = {
+	doctrine_group_type = is_sinitic_faith
+	icon = "special_doctrine_sinitic_cosmology"
+
+	parameters = {
+		sinitic_syncretic_recipient
+	}
+	special_parameters = {
+		# Since doctrines cannot modify other faith's views of us, only our view of others, all Eastern faiths are given this special doctrine which makes them friendlier to Faiths with the Eastern Syncretism tenet.
+		hostility_level_override = {
+			tenet_sinitic_syncretism = astray
+		}
+		
+		parameter_opinion_override = {
+			sinitic_syncretic_actor = 30
+		}
+	}
+}

@@ -1,30 +1,36 @@
 ﻿federal_elective = {
 	candidates = {
-		add = {
-			type = title_claimants
-			limit = { is_capable_adult = yes }
-		}
-		add = {
-			type = title_dejure_vassals
-			limit = { is_capable_adult = yes }
-		}
-		add = {
-			type = holder_council_members
-			limit = { is_capable_adult = yes }
-		}
-		add = {
-			type = holder_direct_vassals
-			limit = { is_capable_adult = yes }
+		character_sets = {
+			federal_elective_title_claimants = {
+				type = title_claimants
+				limit = { is_capable_adult = yes }
+			}
+			federal_elective_title_dejure_vassals = {
+				type = title_dejure_vassals
+				limit = { is_capable_adult = yes }
+			}
+			federal_elective_holder_council_members = {
+				type = holder_council_members
+				limit = { is_capable_adult = yes }
+			}
+			federal_elective_holder_direct_vassals = {
+				type = holder_direct_vassals
+				limit = { is_capable_adult = yes }
+			}
 		}
 	}
 	
 	electors = {
-		add = holder
-		add = {
-			type = holder_direct_vassals
-			limit = {
-				highest_held_title_tier > tier_barony
-				subject_contract_has_flag = federal_member_state
+		character_sets = {
+			federal_electors_holder = {
+				type = holder
+			}
+			federal_electors_holder_direct_vassals = {
+				type = holder_direct_vassals
+				limit = {
+					highest_held_title_tier > tier_barony
+					subject_contract_has_flag = federal_member_state
+				}
 			}
 		}
 	}

@@ -7,17 +7,17 @@
 jerusalem = {
 	county = c_avalon
 	
-	character_modifier = {
+	faith_character_modifier = {
 		monthly_piety_gain_mult = 0.2
 	}
-	flag = jerusalem_conversion_bonus # +20% County Conversion
+	parameters = { jerusalem_conversion_bonus } # +20% County Conversion
 }
 
 rome = {
 	county = c_avalon
 	barony = b_avalon_iii
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_rome_effect_name
 		development_growth_factor = 0.1
 		stewardship = 1
@@ -27,7 +27,7 @@ rome = {
 cologne = {
 	county = c_avalon
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_cologne_effect_name
 		cultural_head_fascination_mult = 0.05
 		monthly_county_control_growth_factor = 0.05
@@ -37,7 +37,7 @@ cologne = {
 santiago = {
 	county = c_avalon
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_santiago_effect_name
 		supply_duration = 0.2
 		holy_order_hire_cost_mult = -0.1
@@ -48,7 +48,7 @@ kent = {
 	county = c_avalon
 	barony = b_avalon_iii
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_kent_effect_name
 		religious_vassal_opinion = 5
 		sway_scheme_phase_duration_add = minor_scheme_phase_duration_bonus_value
@@ -59,7 +59,7 @@ segrada_familia = {
 	county = c_avalon
 	is_active = no
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_segrada_familia_effect_name
 		monthly_piety_gain_mult = 0.1
 	}
@@ -69,7 +69,7 @@ segrada_familia = {
 constantinople = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_constantinople_effect_name
 		cultural_head_fascination_mult = 0.15
 	}
@@ -78,7 +78,7 @@ constantinople = {
 alexandria = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_alexandria_effect_name
 		learning_per_piety_level = 1
 	}
@@ -87,7 +87,7 @@ alexandria = {
 antioch = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_antioch_effect_name
 		martial_per_piety_level = 1
 		knight_effectiveness_mult = 0.1
@@ -100,7 +100,7 @@ antioch = {
 aksum = {
 	county = c_avalon #Ethiopian Coptic Church
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_aksum_effect_name
 		diplomacy_per_piety_level = 1
 	}
@@ -109,7 +109,7 @@ aksum = {
 napata = {
 	county = c_avalon #Nubian Coptic Church
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_napata_effect_name
 		stewardship = 1
 	}
@@ -121,7 +121,7 @@ napata = {
 suenik = { 
 	county = c_avalon #Site of the biggest Armenian church in Dvin
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_dwin_effect_name
 		monthly_piety_gain_mult = 0.05
 		learning = 1
@@ -131,7 +131,7 @@ suenik = {
 dvin = {
 	county = c_avalon #Site of the biggest Armenian church in Dvin
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_dwin_effect_name
 		monthly_piety_gain_mult = 0.05
 		learning = 1
@@ -141,7 +141,7 @@ dvin = {
 colonea = {
 	county = c_avalon #Where St. Gregory the Illuminator's body was taken after his death(he died close to Dwin).
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_koloneia_effect_name
 		direct_vassal_opinion = 5
 	}
@@ -150,7 +150,7 @@ colonea = {
 beirut = {
 	county = c_avalon #Site of St. Jude's Martyrdom, also Mount Lebanon/Jabal al-Druze, an important Druze community.
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_beirut_effect_name
 		councillor_opinion = 5
 	}
@@ -161,7 +161,7 @@ beirut = {
 baghdad = {
 	county = c_avalon #Patriarchical seat of Nestorianism, also origin of the Sunni Caliphate and holy in Shia Islam
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_baghdad_effect_name
 		development_growth_factor = 0.1
 		church_holding_build_gold_cost = -0.1
@@ -170,7 +170,7 @@ baghdad = {
 farz = {
 	county = c_avalon #Early community of Nestorians which was part of the Nestorian heartland.
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_farz_effect_name
 		diplomacy_per_piety_level = 1
 	}
@@ -178,7 +178,7 @@ farz = {
 kerala = {
 	county = c_avalon #St. Thomas Christians. Gotta give this one a *big* bonus - conversion speed maybe??
 
-	flag = kerala_conversion_bonus # +50% County Conversion Speed
+	parameters = { kerala_conversion_bonus } # +50% County Conversion Speed
 }
 
 # Insular Celtic
@@ -186,7 +186,7 @@ kerala = {
 armagh = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_armagh_effect_name
 		monthly_piety_gain_mult = 0.05
 		learning_per_piety_level = 1
@@ -197,7 +197,7 @@ iona = {
 	county = c_avalon
 
 	# +20% County Conversion Speed in the British Isles
-	flag = iona_conversion_bonus
+	parameters = { iona_conversion_bonus }
 }
 
 # Bosnian Church
@@ -207,14 +207,14 @@ visoki = {
 	county = c_avalon
 
 	# 50% County Conversion Resistance
-	flag = visoki_conversion_resistance_bonus
+	parameters = { visoki_conversion_resistance_bonus }
 }
 
 ## Seat of the Archbishop of Ragusa, the diocese under which the Bishopric of Bosnia fell, and whose political support allowed them to stay largely independent of Rome.
 ragusa = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_ragusa_effect_name
 		diplomacy = 1
 	}
@@ -224,7 +224,7 @@ ragusa = {
 esztergom = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_esztergom_effect_name
 		county_opinion_add = 10
 	}
@@ -234,7 +234,7 @@ esztergom = {
 albi = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_albi_effect_name
 		monthly_piety_gain_mult = 0.05
 		learning_per_piety_level = 1
@@ -248,7 +248,7 @@ albi = {
 toledo_mozarabic = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_toledo_mozarabic_effect_name
 		prowess_per_piety_level = 1
 		knight_effectiveness_mult = 0.1
@@ -262,7 +262,7 @@ toledo_mozarabic = {
 carthage_adoptionist = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_carthage_effect_name
 		same_faith_opinion = 10
 	}
@@ -272,7 +272,7 @@ carthage_adoptionist = {
 lyon = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_lyon_effect_name
 		learning_per_piety_level = 1
 	}
@@ -287,7 +287,7 @@ lyon = {
 mecca = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_mecca_effect_name
 		monthly_piety_gain_per_knight_mult = 0.02
 		knight_effectiveness_mult = 0.1
@@ -297,7 +297,7 @@ mecca = {
 medina = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_medina_effect_name
 		diplomacy_per_piety_level = 1
 	}
@@ -308,13 +308,13 @@ medina = {
 cordoba = {
 	county = c_avalon
 
-	flag = cordoba_conversion_bonus # +20% county conversion speed
+	parameters = { cordoba_conversion_bonus } # +20% county conversion speed
 }
 
 sinai = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_sinai_effect_name
 		desert_mountains_advantage = 5
 		learning = 1
@@ -326,7 +326,7 @@ sinai = {
 tinmallal = {
 	county = c_avalon
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_tinmallal_effect_name
 		prowess_per_piety_level = 1
 		max_combat_roll = 4
@@ -337,7 +337,7 @@ fes = {
 	county = c_avalon
 	barony = b_avalon_iii
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_fes_effect_name
 		cultural_head_fascination_mult = 0.1
 	}
@@ -349,7 +349,7 @@ nadjaf = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_nadjaf_effect_name
 		diplomacy_per_piety_level = 1
 	}
@@ -358,7 +358,7 @@ nadjaf = {
 damascus = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_damascus_effect_name
 		levy_size = 0.05
 		monthly_county_control_growth_factor = 0.1
@@ -371,7 +371,7 @@ damascus = {
 siffa = { # Location of the Battle of Siffa, where the Muhakkimas branched off from the other Islamic schools.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_siffa_effect_name
 		prowess = 2
 		knight_effectiveness_mult = 0.2
@@ -381,7 +381,7 @@ siffa = { # Location of the Battle of Siffa, where the Muhakkimas branched off f
 kufa = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_kufa_effect_name
 		intrigue_per_piety_level = 1
 	}
@@ -392,7 +392,7 @@ kufa = {
 basra = { # Location where the Ibadi school of thought originated.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_basra_effect_name
 		learning = 2
 	}
@@ -401,7 +401,7 @@ basra = { # Location where the Ibadi school of thought originated.
 nizwa = { # Where the Ibadi took refuge after being exiled.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_nizwa_effect_name
 		stewardship_per_piety_level = 1
 	}
@@ -412,7 +412,7 @@ nizwa = { # Where the Ibadi took refuge after being exiled.
 sijilmasa = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_sijilmasa_effect_name
 		diplomacy = 1
 		stewardship = 1
@@ -424,7 +424,7 @@ sijilmasa = {
 bahrein = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_bahrein_effect_name
 		stewardship = 1
 	}
@@ -433,7 +433,7 @@ bahrein = {
 yamama = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_yamama_effect_name
 		desert_advantage = 5
 	}
@@ -444,7 +444,7 @@ yamama = {
 qom = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_qom_effect_name
 		intrigue_per_piety_level = 1
 	}
@@ -455,7 +455,7 @@ qom = {
 sinjar = { # Location of great communal importance, with multiple shrines.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_sinjar_effect_name
 		diplomacy_per_piety_level = 1
 	}
@@ -464,7 +464,7 @@ sinjar = { # Location of great communal importance, with multiple shrines.
 baalbek = { # Birthplace of Sheikh Adi, who was renowned his great asceticism as well as performing multiple miracles.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_sinjar_effect_name
 		clergy_opinion = 10
 		monthly_prestige_gain_mult = 0.2
@@ -474,7 +474,7 @@ baalbek = { # Birthplace of Sheikh Adi, who was renowned his great asceticism as
 lalish = { # Tomb of Sheikh Adi. Considered by some to be the holiest site is Yazidism.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_lalish_effect_name
 		learning_per_piety_level = 1
 		monthly_piety_gain_mult = 0.2
@@ -484,7 +484,7 @@ lalish = { # Tomb of Sheikh Adi. Considered by some to be the holiest site is Ya
 nishapur = { #See also Behafaridism, since it was Behafar's birthplace. 
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_nishapur_effect_name
 		stewardship_per_piety_level = 1
 	}
@@ -493,7 +493,7 @@ nishapur = { #See also Behafaridism, since it was Behafar's birthplace.
 dashtestan = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_dashtestan_effect_name
 		same_faith_opinion = 5
 	}
@@ -503,7 +503,7 @@ dashtestan = {
 zozan = {
 	county = c_avalon  # Birthplace of Hamza ibn-'Ali ibn-Ahmad
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_zozan_effect_name
 		same_faith_opinion = 5
 		domain_tax_same_faith_mult = 0.1
@@ -517,7 +517,7 @@ zozan = {
 semien = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_semien_effect_name
 		defender_advantage = 5
 		diplomacy = 1
@@ -527,7 +527,7 @@ semien = {
 sufed = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_sufed_effect_name
 		same_faith_opinion = 10
 	}
@@ -537,7 +537,7 @@ gerizim = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_gerizim_effect_name
 		learning_per_piety_level = 1
 		monthly_prestige_gain_mult = 0.2
@@ -547,7 +547,7 @@ gerizim = {
 panticapaeum = { #Major Radhanite settlement on the Steppe
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_panticapaeum_effect_name
 		world_steppe_development_growth_factor = 0.25 #Make the steppe suck less
 		steppe_development_growth_factor = 0.15 #Make steppe terrain suck even more lesserer
@@ -557,7 +557,7 @@ panticapaeum = { #Major Radhanite settlement on the Steppe
 itil = { #Khazar capital
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_itil_effect_name
 		different_culture_opinion = 10
 		cultural_head_acceptance_gain_mult = 0.15
@@ -568,7 +568,7 @@ kochi = { #Place from which the Kochin Jews get their name
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_kochi_effect_name
 		diplomacy_per_piety_level = 1
 		cultural_head_acceptance_gain_mult = 0.15
@@ -578,7 +578,7 @@ kochi = { #Place from which the Kochin Jews get their name
 manipur = { #Home of the Bnei Manashae
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_manipur_effect_name
 		mountains_development_growth_factor = 0.2
 		mountains_advantage = 5
@@ -589,7 +589,7 @@ hamadan = { # Tomb of Esther and Modechai
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_hamadan_effect_name
 		different_faith_opinion = 10
 		monthly_lifestyle_xp_gain_mult = 0.15
@@ -600,7 +600,7 @@ babylon = { # Babylon was very important in early Judaism, where the Babylonian 
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_babylon_effect_name
 		development_growth_factor = 0.1
 		cultural_head_fascination_mult = 0.1
@@ -616,7 +616,7 @@ babylon = { # Babylon was very important in early Judaism, where the Babylonian 
 ahvaz = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_ahvaz_effect_name
 		clergy_opinion = 5
 		personal_scheme_phase_duration_add = minor_scheme_phase_duration_bonus_value
@@ -626,7 +626,7 @@ ahvaz = {
 samarkand = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_samarkand_effect_name
 		stewardship_per_piety_level = 1
 	}
@@ -635,7 +635,7 @@ samarkand = {
 udabhanda = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_udabhanda_effect_name
 		learning_per_piety_level = 1
 	}
@@ -646,7 +646,7 @@ udabhanda = {
 toledo = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_toledo_effect_name
 		learning = 1
 	}
@@ -657,7 +657,7 @@ memphis = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_memphis_effect_name
 		stewardship_per_piety_level = 1
 	}
@@ -673,7 +673,7 @@ memphis = {
 bodh_gaya = { # Where Buddha reached enlightenment
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_bodh_gaya_effect_name
 		stress_loss_mult = 0.2
 	}
@@ -682,7 +682,7 @@ bodh_gaya = { # Where Buddha reached enlightenment
 kusinagara = { # Where Buddha was born - Actually Lumbini
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_kusinagara_effect_name
 		fertility = 0.10
 		monthly_lifestyle_xp_gain_mult = 0.15
@@ -692,7 +692,7 @@ kusinagara = { # Where Buddha was born - Actually Lumbini
 sarnath = { # Where Buddha first taught his diciples. Also the #1 most holy site in Hinduism (Varanasi)
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_sarnath_effect_name
 		learning = 2
 	}	
@@ -701,7 +701,7 @@ sarnath = { # Where Buddha first taught his diciples. Also the #1 most holy site
 sanchi = { # Important temple complex
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_sanchi_effect_name
 		diplomacy_per_piety_level = 1
 	}
@@ -710,7 +710,7 @@ sanchi = { # Important temple complex
 ajanta = { # Caves & stone-cut temples, proto-Indian cave art.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_ajanta_effect_name
 		negate_learning_penalty_add = 2
 		learning_per_piety_level = 1
@@ -720,7 +720,7 @@ ajanta = { # Caves & stone-cut temples, proto-Indian cave art.
 sagya = { # Sa'gya - Holy Site for Lamaism/Nangchos
 	county = c_avalon
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_sagya_effect_name
 		diplomacy = 1
 		learning = 1
@@ -730,7 +730,7 @@ sagya = { # Sa'gya - Holy Site for Lamaism/Nangchos
 dagon = { # Shwedagon Pagoda - A sacred stupa built around year 500
 	county = c_avalon
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_dagon_effect_name
 		martial_per_piety_level = 1
 	}
@@ -739,7 +739,7 @@ dagon = { # Shwedagon Pagoda - A sacred stupa built around year 500
 pagan = { # Shwedagon Pagoda - A sacred stupa built around year 500
 	county = c_avalon
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_pagan_effect_name
 		stewardship = 1
 		monthly_prestige_gain_mult = 0.05
@@ -749,7 +749,7 @@ pagan = { # Shwedagon Pagoda - A sacred stupa built around year 500
 ava = { # Mahamuni Buddhist Temple near present-day Mandalay
 	county = c_avalon
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_ava_effect_name
 		stewardship = 1
 		knight_effectiveness_mult = 0.05
@@ -759,7 +759,7 @@ ava = { # Mahamuni Buddhist Temple near present-day Mandalay
 sittaung = { # Kyaiktiyo Pagoda - Golden Balancing Rock on a mountain
 	county = c_avalon
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_sittaung_effect_name
 		advantage_against_coreligionists = 1
 		artifact_decay_reduction_mult = -0.2
@@ -769,7 +769,7 @@ sittaung = { # Kyaiktiyo Pagoda - Golden Balancing Rock on a mountain
 atamasthana = { # Atamasthana, or the Eight sacred places, are locations visited by Buddha in Anuradhapura
 	county = c_avalon
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_atamasthana_effect_name
 		domain_tax_mult = 0.02
 	}
@@ -778,7 +778,7 @@ atamasthana = { # Atamasthana, or the Eight sacred places, are locations visited
 amaravati = { # Amaravati - An important place for the early spread and development of Mahayana
 	county = c_avalon
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_amaravati_effect_name
 		monthly_county_control_growth_factor = 0.1
 	}
@@ -789,7 +789,7 @@ amaravati = { # Amaravati - An important place for the early spread and developm
 varanasi = { # Sarnath, where Buddha first taught his diciples. Also a holy site in Buddhism (Sarnath)
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_varanasi_effect_name
 		learning = 2
 		clergy_opinion = 5
@@ -799,7 +799,7 @@ varanasi = { # Sarnath, where Buddha first taught his diciples. Also a holy site
 ayodhya = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_ayodhya_effect_name
 		monthly_piety_gain_per_knight_mult = 0.01
 		knight_effectiveness_mult = 0.1
@@ -809,7 +809,7 @@ ayodhya = {
 mathura = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_mathura_effect_name
 		diplomacy = 1
 		powerful_vassal_opinion = 5
@@ -819,7 +819,7 @@ mathura = {
 haridwar = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_haridwar_effect_name
 		health = 0.1
 	}
@@ -828,7 +828,7 @@ haridwar = {
 kanchipuram = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_kanchipuram_effect_name
 		fertility = 0.15
 	}
@@ -837,7 +837,7 @@ kanchipuram = {
 ujjayini = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_ujjayini_effect_name
 		stewardship = 1
 		courtier_and_guest_opinion = 5
@@ -847,7 +847,7 @@ ujjayini = {
 dwarka = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_dwarka_effect_name
 		martial = 1
 		hard_casualty_modifier = -0.1
@@ -857,7 +857,7 @@ dwarka = {
 puri = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_puri_effect_name
 		monthly_piety_gain_mult = 0.05
 		learning_per_piety_level = 1
@@ -868,7 +868,7 @@ badrinath = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_badrinath_effect_name
 		short_reign_duration_mult = -0.25
 		vassal_opinion = 3
@@ -879,7 +879,7 @@ shringeri = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_shringeri_effect_name
 		stewardship_per_piety_level = 1
 	}
@@ -889,7 +889,7 @@ konarak = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_konarak_effect_name
 		development_growth_factor = 0.1
 		church_holding_build_gold_cost = -0.1
@@ -900,7 +900,7 @@ konarak = {
 angkor = { #Shaivism
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_angkor_effect_name
 		tributary_opinion = 5
 		jungle_construction_gold_cost = -0.1
@@ -910,7 +910,7 @@ angkor = { #Shaivism
 bantey_srei = { #Vaishnavism
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_bantey_srei_effect_name
 		county_opinion_add = 5
 		great_project_build_speed = -0.05
@@ -921,7 +921,7 @@ borobudur = { #Mahayana
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_borobudur_effect_name
 		monthly_piety_gain_per_knight_mult = 0.01
 		knight_effectiveness_mult = 0.1
@@ -932,7 +932,7 @@ muara_takus = { #Vajrayana
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_muara_takus_effect_name
 		tributary_opinion = 5
 		temple_citadel_holding_build_gold_cost = -0.1
@@ -943,7 +943,7 @@ prambanan = { #Shaivism & Krishnaism
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_prambanan_effect_name
 		different_culture_opinion = 10
 	}
@@ -953,7 +953,7 @@ kalasan = { #Vajrayana & Mahayana
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_kalasan_effect_name
 		diplomacy = 1
 		powerful_vassal_opinion = 5
@@ -964,7 +964,7 @@ preah_vihear = { #Shaivism
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_preah_vihear_effect_name
 		jungle_development_growth_factor = 0.2
 		county_opinion_add = 5
@@ -975,7 +975,7 @@ my_son = { #Shaivism
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_my_son_effect_name
 		monthly_prestige_gain_per_knight_mult = 0.01
 		build_prestige_cost = -0.15
@@ -985,7 +985,7 @@ my_son = { #Shaivism
 bayon = { #Mahayana
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_bayon_effect_name
 		wetlands_development_growth_factor = 0.2
 		county_opinion_add = 5
@@ -996,7 +996,7 @@ bumiayu = { #Shaivism
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_bumiayu_effect_name
 		clergy_opinion = 5
 		monthly_piety_gain_mult = 0.1
@@ -1007,7 +1007,7 @@ khao_khlang_nai = { #Vaishnavism
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_khao_khlang_nai_effect_name
 		tributary_opinion = 5
 		temple_citadel_holding_build_gold_cost = -0.1
@@ -1018,7 +1018,7 @@ bupaya = { #Theravada
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_bupaya_effect_name
 		monthly_piety_gain_mult = 0.1
 	}
@@ -1029,7 +1029,7 @@ bupaya = { #Theravada
 palitana = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_palitana_effect_name
 		monthly_piety_gain_mult = 0.1
 	}
@@ -1038,7 +1038,7 @@ palitana = {
 shikharj = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_shikharj_effect_name
 		stress_loss_mult = 0.2
 		life_expectancy = 1
@@ -1048,7 +1048,7 @@ shikharj = {
 ranakpur = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_ranakpur_effect_name
 		stewardship = 1
 		sway_scheme_phase_duration_add = medium_scheme_phase_duration_bonus_value
@@ -1058,7 +1058,7 @@ ranakpur = {
 ellora = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_ellora_effect_name
 		county_opinion_add = 5
 		different_culture_opinion = 5
@@ -1068,7 +1068,7 @@ ellora = {
 sittannavasal = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_sittannavasal_effect_name
 		direct_vassal_opinion = 5
 	}
@@ -1079,7 +1079,7 @@ sittannavasal = {
 itanagar = {
 	county = c_avalon
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_itanagar_effect_name
 		monthly_prestige_gain_mult = 0.1
 	}
@@ -1088,7 +1088,7 @@ itanagar = {
 pemako = {
 	county = c_avalon
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_pemako_effect_name
 		learning = 1
 		tyranny_gain_mult = -0.2
@@ -1098,7 +1098,7 @@ pemako = {
 rima = {
 	county = c_avalon
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_rima_effect_name
 		diplomacy_per_prestige_level = 1
 	}
@@ -1107,7 +1107,7 @@ rima = {
 tezu = {
 	county = c_avalon
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_tezu_effect_name
 		hills_advantage = 5
 	}
@@ -1118,7 +1118,7 @@ tezu = {
 kathmandu = {
 	county = c_avalon
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_kathmandu_effect_name
 		county_opinion_add = 5
 		different_faith_opinion = 5
@@ -1128,7 +1128,7 @@ kathmandu = {
 ilam = {
 	county = c_avalon
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_ilam_effect_name
 		mountains_advantage = 5
 	}
@@ -1137,7 +1137,7 @@ ilam = {
 garwhal = {
 	county = c_avalon
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_garwhal_effect_name
 		diplomacy_per_piety_level = 1
 	}
@@ -1146,7 +1146,7 @@ garwhal = {
 jumla = {
 	county = c_avalon
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_jumla_effect_name
 		dynasty_house_opinion = 5
 	}
@@ -1157,7 +1157,7 @@ jumla = {
 maowun = {
 	county = c_avalon
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_maowun_effect_name
 		monthly_piety_gain_per_knight_mult = 0.01
 	}
@@ -1166,7 +1166,7 @@ maowun = {
 ngawa = {
 	county = c_avalon
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_ngawa_effect_name
 		learning_per_piety_level = 1
 	}
@@ -1175,7 +1175,7 @@ ngawa = {
 chakla = {
 	county = c_avalon
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_chakla_effect_name
 		build_speed = -0.15
 	}
@@ -1184,7 +1184,7 @@ chakla = {
 gyaitang = {
 	county = c_avalon
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_gyaitang_effect_name
 		same_culture_opinion = 5
 	}
@@ -1193,7 +1193,7 @@ gyaitang = {
 rebgong = {
 	county = c_avalon
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_rebgong_effect_name
 		monthly_piety_gain_per_happy_powerful_vassal_mult = 0.02
 	}
@@ -1202,7 +1202,7 @@ rebgong = {
 xingqing = {
 	county = c_avalon
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_xingqing_effect_name
 		same_faith_opinion = 5
 	}
@@ -1211,7 +1211,7 @@ xingqing = {
 yijinai = {
 	county = c_avalon
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_yijinai_effect_name
 		build_gold_cost = -0.05
 	}
@@ -1220,7 +1220,7 @@ yijinai = {
 alxa = {
 	county = c_avalon
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_alxa_effect_name
 		stewardship = 1
 	}
@@ -1233,7 +1233,7 @@ alxa = {
 yazd = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_yazd_effect_name
 		same_faith_opinion = 5
 	}
@@ -1243,7 +1243,7 @@ yazd = {
 nok_kundi = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_nok_kundi_effect_name
 		build_gold_cost = -0.1
 		stewardship = 1
@@ -1254,7 +1254,7 @@ adur_farnbag = {
 	county = c_avalon 
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_adur_farnbag_effect_name
 		learning = 1
 		clergy_opinion = 5
@@ -1265,7 +1265,7 @@ adur_burzen_mihr = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = { 
+	faith_character_modifier = { 
 		name = holy_site_adur_burzen_mihr_effect_name
 		drylands_development_growth_factor = 0.2
 		county_opinion_add = 5
@@ -1276,7 +1276,7 @@ takht-i-sangin = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_takht-i-sangin_effect_name
 		diplomacy = 1
 		clergy_opinion = 5
@@ -1286,7 +1286,7 @@ takht-i-sangin = {
 takht-e_soleyman = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_takht-e_soleyman_effect_name
 		monthly_piety_gain_per_knight_mult = 0.01
 		knight_effectiveness_mult = 0.2
@@ -1296,7 +1296,7 @@ takht-e_soleyman = {
 ushi-darena = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_ushi-darena_effect_name
 		monthly_piety_gain_mult = 0.1
 	}
@@ -1306,7 +1306,7 @@ mount_damavand = { #A mountain in ancient Iranian legend, where the hero Faridun
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_damavand_effect_name
 		prowess_per_stress_level = 2
 	}
@@ -1316,7 +1316,7 @@ badd = { #Site of Babak Khorammdin Fort, and the khurramite last stand
 	county = c_avalon
 	barony = b_avalon_iii 
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_badd_effect_name
 		advantage_against_coreligionists = 5
 		supply_duration = 0.2
@@ -1327,7 +1327,7 @@ ctesiphon = { #Important site for Mazdakism
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_ctesiphon_effect_name
 		monthly_prestige_gain_mult = 0.1
 		learning = 1
@@ -1338,7 +1338,7 @@ ani = { #Great temple site in Zoroastrian Armenia
 	county = c_avalon 
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_ani_effect_name
 		direct_vassal_opinion = 5
 	} 
@@ -1348,7 +1348,7 @@ mizdahqan = { #Zoroastrian centre in Khwarezmia, large necropolis
 	county = c_avalon
 	barony = b_avalon_iii 
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_mizdahqan_effect_name
 		learning_per_stress_level = 1
 	} 
@@ -1357,7 +1357,7 @@ mizdahqan = { #Zoroastrian centre in Khwarezmia, large necropolis
 dunhuang = { #Sogdian Zoroastrian and early Buddhist centre on the Silk Road in China
 	county = c_avalon 
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_dunhuang_effect_name
 		desert_development_growth_factor = 0.10
 		drylands_development_growth_factor = 0.10
@@ -1388,7 +1388,7 @@ dunhuang = { #Sogdian Zoroastrian and early Buddhist centre on the Silk Road in 
 uppsala = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_uppsala_effect_name
 		monthly_piety_gain_per_knight_mult = 0.01
 		heavy_infantry_damage_mult = 0.05
@@ -1398,7 +1398,7 @@ uppsala = {
 lejre = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_lejre_effect_name
 		knight_effectiveness_mult = 0.2
 		prowess_per_piety_level = 1
@@ -1408,7 +1408,7 @@ lejre = {
 paderborn = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_paderborn_effect_name
 		stewardship_per_piety_level = 1
 		fertility = 0.1
@@ -1418,7 +1418,7 @@ paderborn = {
 zeeland = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_zeeland_effect_name
 		prowess_per_piety_level = 1
 		supply_duration = 0.2
@@ -1428,7 +1428,7 @@ zeeland = {
 ranaheim = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_ranaheim_effect_name
 		men_at_arms_maintenance = -0.05
 	}
@@ -1438,7 +1438,7 @@ jorvik = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_jorvik_effect_name
 		knight_effectiveness_mult = 0.2
 		prowess_per_piety_level = 1
@@ -1448,7 +1448,7 @@ jorvik = {
 konugardr = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_konugardr_effect_name
 		prowess_per_piety_level = 1
 		supply_duration = 0.2
@@ -1460,7 +1460,7 @@ konugardr = {
 raivola = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_raivola_effect_name
 		monthly_piety_gain_per_happy_powerful_vassal_mult = 0.02
 	}
@@ -1470,7 +1470,7 @@ hiiumaa = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_hiiumaa_effect_name
 		stewardship = 1
 		close_relative_opinion = 5
@@ -1480,7 +1480,7 @@ hiiumaa = {
 akkel = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_akkel_effect_name
 		taiga_max_combat_roll = 5
 		archers_toughness_mult = 0.1
@@ -1490,7 +1490,7 @@ akkel = {
 perm = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_perm_effect_name
 		supply_duration = 0.25
 		prowess = 1
@@ -1502,7 +1502,7 @@ perm = {
 kiev = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_kiev_effect_name
 		monthly_piety_gain_mult = 0.1
 		knight_effectiveness_mult = 0.2
@@ -1513,7 +1513,7 @@ novgorod = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_novgorod_effect_name
 		stewardship_per_piety_level = 1
 	}
@@ -1522,7 +1522,7 @@ novgorod = {
 barlad = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_barlad_effect_name
 		prowess = 1
 		heavy_infantry_toughness_mult = 0.1
@@ -1532,7 +1532,7 @@ barlad = {
 plock = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_plock_effect_name
 		same_faith_opinion = 5
 	}
@@ -1544,7 +1544,7 @@ pokaini = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_pokaini_effect_name
 		controlled_province_advantage = 5
 		stress_loss_mult = 0.1
@@ -1554,7 +1554,7 @@ pokaini = {
 torun = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_torun_effect_name
 		martial_per_piety_level = 1
 		knight_effectiveness_mult = 0.2
@@ -1564,7 +1564,7 @@ torun = {
 braslau = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_braslau_effect_name
 		monthly_piety_gain_per_knight_add = 0.1
 		skirmishers_toughness_mult = 0.1
@@ -1574,7 +1574,7 @@ braslau = {
 rugen = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_rugen_effect_name
 		embarkation_cost_mult = -0.25
 		retreat_losses = -0.1
@@ -1587,7 +1587,7 @@ pest = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_pest_effect_name
 		martial = 1
 		prowess_per_prestige_level = 1
@@ -1597,7 +1597,7 @@ pest = {
 kerch = { # Crimea
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_kerch_effect_name
 		army_maintenance_mult = -0.05
 		martial_per_prestige_level = 1
@@ -1608,7 +1608,7 @@ olvia = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_olvia_effect_name
 		monthly_piety_gain_mult = 0.1
 	}
@@ -1617,7 +1617,7 @@ olvia = {
 poszony = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_poszony_effect_name
 		levy_reinforcement_rate_same_faith = 0.2
 	}
@@ -1626,7 +1626,7 @@ poszony = {
 sarysyn = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_sarysyn_effect_name
 		men_at_arms_maintenance = -0.1
 	}
@@ -1637,7 +1637,7 @@ sarysyn = {
 kara_khorum = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_kara_khorum_effect_name
 		knight_effectiveness_mult = 0.2
 		prowess_per_prestige_level = 1
@@ -1647,7 +1647,7 @@ kara_khorum = {
 qayaliq = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_qayaliq_effect_name
 		skirmishers_damage_mult = 0.1
 		light_cavalry_damage_mult = 0.1
@@ -1658,7 +1658,7 @@ qayaliq = {
 tavan_bogd = {
 	county = c_avalon
 	
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_tavan_bogd_effect_name
 		prowess_per_piety_level = 1
 		clergy_opinion = 5
@@ -1668,7 +1668,7 @@ tavan_bogd = {
 preslav = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_preslav_effect_name
 		levy_size = 0.1
 	}
@@ -1679,7 +1679,7 @@ preslav = {
 athens = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_athens_effect_name
 		diplomacy = 1
 		stewardship = 1
@@ -1689,7 +1689,7 @@ athens = {
 carthage = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_carthage_effect_name
 		dread_baseline_add = 5
 	}
@@ -1699,7 +1699,7 @@ olympus = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_olympus_effect_name
 		learning = 2
 	}
@@ -1708,7 +1708,7 @@ olympus = {
 # deprecated Hellenic
 sparta = {
 	county = c_avalon
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_sparta_effect_name
 		martial = 1
 		prowess = 1
@@ -1720,7 +1720,7 @@ sparta = {
 kabul = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_kabul_effect_name
 		stewardship = 1
 		monthly_piety_gain_mult = 0.05
@@ -1730,7 +1730,7 @@ kabul = {
 multan = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_multan_effect_name
 		martial = 1
 		monthly_piety_gain_mult = 0.05
@@ -1740,7 +1740,7 @@ multan = {
 bost = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_bost_effect_name
 		same_faith_opinion = 5
 	}
@@ -1751,7 +1751,7 @@ bost = {
 khotan = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_khotan_effect_name
 		different_culture_opinion = 10
 	}
@@ -1761,7 +1761,7 @@ balkh = {
 	county = c_avalon #Also important to Zoroastrianism (supposed birthplace of Gayomart and Zoroaster), as well as Mayahana buddhism.
 	#TODO FP3 CD: Make holy site for Mahayana or Pure Land. 
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_balkh_effect_name
 		different_faith_opinion = 10
 	}
@@ -1770,7 +1770,7 @@ balkh = {
 lhasa = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_lhasa_effect_name
 		monthly_piety_gain_mult = 0.2
 	}
@@ -1779,7 +1779,7 @@ lhasa = {
 purang = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_purang_effect_name
 		stewardship_per_piety_level = 1
 	}
@@ -1790,7 +1790,7 @@ purang = {
 tyumen = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_tyumen_effect_name
 		martial_per_piety_level = 1
 		raid_speed = 0.1
@@ -1800,7 +1800,7 @@ tyumen = {
 surgut = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_surgut_effect_name
 		health = 0.1
 	}
@@ -1809,7 +1809,7 @@ surgut = {
 ob = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_ob_effect_name
 		learning = 1
 		fertility = 0.1
@@ -1819,7 +1819,7 @@ ob = {
 olkhon = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_olkhon_effect_name
 		monthly_piety_gain_mult = 0.1
 	}
@@ -1841,7 +1841,7 @@ olkhon = {
 viscaya = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_viscaya_effect_name
 		coastal_advantage = 8
 	}
@@ -1850,7 +1850,7 @@ viscaya = {
 aneto = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_aneto_effect_name
 		monthly_prestige_gain_per_knight_add = 0.03
 	}
@@ -1859,7 +1859,7 @@ aneto = {
 bordeaux = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_bordeaux_effect_name
 		monthly_county_control_growth_factor = 0.5
 	}
@@ -1881,7 +1881,7 @@ bordeaux = {
 awkar = { # Capital of the Wagadu Empire, seat of the Bida cult.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_awkar_effect_name
 		knight_limit = 1
 		light_cavalry_toughness_mult = 0.1
@@ -1891,7 +1891,7 @@ awkar = { # Capital of the Wagadu Empire, seat of the Bida cult.
 jenne = { # An important centre of Siguic influence, albeit not an intrinsically sacred one.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_jenne_effect_name
 		diplomacy = 1
 		councillor_opinion = 5
@@ -1901,7 +1901,7 @@ jenne = { # An important centre of Siguic influence, albeit not an intrinsically
 niani = { # Another important centre of influence, at least later in the timeframe.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_niani_effect_name
 		monthly_tyranny = -0.1
 		tyranny_gain_mult = -0.2
@@ -1911,7 +1911,7 @@ niani = { # Another important centre of influence, at least later in the timefra
 kukiya = { # Capital of the historic Kawkaw Empire.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_kukiya_effect_name
 		monthly_piety_gain_per_knight_mult = 0.01
 		monthly_prestige_gain_per_knight_mult = 0.01
@@ -1921,7 +1921,7 @@ kukiya = { # Capital of the historic Kawkaw Empire.
 wadan = { # A competing holy place for Masmudism, and thus sacred spot.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_wadan_effect_name
 		martial = 1
 		supply_duration = 0.25
@@ -1938,7 +1938,7 @@ wadan = { # A competing holy place for Masmudism, and thus sacred spot.
 daura = { # Ancient centre of Hausa feasts.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_daura_effect_name
 		monthly_prestige_gain_per_knight_mult = 0.02
 		knight_effectiveness_mult = 0.1
@@ -1948,7 +1948,7 @@ daura = { # Ancient centre of Hausa feasts.
 garumele = { # Garumele, a capital of the Kanem Empire.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_garumele_effect_name
 		county_opinion_add = 5
 	}
@@ -1957,7 +1957,7 @@ garumele = { # Garumele, a capital of the Kanem Empire.
 igbo = { # The location of the city of Igbo-Ukwu, an important political and religious centre for the Igbo people.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_igbo_effect_name
 		learning_per_piety_level = 1
 	}
@@ -1966,7 +1966,7 @@ igbo = { # The location of the city of Igbo-Ukwu, an important political and rel
 el_fasher = { # One of the easternmost important sites of historic Bori paganism.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_el_fasher_effect_name
 		stewardship_per_piety_level = 1
 	}
@@ -1975,7 +1975,7 @@ el_fasher = { # One of the easternmost important sites of historic Bori paganism
 wandala = { # An important centre of the Sao people.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_wandala_effect_name
 		drylands_advantage = 5
 	}
@@ -1991,7 +1991,7 @@ wandala = { # An important centre of the Sao people.
 kisi = { # Cult activity attested here around the turn of the millennium, potentially of the Roogan variety.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_kisi_effect_name
 		monthly_prestige_gain_per_knight_mult = 0.02
 		build_prestige_cost = -0.2
@@ -2001,7 +2001,7 @@ kisi = { # Cult activity attested here around the turn of the millennium, potent
 sherbro = { # Specifically Sherbro Island, another place with some evidence of cultic activity.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_sherbro_effect_name
 		same_faith_opinion = 10
 	}
@@ -2010,7 +2010,7 @@ sherbro = { # Specifically Sherbro Island, another place with some evidence of c
 kayor = { # An important regional centre.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_kayor_effect_name
 		owned_personal_scheme_success_chance_add = 5
 		diplomacy = 1
@@ -2020,7 +2020,7 @@ kayor = { # An important regional centre.
 kasa = { # An important regional centre.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_kasa_effect_name
 		diplomacy_per_piety_level = 1
 	}
@@ -2036,7 +2036,7 @@ kasa = { # An important regional centre.
 bono = { # Commercial & political capital of the early Akan people.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_bono_effect_name
 		men_at_arms_maintenance = -0.05
 		personal_scheme_phase_duration_add = miniscule_scheme_phase_duration_bonus_value
@@ -2046,7 +2046,7 @@ bono = { # Commercial & political capital of the early Akan people.
 kumasi = { # A centre for the Ashanti people, albeit later in the period.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_kumasi_effect_name
 		learning = 1
 		short_reign_duration_mult = -0.25
@@ -2056,7 +2056,7 @@ kumasi = { # A centre for the Ashanti people, albeit later in the period.
 ife = { # Central to the Yoruba religion & mythology.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_ife_effect_name
 		monthly_piety_gain_mult = 0.2
 	}
@@ -2065,7 +2065,7 @@ ife = { # Central to the Yoruba religion & mythology.
 nikki = { # Political and religious capital for the Borgu people.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_nikki_effect_name
 		learning_per_piety_level = 1
 	}
@@ -2086,7 +2086,7 @@ nikki = { # Political and religious capital for the Borgu people.
 aswan = { # For Philae, site of some of the last great Kemetic building projects by a native dynasty.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_aswan_effect_name
 		stewardship_per_piety_level = 1
 	}
@@ -2095,13 +2095,13 @@ aswan = { # For Philae, site of some of the last great Kemetic building projects
 wadi_el_milk = { # Historic traces of Kushitic cults have actually been found here.
 	county = c_avalon
 
-	flag = wadi_el_milk_conversion_resistance_bonus # 50% County Conversion Resistance
+	parameters = { wadi_el_milk_conversion_resistance_bonus } # 50% County Conversion Resistance
 }
 
 naqis = { # Potentially historically important region for these cults.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_naqis_effect_name
 		martial = 2
 	}
@@ -2110,7 +2110,7 @@ naqis = { # Potentially historically important region for these cults.
 sennar = { # Potentially historically important region for these cults.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_sennar_effect_name
 		diplomacy = 2
 	}
@@ -2134,7 +2134,7 @@ tenerife = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_tenerife_effect_name
 		hills_development_growth_factor = 0.25
 		monthly_piety_gain_per_dread_add = 0.03
@@ -2145,7 +2145,7 @@ cartagena = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_cartagena_effect_name
 		title_creation_cost_mult = -0.15
 		men_at_arms_maintenance_per_dread_mult = -0.002
@@ -2155,7 +2155,7 @@ cartagena = {
 madiera = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_madeira_effect_name
 		naval_movement_speed_mult = 0.2
 		coastal_advantage = 5
@@ -2172,7 +2172,7 @@ madiera = {
 danakil = { # Potentially historically important region for this faith.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_danakil_effect_name
 		learning = 1
 		personal_scheme_phase_duration_add = miniscule_scheme_phase_duration_bonus_value
@@ -2182,7 +2182,7 @@ danakil = { # Potentially historically important region for this faith.
 kaffa = { # Potentially historically important region for this faith.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_kaffa_effect_name
 		martial_per_piety_level = 1
 		raid_speed = 0.1
@@ -2192,7 +2192,7 @@ kaffa = { # Potentially historically important region for this faith.
 harar = { # Generally considered a holy place by many faiths in the region, so may have been so for Waaqism.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_harar_effect_name
 		monthly_piety_gain_mult = 0.1
 	}
@@ -2201,7 +2201,7 @@ harar = { # Generally considered a holy place by many faiths in the region, so m
 makhir = { # A place of pilgrimage for two rather important Somali clans.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_makhir_effect_name
 		diplomacy = 2
 	}
@@ -2210,7 +2210,7 @@ makhir = { # A place of pilgrimage for two rather important Somali clans.
 mogadishu = { # An extremely important local city, and thus probable religious hub.
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_mogadishu_effect_name
 		clergy_opinion = 5
 	}
@@ -2224,7 +2224,7 @@ mogadishu = { # An extremely important local city, and thus probable religious h
 kirinyaga = { # Mount Kenya. Central to Kikuyu worship of Ngai
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_kirinyaga_effect_name
 		health = 0.1
 		monthly_piety_gain_mult = 0.1
@@ -2235,7 +2235,7 @@ mangea = { # Significant mythical origin of the Mijikenda
 	county = c_avalon
 	barony = b_mtwapa # Mangea proper is near the coast, just a little north of Mtwapa
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_mangea_effect_name
 		direct_vassal_opinion = 5
 	}
@@ -2244,7 +2244,7 @@ mangea = { # Significant mythical origin of the Mijikenda
 kilimanjaro = { # Central to Chagga worship of Ngai
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_kilimanjaro_effect_name
 		controlled_province_advantage = 5
 		prowess_per_piety_level = 1
@@ -2258,7 +2258,7 @@ kilimanjaro = { # Central to Chagga worship of Ngai
 gilgit = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_gilgit_effect_name
 		martial = 1
 		stewardship = 1
@@ -2268,7 +2268,7 @@ gilgit = {
 nakkavaram = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_nakkavaram_effect_name
 		build_gold_cost = -0.1
 		stewardship = 1
@@ -2278,7 +2278,7 @@ nakkavaram = {
 ar_kol = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_ar_kol_effect_name
 		jungle_tax_mult = 0.15
 		monthly_piety_gain_mult = 0.1
@@ -2292,7 +2292,7 @@ ar_kol = {
 suzhou = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_suzhou_effect_name
 		diplomacy = 1
 	}
@@ -2303,7 +2303,7 @@ mount_heng = {
 	#Numerous Temples, such as the Hanging Temple
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_mount_heng_effect_name
 		direct_vassal_opinion = 5
 	}
@@ -2313,7 +2313,7 @@ mount_longhu = {
 	# Where Zhang Daoling had obtained the Tao
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_mount_longhu_effect_name
 		clergy_opinion = 5
 		personal_scheme_phase_duration_add = minor_scheme_phase_duration_bonus_value
@@ -2326,7 +2326,7 @@ mount_qingcheng = {
 	#"The most secluded place in China"
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_mount_qingcheng_effect_name
 		life_expectancy = 1
 		monthly_diplomacy_lifestyle_xp_gain_mult = 0.15
@@ -2337,7 +2337,7 @@ mount_tai = {
 	#Foremost of the 5 sacred mountains of China
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_mount_tai_effect_name
 		monthly_piety_gain_mult = 0.05
 		learning = 1
@@ -2348,7 +2348,7 @@ mount_mian = {
 	#Important Taoist and Buddhist site
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_mount_mian_effect_name
 		martial_per_piety_level = 1
 		knight_effectiveness_mult = 0.1
@@ -2360,7 +2360,7 @@ mount_kunyu = {
 	#Curated by emperors and Taoist monks
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_mount_kunyu_effect_name
 		stress_loss_mult = 0.2
 		life_expectancy = 1 #Connection to Eternal Life
@@ -2372,7 +2372,7 @@ mount_wudang = {
 	#One of the 4 Sacred mountains of Taoism
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_mount_wudang_effect_name
 		martial = 1
 		prowess_per_prestige_level = 1
@@ -2384,7 +2384,7 @@ mount_qiyung = {
 	#One of the 4 sacred mountains of Taoism
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_mount_wudang_effect_name
 		learning = 2
 	}
@@ -2395,7 +2395,7 @@ luyi = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_luyi_effect_name
 		learning = 1
 		monthly_piety = 1
@@ -2414,7 +2414,7 @@ ishizuchi = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_ishizuchi_effect_name
 		cultural_head_fascination_mult = 0.15
 	}
@@ -2425,7 +2425,7 @@ fuji = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_fuji_effect_name
 		councillor_opinion = 5
 	}
@@ -2436,7 +2436,7 @@ haku = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_haku_effect_name
 		vassal_levy_contribution_add = 0.15
 	}
@@ -2450,7 +2450,7 @@ ise_jingu = { # Ise Grand Shrine, home of the Saigu
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_ise_jingu_effect_name
 		learning_per_piety_level = 1
 	}
@@ -2460,7 +2460,7 @@ koya = { # Mount Koya
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_koya_effect_name
 		clergy_opinion = 5
 	}
@@ -2470,7 +2470,7 @@ haguro = { # Mount Haguro
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_haguro_effect_name
 		mountains_advantage = 5
 		mountains_development_growth_factor = 0.2
@@ -2481,7 +2481,7 @@ itsukushima = { # Miyajima
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_itsukushima_effect_name
 		knight_effectiveness_mult = 0.2
 	}
@@ -2491,7 +2491,7 @@ hachimangu = { # Hachimangu
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_hachimangu_effect_name
 		men_at_arms_maintenance = -0.05
 	}
@@ -2508,7 +2508,7 @@ shaolin = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_shaolin_effect_name
 		prowess_per_piety_level = 1
 		clergy_opinion = 5
@@ -2518,7 +2518,7 @@ shaolin = {
 hangzhou = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_lingyin_effect_name
 		diplomacy = 1
 		councillor_opinion = 5
@@ -2528,7 +2528,7 @@ hangzhou = {
 wutai = { # Mount Wutai
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_wutai_effect_name
 		learning = 2
 	}
@@ -2546,7 +2546,7 @@ wutai = { # Mount Wutai
 emei = { # Mount Emei
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_emei_effect_name
 		development_growth_factor = 0.1
 	}
@@ -2563,7 +2563,7 @@ emei = { # Mount Emei
 jiuhua = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_jiuhua_effect_name
 		owned_personal_scheme_success_chance_add = 5
 		diplomacy = 1
@@ -2573,7 +2573,7 @@ jiuhua = {
 putuo = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_putuo_effect_name
 		county_opinion_add = 5 #Center of Worship for Guanyin - Boddhisatva of Compassion
 		different_faith_opinion = 5
@@ -2591,7 +2591,7 @@ putuo = {
 wenang = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_wenang_effect_name
 		stewardship_per_piety_level = 1
 	}
@@ -2600,7 +2600,7 @@ wenang = {
 siang = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_siang_effect_name
 		martial = 1
 		clergy_opinion = 5
@@ -2610,7 +2610,7 @@ siang = {
 tengchong = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_tengchong_effect_name
 		clergy_opinion = 5
 		personal_scheme_phase_duration_add = minor_scheme_phase_duration_bonus_value
@@ -2620,7 +2620,7 @@ tengchong = {
 dali = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_dali_effect_name
 		knight_effectiveness_mult = 0.2
 		prowess_per_prestige_level = 1
@@ -2630,7 +2630,7 @@ dali = {
 shicheng = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_shicheng_effect_name
 		diplomacy = 1
 		powerful_vassal_opinion = 5
@@ -2640,7 +2640,7 @@ shicheng = {
 jinglong = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_jinglong_effect_name
 		jungle_advantage = 3
 	}
@@ -2649,7 +2649,7 @@ jinglong = {
 jianchang = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_jianchang_effect_name
 		learning = 1
 		clergy_opinion = 5
@@ -2667,7 +2667,7 @@ jianchang = {
 zhaotong = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_zhaotong_effect_name
 		knight_limit = 1
 		light_cavalry_toughness_mult = 0.1
@@ -2677,7 +2677,7 @@ zhaotong = {
 xuhen = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_xuhen_effect_name
 		tributary_opinion = 4
 	}
@@ -2688,7 +2688,7 @@ xuhen = {
 chang_an = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_xi_an_effect_name
 		monthly_piety_gain_mult = 0.1
 	}
@@ -2697,7 +2697,7 @@ chang_an = {
 bulguksa = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_bulguksa_effect_name
 		controlled_province_advantage = 5
 	}
@@ -2706,7 +2706,7 @@ bulguksa = {
 donggang = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_donggang_effect_name
 		learning = 1
 		health = 0.1
@@ -2720,7 +2720,7 @@ donggang = {
 cotabato = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_cotabato_effect_name
 		learning = 1
 		tributary_opinion = 5
@@ -2730,7 +2730,7 @@ cotabato = {
 biri_larosa = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_biri_larosa_effect_name
 		monthly_piety_gain_mult = 0.1
 	}
@@ -2739,7 +2739,7 @@ biri_larosa = {
 pinatubo = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_pinatubo_effect_name
 		jungle_tax_mult = 0.15
 	}
@@ -2748,7 +2748,7 @@ pinatubo = {
 ivatan = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_pulag_effect_name
 		same_faith_opinion = 10
 	}
@@ -2757,7 +2757,7 @@ ivatan = {
 mantalingajan = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_mantalingajan_effect_name
 		monthly_prestige_gain_per_knight_mult = 0.01
 		build_prestige_cost = -0.15
@@ -2775,7 +2775,7 @@ mantalingajan = {
 danai = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_danai_effect_name
 		owned_personal_scheme_success_chance_add = 5
 	}
@@ -2784,7 +2784,7 @@ danai = {
 magadha = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_magadha_effect_name
 		short_reign_duration_mult = -0.25
 	}
@@ -2799,7 +2799,7 @@ magadha = {
 vien_chan = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_vien_chan_effect_name
 		sway_scheme_phase_duration_add = minor_scheme_phase_duration_bonus_value
 	}
@@ -2808,7 +2808,7 @@ vien_chan = {
 hsenwi = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_hsenwi_effect_name
 		personal_scheme_phase_duration_add = minor_scheme_phase_duration_bonus_value
 	}
@@ -2817,7 +2817,7 @@ hsenwi = {
 sukhothai = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_sukhothai_effect_name
 		owned_personal_scheme_success_chance_add = 5
 	}
@@ -2826,7 +2826,7 @@ sukhothai = {
 cao_bang = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_cao_bang_effect_name
 		intrigue = 1
 	}
@@ -2841,7 +2841,7 @@ cao_bang = {
 molihewen = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_molihewen_effect_name
 		prowess_per_piety_level = 1
 	}
@@ -2850,7 +2850,7 @@ molihewen = {
 yam_alin = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_yam_alin_effect_name
 		martial = 1
 	}
@@ -2859,7 +2859,7 @@ yam_alin = {
 chupka = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_kunasir_effect_name
 		controlled_province_advantage = 5
 	}
@@ -2868,7 +2868,7 @@ chupka = {
 yizhou = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_yizhou_effect_name
 		levy_size = 0.1
 	}
@@ -2884,7 +2884,7 @@ amandee = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_amandee_effect_name
 		mountains_development_growth_factor = 0.2
 	}
@@ -2894,7 +2894,7 @@ sefa_utaki = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_sefa_utaki_effect_name
 		mountains_advantage = 5
 	}
@@ -2903,7 +2903,7 @@ sefa_utaki = {
 tate = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_tate_effect_name
 		levy_size = 0.1
 	}
@@ -2912,7 +2912,7 @@ tate = {
 awa = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_awa_effect_name
 		title_creation_cost_mult = -0.15
 	}
@@ -2925,7 +2925,7 @@ awa = {
 iban = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_iban_effect_name
 		martial = 1
 		supply_duration = 0.25
@@ -2935,7 +2935,7 @@ iban = {
 kudat = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_kudat_effect_name
 		jungle_advantage = 5
 	}
@@ -2944,7 +2944,7 @@ kudat = {
 taiao = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_taiao_effect_name
 		advantage_against_coreligionists = 1
 	}
@@ -2953,7 +2953,7 @@ taiao = {
 sukadana = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_sukadana_effect_name
 		courtier_and_guest_opinion = 5
 		councillor_opinion = 5
@@ -2963,7 +2963,7 @@ sukadana = {
 kutai = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_kutai_effect_name
 		prowess_per_piety_level = 1
 	}
@@ -2980,7 +2980,7 @@ kutai = {
 quanzhou = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_quanzhou_effect_name
 		monthly_piety_gain_mult = 0.1
 		stress_loss_per_piety_level = 0.05
@@ -2991,7 +2991,7 @@ turpan = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_turpan_effect_name
 		development_growth_factor = 0.1
 	}
@@ -3005,7 +3005,7 @@ qufu = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_qufu_effect_name
 		legitimacy_gain_mult = 0.1
 		monthly_merit_mult = 0.05
@@ -3015,7 +3015,7 @@ qufu = {
 quzhou = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_quzhou_effect_name
 		negate_learning_penalty_add = 4
 	}
@@ -3024,7 +3024,7 @@ quzhou = {
 linzi = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_linzi_effect_name
 		monthly_piety_gain_mult = 0.15
 		monthly_prestige_gain_mult = 0.05
@@ -3034,7 +3034,7 @@ linzi = {
 bianliang = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_bianliang_effect_name
 		courtier_and_guest_opinion = 5
 		councillor_opinion = 5
@@ -3044,7 +3044,7 @@ bianliang = {
 zhuolu = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_zhuolu_effect_name
 		county_opinion_add = 5
 	}
@@ -3053,7 +3053,7 @@ zhuolu = {
 dongting = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_dongting_effect_name
 		levy_reinforcement_rate_same_faith = 0.2
 	}
@@ -3062,7 +3062,7 @@ dongting = {
 wehale = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_wehale_effect_name
 		cultural_head_fascination_mult = 0.15
 	}
@@ -3071,7 +3071,7 @@ wehale = {
 qiongzhou = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_qiongzhou_effect_name
 		controlled_province_advantage = 5
 	}
@@ -3087,7 +3087,7 @@ amparita = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_amparita_effect_name
 		jungle_tax_mult = 0.1
 	}
@@ -3096,7 +3096,7 @@ amparita = {
 buru-sula = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_buru_sula_effect_name
 		stewardship = 1
 	}
@@ -3105,7 +3105,7 @@ buru-sula = {
 papua_selatan = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_papua_selatan_effect_name
 		dread_gain_mult = 0.1
 	}
@@ -3114,7 +3114,7 @@ papua_selatan = {
 kepala_burung = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_kepala_burung_effect_name
 		monthly_tyranny = -0.1
 		tyranny_gain_mult = -0.2
@@ -3130,7 +3130,7 @@ kepala_burung = {
 hoanya = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_hoanya_effect_name
 		development_growth_factor = 0.1
 	}
@@ -3139,7 +3139,7 @@ hoanya = {
 sonba_i = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_sonba_i_effect_name
 		learning = 2
 	}
@@ -3148,7 +3148,7 @@ sonba_i = {
 riak_nan_berbedur = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_riak_nan_berbedur_effect_name
 		monthly_prestige_gain_mult = 0.2
 	}
@@ -3157,7 +3157,7 @@ riak_nan_berbedur = {
 gangganegara = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_gangganegara_effect_name
 		county_opinion_add = 10
 		same_faith_opinion = 10
@@ -3172,7 +3172,7 @@ nutapkauspe = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_nutapkauspe_effect_name
 		supply_duration = 0.2
 		men_at_arms_maintenance = -0.05
@@ -3183,7 +3183,7 @@ makkarinupuri = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_simenas_effect_name
 		controlled_province_advantage = 5
 	}
@@ -3193,7 +3193,7 @@ tarayka = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_tarayka_effect_name
 		same_faith_opinion = 5
 	}
@@ -3203,7 +3203,7 @@ kamuykotan = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_kamuykotan_effect_name
 		development_growth_factor = 0.1
 	}
@@ -3213,7 +3213,7 @@ hitakami = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_uskes_effect_name
 		cultural_head_fascination_mult = 0.15
 	}
@@ -3226,7 +3226,7 @@ hitakami = {
 nanning = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_nanning_effect_name
 		title_creation_cost_mult = -0.15
 	}
@@ -3235,7 +3235,7 @@ nanning = {
 muze = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_muze_effect_name
 		learning = 1
 	}
@@ -3244,7 +3244,7 @@ muze = {
 sizhou = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_sizhou_effect_name
 		monthly_prestige_gain_mult = 0.15
 	}
@@ -3253,7 +3253,7 @@ sizhou = {
 daozhou = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_daozhou_effect_name
 		development_growth_factor = 0.1
 	}
@@ -3262,7 +3262,7 @@ daozhou = {
 anlong = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_anlong_effect_name
 		knight_effectiveness_mult = 0.2
 	}
@@ -3277,7 +3277,7 @@ anlong = {
 haripunjaya = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_haripunjaya_effect_name
 		cultural_head_fascination_mult = 0.15
 	}
@@ -3286,7 +3286,7 @@ haripunjaya = {
 c_nguu_hong = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_nguu_hong_effect_name
 		monthly_piety_gain_mult = 0.05
 	}
@@ -3295,7 +3295,7 @@ c_nguu_hong = {
 yangtze = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_yangtze_effect_name
 		same_faith_opinion = 10
 		dynasty_house_opinion = 5
@@ -3305,7 +3305,7 @@ yangtze = {
 zunyi = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_zunyi_effect_name
 		levy_reinforcement_rate_same_faith = 0.2
 	}
@@ -3322,7 +3322,7 @@ zunyi = {
 cheongju = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_cheongju_effect_name
 		direct_vassal_opinion = 5
 	}
@@ -3331,7 +3331,7 @@ cheongju = {
 goseong = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_goseong_effect_name
 		monthly_piety = 1
 	}
@@ -3345,7 +3345,7 @@ baekdu = { # Mount Paektu/Baekdu
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_baekdu_effect_name
 		mountains_tax_mult = 0.15
 		stress_loss_mult = 0.1
@@ -3355,7 +3355,7 @@ baekdu = { # Mount Paektu/Baekdu
 taebaek = { # Mount Taebaek
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_taebaek_effect_name
 		monthly_prestige_gain_mult = 0.2
 		same_faith_opinion = 5
@@ -3365,7 +3365,7 @@ taebaek = { # Mount Taebaek
 halla = { # Mount Halla
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_halla_effect_name
 		fertility = 0.10
 		monthly_lifestyle_xp_gain_mult = 0.15
@@ -3375,7 +3375,7 @@ halla = { # Mount Halla
 mani = { # Mount Mani
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_mani_effect_name
 		legitimacy_gain_mult = 0.1
 		county_opinion_add = 5
@@ -3385,7 +3385,7 @@ mani = { # Mount Mani
 seorak = { # Mount Geumgang
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_seorak_effect_name
 		different_faith_opinion = 10
 	}
@@ -3398,7 +3398,7 @@ seorak = { # Mount Geumgang
 sikong = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_mount_sikong_effect_name
 		monthly_county_control_growth_factor = 0.1
 	}
@@ -3407,7 +3407,7 @@ sikong = {
 nanhua = {
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_nanhua_effect_name
 		monthly_piety_gain_mult = 0.2
 	}
@@ -3417,7 +3417,7 @@ sarasvati = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_sarasvati_effect_name
 		learning = 1
 	}
@@ -3427,7 +3427,7 @@ mount_lu = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_mount_lu_effect_name
 		same_heritage_county_advantage_add = 2
 	}
@@ -3437,7 +3437,7 @@ nara = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_nara_effect_name
 		same_faith_opinion = 5
 	}
@@ -3447,7 +3447,7 @@ vaishali = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_vaishali_effect_name
 		monthly_piety = 0.5
 	}
@@ -3457,7 +3457,7 @@ mogao = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_mogao_effect_name
 		development_growth_factor = 0.1
 	}
@@ -3467,7 +3467,7 @@ luoyang = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_luoyang_effect_name
 		county_opinion_add = 10
 		diplomacy = 1
@@ -3478,7 +3478,7 @@ gaeseong = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_gaeseong_effect_name
 		monthly_county_control_growth_factor = 0.1
 	}
@@ -3488,7 +3488,7 @@ tiantai = {
 	# Origin of Tiantai Buddhism, birthplace of Zhiyi
 	county = c_avalon
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_tiantai_effect_name
 		learning = 2
 	}
@@ -3499,7 +3499,7 @@ hiei = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_hiei_effect_name
 		monthly_piety_gain_mult = 0.2
 	}
@@ -3509,7 +3509,7 @@ heiankyo = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_heiankyo_effect_name
 		monthly_piety_gain_mult = 0.2
 	}
@@ -3519,7 +3519,7 @@ kizuki = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_kizuki_effect_name
 		clergy_opinion = 5
 	}
@@ -3529,7 +3529,7 @@ kashima = {
 	county = c_avalon
 	barony = b_avalon_iii
 
-	character_modifier = {
+	faith_character_modifier = {
 		name = holy_site_kashima_effect_name
 		tax_mult = 0.05
 	}
