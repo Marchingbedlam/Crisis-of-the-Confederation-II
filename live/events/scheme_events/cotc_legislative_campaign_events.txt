@@ -488,12 +488,16 @@ cotc_legislative_campaign_events.100 = { # Your party is banned!
 	}
 	
 	option = { # Convert to closest legal faith
-		trigger = { NOT = { exists = secret_faith } }
+		trigger = {
+			exists = scope:closest_legal_faith
+			NOT = { exists = secret_faith }
+		}
 		name = cotc_legislative_campaign_events.100.a
 		set_character_faith = scope:closest_legal_faith
 		ai_chance = {
 			base = 0
 			modifier = {
+				exists = scope:closest_legal_faith
 				add = {
 					value = 0
 					scope:closest_legal_faith = { save_temporary_scope_as = target_faith }
@@ -511,7 +515,10 @@ cotc_legislative_campaign_events.100 = { # Your party is banned!
 		}
 	}
 	option = { # Publicly convert to closest legal faith, but remain a crypto-whatever
-		trigger = { NOT = { exists = secret_faith } }
+		trigger = {
+			exists = scope:closest_legal_faith
+			NOT = { exists = secret_faith }
+		}
 		name = cotc_legislative_campaign_events.100.b
 		faith = { save_temporary_scope_as = real_faith }
 		set_character_faith = scope:closest_legal_faith
@@ -527,7 +534,10 @@ cotc_legislative_campaign_events.100 = { # Your party is banned!
 		}
 	}
 	option = { # Change your publicly professed ideology to the closest legal faith
-		trigger = { exists = secret_faith }
+		trigger = {
+			exists = scope:closest_legal_faith
+			exists = secret_faith
+		}
 		name = cotc_legislative_campaign_events.100.c
 		set_character_faith = scope:closest_legal_faith
 		custom_tooltip = will_remain_crypto_desc

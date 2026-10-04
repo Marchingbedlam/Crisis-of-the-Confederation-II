@@ -214,8 +214,8 @@ cotc_budget_bill_events.200 = {
 		pork_spending_effect = yes
 		hidden_effect = {
 			if = {
-				limit = { var:ai_faith_in_democracy <= 10 }
-				change_variable = { name = ai_faith_in_democracy add = 1 }
+				limit = { trigger_if = { limit = { has_variable = ai_faith_in_democracy } var:ai_faith_in_democracy <= 10 } }
+				change_ai_faith_in_democracy_effect = { VALUE = 1 }
 			}
 		}
 	}
@@ -246,11 +246,11 @@ cotc_budget_bill_events.210 = {
 		}
 		if = {
 			limit = { opinion_of_bill > 0 }
-			change_variable = { name = ai_faith_in_democracy add = 1 }
+			change_ai_faith_in_democracy_effect = { VALUE = 1 }
 		}
 		else_if = {
-			limit = { var:ai_faith_in_democracy <= 10 }
-			change_variable = { name = ai_faith_in_democracy add = 1 }
+			limit = { trigger_if = { limit = { has_variable = ai_faith_in_democracy } var:ai_faith_in_democracy <= 10 } }
+			change_ai_faith_in_democracy_effect = { VALUE = 1 }
 		}
 	}
 	
@@ -293,10 +293,10 @@ cotc_budget_bill_events.220 = {
 		}
 		if = {
 			limit = { opinion_of_bill < 0 }
-			change_variable = { name = ai_faith_in_democracy subtract = 5 }
+			change_ai_faith_in_democracy_effect = { VALUE = -5 }
 		}
 		else = {
-			change_variable = { name = ai_faith_in_democracy subtract = 1 }
+			change_ai_faith_in_democracy_effect = { VALUE = -1 }
 		}
 	}
 	
@@ -356,7 +356,7 @@ cotc_budget_bill_events.300 = {
 			value = -50
 			multiply = scope:ruler.tier_multiplier
 		}
-		hidden_effect = { change_variable = { name = ai_faith_in_democracy subtract = 5 } }
+		hidden_effect = { change_ai_faith_in_democracy_effect = { VALUE = -5 } }
 	}
 }
 # A bill you voted for has failed!
@@ -383,9 +383,9 @@ cotc_budget_bill_events.310 = {
 		}
 		if = {
 			limit = { opinion_of_bill > 0 }
-			change_variable = { name = ai_faith_in_democracy subtract = 5 }
+			change_ai_faith_in_democracy_effect = { VALUE = -5 }
 		}
-		else = { change_variable = { name = ai_faith_in_democracy subtract = 1 } }
+		else = { change_ai_faith_in_democracy_effect = { VALUE = -1 } }
 	}
 	
 	option = {
@@ -420,11 +420,11 @@ cotc_budget_bill_events.320 = {
 		}
 		if = {
 			limit = { opinion_of_bill < 0 }
-			change_variable = { name = ai_faith_in_democracy add = 1 }
+			change_ai_faith_in_democracy_effect = { VALUE = 1 }
 		}
 		else_if = {
-			limit = { var:ai_faith_in_democracy <= 10 }
-			change_variable = { name = ai_faith_in_democracy add = 1 }
+			limit = { trigger_if = { limit = { has_variable = ai_faith_in_democracy } var:ai_faith_in_democracy <= 10 } }
+			change_ai_faith_in_democracy_effect = { VALUE = 1 }
 		}
 	}
 	

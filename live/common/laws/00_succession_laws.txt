@@ -16,15 +16,15 @@ popular_elective_succession_law = {
 	}
 	can_have = {
 		NOT = { government_has_flag = government_is_nomadic }
-		can_have_popular_elective_law_trigger = yes
+		can_have_popular_elective_succession_law_trigger = yes
 	}
 	can_pass = {
-		can_change_popular_elective_law_trigger = yes
+		can_change_popular_elective_succession_law_trigger = yes
 	}
 	should_start_with = {
 		government_allows = administrative
 		government_has_flag = government_is_democratic
-		NOT = { tier = baron }
+		highest_held_title_tier > tier_barony
 	}
 	succession = {
 		order_of_succession = appointment
@@ -61,7 +61,7 @@ popular_elective_succession_law = {
 	potential = {
 		government_allows = administrative
 		government_has_flag = government_is_democratic
-		NOT = { tier = baron }
+		highest_held_title_tier > tier_barony
 	}
 }
 # MERITOCRATIC

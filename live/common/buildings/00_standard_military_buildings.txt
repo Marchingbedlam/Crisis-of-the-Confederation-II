@@ -46,11 +46,11 @@ capital_shipyard_01 = {
 		stationed_cruisers_toughness_mult = normal_maa_toughness_tier_1
 		stationed_fast_frigates_toughness_mult = normal_maa_toughness_tier_1
 		stationed_missile_frigates_toughness_mult = normal_maa_toughness_tier_1
+	}
+	character_modifier = {
 		cruisers_maintenance_mult = normal_building_maa_maintenance_tier_1
 		fast_frigates_maintenance_mult = normal_building_maa_maintenance_tier_1
 		missile_frigates_maintenance_mult = normal_building_maa_maintenance_tier_1
-	}
-	character_modifier = {
 		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_1
 	}
 	# TODO: Cultural bonus for selling arms adds a tax benefit?
@@ -74,28 +74,6 @@ capital_shipyard_01 = {
 		ai_stacking_bonus_stables_modifier = yes
 		ai_archer_cavalry_modifier = yes
 		ai_light_cavalry_modifier = yes
-		ai_fast_frigates_modifier = yes
-		modifier = {
-			factor = 0
-			building_regimental_grounds_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = regimental_grounds_01
-			}
-		}
-		modifier = {
-			factor = 0
-			building_farm_estates_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = farm_estates_01
-			}
-		}
-		modifier = {
-			factor = 0
-			building_orchards_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = orchards_01
-			}
-		}
 		modifier = {
 			add = -10
 			has_building_or_higher = city_01
@@ -128,11 +106,11 @@ capital_shipyard_02 = {
 		stationed_cruisers_toughness_mult = normal_maa_toughness_tier_2
 		stationed_fast_frigates_toughness_mult = normal_maa_toughness_tier_2
 		stationed_missile_frigates_toughness_mult = normal_maa_toughness_tier_2
+	}
+	character_modifier = {
 		cruisers_maintenance_mult = normal_building_maa_maintenance_tier_2
 		fast_frigates_maintenance_mult = normal_building_maa_maintenance_tier_2
 		missile_frigates_maintenance_mult = normal_building_maa_maintenance_tier_2
-	}
-	character_modifier = {
 		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_2
 	}
 	on_complete = {
@@ -168,10 +146,6 @@ capital_shipyard_03 = {
 			has_innovation = innovation_castle_baileys
 		}
 	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
-	}
 	
 	cost_gold = normal_building_tier_3_cost
 	
@@ -184,13 +158,13 @@ capital_shipyard_03 = {
 		stationed_cruisers_toughness_mult = normal_maa_toughness_tier_3
 		stationed_fast_frigates_toughness_mult = normal_maa_toughness_tier_3
 		stationed_missile_frigates_toughness_mult = normal_maa_toughness_tier_3
-		cruisers_maintenance_mult = normal_building_maa_maintenance_tier_3
-		fast_frigates_maintenance_mult = normal_building_maa_maintenance_tier_3
-		missile_frigates_maintenance_mult = normal_building_maa_maintenance_tier_3
 		
 		defender_holding_advantage = 2
 	}
 	character_modifier = {
+		cruisers_maintenance_mult = normal_building_maa_maintenance_tier_3
+		fast_frigates_maintenance_mult = normal_building_maa_maintenance_tier_3
+		missile_frigates_maintenance_mult = normal_building_maa_maintenance_tier_3
 		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_3
 	}
 	on_complete = {
@@ -222,10 +196,6 @@ capital_shipyard_04 = {
 			has_innovation = innovation_castle_baileys
 		}
 	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
-	}
 	
 	cost_gold = normal_building_tier_4_cost
 	
@@ -238,12 +208,12 @@ capital_shipyard_04 = {
 		stationed_cruisers_toughness_mult = normal_maa_toughness_tier_4
 		stationed_fast_frigates_toughness_mult = normal_maa_toughness_tier_4
 		stationed_missile_frigates_toughness_mult = normal_maa_toughness_tier_4
-		cruisers_maintenance_mult = normal_building_maa_maintenance_tier_4
-		fast_frigates_maintenance_mult = normal_building_maa_maintenance_tier_4
-		missile_frigates_maintenance_mult = normal_building_maa_maintenance_tier_4
 		defender_holding_advantage = 2
 	}
 	character_modifier = {
+		cruisers_maintenance_mult = normal_building_maa_maintenance_tier_4
+		fast_frigates_maintenance_mult = normal_building_maa_maintenance_tier_4
+		missile_frigates_maintenance_mult = normal_building_maa_maintenance_tier_4
 		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_4
 	}
 	on_complete = {
@@ -275,10 +245,6 @@ capital_shipyard_05 = {
 			has_innovation = innovation_royal_armory
 		}
 	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
-	}
 	
 	cost_gold = normal_building_tier_5_cost
 	
@@ -291,12 +257,12 @@ capital_shipyard_05 = {
 		stationed_cruisers_toughness_mult = normal_maa_toughness_tier_5
 		stationed_fast_frigates_toughness_mult = normal_maa_toughness_tier_5
 		stationed_missile_frigates_toughness_mult = normal_maa_toughness_tier_5
-		cruisers_maintenance_mult = normal_building_maa_maintenance_tier_5
-		fast_frigates_maintenance_mult = normal_building_maa_maintenance_tier_5
-		missile_frigates_maintenance_mult = normal_building_maa_maintenance_tier_5
 		defender_holding_advantage = 2
 	}
 	character_modifier = {
+		cruisers_maintenance_mult = normal_building_maa_maintenance_tier_5
+		fast_frigates_maintenance_mult = normal_building_maa_maintenance_tier_5
+		missile_frigates_maintenance_mult = normal_building_maa_maintenance_tier_5
 		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_5
 	}
 	on_complete = {
@@ -328,10 +294,6 @@ capital_shipyard_06 = {
 			has_innovation = innovation_royal_armory
 		}
 	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
-	}
 	
 	cost_gold = normal_building_tier_6_cost
 	
@@ -344,14 +306,12 @@ capital_shipyard_06 = {
 		stationed_cruisers_toughness_mult = normal_maa_toughness_tier_6
 		stationed_fast_frigates_toughness_mult = normal_maa_toughness_tier_6
 		stationed_missile_frigates_toughness_mult = normal_maa_toughness_tier_6
-		cruisers_maintenance_mult = normal_building_maa_maintenance_tier_6
-		fast_frigates_maintenance_mult = normal_building_maa_maintenance_tier_6
-		missile_frigates_maintenance_mult = normal_building_maa_maintenance_tier_6
-		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_6
-		knight_limit = 1
 		defender_holding_advantage = 4
 	}
 	character_modifier = {
+		cruisers_maintenance_mult = normal_building_maa_maintenance_tier_6
+		fast_frigates_maintenance_mult = normal_building_maa_maintenance_tier_6
+		missile_frigates_maintenance_mult = normal_building_maa_maintenance_tier_6
 		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_6
 		knight_limit = 1
 	}
@@ -384,10 +344,6 @@ capital_shipyard_07 = {
 			has_innovation = innovation_royal_armory
 		}
 	}
-	
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
-	}
 
 	cost_gold = normal_building_tier_7_cost
 	
@@ -400,15 +356,13 @@ capital_shipyard_07 = {
 		stationed_cruisers_toughness_mult = normal_maa_toughness_tier_7
 		stationed_fast_frigates_toughness_mult = normal_maa_toughness_tier_7
 		stationed_missile_frigates_toughness_mult = normal_maa_toughness_tier_7
-		cruisers_maintenance_mult = normal_building_maa_maintenance_tier_7
-		fast_frigates_maintenance_mult = normal_building_maa_maintenance_tier_7
-		missile_frigates_maintenance_mult = normal_building_maa_maintenance_tier_7
-		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_7
-		knight_limit = 1
 		defender_holding_advantage = 4
 	}
 
 	character_modifier = {
+		cruisers_maintenance_mult = normal_building_maa_maintenance_tier_7
+		fast_frigates_maintenance_mult = normal_building_maa_maintenance_tier_7
+		missile_frigates_maintenance_mult = normal_building_maa_maintenance_tier_7
 		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_7
 		knight_limit = 1
 	}
@@ -442,16 +396,15 @@ capital_shipyard_08 = {
 			has_innovation = innovation_royal_armory
 		}
 	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
-	}
 	
 	cost_gold = normal_building_tier_8_cost
 	
 	levy = small_building_levy_tier_8
 
 	character_modifier = {
+		cruisers_maintenance_mult = normal_building_maa_maintenance_tier_8
+		fast_frigates_maintenance_mult = normal_building_maa_maintenance_tier_8
+		missile_frigates_maintenance_mult = normal_building_maa_maintenance_tier_8
 		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_8
 		knight_limit = 2
 	}
@@ -463,9 +416,6 @@ capital_shipyard_08 = {
 		stationed_cruisers_toughness_mult = normal_maa_toughness_tier_8
 		stationed_fast_frigates_toughness_mult = normal_maa_toughness_tier_8
 		stationed_missile_frigates_toughness_mult = normal_maa_toughness_tier_8
-		cruisers_maintenance_mult = normal_building_maa_maintenance_tier_8
-		fast_frigates_maintenance_mult = normal_building_maa_maintenance_tier_8
-		missile_frigates_maintenance_mult = normal_building_maa_maintenance_tier_8
 		defender_holding_advantage = 6
 	}
 
@@ -869,28 +819,6 @@ he_depot_01 = {
 		ai_stacking_bonus_stables_modifier = yes
 		ai_archer_cavalry_modifier = yes
 		ai_light_cavalry_modifier = yes
-		ai_fast_frigates_modifier = yes
-		modifier = {
-			factor = 0
-			building_regimental_grounds_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = regimental_grounds_01
-			}
-		}
-		modifier = {
-			factor = 0
-			building_farm_estates_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = farm_estates_01
-			}
-		}
-		modifier = {
-			factor = 0
-			building_orchards_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = orchards_01
-			}
-		}
 		modifier = {
 			add = -10
 			has_building_or_higher = city_01
@@ -954,10 +882,6 @@ he_depot_03 = {
 			has_innovation = innovation_burhs
 		}
 	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
-	}
 	
 	cost_gold = normal_building_tier_3_cost
 	
@@ -996,10 +920,6 @@ he_depot_04 = {
 			has_innovation = innovation_burhs
 		}
 	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
-	}
 	
 	cost_gold = normal_building_tier_4_cost
 	
@@ -1008,6 +928,8 @@ he_depot_04 = {
 		stationed_destroyers_damage_mult = normal_maa_damage_tier_4
 		stationed_fast_frigates_damage_mult = normal_maa_damage_tier_4
 		levy_size = 0.04
+	}
+	character_modifier = {
 		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_1
 	}
 
@@ -1039,10 +961,6 @@ he_depot_05 = {
 			has_innovation = innovation_castle_baileys
 		}
 	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
-	}
 	
 	cost_gold = normal_building_tier_5_cost
 	
@@ -1051,6 +969,8 @@ he_depot_05 = {
 		stationed_destroyers_damage_mult = normal_maa_damage_tier_5
 		stationed_fast_frigates_damage_mult = normal_maa_damage_tier_5
 		levy_size = 0.05
+	}
+	character_modifier = {
 		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_2
 	}
 	
@@ -1077,10 +997,6 @@ he_depot_06 = {
 			has_innovation = innovation_castle_baileys
 		}
 	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
-	}
 	
 	cost_gold = normal_building_tier_6_cost
 	
@@ -1089,6 +1005,8 @@ he_depot_06 = {
 		stationed_destroyers_damage_mult = normal_maa_damage_tier_6
 		stationed_fast_frigates_damage_mult = normal_maa_damage_tier_6
 		levy_size = 0.06
+	}
+	character_modifier = {
 		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_3
 	}
 	
@@ -1115,10 +1033,6 @@ he_depot_07 = {
 			has_innovation = innovation_royal_armory
 		}
 	}
-	
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
-	}
 
 	cost_gold = normal_building_tier_7_cost
 	
@@ -1127,6 +1041,8 @@ he_depot_07 = {
 		stationed_destroyers_damage_mult = normal_maa_damage_tier_7
 		stationed_fast_frigates_damage_mult = normal_maa_damage_tier_7
 		levy_size = 0.07
+	}
+	character_modifier = {
 		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_4
 	}
 	
@@ -1153,10 +1069,6 @@ he_depot_08 = {
 			has_innovation = innovation_royal_armory
 		}
 	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
-	}
 	
 	cost_gold = normal_building_tier_8_cost
 	
@@ -1168,6 +1080,8 @@ he_depot_08 = {
 		stationed_destroyers_damage_mult = normal_maa_damage_tier_8
 		stationed_fast_frigates_damage_mult = normal_maa_damage_tier_8
 		levy_size = 0.08
+	}
+	character_modifier = {
 		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_5
 	}
 
@@ -1187,7 +1101,6 @@ he_depot_08 = {
 ### Patrols
 patrols_01 = {
 	construction_time = quick_construction_time
-	effect_desc = patrols_desc
 
 	can_construct_potential = {
 		building_requirement_castle_city_church = { LEVEL = 01 }
@@ -1231,34 +1144,6 @@ patrols_01 = {
 		ai_stacking_bonus_military_camps_modifier = yes
 		ai_anti_synergy_armored_infantry_modifier = yes
 		ai_anti_synergy_cavalry_modifier = yes
-		modifier = {
-			factor = 0
-			building_camel_farms_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = camel_farms_01
-			}
-		}
-		modifier = {
-			factor = 0
-			building_horse_pastures_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = horse_pastures_01
-			}
-		}
-		modifier = {
-			factor = 0
-			building_hillside_grazing_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = hillside_grazing_01
-			}
-		}
-		modifier = {
-			factor = 0
-			building_warrior_lodges_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = warrior_lodges_01
-			}
-		}
 		modifier = { # It now has a small economic component; build it last
 			add = -3
 			has_building_or_higher = city_01
@@ -1279,7 +1164,6 @@ patrols_01 = {
 }
 patrols_02 = {
 	construction_time = quick_construction_time
-	effect_desc = patrols_desc
 
 	can_construct_potential = {
 		building_requirement_castle_city_church = { LEVEL = 01 }
@@ -1330,7 +1214,6 @@ patrols_02 = {
 }
 patrols_03 = {
 	construction_time = quick_construction_time
-	effect_desc = patrols_desc
 
 	can_construct_potential = {
 		building_requirement_space_infrastructure = { LEVEL = 02 }
@@ -1382,7 +1265,6 @@ patrols_03 = {
 }
 patrols_04 = {
 	construction_time = quick_construction_time
-	effect_desc = patrols_desc
 
 	can_construct_potential = {
 		building_requirement_space_infrastructure = { LEVEL = 02 }
@@ -1429,7 +1311,6 @@ patrols_04 = {
 }
 patrols_05 = {
 	construction_time = quick_construction_time
-	effect_desc = patrols_desc
 
 	can_construct_potential = {
 		building_requirement_space_infrastructure = { LEVEL = 03 }
@@ -1476,7 +1357,6 @@ patrols_05 = {
 }
 patrols_06 = {
 	construction_time = quick_construction_time
-	effect_desc = patrols_desc
 
 	can_construct_potential = {
 		building_requirement_space_infrastructure = { LEVEL = 03 }
@@ -1526,7 +1406,6 @@ patrols_06 = {
 }
 patrols_07 = {
 	construction_time = quick_construction_time
-	effect_desc = patrols_desc
 
 	can_construct_potential = {
 		building_requirement_space_infrastructure = { LEVEL = 04 }
@@ -1580,7 +1459,6 @@ patrols_07 = {
 }
 patrols_08 = {
 	construction_time = quick_construction_time
-	effect_desc = patrols_desc
 
 	can_construct_potential = {
 		building_requirement_space_infrastructure = { LEVEL = 04 }
@@ -1673,13 +1551,6 @@ regattas_01 = {
 		ai_stacking_bonus_stables_modifier = yes
 		ai_stacking_bonus_horse_pastures_modifier = yes
 		ai_stacking_bonus_hillside_grazing_modifier = yes
-		modifier = {
-			factor = 0
-			building_regimental_grounds_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = regimental_grounds_01
-			}
-		}
 		modifier = { # It now has a small economic component; build it last
 			add = -3
 			has_building_or_higher = city_01
@@ -1790,7 +1661,6 @@ regattas_03 = {
 }
 regattas_04 = {
 	construction_time = standard_construction_time
-	effect_desc = regattas_effect_desc
 
 	can_construct_potential = {
 		building_regattas_requirement_terrain = yes
@@ -1838,7 +1708,6 @@ regattas_04 = {
 }
 regattas_05 = {
 	construction_time = standard_construction_time
-	effect_desc = regattas_effect_desc
 
 	can_construct_potential = {
 		building_regattas_requirement_terrain = yes
@@ -1886,7 +1755,6 @@ regattas_05 = {
 }
 regattas_06 = {
 	construction_time = standard_construction_time
-	effect_desc = regattas_effect_desc
 
 	can_construct_potential = {
 		building_regattas_requirement_terrain = yes
@@ -1934,7 +1802,6 @@ regattas_06 = {
 }
 regattas_07 = {
 	construction_time = standard_construction_time
-	effect_desc = regattas_effect_desc
 
 	can_construct_potential = {
 		building_regattas_requirement_terrain = yes
@@ -1983,7 +1850,6 @@ regattas_07 = {
 }
 regattas_08 = {
 	construction_time = standard_construction_time
-	effect_desc = regattas_effect_desc
 
 	can_construct_potential = {
 		building_regattas_requirement_terrain = yes
@@ -2036,7 +1902,6 @@ regattas_08 = {
 military_berths_01 = {
 	construction_time = quick_construction_time
 	can_construct_potential = {
-		building_military_berths_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 01 }
 		building_requirement_space_infrastructure = { LEVEL = 01 }
 	}
@@ -2085,48 +1950,6 @@ military_berths_01 = {
 			}
 		}
 		modifier = {
-			factor = 0
-			building_regimental_grounds_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = regimental_grounds_01
-			}
-		}
-		modifier = {
-			factor = 0
-			building_farm_estates_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = farm_estates_01
-			}
-		}
-		modifier = {
-			factor = 0
-			building_orchards_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = orchards_01
-			}
-		}
-		modifier = {
-			factor = 0
-			building_horse_pastures_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = horse_pastures_01
-			}
-		}
-		modifier = {
-			factor = 0
-			building_hillside_grazing_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = hillside_grazing_01
-			}
-		}
-		modifier = {
-			factor = 0
-			building_warrior_lodges_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = warrior_lodges_01
-			}
-		}
-		modifier = {
 			add = -9
 			has_building_or_higher = city_01
 		}
@@ -2157,7 +1980,6 @@ military_berths_02 = {
 	construction_time = quick_construction_time
 
 	can_construct_potential = {
-		building_military_berths_requirement_terrain = yes
 		building_requirement_castle_city_church = { LEVEL = 01 }
 		building_requirement_space_infrastructure = { LEVEL = 01 }
 		scope:holder.culture = {
@@ -2204,7 +2026,6 @@ military_berths_03 = {
 	construction_time = quick_construction_time
 
 	can_construct_potential = {
-		building_military_berths_requirement_terrain = yes
 		building_requirement_space_infrastructure = { LEVEL = 02 }
 		scope:holder.culture = {
 			has_innovation = innovation_burhs
@@ -2227,11 +2048,11 @@ military_berths_03 = {
 	province_modifier = {
 		stationed_maa_toughness_mult = low_maa_toughness_tier_3
 		
-		men_at_arms_recruitment_cost = -0.01
 		travel_danger = -3
 	}
 	
 	character_modifier = {
+		men_at_arms_recruitment_cost = -0.01
 		men_at_arms_maintenance = normal_building_maa_maintenance_tier_3
 	}
 
@@ -2248,7 +2069,6 @@ military_berths_03 = {
 military_berths_04 = {
 	construction_time = quick_construction_time
 	can_construct_potential = {
-		building_military_berths_requirement_terrain = yes
 		building_requirement_space_infrastructure = { LEVEL = 02 }
 	}
 
@@ -2274,11 +2094,11 @@ military_berths_04 = {
 	
 	province_modifier = {
 		stationed_maa_toughness_mult = low_maa_toughness_tier_4
-		men_at_arms_recruitment_cost = -0.02
 		travel_danger = -4
 	}
 
 	character_modifier = {
+		men_at_arms_recruitment_cost = -0.02
 		men_at_arms_maintenance = normal_building_maa_maintenance_tier_4
 	}
 	
@@ -2295,7 +2115,6 @@ military_berths_04 = {
 military_berths_05 = {
 	construction_time = quick_construction_time
 	can_construct_potential = {
-		building_military_berths_requirement_terrain = yes
 		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
@@ -2315,6 +2134,7 @@ military_berths_05 = {
 	levy = normal_building_levy_tier_5
 	
 	character_modifier = {
+		men_at_arms_recruitment_cost = -0.03
 		men_at_arms_maintenance = normal_building_maa_maintenance_tier_5
 	}
 	
@@ -2325,12 +2145,7 @@ military_berths_05 = {
 	
 	province_modifier = {
 		stationed_maa_toughness_mult = low_maa_toughness_tier_5
-		men_at_arms_recruitment_cost = -0.03
 		travel_danger = -5
-	}
-
-	character_modifier = {
-		men_at_arms_maintenance = normal_building_maa_maintenance_tier_5
 	}
 	
 	next_building = military_berths_06
@@ -2346,7 +2161,6 @@ military_berths_05 = {
 military_berths_06 = {
 	construction_time = quick_construction_time
 	can_construct_potential = {
-		building_military_berths_requirement_terrain = yes
 		building_requirement_space_infrastructure = { LEVEL = 03 }
 	}
 
@@ -2372,12 +2186,12 @@ military_berths_06 = {
 	
 	province_modifier = {
 		stationed_maa_toughness_mult = low_maa_toughness_tier_6
-		men_at_arms_recruitment_cost = -0.04
 		travel_danger = -6
 		garrison_size = 0.05
 	}
 
 	character_modifier = {
+		men_at_arms_recruitment_cost = -0.04
 		men_at_arms_maintenance = normal_building_maa_maintenance_tier_6
 	}
 	
@@ -2394,7 +2208,6 @@ military_berths_06 = {
 military_berths_07 = {
 	construction_time = quick_construction_time
 	can_construct_potential = {
-		building_military_berths_requirement_terrain = yes
 		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 	
@@ -2420,12 +2233,12 @@ military_berths_07 = {
 	
 	province_modifier = {
 		stationed_maa_toughness_mult = low_maa_toughness_tier_7
-		men_at_arms_recruitment_cost = -0.05
 		travel_danger = -7
 		garrison_size = 0.075
 	}
 
 	character_modifier = {
+		men_at_arms_recruitment_cost = -0.05
 		men_at_arms_maintenance = normal_building_maa_maintenance_tier_7
 	}
 	
@@ -2442,7 +2255,6 @@ military_berths_07 = {
 military_berths_08 = {
 	construction_time = quick_construction_time
 	can_construct_potential = {
-		building_military_berths_requirement_terrain = yes
 		building_requirement_space_infrastructure = { LEVEL = 04 }
 	}
 
@@ -2468,12 +2280,12 @@ military_berths_08 = {
 	
 	province_modifier = {
 		stationed_maa_toughness_mult = low_maa_toughness_tier_8
-		men_at_arms_recruitment_cost = -0.075
 		travel_danger = -8
 		garrison_size = 0.10
 	}
 
 	character_modifier = {
+		men_at_arms_recruitment_cost = -0.075
 		men_at_arms_maintenance = normal_building_maa_maintenance_tier_8
 	}
 
@@ -2533,28 +2345,6 @@ test_grounds_01 = {
 		ai_stacking_bonus_stables_modifier = yes
 		ai_archer_cavalry_modifier = yes
 		ai_light_cavalry_modifier = yes
-		ai_fast_frigates_modifier = yes
-		modifier = {
-			factor = 0
-			building_regimental_grounds_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = regimental_grounds_01
-			}
-		}
-		modifier = {
-			factor = 0
-			building_farm_estates_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = farm_estates_01
-			}
-		}
-		modifier = {
-			factor = 0
-			building_orchards_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = orchards_01
-			}
-		}
 		modifier = {
 			add = -10
 			has_building_or_higher = city_01
@@ -2621,10 +2411,6 @@ test_grounds_03 = {
 			has_innovation = innovation_burhs
 		}
 	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
-	}
 	
 	cost_gold = normal_building_tier_3_cost
 	
@@ -2638,9 +2424,9 @@ test_grounds_03 = {
 		stationed_missile_boats_damage_mult = normal_maa_damage_tier_3
 		stationed_cruisers_damage_mult = normal_maa_damage_tier_3
 		stationed_missile_frigates_damage_mult = normal_maa_damage_tier_3
-		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_1
 	}
 	character_modifier = {
+		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_1
 		dread_gain_mult = 0.1
 	}
 	
@@ -2667,10 +2453,6 @@ test_grounds_04 = {
 			has_innovation = innovation_burhs
 		}
 	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
-	}
 	
 	cost_gold = normal_building_tier_4_cost
 	
@@ -2684,9 +2466,9 @@ test_grounds_04 = {
 		stationed_missile_boats_damage_mult = normal_maa_damage_tier_4
 		stationed_cruisers_damage_mult = normal_maa_damage_tier_4
 		stationed_missile_frigates_damage_mult = normal_maa_damage_tier_4
-		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_2
 	}
 	character_modifier = {
+		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_2
 		dread_gain_mult = 0.125
 		dread_baseline_add = 3
 	}
@@ -2713,10 +2495,6 @@ test_grounds_05 = {
 			has_innovation = innovation_castle_baileys
 		}
 	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
-	}
 	
 	cost_gold = normal_building_tier_5_cost
 	
@@ -2730,9 +2508,9 @@ test_grounds_05 = {
 		stationed_missile_boats_damage_mult = normal_maa_damage_tier_5
 		stationed_cruisers_damage_mult = normal_maa_damage_tier_5
 		stationed_missile_frigates_damage_mult = normal_maa_damage_tier_5
-		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_3
 	}
 	character_modifier = {
+		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_3
 		dread_gain_mult = 0.15
 		dread_baseline_add = 4
 	}
@@ -2760,10 +2538,6 @@ test_grounds_06 = {
 			has_innovation = innovation_castle_baileys
 		}
 	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
-	}
 	
 	cost_gold = normal_building_tier_6_cost
 	
@@ -2777,9 +2551,9 @@ test_grounds_06 = {
 		stationed_missile_boats_damage_mult = normal_maa_damage_tier_6
 		stationed_cruisers_damage_mult = normal_maa_damage_tier_6
 		stationed_missile_frigates_damage_mult = normal_maa_damage_tier_6
-		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_4
 	}
 	character_modifier = {
+		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_4
 		dread_gain_mult = 0.175
 		dread_baseline_add = 5
 	}
@@ -2807,10 +2581,6 @@ test_grounds_07 = {
 			has_innovation = innovation_royal_armory
 		}
 	}
-	
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
-	}
 
 	cost_gold = normal_building_tier_7_cost
 	
@@ -2824,9 +2594,9 @@ test_grounds_07 = {
 		stationed_missile_boats_damage_mult = normal_maa_damage_tier_7
 		stationed_cruisers_damage_mult = normal_maa_damage_tier_7
 		stationed_missile_frigates_damage_mult = normal_maa_damage_tier_7
-		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_5
 	}
 	character_modifier = {
+		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_5
 		dread_gain_mult = 0.2
 		dread_baseline_add = 6
 	}
@@ -2854,10 +2624,6 @@ test_grounds_08 = {
 			has_innovation = innovation_royal_armory
 		}
 	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
-	}
 	
 	cost_gold = normal_building_tier_8_cost
 	
@@ -2871,9 +2637,9 @@ test_grounds_08 = {
 		stationed_missile_boats_damage_mult = normal_maa_damage_tier_8
 		stationed_cruisers_damage_mult = normal_maa_damage_tier_8
 		stationed_missile_frigates_damage_mult = normal_maa_damage_tier_8
-		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_6
 	}
 	character_modifier = {
+		knight_effectiveness_mult = normal_knight_effectiveness_mult_tier_6
 		dread_gain_mult = 0.25
 		dread_baseline_add = 8
 	}
@@ -2887,7 +2653,7 @@ test_grounds_08 = {
 
 ### Marines Recruitment
 marines_01 = {
-	construction_time = normal_construction_time
+	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		building_marines_requirement_terrain = yes
@@ -2923,28 +2689,6 @@ marines_01 = {
 		ai_stacking_bonus_stables_modifier = yes
 		ai_archer_cavalry_modifier = yes
 		ai_light_cavalry_modifier = yes
-		ai_fast_frigates_modifier = yes
-		modifier = {
-			factor = 0
-			building_regimental_grounds_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = regimental_grounds_01
-			}
-		}
-		modifier = {
-			factor = 0
-			building_farm_estates_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = farm_estates_01
-			}
-		}
-		modifier = {
-			factor = 0
-			building_orchards_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = orchards_01
-			}
-		}
 		modifier = {
 			add = -10
 			has_building_or_higher = city_01
@@ -2952,7 +2696,7 @@ marines_01 = {
 	}
 }
 marines_02 = {
-	construction_time = normal_construction_time
+	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		building_marines_requirement_terrain = yes
@@ -2989,7 +2733,7 @@ marines_02 = {
 	}
 }
 marines_03 = {
-	construction_time = normal_construction_time
+	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		building_marines_requirement_terrain = yes
@@ -3002,10 +2746,6 @@ marines_03 = {
 		scope:holder.culture = {
 			has_innovation = innovation_burhs
 		}
-	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
 	}
 	
 	cost_gold = normal_building_tier_3_cost
@@ -3030,7 +2770,7 @@ marines_03 = {
 	}
 }
 marines_04 = {
-	construction_time = normal_construction_time
+	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		building_marines_requirement_terrain = yes
@@ -3043,10 +2783,6 @@ marines_04 = {
 		scope:holder.culture = {
 			has_innovation = innovation_burhs
 		}
-	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
 	}
 	
 	cost_gold = normal_building_tier_4_cost
@@ -3070,7 +2806,7 @@ marines_04 = {
 	}
 }
 marines_05 = {
-	construction_time = normal_construction_time
+	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		building_marines_requirement_terrain = yes
@@ -3083,10 +2819,6 @@ marines_05 = {
 		scope:holder.culture = {
 			has_innovation = innovation_castle_baileys
 		}
-	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
 	}
 	
 	cost_gold = normal_building_tier_5_cost
@@ -3113,7 +2845,7 @@ marines_05 = {
 	}
 }
 marines_06 = {
-	construction_time = normal_construction_time
+	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		building_marines_requirement_terrain = yes
@@ -3126,10 +2858,6 @@ marines_06 = {
 		scope:holder.culture = {
 			has_innovation = innovation_castle_baileys
 		}
-	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
 	}
 	
 	cost_gold = normal_building_tier_6_cost
@@ -3156,7 +2884,7 @@ marines_06 = {
 	}
 }
 marines_07 = {
-	construction_time = normal_construction_time
+	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		building_marines_requirement_terrain = yes
@@ -3169,10 +2897,6 @@ marines_07 = {
 		scope:holder.culture = {
 			has_innovation = innovation_royal_armory
 		}
-	}
-	
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
 	}
 
 	cost_gold = normal_building_tier_7_cost
@@ -3200,7 +2924,7 @@ marines_07 = {
 	}
 }
 marines_08 = {
-	construction_time = normal_construction_time
+	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		building_marines_requirement_terrain = yes
@@ -3213,10 +2937,6 @@ marines_08 = {
 		scope:holder.culture = {
 			has_innovation = innovation_royal_armory
 		}
-	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
 	}
 	
 	cost_gold = normal_building_tier_8_cost
@@ -3282,56 +3002,12 @@ grav_forges_01 = {
 		ai_stacking_bonus_wind_furnaces_modifier = yes
 		ai_anti_synergy_cavalry_modifier = yes
 		ai_anti_synergy_light_infantry_modifier = yes
-		ai_cruisers_modifier = yes
-		ai_destroyers_modifier = yes
 		modifier = {
 			add = non_stationed_maa_bonus
 			has_stationed_regiment = yes
 			NOR = {
 				has_stationed_regiment_of_base_type = destroyers
 				has_stationed_regiment_of_base_type = cruisers
-			}
-		}
-		modifier = {
-			factor = 0
-			building_regimental_grounds_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = regimental_grounds_01
-			}
-		}
-		modifier = {
-			factor = 0
-			building_farm_estates_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = farm_estates_01
-			}
-		}
-		modifier = {
-			factor = 0
-			building_orchards_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = orchards_01
-			}
-		}
-		modifier = {
-			factor = 0
-			building_horse_pastures_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = horse_pastures_01
-			}
-		}
-		modifier = {
-			factor = 0
-			building_hillside_grazing_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = hillside_grazing_01
-			}
-		}
-		modifier = {
-			factor = 0
-			building_warrior_lodges_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = warrior_lodges_01
 			}
 		}
 		modifier = {
@@ -3498,7 +3174,6 @@ grav_forges_04 = {
 }
 grav_forges_05 = {
 	construction_time = quick_construction_time
-	effect_desc = grav_forges_effect_desc
 
 	can_construct_potential = {
 		building_grav_forges_requirement_terrain = yes
@@ -3541,7 +3216,6 @@ grav_forges_05 = {
 }
 grav_forges_06 = {
 	construction_time = quick_construction_time
-	effect_desc = grav_forges_effect_desc
 
 	can_construct_potential = {
 		building_grav_forges_requirement_terrain = yes
@@ -3585,7 +3259,6 @@ grav_forges_06 = {
 }
 grav_forges_07 = {
 	construction_time = quick_construction_time
-	effect_desc = grav_forges_effect_desc
 
 	can_construct_potential = {
 		building_grav_forges_requirement_terrain = yes
@@ -3629,7 +3302,6 @@ grav_forges_07 = {
 }
 grav_forges_08 = {
 	construction_time = quick_construction_time
-	effect_desc = grav_forges_effect_desc
 
 	can_construct_potential = {
 		building_grav_forges_requirement_terrain = yes
@@ -3716,30 +3388,7 @@ linked_defense_01 = {
 		ai_stacking_bonus_camel_farms_modifier = yes
 		ai_stacking_bonus_horse_pastures_modifier = yes
 		ai_stacking_bonus_stables_modifier = yes
-		ai_ew_cruisers_modifier = yes
 		ai_light_cavalry_modifier = yes
-		ai_fast_frigates_modifier = yes
-		modifier = {
-			factor = 0
-			building_regimental_grounds_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = regimental_grounds_01
-			}
-		}
-		modifier = {
-			factor = 0
-			building_farm_estates_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = farm_estates_01
-			}
-		}
-		modifier = {
-			factor = 0
-			building_orchards_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = orchards_01
-			}
-		}
 		modifier = {
 			add = -10
 			has_building_or_higher = city_01
@@ -3805,10 +3454,6 @@ linked_defense_03 = {
 			has_innovation = innovation_castle_baileys
 		}
 	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
-	}
 	
 	cost_gold = normal_building_tier_3_cost
 	
@@ -3850,10 +3495,6 @@ linked_defense_04 = {
 			has_innovation = innovation_castle_baileys
 		}
 	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
-	}
 	
 	cost_gold = normal_building_tier_4_cost
 	
@@ -3894,10 +3535,6 @@ linked_defense_05 = {
 		scope:holder.culture = {
 			has_innovation = innovation_royal_armory
 		}
-	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
 	}
 	
 	cost_gold = normal_building_tier_5_cost
@@ -3941,10 +3578,6 @@ linked_defense_06 = {
 			has_innovation = innovation_royal_armory
 		}
 	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
-	}
 	
 	cost_gold = normal_building_tier_6_cost
 	
@@ -3987,10 +3620,6 @@ linked_defense_07 = {
 			has_innovation = innovation_royal_armory
 		}
 	}
-	
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
-	}
 
 	cost_gold = normal_building_tier_7_cost
 	
@@ -4032,10 +3661,6 @@ linked_defense_08 = {
 		scope:holder.culture = {
 			has_innovation = innovation_royal_armory
 		}
-	}
-
-	can_construct_showing_failures_only = {
-		building_requirement_tribal = no
 	}
 	
 	cost_gold = normal_building_tier_8_cost

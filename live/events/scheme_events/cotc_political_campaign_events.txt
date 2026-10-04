@@ -34,7 +34,7 @@ scripted_effect cotc_announce_political_campaign_progress = {
 		}
 	}
 	scope:location ?= {
-		owner = {
+		province_owner ?= {
 			add_to_temporary_list = temp_interested_parties
 			diarch ?= { add_to_temporary_list = temp_interested_parties }
 		}
@@ -96,7 +96,7 @@ scripted_effect cotc_announce_political_campaign_sabotage = {
 		}
 	}
 	scope:location ?= {
-		owner = {
+		province_owner ?= {
 			add_to_temporary_list = temp_interested_parties
 			diarch ?= { add_to_temporary_list = temp_interested_parties }
 		}
@@ -1413,19 +1413,19 @@ cotc_political_campaign_events.400 = { # Endorsement by a major interest group
 	}
 	weight_multiplier = {
 		base = -1
-		factor = { add = piety_level }
-		factor = { add = prestige_level }
+		modifier = { add = piety_level }
+		modifier = { add = prestige_level }
 	}
 	immediate = {
 		if = {
 			limit = { exists = scope:legislature }
-			set_interest_group = { TITLE = scope:legislature.var:legislature_title }
+			set_interest_group = { TITLE = scope:legislature.var:legislature_title OWNER = scope:legislature.var:legislature_title.holder }
 		}
-		else = { set_interest_group = { TITLE = scope:campaign.scheme_target_title } }
+		else = { set_interest_group = { TITLE = scope:campaign.scheme_target_title OWNER = scope:campaign.scheme_target_title.holder } }
 	}
 	option = {
 		name = cotc_political_campaign_events.400.a
-		desc = major_election_campaign_strength_gain_desc
+		custom_tooltip = major_election_campaign_strength_gain_desc
 		scope:campaign = { change_variable = { name = public_campaign_strength add = major_campaign_strength_change } }
 		cotc_announce_political_campaign_progress = { EVENT_TYPE = major_interest_group_endorsement }
 	}
@@ -1467,10 +1467,10 @@ cotc_political_campaign_events.500 = { # Endorsement by a minor interest group
 	weight_multiplier = {
 		base = 10
 	}
-	immediate = { set_interest_group = { TITLE = scope:location } }
+	immediate = { set_interest_group = { TITLE = scope:location OWNER = scope:location.province_owner } }
 	option = {
 		name = cotc_political_campaign_events.500.a
-		desc = miniscule_election_campaign_strength_gain_desc
+		custom_tooltip = miniscule_election_campaign_strength_gain_desc
 		scope:campaign = { change_variable = { name = public_campaign_strength add = miniscule_campaign_strength_change } }
 		cotc_announce_political_campaign_progress = { EVENT_TYPE = minor_interest_group_endorsement }
 	}

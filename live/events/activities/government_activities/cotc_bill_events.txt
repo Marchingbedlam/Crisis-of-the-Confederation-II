@@ -55,7 +55,7 @@ cotc_bill_events.10 = {
 	
 	option = {
 		name = cotc_bill_events.10.a
-		hidden_effect = { change_variable = { name = ai_faith_in_democracy subtract = 10 } }
+		hidden_effect = { change_ai_faith_in_democracy_effect = { VALUE = -10 } }
 		add_prestige = {
 			value = -300
 			multiply = tier_multiplier
@@ -220,7 +220,7 @@ cotc_bill_events.100 = {
 	
 	option = {
 		name = cotc_bill_events.100.a
-		hidden_effect = { change_variable = { name = ai_faith_in_democracy add = 5 } }
+		hidden_effect = { change_ai_faith_in_democracy_effect = { VALUE = 5 } }
 		scope:activity = { progress_activity_phase_after = { days = 1 } }
 	}
 }
@@ -336,7 +336,7 @@ cotc_bill_events.155 = {
 								is_target_in_variable_list = { target = PREV name = possible_lobbyists }
 							}
 						}
-						add_to_guest_subset = { name = possible_lobbyists target = PREV }
+						add_to_variable_list = { name = possible_lobbyists target = PREV }
 					}
 				}
 			}
@@ -1141,7 +1141,7 @@ cotc_bill_events.440 = {
 		ai_chance = {
 			base = 100
 			modifier = { add = scope:actor.ai_honor }
-			modifier = { add = scope:actor.var:trustworthiness }
+			modifier = { scope:actor = { has_variable = trustworthiness } add = scope:actor.var:trustworthiness }
 			modifier = {
 				add = "opinion(scope:actor)"
 				ai_vengefulness > ai_rationality

@@ -37,6 +37,7 @@
 pass_vassal_government_law_effect = {
 	save_scope_value_as = { name = power_base value = $POWER_BASE$ }
 	save_scope_value_as = { name = legitimacy value = $LEGITIMACY$ }
+	save_scope_value_as = { name = old_legitimacy value = flag:none }
 	switch = {
 		trigger = scope:power_base
 		flag:military = {
@@ -91,7 +92,7 @@ pass_vassal_government_law_effect = {
 	custom_tooltip = {
 		text = change_province_governments_tt
 		every_vassal_or_below = {
-			debug_log = "[THIS.Char.Custom('GetBestName')] checking for government change..."
+			debug_log = "Vassal government law: checking for government change"
 			if = {
 				limit = {
 					subject_to_vassal_government_laws_trigger = { LIEGE = scope:enacting_ruler }
@@ -729,7 +730,7 @@ set_to_default_state_government = {
 		}
 		become_specified_state_government = { POWER_BASE = scope:power_base LEGITIMACY = scope:legitimacy AUTHORITY = scope:authority }
 	}
-	else = { debug_log = "Attempted to set default state government for [THIS.Char.Custom('GetBestName')], but failed due to missing specifications." }
+	else = { debug_log = "Attempted to set default state government, but failed due to missing specifications" }
 }
 select_power_base_by_province = {
 	switch = {

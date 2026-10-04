@@ -88,7 +88,7 @@
 				liege = scope:defender
 			}
 			trigger_if = {
-				limit = { faith = has_doctrine_parameter = cannot_use_invasion_cb_against_coreligionists }
+				limit = { faith = { has_doctrine_parameter = cannot_use_invasion_cb_against_coreligionists } }
 				NOT = { faith = scope:defender.faith }
 			}
 		}

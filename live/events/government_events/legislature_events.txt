@@ -57,7 +57,7 @@ legislature_events.10 = { # You've been elected as a legislator
 			}
 		}
 		else = {
-			liege = {
+			liege ?= {
 				send_interface_message = {
 					type = msg_legislator_elected
 					title = legislature_events.10.legislator_elected.tt
@@ -110,7 +110,7 @@ legislature_events.11 = { # You've been re-elected
 			}
 		}
 		else = {
-			liege = {
+			liege ?= {
 				send_interface_message = {
 					type = msg_legislator_elected
 					title = legislature_events.11.legislator_elected.tt
@@ -172,6 +172,10 @@ legislature_events.100 = { # Legislature abolished
 	
 	immediate = {
 		save_scope_as = ruler
+		random_held_title = {
+			limit = { has_variable = legislature }
+			var:legislature = { save_scope_as = situation }
+		}
 		scope:situation = {
 			situation_participant_group:vassals = { every_situation_group_participant = { trigger_event = { id = legislature_events.101 } } }
 		}

@@ -16,9 +16,126 @@ pathetic_military_strength_threshold = {
 }
 threat_to = {
 	value = 0
-	ai_military_threat_modifier_with_cbs = {
-		SENDER = scope:threat_target
-		RECEIVER = THIS
-		MULTIPLIER = 1
+	# Script-value port of vanilla ai_military_threat_modifier_with_cbs
+	save_temporary_scope_as = threat_source
+	if = {
+		limit = {
+			scope:threat_target = { NOT = { has_government = herder_government } }
+			NOT = { has_any_cb_on = scope:threat_target }
+		}
+		add = dominant_negative_ai_value
+	}
+	scope:threat_target = {
+		every_held_title = {
+			limit = {
+				tier >= tier_county
+				any_claimant = { this = scope:threat_source }
+				save_temporary_scope_as = title_temp
+			}
+			add = {
+				value = low_positive_ai_value
+				if = {
+					limit = { scope:threat_source = { has_strong_claim_on = scope:title_temp } }
+					multiply = 2
+				}
+				multiply = {
+					value = scope:title_temp.tier
+					add = -1
+				}
+				if = {
+					limit = { scope:threat_source = { government_has_flag = government_is_mandala } }
+					divide = 2
+				}
+			}
+		}
+	}
+	if = {
+		limit = {
+			scope:threat_target.current_power_ninety_percent_value < military_power
+			scope:threat_target.military_power > current_power_ninety_percent_value
+		}
+		add = {
+			value = 10
+			if = {
+				limit = { government_has_flag = government_is_mandala }
+				divide = 2
+			}
+		}
+	}
+	if = {
+		limit = { scope:threat_target.current_power_ninety_percent_value > military_power }
+		add = {
+			value = military_power
+			divide = {
+				value = scope:threat_target.military_power
+				min = 1
+			}
+			subtract = 1
+			multiply = 50
+			max = 50
+			if = {
+				limit = { government_has_flag = government_is_mandala }
+				divide = 2
+			}
+		}
+	}
+	if = {
+		limit = { scope:threat_target.current_power_ninety_percent_value < military_power }
+		add = {
+			value = scope:threat_target.military_power
+			divide = {
+				value = military_power
+				min = 1
+			}
+			subtract = 1
+			multiply = -50
+			min = -50
+			if = {
+				limit = { government_has_flag = government_is_mandala }
+				divide = 2
+			}
+		}
+	}
+	if = {
+		limit = {
+			scope:threat_target = { any_ally = { exists = this } }
+			scope:threat_target.current_power_ninety_percent_value < military_power
+			scope:threat_target.current_power_with_allies_value > current_power_with_allies_value
+		}
+		add = {
+			value = scope:threat_target.current_power_with_allies_value
+			divide = {
+				value = current_power_with_allies_value
+				min = 1
+			}
+			subtract = 1
+			multiply = -50
+			min = -50
+			if = {
+				limit = { government_has_flag = government_is_mandala }
+				divide = 2
+			}
+		}
+	}
+	if = {
+		limit = {
+			any_ally = { exists = this }
+			scope:threat_target.current_power_ninety_percent_value > military_power
+			scope:threat_target.current_power_with_allies_value < current_power_with_allies_value
+		}
+		add = {
+			value = current_power_with_allies_value
+			divide = {
+				value = scope:threat_target.current_power_with_allies_value
+				min = 1
+			}
+			subtract = 1
+			multiply = 50
+			max = 50
+			if = {
+				limit = { government_has_flag = government_is_mandala }
+				divide = 2
+			}
+		}
 	}
 }
