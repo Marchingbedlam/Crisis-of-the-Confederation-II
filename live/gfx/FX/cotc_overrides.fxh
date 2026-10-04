@@ -44,17 +44,40 @@ PixelShader =
 			COTC_ApplyHighlightColorValue( Diffuse, COTC_GetHighlightColor( WorldSpacePosXZ ) );
 		}
 
+		static const float COTC_TERMINATOR_LIGHT_ANGLE = 30.0f;
+		static const float COTC_TERMINATOR_DARK_ANGLE  = 140.0f;
+		static const float COTC_TERMINATOR_PEAK = 0.39f;
+		static const float COTC_TERMINATOR_NIGHT_FLOOR = 0.005f;
+		static const float COTC_TERMINATOR_FADE_CURVE = 2.5f;
+
+		float COTC_TerminatorRamp( float RawNdotL )
+		{
+			float Angle = degrees( acos( clamp( RawNdotL, -1.0f, 1.0f ) ) );
+			float Night = smoothstep( COTC_TERMINATOR_LIGHT_ANGLE, COTC_TERMINATOR_DARK_ANGLE, Angle );
+			float OnScreen = exp2( log2( COTC_TERMINATOR_NIGHT_FLOOR ) * pow( Night, COTC_TERMINATOR_FADE_CURVE ) );
+
+			// Display ~2.2 gamma
+			return COTC_TERMINATOR_PEAK * pow( OnScreen, 2.2f );
+		}
+
+		static const float COTC_STARLIT_SHADOW_MAP_STRENGTH = 0.0f;
+
 		void COTC_CalculateLightingFromLight( SMaterialProperties MaterialProps, float3 ToCameraDir, float3 ToLightDir, float3 LightIntensity, float ShadowStrength, out float3 DiffuseOut, out float3 SpecularOut )
 		{
 			float3 H = normalize( ToCameraDir + ToLightDir );
 			float NdotV = saturate( dot( MaterialProps._Normal, ToCameraDir ) ) + 1e-5;
 			float RawNdotL = dot( MaterialProps._Normal, ToLightDir );
-			float TerminatorSoftness = 0.5f;
-			float NdotL = smoothstep( -TerminatorSoftness, 3.0f, RawNdotL);
+			float NdotL = COTC_TerminatorRamp( RawNdotL );
 			float NdotH = saturate( dot( MaterialProps._Normal, H ) );
 			float LdotH = saturate( dot( ToLightDir, H ) );
 			
-			float DiffuseBRDF = CalcDiffuseBRDF( NdotV, NdotL, LdotH, MaterialProps._PerceptualRoughness );
+			#ifdef COTC_NO_SHADOW
+				float DiffuseBRDF = CalcDiffuseBRDF( NdotV, NdotL, LdotH, MaterialProps._PerceptualRoughness );
+			#else
+				// Star-lit bodies use plain Lambert: Disney diffuse expects a real cosine, and fed the
+				// ramp it boosts the twilight zone by up to its grazing factor (f90), a visible band
+				float DiffuseBRDF = 1.0f / PI;
+			#endif
 
 			#ifdef COTC_NO_SHADOW
 				NdotL = 1.0f;
@@ -176,8 +199,12 @@ PixelShader =
 		
 		SLightingProperties COTC_GetSunLightingProperties( float3 WorldSpacePos, float3 LightPos, PdxTextureSampler2DCmp ShadowMap )
 		{
-			float4 ShadowProj = mul( ShadowMapTextureMatrix, float4( WorldSpacePos, 1.0 ) );
-			float ShadowTerm = COTC_CalculateShadow( ShadowProj, ShadowMap );
+			float ShadowTerm = 1.0f;
+			if ( COTC_STARLIT_SHADOW_MAP_STRENGTH > 0.0f )
+			{
+				float4 ShadowProj = mul( ShadowMapTextureMatrix, float4( WorldSpacePos, 1.0 ) );
+				ShadowTerm = lerp( 1.0f, COTC_CalculateShadow( ShadowProj, ShadowMap ), COTC_STARLIT_SHADOW_MAP_STRENGTH );
+			}
 			return COTC_GetSunLightingProperties( WorldSpacePos, LightPos, ShadowTerm );
 		}
 	]]

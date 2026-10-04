@@ -127,7 +127,7 @@ Code
 	// One star lights the whole object, so look it up at the object pivot
 	float3 COTC_GetStarlightPos( float4x4 WorldMatrix )
 	{
-		#if defined( COTC_NO_SHADOW )
+		#if defined( COTC_NO_SHADOW ) && !defined( COTC_OUTER_FRESNEL_SUNLIT )
 			return float3( 0.0f, 0.0f, 0.0f );
 		#else
 			float3 Pivot = mul( WorldMatrix, float4( 0.0f, 0.0f, 0.0f, 1.0f ) ).xyz;
@@ -274,6 +274,7 @@ VertexStruct VS_OUTPUT
 	float3 WorldSpacePos	: TEXCOORD5;
 	uint InstanceIndex 	: TEXCOORD6;
 	float3 StarlightPos		: TEXCOORD7;
+	float3 ObjectCenter		: TEXCOORD8;
 };
 
 VertexShader =
@@ -316,9 +317,11 @@ VertexShader =
 		[[
 			PDX_MAIN
 			{
+				float4x4 WorldMatrix = PdxMeshGetWorldMatrix( Input.InstanceIndices.y );
 				VS_OUTPUT Out = ConvertOutput( PdxMeshVertexShaderStandard( Input ) );
 				Out.InstanceIndex = Input.InstanceIndices.y;
-				Out.StarlightPos = COTC_GetStarlightPos( PdxMeshGetWorldMatrix( Input.InstanceIndices.y ) );
+				Out.StarlightPos = COTC_GetStarlightPos( WorldMatrix );
+				Out.ObjectCenter = mul( WorldMatrix, float4( 0.0f, 0.0f, 0.0f, 1.0f ) ).xyz;
 				return Out;
 			}
 		]]
@@ -336,6 +339,7 @@ VertexShader =
 				VS_OUTPUT Out = ConvertOutput( PdxMeshVertexShader( PdxMeshConvertInput( Input ), 0/*Skinning data not supported*/, WorldMatrix ) );
 				Out.InstanceIndex = Input.InstanceIndex24_Opacity8;
 				Out.StarlightPos = COTC_GetStarlightPos( WorldMatrix );
+				Out.ObjectCenter = mul( WorldMatrix, float4( 0.0f, 0.0f, 0.0f, 1.0f ) ).xyz;
 				return Out;
 			}
 		]]
@@ -350,27 +354,35 @@ PixelShader =
 		static const float COTC_BLACK_HOLE_EMISSIVE_BOOST	= 5.0f;
 		static const float COTC_NEUTRON_EMISSIVE_BOOST		= 3.0f;
 
-		// COTC_OUTER_FRESNEL fades a shell out where it faces the camera (atmospheres, glows);
-		// COTC_INNER_FRESNEL tints the body's edge with the fresnel texture.
-		//                                           outer power  inner F0  inner power  inner offset
-		static const float4 COTC_FRESNEL_STANDARD   = float4( 0.3f,      0.1f,     4.0f,        0.0f );
-		static const float4 COTC_FRESNEL_NEUTRON    = float4( 0.1f,      0.01f,    2.0f,        0.1f );
-		static const float4 COTC_FRESNEL_BLACK_HOLE = float4( 0.1f,      0.1f,     8.0f,        0.1f );
+		// power, edge fade, night alpha, terminator
+		static const float4 COTC_FRESNEL_STANDARD_OUTER   = float4( 0.4f, 1.0f, 0.1f, 0.4f );
+		static const float4 COTC_FRESNEL_NEUTRON_OUTER    = float4( 0.1f, 1.0f, 1.0f, 0.4f );
+		static const float4 COTC_FRESNEL_BLACK_HOLE_OUTER = float4( 0.1f, 1.0f, 1.0f, 0.4f );
 
-		// Inner power drops as province colours fade in. InnerMask scales the inner rim (1 = none).
-		void COTC_ApplyFresnel( inout float3 Color, inout float Alpha, float4 Settings, float2 FresnelUV, float3 WorldSpacePos, float3 Normal, float3 ProvinceOverlayColor, float ProvinceStrength, float InnerMask )
+		// F0, power, offset
+		static const float4 COTC_FRESNEL_STANDARD_INNER   = float4( 0.1f, 4.0f, 0.0f, 0.0f );
+		static const float4 COTC_FRESNEL_NEUTRON_INNER    = float4( 0.01f, 2.0f, 0.1f, 0.0f );
+		static const float4 COTC_FRESNEL_BLACK_HOLE_INNER = float4( 0.1f, 8.0f, 0.1f, 0.0f );
+
+		void COTC_ApplyFresnel( inout float3 Color, inout float Alpha, float4 Outer, float4 Inner, float2 FresnelUV, float3 WorldSpacePos, float3 Normal, float3 ProvinceOverlayColor, float ProvinceStrength, float InnerMask, float SunNdotL )
 		{
 			#if defined( COTC_OUTER_FRESNEL ) || defined( COTC_INNER_FRESNEL )
 				float3 FresnelColor = lerp( PdxTex2D( FresnelMap, FresnelUV ).rgb, ProvinceOverlayColor, ProvinceStrength );
 				float  NdotV = saturate( abs( dot( normalize( WorldSpacePos - CameraPosition ), Normal ) ) );
 
 				#if defined( COTC_OUTER_FRESNEL )
-					Alpha -= saturate( Fresnel( NdotV, 0.1f, Settings.x ) );
+					float EdgeFade = smoothstep( 0.0f, Outer.y, NdotV );
+
+					// Day/night dimming
+					float Sunlit  = smoothstep( -Outer.w, Outer.w, SunNdotL );
+					float SunFade = lerp( lerp( Outer.z, 1.0f, Sunlit ), 1.0f, ProvinceStrength );
+
+					Alpha = saturate( Alpha - Fresnel( NdotV, 0.1f, Outer.x ) ) * EdgeFade * SunFade;
 					Color = FresnelColor;
 				#endif
 
 				#if defined( COTC_INNER_FRESNEL )
-					float FresnelFactor = saturate( ( Fresnel( NdotV, Settings.y, Settings.z - ProvinceStrength ) - Settings.w ) * InnerMask );
+					float FresnelFactor = saturate( ( Fresnel( NdotV, Inner.x, Inner.y - ProvinceStrength ) - Inner.z ) * InnerMask );
 					Color = lerp( Color, FresnelColor, FresnelFactor );
 				#endif
 			#endif
@@ -520,7 +532,7 @@ PixelShader =
 				float PostLightingBlend;
 				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend, 0.0f );
 
-				COTC_ApplyFresnel( Color, Alpha, COTC_FRESNEL_BLACK_HOLE, DIFFUSE_UV_SET, Input.WorldSpacePos, Input.Normal, ProvinceOverlayColor, ProvinceStrength, 1.0f );
+				COTC_ApplyFresnel( Color, Alpha, COTC_FRESNEL_BLACK_HOLE_OUTER, COTC_FRESNEL_BLACK_HOLE_INNER, DIFFUSE_UV_SET, Input.WorldSpacePos, Input.Normal, ProvinceOverlayColor, ProvinceStrength, 1.0f, 1.0f );
 
 				#if defined( COTC_EMISSIVE_BLACK_HOLE )
 					Color *= COTC_BLACK_HOLE_EMISSIVE_BOOST;
@@ -564,7 +576,7 @@ PixelShader =
 				float PostLightingBlend;
 				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend, 0.0f );
 
-				COTC_ApplyFresnel( Color, Alpha, COTC_FRESNEL_NEUTRON, DIFFUSE_UV_SET, Input.WorldSpacePos, Input.Normal, ProvinceOverlayColor, ProvinceStrength, 1.0f );
+				COTC_ApplyFresnel( Color, Alpha, COTC_FRESNEL_NEUTRON_OUTER, COTC_FRESNEL_NEUTRON_INNER, DIFFUSE_UV_SET, Input.WorldSpacePos, Input.Normal, ProvinceOverlayColor, ProvinceStrength, 1.0f, 1.0f );
 
 				#if defined( COTC_EMISSIVE_NEUTRON )
 					Color *= COTC_NEUTRON_EMISSIVE_BOOST;
@@ -667,7 +679,19 @@ PixelShader =
 				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend, 0.0f );
 
 				float InSun = lerp( saturate( dot( LightingProps._ToLightDir, Input.Normal ) ), 1.0f, ProvinceStrength );
-				COTC_ApplyFresnel( Color, Alpha, COTC_FRESNEL_STANDARD, DIFFUSE_UV_SET, Input.WorldSpacePos, Input.Normal, ProvinceOverlayColor, ProvinceStrength, InSun );
+
+				// Planet atmospheres are COTC_NO_SHADOW, so their lighting only knows the global sun;
+				// the system's star comes from the per-vertex starlight lookup instead
+				#if defined( COTC_OUTER_FRESNEL_SUNLIT )
+					// Outward direction from the shell's centre, not the mesh normal: using the
+					// atmosphere mesh's normal put the night side towards the star
+					float3 Outward  = normalize( Input.WorldSpacePos - Input.ObjectCenter );
+					float  SunNdotL = dot( normalize( Input.StarlightPos - Input.WorldSpacePos ), Outward );
+				#else
+					float SunNdotL = 1.0f;
+				#endif
+
+				COTC_ApplyFresnel( Color, Alpha, COTC_FRESNEL_STANDARD_OUTER, COTC_FRESNEL_STANDARD_INNER, DIFFUSE_UV_SET, Input.WorldSpacePos, Input.Normal, ProvinceOverlayColor, ProvinceStrength, InSun, SunNdotL );
 
 				#if defined( COTC_EMISSIVE_STAR )
 					Color *= COTC_STAR_EMISSIVE_BOOST;
@@ -724,7 +748,7 @@ Effect cotc_planet_atmosphere
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_standard"
 	BlendState = "alpha_blend"
-	Defines = { "COTC_OUTER_FRESNEL" "COTC_NO_SHADOW" }
+	Defines = { "COTC_OUTER_FRESNEL" "COTC_NO_SHADOW" "COTC_OUTER_FRESNEL_SUNLIT" }
 	DepthStencilState = DepthStencilStateNoWrite
 }
 
