@@ -47,8 +47,8 @@ PixelShader =
 		static const float COTC_TERMINATOR_LIGHT_ANGLE = 30.0f;
 		static const float COTC_TERMINATOR_DARK_ANGLE  = 140.0f;
 		static const float COTC_TERMINATOR_PEAK = 0.39f;
-		static const float COTC_TERMINATOR_NIGHT_FLOOR = 0.005f;
-		static const float COTC_TERMINATOR_FADE_CURVE = 2.5f;
+		static const float COTC_TERMINATOR_NIGHT_FLOOR = 0.01f;
+		static const float COTC_TERMINATOR_FADE_CURVE = 3.0f;
 
 		float COTC_TerminatorRamp( float RawNdotL )
 		{

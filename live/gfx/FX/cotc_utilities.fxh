@@ -7,12 +7,12 @@ Includes = {
 
 PixelShader = {
 	Code [[
-		float4 COTC_ApplyBackgroundEffects(float3 MapColor, float MapAlpha, float MapVisibility, float3 WorldSpacePos, int StarLayerMult)
+		float4 COTC_ApplyBackgroundEffects(float3 MapColor, float MapAlpha, float MapVisibility, float3 WorldSpacePos)
 		{
 			float3 Color = float3(0.0f, 0.0f, 0.0f);
 			float  Alpha = 0.0f;
 
-			COTC_ApplyStars(Color, Alpha, WorldSpacePos, StarLayerMult);
+			COTC_ApplyStars(Color, Alpha, WorldSpacePos);
 			COTC_BlendOver(Color, Alpha, MapColor, MapAlpha*MapVisibility);
 			COTC_ApplyNebula(Color, Alpha, WorldSpacePos, MapVisibility);
 

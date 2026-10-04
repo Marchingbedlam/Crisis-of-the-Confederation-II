@@ -355,7 +355,7 @@ PixelShader =
 		static const float COTC_NEUTRON_EMISSIVE_BOOST		= 3.0f;
 
 		// power, edge fade, night alpha, terminator
-		static const float4 COTC_FRESNEL_STANDARD_OUTER   = float4( 0.4f, 1.0f, 0.1f, 0.4f );
+		static const float4 COTC_FRESNEL_STANDARD_OUTER   = float4( 1.5f, 2.0f, 0.1f, 0.4f );
 		static const float4 COTC_FRESNEL_NEUTRON_OUTER    = float4( 0.1f, 1.0f, 1.0f, 0.4f );
 		static const float4 COTC_FRESNEL_BLACK_HOLE_OUTER = float4( 0.1f, 1.0f, 1.0f, 0.4f );
 
@@ -409,7 +409,7 @@ PixelShader =
 				float EdgeVisibility = COTC_GetMapEdgeFade( ColorMapCoords ) * SurroundMaskValue;
 				if ( EdgeVisibility <= 0.0f )
 				{
-					return COTC_DitherOutput( COTC_ApplyBackgroundEffects( float3( 0.0f, 0.0f, 0.0f ), 0.0f, 0.0f, Input.WorldSpacePos, 2 ), Input.Position.xy );
+					return COTC_DitherOutput( COTC_ApplyBackgroundEffects( float3( 0.0f, 0.0f, 0.0f ), 0.0f, 0.0f, Input.WorldSpacePos), Input.Position.xy );
 				}
 
 				float HeightFactor = COTC_GetProvinceColorFade();
@@ -443,34 +443,9 @@ PixelShader =
 				Alpha *= SectorOpacity;
 
 				float3 Color = lerp(ProvinceOverlayColor, 0.0f, ProvinceStrength);
-
-				float RegionLayerMult = 2.0f;
-				if ( SystemMaskValue > 0.0f )
-				{
-					RegionLayerMult = 4.0f;
-				}
-
-				if ( CloudMaskValue > 0.0f )
-				{
-					RegionLayerMult = 1.0f;
-				}
-
-				if ( SectorMaskValue > 0.0f )
-				{
-					RegionLayerMult = 2.0f;
-				}
-
-				// The plane mask is clamp-sampled, so off the map it would smear the edge regions outward
-				if ( any( ColorMapCoords < 0.0f ) || any( ColorMapCoords > 1.0f ) )
-				{
-					RegionLayerMult = 2.0f;
-				}
-
-				int StarLayerMult = int( round( lerp( 2.0f, RegionLayerMult, HeightFactor ) ) );
-
 				COTC_ApplyHighlightColor(Color, ColorMapCoords);
 
-				return COTC_DitherOutput( COTC_ApplyBackgroundEffects( Color, Alpha, EdgeVisibility, Input.WorldSpacePos, StarLayerMult ), Input.Position.xy );
+				return COTC_DitherOutput( COTC_ApplyBackgroundEffects( Color, Alpha, EdgeVisibility, Input.WorldSpacePos), Input.Position.xy );
 			}
 		]]
 	}
