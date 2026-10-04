@@ -752,17 +752,17 @@ GetIdeologyInsult = {
 	text = {
 		trigger = {
 			OR = {
-				has_doctrine = tenet_cyberneticism
-				has_doctrine = tenet_bio_directionism
-				has_doctrine = tenet_genetic_dynasties
+				has_tenet = tenet_cyberneticism
+				has_tenet = tenet_bio_directionism
+				has_tenet = tenet_genetic_dynasties
 			}
 			trigger_if = {
 				limit = { exists = scope:insulting_faith }
 				scope:insulting_faith = {
 					NOR = {
-						has_doctrine = tenet_cyberneticism
-						has_doctrine = tenet_bio_directionism
-						has_doctrine = tenet_genetic_dynasties
+						has_tenet = tenet_cyberneticism
+						has_tenet = tenet_bio_directionism
+						has_tenet = tenet_genetic_dynasties
 					}
 				}
 			}
@@ -772,13 +772,13 @@ GetIdeologyInsult = {
 	text = {
 		trigger = {
 			OR = {
-				has_doctrine = tenet_cyberneticism
-				has_doctrine = tenet_bio_directionism
-				has_doctrine = tenet_genetic_dynasties
+				has_tenet = tenet_cyberneticism
+				has_tenet = tenet_bio_directionism
+				has_tenet = tenet_genetic_dynasties
 			}
 			trigger_if = {
 				limit = { exists = scope:insulting_faith }
-				scope:insulting_faith = { has_doctrine = tenet_human_purity }
+				scope:insulting_faith = { has_tenet = tenet_human_purity }
 			}
 		}
 		localization_key = "desecration_of_the_sacred_human_form_custom_loc"

@@ -84,7 +84,7 @@ tenet_aniconism = {
 	}
 
 	is_shown = {
-		rite_has_doctrine = religious_hostility_doctrine
+		has_doctrine = religious_hostility_doctrine
 	}
 
 	can_pick = {
@@ -235,15 +235,15 @@ tenet_alexandrian_catechism = {
 		}
 		custom_description = {
 			text = incompatible_tenet_literalism_trigger
-			NOT = { doctrine:tenet_literalism = { is_in_list = selected_doctrines } }
+			NOT = { tenet:tenet_literalism = { is_in_list = selected_doctrines } }
 		}
 		custom_description = {
 			text = incompatible_tenet_sacred_shadows_trigger
-			NOT = { doctrine:tenet_sacred_shadows = { is_in_list = selected_doctrines } }
+			NOT = { tenet:tenet_sacred_shadows = { is_in_list = selected_doctrines } }
 		}
 		custom_description = {
 			text = incompatible_tenet_pursuit_of_knowledge_trigger
-			NOT = { doctrine:tenet_pursuit_of_knowledge = { is_in_list = selected_doctrines } }
+			NOT = { tenet:tenet_pursuit_of_knowledge = { is_in_list = selected_doctrines } }
 		}
 	}
 
@@ -369,7 +369,7 @@ tenet_armed_pilgrimages = {
 		}
 	}
 	
-	is_shown = { NOT = { rite_has_doctrine = criminal_hostility_doctrine } }
+	is_shown = { NOT = { has_doctrine = criminal_hostility_doctrine } }
 
 	can_pick = {
 		custom_description = {
@@ -662,7 +662,7 @@ tenet_communion = {
 			multiply = faith_unchanged_doctrine_cost_mult
 		}
 	}
-	is_shown = { rite_has_doctrine = religious_hostility_doctrine }
+	is_shown = { has_doctrine = religious_hostility_doctrine }
 
 	can_pick = {
 		custom_description = {
@@ -797,17 +797,17 @@ tenet_consolamentum = {
 		}
 	}
 
-	is_shown = { NOT = { rite_has_doctrine = political_hostility_doctrine } }
+	is_shown = { NOT = { has_doctrine = political_hostility_doctrine } }
 
 	can_pick = {
-		NOT = { rite_has_doctrine = political_hostility_doctrine }
+		NOT = { has_doctrine = political_hostility_doctrine }
 		custom_description = {
 			text = incompatible_tenet_atonement_through_sacrifice_trigger
-			NOT = { doctrine:tenet_atonement_through_sacrifice = { is_in_list = selected_doctrines } }
+			NOT = { tenet:tenet_atonement_through_sacrifice = { is_in_list = selected_doctrines } }
 		}
 		custom_description = {
 			text = incompatible_tenet_sacrificial_ceremonies_trigger
-			NOT = { doctrine:tenet_sacrificial_ceremonies = { is_in_list = selected_doctrines } }
+			NOT = { tenet:tenet_sacrificial_ceremonies = { is_in_list = selected_doctrines } }
 		}
 	}
 
@@ -914,7 +914,7 @@ tenet_divine_marriage = {
 			value = faith_tenet_cost_high
 		}
 		else_if = {
-			limit = { rite_has_doctrine = tenet_bio_directionism }
+			limit = { rite_has_tenet = tenet_bio_directionism }
 			value = faith_tenet_cost_low
 		}
 		else = { value = faith_tenet_cost_mid }
@@ -1056,11 +1056,11 @@ tenet_gnosticism = {
 	}
 
 	is_shown = {
-		rite_has_doctrine = religious_hostility_doctrine # Does not make sense in a secular context
+		has_doctrine = religious_hostility_doctrine # Does not make sense in a secular context
 	}
 
 	can_pick = {
-		NOT = { rite_has_doctrine = special_doctrine_is_gnostic_faith }
+		NOT = { has_doctrine = special_doctrine_is_gnostic_faith }
 		custom_description = {
 			text = incompatible_tenet_eastern_syncretism_trigger
 			NOT = {
@@ -1247,12 +1247,12 @@ tenet_pacifism = {
 	}
 
 	is_shown = {
-		NOT = { rite_has_doctrine = criminal_hostility_doctrine }
+		NOT = { has_doctrine = criminal_hostility_doctrine }
 	}
 
 	can_pick = {
-		NOT = { rite_has_doctrine = special_doctrine_is_hindu_faith }
-		NOT = { rite_has_doctrine = special_doctrine_is_buddhist_faith }
+		NOT = { has_doctrine = special_doctrine_is_hindu_faith }
+		NOT = { has_doctrine = special_doctrine_is_buddhist_faith }
 		custom_description = {
 			text = incompatible_tenet_human_sacrifice_trigger
 			NOT = { tenet:tenet_human_sacrifice = { is_in_list = selected_doctrines } }
@@ -1420,7 +1420,7 @@ tenet_pentarchy = {
 		# Only the Christian reading of this tenet is the Pentarchy; every other faith gets generic Ecclesiarchy.
 		trigger_if = {
 			limit = {
-				rite_has_doctrine = special_doctrine_is_christian_faith
+				has_doctrine = special_doctrine_is_christian_faith
 				scope:actor ?= { is_ai = yes }
 			}
 			scope:actor = { pam_ai_pentarchy_christian_actor_trigger = yes }
@@ -1672,7 +1672,7 @@ tenet_pastoral_isolation = {
 	icon = tenet_pastoral_isolation
 
 	can_pick = {
-		rite_has_doctrine = special_doctrine_is_christian_faith
+		has_doctrine = special_doctrine_is_christian_faith
 		custom_description = {
 			text = doctrine_no_head_of_faith_trigger
 			doctrine:doctrine_no_head = { is_in_list = selected_doctrines }
@@ -1895,7 +1895,7 @@ tenet_esotericism = {
 		}
 	}
 	
-	is_shown = { rite_has_doctrine = religious_hostility_doctrine }
+	is_shown = { has_doctrine = religious_hostility_doctrine }
 
 	parameters = {
 		tenet_esotericism_mystic_education
@@ -1954,7 +1954,7 @@ tenet_legalism = {
 		}
 	}
 	
-	is_shown = { NOT = { rite_has_doctrine = criminal_hostility_doctrine } }
+	is_shown = { NOT = { has_doctrine = criminal_hostility_doctrine } }
 
 	traits = {
 		virtues = {
@@ -1988,7 +1988,7 @@ tenet_literalism = {
 	name = {
 		first_valid = {
 			triggered_desc = {
-				trigger = { has_doctrine = religious_hostility_doctrine }
+				trigger = { rite_has_doctrine = religious_hostility_doctrine }
 				desc = tenet_literalism_name
 			}
 			desc = tenet_literalism_secular_name
@@ -1997,7 +1997,7 @@ tenet_literalism = {
 	desc = {
 		first_valid = {
 			triggered_desc = {
-				trigger = { has_doctrine = religious_hostility_doctrine }
+				trigger = { rite_has_doctrine = religious_hostility_doctrine }
 				desc = tenet_literalism_desc
 			}
 			desc = tenet_literalism_secular_desc
@@ -2099,12 +2099,12 @@ tenet_reincarnation = {
 	}
 
 	is_shown = {
-		rite_has_doctrine = religious_hostility_doctrine
+		has_doctrine = religious_hostility_doctrine
 	}
 	
 	can_pick = {
-		NOT = { rite_has_doctrine = special_doctrine_is_christian_faith }
-		NOT = { rite_has_doctrine = special_doctrine_is_jewish_faith }
+		NOT = { has_doctrine = special_doctrine_is_christian_faith }
+		NOT = { has_doctrine = special_doctrine_is_jewish_faith }
 	}
 
 	parameters = {
@@ -2189,7 +2189,7 @@ tenet_religious_legal_pronouncements = {
 		}
 	}
 	
-	is_shown = { rite_has_doctrine = religious_hostility_doctrine } # Obviously religious law only makes sense in the context of religion
+	is_shown = { has_doctrine = religious_hostility_doctrine } # Obviously religious law only makes sense in the context of religion
 
 	parameters = {
 		temporal_condemnation_enabled
@@ -2239,9 +2239,9 @@ tenet_struggle_submission = {
 		}
 	}
 	
-	is_shown = { rite_has_doctrine = religious_hostility_doctrine }
+	is_shown = { has_doctrine = religious_hostility_doctrine }
 
-	can_pick = { rite_has_doctrine = special_doctrine_is_islamic_faith }
+	can_pick = { has_doctrine = special_doctrine_is_islamic_faith }
 	
 	parameters = {
 		great_holy_wars_active
@@ -2313,7 +2313,7 @@ tenet_false_conversion_sanction = {
 		}
 	}
 	
-	is_shown = { rite_has_doctrine = religious_hostility_doctrine }
+	is_shown = { has_doctrine = religious_hostility_doctrine }
 
 	parameters = {
 		sanctioned_false_conversion_county_resistance
@@ -2397,8 +2397,8 @@ tenet_tax_nonbelievers = {
 	}
 
 	can_pick = {
-		NOT = { rite_has_doctrine = special_doctrine_is_christian_faith }
-		NOT = { rite_has_doctrine = special_doctrine_jizya }
+		NOT = { has_doctrine = special_doctrine_is_christian_faith }
+		NOT = { has_doctrine = special_doctrine_jizya }
 	}
 
 	character_modifier = {
@@ -2536,7 +2536,7 @@ tenet_bhakti = {
 	}
 
 	can_pick = {
-		rite_has_doctrine = special_doctrine_is_hindu_faith # Only Hindus for now
+		has_doctrine = special_doctrine_is_hindu_faith # Only Hindus for now
 		custom_tooltip = {
 			text = incompatible_doctrine_monotheist
 			NOT = { doctrine:doctrine_monotheist = { is_in_list = selected_doctrines } }
@@ -2601,8 +2601,8 @@ tenet_dharmic_pacifism = { #Mix of reincarnation and pacifism rites
 
 	can_pick = {
 		OR = { 
-			rite_has_doctrine = special_doctrine_is_buddhist_faith
-			rite_has_doctrine = special_doctrine_is_hindu_faith
+			has_doctrine = special_doctrine_is_buddhist_faith
+			has_doctrine = special_doctrine_is_hindu_faith
 		}
 		custom_description = {
 			text = incompatible_tenet_human_sacrifice_trigger
@@ -2665,14 +2665,14 @@ tenet_inner_journey = {
 	icon = tenet_inner_journey
 	
 	is_shown = {
-		rite_has_doctrine = religious_hostility_doctrine
+		has_doctrine = religious_hostility_doctrine
 	}
 	
 	can_pick = {
 		NOR = { 
-			rite_has_doctrine = special_doctrine_is_christian_faith
-			rite_has_doctrine = special_doctrine_is_islamic_faith
-			rite_has_doctrine = special_doctrine_is_jewish_faith
+			has_doctrine = special_doctrine_is_christian_faith
+			has_doctrine = special_doctrine_is_islamic_faith
+			has_doctrine = special_doctrine_is_jewish_faith
 		}
 	}
 
@@ -2738,9 +2738,9 @@ tenet_ritual_hospitality = {
 
 	can_pick = {
 		NOR = {
-			rite_has_doctrine = special_doctrine_is_christian_faith
-			rite_has_doctrine = special_doctrine_is_islamic_faith
-			rite_has_doctrine = special_doctrine_is_jewish_faith
+			has_doctrine = special_doctrine_is_christian_faith
+			has_doctrine = special_doctrine_is_islamic_faith
+			has_doctrine = special_doctrine_is_jewish_faith
 		}
 	}
 
@@ -2823,16 +2823,16 @@ tenet_adorcism = {
 	}
 
 	is_shown = {
-		rite_has_doctrine = religious_hostility_doctrine
+		has_doctrine = religious_hostility_doctrine
 	}
 	
 	can_pick = {
 		NOR = {
-			rite_has_doctrine = special_doctrine_is_christian_faith
-			rite_has_doctrine = special_doctrine_is_islamic_faith
-			rite_has_doctrine = special_doctrine_is_jewish_faith
-			rite_has_doctrine = special_doctrine_is_hindu_faith
-			rite_has_doctrine = special_doctrine_is_buddhist_faith
+			has_doctrine = special_doctrine_is_christian_faith
+			has_doctrine = special_doctrine_is_islamic_faith
+			has_doctrine = special_doctrine_is_jewish_faith
+			has_doctrine = special_doctrine_is_hindu_faith
+			has_doctrine = special_doctrine_is_buddhist_faith
 		}
 	}
 
@@ -2892,11 +2892,11 @@ tenet_ancestor_worship = {
 
 	can_pick = {
 		NOR = {
-			rite_has_doctrine = special_doctrine_is_christian_faith
-			rite_has_doctrine = special_doctrine_is_islamic_faith
-			rite_has_doctrine = special_doctrine_is_jewish_faith
-			rite_has_doctrine = special_doctrine_is_hindu_faith
-			rite_has_doctrine = special_doctrine_is_buddhist_faith
+			has_doctrine = special_doctrine_is_christian_faith
+			has_doctrine = special_doctrine_is_islamic_faith
+			has_doctrine = special_doctrine_is_jewish_faith
+			has_doctrine = special_doctrine_is_hindu_faith
+			has_doctrine = special_doctrine_is_buddhist_faith
 		}
 	}
 
@@ -2958,7 +2958,7 @@ tenet_astrology = {
 		}
 	}
 	
-	is_shown = { rite_has_doctrine = religious_hostility_doctrine }
+	is_shown = { has_doctrine = religious_hostility_doctrine }
 
 	piety_cost = {
 		if = {
@@ -3154,15 +3154,15 @@ tenet_human_sacrifice = {
 
 	is_shown = {
 		# Human sacrifice does not really make sense as a political doctrine
-		NOT = { rite_has_doctrine = political_hostility_doctrine }
+		NOT = { has_doctrine = political_hostility_doctrine }
 	}
 
 	can_pick = {
 		# No HumSac for Abrahamics: 'tis literally the religion-namer.
 		NOR = {
-			rite_has_doctrine = special_doctrine_is_christian_faith
-			rite_has_doctrine = special_doctrine_is_jewish_faith
-			rite_has_doctrine = special_doctrine_is_islamic_faith
+			has_doctrine = special_doctrine_is_christian_faith
+			has_doctrine = special_doctrine_is_jewish_faith
+			has_doctrine = special_doctrine_is_islamic_faith
 		}
 		custom_description = {
 			text = incompatible_tenet_pacifism_trigger
@@ -3232,7 +3232,7 @@ tenet_mystical_birthright = {
 
 	can_pick = {
 		OR = {
-			rite_has_doctrine = religious_hostility_doctrine
+			has_doctrine = religious_hostility_doctrine
 			has_tenet = tenet_mystical_birthright #If you already have it
 		}
 	}
@@ -3503,15 +3503,15 @@ tenet_sun_worship = {
 	}
 
 	is_shown = {
-		rite_has_doctrine = religious_hostility_doctrine
+		has_doctrine = religious_hostility_doctrine
 	}
 	can_pick = {
 		NOR = {
-			rite_has_doctrine = special_doctrine_is_christian_faith
-			rite_has_doctrine = special_doctrine_is_islamic_faith
-			rite_has_doctrine = special_doctrine_is_jewish_faith
-			rite_has_doctrine = special_doctrine_is_buddhist_faith
-			rite_has_doctrine = special_doctrine_is_mechanic_faith
+			has_doctrine = special_doctrine_is_christian_faith
+			has_doctrine = special_doctrine_is_islamic_faith
+			has_doctrine = special_doctrine_is_jewish_faith
+			has_doctrine = special_doctrine_is_buddhist_faith
+			has_doctrine = special_doctrine_is_mechanic_faith
 		}
 	}
 
@@ -3574,9 +3574,9 @@ tenet_warmonger = {
 
 	can_pick = {
 		NOR = {
-			rite_has_doctrine = special_doctrine_is_christian_faith
-			rite_has_doctrine = special_doctrine_is_islamic_faith
-			rite_has_doctrine = special_doctrine_is_jewish_faith
+			has_doctrine = special_doctrine_is_christian_faith
+			has_doctrine = special_doctrine_is_islamic_faith
+			has_doctrine = special_doctrine_is_jewish_faith
 		}
 		custom_description = {
 			text = incompatible_tenet_pacifism_trigger
@@ -3680,16 +3680,16 @@ tenet_gruesome_festivals = {
 
 	is_shown = {
 		# Human sacrifice does not really make sense as a political doctrine
-		NOT = { rite_has_doctrine = political_hostility_doctrine }
+		NOT = { has_doctrine = political_hostility_doctrine }
 		has_fp1_dlc_trigger = yes
 	}
 
 	can_pick = {
 		# No HumSac for Abrahamics: 'tis literally the religion-namer.
 		NOR = {
-			rite_has_doctrine = special_doctrine_is_christian_faith
-			rite_has_doctrine = special_doctrine_is_jewish_faith
-			rite_has_doctrine = special_doctrine_is_islamic_faith
+			has_doctrine = special_doctrine_is_christian_faith
+			has_doctrine = special_doctrine_is_jewish_faith
+			has_doctrine = special_doctrine_is_islamic_faith
 		}
 		custom_description = {
 			text = incompatible_tenet_pacifism_trigger
@@ -3934,12 +3934,12 @@ tenet_eastern_syncretism = {
 	}
 
 	is_shown = {
-		rite_has_doctrine = religious_hostility_doctrine
+		has_doctrine = religious_hostility_doctrine
 	}
 
 	can_pick = {
-		NOT = { rite_has_doctrine = special_doctrine_is_hindu_faith }
-		NOT = { rite_has_doctrine = special_doctrine_is_buddhist_faith }
+		NOT = { has_doctrine = special_doctrine_is_hindu_faith }
+		NOT = { has_doctrine = special_doctrine_is_buddhist_faith }
 		custom_description = {
 			text = incompatible_tenet_gnosticism_trigger
 			NOT = {
@@ -4097,7 +4097,7 @@ tenet_christian_syncretism = {
 	}
 
 	can_pick = {
-		NOT = { rite_has_doctrine = special_doctrine_is_christian_faith }
+		NOT = { has_doctrine = special_doctrine_is_christian_faith }
 		unique_syncretism_trigger = yes
 		trigger_if = {
 			limit = { scope:actor ?= { is_ai = yes } }
@@ -4107,7 +4107,7 @@ tenet_christian_syncretism = {
 
 	can_pick_as_personal_tenet = {
 		NOT = {
-			faith = { rite_has_doctrine = special_doctrine_is_christian_faith }
+			faith = { has_doctrine = special_doctrine_is_christian_faith }
 		}
 		trigger_if = {
 			limit = { is_ai = yes }
@@ -4172,7 +4172,7 @@ tenet_islamic_syncretism = {
 	}
 
 	can_pick = {
-		NOT = { rite_has_doctrine = special_doctrine_is_islamic_faith }
+		NOT = { has_doctrine = special_doctrine_is_islamic_faith }
 		unique_syncretism_trigger = yes
 		trigger_if = {
 			limit = { scope:actor ?= { is_ai = yes } }
@@ -4182,7 +4182,7 @@ tenet_islamic_syncretism = {
 
 	can_pick_as_personal_tenet = {
 		NOT = {
-			faith = { rite_has_doctrine = special_doctrine_is_islamic_faith }
+			faith = { has_doctrine = special_doctrine_is_islamic_faith }
 		}
 		trigger_if = {
 			limit = { is_ai = yes }
@@ -4251,7 +4251,7 @@ tenet_jewish_syncretism = {
 	}
 
 	can_pick = {
-		NOT = { rite_has_doctrine = special_doctrine_is_jewish_faith }
+		NOT = { has_doctrine = special_doctrine_is_jewish_faith }
 		unique_syncretism_trigger = yes
 		trigger_if = {
 			limit = { scope:actor ?= { is_ai = yes } }
@@ -4261,7 +4261,7 @@ tenet_jewish_syncretism = {
 
 	can_pick_as_personal_tenet = {
 		NOT = {
-			faith = { rite_has_doctrine = special_doctrine_is_jewish_faith }
+			faith = { has_doctrine = special_doctrine_is_jewish_faith }
 		}
 		trigger_if = {
 			limit = { is_ai = yes }
@@ -4776,15 +4776,15 @@ tenet_sacrificial_ceremonies = {
 	}
 
 	is_shown = {
-		rite_has_doctrine = religious_hostility_doctrine
+		has_doctrine = religious_hostility_doctrine
 	}
 
 	can_pick = {
 		# No human sacrifice for Abrahamics
 		NOR = {
-			rite_has_doctrine = special_doctrine_is_christian_faith
-			rite_has_doctrine = special_doctrine_is_jewish_faith
-			rite_has_doctrine = special_doctrine_is_islamic_faith
+			has_doctrine = special_doctrine_is_christian_faith
+			has_doctrine = special_doctrine_is_jewish_faith
+			has_doctrine = special_doctrine_is_islamic_faith
 		}
 		custom_description = {
 			text = incompatible_tenet_pacifism_trigger
@@ -4956,7 +4956,7 @@ tenet_fp3_fedayeen = {
 		}
 	}
 
-	is_shown = { NOT = { rite_has_doctrine = political_hostility_doctrine } }
+	is_shown = { NOT = { has_doctrine = political_hostility_doctrine } }
 	
 	can_pick = {
 		custom_description = {
@@ -5345,7 +5345,7 @@ tenet_extinction_of_dharma = {
 		has_tgp_dlc_trigger = yes
 	}
 	can_pick = {
-		rite_has_doctrine = special_doctrine_is_buddhist_faith
+		has_doctrine = special_doctrine_is_buddhist_faith
 		custom_description = {
 			text = incompatible_tenet_pacifism_trigger
 			NOT = { tenet:tenet_pacifism = { is_in_list = selected_doctrines } }
@@ -5424,8 +5424,8 @@ tenet_cranial_trophies = {
 
 	is_shown = {
 		OR = {
-			rite_has_doctrine = religious_hostility_doctrine
-			rite_has_doctrine = criminal_hostility_doctrine
+			has_doctrine = religious_hostility_doctrine
+			has_doctrine = criminal_hostility_doctrine
 		}
 		has_tgp_dlc_trigger = yes
 	}
@@ -5491,7 +5491,7 @@ tenet_pursuit_of_knowledge = { # This represents a scholarly, backwards-looking 
 	can_pick = {
 		custom_description = {
 			text = incompatible_tenet_alexandrian_catechism_trigger
-			NOT = { doctrine:tenet_alexandrian_catechism = { is_in_list = selected_doctrines } }
+			NOT = { tenet:tenet_alexandrian_catechism = { is_in_list = selected_doctrines } }
 		}
 	}
 
@@ -5684,7 +5684,7 @@ tenet_harmonious_society = {
 
 	is_shown = {
 		has_tgp_dlc_trigger = yes
-		NOT = { rite_has_doctrine = criminal_hostility_doctrine }
+		NOT = { has_doctrine = criminal_hostility_doctrine }
 	}
 
 	can_pick = {
@@ -5755,7 +5755,7 @@ tenet_sacred_destruction = {
 	}
 
 	can_pick = {
-		rite_has_doctrine = special_doctrine_is_hindu_faith
+		has_doctrine = special_doctrine_is_hindu_faith
 		custom_description = {
 			text = incompatible_tenet_pacifism_trigger
 			NOT = { tenet:tenet_pacifism = { is_in_list = selected_doctrines } }
@@ -5818,7 +5818,7 @@ tenet_preservation = {
 	}
 
 	can_pick = {
-		rite_has_doctrine = special_doctrine_is_hindu_faith
+		has_doctrine = special_doctrine_is_hindu_faith
 		custom_description = {
 			text = incompatible_tenet_tenet_sacred_destruction_trigger
 			NOT = { tenet:tenet_sacred_destruction = { is_in_list = selected_doctrines } }

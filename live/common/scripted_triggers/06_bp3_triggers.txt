@@ -38,7 +38,15 @@ landless_inspector_terrain_knowing_the_land_trigger = {
 }
 
 landless_inspector_terrain_master_trigger = {
-	always = no
+	root = {
+		OR = {
+			has_character_modifier = landless_inspector_$TERRAIN$_tier_1_modifier
+			has_character_modifier = landless_inspector_$TERRAIN$_tier_2_modifier
+			has_character_modifier = nomadic_inspector_$TERRAIN$_tier_2_modifier
+			has_character_modifier = landless_inspector_$TERRAIN$_tier_3_modifier
+			has_character_modifier = nomadic_inspector_$TERRAIN$_tier_3_modifier
+		}
+	}
 }
 
 landless_inspector_king_of_the_wilds = {

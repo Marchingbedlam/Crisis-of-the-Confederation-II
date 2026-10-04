@@ -6,7 +6,7 @@ tenet_capitalism = {
 	icon = core_tenet_tax_nonbelievers # Placeholder
 	piety_cost = {
 		if = {
-			limit = { rite_religion_tag = neo_socialism_ideology }
+			limit = { rite_religion_tag = socialism_ideology }
 			value = faith_tenet_cost_massive
 		}
 		else = { value = faith_tenet_cost_mid }
@@ -478,7 +478,7 @@ tenet_united_front = {
 	name = {
 		first_valid = {
 			triggered_desc = {
-				trigger = { rite_has_doctrine = religous_hostility_doctrine }
+				trigger = { rite_has_doctrine = religious_hostility_doctrine }
 				desc = tenet_peace_of_god_name
 			}
 			triggered_desc = {
@@ -492,7 +492,7 @@ tenet_united_front = {
 	desc = {
 		first_valid = {
 			triggered_desc = {
-				trigger = { rite_has_doctrine = religous_hostility_doctrine }
+				trigger = { rite_has_doctrine = religious_hostility_doctrine }
 				desc = tenet_peace_of_god_desc
 			}
 			triggered_desc = {
@@ -544,9 +544,9 @@ tenet_upstanding_citizens = {
 		}
 	}
 
-	is_shown = { rite_has_doctrine = criminal_hostility_doctrine }
+	is_shown = { has_doctrine = criminal_hostility_doctrine }
 	can_pick = {
-		rite_has_doctrine = criminal_hostility_doctrine
+		has_doctrine = criminal_hostility_doctrine
 		custom_description = {
 			text = incompatible_doctrine_piracy_trigger
 			NOT = { doctrine:doctrine_piracy_encouraged = { is_in_list = selected_doctrines } }
@@ -571,8 +571,8 @@ tenet_thieves_in_law = {
 		}
 	}
 
-	is_shown = { rite_has_doctrine = criminal_hostility_doctrine }
-	can_pick = { rite_has_doctrine = criminal_hostility_doctrine }
+	is_shown = { has_doctrine = criminal_hostility_doctrine }
+	can_pick = { has_doctrine = criminal_hostility_doctrine }
 	parameters = {
 		monthly_piety_gain_in_prison
 		non_criminal_contracts_cost_piety
@@ -603,8 +603,8 @@ tenet_ritual_tattoos = {
 		}
 	}
 
-	is_shown = { NOT = { rite_has_doctrine = political_hostility_doctrine } }
-	can_pick = { NOT = { rite_has_doctrine = political_hostility_doctrine } }
+	is_shown = { NOT = { has_doctrine = political_hostility_doctrine } }
+	can_pick = { NOT = { has_doctrine = political_hostility_doctrine } }
 	parameters = {
 		can_apply_ritual_tattoos
 	}
@@ -616,7 +616,7 @@ tenet_atonement_through_sacrifice = {
 		if = {
 			limit = {
 				OR = {
-					rite_has_doctrine = tenet_consolamentum
+					rite_has_tenet = tenet_consolamentum
 					rite_has_doctrine = special_doctrine_is_nahua_faith
 				}
 			}
@@ -635,9 +635,9 @@ tenet_atonement_through_sacrifice = {
 		}
 	}
 
-	is_shown = { NOT = { rite_has_doctrine = political_hostility_doctrine } }
+	is_shown = { NOT = { has_doctrine = political_hostility_doctrine } }
 	can_pick = {
-		NOT = { rite_has_doctrine = political_hostility_doctrine }
+		NOT = { has_doctrine = political_hostility_doctrine }
 		custom_description = {
 			text = incompatible_doctrine_consolamentum_trigger
 			NOT = { tenet:tenet_consolamentum = { is_in_list = selected_doctrines } }
@@ -673,7 +673,7 @@ tenet_ritual_hallucinogens = {
 			multiply = faith_unchanged_doctrine_cost_mult
 		}
 	}
-	is_shown = { rite_has_doctrine = religious_hostility_doctrine } # Might expand this to criminals later but for the most part it's a religious thing
+	is_shown = { has_doctrine = religious_hostility_doctrine } # Might expand this to criminals later but for the most part it's a religious thing
 	can_pick = { always = yes }
 	traits = {
 		virtues = {
@@ -699,7 +699,7 @@ tenet_mechanic_syncretism = {
 	}
 
 	can_pick = {
-		NOT = { rite_has_doctrine = special_doctrine_is_mechanic_faith }
+		NOT = { has_doctrine = special_doctrine_is_mechanic_faith }
 		unique_syncretism_trigger = yes
 		trigger_if = {
 			limit = { scope:actor ?= { is_ai = yes } }
@@ -709,7 +709,7 @@ tenet_mechanic_syncretism = {
 
 	can_pick_as_personal_tenet = {
 		NOT = {
-			faith = { rite_has_doctrine = special_doctrine_is_mechanic_faith }
+			faith = { has_doctrine = special_doctrine_is_mechanic_faith }
 		}
 		trigger_if = {
 			limit = { is_ai = yes }
@@ -765,7 +765,7 @@ tenet_nahua_syncretism = {
 	}
 
 	can_pick = {
-		NOT = { rite_has_doctrine = special_doctrine_is_nahua_faith }
+		NOT = { has_doctrine = special_doctrine_is_nahua_faith }
 		unique_syncretism_trigger = yes
 		trigger_if = {
 			limit = { scope:actor ?= { is_ai = yes } }
@@ -775,7 +775,7 @@ tenet_nahua_syncretism = {
 
 	can_pick_as_personal_tenet = {
 		NOT = {
-			faith = { rite_has_doctrine = special_doctrine_is_nahua_faith }
+			faith = { has_doctrine = special_doctrine_is_nahua_faith }
 		}
 		trigger_if = {
 			limit = { is_ai = yes }

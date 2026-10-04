@@ -2787,7 +2787,7 @@ pam_ai_meaningful_islamic_presence_trigger = {
 pam_ai_meaningful_eastern_presence_trigger = {
 	OR = {
 		any_vassal = {
-			faith.religion ?= {
+			faith ?= {
 				OR = {
 					has_doctrine = special_doctrine_is_hindu_faith
 					has_doctrine = special_doctrine_is_buddhist_faith
@@ -2795,7 +2795,7 @@ pam_ai_meaningful_eastern_presence_trigger = {
 			}
 		}
 		any_sub_realm_county = {
-			faith.religion ?= {
+			faith ?= {
 				OR = {
 					has_doctrine = special_doctrine_is_hindu_faith
 					has_doctrine = special_doctrine_is_buddhist_faith
@@ -2803,7 +2803,7 @@ pam_ai_meaningful_eastern_presence_trigger = {
 			}
 		}
 		any_neighboring_and_across_water_realm_owner = {
-			faith.religion ?= {
+			faith ?= {
 				OR = {
 					has_doctrine = special_doctrine_is_hindu_faith
 					has_doctrine = special_doctrine_is_buddhist_faith

@@ -194,7 +194,7 @@ county_opinion_legitimacy_on_action = {
 add_prison_piety_gain_on_action = {
 	trigger = {
 		is_imprisoned = yes
-		faith = { has_doctrine = tenet_thieves_in_law }
+		faith = { has_tenet = tenet_thieves_in_law }
 		NOT = { has_character_modifier = modifier_thieves_in_law_imprisoned }
 	}
 	effect = { add_character_modifier = modifier_thieves_in_law_imprisoned }
@@ -204,7 +204,7 @@ remove_prison_piety_gain_on_action = {
 		has_character_modifier = modifier_thieves_in_law_imprisoned
 		NAND = {
 			is_imprisoned = yes
-			faith = { has_doctrine = tenet_thieves_in_law }
+			faith = { has_tenet = tenet_thieves_in_law }
 		}
 	}
 	effect = { remove_character_modifier = modifier_thieves_in_law_imprisoned }

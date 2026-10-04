@@ -1174,7 +1174,7 @@ cotc_political_campaign_events.300 = { # Smear campaign against your biggest riv
 						var:legislature ?= { var:legislature_title = scope:relevant_title }
 					}
 				}
-				save_scope_value_as = rival_campaign
+				save_scope_as = rival_campaign
 			}
 		}
 	}
@@ -1519,19 +1519,5 @@ cotc_political_campaign_events.1010 = { # Legislative campaign endorsement decli
 	
 	option = {
 		name = cotc_political_campaign_events.1010.a
-	}
-}
-char_interaction.1010 = { # Legislative campaign endorsement refused
-	type = letter_event
-	opening = { desc = char_interaction.0001.opening }
-	desc = char_interaction.1010.desc
-		
-	sender = {
-		character = scope:recipient
-		animation = dismissal
-	}
-
-	option = {
-		name = char_interaction.1010.a
 	}
 }
