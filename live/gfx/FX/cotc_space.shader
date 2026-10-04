@@ -349,6 +349,32 @@ PixelShader =
 		static const float COTC_STAR_EMISSIVE_BOOST			= 4.0f;
 		static const float COTC_BLACK_HOLE_EMISSIVE_BOOST	= 5.0f;
 		static const float COTC_NEUTRON_EMISSIVE_BOOST		= 3.0f;
+
+		// COTC_OUTER_FRESNEL fades a shell out where it faces the camera (atmospheres, glows);
+		// COTC_INNER_FRESNEL tints the body's edge with the fresnel texture.
+		//                                           outer power  inner F0  inner power  inner offset
+		static const float4 COTC_FRESNEL_STANDARD   = float4( 0.3f,      0.1f,     4.0f,        0.0f );
+		static const float4 COTC_FRESNEL_NEUTRON    = float4( 0.1f,      0.01f,    2.0f,        0.1f );
+		static const float4 COTC_FRESNEL_BLACK_HOLE = float4( 0.1f,      0.1f,     8.0f,        0.1f );
+
+		// Inner power drops as province colours fade in. InnerMask scales the inner rim (1 = none).
+		void COTC_ApplyFresnel( inout float3 Color, inout float Alpha, float4 Settings, float2 FresnelUV, float3 WorldSpacePos, float3 Normal, float3 ProvinceOverlayColor, float ProvinceStrength, float InnerMask )
+		{
+			#if defined( COTC_OUTER_FRESNEL ) || defined( COTC_INNER_FRESNEL )
+				float3 FresnelColor = lerp( PdxTex2D( FresnelMap, FresnelUV ).rgb, ProvinceOverlayColor, ProvinceStrength );
+				float  NdotV = saturate( abs( dot( normalize( WorldSpacePos - CameraPosition ), Normal ) ) );
+
+				#if defined( COTC_OUTER_FRESNEL )
+					Alpha -= saturate( Fresnel( NdotV, 0.1f, Settings.x ) );
+					Color = FresnelColor;
+				#endif
+
+				#if defined( COTC_INNER_FRESNEL )
+					float FresnelFactor = saturate( ( Fresnel( NdotV, Settings.y, Settings.z - ProvinceStrength ) - Settings.w ) * InnerMask );
+					Color = lerp( Color, FresnelColor, FresnelFactor );
+				#endif
+			#endif
+		}
 	]]
 
 	MainCode COTC_PS_plane
@@ -494,24 +520,7 @@ PixelShader =
 				float PostLightingBlend;
 				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend, 0.0f );
 
-				#if defined( COTC_OUTER_FRESNEL ) || defined( COTC_INNER_FRESNEL )
-					float4 FresnelColor = PdxTex2D( FresnelMap, DIFFUSE_UV_SET );
-					float3 ToCameraDir = normalize( Input.WorldSpacePos.xyz - CameraPosition );
-
-					// Exterior
-					#if defined( COTC_OUTER_FRESNEL )
-						float FresnelFactor = saturate( Fresnel( saturate( abs( dot( ToCameraDir, Input.Normal ) ) ), 0.1f, 0.1f) );
-						Alpha = Alpha - FresnelFactor;
-						Color = lerp( FresnelColor.rgb, ProvinceOverlayColor, ProvinceStrength );
-					#endif
-
-					// Interior
-					#if defined( COTC_INNER_FRESNEL )
-						float FresnelFactor = saturate( Fresnel( saturate( abs( dot( ToCameraDir, Input.Normal ) ) ), 0.1f, 8.0f - ProvinceStrength ) - 0.1 );
-						FresnelColor.rgb = lerp( FresnelColor.rgb, ProvinceOverlayColor, ProvinceStrength );
-						Color = lerp( Color, FresnelColor, FresnelFactor );
-					#endif
-				#endif
+				COTC_ApplyFresnel( Color, Alpha, COTC_FRESNEL_BLACK_HOLE, DIFFUSE_UV_SET, Input.WorldSpacePos, Input.Normal, ProvinceOverlayColor, ProvinceStrength, 1.0f );
 
 				#if defined( COTC_EMISSIVE_BLACK_HOLE )
 					Color *= COTC_BLACK_HOLE_EMISSIVE_BOOST;
@@ -555,24 +564,7 @@ PixelShader =
 				float PostLightingBlend;
 				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend, 0.0f );
 
-				#if defined( COTC_OUTER_FRESNEL ) || defined( COTC_INNER_FRESNEL )
-					float4 FresnelColor = PdxTex2D( FresnelMap, DIFFUSE_UV_SET );
-					float3 ToCameraDir = normalize( Input.WorldSpacePos.xyz - CameraPosition );
-
-					// Exterior
-					#if defined( COTC_OUTER_FRESNEL )
-						float FresnelFactor = saturate( Fresnel( saturate( abs( dot( ToCameraDir, Input.Normal ) ) ), 0.1f, 0.1f) );
-						Alpha = Alpha - FresnelFactor;
-						Color = lerp( FresnelColor.rgb, ProvinceOverlayColor, ProvinceStrength );
-					#endif
-
-					// Interior
-					#if defined( COTC_INNER_FRESNEL )
-						float FresnelFactor = saturate( Fresnel( saturate( abs( dot( ToCameraDir, Input.Normal ) ) ), 0.01f, 2.0f - ProvinceStrength ) - 0.1 );
-						FresnelColor.rgb = lerp( FresnelColor.rgb, ProvinceOverlayColor, ProvinceStrength );
-						Color = lerp( Color, FresnelColor, FresnelFactor );
-					#endif
-				#endif
+				COTC_ApplyFresnel( Color, Alpha, COTC_FRESNEL_NEUTRON, DIFFUSE_UV_SET, Input.WorldSpacePos, Input.Normal, ProvinceOverlayColor, ProvinceStrength, 1.0f );
 
 				#if defined( COTC_EMISSIVE_NEUTRON )
 					Color *= COTC_NEUTRON_EMISSIVE_BOOST;
@@ -673,27 +665,9 @@ PixelShader =
 				float PreLightingBlend;
 				float PostLightingBlend;
 				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend, 0.0f );
-				float3 ToCameraDir = normalize( Input.WorldSpacePos.xyz - CameraPosition );
 
-				#if defined( COTC_OUTER_FRESNEL ) || defined( COTC_INNER_FRESNEL )
-					float4 FresnelColor = PdxTex2D( FresnelMap, DIFFUSE_UV_SET );
-
-					float InSun = lerp(saturate( dot( LightingProps._ToLightDir, Input.Normal ) ), 1.0f, ProvinceStrength);
-
-					// Exterior
-					#if defined( COTC_OUTER_FRESNEL )
-						float FresnelFactor = saturate( Fresnel( saturate( abs( dot( ToCameraDir, Input.Normal ) ) ), 0.1f, 0.3f) );
-						Alpha = Alpha - FresnelFactor;
-						Color = lerp( FresnelColor, ProvinceOverlayColor, ProvinceStrength );
-					#endif
-
-					// Interior
-					#if defined( COTC_INNER_FRESNEL )
-						float FresnelFactor = saturate( Fresnel( saturate( abs( dot( ToCameraDir, Input.Normal ) ) ), 0.1f, 4.0f - ProvinceStrength ) * InSun );
-						FresnelColor.rgb = lerp( FresnelColor.rgb, ProvinceOverlayColor, ProvinceStrength );
-						Color = lerp( Color, FresnelColor.rgb, FresnelFactor );
-					#endif
-				#endif
+				float InSun = lerp( saturate( dot( LightingProps._ToLightDir, Input.Normal ) ), 1.0f, ProvinceStrength );
+				COTC_ApplyFresnel( Color, Alpha, COTC_FRESNEL_STANDARD, DIFFUSE_UV_SET, Input.WorldSpacePos, Input.Normal, ProvinceOverlayColor, ProvinceStrength, InSun );
 
 				#if defined( COTC_EMISSIVE_STAR )
 					Color *= COTC_STAR_EMISSIVE_BOOST;
