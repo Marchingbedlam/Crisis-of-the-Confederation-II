@@ -6,7 +6,6 @@ Includes = {
 
 PixelShader = {
 	# RGB = fog colour, A = fog density
-	# Sampled with normalised UVs, so the mask can be authored at any resolution
 	TextureSampler COTC_Nebula_Mask
 	{
 		Index = 43
@@ -15,8 +14,7 @@ PixelShader = {
 		MipFilter = "Linear"
 		SampleModeU = "Clamp"
 		SampleModeV = "Clamp"
-		# Uncompressed DDS with no mip chain, so the texture quality setting cannot degrade it
-		File = "gfx/map/terrain/cotc_nebula_mask.dds"
+		File = "gfx/map/terrain/cotc_nebula_mask.png"
 		srgb = yes
 	}
 
@@ -48,30 +46,30 @@ PixelShader = {
 		// rotation (deg), tile size, offset x, offset y
 		static const float4 COTC_NEBULA_CLOUD_LAYERS[COTC_NEBULA_LAYERS] =
 		{
-			float4(  252.3f,  400.0f, 0.43f, 0.51f ),
-			float4(  119.1f,  400.0f, 0.25f, 0.57f ),
-			float4(   89.1f,  400.0f, 0.80f, 0.52f ),
-			float4(  322.2f,  400.0f, 0.53f, 0.82f ),
-			float4(  290.2f,  400.0f, 0.97f, 0.98f ),
-			float4(  216.1f,  400.0f, 0.73f, 0.63f ),
-			float4(  354.5f,  400.0f, 0.51f, 0.47f ),
-			float4(  271.6f,  400.0f, 0.10f, 0.29f ),
-			float4(  285.0f,  400.0f, 0.38f, 0.97f ),
-			float4(  176.0f,  400.0f, 0.94f, 0.24f ),
-			float4(  329.8f,  400.0f, 0.99f, 0.15f ),
-			float4(   38.1f,  400.0f, 0.56f, 0.78f ),
-			float4(   81.2f,  400.0f, 0.49f, 0.94f ),
-			float4(  269.4f,  400.0f, 0.25f, 0.10f ),
-			float4(   84.5f,  400.0f, 0.40f, 0.82f ),
-			float4(  119.6f,  400.0f, 0.58f, 0.74f ),
-			float4(  279.5f,  400.0f, 0.52f, 0.59f ),
-			float4(  140.5f,  400.0f, 0.04f, 0.19f ),
-			float4(  290.2f,  400.0f, 0.32f, 0.91f ),
-			float4(   42.0f,  400.0f, 0.94f, 0.38f ),
-			float4(  169.1f,  400.0f, 0.15f, 0.89f ),
-			float4(  255.1f,  400.0f, 0.94f, 0.58f ),
-			float4(  191.0f,  400.0f, 0.74f, 0.44f ),
-			float4(  157.1f,  400.0f, 0.03f, 0.97f ),
+			float4(  252.3f,  300.0f, 0.43f, 0.51f ),
+			float4(  119.1f,  300.0f, 0.25f, 0.57f ),
+			float4(   89.1f,  300.0f, 0.80f, 0.52f ),
+			float4(  322.2f,  300.0f, 0.53f, 0.82f ),
+			float4(  290.2f,  300.0f, 0.97f, 0.98f ),
+			float4(  216.1f,  300.0f, 0.73f, 0.63f ),
+			float4(  354.5f,  300.0f, 0.51f, 0.47f ),
+			float4(  271.6f,  300.0f, 0.10f, 0.29f ),
+			float4(  285.0f,  300.0f, 0.38f, 0.97f ),
+			float4(  176.0f,  300.0f, 0.94f, 0.24f ),
+			float4(  329.8f,  300.0f, 0.99f, 0.15f ),
+			float4(   38.1f,  300.0f, 0.56f, 0.78f ),
+			float4(   81.2f,  300.0f, 0.49f, 0.94f ),
+			float4(  269.4f,  300.0f, 0.25f, 0.10f ),
+			float4(   84.5f,  300.0f, 0.40f, 0.82f ),
+			float4(  119.6f,  300.0f, 0.58f, 0.74f ),
+			float4(  279.5f,  300.0f, 0.52f, 0.59f ),
+			float4(  140.5f,  300.0f, 0.04f, 0.19f ),
+			float4(  290.2f,  300.0f, 0.32f, 0.91f ),
+			float4(   42.0f,  300.0f, 0.94f, 0.38f ),
+			float4(  169.1f,  300.0f, 0.15f, 0.89f ),
+			float4(  255.1f,  300.0f, 0.94f, 0.58f ),
+			float4(  191.0f,  300.0f, 0.74f, 0.44f ),
+			float4(  157.1f,  300.0f, 0.03f, 0.97f ),
 		};
 
 		void COTC_ApplyNebula(inout float3 Color, inout float Alpha, float3 WorldSpacePos, float Visibility)
