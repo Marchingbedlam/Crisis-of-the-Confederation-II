@@ -714,19 +714,24 @@ DepthStencilState DepthStencilState
 	StencilEnable = yes
 }
 
-BlendState alpha_to_coverage
+DepthStencilState DepthStencilStateNoWrite
+{
+	StencilEnable = yes
+	DepthWriteEnable = no
+}
+
+BlendState alpha_blend
 {
 	BlendEnable = yes
 	SourceBlend = "SRC_ALPHA"
 	DestBlend = "INV_SRC_ALPHA"
-	AlphaToCoverage = yes
 }
 
 Effect cotc_planet
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_standard"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	Defines = { "COTC_INNER_FRESNEL" }
 	DepthStencilState = DepthStencilState
 }	
@@ -735,25 +740,25 @@ Effect cotc_planet_city
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_standard"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	Defines = { "COTC_INNER_FRESNEL" "COTC_NO_SHADOW" }
-	DepthStencilState = DepthStencilState
+	DepthStencilState = DepthStencilStateNoWrite
 }	
 
 Effect cotc_planet_atmosphere
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_standard"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	Defines = { "COTC_OUTER_FRESNEL" "COTC_NO_SHADOW" }
-	DepthStencilState = DepthStencilState
+	DepthStencilState = DepthStencilStateNoWrite
 }
 
 Effect cotc_star
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_standard"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	Defines = { "COTC_NO_SHADOW" "COTC_EMISSIVE_STAR" }
 	DepthStencilState = DepthStencilState
 }
@@ -762,16 +767,16 @@ Effect cotc_star_atmosphere
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_standard"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	Defines = { "COTC_OUTER_FRESNEL" "COTC_NO_SHADOW" "COTC_EMISSIVE_STAR" }
-	DepthStencilState = DepthStencilState
+	DepthStencilState = DepthStencilStateNoWrite
 }
 
 Effect cotc_neutron
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_neutron"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	Defines = { "COTC_INNER_FRESNEL" "COTC_NO_SHADOW" "COTC_EMISSIVE_NEUTRON" }
 	DepthStencilState = DepthStencilState
 }
@@ -780,16 +785,16 @@ Effect cotc_neutron_outer
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_neutron"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	Defines = { "COTC_OUTER_FRESNEL" "COTC_NO_SHADOW" "COTC_EMISSIVE_NEUTRON" }
-	DepthStencilState = DepthStencilState
+	DepthStencilState = DepthStencilStateNoWrite
 }
 
 Effect cotc_black_hole
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_black_hole"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	Defines = { "COTC_INNER_FRESNEL" "COTC_NO_SHADOW" "COTC_EMISSIVE_BLACK_HOLE" }
 	DepthStencilState = DepthStencilState
 }
@@ -798,16 +803,16 @@ Effect cotc_black_hole_outer
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_black_hole"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	Defines = { "COTC_OUTER_FRESNEL" "COTC_NO_SHADOW" "COTC_EMISSIVE_BLACK_HOLE" }
-	DepthStencilState = DepthStencilState
+	DepthStencilState = DepthStencilStateNoWrite
 }
 
 Effect cotc_standard
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_standard"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	DepthStencilState = DepthStencilState
 }
 
@@ -815,7 +820,7 @@ Effect cotc_standard_mapobject
 {
 	VertexShader = "COTC_VS_mapobject"
 	PixelShader = "COTC_PS_standard"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	DepthStencilState = DepthStencilState
 }
 
@@ -823,7 +828,7 @@ Effect cotc_standard_selection_mapobject
 {
 	VertexShader = "COTC_VS_mapobject"
 	PixelShader = "COTC_PS_standard"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	DepthStencilState = DepthStencilState
 }
 
@@ -831,55 +836,58 @@ Effect cotc_background
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_background"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
+	DepthStencilState = DepthStencilStateNoWrite
 }
 
 Effect cotc_background_mapobject
 {
 	VertexShader = "COTC_VS_mapobject"
 	PixelShader = "COTC_PS_background"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
+	DepthStencilState = DepthStencilStateNoWrite
 }
 
 Effect cotc_background_selection_mapobject
 {
 	VertexShader = "COTC_VS_mapobject"
 	PixelShader = "COTC_PS_background"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
+	DepthStencilState = DepthStencilStateNoWrite
 }
 
 Effect cotc_hex
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_standard"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	Defines = { "COTC_NO_SHADOW" "COTC_HEX" }
-	DepthStencilState = DepthStencilState
+	DepthStencilState = DepthStencilStateNoWrite
 }
 
 Effect cotc_hex_mapobject
 {
 	VertexShader = "COTC_VS_mapobject"
 	PixelShader = "COTC_PS_standard"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	Defines = { "COTC_NO_SHADOW" "COTC_HEX" }
-	DepthStencilState = DepthStencilState
+	DepthStencilState = DepthStencilStateNoWrite
 }
 
 Effect cotc_hex_selection_mapobject
 {
 	VertexShader = "COTC_VS_mapobject"
 	PixelShader = "COTC_PS_standard"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	Defines = { "COTC_NO_SHADOW" "COTC_HEX" }
-	DepthStencilState = DepthStencilState
+	DepthStencilState = DepthStencilStateNoWrite
 }
 
 Effect cotc_plane
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_plane"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	DepthStencilState = DepthStencilState
 }
 
@@ -887,7 +895,7 @@ Effect cotc_plane_mapobject
 {
 	VertexShader = "COTC_VS_mapobject"
 	PixelShader = "COTC_PS_plane"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	DepthStencilState = DepthStencilState
 }
 
@@ -895,6 +903,6 @@ Effect cotc_plane_selection_mapobject
 {
 	VertexShader = "COTC_VS_mapobject"
 	PixelShader = "COTC_PS_plane"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	DepthStencilState = DepthStencilState
 }
