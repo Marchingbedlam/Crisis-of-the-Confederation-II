@@ -687,6 +687,7 @@ DepthStencilState DepthStencilState
 	StencilEnable = yes
 }
 
+# Transparent surfaces (plane, shells, hexes): depth-tested but not written, like vanilla particles
 DepthStencilState DepthStencilStateNoWrite
 {
 	StencilEnable = yes
@@ -861,7 +862,7 @@ Effect cotc_plane
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_plane"
 	BlendState = "alpha_blend"
-	DepthStencilState = DepthStencilState
+	DepthStencilState = DepthStencilStateNoWrite
 }
 
 Effect cotc_plane_mapobject
@@ -869,7 +870,7 @@ Effect cotc_plane_mapobject
 	VertexShader = "COTC_VS_mapobject"
 	PixelShader = "COTC_PS_plane"
 	BlendState = "alpha_blend"
-	DepthStencilState = DepthStencilState
+	DepthStencilState = DepthStencilStateNoWrite
 }
 
 Effect cotc_plane_selection_mapobject
@@ -877,5 +878,5 @@ Effect cotc_plane_selection_mapobject
 	VertexShader = "COTC_VS_mapobject"
 	PixelShader = "COTC_PS_plane"
 	BlendState = "alpha_blend"
-	DepthStencilState = DepthStencilState
+	DepthStencilState = DepthStencilStateNoWrite
 }
