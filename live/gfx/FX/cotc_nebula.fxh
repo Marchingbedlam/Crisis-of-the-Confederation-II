@@ -35,7 +35,7 @@ PixelShader = {
 	[[
 		// A define, not a static const, so it can size the table and the unroll hint
 		#define COTC_NEBULA_LAYERS 24
-		static const float COTC_NEBULA_DENSITY   = 0.2f;
+		static const float COTC_NEBULA_DENSITY   = 0.1f;
 
 		static const float COTC_NEBULA_CEILING_Y = 5.0f;
 		static const float COTC_NEBULA_FLOOR_Y   = -5.0f;
