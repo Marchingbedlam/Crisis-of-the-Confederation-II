@@ -4,10 +4,16 @@ Includes = {
 
 PixelShader = {
 	Code [[
+		// Height the camera loses per unit travelled along its look direction
+		float COTC_GetCameraLookDown()
+		{
+			return max( -CameraLookAtDir.y, 0.1f );
+		}
+
 		// Same quantities as ZOOM_STEPS in common/defines/graphic/cotc_graphics.txt
 		float COTC_GetZoomDistance()
 		{
-			return CameraPosition.y / max( -CameraLookAtDir.y, 0.1f );
+			return CameraPosition.y / COTC_GetCameraLookDown();
 		}
 
 		float COTC_GetCameraPitchCos()
@@ -35,7 +41,7 @@ PixelShader = {
 		}
 
 		// --- Sector opacity ------------------------------------------------------
-		static const float COTC_SECTOR_NEAR_OPACITY = 0.7f;
+		static const float COTC_SECTOR_NEAR_OPACITY = 0.3f;
 
 		float COTC_GetSectorOpacity()
 		{
@@ -44,7 +50,7 @@ PixelShader = {
 				COTC_ZOOM_DISTANCE_REGIONS,
 				COTC_GetZoomDistance() );
 
-			return lerp( COTC_SECTOR_NEAR_OPACITY, 1.0f, Fade );
+			return lerp( COTC_SECTOR_NEAR_OPACITY, 0.5f, Fade );
 		}
 	]]
 }

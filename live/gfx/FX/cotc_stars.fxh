@@ -1,7 +1,6 @@
 Includes = {
 	"cw/camera.fxh"
 	"cw/pdxterrain.fxh"
-	"dynamic_masks.fxh"
 	"cotc_camera_utils.fxh"
 	"cotc_compositing.fxh"
 }
@@ -15,7 +14,7 @@ PixelShader = {
 		MipFilter = "Linear"
 		SampleModeU = "Wrap"
 		SampleModeV = "Wrap"
-		File = "gfx/map/environment/cotc_star_layer_1.dds"
+		File = "gfx/map/environment/cotc_star_layer.dds"
 		srgb = yes
 	}
 
@@ -29,100 +28,105 @@ PixelShader = {
 		static const float COTC_STARS_MAX_CAMERA_PITCH_COS  = 1.0f;
 		static const float COTC_STARS_FULL_CAMERA_PITCH_COS = 0.9f;
 
-		static const float COTC_STARS_CEILING_Y = 6.0f;
-		static const float COTC_STARS_FLOOR_Y   = -100.0f;
+		// Layers are fixed, the parallax effect comes from the depth range here
+		static const float COTC_STARS_NEAR_DEPTH = -5.0f;	// nearest layer
+		static const float COTC_STARS_FAR_DEPTH  = 250.0f;	// farthest layer
 
-		static const float COTC_STARS_SOFT_CEILING_Y = 1.0f;
-		static const float COTC_STARS_SOFT_FLOOR_Y   = -50.0f;
+		// Brightness of the nearest and farthest layer
+		static const float COTC_STARS_NEAR_ALPHA = 1.0f;
+		static const float COTC_STARS_FAR_ALPHA  = 0.1f;
 
-		static const float  COTC_STARS_VERTICAL_SPEED = 0.1f;
-		static const float2 COTC_STARS_WIND_VELOCITY  = float2(-0.2f, -0.2f);
+		// Layer distance (zoom distance + depth).
+		// Larger = smaller stars.
+		static const float COTC_STARS_SIZE_REFERENCE_DISTANCE = 400.0f;
 
-		static const float COTC_STARS_LAYER_TILE_SIZE = 75.0f;
+		// smaller = size holds steadier, but the stars fade over more often while zooming.
+		static const float COTC_STARS_SIZE_STEP = 0.5f;
 
-		static const int COTC_STARS_LAYERS_COUNT = 4;
+		// Fade layers out where the view ray grazes them (-ViewDir.y), to stop streaks at the horizon
+		static const float COTC_STARS_HORIZON_FADE_START = 0.05f;
+		static const float COTC_STARS_HORIZON_FADE_END   = 1.0f;
 
-		static const float COTC_STARS_LAYER_ROTATION_AMOUNT = 1.0f;  // 0 = off, 1 = full turn
-		static const float COTC_STARS_LAYER_SCALE_JITTER    = 0.25f; // +/- fraction of tile size
+		static const int COTC_STARS_LAYERS_COUNT = 2;
 
-		//
-		// Constants
-		//
+		#define COTC_STARS_MAX_LAYERS 5
 
-		static const float COTC_STARS_VERTICAL_SPEED_MULTIPLIER = COTC_STARS_VERTICAL_SPEED/(COTC_STARS_CEILING_Y - COTC_STARS_FLOOR_Y);
-
-		static const float COTC_STARS_LAYER_RELATIVE_TIME_SHIFT_STEP = 1.0f/float(COTC_STARS_LAYERS_COUNT);
-
-		static const float COTC_STARS_TWO_PI = 6.283185307f;
-
-		//
-		// Macros
-		//
-
-		#ifndef PDX_OPENGL
-			#define COTC_UNROLL_EXACT(ITERATIONS_COUNT) [unroll(ITERATIONS_COUNT)]
-		#else
-			#define COTC_UNROLL_EXACT(ITERATIONS_COUNT)
-		#endif
+		// Per-layer variation
+		// rotation (deg), tile size, offset x, offset y
+		static const float4 COTC_STARS_LAYERS[COTC_STARS_MAX_LAYERS] =
+		{
+			float4(  252.3f,   90.0f, 0.3f, 0.4f ),
+			float4(  119.1f,   70.0f, 0.5f, 0.5f ),
+			float4(   89.1f,   60.0f, 0.7f, 0.6f ),
+			float4(  322.2f,   50.0f, 0.9f, 0.7f ),
+			float4(  172.2f,   110.0f, 0.4f, 0.8f )
+		};
 
 		//
 		// Service
 		//
 
-		float4 COTC_StarsLayerRandom(float LayerIndex)
+		// Rotation is a (cos, sin) pair from the layer's angle
+		float COTC_SampleStarLayer(float2 LayerPosXZ, float2 Rotation, float4 Layer, float SizeScale)
 		{
-			// +1 dodges the hash's fixed point at zero, which would otherwise leave
-			// layer 0 unrotated and unoffset.
-			float4 P = frac((LayerIndex + 1.0f)*float4(0.1031f, 0.1030f, 0.0973f, 0.1099f));
-			P += dot(P, P.wzxy + 33.33f);
-			return frac((P.xxyz + P.yzzw)*P.zywx);
+			float  LayerSize = Layer.y*SizeScale;
+			float2 RotatedPosXZ = float2(
+				Rotation.x*LayerPosXZ.x - Rotation.y*LayerPosXZ.y,
+				Rotation.y*LayerPosXZ.x + Rotation.x*LayerPosXZ.y);
+
+			float2 BaseLayerUV = mod(RotatedPosXZ, LayerSize)/LayerSize;
+			return PdxTex2D(COTC_StarLayer, BaseLayerUV + Layer.zw).a;
 		}
 
 		//
 		// Interface
 		//
 
-		void COTC_ApplyStars(inout float3 Color, inout float Alpha, float3 WorldSpacePos, int StarLayerMult)
+		void COTC_ApplyStars(inout float3 Color, inout float Alpha, float3 WorldSpacePos)
 		{
-			float WinterSeverity = GetWinterSeverityValue(WorldSpacePos.xz*WorldSpaceToTerrain0To1);
-			float3 ToCameraNorm                   = normalize(CameraPosition - WorldSpacePos);
-			float  CeilingParallaxDistance        = (COTC_STARS_CEILING_Y - WorldSpacePos.y)/ToCameraNorm.y;
-			float  FloorParallaxDistance          = (COTC_STARS_FLOOR_Y - WorldSpacePos.y)/ToCameraNorm.y;
-			float2 CeilingParallaxWorldSpacePosXZ = (WorldSpacePos + CeilingParallaxDistance*ToCameraNorm).xz;
-			float2 FloorParallaxWorldSpacePosXZ   = (WorldSpacePos + FloorParallaxDistance*ToCameraNorm).xz;
+			float3 ViewDir      = normalize(WorldSpacePos - CameraPosition);
+			float  RayDown      = max(-ViewDir.y, 1e-3f);
+			float2 RayXZPerDown = ViewDir.xz/RayDown;
+			float  HorizonFade  = smoothstep(COTC_STARS_HORIZON_FADE_START, COTC_STARS_HORIZON_FADE_END, -ViewDir.y);
+
+			float ZoomDistance = COTC_GetZoomDistance();
 
 			float StarAlpha = 0.0f;
-			float StarLayers = float(COTC_STARS_LAYERS_COUNT) * StarLayerMult;
 
-			for (int i = 0; i < StarLayers; i++)
+			// Fixed count so it unrolls and each layer's rotation is computed at compile time
+			COTC_UNROLL_EXACT(COTC_STARS_MAX_LAYERS)
+			for (int i = 0; i < COTC_STARS_MAX_LAYERS; i++)
 			{
-				float  LayerRelativeHeight            = 1.0f - frac(COTC_STARS_VERTICAL_SPEED_MULTIPLIER*GlobalTime + float(i)*COTC_STARS_LAYER_RELATIVE_TIME_SHIFT_STEP);
-				float2 CurrentParallaxWorldSpacePosXZ = lerp(FloorParallaxWorldSpacePosXZ, CeilingParallaxWorldSpacePosXZ, LayerRelativeHeight);
+				float4 Layer    = COTC_STARS_LAYERS[i];
+				float  Angle    = radians(Layer.x);
+				float2 Rotation = float2(cos(Angle), sin(Angle));
 
-				CurrentParallaxWorldSpacePosXZ += GlobalTime*COTC_STARS_WIND_VELOCITY;
+				float LayerRelativeDepth   = (float(i) + 0.5f)/float(COTC_STARS_MAX_LAYERS);
+				float LayerDepth           = lerp(COTC_STARS_NEAR_DEPTH, COTC_STARS_FAR_DEPTH, LayerRelativeDepth);
+				float LayerAlphaMultiplier = lerp(COTC_STARS_NEAR_ALPHA, COTC_STARS_FAR_ALPHA, LayerRelativeDepth);
 
-				float LayerHeight                 = COTC_STARS_FLOOR_Y + LayerRelativeHeight*(COTC_STARS_CEILING_Y - COTC_STARS_FLOOR_Y);
-				float LayerAlphaFloorMultiplier   = smoothstep(COTC_STARS_FLOOR_Y, COTC_STARS_SOFT_FLOOR_Y, LayerHeight);
-				float LayerAlphaCeilingMultiplier = smoothstep(COTC_STARS_CEILING_Y, COTC_STARS_SOFT_CEILING_Y, LayerHeight);
-				float LayerAlphaMultiplier        = LayerAlphaFloorMultiplier*LayerAlphaCeilingMultiplier;
+				float2 LayerPosXZ = CameraPosition.xz + RayXZPerDown*(CameraPosition.y + LayerDepth);
 
-				float LayerSize = COTC_STARS_LAYER_TILE_SIZE;
+				float SizeSteps   = log2((ZoomDistance + LayerDepth)/COTC_STARS_SIZE_REFERENCE_DISTANCE)/COTC_STARS_SIZE_STEP;
+				float SizeStep    = floor(SizeSteps);
+				float SizeBlend   = SizeSteps - SizeStep;
+				float SizeScaleLo = exp2(SizeStep*COTC_STARS_SIZE_STEP);
+				float SizeScaleHi = SizeScaleLo*exp2(COTC_STARS_SIZE_STEP);
 
-				float4 LayerRandom = COTC_StarsLayerRandom(float(i));
-				float  LayerAngle    = LayerRandom.z*COTC_STARS_TWO_PI*COTC_STARS_LAYER_ROTATION_AMOUNT;
-				float  LayerAngleSin = sin(LayerAngle);
-				float  LayerAngleCos = cos(LayerAngle);
-				float2 RotatedWorldSpacePosXZ = float2(
-					LayerAngleCos*CurrentParallaxWorldSpacePosXZ.x - LayerAngleSin*CurrentParallaxWorldSpacePosXZ.y,
-					LayerAngleSin*CurrentParallaxWorldSpacePosXZ.x + LayerAngleCos*CurrentParallaxWorldSpacePosXZ.y);
+				float LayerStarAlpha = 0.0f;
+				if (SizeBlend < 0.999f)
+				{
+					LayerStarAlpha += (1.0f - SizeBlend)*COTC_SampleStarLayer(LayerPosXZ, Rotation, Layer, SizeScaleLo);
+				}
+				if (SizeBlend > 0.001f)
+				{
+					LayerStarAlpha += SizeBlend*COTC_SampleStarLayer(LayerPosXZ, Rotation, Layer, SizeScaleHi);
+				}
 
-				LayerSize *= 1.0f + COTC_STARS_LAYER_SCALE_JITTER*(2.0f*LayerRandom.w - 1.0f);
-
-				float2 BaseLayerUV     = mod(RotatedWorldSpacePosXZ, LayerSize)/LayerSize;
-				float2 AdjustedLayerUV = BaseLayerUV + LayerRandom.xy;
-
-				StarAlpha += LayerAlphaMultiplier*PdxTex2D(COTC_StarLayer, AdjustedLayerUV).a;
+				StarAlpha += LayerAlphaMultiplier*LayerStarAlpha;
 			}
+
+			StarAlpha *= HorizonFade;
 
 			COTC_BlendOver( Color, Alpha, COTC_STARS_COLOR, saturate( StarAlpha ) );
 		}
