@@ -833,7 +833,42 @@ camp_purpose_wanderers = {
 	}
 
 	ai_will_do = { value = 0 }
-	
+}
+
+camp_purpose_mercenaries = {
+	law_group_type = camp_purpose
+	index = 1
+
+	pass_phrase =  camp_purpose_pass_phrase
+	confirmation_title = camp_purpose_pass_phrase
+	confirmation_button_text = camp_purpose_confirmation_button_text
+
+	flag = uses_camp_purpose
+	flag = can_change_succession_laws
+	flag = laamp_contracts_weight_up_mercenary
+	flag = laamp_contracts_weight_up_martial
+	flag = laamp_contracts_weight_up_prowess
+	flag = martial_camp_purpose
+
+	# Camp unlocks.
+	flag = unlocks_baggage_train_siege_engineers
+	flag = unlocks_proving_grounds_lockwagon
+	flag = unlocks_camp_perimeter_palisade
+	flag = unlocks_camp_perimeter_ditch
+
+	can_keep = { realm_law_use_camp_purpose = yes }
+
+	pass_cost = {
+		prestige = {
+			if = {
+				limit = {
+					NOT = { has_realm_law_flag = can_change_purpose_for_free }
+				}
+				value = @camp_purpose_prestige_cost
+			}
+		}
+	}
+
 	modifier = {
 		men_at_arms_cap = 1
 		embarkation_cost_mult = -0.5
@@ -923,6 +958,16 @@ camp_purpose_wanderers = {
 			}
 		}
 	}
+}
+
+camp_purpose_scholars = {
+	law_group_type = camp_purpose
+	index = 2
+
+	pass_phrase =  camp_purpose_pass_phrase
+	confirmation_title = camp_purpose_pass_phrase
+	confirmation_button_text = camp_purpose_confirmation_button_text
+
 	modifier = {
 		monthly_lifestyle_xp_gain_mult = 0.2
 	}

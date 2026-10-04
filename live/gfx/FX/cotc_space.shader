@@ -347,7 +347,7 @@ PixelShader =
 				float3 ProvinceOverlayColor;
 				float PreLightingBlend;
 				float PostLightingBlend;
-				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend );
+				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend, 0.0f );
 				float2 DetailCoordinates = Input.WorldSpacePos.xz * WorldSpaceToDetail;
 				DetailCoordinates.y = 1.0f - DetailCoordinates.y;
 				float4 PlaneMask = PdxTex2DLod0( COTC_Plane_Mask, DetailCoordinates );
@@ -451,7 +451,7 @@ PixelShader =
 				float3 ProvinceOverlayColor;
 				float PreLightingBlend;
 				float PostLightingBlend;
-				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend );
+				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend, 0.0f );
 
 				#if defined( COTC_OUTER_FRESNEL ) || defined( COTC_INNER_FRESNEL )
 					float4 FresnelColor = PdxTex2D( FresnelMap, DIFFUSE_UV_SET );
@@ -511,7 +511,7 @@ PixelShader =
 				float3 ProvinceOverlayColor;
 				float PreLightingBlend;
 				float PostLightingBlend;
-				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend );
+				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend, 0.0f );
 
 				#if defined( COTC_OUTER_FRESNEL ) || defined( COTC_INNER_FRESNEL )
 					float4 FresnelColor = PdxTex2D( FresnelMap, DIFFUSE_UV_SET );
@@ -634,7 +634,7 @@ PixelShader =
 				float3 ProvinceOverlayColor;
 				float PreLightingBlend;
 				float PostLightingBlend;
-				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend );
+				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend, 0.0f );
 				float3 ToCameraDir = normalize( Input.WorldSpacePos.xyz - CameraPosition );
 
 				#if defined( COTC_OUTER_FRESNEL ) || defined( COTC_INNER_FRESNEL )
