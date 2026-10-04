@@ -41,16 +41,16 @@ PixelShader = {
 		}
 
 		// --- Sector opacity ------------------------------------------------------
-		static const float COTC_SECTOR_NEAR_OPACITY = 0.7f;
+		static const float COTC_SECTOR_NEAR_OPACITY = 0.05f;
 
 		float COTC_GetSectorOpacity()
 		{
 			const float Fade = smoothstep(
-				COTC_ZOOM_DISTANCE_SECTORS,
+				COTC_ZOOM_DISTANCE_PLANETS,
 				COTC_ZOOM_DISTANCE_REGIONS,
 				COTC_GetZoomDistance() );
 
-			return lerp( COTC_SECTOR_NEAR_OPACITY, 1.0f, Fade );
+			return lerp( COTC_SECTOR_NEAR_OPACITY, 0.75f, Fade );
 		}
 	]]
 }

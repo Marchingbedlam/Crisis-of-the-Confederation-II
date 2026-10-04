@@ -29,23 +29,23 @@ PixelShader = {
 		static const float COTC_STARS_FULL_CAMERA_PITCH_COS = 0.9f;
 
 		// Layers are fixed, the parallax effect comes from the depth range here
-		static const float COTC_STARS_NEAR_DEPTH = 100.0f;	// nearest layer
-		static const float COTC_STARS_FAR_DEPTH  = 5000.0f;	// farthest layer
+		static const float COTC_STARS_NEAR_DEPTH = 5.0f;	// nearest layer
+		static const float COTC_STARS_FAR_DEPTH  = 500.0f;	// farthest layer
 
 		// Brightness of the nearest and farthest layer
 		static const float COTC_STARS_NEAR_ALPHA = 1.0f;
-		static const float COTC_STARS_FAR_ALPHA  = 0.2f;
+		static const float COTC_STARS_FAR_ALPHA  = 0.1f;
 
 		// Layer distance (zoom distance + depth).
 		// Larger = smaller stars.
-		static const float COTC_STARS_SIZE_REFERENCE_DISTANCE = 150.0f;
+		static const float COTC_STARS_SIZE_REFERENCE_DISTANCE = 200.0f;
 
 		// smaller = size holds steadier, but the stars fade over more often while zooming.
 		static const float COTC_STARS_SIZE_STEP = 0.5f;
 
 		// Fade layers out where the view ray grazes them (-ViewDir.y), to stop streaks at the horizon
-		static const float COTC_STARS_HORIZON_FADE_START = 0.02f;
-		static const float COTC_STARS_HORIZON_FADE_END   = 0.1f;
+		static const float COTC_STARS_HORIZON_FADE_START = 0.05f;
+		static const float COTC_STARS_HORIZON_FADE_END   = 1.0f;
 
 		static const int COTC_STARS_LAYERS_COUNT = 4;
 
@@ -53,7 +53,6 @@ PixelShader = {
 		#define COTC_STARS_MAX_LAYERS 16
 
 		// Per-layer variation
-		// The values are arbitrary; change any of them freely.
 		// rotation (deg), tile size, offset x, offset y
 		static const float4 COTC_STARS_LAYERS[COTC_STARS_MAX_LAYERS] =
 		{

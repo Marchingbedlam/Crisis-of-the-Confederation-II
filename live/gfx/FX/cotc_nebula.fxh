@@ -37,42 +37,41 @@ PixelShader = {
 	[[
 		// A define, not a static const, so it can size the table and the unroll hint
 		#define COTC_NEBULA_LAYERS 24
-		static const float COTC_NEBULA_DENSITY   = 0.3f;
+		static const float COTC_NEBULA_DENSITY   = 0.2f;
 
 		static const float COTC_NEBULA_CEILING_Y = 5.0f;
 		static const float COTC_NEBULA_FLOOR_Y   = -5.0f;
 
-		static const float COTC_NEBULA_CLOUD_CONTRAST  = 2.0f;
+		static const float COTC_NEBULA_CLOUD_CONTRAST  = 5.0f;
 
 		// Per-layer variation of the cloud texture
-		// The values are arbitrary; change any of them freely:
 		// rotation (deg), tile size, offset x, offset y
 		static const float4 COTC_NEBULA_CLOUD_LAYERS[COTC_NEBULA_LAYERS] =
 		{
-			float4(  252.3f,  421.5f, 0.43f, 0.51f ),
-			float4(  119.1f,  491.4f, 0.25f, 0.57f ),
-			float4(   89.1f,  380.6f, 0.80f, 0.52f ),
-			float4(  322.2f,  377.9f, 0.53f, 0.82f ),
-			float4(  290.2f,  389.3f, 0.97f, 0.98f ),
-			float4(  216.1f,  338.5f, 0.73f, 0.63f ),
-			float4(  354.5f,  366.4f, 0.51f, 0.47f ),
-			float4(  271.6f,  431.9f, 0.10f, 0.29f ),
-			float4(  285.0f,  310.9f, 0.38f, 0.97f ),
-			float4(  176.0f,  477.7f, 0.94f, 0.24f ),
-			float4(  329.8f,  412.7f, 0.99f, 0.15f ),
-			float4(   38.1f,  400.5f, 0.56f, 0.78f ),
-			float4(   81.2f,  335.2f, 0.49f, 0.94f ),
-			float4(  269.4f,  311.1f, 0.25f, 0.10f ),
-			float4(   84.5f,  439.9f, 0.40f, 0.82f ),
-			float4(  119.6f,  450.9f, 0.58f, 0.74f ),
-			float4(  279.5f,  490.7f, 0.52f, 0.59f ),
-			float4(  140.5f,  323.7f, 0.04f, 0.19f ),
-			float4(  290.2f,  317.7f, 0.32f, 0.91f ),
-			float4(   42.0f,  363.1f, 0.94f, 0.38f ),
-			float4(  169.1f,  352.5f, 0.15f, 0.89f ),
-			float4(  255.1f,  355.4f, 0.94f, 0.58f ),
-			float4(  191.0f,  434.5f, 0.74f, 0.44f ),
-			float4(  157.1f,  489.8f, 0.03f, 0.97f ),
+			float4(  252.3f,  400.0f, 0.43f, 0.51f ),
+			float4(  119.1f,  400.0f, 0.25f, 0.57f ),
+			float4(   89.1f,  400.0f, 0.80f, 0.52f ),
+			float4(  322.2f,  400.0f, 0.53f, 0.82f ),
+			float4(  290.2f,  400.0f, 0.97f, 0.98f ),
+			float4(  216.1f,  400.0f, 0.73f, 0.63f ),
+			float4(  354.5f,  400.0f, 0.51f, 0.47f ),
+			float4(  271.6f,  400.0f, 0.10f, 0.29f ),
+			float4(  285.0f,  400.0f, 0.38f, 0.97f ),
+			float4(  176.0f,  400.0f, 0.94f, 0.24f ),
+			float4(  329.8f,  400.0f, 0.99f, 0.15f ),
+			float4(   38.1f,  400.0f, 0.56f, 0.78f ),
+			float4(   81.2f,  400.0f, 0.49f, 0.94f ),
+			float4(  269.4f,  400.0f, 0.25f, 0.10f ),
+			float4(   84.5f,  400.0f, 0.40f, 0.82f ),
+			float4(  119.6f,  400.0f, 0.58f, 0.74f ),
+			float4(  279.5f,  400.0f, 0.52f, 0.59f ),
+			float4(  140.5f,  400.0f, 0.04f, 0.19f ),
+			float4(  290.2f,  400.0f, 0.32f, 0.91f ),
+			float4(   42.0f,  400.0f, 0.94f, 0.38f ),
+			float4(  169.1f,  400.0f, 0.15f, 0.89f ),
+			float4(  255.1f,  400.0f, 0.94f, 0.58f ),
+			float4(  191.0f,  400.0f, 0.74f, 0.44f ),
+			float4(  157.1f,  400.0f, 0.03f, 0.97f ),
 		};
 
 		void COTC_ApplyNebula(inout float3 Color, inout float Alpha, float3 WorldSpacePos, float Visibility)
