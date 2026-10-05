@@ -14,27 +14,24 @@ window = {
 	datacontext = "[GovernmentAdministrationWindow.GetTitle]"
 	datacontext = "[Title.GetHolder]"
 
-	oncreate = "[BindTabsContext]"
-	oncreate = "[PdxGuiTabs.ListenFor( 'administration_tabs' )]"
-
 	state = {
 		name = _show
 		using = Animation_FadeIn_Quick
 		using = Sound_WindowShow_Standard
 		using = Window_Position_MainTab
 		using = Expand_Admin_Themes
+
 		on_start = "[SetMapMode( 'admin_vassal_types_map' )]"
-
-		on_start = "[PdxGuiTabs.RemoveTab( 'family' )]"
-		on_start = "[PdxGuiTabs.AddTabIf( 'family', GetPlayer.GetGovernment.HasRule( 'administrative' ) )]"  # Referenced in Code, don't rename`
-
-		on_start = "[PdxGuiTabs.RemoveTab( 'families' )]"
-		on_start = "[PdxGuiTabs.AddTab( 'families' )]"
-
-		on_start = "[PdxGuiTabs.RemoveTab( 'themes' )]"
-		on_start = "[PdxGuiTabs.AddTabIf( 'themes', Character.GetGovernment.HasRule( 'administrative' ) )]"
-
 		on_start = "[GetVariableSystem.Clear( 'show_prominent_appointment' )]"
+	}
+
+	state = {
+		name = on_create
+		trigger_on_create = yes
+
+		on_start = "[GetVariableSystem.Set( 'your_family', 'true'  )]"
+		on_start = "[GetVariableSystem.Clear( 'families' )]"
+		on_start = "[GetVariableSystem.Clear( 'themes' )]"
 	}
 
 	state = {
@@ -54,7 +51,7 @@ window = {
 
 		widget = {
 			size = { 100% 100% }
-			
+
 			vbox = {
 				using = Window_Margins
 
@@ -72,8 +69,10 @@ window = {
 					}
 				}
 
-				hbox_tab_buttons = {
+				hbox = {
 					name = "administration_tabs"
+					layoutpolicy_horizontal = expanding
+
 					button_tab = {
 						name = "open_family_tab"
 						shortcut = "tab_1"
@@ -181,7 +180,7 @@ window = {
 					name = "your_family"
 					widgetid = "your_family"
 					datacontext = "[GovernmentAdministrationWindow.GetPlayerHouse]"
-					visible = "[PdxGuiTabs.IsTabSet( 'family' )]"
+					visible = "[GetVariableSystem.Exists( 'your_family' )]"
 					layoutpolicy_horizontal = expanding
 					layoutpolicy_vertical = expanding
 
@@ -199,22 +198,12 @@ window = {
 
 				vbox = {
 					name = "themes"
-					visible = "[PdxGuiTabs.IsTabSet( 'themes' )]"
+					visible = "[GetVariableSystem.Exists( 'themes' )]"
 					layoutpolicy_horizontal = expanding
 					layoutpolicy_vertical = expanding
 
 					margin_top = 10
 					margin_bottom = 15
-
-					state = {
-						name = _show
-						on_start = "[SetMapMode( 'admin_vassal_types_map' )]"
-					}
-
-					state = {
-						name = _hide
-						on_start = "[SetMapMode( 'realms' )]"
-					}
 
 					widget_header_state_faith = {}
 
@@ -261,7 +250,7 @@ window = {
 				vbox = {
 					name = "powerful_families"
 					widgetid = "powerful_families"
-					visible = "[PdxGuiTabs.IsTabSet( 'families' )]"
+					visible = "[GetVariableSystem.Exists( 'families' )]"
 					layoutpolicy_horizontal = expanding
 					layoutpolicy_vertical = expanding
 
