@@ -5,6 +5,14 @@
 	
 	doctrines = {
 		special_doctrine_is_western_christian_faith
+		special_doctrine_is_christian_faith
+		doctrine_dictatorship
+		doctrine_clerical_function_taxation
+		doctrine_clerical_gender_either
+		doctrine_clerical_marriage_disallowed
+		doctrine_clerical_succession_spiritual_fixed_appointment
+		doctrine_monasticism_accepted
+		doctrine_sacraments_central
 	}
 	
     tenets = {
@@ -26,6 +34,18 @@ orthodox_cotc = {
 	faith = ecumenical
 	color = { 0.7 0 0.5 }
 	icon = christianity_byzantine_cross_05
+	
+	doctrines = {
+		special_doctrine_is_eastern_christian_faith
+		doctrine_clerical_marriage_disallowed
+		doctrine_dictatorship
+		doctrine_clerical_function_taxation
+		doctrine_clerical_gender_either
+		doctrine_clerical_marriage_disallowed
+		doctrine_clerical_succession_spiritual_fixed_appointment
+		doctrine_monasticism_accepted
+		doctrine_sacraments_central
+	}
 
 	tenets = {
 		tenet_pentarchy
@@ -40,16 +60,24 @@ orthodox_cotc = {
 		tenet = tenet_divine_liturgy
 		fallback_tenet = tenet_communal_identity
 	}
-
-	doctrines = {
-		special_doctrine_is_eastern_christian_faith
-		doctrine_clerical_marriage_disallowed
-	}
 }
 sunni_cotc = {
 	faith = islamic
 	color = { 0.2 0.36 0.23 }
 	icon = sunni
+	
+	doctrines = {
+		special_doctrine_is_islamic_faith
+		special_doctrine_jizya
+		doctrine_pilgrimage_mandatory_hajj
+		doctrine_polygamy
+		doctrine_theocracy_lay_clergy
+		doctrine_clerical_function_alms_and_pacification
+		doctrine_clerical_marriage_allowed
+		doctrine_clerical_succession_temporal_fixed_appointment
+		doctrine_monasticism_absent
+		doctrine_sacraments_absent
+	}
 
 	tenets = {
 		tenet_struggle_submission
@@ -61,6 +89,19 @@ shia_cotc = {
 	faith = islamic
 	color = { 0.3 0.73 0.09 }
 	icon = islam_hamsa_02
+	
+	doctrines = {
+		special_doctrine_is_islamic_faith
+		special_doctrine_jizya
+		doctrine_pilgrimage_mandatory_hajj
+		doctrine_polygamy
+		doctrine_theocracy_lay_clergy
+		doctrine_clerical_function_alms_and_pacification
+		doctrine_clerical_marriage_allowed
+		doctrine_clerical_succession_temporal_fixed_appointment
+		doctrine_monasticism_absent
+		doctrine_sacraments_absent
+	}
 
     localization = {
     	PriestMale = islam_shia_priest
@@ -83,6 +124,16 @@ taharahist = { # Relatively new Muslim sect concerned primarily with human purit
 	icon = sunni
 	
 	doctrines = {
+		special_doctrine_is_islamic_faith
+		special_doctrine_jizya
+		doctrine_pilgrimage_mandatory_hajj
+		doctrine_polygamy
+		doctrine_theocracy_lay_clergy
+		doctrine_clerical_function_alms_and_pacification
+		doctrine_clerical_marriage_allowed
+		doctrine_clerical_succession_temporal_fixed_appointment
+		doctrine_monasticism_absent
+		doctrine_sacraments_absent
 		doctrine_pluralism_fundamentalist
 		doctrine_deviancy_crime
 	}
@@ -98,6 +149,19 @@ sanatanist = {
 	color = { 1.0 0.3 0.3 }
 	icon = hinduism
 	
+	doctrines = {
+		doctrine_polytheist
+		special_doctrine_is_hindu_faith
+		doctrine_pluralism_pluralistic
+		doctrine_polygamy
+		doctrine_clerical_marriage_allowed
+		doctrine_clerical_succession_temporal_appointment
+		doctrine_funeral_cremation
+		doctrine_monasticism_encouraged
+		doctrine_sacraments_absent
+		doctrine_mythic_literary
+	}
+	
 	tenets = {
 		tenet_reincarnation
 		tenet_bhakti
@@ -108,6 +172,19 @@ theravada_cotc = {
 	faith = buddhist_cotc
 	color = { 0.8 0.4 0.0 }
 	icon = buddhism
+	
+	doctrines = {
+		doctrine_polytheist
+		special_doctrine_is_buddhist_faith
+		special_doctrine_maitreya_hostility
+		doctrine_pluralism_pluralistic
+		doctrine_divorce_allowed
+		doctrine_clerical_function_alms_and_pacification
+		doctrine_funeral_cremation
+		doctrine_monasticism_encouraged
+		doctrine_sacraments_absent
+		doctrine_mythic_literary
+	}
 
 	tenets = {
 		tenet_dharmic_pacifism
@@ -121,9 +198,19 @@ mahayana_cotc = {
 	icon = mahayana
 	
 	doctrines = {
+		doctrine_polytheist
+		special_doctrine_is_buddhist_faith
+		special_doctrine_maitreya_hostility
+		doctrine_pluralism_pluralistic
+		doctrine_divorce_allowed
+		doctrine_clerical_function_alms_and_pacification
+		doctrine_funeral_cremation
+		doctrine_monasticism_encouraged
+		doctrine_sacraments_absent
+		doctrine_mythic_literary
 		special_doctrine_immaterial_harmony
 	}
-
+	
 	tenets = {
 		tenet_dharmic_pacifism
 		tenet_mendicant_preachers
@@ -134,6 +221,14 @@ judaic = {
 	faith = judaic
 	color = { 0.1 0.7 1.0 }
 	icon = judaism
+	
+	doctrines = {
+		special_doctrine_is_jewish_faith
+		doctrine_divorce_allowed
+		doctrine_clerical_marriage_allowed
+		doctrine_clerical_succession_temporal_fixed_appointment
+		temple_authority_rabbinic_doctrine
+	}
 
 	tenets = {
 		tenet_communal_identity
@@ -144,6 +239,13 @@ judaic = {
 independent = {
 	faith = independent
 	color = { 0.2 0.2 0.3 }
+	
+	doctrines = {
+		special_doctrine_not_allowed_to_hof # Independents are fierce congregationalists, they would never accept an HoF
+		special_doctrine_is_christian_faith
+		doctrine_separatism
+		doctrine_clerical_marriage_allowed
+	}
 
 	tenets = {
 		tenet_literalism
@@ -151,19 +253,21 @@ independent = {
 		tenet_philanthropy
 	}
 }
-sixther = {
-	faith = sixther
-	color = { 0 0.5 1 } # Azure
-
-	tenets = {
-		tenet_sun_worship
-		tenet_ritual_hallucinogens
-		tenet_unrelenting_faith
-	}
-}
 mormon = {
 	faith = mormon
 	color = { 255 184 29 } # Amber from the Utah state flag
+	
+	doctrines = {
+		special_doctrine_is_christian_faith
+		doctrine_spiritual_head
+		doctrine_theocracy_temporal
+		doctrine_clerical_succession_spiritual_fixed_appointment
+		doctrine_divorce_approval
+		doctrine_polygamy
+		doctrine_clerical_function_taxation
+		doctrine_clerical_marriage_allowed
+		doctrine_pilgrimage_encouraged
+	}
 
 	tenets = {
 		tenet_mendicant_preachers
@@ -171,9 +275,33 @@ mormon = {
 		tenet_gnosticism
 	}
 }
+sixther = {
+	faith = sixther
+	color = { 0 0.5 1 } # Azure
+	
+	doctrines = {
+		doctrine_polytheist
+		special_doctrine_is_nahua_faith
+		doctrine_mythic_literary
+	}
+
+	tenets = {
+		tenet_sun_worship
+		tenet_ritual_hallucinogens
+		tenet_unrelenting_faith
+	}
+}
 gaean = {
 	faith = gaean
 	color = { 0.3 0.73 0.09 } # Kelly green
+	
+	doctrines = {
+		doctrine_clerical_marriage_allowed
+		doctrine_homosexuality_accepted
+		doctrine_deviancy_accepted
+		doctrine_adultery_men_shunned
+		doctrine_adultery_women_shunned
+	}
 
 	tenets = {
 		tenet_sanctity_of_nature
@@ -194,8 +322,17 @@ lost_world = { # Placeholder until we can get proper individual rites
 kolobite = {
 	faith = kolobite
 	color = { 1.0 0.96 0.93 } # Seashell
+	
 	doctrines = {
+		special_doctrine_is_christian_faith
 		doctrine_spiritual_head
+		doctrine_theocracy_temporal
+		doctrine_clerical_succession_spiritual_fixed_appointment
+		doctrine_divorce_approval
+		doctrine_polygamy
+		doctrine_clerical_function_taxation
+		doctrine_clerical_marriage_allowed
+		doctrine_scriptural
 	}
 
 	tenets = {
@@ -207,8 +344,10 @@ kolobite = {
 cosmist = {
 	faith = cosmist
 	color = { 0.25 0.29 0.3 } # Outer Space
+	
 	doctrines = {
 		doctrine_spiritual_head
+		doctrine_monasticism_encouraged
 	}
 	
 	tenets = {
@@ -220,8 +359,12 @@ cosmist = {
 guardianist = {
 	faith = guardianist
 	color = { 0.52 0.52 0.51 } # Battleship grey
+	
 	doctrines = {
+		doctrine_monotheist
 		doctrine_spiritual_head
+		doctrine_theocracy_temporal
+		doctrine_clerical_succession_spiritual_appointment
 	}
 	
 	tenets = {
@@ -233,6 +376,11 @@ guardianist = {
 machine_cult = { # Placeholder until we get local machine cult rites
 	faith = machine_cult
 	color = { 0.72 0.25 0.05 } # Rust
+	
+	doctrines = {
+		doctrine_polytheist
+		doctrine_sacraments_central
+	}
 	
 	tenets = {
 		tenet_adorcism
