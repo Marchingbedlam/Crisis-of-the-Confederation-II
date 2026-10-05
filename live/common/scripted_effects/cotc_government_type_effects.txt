@@ -696,10 +696,10 @@ set_to_default_non_state_government = { change_government = pirate_monarchy_gove
 set_to_default_state_government = {
 	if = {
 		limit = { $KEEP_CURRENT_POWER_BASE$ = flag:yes }
-		faith ?= { save_temporary_scope_as = temp_faith }
-		capital_province ?= { select_power_base_by_province = { FAITH = scope:temp_faith } }
+		rite ?= { save_temporary_scope_as = temp_rite }
+		capital_province ?= { select_power_base_by_province = { rite = scope:temp_rite } }
 	}
-	faith ?= { # Choose all other government values by ideology
+	rite ?= { # Choose all other government values by ideology
 		if = {
 			limit = { NOT = { exists = scope:power_base } }
 			select_ideology_default_power_base = yes
@@ -739,7 +739,7 @@ select_power_base_by_province = {
 		city_holding = { save_scope_value_as = { name = power_base value = flag:commercial } }
 		church_holding = {
 			if = {
-				limit = { $FAITH$ = { has_doctrine = religious_hostility_doctrine } }
+				limit = { $rite$ = { has_doctrine = religious_hostility_doctrine } }
 				save_scope_value_as = { name = power_base value = flag:theocratic }
 			}
 			else = { save_scope_value_as = { name = power_base value = flag:technocratic } }
@@ -748,7 +748,7 @@ select_power_base_by_province = {
 }
 select_ideology_default_power_base = {
 	switch = {
-		trigger = has_doctrine_parameter
+		trigger = rite_has_parameter
 		military_revolutions = { save_scope_value_as = { name = power_base value = flag:military } }
 		commercial_revolutions = { save_scope_value_as = { name = power_base value = flag:commercial } }
 		technocratic_revolutions = { save_scope_value_as = { name = power_base value = flag:technocratic } }
@@ -757,7 +757,7 @@ select_ideology_default_power_base = {
 }
 select_ideology_default_legitimacy = {
 	switch = {
-		trigger = has_doctrine_parameter
+		trigger = rite_has_parameter
 		democratic_revolutions = { save_scope_value_as = { name = legitimacy value = flag:democratic } }
 		aristocratic_revolutions = { save_scope_value_as = { name = legitimacy value = flag:aristocratic } }
 		meritocratic_revolutions = { save_scope_value_as = { name = legitimacy value = flag:meritocratic } }
@@ -776,7 +776,7 @@ select_ideology_default_legitimacy = {
 }
 select_ideology_default_authority = {
 	switch = {
-		trigger = has_doctrine_parameter
+		trigger = rite_has_parameter
 		despotic_revolutions = { save_scope_value_as = { name = authority value = flag:despotic } }
 		dictatorial_revolutions = { save_scope_value_as = { name = authority value = flag:dictatorial } }
 		presidential_revolutions = { save_scope_value_as = { name = authority value = flag:presidential } }
@@ -1031,7 +1031,7 @@ become_specified_state_government = {
 	}
 	if = {
 		limit = {
-			government_allows = state_faith
+			government_allows = state_rite
 			exists = scope:new_state_ideology
 		}
 		every_held_title = { set_state_rite = scope:new_state_ideology.main_rite }
