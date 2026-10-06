@@ -1,4 +1,4 @@
-# Use these instead of gender checks to accomodate non-standard gender identities
+﻿# Use these instead of gender checks to accomodate non-standard gender identities
 is_female_cotc = {
 	is_female = yes
 }
@@ -85,7 +85,7 @@ character_lives_in_de_jure_title = {
 		}
 		trigger_else_if = {
 			limit = { exists = location.province_owner.capital_province }
-			liege.province_owner.capital_province = { location_is_in_de_jure_title = { TITLE = $TITLE$ } }
+			location.province_owner.capital_province = { location_is_in_de_jure_title = { TITLE = $TITLE$ } }
 		}
 		trigger_else = { always = no }
 	}
@@ -108,7 +108,7 @@ character_lives_in_de_facto_title = {
 		}
 		trigger_else_if = {
 			limit = { exists = location.province_owner.capital_province }
-			liege.province_owner.capital_province = { location_is_in_de_facto_title = { TITLE = $TITLE$ } }
+			location.province_owner.capital_province = { location_is_in_de_facto_title = { TITLE = $TITLE$ } }
 		}
 		trigger_else = { always = no }
 	}
@@ -120,14 +120,14 @@ lives_in_capital_trigger = {
 character_is_military_trigger = {
 	OR = {
 		government_has_flag = government_is_military
-		has_court_position = councillor_marshal
+		has_council_position = councillor_marshal
 		is_knight = yes
 	}
 }
 character_is_commercial_trigger = {
 	OR = {
 		government_has_flag = government_is_commercial
-		has_court_position = councillor_steward
+		has_council_position = councillor_steward
 	}
 }
 character_is_technocratic_trigger = {
@@ -273,7 +273,7 @@ court_is_criminal_trigger = {
 }
 # Checks whether we should consider a character's interests as being opposed to our own
 character_is_hostile_trigger = {
-	$CHARACTER$ = { save_temporary_scope = loyalty_target }
+	$CHARACTER$ = { save_temporary_scope_as = loyalty_target }
 	OR = {
 		AND = {
 			opinion = { target = $CHARACTER$ value <= -50 }
@@ -286,7 +286,7 @@ character_is_hostile_trigger = {
 			ai_lawfulness < 0
 		}
 		any_scheme = {
-			scheme_target = $CHARACTER$
+			scheme_target_character = $CHARACTER$
 			is_hostile = yes
 		}
 		character_is_war_enemy_trigger = { CHARACTER = $CHARACTER$ }
@@ -294,12 +294,12 @@ character_is_hostile_trigger = {
 }
 # Checks whether we are enemies in a war, regardless of whose war it technically is
 character_is_war_enemy_trigger = {
-	save_temporary_scope = evaluated_enemy
+	save_temporary_scope_as = evaluated_enemy
 	OR = {
 		is_at_war_with = $CHARACTER$
 		$CHARACTER$ = { any_liege_or_above = { is_at_war_with = scope:evaluated_enemy } }
 		any_liege_or_above = {
-			save_temporary_scope = evaluated_enemy
+			save_temporary_scope_as = evaluated_enemy
 			OR = {
 				is_at_war_with = $CHARACTER$
 				$CHARACTER$ = { any_liege_or_above = { is_at_war_with = scope:evaluated_enemy } }
@@ -308,7 +308,7 @@ character_is_war_enemy_trigger = {
 	}
 }
 can_be_military_trigger = {
-	save_temporary_scope = temp_potential_military
+	save_temporary_scope_as = temp_potential_military
 	can_be_warrior_trigger = { ARMY_OWNER = $TITLE_OWNER$ }
 	trigger_if = {
 		limit = { exists = primary_title }

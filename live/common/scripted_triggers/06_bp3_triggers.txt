@@ -1,1 +1,54 @@
-﻿#Left blank - we probably do not need these triggers
+﻿wayfarer_the_real_threat_trigger = {
+	is_councillor_of = root
+	is_ai = yes
+	opinion = {
+		target = root
+		value < 10
+	}
+}
+
+later_historical_gold_mine_trigger = {
+	always = no
+}
+
+later_historical_silver_mine_trigger = {
+	always = no
+}
+
+later_historical_copper_mine_trigger = {
+	always = no
+}
+
+reminiscing_event_trigger = {
+	is_ai = no
+	has_variable = reminiscing_location
+	var:reminiscing_location = root.location
+}
+
+local_guild_trigger = {
+	always = no
+}
+
+local_guild_compare_trigger = {
+	always = no
+}
+
+landless_inspector_terrain_knowing_the_land_trigger = {
+	always = no
+}
+
+landless_inspector_terrain_master_trigger = {
+	root = {
+		OR = {
+			has_character_modifier = landless_inspector_$TERRAIN$_tier_1_modifier
+			has_character_modifier = landless_inspector_$TERRAIN$_tier_2_modifier
+			has_character_modifier = nomadic_inspector_$TERRAIN$_tier_2_modifier
+			has_character_modifier = landless_inspector_$TERRAIN$_tier_3_modifier
+			has_character_modifier = nomadic_inspector_$TERRAIN$_tier_3_modifier
+		}
+	}
+}
+
+landless_inspector_king_of_the_wilds = {
+	always = no
+}

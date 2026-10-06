@@ -51,7 +51,6 @@ accolade_maa_archers = {
 	
 	stack = 100
 	holy_order_fallback = no
-	mercenary_fallback = no
 	allowed_in_hired_troops = no
 	ai_quality = {
 		value = culture_ai_weight_archers
@@ -103,7 +102,6 @@ accolade_maa_skirmishers = {
 	
 	stack = 100
 	holy_order_fallback = no
-	mercenary_fallback = no
 	allowed_in_hired_troops = no
 	ai_quality = {
 		value = culture_ai_weight_skirmishers
@@ -157,7 +155,6 @@ accolade_maa_pikes = {
 	
 	stack = 100
 	holy_order_fallback = no
-	mercenary_fallback = no
 	allowed_in_hired_troops = no
 	ai_quality = {
 		value = culture_ai_weight_pikemen
@@ -216,7 +213,6 @@ accolade_maa_outriders = {
 	
 	stack = 100
 	holy_order_fallback = no
-	mercenary_fallback = no
 	allowed_in_hired_troops = no
 	ai_quality = {
 		value = culture_ai_weight_light_cavalry
@@ -262,7 +258,6 @@ accolade_maa_vanguards = {
 	
 	stack = 100
 	holy_order_fallback = no
-	mercenary_fallback = no
 	allowed_in_hired_troops = no
 	ai_quality = {
 		value = culture_ai_weight_heavy_infantry
@@ -322,7 +317,6 @@ accolade_maa_lancers = {
 	
 	stack = 50
 	holy_order_fallback = no
-	mercenary_fallback = no
 	allowed_in_hired_troops = no
 	ai_quality = {
 		value = culture_ai_weight_heavy_cavalry
@@ -376,7 +370,6 @@ accolade_maa_crossbowers = {
 	
 	stack = 100
 	holy_order_fallback = no
-	mercenary_fallback = no
 	allowed_in_hired_troops = no
 	ai_quality = {
 		value = culture_ai_weight_archers
@@ -437,7 +430,6 @@ accolade_maa_cameliers = {
 	
 	stack = 100
 	holy_order_fallback = no
-	mercenary_fallback = no
 	allowed_in_hired_troops = no
 	ai_quality = {
 		value = culture_ai_weight_camels
@@ -457,6 +449,9 @@ accolade_maa_elephantiers = {
 				type = elephantry_attribute
 				level >= 2
 			}
+		}
+		NOT = {
+			culture = { has_cultural_parameter = strength_in_numbers_heavy_maa_ban }
 		}
 		NOT = { exists = scope:title }
 	}
@@ -496,7 +491,6 @@ accolade_maa_elephantiers = {
 	stack = 25
 	hired_stack_size = 10
 	holy_order_fallback = no
-	mercenary_fallback = no
 	allowed_in_hired_troops = no
 	ai_quality = {
 		value = culture_ai_weight_elephants
@@ -543,7 +537,6 @@ accolade_maa_horse_archers = {
 	
 	stack = 100
 	holy_order_fallback = no
-	mercenary_fallback = no
 	allowed_in_hired_troops = no
 	ai_quality = {
 		value = @cultural_maa_extra_ai_score
@@ -582,7 +575,6 @@ accolade_maa_handgunners = {
 	
 	stack = 100
 	holy_order_fallback = no
-	mercenary_fallback = no
 	allowed_in_hired_troops = no
 	ai_quality = {
 		value = counter_synergy_ai_weight_gunpowder

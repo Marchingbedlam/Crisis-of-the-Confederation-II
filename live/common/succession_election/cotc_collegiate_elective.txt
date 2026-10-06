@@ -1,30 +1,36 @@
 ﻿collegiate_elective = {
 	candidates = {
-		add = {
-			type = title_claimants
-			limit = { is_capable_adult = yes }
-		}
-		add = {
-			type = title_dejure_vassals
-			limit = { is_capable_adult = yes }
-		}
-		add = {
-			type = holder_council_members
-			limit = { is_capable_adult = yes }
-		}
-		add = {
-			type = holder_direct_vassals
-			limit = { is_capable_adult = yes }
+		character_sets = {
+			collegiate_elective_title_claimants = {
+				type = title_claimants
+				limit = { is_capable_adult = yes }
+			}
+			collegiate_elective_title_dejure_vassals = {
+				type = title_dejure_vassals
+				limit = { is_capable_adult = yes }
+			}
+			collegiate_elective_holder_council_members = {
+				type = holder_council_members
+				limit = { is_capable_adult = yes }
+			}
+			collegiate_elective_holder_direct_vassals = {
+				type = holder_direct_vassals
+				limit = { is_capable_adult = yes }
+			}
 		}
 	}
 	
 	electors = {
-		add = holder
-		add = {
-			type = holder_direct_vassals
-			limit = {
-				highest_held_title_tier > tier_barony
-				subject_contract_has_flag = federal_member_state
+		character_sets = {
+			collegiate_electors_holder = {
+				type = holder
+			}
+			collegiate_electors_holder_direct_vassals = {
+				type = holder_direct_vassals
+				limit = {
+					highest_held_title_tier > tier_barony
+					subject_contract_has_flag = federal_member_state
+				}
 			}
 		}
 	}
@@ -60,16 +66,16 @@
 		holder_voting_pattern_federal_elective_modifier = yes
 
 		##########################	Elector voting patterns (circumstances)	##########################
-		elector_voting_pattern_circumstances_federal_elective_modifier = yes
+		elector_voting_pattern_circumstances_feudal_elective_modifier = yes
 
 		##########################	Elector voting patterns (prestige/piety)	##########################
-		elector_voting_pattern_prestige_piety_federal_elective_modifier = yes
+		elector_voting_pattern_prestige_piety_feudal_elective_modifier = yes
 
 		##########################	Elector voting patterns (traits)	##########################
-		elector_voting_pattern_traits_federal_elective_modifier = yes
+		elector_voting_pattern_traits_feudal_elective_modifier = yes
 
 		##########################	Elector voting patterns (opinion)	##########################
-		elector_voting_pattern_opinion_federal_elective_modifier = yes
+		elector_voting_pattern_opinion_feudal_elective_modifier = yes
 
 		##########################	Elector voting patterns (misc)	##########################
 		elector_voting_pattern_circumstances_misc_elective_modifier = yes

@@ -18,7 +18,7 @@
 	scripted_animation = { 
 		triggered_animation = {
 			trigger = {
-				has_title = title:e_byzantium
+				is_roman_emperor_trigger = yes
 				religion = religion:christianity_religion
 			}
 			animation = { scepter } # anim uses crucifix scepter
@@ -240,7 +240,7 @@ adviser = {
  		triggered_animation = { # advisor leaning in to ruler when they're available
  			trigger = {
 				scope:ruler = {
-					has_title = title:e_byzantium
+					is_roman_emperor_trigger = yes
 				}
  				court_event_ongoing_trigger = no
 			}
@@ -1302,9 +1302,13 @@ low_prio_clergy = {
 					value = 0
 					if = {
 						limit = {
-							has_court_type = court_scholarly
+							OR = {
+								has_court_type = court_scholarly
+								pam_is_clergy_ruler_trigger = yes
+							}
 							is_roman_emperor_trigger = no
 							OR = {
+								any_subordinate = { pam_court_scene_resident_subordinate_trigger = yes }
 								any_courtier_or_guest = {
 									is_available_healthy_ai_adult = yes
 									NOT = { has_short_disease_trigger = yes }
@@ -1312,7 +1316,7 @@ low_prio_clergy = {
 									OR = {
 										is_clergy = yes
 										has_education_learning_trigger = yes
-										has_trait = scholar
+										has_trait = erudite
 										has_trait = theologian
 										has_trait = lifestyle_herbalist
 										has_trait = lifestyle_physician
@@ -1334,7 +1338,7 @@ low_prio_clergy = {
 									OR = {
 										is_clergy = yes
 										has_education_learning_trigger = yes
-										has_trait = scholar
+										has_trait = erudite
 										has_trait = theologian
 										has_trait = lifestyle_herbalist
 										has_trait = lifestyle_physician
@@ -1363,7 +1367,7 @@ low_prio_clergy = {
 									OR = {
 										is_clergy = yes
 										has_education_learning_trigger = yes
-										has_trait = scholar
+										has_trait = erudite
 										has_trait = theologian
 										has_trait = lifestyle_herbalist
 										has_trait = lifestyle_physician
@@ -1385,7 +1389,7 @@ low_prio_clergy = {
 									OR = {
 										is_clergy = yes
 										has_education_learning_trigger = yes
-										has_trait = scholar
+										has_trait = erudite
 										has_trait = theologian
 										has_trait = lifestyle_herbalist
 										has_trait = lifestyle_physician
@@ -1405,6 +1409,10 @@ low_prio_clergy = {
 					}
 				}
 				scope:ruler = {
+					every_subordinate = {
+						limit = { pam_court_scene_resident_subordinate_trigger = yes }
+						add_to_list = characters
+					}
 					every_courtier_or_guest = {
 						limit = {
 							is_available_healthy_ai_adult = yes
@@ -1413,7 +1421,7 @@ low_prio_clergy = {
 							OR = {
 								is_clergy = yes
 								has_education_learning_trigger = yes
-								has_trait = scholar
+								has_trait = erudite
 								has_trait = theologian
 								has_trait = lifestyle_herbalist
 								has_trait = lifestyle_physician
@@ -1439,7 +1447,7 @@ low_prio_clergy = {
 							OR = {
 								is_clergy = yes
 								has_education_learning_trigger = yes
-								has_trait = scholar
+								has_trait = erudite
 								has_trait = theologian
 								has_trait = lifestyle_herbalist
 								has_trait = lifestyle_physician

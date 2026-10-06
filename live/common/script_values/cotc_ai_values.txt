@@ -2,7 +2,10 @@
 	value = 0
 	add = ai_vengefulness
 	subtract = ai_compassion
-	subtract = var:faith_in_democracy
+	if = {
+		limit = { has_variable = ai_faith_in_democracy }
+		subtract = var:ai_faith_in_democracy
+	}
 	
 	if = {
 		limit = { exists = secret_faith }
@@ -192,7 +195,7 @@ ai_personal_fear_of = { # How scared is this character of another character, in 
 			scope:fearee = {
 				any_scheme = {
 					type = murder
-					target_character = scope:temp_fearer
+					scheme_target_character = scope:temp_fearer
 					is_scheme_exposed = yes
 				}
 			}
@@ -258,7 +261,7 @@ ai_personal_fear_of = { # How scared is this character of another character, in 
 					any_scheme = {
 						is_hostile = yes
 						is_scheme_exposed = yes
-						target_character = scope:temp_fearer
+						scheme_target_character = scope:temp_fearer
 					}
 				}
 			}

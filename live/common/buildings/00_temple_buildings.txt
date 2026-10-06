@@ -84,11 +84,43 @@ temple_01 = {
 		monthly_piety = 0.01
 	}
 
+	province_rite_modifier = {
+		parameter = tenet_tax_increase_per_piety_level
+		tax_per_piety_level = 0.1
+	}
+
 	flag = temple
 
 	type_icon = "icon_building_temple_base.dds"
 
 	on_complete = {
+		save_scope_as = temple_location
+		county.holder ?= {
+			# By God Alone - Secular Faith & Rite: raising a temple lifts a demon's torment (0048)...
+			if = {
+				limit = { has_character_modifier = pam_sf_demon_torment_modifier }
+				send_interface_toast = {
+					type = event_toast_effect_good
+					title = pam_sf_demon_torment_lifted_toast
+					left_icon = this
+					remove_character_modifier = pam_sf_demon_torment_modifier
+					change_spiritual_fulfillment = major_spiritual_fulfillment_value
+				}
+			}
+			# ...and a first church fires the consecration event (0020).
+			if = {
+				limit = {
+					pam_secular_faith_christian_actor_trigger = yes
+					NOT = { has_character_flag = pam_sf_first_church_consecrated }
+				}
+				root.county = { save_scope_as = pam_sf_consecrated_county }
+				#Delayed so it doesn't happen simultaneous with order creation
+				trigger_event = {
+					id = pam_secular_faith_events.0020
+					days = 2
+				} 
+			}
+		}
 		if = {
 			limit = {
 				county.holder.culture = { has_cultural_parameter = renown_from_temple_construction }
@@ -100,14 +132,29 @@ temple_01 = {
 			limit = { county.holder.culture = { has_cultural_parameter = extra_piety_from_temple_construction } }
 			county.holder = { add_piety = omega_piety_gain }
 		}
-		else = { county.holder ?= { add_piety = massive_piety_gain } }
-		save_scope_as = temple_location
+		else = {
+			county.holder ?= { add_piety = massive_piety_gain }
+		}
 		if = {
-			limit = { county.holder.culture = { has_cultural_parameter = more_fervor_on_church_construction } }
-			county.holder.faith = { change_fervor = { value = 5 desc = fervor_gain_built_temple_holding } }
+			limit = {
+				county.holder.culture = {
+					has_cultural_parameter = more_fervor_on_church_construction
+				}
+			}
+			county.holder.faith = {
+				change_fervor = {
+					value = notable_fervor_gain
+					desc = fervor_gain_built_temple_holding
+				}
+			}
 		}
 		else = {
-			county.holder.faith = { change_fervor = { value = 1 desc = fervor_gain_built_temple_holding } }
+			county.holder.faith = {
+				change_fervor = {
+					value = trivial_fervor_gain
+					desc = fervor_gain_built_temple_holding
+				}
+			}
 		}
 		if = {
 			limit = { county.holder.culture = { has_cultural_parameter = prestige_from_temple_construction } }
@@ -358,6 +405,11 @@ temple_02 = {
 		monthly_piety = 0.02
 	}
 
+	province_rite_modifier = {
+		parameter = tenet_tax_increase_per_piety_level
+		tax_per_piety_level = 0.1
+	}
+
 	flag = temple
 	
 	type_icon = "icon_building_temple_base.dds"
@@ -380,7 +432,7 @@ temple_02 = {
 			}
 			county.holder.faith = {
 				change_fervor = {
-					value = 2
+					value = small_fervor_gain
 					desc = fervor_gain_upgraded_temple_holding_culture_parameter
 				}
 			}
@@ -529,6 +581,11 @@ temple_03 = {
 		monthly_piety = 0.03
 	}
 
+	province_rite_modifier = {
+		parameter = tenet_tax_increase_per_piety_level
+		tax_per_piety_level = 0.1
+	}
+
 	flag = temple
 
 	type_icon = "icon_building_temple_base.dds"
@@ -551,7 +608,7 @@ temple_03 = {
 			}
 			county.holder.faith = {
 				change_fervor = {
-					value = 2
+					value = small_fervor_gain
 					desc = fervor_gain_upgraded_temple_holding_culture_parameter
 				}
 			}
@@ -674,6 +731,11 @@ temple_04 = {
 		monthly_piety = 0.05
 	}
 
+	province_rite_modifier = {
+		parameter = tenet_tax_increase_per_piety_level
+		tax_per_piety_level = 0.1
+	}
+
 	flag = temple
 
 	type_icon = "icon_building_temple_base.dds"
@@ -696,7 +758,7 @@ temple_04 = {
 			}
 			county.holder.faith = {
 				change_fervor = {
-					value = 2
+					value = small_fervor_gain
 					desc = fervor_gain_upgraded_temple_holding_culture_parameter
 				}
 			}
@@ -853,20 +915,6 @@ propaganda_01 = {
 			factor = 0
 			NOT = {
 				has_building_or_higher = research_labs_01
-			}
-		}
-		modifier = {
-			factor = 0
-			building_farm_estates_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = farm_estates_01
-			}
-		}
-		modifier = {
-			factor = 0
-			building_cereal_fields_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = cereal_fields_01
 			}
 		}
 	}
@@ -1334,7 +1382,7 @@ research_labs_01 = {
 		building_requirement_tribal = no
 	}
 
-	cost_gold = large_building_tier_1_cost
+	cost_gold = expensive_building_tier_1_cost
 
 	character_modifier = {
 		monthly_piety = 0.1
@@ -1383,7 +1431,7 @@ research_labs_02 = {
 		building_requirement_tribal = no
 	}
 
-	cost_gold = large_building_tier_2_cost
+	cost_gold = expensive_building_tier_2_cost
 
 	character_modifier = {
 		monthly_piety = 0.2
@@ -1453,7 +1501,7 @@ research_labs_03 = {
 		building_requirement_tribal = no
 	}
 
-	cost_gold = large_building_tier_3_cost
+	cost_gold = expensive_building_tier_3_cost
 
 	character_modifier = {
 		monthly_piety = 0.1
@@ -1504,7 +1552,7 @@ research_labs_04 = {
 				has_building_or_higher = temple_citadel_02
 				trigger_if = { #Trigger IF for non-confusing tooltip
 					limit = {
-						scope:holder.faith = { has_doctrine_parameter = research_labs_allowed_in_every_holding_type }
+						scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type }
 					}
 					building_requirement_castle_city_church_temple_citadel_tribe = {
 						LEVEL = 02
@@ -1524,7 +1572,7 @@ research_labs_04 = {
 				has_building_or_higher = temple_citadel_01
 				trigger_if = { #Trigger IF for non-confusing tooltip
 					limit = {
-						scope:holder.faith = { has_doctrine_parameter = research_labs_allowed_in_every_holding_type }
+						scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type }
 					}
 					building_requirement_castle_city_church_temple_citadel_tribe = {
 						LEVEL = 01
@@ -1538,7 +1586,7 @@ research_labs_04 = {
 		building_requirement_tribal = no
 	}
 
-	cost_gold = large_building_tier_4_cost
+	cost_gold = expensive_building_tier_4_cost
 	character_modifier = {
 		monthly_piety = 0.15
 		monthly_learning_lifestyle_xp_gain_mult = 0.15
@@ -1588,7 +1636,7 @@ research_labs_05 = {
 				has_building_or_higher = temple_citadel_03
 				trigger_if = { #Trigger IF for non-confusing tooltip
 					limit = {
-						scope:holder.faith = { has_doctrine_parameter = research_labs_allowed_in_every_holding_type }
+						scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type }
 					}
 					building_requirement_castle_city_church_temple_citadel_tribe = {
 						LEVEL = 03
@@ -1608,7 +1656,7 @@ research_labs_05 = {
 				has_building_or_higher = temple_citadel_02
 				trigger_if = { #Trigger IF for non-confusing tooltip
 					limit = {
-						scope:holder.faith = { has_doctrine_parameter = research_labs_allowed_in_every_holding_type }
+						scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type }
 					}
 					building_requirement_castle_city_church_temple_citadel_tribe = {
 						LEVEL = 02
@@ -1622,7 +1670,7 @@ research_labs_05 = {
 		building_requirement_tribal = no
 	}
 
-	cost_gold = large_building_tier_5_cost
+	cost_gold = expensive_building_tier_5_cost
 
 	character_modifier = {
 		monthly_piety = 0.15
@@ -1674,7 +1722,7 @@ research_labs_06 = {
 				has_building_or_higher = temple_citadel_03
 				trigger_if = { #Trigger IF for non-confusing tooltip
 					limit = {
-						scope:holder.faith = { has_doctrine_parameter = research_labs_allowed_in_every_holding_type }
+						scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type }
 					}
 					building_requirement_castle_city_church_temple_citadel_tribe = {
 						LEVEL = 03
@@ -1694,7 +1742,7 @@ research_labs_06 = {
 				has_building_or_higher = temple_citadel_02
 				trigger_if = { #Trigger IF for non-confusing tooltip
 					limit = {
-						scope:holder.faith = { has_doctrine_parameter = research_labs_allowed_in_every_holding_type }
+						scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type }
 					}
 					building_requirement_castle_city_church_temple_citadel_tribe = {
 						LEVEL = 02
@@ -1708,7 +1756,7 @@ research_labs_06 = {
 		building_requirement_tribal = no
 	}
 
-	cost_gold = large_building_tier_6_cost
+	cost_gold = expensive_building_tier_6_cost
 
 	character_modifier = {
 		monthly_piety = 0.15
@@ -1760,7 +1808,7 @@ research_labs_07 = {
 				has_building_or_higher = temple_citadel_04
 				trigger_if = { #Trigger IF for non-confusing tooltip
 					limit = {
-						scope:holder.faith = { has_doctrine_parameter = research_labs_allowed_in_every_holding_type }
+						scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type }
 					}
 					building_requirement_castle_city_church_temple_citadel_tribe = {
 						LEVEL = 04
@@ -1780,7 +1828,7 @@ research_labs_07 = {
 				has_building_or_higher = temple_citadel_03
 				trigger_if = { #Trigger IF for non-confusing tooltip
 					limit = {
-						scope:holder.faith = { has_doctrine_parameter = research_labs_allowed_in_every_holding_type }
+						scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type }
 					}
 					building_requirement_castle_city_church_temple_citadel_tribe = {
 						LEVEL = 03
@@ -1794,7 +1842,7 @@ research_labs_07 = {
 		building_requirement_tribal = no
 	}
 
-	cost_gold = large_building_tier_7_cost
+	cost_gold = expensive_building_tier_7_cost
 
 	character_modifier = {
 		monthly_piety = 0.25
@@ -1846,7 +1894,7 @@ research_labs_08 = {
 				has_building_or_higher = temple_citadel_04
 				trigger_if = { #Trigger IF for non-confusing tooltip
 					limit = {
-						scope:holder.faith = { has_doctrine_parameter = research_labs_allowed_in_every_holding_type }
+						scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type }
 					}
 					building_requirement_castle_city_church_temple_citadel_tribe = {
 						LEVEL = 04
@@ -1866,7 +1914,7 @@ research_labs_08 = {
 				has_building_or_higher = temple_citadel_03
 				trigger_if = { #Trigger IF for non-confusing tooltip
 					limit = {
-						scope:holder.faith = { has_doctrine_parameter = research_labs_allowed_in_every_holding_type }
+						scope:holder.faith = { has_doctrine_parameter = monastic_schools_allowed_in_every_holding_type }
 					}
 					building_requirement_castle_city_church_temple_citadel_tribe = {
 						LEVEL = 03
@@ -1880,7 +1928,7 @@ research_labs_08 = {
 		building_requirement_tribal = no
 	}
 
-	cost_gold = large_building_tier_8_cost
+	cost_gold = expensive_building_tier_8_cost
 
 	character_modifier = {
 		monthly_piety = 0.25
@@ -2204,7 +2252,6 @@ bureaucracy_07 = {
 
 bureaucracy_08 = {
 	construction_time = standard_construction_time
-
 	can_construct_potential = {
 		OR = {
 			has_building_or_higher = temple_04
@@ -2257,7 +2304,6 @@ diplomatic_corps_01 = {
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
 	}
-
 	cost_gold = normal_building_tier_1_cost
 
 	character_modifier = {
@@ -2304,7 +2350,6 @@ diplomatic_corps_02 = {
 	can_construct_showing_failures_only = {
 		#building_requirement_tribal = no
 	}
-
 	cost_gold = normal_building_tier_2_cost
 
 	character_modifier = {
@@ -2343,7 +2388,6 @@ diplomatic_corps_03 = {
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
 	}
-
 	cost_gold = normal_building_tier_3_cost
 
 	character_modifier = {
@@ -2382,7 +2426,6 @@ diplomatic_corps_04 = {
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
 	}
-
 	cost_gold = normal_building_tier_4_cost
 
 	character_modifier = {
@@ -2422,7 +2465,6 @@ diplomatic_corps_05 = {
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
 	}
-
 	cost_gold = normal_building_tier_5_cost
 
 	character_modifier = {
@@ -2462,7 +2504,6 @@ diplomatic_corps_06 = {
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
 	}
-
 	cost_gold = normal_building_tier_5_cost
 
 	character_modifier = {
@@ -2502,7 +2543,6 @@ diplomatic_corps_07 = {
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
 	}
-
 	cost_gold = normal_building_tier_5_cost
 
 	character_modifier = {
@@ -2542,7 +2582,6 @@ diplomatic_corps_08 = {
 	can_construct_showing_failures_only = {
 		building_requirement_tribal = no
 	}
-
 	cost_gold = normal_building_tier_5_cost
 
 	character_modifier = {

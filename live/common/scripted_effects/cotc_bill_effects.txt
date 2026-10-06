@@ -525,3 +525,11 @@ vote_against_tax_code_strength_effect = {
 		change_variable = { name = vote_strength add = 50 }
 	}
 }
+# Creates the variable at 0 first, so callers never change an unset variable
+change_ai_faith_in_democracy_effect = {
+	if = {
+		limit = { NOT = { has_variable = ai_faith_in_democracy } }
+		set_variable = { name = ai_faith_in_democracy value = 0 }
+	}
+	change_variable = { name = ai_faith_in_democracy add = $VALUE$ }
+}

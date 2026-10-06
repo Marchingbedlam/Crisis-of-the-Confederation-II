@@ -4,8 +4,12 @@
 
  seduce_outcome.0001.t:0 "Now or Never"
  seduce_outcome.0001.desc:0 "[target.GetTitledFirstNamePossessive] reactions to my advances tell me everything I need to know. The time has come to put my plan into action.\n\n"
- seduce_outcome.0001.positive.desc:0 "I think my chances are good, yet I must remember that [discoverer.Custom2('NamePossessiveCharacterIntroduction', target)] is always watching..."
- seduce_outcome.0001.negative.desc:0 "Yet, I fear the consequences. [discoverer.Custom2('NamePossessiveCharacterIntroduction', target)|U] and [discoverer.GetHerHis] agents could be hiding in any shadow, listening through any wall..."
+ seduce_outcome.0001.positive.desc:0 "I think my chances are good, yet I must remember that "
+ seduce_outcome.0001.negative.desc:0 "Yet, I fear the consequences. "
+  seduce_outcome.0001.positive.consequence.desc: "[discoverer.Custom2('NamePossessiveCharacterIntroduction', target)] is always watching..."
+ seduce_outcome.0001.negative.consequence.desc: "[discoverer.Custom2('NamePossessiveCharacterIntroduction', target)|U] and [discoverer.GetHerHis] agents could be hiding in any shadow, listening through any wall..."
+ seduce_outcome.0001.no_discoverer.consequence.desc: "$seduce_outcome.0001.negative.desc$"
+
  seduce_outcome.0001.a:0 "[target.GetFirstNameNoTooltip] will be mine!"
  seduce_outcome.0001.a.tt:0 "I go ahead with my attempt to seduce [target.GetTitledFirstName]"
  seduce_outcome.0001.b:0 "I cannot risk discovery."
@@ -54,7 +58,7 @@
  seduce_outcome.2030.b:0 "What a meal we shared!"
 
  seduce_outcome.2040.t:0 "Unto the Breach"
- seduce_outcome.2040.desc:0 "As the shadows lengthen I find [target.GetTitledFirstName] in the darkness beneath the [owner.Custom('ResidenceBuilding')] wall, waiting for me.\n\n[target.GetSheHe|U] comes towards me, hesitantly at first, then eagerly. I hear [target.GetHerHis] breath quicken as I pull [target.GetHerHim] close. In the shade of the wall we make love, the patrolling guards oblivious to our passion..."
+ seduce_outcome.2040.desc:0 "As the shadows lengthen, I find [target.GetTitledFirstName] in the darkness beneath the [owner.Custom('ResidenceBuilding')] wall, waiting for me.\n\n[target.GetSheHe|U] comes towards me, hesitantly at first, then eagerly. I hear [target.GetHerHis] breath quicken as I pull [target.GetHerHim] close. In the shade of the wall we make love, the patrolling guards oblivious to our passion..."
  seduce_outcome.2040.a:0 "Once more!"
  seduce_outcome.2040.b:0 "After conquering the [owner.Custom('ResidenceBuilding')], I withdraw."
 
@@ -126,6 +130,7 @@
 
  seduce_outcome.3901.t:0 "A Snake at Court"
  seduce_outcome.3901.desc:0 "I recognize the anxious look on my servant's face. [dummy_servant_gender.GetSheHe|U] is here to bring me bad news.\n\n"[ROOT.Char.Custom('FormOfAddressForLiege')|U], you must come quickly! [owner.Custom2('YourCharacterIntroduction', ROOT.Char)|U] was just seen leaving the chambers of [target.Custom2('YourCharacterIntroductionNoComma', ROOT.Char)]!""
+ seduce_outcome.3902.desc:0 ""[ROOT.Char.Custom('FormOfAddressForLiege')|U], I have bad news! [owner.Custom2('YourCharacterIntroduction', ROOT.Char)|U] was just seen leaving the chambers of [target.Custom2('YourCharacterIntroductionNoComma', ROOT.Char)]!""
  seduce_outcome.3900.a:0 "This can only mean one thing!"
 
  seduce_outcome.3000.desc:0 "As we meet clandestinely, the Supreme Pontiff and I, my being is filled with an awe and desire more carnal in nature than spiritual. Surely, no one before me has received the blessing of [SCOPE.sC('owner').GetHerHis|U] Holiness in quite this way.\n\n[owner.GetHerHis|U] hand reaches out, I close my eyes and kneel..."
@@ -146,7 +151,7 @@
  seduce_outcome.3301.t:0 "In My Chambers"
  seduce_outcome.3301.desc:0 "A shiver of anticipation finds its way up my spine as a knock resounds through the stillness of my chambers. Could it be #EMP [owner.GetHerHim]#!?\n\nI am greeted by [owner.GetTitledFirstName], smiling [owner.Custom('quirk_pos_adverb')], lust plain on [owner.GetHerHis] face. At last! As [owner.GetHerHis] arms envelop me the fire in my chest burst into flames, and the rest of the night is spent in a warm and fiery haze."
  seduce_outcome.3301.a:0 "Oh [owner.GetFirstNameNoTooltip], my [owner.Custom('LoverPetName')], let us meet again!"
- seduce_outcome.3301.a.tt:0 "#F And again, and again, and again...!#!"
+ seduce_outcome.3301.a.tt:0 "#F And again, and again, and again!#!"
  seduce_outcome.3301.b:0 "That [owner.GetTitleTierName] sure knows how to please a [ROOT.Char.GetWomanMan]."
  
  seduce_outcome.3302.desc_opening:1 "Strolling in the gardens I am suddenly greeted by a sight sweeter than any flower: [owner.GetTitledFirstName] wearing servants' garb and a [owner.Custom('quirk_pos_adjective')] smile.\n\n"

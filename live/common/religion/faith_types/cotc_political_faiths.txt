@@ -1,0 +1,338 @@
+﻿liberal_metroplanetist = {
+	main_rite = terran_republican # Historically the federalists were in charge, but this changes during the crisis
+	faith_details = {
+		religion = metroplanetism_ideology
+		color = { 25 25 100 } # Federal blue
+	}
+	
+	eminent_holy_sites = { earth }
+	holy_sites = {
+		tau_ceti_e
+		mpya_ya_zanzibar_prime
+		jabra_iil
+		korolev_iv
+	}
+}
+universalist = {
+	main_rite = universalist
+	faith_details = {
+		religion = metroplanetism_ideology
+		color = { 0.78 0.08 0.52 } # Red-violet
+	}
+	
+	eminent_holy_sites = {
+		earth
+		altair_iv
+	}
+	holy_sites = {
+		mpya_ya_zanzibar_prime
+		jabra_iil
+		korolev_iv
+	}
+	
+	doctrines = { doctrine_technocratic_power }
+
+	tenets = {
+		tenet_communal_possessions
+		tenet_planned_economy
+		tenet_federalism
+	}
+}
+imperial_metroplanetist = {
+	main_rite = luoist
+	origin = liberal_metroplanetist
+	
+	faith_details = {
+		religion = metroplanetism_ideology
+		color = { 0 0.14 0.4 } # Royal blue
+	}
+	eminent_holy_sites = {
+		earth
+		mars
+	}
+	holy_sites = {
+		tau_ceti_e
+		jabra_iil
+		korolev_iv
+	}
+	
+	doctrines = {
+		doctrine_pluralism_righteous
+		doctrine_aristocracy
+		doctrine_military_power
+		doctrine_dictatorship
+	}
+	
+	tenets = {
+		tenet_legalism
+		tenet_pursuit_of_power
+		tenet_armed_pilgrimages
+	}
+}
+
+liberal_separatist = {
+	main_rite = lebedevist
+	faith_details = {
+		religion = separatism_ideology
+		color = { 0.83 0.69 0.21 } # Metallic gold
+	}
+	
+	holy_sites = {
+		jerusalem
+		rome
+		cologne
+		santiago
+		kent
+	}
+}
+neo_feudalist = {
+	main_rite = neo_feudalist
+	faith_details = {
+		religion = separatism_ideology
+		color = { 0.4 0 0.23 } # Tyrian purple
+	}
+	
+	eminent_holy_sites = {
+		earth
+		galahad_iii
+	}
+	
+	holy_sites = {
+		mars
+		lovell_iii
+		avalon_iii
+	}
+
+	reserved_male_names = {
+		Bedivere Daniel Galahad Gareth Gawain Kay Lancelot Lionel Pellinore Percival Tristan Yvain Arthur Merlin
+		Charlemagne Roland Oliver Gerin Berengier Otton Samson Engelier Ivon Ivoire Anseis Girard
+	}
+	reserved_female_names = {
+		Guinevere Igraine Morgause Blanchefleur Iseult Nimue Vivian Lynette Lyonesse Sebile
+	}
+	
+	localization = {
+		ReligiousSymbol = neo_feudalist_symbol
+		ReligiousSymbol2 = neo_feudalist_symbol_2
+		ReligiousSymbol3 = neo_feudalist_symbol_3
+	}
+	
+	doctrines = {
+		doctrine_aristocracy
+		doctrine_military_power
+		doctrine_despotism
+	}
+	
+	tenets = {
+		tenet_chivalry
+		tenet_ancestor_worship
+		tenet_mystical_birthright
+	}
+}
+
+mainline_astrist = {
+	main_rite = mainline_astrist
+	faith_details = {
+		religion = astrism_ideology
+		color = { 0.0 0.09 0.21 } # Midnight blue
+	}
+	
+	eminent_holy_sites = {
+		belt
+	}
+	holy_sites = {
+		rome
+		cologne
+		santiago
+		kent
+	}
+
+	tenets = {
+		tenet_spacer_values
+		tenet_planned_economy
+		tenet_asceticism
+	}
+}
+
+old_socialist = {
+	main_rite = old_socialist
+	faith_details = {
+		religion = socialism_ideology
+		color = { 0.85 0.33 0.3 } # Pale red
+	}
+	
+	eminent_holy_sites = {
+		earth
+		altair_iv
+	}
+	
+	holy_sites = {
+		cologne
+		santiago
+		kent
+	}
+	
+	doctrines = {
+		doctrine_pluralism_fundamentalist
+		doctrine_commonality_pluralism
+		doctrine_meritocracy
+		doctrine_dictatorship
+		doctrine_scriptural
+	}
+
+	tenets = {
+		tenet_communal_possessions
+		tenet_literalism
+	}
+	tenet_selection_pair = {
+		requires_dlc_flag = all_under_heaven
+		tenet = tenet_pursuit_of_knowledge
+		fallback_tenet = tenet_ancestor_worship
+	}
+}
+neo_socialist = {
+	main_rite = neo_socialist
+	faith_details = {
+		religion = socialism_ideology
+		color = { 0.8 0.0 0.0 } # Bright blood red
+	}
+	origin = old_socialist
+	
+	eminent_holy_sites = {
+		altair_iv
+	}
+	holy_sites = {
+		rome
+		cologne
+		santiago
+		kent
+	}
+
+	tenets = {
+		tenet_communal_possessions
+		tenet_planned_economy
+		tenet_alexandrian_catechism
+	}
+}
+gaoist = { # I Can't Believe It's Not Dengism!(c)
+	main_rite = xingjie_gaoist
+	faith_details = {
+		religion = socialism_ideology
+		color = { 0.89 0.26 0.2 } # Vermillion
+	}
+	
+	eminent_holy_sites = {
+		earth
+		huangjing_iii
+	}
+	holy_sites = {
+		liuxiusi_vi_b
+		altair_iv
+		korolev_iv
+	}
+	
+	doctrines = {
+		doctrine_pluralism_pluralistic
+		doctrine_metroplanetism
+		doctrine_meritocracy
+	}
+
+	tenets = {
+		tenet_planned_economy
+		tenet_adaptive 
+	}
+	tenet_selection_pair = {
+		requires_dlc_flag = all_under_heaven
+		tenet = tenet_harmonious_society
+		fallback_tenet = tenet_legalism
+	}
+}
+anarchist = {
+	main_rite = frontier_anarchist
+	faith_details = {
+		religion = socialism_ideology
+		color = { 0.1 0.1 0.1 } # Very, very, very dark grey
+	}
+	
+	eminent_holy_sites = {
+		altair_iv
+		armstrong_iii
+	}
+	holy_sites = {
+		cologne
+		santiago
+		kent
+	}
+	
+	localization = {
+		ReligiousSymbol = frontier_anarchist_symbol
+		ReligiousSymbol2 = frontier_anarchist_symbol_2
+		ReligiousSymbol3 = frontier_anarchist_symbol_3
+	}
+	
+	doctrines = {
+		doctrine_no_legitimacy
+		doctrine_commercial_power
+		doctrine_anarchism
+	}
+
+	tenets = {
+		tenet_communal_possessions
+		tenet_federalism
+		tenet_ancestor_worship
+	}
+}
+cyberneticist = {
+	main_rite = cyberneticist
+	faith_details = {
+		religion = transhumanism_ideology
+		color = { 0.75 0.75 0.75 } # Silver
+	}
+	
+	holy_sites = {
+		jerusalem
+		rome
+		cologne
+		santiago
+		kent
+	}
+
+	tenets = {
+		tenet_cyberneticism
+		tenet_federalism
+		tenet_alexandrian_catechism
+	}
+}
+bio_directionist = {
+	main_rite = bio_directionist
+	faith_details = {
+		religion = transhumanism_ideology
+		color = { 0.13 0.54 0.13 } # Forest green
+	}
+	
+	eminent_holy_sites = {
+		lovell_iii
+		avalon_iii
+	}
+	holy_sites = {
+		cologne
+		santiago
+		kent
+	}
+	
+	localization = {
+		ReligiousSymbol = bio_directionist_symbol
+		ReligiousSymbol2 = bio_directionist_symbol_2
+		ReligiousSymbol3 = bio_directionist_symbol_3
+	}
+
+	tenets = {
+		tenet_bio_directionism
+		tenet_sacred_childbirth
+	}
+	tenet_selection_pair = {
+		requires_dlc_flag = all_under_heaven
+		tenet = tenet_filial_piety
+		fallback_tenet = tenet_ancestor_worship
+	}
+}

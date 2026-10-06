@@ -149,7 +149,7 @@ temple_citadel_01 = {
 				}
 				faith = {
 					change_fervor = {
-						value = 5
+						value = notable_fervor_gain
 						desc = fervor_gain_built_temple_holding
 					}
 				}
@@ -157,7 +157,7 @@ temple_citadel_01 = {
 			else = {
 				faith = {
 					change_fervor = {
-						value = 1
+						value = trivial_fervor_gain
 						desc = fervor_gain_built_temple_holding
 					}
 				}
@@ -449,7 +449,7 @@ temple_citadel_02 = {
 				}
 				faith = {
 					change_fervor = {
-						value = 2
+						value = small_fervor_gain
 						desc = fervor_gain_upgraded_temple_holding_culture_parameter
 					}
 				}
@@ -680,7 +680,7 @@ temple_citadel_03 = {
 				}
 				faith = {
 					change_fervor = {
-						value = 2
+						value = small_fervor_gain
 						desc = fervor_gain_upgraded_temple_holding_culture_parameter
 					}
 				}
@@ -885,7 +885,7 @@ temple_citadel_04 = {
 				}
 				faith = {
 					change_fervor = {
-						value = 2
+						value = small_fervor_gain
 						desc = fervor_gain_upgraded_temple_holding_culture_parameter
 					}
 				}
@@ -1078,12 +1078,15 @@ citadel_shrine_02 = {
 citadel_shrine_03 = {
 	construction_time = standard_construction_time
 
+	can_construct_potential = {
+		has_dlc = "All Under Heaven"
+	}
+
 	can_construct = {
 		has_building_or_higher = temple_citadel_02
 		culture = {
 			has_innovation = innovation_manorialism
 		}
-		has_dlc = "All Under Heaven"
 	}
 
 	can_construct_showing_failures_only = {
@@ -1125,12 +1128,15 @@ citadel_shrine_03 = {
 citadel_shrine_04 = {
 	construction_time = standard_construction_time
 
+	can_construct_potential = {
+		has_dlc = "All Under Heaven"
+	}
+
 	can_construct = {
 		has_building_or_higher = temple_citadel_02
 		culture = {
 			has_innovation = innovation_manorialism
 		}
-		has_dlc = "All Under Heaven"
 	}
 
 	can_construct_showing_failures_only = {
@@ -1172,12 +1178,15 @@ citadel_shrine_04 = {
 citadel_shrine_05 = {
 	construction_time = standard_construction_time
 
+	can_construct_potential = {
+		has_dlc = "All Under Heaven"
+	}
+
 	can_construct = {
 		has_building_or_higher = temple_citadel_03
 		culture = {
 			has_innovation = innovation_windmills
 		}
-		has_dlc = "All Under Heaven"
 	}
 
 	can_construct_showing_failures_only = {
@@ -1219,12 +1228,15 @@ citadel_shrine_05 = {
 citadel_shrine_06 = {
 	construction_time = standard_construction_time
 
+	can_construct_potential = {
+		has_dlc = "All Under Heaven"
+	}
+
 	can_construct = {
 		has_building_or_higher = temple_citadel_03
 		culture = {
 			has_innovation = innovation_windmills
 		}
-		has_dlc = "All Under Heaven"
 	}
 
 	can_construct_showing_failures_only = {
@@ -1266,12 +1278,15 @@ citadel_shrine_06 = {
 citadel_shrine_07 = {
 	construction_time = standard_construction_time
 
+	can_construct_potential = {
+		has_dlc = "All Under Heaven"
+	}
+
 	can_construct = {
 		has_building_or_higher = temple_citadel_04
 		culture = {
 			has_innovation = innovation_cranes
 		}
-		has_dlc = "All Under Heaven"
 	}
 
 	can_construct_showing_failures_only = {
@@ -1313,12 +1328,15 @@ citadel_shrine_07 = {
 citadel_shrine_08 = {
 	construction_time = standard_construction_time
 
+	can_construct_potential = {
+		has_dlc = "All Under Heaven"
+	}
+
 	can_construct = {
 		has_building_or_higher = temple_citadel_03
 		culture = {
 			has_innovation = innovation_cranes
 		}
-		has_dlc = "All Under Heaven"
 	}
 
 	can_construct_showing_failures_only = {
@@ -1409,20 +1427,6 @@ sacred_pool_01 = {
 			factor = 2
 			free_building_slots <= 1
 		}
-		modifier = {
-			factor = 0
-			building_farm_estates_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = farm_estates_01
-			}
-		}
-		modifier = {
-			factor = 0
-			building_cereal_fields_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = cereal_fields_01
-			}
-		}
 	}
 }
 
@@ -1496,6 +1500,10 @@ sacred_pool_02 = {
 sacred_pool_03 = {
 	construction_time = standard_construction_time
 
+	can_construct_potential = {
+		has_dlc = "All Under Heaven"
+	}
+
 	can_construct = {
 		has_building_or_higher = temple_citadel_02
 		trigger_if = {
@@ -1518,8 +1526,6 @@ sacred_pool_03 = {
 				has_innovation = innovation_city_planning
 			}
 		}
-		
-		has_dlc = "All Under Heaven"
 	}
 
 	can_construct_showing_failures_only = {
@@ -1567,6 +1573,10 @@ sacred_pool_03 = {
 sacred_pool_04 = {
 	construction_time = standard_construction_time
 
+	can_construct_potential = {
+		has_dlc = "All Under Heaven"
+	}
+
 	can_construct = {
 		has_building_or_higher = temple_citadel_02
 		trigger_if = {
@@ -1589,7 +1599,6 @@ sacred_pool_04 = {
 				has_innovation = innovation_city_planning
 			}
 		}
-		has_dlc = "All Under Heaven"
 	}
 
 	can_construct_showing_failures_only = {
@@ -1637,6 +1646,10 @@ sacred_pool_04 = {
 sacred_pool_05 = {
 	construction_time = standard_construction_time
 
+	can_construct_potential = {
+		has_dlc = "All Under Heaven"
+	}
+
 	can_construct = {
 		has_building_or_higher = temple_citadel_03
 		trigger_if = {
@@ -1659,7 +1672,6 @@ sacred_pool_05 = {
 				has_innovation = innovation_manorialism
 			}
 		}
-		has_dlc = "All Under Heaven"
 	}
 
 	can_construct_showing_failures_only = {
@@ -1707,6 +1719,10 @@ sacred_pool_05 = {
 sacred_pool_06 = {
 	construction_time = standard_construction_time
 
+	can_construct_potential = {
+		has_dlc = "All Under Heaven"
+	}
+
 	can_construct = {
 		has_building_or_higher = temple_citadel_03
 		trigger_if = {
@@ -1729,7 +1745,6 @@ sacred_pool_06 = {
 				has_innovation = innovation_manorialism
 			}
 		}
-		has_dlc = "All Under Heaven"
 	}
 
 	can_construct_showing_failures_only = {
@@ -1777,6 +1792,10 @@ sacred_pool_06 = {
 sacred_pool_07 = {
 	construction_time = standard_construction_time
 
+	can_construct_potential = {
+		has_dlc = "All Under Heaven"
+	}
+
 	can_construct = {
 		has_building_or_higher = temple_citadel_04
 		trigger_if = {
@@ -1799,7 +1818,6 @@ sacred_pool_07 = {
 				has_innovation = innovation_windmills
 			}
 		}
-		has_dlc = "All Under Heaven"
 	}
 
 	can_construct_showing_failures_only = {
@@ -1847,6 +1865,10 @@ sacred_pool_07 = {
 sacred_pool_08 = {
 	construction_time = standard_construction_time
 
+	can_construct_potential = {
+		has_dlc = "All Under Heaven"
+	}
+
 	can_construct = {
 		has_building_or_higher = temple_citadel_03
 		trigger_if = {
@@ -1869,7 +1891,6 @@ sacred_pool_08 = {
 				has_innovation = innovation_windmills
 			}
 		}
-		has_dlc = "All Under Heaven"
 	}
 
 	can_construct_showing_failures_only = {
@@ -1967,20 +1988,6 @@ vihara_halls_01 = {
 			factor = 2
 			free_building_slots <= 1
 		}
-		modifier = {
-			factor = 0
-			building_farm_estates_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = farm_estates_01
-			}
-		}
-		modifier = {
-			factor = 0
-			building_cereal_fields_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = cereal_fields_01
-			}
-		}
 	}
 }
 
@@ -2040,12 +2047,15 @@ vihara_halls_02 = {
 vihara_halls_03 = {
 	construction_time = standard_construction_time
 
+	can_construct_potential = {
+		has_dlc = "All Under Heaven"
+	}
+
 	can_construct = {
 		has_building_or_higher = temple_citadel_02
 		culture = {
 			has_innovation = innovation_manorialism
 		}
-		has_dlc = "All Under Heaven"
 	}
 
 	can_construct_showing_failures_only = {
@@ -2093,12 +2103,15 @@ vihara_halls_03 = {
 vihara_halls_04 = {
 	construction_time = standard_construction_time
 
+	can_construct_potential = {
+		has_dlc = "All Under Heaven"
+	}
+
 	can_construct = {
 		has_building_or_higher = temple_citadel_02
 		culture = {
 			has_innovation = innovation_manorialism
 		}
-		has_dlc = "All Under Heaven"
 	}
 
 	can_construct_showing_failures_only = {
@@ -2146,12 +2159,15 @@ vihara_halls_04 = {
 vihara_halls_05 = {
 	construction_time = standard_construction_time
 
+	can_construct_potential = {
+		has_dlc = "All Under Heaven"
+	}
+
 	can_construct = {
 		has_building_or_higher = temple_citadel_03
 		culture = {
 			has_innovation = innovation_windmills
 		}
-		has_dlc = "All Under Heaven"
 	}
 
 	can_construct_showing_failures_only = {
@@ -2199,12 +2215,15 @@ vihara_halls_05 = {
 vihara_halls_06 = {
 	construction_time = standard_construction_time
 
+	can_construct_potential = {
+		has_dlc = "All Under Heaven"
+	}
+
 	can_construct = {
 		has_building_or_higher = temple_citadel_03
 		culture = {
 			has_innovation = innovation_windmills
 		}
-		has_dlc = "All Under Heaven"
 	}
 
 	can_construct_showing_failures_only = {
@@ -2252,12 +2271,15 @@ vihara_halls_06 = {
 vihara_halls_07 = {
 	construction_time = standard_construction_time
 
+	can_construct_potential = {
+		has_dlc = "All Under Heaven"
+	}
+
 	can_construct = {
 		has_building_or_higher = temple_citadel_04
 		culture = {
 			has_innovation = innovation_cranes
 		}
-		has_dlc = "All Under Heaven"
 	}
 
 	can_construct_showing_failures_only = {
@@ -2305,12 +2327,15 @@ vihara_halls_07 = {
 vihara_halls_08 = {
 	construction_time = standard_construction_time
 
+	can_construct_potential = {
+		has_dlc = "All Under Heaven"
+	}
+
 	can_construct = {
 		has_building_or_higher = temple_citadel_03
 		culture = {
 			has_innovation = innovation_cranes
 		}
-		has_dlc = "All Under Heaven"
 	}
 
 	can_construct_showing_failures_only = {

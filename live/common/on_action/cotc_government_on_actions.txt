@@ -40,6 +40,7 @@ global_government_setup_on_action = {
 				exists = dynasty
 				highest_held_title_tier >= tier_county
 				is_landed = yes
+				is_valid_for_legitimacy_change = yes
 			}
 			add_legitimacy = base_legitimacy_value
 		}
@@ -163,12 +164,12 @@ remove_disallowed_government_on_action = {
 }
 make_direct_vassal_noble_family_on_action = {
 	trigger = {
-		government_allows = administrative
+		government_has_mechanic = administrative
 		is_house_head = yes
 		highest_held_title_tier >= tier_county
 		liege = {
 			top_liege = this
-			government_allows = administrative
+			government_has_mechanic = administrative
 		}
 		NOR = {
 			any_held_title = { is_noble_family_title = yes }

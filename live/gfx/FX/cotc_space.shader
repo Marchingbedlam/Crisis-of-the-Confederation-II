@@ -30,6 +30,116 @@ Includes = {
 	#END MOD
 }
 
+# Top level so the vertex shader can do the starlight lookup once per vertex
+TextureSampler COTC_Starlight_Mask
+{
+	Index = 41
+	MagFilter = "Linear"
+	MinFilter = "Linear"
+	MipFilter = "Linear"
+	SampleModeU = "Clamp"
+	SampleModeV = "Clamp"
+	File = "gfx/map/terrain/cotc_starlight_mask.png"
+	#srgb = yes
+}
+
+# Baked RGB-mask -> XYZ coordinate lookup table (see generated/cotc_starlight_coord.fxh).
+TextureSampler COTC_Starlight_Coord_LUT
+{
+	Index = 42
+	MagFilter = "Point"
+	MinFilter = "Point"
+	MipFilter = "Point"
+	SampleModeU = "Clamp"
+	SampleModeV = "Clamp"
+	File = "gfx/FX/generated/cotc_starlight_coord_lut.dds"
+}
+
+Code
+[[
+	// Pack an 8-bit RGB triple (0-255) into a single 24-bit key.
+	uint PackColorKey( uint3 StarlightRgb )
+	{
+		return ( StarlightRgb.r << 16 ) | ( StarlightRgb.g << 8 ) | StarlightRgb.b;
+	}
+
+	// Wang-style finalizer
+	// MUST stay bit-identical to hash_color_key() in bake_starlight.py
+	uint HashColorKey( uint Key )
+	{
+		Key = ( Key ^ 61u ) ^ ( Key >> 16 );
+		Key *= 9u;
+		Key = Key ^ ( Key >> 4 );
+		Key *= 0x27d4eb2du;
+		Key = Key ^ ( Key >> 15 );
+		return Key;
+	}
+
+	// Center-of-texel UV for a linear slot index. RowOffset picks the band:
+	// 0 = key, STARLIGHT_LUT_ROWS = data0, 2*STARLIGHT_LUT_ROWS = data1.
+	float2 StarlightLUTSlotUV( uint Slot, uint RowOffset )
+	{
+		uint x = Slot % STARLIGHT_LUT_W;
+		uint y = Slot / STARLIGHT_LUT_W + RowOffset;
+		return ( float2( x, y ) + 0.5f ) / float2( STARLIGHT_LUT_W, STARLIGHT_LUT_ROWS * STARLIGHT_LUT_BANDS );
+	}
+
+	// Reassemble a 16-bit unsigned value from a (low, high) byte pair.
+	uint Unpack16( float Lo, float Hi )
+	{
+		return (uint)round( Lo * 255.0f ) + ( (uint)round( Hi * 255.0f ) << 8 );
+	}
+
+	float3 LookupStarlightCoord( uint3 StarlightRgb )
+	{
+		float3 StarCoord = float3( 0.0f, 0.0f, 0.0f );
+
+		uint Key  = PackColorKey( StarlightRgb );
+		uint Slot = HashColorKey( Key ) & STARLIGHT_LUT_TABLE_MASK;
+
+		for ( uint i = 0u; i <= STARLIGHT_LUT_TABLE_MASK; ++i )
+		{
+			float4 KeyTexel = PdxTex2DLod0( COTC_Starlight_Coord_LUT, StarlightLUTSlotUV( Slot, 0u ) );
+
+			if ( KeyTexel.a < 0.5f )
+			{
+				return StarCoord; // empty slot -> starlight not in table
+			}
+
+			uint3 StoredRGB = (uint3)round( KeyTexel.rgb * 255.0f );
+			if ( all( StoredRGB == StarlightRgb ) )
+			{
+				float4 Data0 = PdxTex2DLod0( COTC_Starlight_Coord_LUT, StarlightLUTSlotUV( Slot, STARLIGHT_LUT_ROWS ) );
+				float4 Data1 = PdxTex2DLod0( COTC_Starlight_Coord_LUT, StarlightLUTSlotUV( Slot, STARLIGHT_LUT_ROWS * 2u ) );
+				StarCoord = float3(
+					Unpack16( Data0.r, Data0.g ),   // X
+					Unpack16( Data0.b, Data0.a ),   // Y
+					Unpack16( Data1.r, Data1.g ) ); // Z
+				return StarCoord;
+			}
+
+			Slot = ( Slot + 1u ) & STARLIGHT_LUT_TABLE_MASK; // wrap around
+		}
+
+		return StarCoord;
+	}
+
+	// One star lights the whole object, so look it up at the object pivot
+	float3 COTC_GetStarlightPos( float4x4 WorldMatrix )
+	{
+		#if defined( COTC_NO_SHADOW ) && !defined( COTC_OUTER_FRESNEL_SUNLIT )
+			return float3( 0.0f, 0.0f, 0.0f );
+		#else
+			float3 Pivot = mul( WorldMatrix, float4( 0.0f, 0.0f, 0.0f, 1.0f ) ).xyz;
+			float2 DetailCoordinates = Pivot.xz * WorldSpaceToDetail;
+			DetailCoordinates.y = 1.0f - DetailCoordinates.y;
+			float4 StarlightMask = PdxTex2DLod0( COTC_Starlight_Mask, DetailCoordinates );
+			uint3 StarlightRgb = (uint3)round( saturate( StarlightMask.rgb ) * 255.0f );
+			return LookupStarlightCoord( StarlightRgb );
+		#endif
+	}
+]]
+
 PixelShader =
 {
 	TextureSampler DiffuseMap
@@ -104,30 +214,6 @@ PixelShader =
 		#srgb = yes
 	}
 
-	TextureSampler COTC_Starlight_Mask
-	{
-		Index = 41
-		MagFilter = "Linear"
-		MinFilter = "Linear"
-		MipFilter = "Linear"
-		SampleModeU = "Clamp"
-		SampleModeV = "Clamp"
-		File = "gfx/map/terrain/cotc_starlight_mask.png"
-		#srgb = yes
-	}
-
-	# Baked RGB-mask -> XYZ coordinate lookup table (see generated/cotc_starlight_coord.fxh).
-	TextureSampler COTC_Starlight_Coord_LUT
-	{
-		Index = 42
-		MagFilter = "Point"
-		MinFilter = "Point"
-		MipFilter = "Point"
-		SampleModeU = "Clamp"
-		SampleModeV = "Clamp"
-		File = "gfx/FX/generated/cotc_starlight_coord_lut.dds"
-	}
-
 	# MOD(COTC) - vanilla surround mask
 	TextureSampler COTC_SurroundMask
 	{
@@ -187,6 +273,8 @@ VertexStruct VS_OUTPUT
 	float2 UV1				: TEXCOORD4;
 	float3 WorldSpacePos	: TEXCOORD5;
 	uint InstanceIndex 	: TEXCOORD6;
+	float3 StarlightPos		: TEXCOORD7;
+	float3 ObjectCenter		: TEXCOORD8;
 };
 
 VertexShader =
@@ -229,8 +317,11 @@ VertexShader =
 		[[
 			PDX_MAIN
 			{
+				float4x4 WorldMatrix = PdxMeshGetWorldMatrix( Input.InstanceIndices.y );
 				VS_OUTPUT Out = ConvertOutput( PdxMeshVertexShaderStandard( Input ) );
 				Out.InstanceIndex = Input.InstanceIndices.y;
+				Out.StarlightPos = COTC_GetStarlightPos( WorldMatrix );
+				Out.ObjectCenter = mul( WorldMatrix, float4( 0.0f, 0.0f, 0.0f, 1.0f ) ).xyz;
 				return Out;
 			}
 		]]
@@ -244,8 +335,11 @@ VertexShader =
 		[[
 			PDX_MAIN
 			{
-				VS_OUTPUT Out = ConvertOutput( PdxMeshVertexShader( PdxMeshConvertInput( Input ), 0/*Skinning data not supported*/, UnpackAndGetMapObjectWorldMatrix( Input.InstanceIndex24_Opacity8 ) ) );
+				float4x4 WorldMatrix = UnpackAndGetMapObjectWorldMatrix( Input.InstanceIndex24_Opacity8 );
+				VS_OUTPUT Out = ConvertOutput( PdxMeshVertexShader( PdxMeshConvertInput( Input ), 0/*Skinning data not supported*/, WorldMatrix ) );
 				Out.InstanceIndex = Input.InstanceIndex24_Opacity8;
+				Out.StarlightPos = COTC_GetStarlightPos( WorldMatrix );
+				Out.ObjectCenter = mul( WorldMatrix, float4( 0.0f, 0.0f, 0.0f, 1.0f ) ).xyz;
 				return Out;
 			}
 		]]
@@ -260,71 +354,38 @@ PixelShader =
 		static const float COTC_BLACK_HOLE_EMISSIVE_BOOST	= 5.0f;
 		static const float COTC_NEUTRON_EMISSIVE_BOOST		= 3.0f;
 
-		// Pack an 8-bit RGB triple (0-255) into a single 24-bit key.
-		uint PackColorKey( uint3 StarlightRgb )
+		// power, edge fade, night alpha, terminator
+		static const float4 COTC_FRESNEL_STANDARD_OUTER   = float4( 1.5f, 2.0f, 0.1f, 0.4f );
+		static const float4 COTC_FRESNEL_NEUTRON_OUTER    = float4( 0.1f, 1.0f, 1.0f, 0.4f );
+		static const float4 COTC_FRESNEL_BLACK_HOLE_OUTER = float4( 0.1f, 1.0f, 1.0f, 0.4f );
+
+		// F0, power, offset
+		static const float4 COTC_FRESNEL_STANDARD_INNER   = float4( 0.1f, 4.0f, 0.0f, 0.0f );
+		static const float4 COTC_FRESNEL_NEUTRON_INNER    = float4( 0.01f, 2.0f, 0.1f, 0.0f );
+		static const float4 COTC_FRESNEL_BLACK_HOLE_INNER = float4( 0.1f, 8.0f, 0.1f, 0.0f );
+
+		void COTC_ApplyFresnel( inout float3 Color, inout float Alpha, float4 Outer, float4 Inner, float2 FresnelUV, float3 WorldSpacePos, float3 Normal, float3 ProvinceOverlayColor, float ProvinceStrength, float InnerMask, float SunNdotL )
 		{
-			return ( StarlightRgb.r << 16 ) | ( StarlightRgb.g << 8 ) | StarlightRgb.b;
-		}
+			#if defined( COTC_OUTER_FRESNEL ) || defined( COTC_INNER_FRESNEL )
+				float3 FresnelColor = lerp( PdxTex2D( FresnelMap, FresnelUV ).rgb, ProvinceOverlayColor, ProvinceStrength );
+				float  NdotV = saturate( abs( dot( normalize( WorldSpacePos - CameraPosition ), Normal ) ) );
 
-		// Wang-style finalizer
-		// MUST stay bit-identical to hash_color_key() in bake_starlight.py
-		uint HashColorKey( uint Key )
-		{
-			Key = ( Key ^ 61u ) ^ ( Key >> 16 );
-			Key *= 9u;
-			Key = Key ^ ( Key >> 4 );
-			Key *= 0x27d4eb2du;
-			Key = Key ^ ( Key >> 15 );
-			return Key;
-		}
+				#if defined( COTC_OUTER_FRESNEL )
+					float EdgeFade = smoothstep( 0.0f, Outer.y, NdotV );
 
-		// Center-of-texel UV for a linear slot index. RowOffset picks the band:
-		// 0 = key, STARLIGHT_LUT_ROWS = data0, 2*STARLIGHT_LUT_ROWS = data1.
-		float2 StarlightLUTSlotUV( uint Slot, uint RowOffset )
-		{
-			uint x = Slot % STARLIGHT_LUT_W;
-			uint y = Slot / STARLIGHT_LUT_W + RowOffset;
-			return ( float2( x, y ) + 0.5f ) / float2( STARLIGHT_LUT_W, STARLIGHT_LUT_ROWS * STARLIGHT_LUT_BANDS );
-		}
+					// Day/night dimming
+					float Sunlit  = smoothstep( -Outer.w, Outer.w, SunNdotL );
+					float SunFade = lerp( lerp( Outer.z, 1.0f, Sunlit ), 1.0f, ProvinceStrength );
 
-		// Reassemble a 16-bit unsigned value from a (low, high) byte pair.
-		uint Unpack16( float Lo, float Hi )
-		{
-			return (uint)round( Lo * 255.0f ) + ( (uint)round( Hi * 255.0f ) << 8 );
-		}
+					Alpha = saturate( Alpha - Fresnel( NdotV, 0.1f, Outer.x ) ) * EdgeFade * SunFade;
+					Color = FresnelColor;
+				#endif
 
-		float3 LookupStarlightCoord( uint3 StarlightRgb )
-		{
-			float3 StarCoord = float3( 0.0f, 0.0f, 0.0f );
-
-			uint Key  = PackColorKey( StarlightRgb );
-			uint Slot = HashColorKey( Key ) & STARLIGHT_LUT_TABLE_MASK;
-
-			for ( uint i = 0u; i <= STARLIGHT_LUT_TABLE_MASK; ++i )
-			{
-				float4 KeyTexel = PdxTex2DLod0( COTC_Starlight_Coord_LUT, StarlightLUTSlotUV( Slot, 0u ) );
-
-				if ( KeyTexel.a < 0.5f )
-				{
-					return StarCoord; // empty slot -> starlight not in table
-				}
-
-				uint3 StoredRGB = (uint3)round( KeyTexel.rgb * 255.0f );
-				if ( all( StoredRGB == StarlightRgb ) )
-				{
-					float4 Data0 = PdxTex2DLod0( COTC_Starlight_Coord_LUT, StarlightLUTSlotUV( Slot, STARLIGHT_LUT_ROWS ) );
-					float4 Data1 = PdxTex2DLod0( COTC_Starlight_Coord_LUT, StarlightLUTSlotUV( Slot, STARLIGHT_LUT_ROWS * 2u ) );
-					StarCoord = float3(
-						Unpack16( Data0.r, Data0.g ),   // X
-						Unpack16( Data0.b, Data0.a ),   // Y
-						Unpack16( Data1.r, Data1.g ) ); // Z
-					return StarCoord;
-				}
-
-				Slot = ( Slot + 1u ) & STARLIGHT_LUT_TABLE_MASK; // wrap around
-			}
-
-			return StarCoord;
+				#if defined( COTC_INNER_FRESNEL )
+					float FresnelFactor = saturate( ( Fresnel( NdotV, Inner.x, Inner.y - ProvinceStrength ) - Inner.z ) * InnerMask );
+					Color = lerp( Color, FresnelColor, FresnelFactor );
+				#endif
+			#endif
 		}
 	]]
 
@@ -341,57 +402,50 @@ PixelShader =
 			PDX_MAIN
 			{
 				float2 ColorMapCoords =  Input.WorldSpacePos.xz *  WorldSpaceToTerrain0To1;
+
+				// The map colour and nebula fade with this; the stars carry on past the map edge.
+				// Off the map only the stars are left, so skip everything else there.
+				float SurroundMaskValue = 1.0f - PdxTex2D( COTC_SurroundMask, float2( ColorMapCoords.x, 1.0f - ColorMapCoords.y ) ).b;
+				float EdgeVisibility = COTC_GetMapEdgeFade( ColorMapCoords ) * SurroundMaskValue;
+				if ( EdgeVisibility <= 0.0f )
+				{
+					return COTC_DitherOutput( COTC_ApplyBackgroundEffects( float3( 0.0f, 0.0f, 0.0f ), 0.0f, 0.0f, Input.WorldSpacePos), Input.Position.xy );
+				}
+
 				float HeightFactor = COTC_GetProvinceColorFade();
 				float ProvinceStrength = 1.0f - HeightFactor;
 
 				float3 ProvinceOverlayColor;
 				float PreLightingBlend;
 				float PostLightingBlend;
-				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend );
+				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend, 0.0f );
 				float2 DetailCoordinates = Input.WorldSpacePos.xz * WorldSpaceToDetail;
 				DetailCoordinates.y = 1.0f - DetailCoordinates.y;
 				float4 PlaneMask = PdxTex2DLod0( COTC_Plane_Mask, DetailCoordinates );
 				float CloudMaskValue = PlaneMask.r;
 				float SystemMaskValue = PlaneMask.g;
 				float SectorMaskValue = PlaneMask.b;
+				float SectorOpacity = COTC_GetSectorOpacity();
 				float SectorFillAmount = 0.0f;
 				if(SectorMaskValue > 0.0f && HeightFactor > 0.0f)
 				{
-					SectorMaskValue = lerp(SectorMaskValue, PlaneMask.a, 1.0);
-					COTC_ApplySectorFill( ProvinceOverlayColor, SectorFillAmount, ColorMapCoords, SectorMaskValue );
+					SectorMaskValue = PlaneMask.a;
+
+					// The fill's final alpha is scaled by all of these; below one 8-bit step it cannot show
+					if ( HeightFactor * SectorOpacity * EdgeVisibility > COTC_FILL_MASK_EPSILON )
+					{
+						COTC_ApplySectorFill( ProvinceOverlayColor, SectorFillAmount, ColorMapCoords, SectorMaskValue );
+					}
 				}
 
 				float Alpha = max( PlaneMask.a, SectorFillAmount ) / 2.5;
 				Alpha *= 1.0f - ProvinceStrength;
-				Alpha *= COTC_GetSectorOpacity();
+				Alpha *= SectorOpacity;
 
 				float3 Color = lerp(ProvinceOverlayColor, 0.0f, ProvinceStrength);
-
-				float RegionLayerMult = 2.0f;
-				if ( SystemMaskValue > 0.0f )
-				{
-					RegionLayerMult = 4.0f;
-				}
-
-				if ( CloudMaskValue > 0.0f )
-				{
-					RegionLayerMult = 1.0f;
-				}
-
-				if ( SectorMaskValue > 0.0f )
-				{
-					RegionLayerMult = 2.0f;
-				}
-
-				int StarLayerMult = int( round( lerp( 2.0f, RegionLayerMult, HeightFactor ) ) );
-
 				COTC_ApplyHighlightColor(Color, ColorMapCoords);
-				COTC_ApplyBackgroundEffects( Color, Alpha, Input.WorldSpacePos, StarLayerMult );
 
-				float SurroundMaskValue = 1.0f - PdxTex2D( COTC_SurroundMask, float2( ColorMapCoords.x, 1.0f - ColorMapCoords.y ) ).b;
-				Alpha *= COTC_GetMapEdgeFade( ColorMapCoords ) * SurroundMaskValue;
-
-				return float4(Color, Alpha);
+				return COTC_DitherOutput( COTC_ApplyBackgroundEffects( Color, Alpha, EdgeVisibility, Input.WorldSpacePos), Input.Position.xy );
 			}
 		]]
 	}
@@ -451,26 +505,9 @@ PixelShader =
 				float3 ProvinceOverlayColor;
 				float PreLightingBlend;
 				float PostLightingBlend;
-				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend );
+				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend, 0.0f );
 
-				#if defined( COTC_OUTER_FRESNEL ) || defined( COTC_INNER_FRESNEL )
-					float4 FresnelColor = PdxTex2D( FresnelMap, DIFFUSE_UV_SET );
-					float3 ToCameraDir = normalize( Input.WorldSpacePos.xyz - CameraPosition );
-
-					// Exterior
-					#if defined( COTC_OUTER_FRESNEL )
-						float FresnelFactor = saturate( Fresnel( saturate( abs( dot( ToCameraDir, Input.Normal ) ) ), 0.1f, 0.1f) );
-						Alpha = Alpha - FresnelFactor;
-						Color = lerp( FresnelColor.rgb, ProvinceOverlayColor, ProvinceStrength );
-					#endif
-
-					// Interior
-					#if defined( COTC_INNER_FRESNEL )
-						float FresnelFactor = saturate( Fresnel( saturate( abs( dot( ToCameraDir, Input.Normal ) ) ), 0.1f, 8.0f - ProvinceStrength ) - 0.1 );
-						FresnelColor.rgb = lerp( FresnelColor.rgb, ProvinceOverlayColor, ProvinceStrength );
-						Color = lerp( Color, FresnelColor, FresnelFactor );
-					#endif
-				#endif
+				COTC_ApplyFresnel( Color, Alpha, COTC_FRESNEL_BLACK_HOLE_OUTER, COTC_FRESNEL_BLACK_HOLE_INNER, DIFFUSE_UV_SET, Input.WorldSpacePos, Input.Normal, ProvinceOverlayColor, ProvinceStrength, 1.0f, 1.0f );
 
 				#if defined( COTC_EMISSIVE_BLACK_HOLE )
 					Color *= COTC_BLACK_HOLE_EMISSIVE_BOOST;
@@ -504,33 +541,17 @@ PixelShader =
 				float ProvinceStrength = COTC_GetProvinceColorFade();
 				float Alpha = Diffuse.a;
 				SMaterialProperties MaterialProps = GetMaterialProperties( Diffuse.rgb, Normal, Properties.a, Properties.g, Properties.b );
-				SLightingProperties LightingProps = GetSunLightingProperties( Input.WorldSpacePos, ShadowTexture );
+				// Every neutron effect is COTC_NO_SHADOW, so skip the PCF shadow taps
+				SLightingProperties LightingProps = GetSunLightingProperties( Input.WorldSpacePos, 1.0f );
 				float3 Color = COTC_CalculateSunLighting( MaterialProps, LightingProps, EnvironmentMap, ProvinceStrength );
 
 				float2 ColorMapCoords =  Input.WorldSpacePos.xz *  WorldSpaceToTerrain0To1;
 				float3 ProvinceOverlayColor;
 				float PreLightingBlend;
 				float PostLightingBlend;
-				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend );
+				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend, 0.0f );
 
-				#if defined( COTC_OUTER_FRESNEL ) || defined( COTC_INNER_FRESNEL )
-					float4 FresnelColor = PdxTex2D( FresnelMap, DIFFUSE_UV_SET );
-					float3 ToCameraDir = normalize( Input.WorldSpacePos.xyz - CameraPosition );
-
-					// Exterior
-					#if defined( COTC_OUTER_FRESNEL )
-						float FresnelFactor = saturate( Fresnel( saturate( abs( dot( ToCameraDir, Input.Normal ) ) ), 0.1f, 0.1f) );
-						Alpha = Alpha - FresnelFactor;
-						Color = lerp( FresnelColor.rgb, ProvinceOverlayColor, ProvinceStrength );
-					#endif
-
-					// Interior
-					#if defined( COTC_INNER_FRESNEL )
-						float FresnelFactor = saturate( Fresnel( saturate( abs( dot( ToCameraDir, Input.Normal ) ) ), 0.01f, 2.0f - ProvinceStrength ) - 0.1 );
-						FresnelColor.rgb = lerp( FresnelColor.rgb, ProvinceOverlayColor, ProvinceStrength );
-						Color = lerp( Color, FresnelColor, FresnelFactor );
-					#endif
-				#endif
+				COTC_ApplyFresnel( Color, Alpha, COTC_FRESNEL_NEUTRON_OUTER, COTC_FRESNEL_NEUTRON_INNER, DIFFUSE_UV_SET, Input.WorldSpacePos, Input.Normal, ProvinceOverlayColor, ProvinceStrength, 1.0f, 1.0f );
 
 				#if defined( COTC_EMISSIVE_NEUTRON )
 					Color *= COTC_NEUTRON_EMISSIVE_BOOST;
@@ -618,44 +639,34 @@ PixelShader =
 				SLightingProperties LightingProps;
 
 				#if defined( COTC_NO_SHADOW )
-					LightingProps = GetSunLightingProperties( Input.WorldSpacePos, ShadowTexture );
+					// Unshadowed, so skip the PCF shadow taps
+					LightingProps = GetSunLightingProperties( Input.WorldSpacePos, 1.0f );
 					Color = COTC_CalculateSunLighting( MaterialProps, LightingProps, EnvironmentMap, ProvinceStrength );
 				#else
-					float2 DetailCoordinates = Input.WorldSpacePos.xz * WorldSpaceToDetail;
-					DetailCoordinates.y = 1.0f - DetailCoordinates.y;
-					float4 StarlightMask = PdxTex2DLod0( COTC_Starlight_Mask, DetailCoordinates );
-					uint3 StarlightRgb = (uint3)round( saturate( StarlightMask.rgb ) * 255.0f );
-					float3 StarlightPos = LookupStarlightCoord( StarlightRgb );
-
-					LightingProps = COTC_GetSunLightingProperties( Input.WorldSpacePos, StarlightPos, ShadowTexture );
+					// Looked up per vertex at the object pivot
+					LightingProps = COTC_GetSunLightingProperties( Input.WorldSpacePos, Input.StarlightPos, ShadowTexture );
 					Color = COTC_CalculateSunLighting( MaterialProps, LightingProps, EnvironmentMap, 1.0 );
 				#endif
 
 				float3 ProvinceOverlayColor;
 				float PreLightingBlend;
 				float PostLightingBlend;
-				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend );
-				float3 ToCameraDir = normalize( Input.WorldSpacePos.xyz - CameraPosition );
+				GetProvinceOverlayAndBlend( ColorMapCoords, ProvinceOverlayColor, PreLightingBlend, PostLightingBlend, 0.0f );
 
-				#if defined( COTC_OUTER_FRESNEL ) || defined( COTC_INNER_FRESNEL )
-					float4 FresnelColor = PdxTex2D( FresnelMap, DIFFUSE_UV_SET );
+				float InSun = lerp( saturate( dot( LightingProps._ToLightDir, Input.Normal ) ), 1.0f, ProvinceStrength );
 
-					float InSun = lerp(saturate( dot( LightingProps._ToLightDir, Input.Normal ) ), 1.0f, ProvinceStrength);
-
-					// Exterior
-					#if defined( COTC_OUTER_FRESNEL )
-						float FresnelFactor = saturate( Fresnel( saturate( abs( dot( ToCameraDir, Input.Normal ) ) ), 0.1f, 0.3f) );
-						Alpha = Alpha - FresnelFactor;
-						Color = lerp( FresnelColor, ProvinceOverlayColor, ProvinceStrength );
-					#endif
-
-					// Interior
-					#if defined( COTC_INNER_FRESNEL )
-						float FresnelFactor = saturate( Fresnel( saturate( abs( dot( ToCameraDir, Input.Normal ) ) ), 0.1f, 4.0f - ProvinceStrength ) * InSun );
-						FresnelColor.rgb = lerp( FresnelColor.rgb, ProvinceOverlayColor, ProvinceStrength );
-						Color = lerp( Color, FresnelColor.rgb, FresnelFactor );
-					#endif
+				// Planet atmospheres are COTC_NO_SHADOW, so their lighting only knows the global sun;
+				// the system's star comes from the per-vertex starlight lookup instead
+				#if defined( COTC_OUTER_FRESNEL_SUNLIT )
+					// Outward direction from the shell's centre, not the mesh normal: using the
+					// atmosphere mesh's normal put the night side towards the star
+					float3 Outward  = normalize( Input.WorldSpacePos - Input.ObjectCenter );
+					float  SunNdotL = dot( normalize( Input.StarlightPos - Input.WorldSpacePos ), Outward );
+				#else
+					float SunNdotL = 1.0f;
 				#endif
+
+				COTC_ApplyFresnel( Color, Alpha, COTC_FRESNEL_STANDARD_OUTER, COTC_FRESNEL_STANDARD_INNER, DIFFUSE_UV_SET, Input.WorldSpacePos, Input.Normal, ProvinceOverlayColor, ProvinceStrength, InSun, SunNdotL );
 
 				#if defined( COTC_EMISSIVE_STAR )
 					Color *= COTC_STAR_EMISSIVE_BOOST;
@@ -676,19 +687,25 @@ DepthStencilState DepthStencilState
 	StencilEnable = yes
 }
 
-BlendState alpha_to_coverage
+# Transparent surfaces (plane, shells, hexes): depth-tested but not written, like vanilla particles
+DepthStencilState DepthStencilStateNoWrite
+{
+	StencilEnable = yes
+	DepthWriteEnable = no
+}
+
+BlendState alpha_blend
 {
 	BlendEnable = yes
 	SourceBlend = "SRC_ALPHA"
 	DestBlend = "INV_SRC_ALPHA"
-	AlphaToCoverage = yes
 }
 
 Effect cotc_planet
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_standard"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	Defines = { "COTC_INNER_FRESNEL" }
 	DepthStencilState = DepthStencilState
 }	
@@ -697,25 +714,25 @@ Effect cotc_planet_city
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_standard"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	Defines = { "COTC_INNER_FRESNEL" "COTC_NO_SHADOW" }
-	DepthStencilState = DepthStencilState
+	DepthStencilState = DepthStencilStateNoWrite
 }	
 
 Effect cotc_planet_atmosphere
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_standard"
-	BlendState = "alpha_to_coverage"
-	Defines = { "COTC_OUTER_FRESNEL" "COTC_NO_SHADOW" }
-	DepthStencilState = DepthStencilState
+	BlendState = "alpha_blend"
+	Defines = { "COTC_OUTER_FRESNEL" "COTC_NO_SHADOW" "COTC_OUTER_FRESNEL_SUNLIT" }
+	DepthStencilState = DepthStencilStateNoWrite
 }
 
 Effect cotc_star
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_standard"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	Defines = { "COTC_NO_SHADOW" "COTC_EMISSIVE_STAR" }
 	DepthStencilState = DepthStencilState
 }
@@ -724,16 +741,16 @@ Effect cotc_star_atmosphere
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_standard"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	Defines = { "COTC_OUTER_FRESNEL" "COTC_NO_SHADOW" "COTC_EMISSIVE_STAR" }
-	DepthStencilState = DepthStencilState
+	DepthStencilState = DepthStencilStateNoWrite
 }
 
 Effect cotc_neutron
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_neutron"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	Defines = { "COTC_INNER_FRESNEL" "COTC_NO_SHADOW" "COTC_EMISSIVE_NEUTRON" }
 	DepthStencilState = DepthStencilState
 }
@@ -742,16 +759,16 @@ Effect cotc_neutron_outer
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_neutron"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	Defines = { "COTC_OUTER_FRESNEL" "COTC_NO_SHADOW" "COTC_EMISSIVE_NEUTRON" }
-	DepthStencilState = DepthStencilState
+	DepthStencilState = DepthStencilStateNoWrite
 }
 
 Effect cotc_black_hole
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_black_hole"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	Defines = { "COTC_INNER_FRESNEL" "COTC_NO_SHADOW" "COTC_EMISSIVE_BLACK_HOLE" }
 	DepthStencilState = DepthStencilState
 }
@@ -760,16 +777,16 @@ Effect cotc_black_hole_outer
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_black_hole"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	Defines = { "COTC_OUTER_FRESNEL" "COTC_NO_SHADOW" "COTC_EMISSIVE_BLACK_HOLE" }
-	DepthStencilState = DepthStencilState
+	DepthStencilState = DepthStencilStateNoWrite
 }
 
 Effect cotc_standard
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_standard"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	DepthStencilState = DepthStencilState
 }
 
@@ -777,7 +794,7 @@ Effect cotc_standard_mapobject
 {
 	VertexShader = "COTC_VS_mapobject"
 	PixelShader = "COTC_PS_standard"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	DepthStencilState = DepthStencilState
 }
 
@@ -785,7 +802,7 @@ Effect cotc_standard_selection_mapobject
 {
 	VertexShader = "COTC_VS_mapobject"
 	PixelShader = "COTC_PS_standard"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	DepthStencilState = DepthStencilState
 }
 
@@ -793,70 +810,73 @@ Effect cotc_background
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_background"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
+	DepthStencilState = DepthStencilStateNoWrite
 }
 
 Effect cotc_background_mapobject
 {
 	VertexShader = "COTC_VS_mapobject"
 	PixelShader = "COTC_PS_background"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
+	DepthStencilState = DepthStencilStateNoWrite
 }
 
 Effect cotc_background_selection_mapobject
 {
 	VertexShader = "COTC_VS_mapobject"
 	PixelShader = "COTC_PS_background"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
+	DepthStencilState = DepthStencilStateNoWrite
 }
 
 Effect cotc_hex
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_standard"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	Defines = { "COTC_NO_SHADOW" "COTC_HEX" }
-	DepthStencilState = DepthStencilState
+	DepthStencilState = DepthStencilStateNoWrite
 }
 
 Effect cotc_hex_mapobject
 {
 	VertexShader = "COTC_VS_mapobject"
 	PixelShader = "COTC_PS_standard"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	Defines = { "COTC_NO_SHADOW" "COTC_HEX" }
-	DepthStencilState = DepthStencilState
+	DepthStencilState = DepthStencilStateNoWrite
 }
 
 Effect cotc_hex_selection_mapobject
 {
 	VertexShader = "COTC_VS_mapobject"
 	PixelShader = "COTC_PS_standard"
-	BlendState = "alpha_to_coverage"
+	BlendState = "alpha_blend"
 	Defines = { "COTC_NO_SHADOW" "COTC_HEX" }
-	DepthStencilState = DepthStencilState
+	DepthStencilState = DepthStencilStateNoWrite
 }
 
 Effect cotc_plane
 {
 	VertexShader = "COTC_VS_standard"
 	PixelShader = "COTC_PS_plane"
-	BlendState = "alpha_to_coverage"
-	DepthStencilState = DepthStencilState
+	BlendState = "alpha_blend"
+	DepthStencilState = DepthStencilStateNoWrite
 }
 
 Effect cotc_plane_mapobject
 {
 	VertexShader = "COTC_VS_mapobject"
 	PixelShader = "COTC_PS_plane"
-	BlendState = "alpha_to_coverage"
-	DepthStencilState = DepthStencilState
+	BlendState = "alpha_blend"
+	DepthStencilState = DepthStencilStateNoWrite
 }
 
 Effect cotc_plane_selection_mapobject
 {
 	VertexShader = "COTC_VS_mapobject"
 	PixelShader = "COTC_PS_plane"
-	BlendState = "alpha_to_coverage"
-	DepthStencilState = DepthStencilState
+	BlendState = "alpha_blend"
+	DepthStencilState = DepthStencilStateNoWrite
 }

@@ -9,20 +9,6 @@ PixelShader =
 		// colour of its own, search outward through the indirection map and adopt the colour of
 		// the nearest owned province. This is a nearest-owner search, which blends toward 
 		// whichever holder is actually adjacent.
-		//
-		// Requires ProvinceColorIndirectionTexture / ProvinceColorTexture and the
-		// JominiColorMapConstants buffer to already be in scope.
-
-		// --- Search kernel -------------------------------------------------------
-		// 16 evenly spaced unit directions, each marched outward as a straight ray.
-		// Scaled by InvIndirectionMapSize at use, so the step radii below are in
-		// indirection-map texels and stay correct if the map is ever resized. The
-		// indirection map is 1:1 with world XZ, so a step is a world-space distance too.
-		//
-		// 16 spokes are ~1.6 texels apart at the nearest step, so nothing close is missed.
-		// They fan out to ~36 texels apart at the furthest, where a small province can
-		// slip between them - acceptable, because inverse-distance weighting makes those
-		// far contributions negligible anyway.
 		static const float2 COTC_FILL_DIRECTIONS[16] =
 		{
 			float2(  1.000000f,  0.000000f ),
@@ -67,37 +53,23 @@ PixelShader =
 		static const float COTC_FILL_MASK_EPSILON = 0.00392f;
 
 		// --- Primary + Secondary + Highlight ----------------------
-		// All three province colour rows live in the same palette texture, offset from one
-		// another, and all three are addressed by the *same* indirection read
-		void COTC_SampleProvinceColors( in float2 Coord, out float4 Primary, out float4 Secondary, out float4 Highlight )
+		float4 COTC_SampleProvincePrimary( in float2 Coord, out float2 PaletteCoord )
 		{
 			const float2 ColorIndex = PdxTex2D( ProvinceColorIndirectionTexture, Coord ).rg;
-			const float2 PaletteCoord = ColorIndex * 255.0f + vec2( 0.5f );
+			PaletteCoord = ColorIndex * 255.0f + vec2( 0.5f );
 
-			Primary = PdxTex2DLoad0( ProvinceColorTexture, int2( PaletteCoord ) );
+			return PdxTex2DLoad0( ProvinceColorTexture, int2( PaletteCoord ) );
+		}
+
+		void COTC_SampleProvinceSecondaryHighlight( in float2 PaletteCoord, out float4 Secondary, out float4 Highlight )
+		{
 			Secondary = PdxTex2DLoad0( ProvinceColorTexture, int2( PaletteCoord + SecondaryProvinceColorsOffset ) );
 			Highlight = PdxTex2DLoad0( ProvinceColorTexture, int2( PaletteCoord + HighlightProvinceColorsOffset ) );
 		}
 
 		// Gathers an inverse-distance-weighted average of the owned province colours around
 		// Coordinate. As the sample point approaches a province, the result converges to that province's
-		// colour. Pixels near a province read as fully that province's, while true midpoints blend.
-		//
-		// Structure: 16 rays marched outward.
-		//
-		// Four things to keep the result smooth:
-		//  1. Point taps, decorrelated by COTC_FILL_JITTER. The indirection map stores a
-		//     palette *index* in .rg, so its sampler is necessarily Point-filtered and every
-		//     tap snaps to one texel. The jitter varies each tap radius per texel.
-		//  2. Weighting by Sample.a instead of thresholding it. Drops unowned taps rgb
-		//     automatically rather than needing to exclude them. Avoids a hard threshold
-		//     on a hit count.
-		//  3. Transmittance rather than breaking on first hit. Each ray accumulates through 
-		//	   land continuously, so a far province cannot bleed through a near one.
-		//  4. Continuous loop exits. Both breaks below test smoothly-varying quantities.
-		//
-		// OwnedSecondary comes back weighted by exactly the same weights as OwnedColor, so
-		// the occupation stripes belong to the same province whose colour it inherited.
+		// colour. Pixels near a province read as fully that province's, while actual midpoints blend.
 		bool COTC_GatherOwnedColor( in float2 Coordinate, out float3 OwnedColor, out float4 OwnedSecondary, out float4 OwnedHighlight )
 		{
 			OwnedColor = vec3( 0.0f );
@@ -150,17 +122,23 @@ PixelShader =
 					// saturate keeps the search from wrapping to the far side of the map
 					const float2 Offset = saturate( Coordinate + Direction * ( Distance * InvIndirectionMapSize ) );
 
-					float4 Sample;
-					float4 SecondarySample;
-					float4 HighlightSample;
-					COTC_SampleProvinceColors( Offset, Sample, SecondarySample, HighlightSample );
+					float2 PaletteCoord;
+					const float4 Sample = COTC_SampleProvincePrimary( Offset, PaletteCoord );
 
 					const float Weight = Sample.a * Transmittance * ShellWeight[ Step ];
 
-					Accumulated += Sample.rgb * Weight;
-					AccumulatedSecondary += SecondarySample * Weight;
-					AccumulatedHighlight += HighlightSample * Weight;
-					TotalWeight += Weight;
+					// Unowned taps contribute nothing, so skip their two extra palette loads
+					if ( Weight > 0.0f )
+					{
+						float4 SecondarySample;
+						float4 HighlightSample;
+						COTC_SampleProvinceSecondaryHighlight( PaletteCoord, SecondarySample, HighlightSample );
+
+						Accumulated += Sample.rgb * Weight;
+						AccumulatedSecondary += SecondarySample * Weight;
+						AccumulatedHighlight += HighlightSample * Weight;
+						TotalWeight += Weight;
+					}
 
 					Transmittance *= 1.0f - saturate( Sample.a );
 				}

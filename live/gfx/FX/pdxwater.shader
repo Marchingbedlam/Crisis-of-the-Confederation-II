@@ -68,8 +68,8 @@ PixelShader =
 						float3 BorderColor;
 						float BorderPreLightingBlend;
 						float BorderPostLightingBlend;
-						GetProvinceOverlayAndBlend( Input.WorldSpacePos.xz, BorderColor, BorderPreLightingBlend, BorderPostLightingBlend );
-						GetBorderColorAndBlendGame( Input.WorldSpacePos.xz, Water.rgb, BorderColor, BorderPreLightingBlend, BorderPostLightingBlend );
+						GetProvinceOverlayAndBlend( Input.WorldSpacePos.xz, BorderColor, BorderPreLightingBlend, BorderPostLightingBlend, 0.0f );
+						GetBorderColorAndBlendGame( Input.WorldSpacePos.xz, Water.rgb, BorderColor, BorderPreLightingBlend, BorderPostLightingBlend, 0.0f );
 
 						// Don't draw too close to the shore to not duplicate the colors with stripes over the land.
 						float AccurateHeight = GetHeight( Input.WorldSpacePos.xz );

@@ -206,7 +206,7 @@ cotc_legislative_campaign_events.50 = { # AI considers entering a legislative el
 	}
 	
 	immediate = {
-		debug_log = "[ROOT.Char.GetFullName] is considering running to represent [riding.GetName] in [legislature.Var('legislature_title').GetName]"
+		debug_log = "Legislative campaign: considering running"
 		# Build a list of current candidates and their chances, to compare ourselves against
 		scope:legislature = { save_temporary_scope_as = temp_legislature }
 		scope:riding = {
@@ -265,7 +265,7 @@ cotc_legislative_campaign_events.50 = { # AI considers entering a legislative el
 			influence >= { value = minor_influence_value multiply = scope:legislature.var:legislature_title.title_basic_cost_multiplier }
 			debug_log_details = yes
 		}
-		debug_log = "[ROOT.Char.GetFullName] decided to run, spending influence."
+		debug_log = "Legislative campaign: decided to run, spending influence."
 		name = cotc_legislative_campaign_events.50.a
 		start_legislative_election_campaign_effect = { LEGISLATURE = scope:legislature RIDING = scope:riding }
 		change_influence = {
@@ -319,7 +319,7 @@ cotc_legislative_campaign_events.50 = { # AI considers entering a legislative el
 			gold >= { value = minor_gold_value multiply = scope:legislature.var:legislature_title.title_basic_cost_multiplier }
 			debug_log_details = yes
 		}
-		debug_log = "[ROOT.Char.GetFullName] decided to run, spending gold."
+		debug_log = "Legislative campaign: decided to run, spending gold."
 		name = cotc_legislative_campaign_events.50.a
 		start_legislative_election_campaign_effect = { LEGISLATURE = scope:legislature RIDING = scope:riding }
 		add_short_term_gold = {
@@ -374,7 +374,7 @@ cotc_legislative_campaign_events.50 = { # AI considers entering a legislative el
 			var:legislature ?= { this = scope:legislature }
 			debug_log_details = yes
 		}
-		debug_log = "[ROOT.Char.GetFullName] decided to run, for re-election."
+		debug_log = "Legislative campaign: decided to run, for re-election."
 		name = cotc_legislative_campaign_events.50.a
 		start_legislative_election_campaign_effect = { LEGISLATURE = scope:legislature RIDING = scope:riding }
 		ai_chance = {
@@ -410,7 +410,7 @@ cotc_legislative_campaign_events.50 = { # AI considers entering a legislative el
 	}
 	option = { # Do not stand for election
 		name = cotc_legislative_campaign_events.50.b
-		debug_log = "[ROOT.Char.GetFullName] decided not to run."
+		debug_log = "Legislative campaign: decided not to run."
 		ai_chance = {
 			base = 50
 			# Prefer to run for a lower legislature
@@ -488,12 +488,16 @@ cotc_legislative_campaign_events.100 = { # Your party is banned!
 	}
 	
 	option = { # Convert to closest legal faith
-		trigger = { NOT = { exists = secret_faith } }
+		trigger = {
+			exists = scope:closest_legal_faith
+			NOT = { exists = secret_faith }
+		}
 		name = cotc_legislative_campaign_events.100.a
 		set_character_faith = scope:closest_legal_faith
 		ai_chance = {
 			base = 0
 			modifier = {
+				exists = scope:closest_legal_faith
 				add = {
 					value = 0
 					scope:closest_legal_faith = { save_temporary_scope_as = target_faith }
@@ -511,7 +515,10 @@ cotc_legislative_campaign_events.100 = { # Your party is banned!
 		}
 	}
 	option = { # Publicly convert to closest legal faith, but remain a crypto-whatever
-		trigger = { NOT = { exists = secret_faith } }
+		trigger = {
+			exists = scope:closest_legal_faith
+			NOT = { exists = secret_faith }
+		}
 		name = cotc_legislative_campaign_events.100.b
 		faith = { save_temporary_scope_as = real_faith }
 		set_character_faith = scope:closest_legal_faith
@@ -527,7 +534,10 @@ cotc_legislative_campaign_events.100 = { # Your party is banned!
 		}
 	}
 	option = { # Change your publicly professed ideology to the closest legal faith
-		trigger = { exists = secret_faith }
+		trigger = {
+			exists = scope:closest_legal_faith
+			exists = secret_faith
+		}
 		name = cotc_legislative_campaign_events.100.c
 		set_character_faith = scope:closest_legal_faith
 		custom_tooltip = will_remain_crypto_desc

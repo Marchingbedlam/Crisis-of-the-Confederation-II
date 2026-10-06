@@ -1,0 +1,819 @@
+﻿###############
+# COTC Tenets #
+###############
+
+tenet_capitalism = {
+	icon = core_tenet_tax_nonbelievers # Placeholder
+	piety_cost = {
+		if = {
+			limit = { rite_religion_tag = socialism_ideology }
+			value = faith_tenet_cost_massive
+		}
+		else = { value = faith_tenet_cost_mid }
+
+		# Multiplier for keeping same tenet
+		if = {
+			limit = { rite_has_tenet = tenet_capitalism }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+	}
+
+	can_pick = {
+		custom_description = {
+			text = incompatible_doctrine_communal_possessions_trigger
+			NOT = { tenet:tenet_communal_possessions = { is_in_list = selected_doctrines } }
+		}
+	}
+	
+	character_modifier = {
+		monthly_county_control_growth_factor = -0.2
+		build_speed = -0.1
+	}
+	
+	traits = {
+		virtues = {
+			diligent = { weight = 15 scale = 1 }
+			ambitious = { weight = 25 scale = 1 }
+			avaricious = { weight = 25 scale = 1 }
+			greedy = { weight = 30 scale = 1 }
+		}
+		sins = {
+			lazy = { weight = 25 scale = 1 }
+		}
+	}
+}
+
+tenet_planned_economy = {
+	icon = core_tenet_pursuit_of_power # Placeholder
+	piety_cost = {
+		value = faith_tenet_cost_mid
+
+		# Multiplier for keeping same tenet
+		if = {
+			limit = { rite_has_tenet = tenet_planned_economy }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+	}
+
+	is_shown = { }
+	can_pick = {
+		custom_description = {
+			text = incompatible_doctrine_anarchism_trigger
+			NOT = { doctrine:doctrine_anarchism = { is_in_list = selected_doctrines } }
+		}
+	}
+	
+	character_modifier = {
+		monthly_county_control_growth_factor = 0.2
+		build_speed = 0.1
+	}
+	
+	traits = {
+		virtues = {
+			temperate = { weight = 10 scale = 1 }
+			lifestyle_surveyor = { weight = 10 scale = 1 }
+			loyal = { weight = 10 scale = 1 }
+		}
+		sins = {
+			disloyal = { weight = 10 scale = 1 }
+			profligate = { weight = 25 scale = 1 }
+		}
+	}
+}
+
+tenet_federalism = {
+	icon = core_tenet_pentarchy
+	piety_cost = {
+		value = faith_tenet_cost_mid
+		
+		# Multiplier for keeping same tenet
+		if = {
+			limit = { has_tenet = tenet_federalism }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+	}
+	
+	is_shown = { }
+	can_pick = { always = yes }
+	
+	character_modifier = {
+		direct_vassal_opinion = 10
+		opinion_of_different_culture = 10
+		opinion_of_different_faith = 10
+		tyranny_gain_mult = 0.5
+	}
+	
+	parameters = {
+		can_form_federations
+	}
+}
+
+tenet_spacer_values = {
+	icon = core_tenet_astrology
+	piety_cost = {
+		if = {
+			limit = { rite_religion_tag = astrism_ideology }
+			value = faith_tenet_cost_low
+		}
+		else = { value = faith_tenet_cost_high }
+		
+		# Multiplier for keeping same tenet
+		if = {
+			limit = { rite_has_tenet = tenet_spacer_values }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+	}
+	
+	is_shown = { }
+	can_pick = {
+		custom_description = {
+			text = incompatible_doctrine_no_legitimacy_trigger
+			NOT = { doctrine:doctrine_no_legitimacy = { is_in_list = selected_doctrines } }
+		}
+		custom_description = {
+			text = incompatible_doctrine_separation_of_powers_trigger
+			NOT = { doctrine:doctrine_separation_of_powers = { is_in_list = selected_doctrines } }
+		}
+		custom_description = {
+			text = incompatible_doctrine_parliamentarianism_trigger
+			NOT = { doctrine:doctrine_parliamentarianism = { is_in_list = selected_doctrines } }
+		}
+		custom_description = {
+			text = incompatible_doctrine_anarchism_trigger
+			NOT = { doctrine:doctrine_anarchism = { is_in_list = selected_doctrines } }
+		}
+	}
+	
+	traits = {
+		virtues = {
+			adventurer = { weight = 50 scale = 2 }
+			adventurer_follower = { weight = 50 scale = 1 }
+			honest = { weight = 50 scale = 1 }
+			loyal = { weight = 50 scale = 2 }
+		}
+		sins = {
+			craven = { weight = 15 scale = 1 }
+			deceitful = { weight = 50 scale = 1 }
+			disloyal = { weight = 50 scale = 2 }
+		}
+	}
+	
+	parameters = {
+		unlock_voluntary_laampdom_faith
+	}
+}
+
+tenet_cyberneticism = {
+	icon = core_tenet_pursuit_of_power
+	piety_cost = {
+		if = {
+			limit = {
+				OR = {
+					rite_religion_tag = transhumanism_ideology
+					rite_has_doctrine = special_doctrine_is_mechanic_faith
+				}
+			}
+			value = faith_tenet_cost_mid
+		}
+		else_if = {
+			limit = { rite_has_doctrine = religious_hostility_doctrine }
+			value = faith_tenet_cost_massive
+		}
+		else = { value = faith_tenet_cost_high }
+		
+		# Multiplier for keeping same tenet
+		if = {
+			limit = { rite_has_tenet = tenet_cyberneticism }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+	}
+	
+	is_shown = { }
+
+	can_pick = {
+		custom_description = {
+			text = incompatible_doctrine_human_purity_trigger
+			NOT = { tenet:tenet_human_purity = { is_in_list = selected_doctrines } }
+		}
+	}
+	
+	traits = {
+		virtues = {
+			scholar = { weight = 15 scale = 1 }
+			cyborg = { weight = 50 scale = 2 }
+		}
+	}
+	
+	parameters = {
+		supports_cybernetics
+		full_cybernetic_conversion
+	}
+}
+
+tenet_bio_directionism = {
+	icon = core_tenet_adaptive
+	piety_cost = {
+		if = {
+			limit = { rite_religion_tag = transhumanism_ideology }
+			value = faith_tenet_cost_mid
+		}
+		else_if = {
+			limit = { rite_has_doctrine = religious_hostility_doctrine }
+			value = faith_tenet_cost_massive
+		}
+		else = { value = faith_tenet_cost_high }
+		
+		# Multiplier for keeping same tenet
+		if = {
+			limit = { rite_has_tenet = tenet_bio_directionism }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+	}
+	
+	is_shown = { }
+
+	can_pick = {
+		custom_description = {
+			text = incompatible_doctrine_human_purity_trigger
+			NOT = { tenet:tenet_human_purity = { is_in_list = selected_doctrines } }
+		}
+	}
+	
+	traits = {
+		virtues = {
+			gene_modded = { weight = 50 scale = 2 }
+		}
+	}
+	
+	parameters = {
+		supports_gene_modding
+		supports_cloning
+		gene_modding
+	}
+}
+
+tenet_genetic_dynasties = {
+	icon = core_tenet_ancestor_worship
+	piety_cost = {
+		if = {
+			limit = { rite_religion_tag = transhumanism_ideology }
+			value = faith_tenet_cost_mid
+		}
+		else_if = {
+			limit = { rite_has_doctrine = religious_hostility_doctrine }
+			value = faith_tenet_cost_massive
+		}
+		else = { value = faith_tenet_cost_high }
+		
+		# Multiplier for keeping same tenet
+		if = {
+			limit = { rite_has_tenet = tenet_genetic_dynasties }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+	}
+	is_shown = { }
+	can_pick = {
+		# Must favor hereditary rulers.
+		custom_description = {
+			text = doctrine_requires_aristocracy_trigger
+			doctrine:doctrine_aristocracy = { is_in_list = selected_doctrines }
+		}
+		custom_description = {
+			text = incompatible_doctrine_human_purity_trigger
+			NOT = { tenet:tenet_human_purity = { is_in_list = selected_doctrines } }
+		}
+	}
+	parameters = {
+		supports_cloning
+		clone_succession_enabled
+	}
+	
+	traits = {
+		virtues = {
+			chaste = { weight = 10 scale = 1 }
+			clone = { weight = 50 scale = 2 }
+		}
+		sins = {
+			lustful = { weight = 10 scale = 1 }
+		}
+	}
+}
+
+tenet_human_purity = {
+	icon = core_tenet_natural_primitivism
+	piety_cost = {
+		if = {
+			limit = { rite_religion_tag = transhumanism_ideology }
+			value = faith_tenet_cost_massive
+		}
+		else_if = {
+			limit = { rite_has_doctrine = special_doctrine_is_mechanic_faith }
+			value = faith_tenet_cost_high
+		}
+		else_if = {
+			limit = { rite_has_doctrine = religious_hostility_doctrine }
+			value = faith_tenet_cost_low
+		}
+		else = { value = faith_tenet_cost_mid }
+		
+		# Multiplier for keeping same tenet
+		if = {
+			limit = { rite_has_tenet = tenet_human_purity }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+	}
+	
+	is_shown = { }
+
+	can_pick = {
+		custom_description = {
+			text = incompatible_doctrine_cyberneticism_trigger
+			NOT = { tenet:tenet_cyberneticism = { is_in_list = selected_doctrines } }
+		}
+		custom_description = {
+			text = incompatible_doctrine_bio_directionism_trigger
+			NOT = { tenet:tenet_bio_directionism = { is_in_list = selected_doctrines } }
+		}
+		custom_description = {
+			text = incompatible_doctrine_genetic_dynasties_trigger
+			NOT = { tenet:tenet_genetic_dynasties = { is_in_list = selected_doctrines } }
+		}
+	}
+	
+	traits = {
+		virtues = {
+			whole_of_body = { weight = 20 scale = 1 }
+		}
+		sins = {
+			cyborg = { weight = 40 scale = 1 }
+			clone = { weight = 40 scale = 1 }
+			gene_modded = { weight = 40 scale = 1 }
+		}
+	}
+	
+	parameters = {
+		hates_cybernetics
+		hates_cloning
+		hates_gene_modding
+	}
+	
+	special_parameters = {
+		hostility_level_override = {
+ 			tenet_cyberneticism = evil
+ 			tenet_bio_directionism = evil
+ 			tenet_genetic_dynasties = evil
+		}
+	}
+}
+
+tenet_chivalry = {
+	icon = core_tenet_armed_pilgrimages # Placeholder
+	piety_cost = {
+		if = {
+			limit = { rite_has_doctrine = doctrine_aristocracy }
+			value = faith_tenet_cost_high
+		}
+		else = { value = faith_tenet_cost_massive }
+
+		# Multiplier for keeping same tenet
+		if = {
+			limit = { rite_has_tenet = tenet_chivalry }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+	}
+	is_shown = { }
+	can_pick = {
+		always = yes
+	}
+	parameters = {
+		knighthood
+		courtly_romance
+		unlock_voluntary_laampdom_faith
+	}
+	traits = {
+		virtues = {
+			brave = { weight = 10 scale = 1 }
+			chaste = { weight = 10 scale = 1 }
+			honest = { weight = 10 scale = 1 }
+			compassionate = { weight = 10 scale = 1 }
+			gallant = { weight = 30 scale = 2 }
+			knight_errant = { weight = 30 scale = 2 }
+		}
+		sins = {
+			craven = { weight = 10 scale = 1 }
+			lustful = { weight = 10 scale = 1 }
+			deceitful = { weight = 10 scale = 1 }
+		}
+	}
+}
+
+tenet_philanthropy = {
+	icon = core_tenet_vows_of_poverty # Placeholder
+	piety_cost = {
+		value = faith_tenet_cost_mid
+
+		# Multiplier for keeping same tenet
+		if = {
+			limit = { rite_has_tenet = tenet_philanthropy }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+	}
+
+	name = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { rite_has_doctrine = religious_hostility_doctrine }
+				desc = tenet_alms_for_the_poor_name
+			}
+			triggered_desc = {
+				trigger = { rite_has_doctrine = criminal_hostility_doctrine }
+				desc = tenet_chivalrous_thieves_name
+			}
+			desc = tenet_philanthropy_name
+		}
+	}
+
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { rite_has_doctrine = religious_hostility_doctrine }
+				desc = tenet_alms_for_the_poor_desc
+			}
+			triggered_desc = {
+				trigger = { rite_has_doctrine = criminal_hostility_doctrine }
+				desc = tenet_chivalrous_thieves_desc
+			}
+			desc = tenet_philanthropy_desc
+		}
+	}
+	
+	is_shown = { }
+	can_pick = {
+		always = yes
+	}
+	parameters = {
+		piety_from_gifts_active
+		can_distribute_wealth
+	}
+	character_modifier = {
+		county_opinion_add = 10
+		
+	}
+	traits = {
+		virtues = {
+			compassionate = { weight = 10 scale = 1 }
+			generous = { weight = 15 scale = 1 }
+		}
+		sins = {
+			callous = { weight = 5 scale = 1 }
+			sadistic = { weight = 15 scale = 1 }
+			greedy = { weight = 20 scale = 1 }
+		}
+	}
+}
+
+tenet_united_front = {
+	icon = core_tenet_communal_identity # Placeholder
+
+	name = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { rite_has_doctrine = religious_hostility_doctrine }
+				desc = tenet_peace_of_god_name
+			}
+			triggered_desc = {
+				trigger = { rite_has_doctrine = criminal_hostility_doctrine }
+				desc = tenet_honor_among_thieves_name
+			}
+			desc = tenet_united_front_name
+		}
+	}
+
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { rite_has_doctrine = religious_hostility_doctrine }
+				desc = tenet_peace_of_god_desc
+			}
+			triggered_desc = {
+				trigger = { rite_has_doctrine = criminal_hostility_doctrine }
+				desc = tenet_honor_among_thieves_desc
+			}
+			desc = tenet_united_front_desc
+		}
+	}
+	
+	piety_cost = {
+		value = faith_tenet_cost_mid
+
+		# Multiplier for keeping same tenet
+		if = {
+			limit = { rite_has_tenet = tenet_united_front }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+	}
+	
+	parameters = {
+		attacking_coreligionists_costs_piety
+		cannot_use_conquest_cb_against_coreligionists
+		cannot_use_invasion_cb_against_coreligionists
+	}
+	character_modifier = {
+		opinion_of_same_faith = 10
+	}
+	
+	traits = {
+		virtues = {
+			stubborn = { weight = 10 scale = 1 }
+		}
+		sins = {
+			fickle = { weight = 15 scale = 1 }
+		}
+	}
+}
+
+tenet_upstanding_citizens = {
+	icon = core_tenet_rite # Placeholder
+	piety_cost = {
+		value = faith_tenet_cost_mid
+
+		# Multiplier for keeping same tenet
+		if = {
+			limit = { rite_has_tenet = tenet_upstanding_citizens }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+	}
+
+	is_shown = { has_doctrine = criminal_hostility_doctrine }
+	can_pick = {
+		has_doctrine = criminal_hostility_doctrine
+		custom_description = {
+			text = incompatible_doctrine_piracy_trigger
+			NOT = { doctrine:doctrine_piracy_encouraged = { is_in_list = selected_doctrines } }
+			NOT = { doctrine:doctrine_piracy_allowed = { is_in_list = selected_doctrines } }
+		}
+	}
+	parameters = {
+		political_hostility_to_us
+		religious_hostility_to_us
+	}
+}
+
+tenet_thieves_in_law = {
+	icon = core_tenet_legal_pronouncements # Placeholder
+	piety_cost = {
+		value = faith_tenet_cost_high
+
+		# Multiplier for keeping same tenet
+		if = {
+			limit = { rite_has_tenet = tenet_thieves_in_law }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+	}
+
+	is_shown = { has_doctrine = criminal_hostility_doctrine }
+	can_pick = { has_doctrine = criminal_hostility_doctrine }
+	parameters = {
+		monthly_piety_gain_in_prison
+		non_criminal_contracts_cost_piety
+		master_thieves
+	}
+	traits = {
+		virtues = {
+			gallowsbait = { weight = 50 scale = 2 }
+			greedy = { weight = 15 scale = 1 }
+			honest = { weight = 5 scale = 1 }
+		}
+		sins = {
+			diligent = { weight = 30 scale = 2 }
+			deceitful = { weight = 5 scale = 1 }
+		}
+	}
+}
+
+tenet_ritual_tattoos = {
+	icon = core_tenet_human_sacrifice # Placeholder
+	piety_cost = {
+		value = faith_tenet_cost_mid
+
+		# Multiplier for keeping same tenet
+		if = {
+			limit = { rite_has_tenet = tenet_ritual_tattoos }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+	}
+
+	is_shown = { NOT = { has_doctrine = political_hostility_doctrine } }
+	can_pick = { NOT = { has_doctrine = political_hostility_doctrine } }
+	parameters = {
+		can_apply_ritual_tattoos
+	}
+}
+
+tenet_atonement_through_sacrifice = {
+	icon = core_tenet_consolamentum # Placeholder
+	piety_cost = {
+		if = {
+			limit = {
+				OR = {
+					rite_has_tenet = tenet_consolamentum
+					rite_has_doctrine = special_doctrine_is_nahua_faith
+				}
+			}
+			value = faith_tenet_cost_low
+		}
+		else_if = {
+			limit = { rite_has_doctrine = criminal_hostility_doctrine }
+			value = faith_tenet_cost_high
+		}
+		else = { value = faith_tenet_cost_mid }
+
+		# Multiplier for keeping same tenet
+		if = {
+			limit = { rite_has_tenet = tenet_atonement_through_sacrifice }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+	}
+
+	is_shown = { NOT = { has_doctrine = political_hostility_doctrine } }
+	can_pick = {
+		NOT = { has_doctrine = political_hostility_doctrine }
+		custom_description = {
+			text = incompatible_doctrine_consolamentum_trigger
+			NOT = { tenet:tenet_consolamentum = { is_in_list = selected_doctrines } }
+		}
+	}
+	traits = {
+		virtues = {
+			brave = { weight = 5 scale = 1 }
+			flagellant = { weight = 30 scale = 2 }
+			stubborn = { weight = 10 scale = 1 }
+		}
+		sins = {
+			craven = { weight = 5 scale = 1 }
+			fickle = { weight = 20 scale = 1 }
+		}
+	}
+	parameters = {
+		consolamentum_active
+		self_mutilation_active
+		can_mutilate_as_punishment
+		can_apologize_through_self_mutilation
+	}
+}
+
+tenet_ritual_hallucinogens = {
+	icon = core_tenet_aniconism
+	piety_cost = {
+		value = faith_tenet_cost_mid
+
+		# Multiplier for keeping same tenet
+		if = {
+			limit = { rite_has_tenet = tenet_ritual_hallucinogens }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+	}
+	is_shown = { has_doctrine = religious_hostility_doctrine } # Might expand this to criminals later but for the most part it's a religious thing
+	can_pick = { always = yes }
+	traits = {
+		virtues = {
+			drug_addict = { weight = 30 scale = 1 }
+		}
+		sins = {
+			temperate = { weight = 30 scale = 1 }
+		}
+	}
+	parameters = { hallucinogenic_divination }
+}
+
+tenet_mechanic_syncretism = {
+	icon = core_tenet_eastern_syncretism # Placeholder
+	piety_cost = {
+		value = faith_tenet_cost_high
+
+		# Multiplier for keeping same tenet
+		if = {
+			limit = { rite_has_tenet = tenet_mechanic_syncretism }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+	}
+
+	can_pick = {
+		NOT = { has_doctrine = special_doctrine_is_mechanic_faith }
+		unique_syncretism_trigger = yes
+		trigger_if = {
+			limit = { scope:actor ?= { is_ai = yes } }
+			scope:actor = { pam_ai_meaningful_mechanic_presence_trigger = yes }
+		}
+	}
+
+	can_pick_as_personal_tenet = {
+		NOT = {
+			faith = { has_doctrine = special_doctrine_is_mechanic_faith }
+		}
+		trigger_if = {
+			limit = { is_ai = yes }
+			pam_ai_meaningful_mechanic_presence_trigger = yes
+		}
+	}
+
+	personal_tenet_parameters = {
+		tenet_syncretism_invite_religious_exiles
+		tenet_syncretism_county_bonus
+		can_use_mechanic_artifacts
+		tenet_mechanic_syncretism_study_rite_bonus
+	}
+
+	parameters = {
+		can_use_mechanic_artifacts
+		# Actor opinion is delivered by special_parameters; the syncretic trigger checks the doctrine.
+		mechanic_syncretic_actor
+		tenet_mechanic_syncretism_study_rite_bonus
+		unreformed_syncretic_conversion_malus_active
+	}
+
+	special_parameters = {
+		hostility_level_override = {
+			special_doctrine_is_mechanic_faith = astray
+		}
+		parameter_opinion_override = {
+			#Sync this to syncretic_mutual_opinion_bonus_value
+			mechanic_syncretic_recipient = 30
+		}
+	}
+
+	traits = {
+		virtues = { 
+			calm = { weight = 15 scale = 1 }
+		}
+		sins = { 
+			arbitrary = { weight = 10 scale = 1 }
+		}
+	}
+}
+
+tenet_nahua_syncretism = {
+	icon = core_tenet_eastern_syncretism # Placeholder
+	piety_cost = {
+		value = faith_tenet_cost_high
+
+		# Multiplier for keeping same tenet
+		if = {
+			limit = { rite_has_tenet = tenet_nahua_syncretism }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+	}
+
+	can_pick = {
+		NOT = { has_doctrine = special_doctrine_is_nahua_faith }
+		unique_syncretism_trigger = yes
+		trigger_if = {
+			limit = { scope:actor ?= { is_ai = yes } }
+			scope:actor = { pam_ai_meaningful_nahua_presence_trigger = yes }
+		}
+	}
+
+	can_pick_as_personal_tenet = {
+		NOT = {
+			faith = { has_doctrine = special_doctrine_is_nahua_faith }
+		}
+		trigger_if = {
+			limit = { is_ai = yes }
+			pam_ai_meaningful_nahua_presence_trigger = yes
+		}
+	}
+
+	personal_tenet_parameters = {
+		tenet_syncretism_invite_religious_exiles
+		tenet_syncretism_county_bonus
+		can_use_nahua_artifacts
+		tenet_nahua_syncretism_study_rite_bonus
+	}
+
+	parameters = {
+		can_use_nahua_artifacts
+		# Actor opinion is delivered by special_parameters; the syncretic trigger checks the doctrine.
+		nahua_syncretic_actor
+		tenet_nahua_syncretism_study_rite_bonus
+		unreformed_syncretic_conversion_malus_active
+	}
+
+	special_parameters = {
+		hostility_level_override = {
+			special_doctrine_is_nahua_faith = astray
+		}
+		parameter_opinion_override = {
+			#Sync this to syncretic_mutual_opinion_bonus_value
+			nahua_syncretic_recipient = 30
+		}
+	}
+
+	traits = {
+		virtues = {
+			generous = { weight = 15 scale = 1 }
+		}
+		sins = { 
+			craven = { weight = 10 scale = 1 }
+		}
+	}
+}

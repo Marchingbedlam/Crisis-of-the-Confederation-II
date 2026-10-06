@@ -75,30 +75,10 @@ common_tradeberth_01 = {
 			is_coastal = yes
 		}
 		modifier = {
-			add = 5
-			culture = {
-				has_cultural_parameter = tradeberths_stationed_maa_bonus
-			}
-		}
-		modifier = {
 			factor = 2
 			AND = {
 				building_watermills_requirement_terrain = yes
 				building_windmills_requirement_terrain = yes
-			}
-		}
-		modifier = {
-			factor = 0
-			building_farm_estates_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = farm_estates_01
-			}
-		}
-		modifier = {
-			factor = 0
-			building_orchards_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = orchards_01
 			}
 		}
 
@@ -419,26 +399,6 @@ commercial_yards_01 = {
 		ai_pasture_improvement_from_culture_modifier = yes # Only on the level 1 to secure having pasture when the AI is from an appropriate culture
 		ai_general_building_modifier = yes
 		directive_to_build_economy_modifier = yes
-		modifier = {
-			factor = 0
-			building_farm_estates_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = farm_estates_01
-			}
-		}
-		modifier = {
-			factor = 0
-			building_orchards_requirement_terrain = yes
-			NOT = {
-				has_building_or_higher = orchards_01
-			}
-		}
-		modifier = {
-			factor = 4
-			culture = {
-				has_cultural_parameter = farm_estates_commercial_yards_unlock
-			}
-		}
 	}
 }
 commercial_yards_02 = {
@@ -1028,7 +988,6 @@ agriculture_01 = {
 	# TODO: Lots of triggers either unlocked farm_estates or required farm_estates -- need to fix
 	# See farm_estate code -- cultural unlocks for pastures, paddy fields, etc. 
 	construction_time = slow_construction_time
-	effect_desc = agriculture_effect_desc
 
 	can_construct_potential = {
 		building_requirement_tribal = no
@@ -1074,7 +1033,6 @@ agriculture_01 = {
 }
 agriculture_02 = {
 	construction_time = slow_construction_time
-	effect_desc = agriculture_effect_desc
 	can_construct_potential = {
 		building_requirement_tribal = no
 		building_agriculture_requirement_terrain = yes
@@ -1114,10 +1072,10 @@ agriculture_02 = {
 }
 agriculture_03 = {
 	construction_time = slow_construction_time
-	effect_desc = agriculture_effect_desc
 
 	can_construct_potential = {
-		agriculture_3_4_trigger = yes  # FIXME: Figure out what this does
+		building_requirement_tribal = no
+		building_agriculture_requirement_terrain = yes
 	}
 
 	can_construct_showing_failures_only = {
@@ -1155,10 +1113,10 @@ agriculture_03 = {
 }
 agriculture_04 = {
 	construction_time = slow_construction_time
-	effect_desc = agriculture_effect_desc
 
 	can_construct_potential = {
-		agriculture_3_4_trigger = yes
+		building_requirement_tribal = no
+		building_agriculture_requirement_terrain = yes
 	}
 
 	can_construct_showing_failures_only = {
@@ -1196,7 +1154,6 @@ agriculture_04 = {
 }
 agriculture_05 = {
 	construction_time = slow_construction_time
-	effect_desc = agriculture_effect_desc
 
 	can_construct_potential = {
 		building_requirement_castle_city_church = { LEVEL = 03 }
@@ -1242,7 +1199,6 @@ agriculture_05 = {
 }
 agriculture_06 = {
 	construction_time = slow_construction_time
-	effect_desc = agriculture_effect_desc
 
 	can_construct_potential = {
 		building_requirement_castle_city_church = { LEVEL = 03 }
@@ -1289,7 +1245,6 @@ agriculture_06 = {
 }
 agriculture_07 = {
 	construction_time = slow_construction_time
-	effect_desc = agriculture_effect_desc
 
 	can_construct_potential = {
 		building_requirement_castle_city_church = { LEVEL = 04 }
@@ -1342,7 +1297,6 @@ agriculture_07 = {
 }
 agriculture_08 = {
 	construction_time = slow_construction_time
-	effect_desc = agriculture_effect_desc
 
 	can_construct_potential = {
 		building_requirement_castle_city_church = { LEVEL = 04 }
@@ -1389,7 +1343,6 @@ agriculture_08 = {
 ### Hydrocarbon Refinery
 refinery_01 = {
 	construction_time = standard_construction_time
-	effect_desc = refinery_effect_desc
 
 	can_construct_potential = {
 		building_refinery_requirement_terrain = yes
@@ -1440,7 +1393,6 @@ refinery_01 = {
 }
 refinery_02 = {
 	construction_time = standard_construction_time
-	effect_desc = refinery_effect_desc
 
 	can_construct_potential = {
 		building_refinery_requirement_terrain = yes
@@ -1484,7 +1436,6 @@ refinery_02 = {
 }
 refinery_03 = {
 	construction_time = standard_construction_time
-	effect_desc = refinery_effect_desc
 
 	can_construct_potential = {
 		building_refinery_requirement_terrain = yes
@@ -1528,7 +1479,6 @@ refinery_03 = {
 }
 refinery_04 = {
 	construction_time = standard_construction_time
-	effect_desc = refinery_effect_desc
 
 	can_construct_potential = {
 		building_refinery_requirement_terrain = yes
@@ -1572,7 +1522,6 @@ refinery_04 = {
 }
 refinery_05 = {
 	construction_time = standard_construction_time
-	effect_desc = refinery_effect_desc
 
 	can_construct_potential = {
 		building_refinery_requirement_terrain = yes
@@ -1617,7 +1566,6 @@ refinery_05 = {
 }
 refinery_06 = {
 	construction_time = standard_construction_time
-	effect_desc = refinery_effect_desc
 
 	can_construct_potential = {
 		building_refinery_requirement_terrain = yes
@@ -1663,7 +1611,6 @@ refinery_06 = {
 }
 refinery_07 = {
 	construction_time = standard_construction_time
-	effect_desc = refinery_effect_desc
 
 	can_construct_potential = {
 		building_refinery_requirement_terrain = yes
@@ -1712,7 +1659,6 @@ refinery_07 = {
 }
 refinery_08 = {
 	construction_time = standard_construction_time
-	effect_desc = refinery_effect_desc
 
 	can_construct_potential = {
 		building_refinery_requirement_terrain = yes
@@ -1790,22 +1736,6 @@ dome_farms_01 = {
 		ai_tier_1_economical_building_preference_modifier = yes
 		ai_general_building_modifier = yes
 		directive_to_build_economy_modifier = yes
-		ai_dome_farms_improvement_from_culture_modifier = yes
-		modifier = {
-			factor = 0
-			scope:holder = {
-				government_has_flag = government_is_republic
-			}
-			NOT = {
-				has_building_or_higher = guild_halls_01
-			}
-		}
-		modifier = {
-			factor = 4
-			culture = {
-				has_cultural_parameter = windmills_dome_farms_unlock
-			}
-		}
 	}
 }
 dome_farms_02 = {
@@ -2523,16 +2453,6 @@ forges_01 = {
 		ai_tier_1_economical_building_preference_modifier = yes
 		ai_general_building_modifier = yes
 		directive_to_build_economy_modifier = yes
-		ai_forges_improvement_from_culture_modifier = yes
-		modifier = {
-			factor = 0
-			scope:holder = {
-				government_has_flag = government_is_republic
-			}
-			NOT = {
-				has_building_or_higher = guild_halls_01
-			}
-		}
 	}
 }
 forges_02 = {
@@ -2853,7 +2773,7 @@ forges_08 = {
 ### Exotic Forges -- Asteroid Specific
 
 exotic_forges_01 = {
-	construction_time = normal_construction_time
+	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		building_exotic_forges_requirement_terrain = yes
@@ -2888,20 +2808,10 @@ exotic_forges_01 = {
 		ai_tier_1_economical_building_preference_modifier = yes
 		ai_general_building_modifier = yes
 		directive_to_build_economy_modifier = yes
-		ai_exotic_forges_improvement_from_culture_modifier = yes
-		modifier = {
-			factor = 0
-			scope:holder = {
-				government_has_flag = government_is_republic
-			}
-			NOT = {
-				has_building_or_higher = guild_halls_01
-			}
-		}
 	}
 }
 exotic_forges_02 = {
-	construction_time = normal_construction_time
+	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		building_exotic_forges_requirement_terrain = yes
@@ -2943,7 +2853,7 @@ exotic_forges_02 = {
 	}
 }
 exotic_forges_03 = {
-	construction_time = normal_construction_time
+	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		building_exotic_forges_requirement_terrain = yes
@@ -2987,7 +2897,7 @@ exotic_forges_03 = {
 	}
 }
 exotic_forges_04 = {
-	construction_time = normal_construction_time
+	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		building_exotic_forges_requirement_terrain = yes
@@ -3034,7 +2944,7 @@ exotic_forges_04 = {
 	}
 }
 exotic_forges_05 = {
-	construction_time = normal_construction_time
+	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		building_exotic_forges_requirement_terrain = yes
@@ -3081,7 +2991,7 @@ exotic_forges_05 = {
 	}
 }
 exotic_forges_06 = {
-	construction_time = normal_construction_time
+	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		building_exotic_forges_requirement_terrain = yes
@@ -3129,7 +3039,7 @@ exotic_forges_06 = {
 	}
 }
 exotic_forges_07 = {
-	construction_time = normal_construction_time
+	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		building_exotic_forges_requirement_terrain = yes
@@ -3177,7 +3087,7 @@ exotic_forges_07 = {
 	}
 }
 exotic_forges_08 = {
-	construction_time = normal_construction_time
+	construction_time = standard_construction_time
 
 	can_construct_potential = {
 		building_exotic_forges_requirement_terrain = yes
@@ -3251,6 +3161,9 @@ xenofauna_01 = {
 		parameter = xenofauna_martial_culture_bonuses
 		# TODO: Add parameter to certain martial cultures
 		knight_effectiveness_mult = high_knight_effectiveness_mult_tier_1
+	}
+	province_culture_modifier = {
+		parameter = xenofauna_martial_culture_bonuses
 		stationed_maa_pursuit_add = normal_maa_pursuit_tier_1
 		stationed_maa_screen_add = normal_maa_screen_tier_1
 	}
@@ -3268,7 +3181,7 @@ xenofauna_01 = {
 		modifier = { # Not that good without the cultural bonuses
 			factor = 0.5
 			NOT = {
-				has_cultural_parameter = xenofauna_martial_culture_bonuses
+				culture ?= { has_cultural_parameter = xenofauna_martial_culture_bonuses }
 			}
 		}
 	}
@@ -3302,6 +3215,9 @@ xenofauna_02 = {
 		parameter = xenofauna_martial_culture_bonuses
 		# TODO: Add parameter to certain martial cultures
 		knight_effectiveness_mult = high_knight_effectiveness_mult_tier_2
+	}
+	province_culture_modifier = {
+		parameter = xenofauna_martial_culture_bonuses
 		stationed_maa_pursuit_add = normal_maa_pursuit_tier_2
 		stationed_maa_screen_add = normal_maa_screen_tier_2
 	}
@@ -3353,6 +3269,9 @@ xenofauna_03 = {
 	character_culture_modifier = {
 		parameter = xenofauna_martial_culture_bonuses
 		knight_effectiveness_mult = high_knight_effectiveness_mult_tier_3
+	}
+	province_culture_modifier = {
+		parameter = xenofauna_martial_culture_bonuses
 		stationed_maa_pursuit_add = normal_maa_pursuit_tier_3
 		stationed_maa_screen_add = normal_maa_screen_tier_3
 	}
@@ -3406,6 +3325,9 @@ xenofauna_04 = {
 	character_culture_modifier = {
 		parameter = xenofauna_martial_culture_bonuses
 		knight_effectiveness_mult = high_knight_effectiveness_mult_tier_4
+	}
+	province_culture_modifier = {
+		parameter = xenofauna_martial_culture_bonuses
 		stationed_maa_pursuit_add = normal_maa_pursuit_tier_4
 		stationed_maa_screen_add = normal_maa_screen_tier_4
 	}
@@ -3453,9 +3375,12 @@ xenofauna_05 = {
 	character_culture_modifier = {
 		parameter = xenofauna_martial_culture_bonuses
 		knight_effectiveness_mult = high_knight_effectiveness_mult_tier_5
+		movement_speed = normal_movement_speed_tier_2
+	}
+	province_culture_modifier = {
+		parameter = xenofauna_martial_culture_bonuses
 		stationed_maa_pursuit_add = normal_maa_pursuit_tier_5
 		stationed_maa_screen_add = normal_maa_screen_tier_5
-		movement_speed = normal_movement_speed_tier_2
 	}
 
 	next_building = xenofauna_06
@@ -3501,9 +3426,12 @@ xenofauna_06 = {
 	character_culture_modifier = {
 		parameter = xenofauna_martial_culture_bonuses
 		knight_effectiveness_mult = high_knight_effectiveness_mult_tier_6
+		movement_speed = normal_movement_speed_tier_3
+	}
+	province_culture_modifier = {
+		parameter = xenofauna_martial_culture_bonuses
 		stationed_maa_pursuit_add = normal_maa_pursuit_tier_6
 		stationed_maa_screen_add = normal_maa_screen_tier_6
-		movement_speed = normal_movement_speed_tier_3
 	}
 
 	next_building = xenofauna_07
@@ -3549,9 +3477,12 @@ xenofauna_07 = {
 	character_culture_modifier = {
 		parameter = xenofauna_martial_culture_bonuses
 		knight_effectiveness_mult = high_knight_effectiveness_mult_tier_7
+		movement_speed = normal_movement_speed_tier_4
+	}
+	province_culture_modifier = {
+		parameter = xenofauna_martial_culture_bonuses
 		stationed_maa_pursuit_add = normal_maa_pursuit_tier_7
 		stationed_maa_screen_add = normal_maa_screen_tier_7
-		movement_speed = normal_movement_speed_tier_4
 	}
 
 	on_complete = {
@@ -3603,9 +3534,12 @@ xenofauna_08 = {
 	character_culture_modifier = {
 		parameter = xenofauna_martial_culture_bonuses
 		knight_effectiveness_mult = high_knight_effectiveness_mult_tier_8
+		movement_speed = normal_movement_speed_tier_5
+	}
+	province_culture_modifier = {
+		parameter = xenofauna_martial_culture_bonuses
 		stationed_maa_pursuit_add = normal_maa_pursuit_tier_8
 		stationed_maa_screen_add = normal_maa_screen_tier_8
-		movement_speed = normal_movement_speed_tier_5
 	}
 
 	on_complete = {
@@ -3636,7 +3570,7 @@ water_collector_01 = {
 	}
 	cost_gold = normal_building_tier_1_cost
 	province_modifier = {
-		monthly_income = large_building_tax_tier_1
+		monthly_income = excellent_building_tax_tier_1
 		development_growth = -0.01
 	}
 	# TODO: Add Cultural and locational bonuses 
@@ -3683,7 +3617,7 @@ water_collector_02 = {
 	}
 	cost_gold = normal_building_tier_2_cost
 	province_modifier = {
-		monthly_income = large_building_tax_tier_2
+		monthly_income = excellent_building_tax_tier_2
 		development_growth = -0.01
 		tax_mult = 0.01  # TODO: Create a define with tax mult
 	}
@@ -3721,7 +3655,7 @@ water_collector_03 = {
 	}
 	cost_gold = normal_building_tier_3_cost
 	province_modifier = {
-		monthly_income = large_building_tax_tier_3
+		monthly_income = excellent_building_tax_tier_3
 		development_growth = -0.01
 		tax_mult = 0.01  # TODO: Create a define with tax mult
 	}
@@ -3754,7 +3688,7 @@ water_collector_04 = {
 	}
 	cost_gold = normal_building_tier_4_cost
 	province_modifier = {
-		monthly_income = large_building_tax_tier_4
+		monthly_income = excellent_building_tax_tier_4
 		development_growth = -0.01
 		tax_mult = 0.02
 	}
@@ -3787,7 +3721,7 @@ water_collector_05 = {
 	}
 	cost_gold = normal_building_tier_5_cost
 	province_modifier = {
-		monthly_income = large_building_tax_tier_5
+		monthly_income = excellent_building_tax_tier_5
 		development_growth = -0.02
 		tax_mult = 0.02
 	}
@@ -3822,7 +3756,7 @@ water_collector_06 = {
 	}
 	cost_gold = normal_building_tier_6_cost
 	province_modifier = {
-		monthly_income = large_building_tax_tier_6
+		monthly_income = excellent_building_tax_tier_6
 		development_growth = -0.02
 		tax_mult = 0.03
 	}
@@ -3857,7 +3791,7 @@ water_collector_07 = {
 	}
 	cost_gold = normal_building_tier_7_cost
 	province_modifier = {
-		monthly_income = large_building_tax_tier_7
+		monthly_income = excellent_building_tax_tier_7
 		development_growth = -0.03
 		tax_mult = 0.03
 	}
@@ -3892,7 +3826,7 @@ water_collector_08 = {
 	}
 	cost_gold = normal_building_tier_8_cost
 	province_modifier = {
-		monthly_income = large_building_tax_tier_8
+		monthly_income = excellent_building_tax_tier_8
 		development_growth = -0.03
 		tax_mult = 0.04
 	}

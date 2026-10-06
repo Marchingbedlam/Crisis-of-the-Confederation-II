@@ -269,8 +269,8 @@ create_artifact_pedestal_christian_relic_effect_hist = {
 	scope:newly_created_artifact = {
 		set_variable = { name = historical_unique_artifact value = yes }
 		set_variable = {
-			name = relic
-			value = flag:christian
+			name = relic_religion
+			value = religion:christianity_religion
 		}
 		if = {
 			limit = {
@@ -505,8 +505,8 @@ create_artifact_pedestal_islamic_relic_effect_hist = {
 	scope:newly_created_artifact = {
 		set_variable = { name = historical_unique_artifact value = yes }
 		set_variable = {
-			name = relic
-			value = flag:islamic
+			name = relic_religion
+			value = religion:islam_religion
 		}
 		add_scaled_artifact_modifier_piety_effect = yes
 		add_scaled_artifact_modifier_grandeur_small_effect = yes
@@ -711,8 +711,8 @@ create_artifact_pedestal_buddhism_relic_effect_hist = {
 	scope:newly_created_artifact = {
 		set_variable = { name = historical_unique_artifact value = yes }
 		set_variable = {
-			name = relic
-			value = flag:buddhism
+			name = relic_religion
+			value = religion:buddhism_religion
 		}
 		if = {
 			limit = {
@@ -795,8 +795,8 @@ create_artifact_pedestal_branch_relic_zoroastr_effect = {
 	scope:newly_created_artifact = {
 		set_variable = { name = historical_unique_artifact value = yes }
 		set_variable = {
-			name = relic
-			value = flag:zoroastr
+			name = relic_religion
+			value = religion:zoroastrianism_religion
 		}
 		add_scaled_artifact_modifier_piety_effect = yes
 		add_scaled_artifact_modifier_grandeur_small_effect = yes
@@ -858,8 +858,8 @@ create_artifact_pedestal_branch_relic_germanic_effect = {
 	scope:newly_created_artifact = {
 		set_variable = { name = historical_unique_artifact value = yes }
 		set_variable = {
-			name = relic
-			value = flag:germanic
+			name = relic_religion
+			value = religion:germanic_religion
 		}
 		add_scaled_artifact_modifier_piety_effect = yes
 		add_scaled_artifact_modifier_grandeur_small_effect = yes
@@ -909,8 +909,8 @@ create_artifact_pedestal_branch_relic_slavic_effect = {
 	scope:newly_created_artifact = {
 		set_variable = { name = historical_unique_artifact value = yes }
 		set_variable = {
-			name = relic
-			value = flag:slavic
+			name = relic_religion
+			value = religion:slavic_religion
 		}
 		add_scaled_artifact_modifier_piety_effect = yes
 		add_scaled_artifact_modifier_grandeur_small_effect = yes
@@ -960,8 +960,8 @@ create_artifact_pedestal_branch_relic_boog_effect = {
 	scope:newly_created_artifact = {
 		set_variable = { name = historical_unique_artifact value = yes }
 		set_variable = {
-			name = relic
-			value = flag:boog
+			name = relic_religion
+			value = religion:west_african_roog_religion
 		}
 		add_scaled_artifact_modifier_piety_effect = yes
 		add_scaled_artifact_modifier_grandeur_small_effect = yes
@@ -1012,8 +1012,8 @@ create_artifact_pedestal_branch_relic_hinduism_effect = {
 	scope:newly_created_artifact = {
 		set_variable = { name = historical_unique_artifact value = yes }
 		set_variable = {
-			name = relic
-			value = flag:hinduism
+			name = relic_religion
+			value = religion:hinduism_religion
 		}
 		add_scaled_artifact_modifier_piety_effect = yes
 		add_scaled_artifact_modifier_grandeur_small_effect = yes
@@ -1061,9 +1061,20 @@ create_artifact_pedestal_branch_relic_general_effect = {
 	}
 
 	scope:newly_created_artifact = {
-		set_variable = {	#This is needed to determine what religion the branch will work for.
-			name = relic_religion
-			value = $RELIGION$
+		#This is needed to determine what religion the branch will work for.
+		if = {
+			# when the location is sea province
+			limit = { NOT = { exists = $RELIGION$ } }
+			set_variable = {
+				name = relic_religion
+				value = scope:owner.religion
+			}
+		}
+		else = {
+			set_variable = {
+				name = relic_religion
+				value = $RELIGION$
+			}
 		}
 		set_variable = { name = historical_unique_artifact value = yes }
 		add_scaled_artifact_modifier_piety_effect = yes
@@ -1076,7 +1087,6 @@ create_artifact_pedestal_branch_relic_general_effect = {
 				}
 			}
 			add_2_scaled_artifact_modifier_devotion_effect = yes
-			
 		}
 		else = {
 			add_scaled_artifact_modifier_devotion_effect = yes
@@ -1147,8 +1157,8 @@ create_artifact_edmund_head_effect = {
 		set_variable = edmund_head
 		add_scaled_artifact_modifier_devotion_effect = yes
 		set_variable = {
-			name = relic
-			value = flag:christian
+			name = relic_religion
+			value = religion:christianity_religion
 		}
 		save_scope_as = epic
 		add_artifact_history = {
@@ -1507,7 +1517,7 @@ create_artifact_monomachus_crown_effect = {
 	create_artifact = {	
 		name = monomachus_crown_name
 		description = monomachus_crown_description
-		template = general_unique_template
+		template = unique_crown_wearable_template
 		type = helmet
 		visuals = pedestal_justinian
 		wealth = scope:wealth
@@ -1580,7 +1590,7 @@ create_artifact_jewelled_danda_effect = {
 		visuals = regalia
 		wealth = scope:wealth
 		quality = scope:quality
-		template = general_unique_template
+		template = unique_regalia_template
 		history = {
 			type = created_before_history
 		}
@@ -1623,8 +1633,8 @@ create_artifact_khanda_effect = {
 		set_variable = { name = historical_unique_artifact value = yes }
 		set_variable = khanda
 		set_variable = {
-			name = relic
-			value = flag:hinduism
+			name = relic_religion
+			value = religion:hinduism_religion
 		}
 		save_scope_as = epic
 	}
@@ -1687,8 +1697,8 @@ create_artifact_ascalon_effect = {
 		set_variable = { name = historical_unique_artifact value = yes }
 		set_variable = ascalon
 		set_variable = {
-			name = relic
-			value = flag:christian
+			name = relic_religion
+			value = religion:christianity_religion
 		}
 		save_scope_as = epic
 	}
@@ -1731,7 +1741,7 @@ create_artifact_kaves_apron_effect = {
 	set_artifact_rarity_illustrious = yes
 
 	# Create the artifact
-	create_artifact = {	
+	create_artifact = {
 		name = artifact_kaves_apron_name
 		description = artifact_kaves_apron_description
 		type = wall_big
@@ -1784,8 +1794,8 @@ create_artifact_muhammads_epistles_effect = {
 		add_scaled_artifact_modifier_devotion_effect = yes
 		add_scaled_artifact_modifier_combat_effect = yes
 		set_variable = {
-			name = relic
-			value = flag:islamic
+			name = relic_religion
+			value = religion:islam_religion
 		}
 		save_scope_as = epic
 	}
@@ -1817,8 +1827,8 @@ create_artifact_aruval_effect = {
 		set_variable = { name = historical_unique_artifact value = yes }
 		set_variable = aruval
 		set_variable = {
-			name = relic
-			value = flag:hinduism
+			name = relic_religion
+			value = religion:hinduism_religion
 		}
 		save_scope_as = epic
 	}
@@ -1908,8 +1918,8 @@ create_artifact_afarganyu_effect = {
 	scope:newly_created_artifact = {
 		set_variable = { name = historical_unique_artifact value = yes }
 		set_variable = {
-			name = relic
-			value = flag:zoroastr
+			name = relic_religion
+			value = religion:zoroastrianism_religion
 		}
 		save_scope_as = epic
 	}
@@ -1940,8 +1950,8 @@ create_artifact_siddhachakra_effect = {
 	scope:newly_created_artifact = {
 		set_variable = { name = historical_unique_artifact value = yes }
 		set_variable = {
-			name = relic
-			value = flag:jainism
+			name = relic_religion
+			value = religion:jainism_religion
 		}
 		save_scope_as = epic
 	}
@@ -1974,8 +1984,8 @@ create_artifact_staff_kakusandha_effect = {
 		set_variable = { name = historical_unique_artifact value = yes }
 		set_variable = staff_kakusandha
 		set_variable = {
-			name = relic
-			value = flag:buddhism
+			name = relic_religion
+			value = religion:buddhism_religion
 		}
 		save_scope_as = epic
 	}
@@ -2008,8 +2018,8 @@ create_artifact_konagamana_effect = {
 		set_variable = { name = historical_unique_artifact value = yes }
 		set_variable = konagamana
 		set_variable = {
-			name = relic
-			value = flag:buddhism
+			name = relic_religion
+			value = religion:buddhism_religion
 		}
 		save_scope_as = epic
 	}
@@ -2030,7 +2040,6 @@ create_artifact_robe_kassapa_effect = {
 		visuals = reliquary
 		wealth = scope:wealth
 		quality = scope:quality
-		template = buddhism_artifact_template
 		history = {
 			type = created_before_history
 		}
@@ -2043,8 +2052,8 @@ create_artifact_robe_kassapa_effect = {
 		set_variable = { name = historical_unique_artifact value = yes }
 		set_variable = kassapa
 		set_variable = {
-			name = relic
-			value = flag:buddhism
+			name = relic_religion
+			value = religion:buddhism_religion
 		}
 		save_scope_as = epic
 	}
@@ -2123,8 +2132,8 @@ create_artifact_cintamani_hindu_effect = {
 		set_variable = { name = historical_unique_artifact value = yes }
 		set_variable = cintamani_hindu
 		set_variable = {
-			name = relic
-			value = flag:hinduism
+			name = relic_religion
+			value = religion:hinduism_religion
 		}
 	}
 }
@@ -2156,8 +2165,8 @@ create_artifact_cintamani_buddhist_effect = {
 		set_variable = { name = historical_unique_artifact value = yes }
 		set_variable = cintamani_buddhist
 		set_variable = {
-			name = relic
-			value = flag:buddhism
+			name = relic_religion
+			value = religion:buddhism_religion
 		}
 	}
 }
@@ -2190,8 +2199,8 @@ create_artifact_wall_banner_edessa_effect = {
 		set_variable = { name = historical_unique_artifact value = yes }
 		set_variable = banner_edessa
 		set_variable = {
-			name = relic
-			value = flag:christian
+			name = relic_religion
+			value = religion:christianity_religion
 		}
 		save_scope_as = epic
 	}
@@ -2382,8 +2391,8 @@ create_artifact_wall_muhammad_sword_effect = {
 		set_variable = sword_of_muhammad
 		save_scope_as = muhammad_sword
 		set_variable = {
-			name = relic
-			value = flag:islamic
+			name = relic_religion
+			value = religion:islam_religion
 		}
 		random_list = {
 			pick = 2
@@ -3066,8 +3075,8 @@ create_artifact_pedestal_shankha_conch_effect = {
 		set_variable = { name = historical_unique_artifact value = yes }
 		set_variable = conch
 		set_variable = {
-			name = relic
-			value = flag:hinduism
+			name = relic_religion
+			value = religion:hinduism_religion
 		}
 		save_scope_as = epic
 	}
@@ -3269,7 +3278,7 @@ create_artifact_qadib_al_mulk_effect = {
 	create_artifact = {	
 		name = qadib_al_mulk_name
 		description = qadib_al_mulk_description
-		template = general_unique_template
+		template = unique_regalia_template
 		type = regalia
 		visuals = regalia
 		wealth = scope:wealth
@@ -3810,8 +3819,8 @@ create_artifact_sledovik_effect = {
 	scope:newly_created_artifact = {
 		set_variable = { name = historical_unique_artifact value = yes }
 		set_variable = {
-			name = relic
-			value = flag:finno_ugric_religion
+			name = relic_religion
+			value = religion:finno_ugric_religion
 		}
 		add_artifact_modifier = artifact_court_grandeur_baseline_add_2_modifier
 		save_scope_as = epic
@@ -3845,8 +3854,8 @@ create_artifact_kantele_effect = {
 		set_variable = { name = historical_unique_artifact value = yes }
 		set_variable = kantele
 		set_variable = {
-			name = relic
-			value = flag:finno_ugric_religion
+			name = relic_religion
+			value = religion:finno_ugric_religion
 		}
 		save_scope_as = epic
 	}
@@ -3943,10 +3952,6 @@ create_artifact_papal_tiara_effect = {
 	scope:newly_created_artifact = {
 		set_variable = { name = historical_unique_artifact value = yes }
 		set_variable = {
-			name = relic
-			value = flag:christian
-		}
-		set_variable = {
 			name = artifact_succession_title
 			value = title:k_papal_state
 		}
@@ -4036,7 +4041,7 @@ create_artifact_al_taj_crown_effect = {
 	create_artifact = {	
 		name = al_taj_crown_name
 		description = al_taj_crown_description
-		template = general_unique_template
+		template = unique_crown_wearable_template
 		type = helmet
 		visuals = al_taj_crown
 		wealth = scope:wealth
@@ -4255,8 +4260,8 @@ create_artifact_mantle_of_the_prophet_effect = {
 	scope:newly_created_artifact = {
 		set_variable = { name = historical_unique_artifact value = yes }
 		set_variable = {
-			name = relic
-			value = flag:islamic
+			name = relic_religion
+			value = religion:islam_religion
 		}
 		set_variable = mantle_of_prophet
 		save_scope_as = epic
@@ -4595,8 +4600,8 @@ create_artifact_eight_fold_chest_effect = {
 		set_variable = { name = historical_unique_artifact value = yes }
 		set_variable = eight_fold_chest
 		set_variable = {
-			name = relic
-			value = flag:buddhism
+			name = relic_religion
+			value = religion:buddhism_religion
 		}
 		add_artifact_title_history = {
 			target = title:h_china

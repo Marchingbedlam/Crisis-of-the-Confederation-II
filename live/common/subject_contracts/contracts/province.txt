@@ -1,4 +1,4 @@
-federal_status = {
+﻿federal_status = {
 	display_mode = tree
 	is_shown = { scope:liege = { government_has_flag = government_is_federal } }
 	can_be_changed = { scope:liege = { NOT = { legislature_blocks_law_trigger = yes } } }
@@ -93,8 +93,6 @@ federal_status = {
 		federal_status_unsorted = { # Dummy state for new subjects of the federation; should immediately be sorted into one of the above
 			parent = federal_status_member_state
 			position = { 2 0 }
-			is_shown = { scope:subject = { vassal_contract_has_flag = federal_status_unsorted } }
-			is_valid = { scope:subject = { vassal_contract_has_flag = federal_status_unsorted } }
 			default = yes
 			
 			ai_liege_desire = 0

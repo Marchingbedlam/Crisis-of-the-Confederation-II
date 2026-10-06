@@ -138,9 +138,18 @@
 		visible = "[TravelPlanner.IsEntourageListWindowOpen]"
 	}
 
+	window_activity_tenet_list = {
+		visible_at_creation = no
+		visible = "[ActivityPlanner.IsSelectingTenet]"
+	}
+	window_activity_doctrine_list = {
+		visible_at_creation = no
+		visible = "[ActivityPlanner.IsSelectingDoctrine]"
+	}
+
 	error_horse = {
 		parentanchor = bottom|left
-		position = { 610 -10 }
+		position = { 530 -10 }
 		visible = "[And( Not( IsPauseMenuShown ), Not(ReleaseMode) )]"
 	}
 }
@@ -1084,7 +1093,7 @@ types ActivityPlannerNewTypes
 				margin_bottom = 4
 
 				background = {
-					texture = "[ActivityType.GetHeaderBackground]"
+					texture = "[ActivityType.GetHeaderBackground( GetPlayer )]"
 					alpha = 0.3
 					fittype = centercrop
 
@@ -1281,15 +1290,36 @@ types ActivityPlannerNewTypes
 		name = "activity_planning_header"
 		size = { 100 56 }
 
-			background = {
-				using = Background_Header
-				margin_left = 30
+		background = {
+			using = Background_Header
+			margin_left = 30
+			margin_right = 5
+
+			modify_texture = {
+				texture = "gfx/interface/component_masks/mask_fade_horizontal_short.dds"
+				blend_mode = alphamultiply
+				mirror = horizontal
 			}
 
-			background = {
-				using = Background_Header_Pattern
-				margin_left = 30
+			modify_texture = {
+				texture = "gfx/interface/component_masks/mask_fade_horizontal_extended.dds"
+				blend_mode = alphamultiply
+				mirror = horizontal
+				alpha = 0.7
 			}
+		}
+
+		background = {
+			using = Background_Header_Pattern
+			margin_left = 30
+			margin_right = 5
+
+			modify_texture = {
+				texture = "gfx/interface/component_masks/mask_fade_horizontal_short.dds"
+				blend_mode = alphamultiply
+				mirror = horizontal
+			}
+		}
 
 		text_single = {
 			name = "header_text"
@@ -1344,7 +1374,7 @@ types ActivityPlannerNewTypes
 			}
 
 			background = {
-				texture = "[ActivityType.GetHeaderBackground]"
+				texture = "[ActivityType.GetHeaderBackground( GetPlayer )]"
 				alpha = 0.2
 				fittype = end
 				margin_top = -48
@@ -1609,6 +1639,7 @@ types ActivityPlannerNewTypes
 
 					vbox = {
 						name = "contents"
+						visible = "[Not( ActivityPlanner.IsTenetDoctrineBased )]"
 						layoutpolicy_vertical = expanding
 
 						margin = { 16 8 }
@@ -1709,7 +1740,33 @@ types ActivityPlannerNewTypes
 						}
 
 						expand = {}
+					}
 
+					vbox = {
+						name = "tenets_doctrines"
+						visible = "[ActivityPlanner.IsTenetDoctrineBased]"
+						layoutpolicy_vertical = expanding
+
+						margin = { 16 8 }
+						spacing = 16
+
+						widget = {
+							layoutpolicy_horizontal = expanding
+							size = { 0 26 }
+
+							text_label_center = {
+								text = "activity_planner_tenets_doctrines"
+								parentanchor = center
+							}
+						}
+
+						# TODO_PAM_JF parts of this hbox are placeholder, needs UX
+						activity_tenet_doctrine_slot_hbox = {
+							margin_top = 15
+							spacing = 10
+						}
+
+						expand = {}
 					}
 				}
 
@@ -1766,6 +1823,153 @@ types ActivityPlannerNewTypes
 
 					expand = {}
 				}
+			}
+		}
+	}
+
+	type activity_tenet_doctrine_slot_hbox = hbox {
+		name = "activity_tenet_doctrines_slot"
+		allow_outside = yes
+
+		background = {
+			using = Background_Area_Dark
+			margin = { 40 0 }
+			margin_top = -30
+			margin_bottom = -15
+			#alpha = 0.6
+
+			modify_texture = {
+				texture = "gfx/interface/component_masks/mask_fade_horizontal_middle_thick.dds"
+				blend_mode = alphamultiply
+			}
+		}
+
+		# tenets
+		widget_activity_tenet_item = {
+			visible = "[ActivityPlanner.CanSelectTenetWithIndex( '(int32)0' )]"
+			datacontext = "[ActivityPlanner.GetSelectedTenetItem( '(int32)0' )]"
+			datacontext = "[GetPlayer]"
+
+			blockoverride "activity_tenet_item_onclick"
+			{
+				onclick = "[ActivityPlanner.OpenSelectionForTenetIndex( '(int32)0' )]"
+			}
+			blockoverride "activity_tenet_item_clear_onclick"
+			{
+				onclick = "[ActivityPlanner.ClearTenet( '(int32)0' )]"
+			}
+			blockoverride "activity_tenet_item_tooltip"
+			{
+				tooltip = "[ActivityPlanner.GetTenetDebateTooltip( '(int32)0' )]"
+			}
+		}
+
+		widget_activity_tenet_item = {
+			visible = "[ActivityPlanner.CanSelectTenetWithIndex( '(int32)1' )]"
+			datacontext = "[ActivityPlanner.GetSelectedTenetItem( '(int32)1' )]"
+			datacontext = "[GetPlayer]"
+
+			blockoverride "activity_tenet_item_onclick"
+			{
+				onclick = "[ActivityPlanner.OpenSelectionForTenetIndex( '(int32)1' )]"
+			}
+			blockoverride "activity_tenet_item_clear_onclick"
+			{
+				onclick = "[ActivityPlanner.ClearTenet( '(int32)1' )]"
+			}
+			blockoverride "activity_tenet_item_tooltip"
+			{
+				tooltip = "[ActivityPlanner.GetTenetDebateTooltip( '(int32)1' )]"
+			}
+		}
+
+		widget_activity_tenet_item = {
+			visible = "[ActivityPlanner.CanSelectTenetWithIndex( '(int32)2' )]"
+			datacontext = "[ActivityPlanner.GetSelectedTenetItem( '(int32)2' )]"
+			datacontext = "[GetPlayer]"
+
+			blockoverride "activity_tenet_item_onclick"
+			{
+				onclick = "[ActivityPlanner.OpenSelectionForTenetIndex( '(int32)2' )]"
+			}
+			blockoverride "activity_tenet_item_clear_onclick"
+			{
+				onclick = "[ActivityPlanner.ClearTenet( '(int32)2' )]"
+			}
+			blockoverride "activity_tenet_item_tooltip"
+			{
+				tooltip = "[ActivityPlanner.GetTenetDebateTooltip( '(int32)2' )]"
+			}
+		}
+
+		vbox = {
+			layoutpolicy_vertical = expanding
+
+			divider_light = {
+				layoutpolicy_vertical = expanding
+
+				modify_texture = {
+					texture = "gfx/interface/component_masks/mask_fade_horizontal_middle_thick_vertical.dds"
+					blend_mode = alphamultiply
+				}
+			}
+		}
+
+		# doctrines
+		widget_activity_doctrine_item = {
+			datacontext = "[ActivityPlanner.GetSelectedDoctrineItem( '(int32)0' )]"
+			datacontext = "[DoctrineItem.GetDoctrine]"
+			visible = "[ActivityPlanner.CanSelectDoctrineWithIndex( '(int32)0' )]"
+
+			blockoverride "activity_doctrine_item_onclick"
+			{
+				onclick = "[ActivityPlanner.OpenSelectionForDoctrineIndex( '(int32)0' )]"
+			}
+			blockoverride "activity_doctrine_item_clear_onclick"
+			{
+				onclick = "[ActivityPlanner.ClearDoctrine( '(int32)0' )]"
+			}
+			blockoverride "activity_doctrine_item_tooltip"
+			{
+				tooltip = "[ActivityPlanner.GetDoctrineDebateTooltip( '(int32)0' )]"
+			}
+		}
+
+		widget_activity_doctrine_item = {
+			datacontext = "[ActivityPlanner.GetSelectedDoctrineItem( '(int32)1' )]"
+			datacontext = "[DoctrineItem.GetDoctrine]"
+			visible = "[ActivityPlanner.CanSelectDoctrineWithIndex( '(int32)1' )]"
+
+			blockoverride "activity_doctrine_item_onclick"
+			{
+				onclick = "[ActivityPlanner.OpenSelectionForDoctrineIndex( '(int32)1' )]"
+			}
+			blockoverride "activity_doctrine_item_clear_onclick"
+			{
+				onclick = "[ActivityPlanner.ClearDoctrine( '(int32)1' )]"
+			}
+			blockoverride "activity_doctrine_item_tooltip"
+			{
+				tooltip = "[ActivityPlanner.GetDoctrineDebateTooltip( '(int32)1' )]"
+			}
+		}
+
+		widget_activity_doctrine_item = {
+			datacontext = "[ActivityPlanner.GetSelectedDoctrineItem( '(int32)2' )]"
+			datacontext = "[DoctrineItem.GetDoctrine]"
+			visible = "[ActivityPlanner.CanSelectDoctrineWithIndex( '(int32)2' )]"
+
+			blockoverride "activity_doctrine_item_onclick"
+			{
+				onclick = "[ActivityPlanner.OpenSelectionForDoctrineIndex( '(int32)2' )]"
+			}
+			blockoverride "activity_doctrine_item_clear_onclick"
+			{
+				onclick = "[ActivityPlanner.ClearDoctrine( '(int32)2' )]"
+			}
+			blockoverride "activity_doctrine_item_tooltip"
+			{
+				tooltip = "[ActivityPlanner.GetDoctrineDebateTooltip( '(int32)2' )]"
 			}
 		}
 	}

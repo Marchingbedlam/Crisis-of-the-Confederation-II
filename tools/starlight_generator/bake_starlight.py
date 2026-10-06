@@ -196,17 +196,15 @@ def main():
 # AUTO-GENERATED
 # ============================================================================
 
-PixelShader =
-{{
-\tCode
-\t[[
-\t\t// --- Hash table dimensions (must match the baked .dds) --------------
-\t\t#define STARLIGHT_LUT_W\t\t\t{w}u\t\t// texels per row
-\t\t#define STARLIGHT_LUT_ROWS\t\t{rows}u\t\t// slot rows per band
-\t\t#define STARLIGHT_LUT_BANDS\t\t{BANDS}u\t\t// key + data0 + data1 (height = ROWS*BANDS)
-\t\t#define STARLIGHT_LUT_TABLE_MASK\t{mask}u\t\t// (W*ROWS - 1), power-of-two table
-\t]]
-}}
+# Top-level Code: shared by vertex and pixel shaders (the lookup runs per vertex).
+Code
+[[
+\t// --- Hash table dimensions (must match the baked .dds) --------------
+\t#define STARLIGHT_LUT_W\t\t\t{w}u\t\t// texels per row
+\t#define STARLIGHT_LUT_ROWS\t\t{rows}u\t\t// slot rows per band
+\t#define STARLIGHT_LUT_BANDS\t\t{BANDS}u\t\t// key + data0 + data1 (height = ROWS*BANDS)
+\t#define STARLIGHT_LUT_TABLE_MASK\t{mask}u\t\t// (W*ROWS - 1), power-of-two table
+]]
 """
     os.makedirs(os.path.dirname(args.fxh), exist_ok=True)
     with open(args.fxh, "w", encoding="utf-8", newline="\n") as fh:

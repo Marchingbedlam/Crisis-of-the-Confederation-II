@@ -1,9 +1,17 @@
 ﻿cotc_politician_template = {
 	age = { 20 60 }
-	gender_female_chance = root_faith_dominant_gender_adjusted_female_chance #because chancellor gender is doctrine dependent
+	gender_female_chance = { # root is the legislature situation here, so read the spawn province's rite
+		value = 50
+		if = {
+			limit = { scope:temp_province.rite ?= { rite_has_doctrine = doctrine_gender_male_dominated } }
+			value = 20
+		}
+		else_if = {
+			limit = { scope:temp_province.rite ?= { rite_has_doctrine = doctrine_gender_female_dominated } }
+			value = 80
+		}
+	}
 	random_traits = yes
-	culture = root.culture
-	faith = root.faith
 	diplomacy = {
 		min_guest_template_skill max_guest_template_skill
 	}

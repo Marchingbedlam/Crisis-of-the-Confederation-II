@@ -141,12 +141,12 @@
 			}
 			scope:actor = { add_hook_no_toast = { type = favor_hook target = scope:recipient } }
 		}
-		hidden_tooltip = { scope:actor = { trigger_event = cotc_political_campaign_events.1000 } }
+		hidden_effect = { scope:actor = { trigger_event = cotc_political_campaign_events.1000 } }
 	}
 	on_decline = {
 		scope:actor = {
 			add_opinion = { modifier = opinion_refused_endorsement target = scope:recipient }
-			hidden_tooltip = { trigger_event = cotc_political_campaign_events.1010 }
+			hidden_effect = { trigger_event = cotc_political_campaign_events.1010 }
 		}
 	}
 	
@@ -159,7 +159,7 @@
 		hegemony = 1
 	}
 	
-	ai_target_quick_trigger = { is_adult = yes }
+	ai_target_quick_trigger = { adult = yes }
 	ai_targets = { ai_recipients = realm_characters }
 	
 	ai_accept = {

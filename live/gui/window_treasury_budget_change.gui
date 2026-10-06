@@ -368,12 +368,23 @@ window = {
 
 
 						text_multi = {
+							visible = "[Not( GetPlayer.GetGovernment.HasGovernmentFlag( 'government_is_ecclesiastical' ) )]"
 							layoutpolicy_horizontal = expanding
 							size = { 0 90 }
 							max_width = 630
 							align = center
 							autoresize = yes
 							text = "WINDOW_TREASURY_BUDGET_CHANGE_EXPLANATION"
+						}
+
+						text_multi = {
+							visible = "[GetPlayer.GetGovernment.HasGovernmentFlag( 'government_is_ecclesiastical' )]"
+							layoutpolicy_horizontal = expanding
+							size = { 0 90 }
+							max_width = 630
+							align = center
+							autoresize = yes
+							text = "WINDOW_TREASURY_BUDGET_ECCLESIASTICAL_EXPLANATION"
 						}
 
 						text_multi = {

@@ -1,7 +1,7 @@
-is_politically_autonomous = {
+﻿is_politically_autonomous = {
 	OR = {
 		is_independent_ruler = yes
-		subject_contract_has_flag = member_state
+		subject_contract_has_flag = federal_member_state
 	}
 }
 is_diplomatic_ally_of = { # Are scope and target diplomatic allies?
@@ -14,7 +14,7 @@ is_diplomatic_ally_of = { # Are scope and target diplomatic allies?
 	}
 }
 is_potential_threat_to = { # Is scope a potential threat to target?
-	NOT = { is_diplomatic_ally_of = $TARGET$ }
+	NOT = { is_allied_to = $TARGET$ }
 	OR = {
 		has_any_cb_on = $TARGET$
 		is_at_war_with = $TARGET$
@@ -23,7 +23,7 @@ is_potential_threat_to = { # Is scope a potential threat to target?
 is_threatened_trigger = { # Do any of our neighbors threaten us?
 	save_temporary_scope_as = threat_target
 	any_neighboring_top_liege_realm_owner = {
-		limit = { is_potential_threat_to = { TARGET = scope:threat_target } }
+		is_potential_threat_to = { TARGET = scope:threat_target }
 		threat_to >= 20
 	}
 }

@@ -3,7 +3,6 @@
 		highest_held_title_tier >= tier_duchy # Federations need to be a higher tier than their member-states!
 	}
 	government_rules = {
-		administrative = yes # So that you can participate in elections
 		create_cadet_branches = yes
 		noble_families = yes
 		house_aspirations = yes
@@ -11,7 +10,7 @@
 		disable_regnal_numbers = yes
 	}
 	
-	mechanic_type = feudal
+	mechanic_type = administrative
 	
 	primary_holding = city_holding
 	valid_holdings = { temple_citadel_holding }
@@ -22,8 +21,6 @@
 	vassal_contract_group = feudal_vassal
 	
 	domicile_type = estate
-	
-	ai = { use_great_projects = yes }
 	
 	color = hsv{ 0.25 0.5 0.4 }
 	realm_mask_offset = { 0.0 0.1 }
@@ -51,7 +48,6 @@ dictatorial_federal_commercial_government = {
 	}
 	government_rules = {
 		create_cadet_branches = yes
-		administrative = yes
 		landless_playable = yes
 		treasury = yes
 		sticky_government = yes
@@ -87,7 +83,7 @@ dictatorial_federal_commercial_government = {
 		men_at_arms_limit = -2
 		knight_limit = -5
 		vassal_limit = 100
-		active_accolades = -1
+		accolades = -1
 		title_creation_cost_mult = -0.5
 		mercenary_hire_cost_mult = 2
 		men_at_arms_maintenance = 0.5
@@ -99,8 +95,6 @@ dictatorial_federal_commercial_government = {
 		men_at_arms_maintenance = 1.5
 		men_at_arms_recruitment_cost = 1
 	}
-	
-	ai = { use_great_projects = yes }
 	
 	color = hsv{ 0.25 0.5 0.6 }
 	realm_mask_offset = { 0.0 0.1 }
@@ -125,6 +119,9 @@ dictatorial_federal_commercial_government = {
 		government_uses_domicile_but_not_adventurer
 		government_uses_domain_limit
 		government_uses_admin_province_obligations
+		government_uses_salary_budget
+		government_uses_military_budget
+		government_uses_ministry_budget
 	}
 }
 presidential_federal_commercial_government = {
@@ -133,7 +130,6 @@ presidential_federal_commercial_government = {
 	}
 	government_rules = {
 		create_cadet_branches = yes
-		administrative = yes
 		landless_playable = yes
 		treasury = yes
 		sticky_government = yes
@@ -169,7 +165,7 @@ presidential_federal_commercial_government = {
 		men_at_arms_limit = -2
 		knight_limit = -5
 		vassal_limit = 100
-		active_accolades = -1
+		accolades = -1
 		title_creation_cost_mult = -0.5
 		mercenary_hire_cost_mult = 2
 		men_at_arms_maintenance = 0.5
@@ -184,8 +180,6 @@ presidential_federal_commercial_government = {
 		men_at_arms_maintenance = 1.5
 		men_at_arms_recruitment_cost = 1
 	}
-	
-	ai = { use_great_projects = yes }
 	
 	color = hsv{ 0.25 0.5 0.8 }
 	realm_mask_offset = { 0.0 0.1 }
@@ -211,6 +205,9 @@ presidential_federal_commercial_government = {
 		government_uses_domicile_but_not_adventurer
 		government_uses_domain_limit
 		government_uses_admin_province_obligations
+		government_uses_salary_budget
+		government_uses_military_budget
+		government_uses_ministry_budget
 	}
 }
 parliamentary_federal_commercial_government = {
@@ -219,7 +216,6 @@ parliamentary_federal_commercial_government = {
 	}
 	government_rules = {
 		create_cadet_branches = yes
-		administrative = yes
 		landless_playable = yes
 		treasury = yes
 		sticky_government = yes
@@ -255,7 +251,7 @@ parliamentary_federal_commercial_government = {
 		men_at_arms_limit = -2
 		knight_limit = -5
 		vassal_limit = 100
-		active_accolades = -1
+		accolades = -1
 		title_creation_cost_mult = -0.5
 		mercenary_hire_cost_mult = 2
 		men_at_arms_maintenance = 0.5
@@ -267,8 +263,6 @@ parliamentary_federal_commercial_government = {
 		men_at_arms_maintenance = 1.5
 		men_at_arms_recruitment_cost = 1
 	}
-	
-	ai = { use_great_projects = yes }
 	
 	color = hsv{ 0.25 0.5 1 }
 	realm_mask_offset = { 0.0 0.1 }
@@ -294,17 +288,19 @@ parliamentary_federal_commercial_government = {
 		government_uses_domicile_but_not_adventurer
 		government_uses_domain_limit
 		government_uses_admin_province_obligations
+		government_uses_salary_budget
+		government_uses_military_budget
+		government_uses_ministry_budget
 	}
 }
 despotic_democratic_commercial_government = {
 	government_rules = {
-		administrative = yes # So that you can participate in elections
 		create_cadet_branches = yes
 		noble_families = yes
 		house_aspirations = yes
 		disable_regnal_numbers = yes
 	}
-	mechanic_type = feudal
+	mechanic_type = administrative
 	
 	primary_holding = city_holding
 	valid_holdings = { temple_citadel_holding }
@@ -320,8 +316,6 @@ despotic_democratic_commercial_government = {
 		# People like democracy!
 		county_opinion_add = 10
 	}
-	
-	ai = { use_great_projects = yes }
 	
 	color = hsv{ 0.25 1 0.4 }
 	realm_mask_offset = { 0.0 0.1 }
@@ -347,7 +341,6 @@ despotic_democratic_commercial_government = {
 dictatorial_democratic_commercial_government = {
 	government_rules = {
 		create_cadet_branches = yes
-		administrative = yes
 		landless_playable = yes
 		treasury = yes
 		sticky_government = yes
@@ -381,7 +374,7 @@ dictatorial_democratic_commercial_government = {
 		men_at_arms_limit = -2
 		knight_limit = -5
 		vassal_limit = 100
-		active_accolades = -1
+		accolades = -1
 		title_creation_cost_mult = -0.5
 		mercenary_hire_cost_mult = 2
 		men_at_arms_maintenance = 0.5
@@ -396,8 +389,6 @@ dictatorial_democratic_commercial_government = {
 		men_at_arms_maintenance = 1.5
 		men_at_arms_recruitment_cost = 1
 	}
-	
-	ai = { use_great_projects = yes }
 	
 	color = hsv{ 0.25 1 0.6 }
 	realm_mask_offset = { 0.0 0.1 }
@@ -423,12 +414,14 @@ dictatorial_democratic_commercial_government = {
 		government_uses_domicile_but_not_adventurer
 		government_uses_domain_limit
 		government_uses_admin_province_obligations
+		government_uses_salary_budget
+		government_uses_military_budget
+		government_uses_ministry_budget
 	}
 }
 presidential_democratic_commercial_government = {
 	government_rules = {
 		create_cadet_branches = yes
-		administrative = yes
 		landless_playable = yes
 		treasury = yes
 		sticky_government = yes
@@ -464,7 +457,7 @@ presidential_democratic_commercial_government = {
 		men_at_arms_limit = -2
 		knight_limit = -5
 		vassal_limit = 100
-		active_accolades = -1
+		accolades = -1
 		title_creation_cost_mult = -0.5
 		mercenary_hire_cost_mult = 2
 		men_at_arms_maintenance = 0.5
@@ -479,8 +472,6 @@ presidential_democratic_commercial_government = {
 		men_at_arms_maintenance = 1.5
 		men_at_arms_recruitment_cost = 1
 	}
-	
-	ai = { use_great_projects = yes }
 	
 	color = hsv{ 0.25 1 0.8 }
 	realm_mask_offset = { 0.0 0.1 }
@@ -507,12 +498,14 @@ presidential_democratic_commercial_government = {
 		government_uses_domicile_but_not_adventurer
 		government_uses_domain_limit
 		government_uses_admin_province_obligations
+		government_uses_salary_budget
+		government_uses_military_budget
+		government_uses_ministry_budget
 	}
 }
 parliamentary_democratic_commercial_government = {
 	government_rules = {
 		create_cadet_branches = yes
-		administrative = yes
 		landless_playable = yes
 		treasury = yes
 		sticky_government = yes
@@ -546,7 +539,7 @@ parliamentary_democratic_commercial_government = {
 		men_at_arms_limit = -2
 		knight_limit = -5
 		vassal_limit = 100
-		active_accolades = -1
+		accolades = -1
 		title_creation_cost_mult = -0.5
 		mercenary_hire_cost_mult = 2
 		men_at_arms_maintenance = 0.5
@@ -561,8 +554,6 @@ parliamentary_democratic_commercial_government = {
 		men_at_arms_maintenance = 1.5
 		men_at_arms_recruitment_cost = 1
 	}
-	
-	ai = { use_great_projects = yes }
 	
 	color = hsv{ 0.25 1 1 }
 	realm_mask_offset = { 0.0 0.1 }
@@ -589,6 +580,9 @@ parliamentary_democratic_commercial_government = {
 		government_uses_domicile_but_not_adventurer
 		government_uses_domain_limit
 		government_uses_admin_province_obligations
+		government_uses_salary_budget
+		government_uses_military_budget
+		government_uses_ministry_budget
 	}
 }
 despotic_meritocratic_commercial_government = {
@@ -609,8 +603,6 @@ despotic_meritocratic_commercial_government = {
 	vassal_contract_group = feudal_vassal
 	
 	domicile_type = estate
-	
-	ai = { use_great_projects = yes }
 	
 	color = hsv{ 0.17 0.5 0.4 }
 	realm_mask_offset = { 0.0 0.1 }
@@ -638,7 +630,6 @@ despotic_meritocratic_commercial_government = {
 dictatorial_meritocratic_commercial_government = {
 	government_rules = {
 		create_cadet_branches = yes
-		administrative = yes
 		rulers_should_have_dynasty = yes
 		landless_playable = yes
 		treasury = yes
@@ -674,7 +665,7 @@ dictatorial_meritocratic_commercial_government = {
 		men_at_arms_limit = -2
 		knight_limit = -5
 		vassal_limit = 100
-		active_accolades = -1
+		accolades = -1
 		title_creation_cost_mult = -0.5
 		mercenary_hire_cost_mult = 2
 		men_at_arms_maintenance = 0.5
@@ -686,8 +677,6 @@ dictatorial_meritocratic_commercial_government = {
 		men_at_arms_maintenance = 1.5
 		men_at_arms_recruitment_cost = 1
 	}
-	
-	ai = { use_great_projects = yes }
 	
 	color = hsv{ 0.17 1 0.6 }
 	realm_mask_offset = { 0.0 0.1 }
@@ -715,12 +704,14 @@ dictatorial_meritocratic_commercial_government = {
 		government_uses_domicile_but_not_adventurer
 		government_uses_domain_limit
 		government_uses_admin_province_obligations
+		government_uses_salary_budget
+		government_uses_military_budget
+		government_uses_ministry_budget
 	}
 }
 presidential_meritocratic_commercial_government = {
 	government_rules = {
 		create_cadet_branches = yes
-		administrative = yes
 		rulers_should_have_dynasty = yes
 		landless_playable = yes
 		treasury = yes
@@ -755,7 +746,7 @@ presidential_meritocratic_commercial_government = {
 		men_at_arms_limit = -2
 		knight_limit = -5
 		vassal_limit = 100
-		active_accolades = -1
+		accolades = -1
 		title_creation_cost_mult = -0.5
 		mercenary_hire_cost_mult = 2
 		men_at_arms_maintenance = 0.5
@@ -770,8 +761,6 @@ presidential_meritocratic_commercial_government = {
 		men_at_arms_maintenance = 1.5
 		men_at_arms_recruitment_cost = 1
 	}
-	
-	ai = { use_great_projects = yes }
 	
 	color = hsv{ 0.17 0.5 0.8 }
 	realm_mask_offset = { 0.0 0.1 }
@@ -800,12 +789,14 @@ presidential_meritocratic_commercial_government = {
 		government_uses_domicile_but_not_adventurer
 		government_uses_domain_limit
 		government_uses_admin_province_obligations
+		government_uses_salary_budget
+		government_uses_military_budget
+		government_uses_ministry_budget
 	}
 }
 parliamentary_meritocratic_commercial_government = {
 	government_rules = {
 		create_cadet_branches = yes
-		administrative = yes
 		rulers_should_have_dynasty = yes
 		landless_playable = yes
 		treasury = yes
@@ -840,7 +831,7 @@ parliamentary_meritocratic_commercial_government = {
 		men_at_arms_limit = -2
 		knight_limit = -5
 		vassal_limit = 100
-		active_accolades = -1
+		accolades = -1
 		title_creation_cost_mult = -0.5
 		mercenary_hire_cost_mult = 2
 		men_at_arms_maintenance = 0.5
@@ -855,8 +846,6 @@ parliamentary_meritocratic_commercial_government = {
 		men_at_arms_maintenance = 1.5
 		men_at_arms_recruitment_cost = 1
 	}
-	
-	ai = { use_great_projects = yes }
 	
 	color = hsv{ 0.17 0.5 1 }
 	realm_mask_offset = { 0.0 0.1 }
@@ -885,6 +874,9 @@ parliamentary_meritocratic_commercial_government = {
 		government_uses_domicile_but_not_adventurer
 		government_uses_domain_limit
 		government_uses_admin_province_obligations
+		government_uses_salary_budget
+		government_uses_military_budget
+		government_uses_ministry_budget
 	}
 }
 despotic_aristocratic_commercial_government = {
@@ -906,8 +898,6 @@ despotic_aristocratic_commercial_government = {
 	vassal_contract_group = feudal_vassal
 	
 	domicile_type = estate
-	
-	ai = { use_great_projects = yes }
 	
 	color = hsv{ 0.17 1 0.4 }
 	realm_mask_offset = { 0.0 0.1 }
@@ -934,7 +924,6 @@ despotic_aristocratic_commercial_government = {
 dictatorial_aristocratic_commercial_government = {
 	government_rules = {
 		create_cadet_branches = yes
-		administrative = yes
 		rulers_should_have_dynasty = yes
 		landless_playable = yes
 		treasury = yes
@@ -969,7 +958,7 @@ dictatorial_aristocratic_commercial_government = {
 		men_at_arms_limit = -2
 		knight_limit = -5
 		vassal_limit = 100
-		active_accolades = -1
+		accolades = -1
 		title_creation_cost_mult = -0.5
 		mercenary_hire_cost_mult = 2
 		men_at_arms_maintenance = 0.5
@@ -981,8 +970,6 @@ dictatorial_aristocratic_commercial_government = {
 		men_at_arms_maintenance = 1.5
 		men_at_arms_recruitment_cost = 1
 	}
-	
-	ai = { use_great_projects = yes }
 	
 	color = hsv{ 0.17 1 0.6 }
 	realm_mask_offset = { 0.0 0.1 }
@@ -1009,12 +996,14 @@ dictatorial_aristocratic_commercial_government = {
 		government_uses_domicile_but_not_adventurer
 		government_uses_domain_limit
 		government_uses_admin_province_obligations
+		government_uses_salary_budget
+		government_uses_military_budget
+		government_uses_ministry_budget
 	}
 }
 presidential_aristocratic_commercial_government = {
 	government_rules = {
 		create_cadet_branches = yes
-		administrative = yes
 		rulers_should_have_dynasty = yes
 		landless_playable = yes
 		treasury = yes
@@ -1049,7 +1038,7 @@ presidential_aristocratic_commercial_government = {
 		men_at_arms_limit = -2
 		knight_limit = -5
 		vassal_limit = 100
-		active_accolades = -1
+		accolades = -1
 		title_creation_cost_mult = -0.5
 		mercenary_hire_cost_mult = 2
 		men_at_arms_maintenance = 0.5
@@ -1064,8 +1053,6 @@ presidential_aristocratic_commercial_government = {
 		men_at_arms_maintenance = 1.5
 		men_at_arms_recruitment_cost = 1
 	}
-	
-	ai = { use_great_projects = yes }
 	
 	color = hsv{ 0.17 1 0.8 }
 	realm_mask_offset = { 0.0 0.1 }
@@ -1093,12 +1080,14 @@ presidential_aristocratic_commercial_government = {
 		government_uses_domicile_but_not_adventurer
 		government_uses_domain_limit
 		government_uses_admin_province_obligations
+		government_uses_salary_budget
+		government_uses_military_budget
+		government_uses_ministry_budget
 	}
 }
 parliamentary_aristocratic_commercial_government = {
 	government_rules = {
 		create_cadet_branches = yes
-		administrative = yes
 		rulers_should_have_dynasty = yes
 		landless_playable = yes
 		treasury = yes
@@ -1133,7 +1122,7 @@ parliamentary_aristocratic_commercial_government = {
 		men_at_arms_limit = -2
 		knight_limit = -5
 		vassal_limit = 100
-		active_accolades = -1
+		accolades = -1
 		title_creation_cost_mult = -0.5
 		mercenary_hire_cost_mult = 2
 		men_at_arms_maintenance = 0.5
@@ -1148,8 +1137,6 @@ parliamentary_aristocratic_commercial_government = {
 		men_at_arms_maintenance = 1.5
 		men_at_arms_recruitment_cost = 1
 	}
-	
-	ai = { use_great_projects = yes }
 	
 	color = hsv{ 0.17 1 1 }
 	realm_mask_offset = { 0.0 0.1 }
@@ -1177,5 +1164,8 @@ parliamentary_aristocratic_commercial_government = {
 		government_uses_domicile_but_not_adventurer
 		government_uses_domain_limit
 		government_uses_admin_province_obligations
+		government_uses_salary_budget
+		government_uses_military_budget
+		government_uses_ministry_budget
 	}
 }

@@ -16,7 +16,7 @@ cotc_news.0 = {
 			is_diarch = yes
 			is_councillor = yes
 			prestige_level >= 3
-			is_head_of_faith = yes
+			any_held_title = { is_head_of_faith = yes }
 			any_heir_title = { tier >= tier_county }
 		}
 	}
@@ -176,9 +176,9 @@ cotc_news.10 = {
 					THIS = scope:attacker
 					THIS = scope:defender
 				}
-				scope:attacker = { top_liege = { save_temp_scope_as = temp_attacker_realm } }
-				scope:defender = { top_liege = { save_temp_scope_as = temp_defender_realm } }
-				top_liege = { save_temp_scope_as = temp_player_realm }
+				scope:attacker = { top_liege = { save_temporary_scope_as = temp_attacker_realm } }
+				scope:defender = { top_liege = { save_temporary_scope_as = temp_defender_realm } }
+				top_liege = { save_temporary_scope_as = temp_player_realm }
 				# Why is this war worth reporting to the player at all
 				OR = {
 					# We're involved indirectly
@@ -222,7 +222,7 @@ cotc_news.10 = {
 	}
 }
 cotc_news.11 = {
-	type = character
+	type = character_event
 	desc = cotc_news.11.desc
 	theme = war # Should probably make a theme specific for news broadcasts
 	
@@ -256,7 +256,7 @@ cotc_news.11 = {
 	# We're with the attackers, and we approve of this war
 	option = {
 		trigger = {
-			is_liege_or_above = scope:attacker
+			target_is_liege_or_above = scope:attacker
 			OR = {
 				AND = {
 					opinion = { target = scope:defender value <= -20 }
@@ -286,7 +286,7 @@ cotc_news.11 = {
 	# We're with the defender, and have a strong positive opinion of the attacker
 	option = {
 		trigger = {
-			is_liege_or_above = scope:defender
+			target_is_liege_or_above = scope:defender
 			opinion = { target = scope:attacker value >= 60 }
 			opinion = { target = scope:defender value > 0 }
 		}
@@ -296,7 +296,7 @@ cotc_news.11 = {
 	# We're with the defender, and have a strong positive opinion of the attacker and a strong negative opinion of the defender
 	option = {
 		trigger = {
-			is_liege_or_above = scope:defender
+			target_is_liege_or_above = scope:defender
 			opinion = { target = scope:attacker value >= 60 }
 			opinion = { target = scope:defender value <= 0 }
 			ai_honor <= 0
@@ -306,7 +306,7 @@ cotc_news.11 = {
 	}
 	option = {
 		trigger = {
-			is_liege_or_above = scope:defender
+			target_is_liege_or_above = scope:defender
 			opinion = { target = scope:attacker value >= 60 }
 			opinion = { target = scope:defender value <= 0 }
 			ai_honor > 0
@@ -317,7 +317,7 @@ cotc_news.11 = {
 	# We're with the defender, and none of that stuff applies
 	option = {
 		trigger = {
-			is_liege_or_above = scope:defender
+			target_is_liege_or_above = scope:defender
 			opinion = { target = scope:attacker value < 60 }
 			ai_boldness > 0
 		}
@@ -326,7 +326,7 @@ cotc_news.11 = {
 	}
 	option = {
 		trigger = {
-			is_liege_or_above = scope:defender
+			target_is_liege_or_above = scope:defender
 			opinion = { target = scope:attacker value < 60 }
 			ai_boldness <= 0
 		}
