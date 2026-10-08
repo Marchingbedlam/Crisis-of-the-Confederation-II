@@ -686,6 +686,86 @@ tenet_ritual_hallucinogens = {
 	parameters = { hallucinogenic_divination }
 }
 
+tenet_cult_of_personality = {
+	name = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { rite_has_doctrine = religious_hostility_doctrine }
+				desc = tenet_imperial_cult_name
+			}
+			desc = tenet_cult_of_personality_name
+		}
+	}
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { rite_has_doctrine = religious_hostility_doctrine }
+				desc = tenet_imperial_cult_desc
+			}
+			desc = tenet_cult_of_personality_desc
+		}
+	}
+	piety_cost = {
+		if = {
+			limit = {
+				OR = {
+					# Either we're radically anti-authoritarian...
+					rite_has_doctrine = doctrine_anarchism
+					# ...or we have very clear instructions about worshiping humans
+					rite_has_doctrine = special_doctrine_is_jewish_faith
+					rite_has_doctrine = special_doctrine_is_christian_faith
+					rite_has_doctrine = special_doctrine_is_islamic_faith
+				}
+			}
+			value = faith_tenet_cost_massive
+		}
+		else_if = {
+			limit = { has_doctrine = doctrine_parliamentarianism }
+			value = faith_tenet_cost_high
+		}
+		else_if = {
+			limit = {
+				OR = {
+					rite_has_doctrine = doctrine_despotism
+					rite_has_doctrine = doctrine_dictatorship
+				}
+			}
+			value = faith_tenet_cost_low
+		}
+		else = { value = faith_tenet_cost_mid }
+
+		# Multiplier for keeping same tenet
+		if = {
+			limit = { rite_has_tenet = tenet_ritual_hallucinogens }
+			multiply = faith_unchanged_doctrine_cost_mult
+		}
+	}
+	character_modifier = {
+		opinion_of_liege = 50 # We worship the leader...
+		opinion_of_different_faith_liege = -50 # ...unless they're not a believer themselves
+		different_faith_opinion = -25 # Other ideologies, even ones with their own cults of personality, find it off-putting
+		same_faith_different_rite_opinion = -25
+		county_opinion_add = -25
+		same_rite_county_opinion_add = 25
+	}
+	county_modifier = {
+		same_rite_county_opinion_add = 50
+	}
+	traits = {
+		virtues = {
+			arrogant = { weight = 5 scale = 1 }
+			ambitious = { weight = 5 scale = 1 }
+			loyal = { weight = 20 scale = 2 }
+			august = { weight = 20 scale = 2 }
+		}
+		sins = {
+			disloyal = { weight = 20 scale = 2 }
+			peasant_leader = { weight = 5 scale = 2 }
+			populist_leader = { weight = 5 scale = 2 }
+		}
+	}
+}
+
 tenet_mechanic_syncretism = {
 	icon = core_tenet_eastern_syncretism # Placeholder
 	piety_cost = {
