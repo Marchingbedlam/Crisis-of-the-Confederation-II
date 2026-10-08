@@ -1,6 +1,7 @@
 ﻿k_novyy_edem = {
 	2987.1.1 = {
 		government = despotic_federal_military_government
+		effect = { add_title_law = federal_elective_succession_law }
 		liege = e_terran_confederacy
 		holder = novyy_edem_0001 # Dmitriy Solomonov
 	}
@@ -13,9 +14,16 @@
 
 d_novyy_edem = {
 	2987.1.1 = {
-		government = dictatorial_meritocratic_military_government
 		liege = k_novyy_edem
 		holder = novyy_edem_0001 # Dmitriy Solomonov
+		effect = {
+			holder = {
+				set_variable = { name = secondary_authority value = flag:despotic }
+				set_variable = { name = secondary_legitimacy value = flag:meritocratic }
+				set_variable = { name = secondary_power_base value = flag:military }
+				add_realm_law_skip_effects = military_appointment_succession_law
+			}
+		}
 	}
 }
 
@@ -26,27 +34,30 @@ c_novyy_edem = {
 c_distsiplina = {
 	# CK2 liege was d_novyy_edem_fleet, which has no CK3 counterpart yet
 	2996.1.1 = {
-		government = dictatorial_meritocratic_military_government
+		government = despotic_meritocratic_military_government
 		liege = k_novyy_edem
 		holder = novyy_edem_0002 # Arkady Solomonov
+		effect = { holder = { add_realm_law_skip_effects = military_appointment_succession_law } }
 	}
 }
 
 c_loyalnost = {
 	# CK2 liege was d_novyy_edem_fleet, which has no CK3 counterpart yet
 	2996.1.1 = {
-		government = dictatorial_meritocratic_military_government
+		government = despotic_meritocratic_military_government
 		liege = k_novyy_edem
 		holder = novyy_edem_0003 # Konstantin Solomonov
+		effect = { holder = { add_realm_law_skip_effects = military_appointment_succession_law } }
 	}
 }
 
 c_muzhestvo = {
 	# CK2 liege was d_novyy_edem_fleet, which has no CK3 counterpart yet
 	2998.1.1 = {
-		government = dictatorial_meritocratic_military_government
+		government = despotic_meritocratic_military_government
 		liege = k_novyy_edem
 		holder = novyy_edem_0004 # Alexei Solomonov
+		effect = { holder = { add_realm_law_skip_effects = military_appointment_succession_law } }
 	}
 }
 
@@ -56,9 +67,10 @@ c_muzhestvo = {
 
 d_prochnost = {
 	2972.1.1 = {
-		government = dictatorial_meritocratic_military_government
+		government = despotic_meritocratic_military_government
 		liege = k_novyy_edem
 		holder = novyy_edem_0006 # Gavriil Norin
+		effect = { holder = { add_realm_law_skip_effects = military_appointment_succession_law } }
 	}
 	2995.1.1 = { holder = novyy_edem_0007 } # Gennady Norin
 }
@@ -70,26 +82,29 @@ c_prochnost = {
 
 c_vernost = {
 	2972.1.1 = {
-		government = dictatorial_meritocratic_military_government
+		government = despotic_meritocratic_military_government
 		liege = d_prochnost
 		holder = novyy_edem_0007 # Gennady Norin
+		effect = { holder = { add_realm_law_skip_effects = military_appointment_succession_law } }
 	}
 	2995.2.1 = { holder = novyy_edem_0008 } # Viktoriya Norin
 }
 
 c_stabilnost = {
 	2976.1.1 = {
-		government = dictatorial_meritocratic_military_government
+		government = despotic_meritocratic_military_government
 		liege = d_prochnost
 		holder = novyy_edem_0009 # Artyom Norin
+		effect = { holder = { add_realm_law_skip_effects = military_appointment_succession_law } }
 	}
 }
 
 c_ostorozhnost = {
 	2972.1.1 = {
-		government = dictatorial_meritocratic_military_government
+		government = despotic_meritocratic_military_government
 		liege = d_prochnost
 		holder = novyy_edem_0005 # Mariya Norin
+		effect = { holder = { add_realm_law_skip_effects = military_appointment_succession_law } }
 	}
 }
 
@@ -99,9 +114,10 @@ c_ostorozhnost = {
 
 d_sovershenstvo = {
 	2956.1.1 = {
-		government = dictatorial_meritocratic_military_government
+		government = despotic_meritocratic_military_government
 		liege = k_novyy_edem
 		holder = novyy_edem_0010 # Pyotr Volkov
+		effect = { holder = { add_realm_law_skip_effects = military_appointment_succession_law } }
 	}
 	2988.1.1 = { holder = novyy_edem_0011 } # Roman Volkov
 }
@@ -113,26 +129,29 @@ c_sovershenstvo = {
 
 c_ad = {
 	2972.1.1 = {
-		government = dictatorial_meritocratic_military_government
+		government = despotic_meritocratic_military_government
 		liege = d_sovershenstvo
 		holder = novyy_edem_0013 # Konstantin Volkov
+		effect = { holder = { add_realm_law_skip_effects = military_appointment_succession_law } }
 	}
 }
 
 c_vozneseniye = {
 	2972.1.1 = {
-		government = dictatorial_meritocratic_military_government
+		government = despotic_meritocratic_military_government
 		liege = d_sovershenstvo
 		holder = novyy_edem_0013 # Konstantin Volkov
+		effect = { holder = { add_realm_law_skip_effects = military_appointment_succession_law } }
 	}
 	2994.1.1 = { holder = novyy_edem_0014 } # Valeriya Volkov
 }
 
 c_sashi_zvezdy = {
 	2965.1.1 = {
-		government = dictatorial_meritocratic_military_government
+		government = despotic_meritocratic_military_government
 		liege = d_sovershenstvo
 		holder = novyy_edem_0011 # Roman Volkov
+		effect = { holder = { add_realm_law_skip_effects = military_appointment_succession_law } }
 	}
 	2988.2.1 = { holder = novyy_edem_0012 } # Pyotr Volkov
 }
@@ -143,8 +162,9 @@ c_sashi_zvezdy = {
 
 d_shen_yan = {
 	2972.1.1 = {
-		government = dictatorial_meritocratic_military_government
+		government = despotic_meritocratic_military_government
 		holder = novyy_edem_0015 # Tatyana Kalashnik
+		effect = { holder = { add_realm_law_skip_effects = military_appointment_succession_law } }
 	}
 	2987.1.1 = {
 		liege = k_novyy_edem
@@ -157,17 +177,19 @@ c_shen_yan = {
 
 c_glaz_boga = {
 	2985.1.1 = {
-		government = dictatorial_meritocratic_military_government
+		government = despotic_meritocratic_military_government
 		liege = d_shen_yan
 		holder = novyy_edem_0016 # Tamara Kalashnik
+		effect = { holder = { add_realm_law_skip_effects = military_appointment_succession_law } }
 	}
 }
 
 c_luoxuan = {
 	2992.1.1 = {
-		government = dictatorial_meritocratic_military_government
+		government = despotic_meritocratic_military_government
 		liege = d_shen_yan
 		holder = novyy_edem_0017 # Rozalina Kalashnik
+		effect = { holder = { add_realm_law_skip_effects = military_appointment_succession_law } }
 	}
 }
 
@@ -177,25 +199,27 @@ c_luoxuan = {
 
 d_almaz = {
 	2994.1.1 = {
-		government = dictatorial_meritocratic_military_government
+		government = despotic_meritocratic_military_government
 		liege = k_novyy_edem
-		holder = novyy_edem_0018 # Xiujing Tian
+		holder = novyy_edem_0018 # Timofei Tian
+		effect = { holder = { add_realm_law_skip_effects = military_appointment_succession_law } }
 	}
 }
 
 c_almaz = {
-	2994.1.1 = { holder = novyy_edem_0018 } # Xiujing Tian
+	2994.1.1 = { holder = novyy_edem_0018 } # Timofei Tian
 }
 
 c_kornilov = {
-	2994.1.1 = { holder = novyy_edem_0018 } # Xiujing Tian
+	2994.1.1 = { holder = novyy_edem_0018 } # Timofei Tian
 }
 
 c_zhemchuzhina = {
 	2994.1.1 = {
-		government = dictatorial_meritocratic_military_government
+		government = despotic_meritocratic_military_government
 		liege = d_almaz
-		holder = novyy_edem_0019 # Mingyue Tian
+		holder = novyy_edem_0019 # Nika Tian
+		effect = { holder = { add_realm_law_skip_effects = military_appointment_succession_law } }
 	}
 }
 
@@ -205,32 +229,34 @@ c_zhemchuzhina = {
 
 d_maoxian = {
 	2960.1.1 = {
-		government = dictatorial_meritocratic_military_government
+		government = despotic_meritocratic_military_government
 		liege = k_novyy_edem
-		holder = novyy_edem_0020 # Yuanfang Liao
+		holder = novyy_edem_0020 # Viktor Liao
+		effect = { holder = { add_realm_law_skip_effects = military_appointment_succession_law } }
 	}
-	2996.1.1 = { holder = novyy_edem_0021 } # Xianzi Liao
+	2996.1.1 = { holder = novyy_edem_0021 } # Ekateirna Liao
 	2997.1.1 = {
 		liege = k_xin_zizhiqu
 	}
 }
 
 c_maoxian = {
-	2960.1.1 = { holder = novyy_edem_0020 } # Yuanfang Liao
-	2996.1.1 = { holder = novyy_edem_0021 } # Xianzi Liao
+	2960.1.1 = { holder = novyy_edem_0020 } # Viktor Liao
+	2996.1.1 = { holder = novyy_edem_0021 } # Ekateirna Liao
 }
 
 c_fengyi = {
-	2996.1.1 = { holder = novyy_edem_0021 } # Xianzi Liao
+	2996.1.1 = { holder = novyy_edem_0021 } # Ekateirna Liao
 }
 
 c_pei_cheng = {
 	2988.1.1 = {
-		government = dictatorial_meritocratic_military_government
+		government = despotic_meritocratic_military_government
 		liege = d_maoxian
-		holder = novyy_edem_0021 # Xianzi Liao
+		holder = novyy_edem_0021 # Ekateirna Liao
+		effect = { holder = { add_realm_law_skip_effects = military_appointment_succession_law } }
 	}
-	2996.2.1 = { holder = novyy_edem_0022 } # Suyue Liao
+	2996.2.1 = { holder = novyy_edem_0022 } # Ulyana Liao
 }
 
 ##################################################
@@ -239,9 +265,10 @@ c_pei_cheng = {
 
 d_mir = {
 	2990.1.1 = {
-		government = dictatorial_meritocratic_military_government
+		government = despotic_meritocratic_military_government
 		liege = k_novyy_edem
 		holder = novyy_edem_0023 # Natalya
+		effect = { holder = { add_realm_law_skip_effects = military_appointment_succession_law } }
 	}
 }
 
@@ -255,9 +282,10 @@ c_mirny = {
 
 c_vynoslivost = {
 	2998.1.1 = {
-		government = dictatorial_meritocratic_military_government
+		government = despotic_meritocratic_military_government
 		liege = d_mir
 		holder = novyy_edem_0024 # Nikolai
+		effect = { holder = { add_realm_law_skip_effects = military_appointment_succession_law } }
 	}
 }
 
@@ -267,35 +295,38 @@ c_vynoslivost = {
 
 d_pobeda = {
 	2986.1.1 = {
-		government = dictatorial_meritocratic_military_government
+		government = despotic_meritocratic_military_government
 		liege = k_novyy_edem
-		holder = novyy_edem_0025 # Noriko Sakamoto
+		holder = novyy_edem_0025 # Dominika Sakamoto
+		effect = { holder = { add_realm_law_skip_effects = military_appointment_succession_law } }
 	}
-	2994.1.1 = { holder = novyy_edem_0026 } # Fumi Sakamoto
+	2994.1.1 = { holder = novyy_edem_0026 } # Izabella Sakamoto
 }
 
 c_pobeda = {
-	2986.1.1 = { holder = novyy_edem_0025 } # Noriko Sakamoto
-	2994.1.1 = { holder = novyy_edem_0026 } # Fumi Sakamoto
+	2986.1.1 = { holder = novyy_edem_0025 } # Dominika Sakamoto
+	2994.1.1 = { holder = novyy_edem_0026 } # Izabella Sakamoto
 }
 
 c_gennady = {
-	2994.1.1 = { holder = novyy_edem_0026 } # Fumi Sakamoto
+	2994.1.1 = { holder = novyy_edem_0026 } # Izabella Sakamoto
 }
 
 c_vera = {
 	2988.1.1 = {
-		government = dictatorial_meritocratic_military_government
+		government = despotic_meritocratic_military_government
 		liege = d_pobeda
-		holder = novyy_edem_0026 # Fumi Sakamoto
+		holder = novyy_edem_0026 # Izabella Sakamoto
+		effect = { holder = { add_realm_law_skip_effects = military_appointment_succession_law } }
 	}
-	2994.2.1 = { holder = novyy_edem_0028 } # Yumiko Sakamoto
+	2994.2.1 = { holder = novyy_edem_0028 } # Zoya Sakamoto
 }
 
 c_tselostnost = {
 	2989.1.1 = {
-		government = dictatorial_meritocratic_military_government
+		government = despotic_meritocratic_military_government
 		liege = d_pobeda
-		holder = novyy_edem_0027 # Osamu Sakamoto
+		holder = novyy_edem_0027 # Vasiliy Sakamoto
+		effect = { holder = { add_realm_law_skip_effects = military_appointment_succession_law } }
 	}
 }
