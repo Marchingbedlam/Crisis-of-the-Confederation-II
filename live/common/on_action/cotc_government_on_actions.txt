@@ -4,7 +4,12 @@
 on_game_start = { on_actions = { global_government_setup_on_action } }
 on_game_start_after_lobby = { on_actions = { game_started_variable_on_action } }
 on_title_gain = { on_actions = { government_update_on_action } }
-on_title_lost = { on_actions = { government_update_on_action } }
+on_title_lost = {
+	on_actions = {
+		inherit_non_federal_government_on_action
+		government_update_on_action
+	}
+}
 on_primary_title_change = { on_actions = { government_update_on_action } }
 on_government_change = { on_actions = { government_update_on_action } }
 on_faith_created = { on_actions = { party_change_on_action } }
@@ -96,6 +101,11 @@ government_setup_on_action = {
 government_update_on_action = {
 	trigger = { has_global_variable = game_started }
 	on_actions = {
+		# Federations
+		track_non_federal_government_on_action
+		remove_non_federal_government_on_action
+		no_longer_federation_ruler_on_action
+		
 		# Legislatures
 		initialize_new_legislature_on_action
 		
@@ -234,7 +244,108 @@ make_landless_noble_direct_vassal_of_top_liege_on_action = {
 ###############
 initialize_starting_federation_on_action = { # Run on game start
 	trigger = { government_has_flag = government_is_federal }
-	effect = { every_vassal = { sort_federation_province_effect = yes } }
+	effect = {
+		trigger_event = { on_action = set_default_non_federal_government_on_action }
+		every_vassal = { sort_federation_province_effect = yes }
+	}
+}
+set_default_non_federal_government_on_action = {
+	trigger = { NOT = { has_variable = secondary_legitimacy } }
+	effect = {
+		rite = {
+			select_ideology_default_power_base = yes
+			select_ideology_default_legitimacy = yes
+			select_ideology_default_authority = yes
+		}
+		if = {
+			limit = { has_realm_law_flag = democratic_succession_law }
+			set_variable = { name = secondary_legitimacy value = flag:democratic }
+		}
+		else_if = {
+			limit = { has_realm_law_flag = meritocratic_succession_law }
+			set_variable = { name = secondary_legitimacy value = flag:meritocratic }
+		}
+		else_if = {
+			limit = { has_realm_law_flag = aristocratic_succession_law }
+			set_variable = { name = secondary_legitimacy value = flag:aristocratic }
+		}
+		else = { set_variable = { name = secondary_legitimacy value = scope:legitimacy } }
+		set_variable = { name = secondary_power_base value = scope:power_base }
+		set_variable = { name = secondary_authority value = scope:authority }
+	}
+}
+track_non_federal_government_on_action = {
+	trigger = {
+		is_landed = yes
+		NOT = { government_has_flag = government_is_federal }
+	}
+	effect = {
+		switch = {
+			trigger = government_has_flag
+			government_is_democratic = { set_variable = { name = secondary_legitimacy value = flag:democratic } }
+			government_is_aristocratic = { set_variable = { name = secondary_legitimacy value = flag:aristocratic } }
+			government_is_meritocratic = { set_variable = { name = secondary_legitimacy value = flag:meritocratic } }
+		}
+		switch = {
+			trigger = government_has_flag
+			government_is_military = { set_variable = { name = secondary_power_base value = flag:military } }
+			government_is_commercial = { set_variable = { name = secondary_power_base value = flag:commercial } }
+			government_is_technocratic = { set_variable = { name = secondary_power_base value = flag:technocratic } }
+			government_is_theocratic = { set_variable = { name = secondary_power_base value = flag:theocratic } }
+		}
+		switch = {
+			trigger = government_has_flag
+			government_is_despotic = { set_variable = { name = secondary_authority value = flag:despotic } }
+			government_is_dictatorial = { set_variable = { name = secondary_authority value = flag:dictatorial } }
+			government_is_presidential = { set_variable = { name = secondary_authority value = flag:presidential } }
+			government_is_parliamentary = { set_variable = { name = secondary_authority value = flag:parliamentary } }
+		}
+	}
+}
+remove_non_federal_government_on_action = {
+	trigger = { is_landed = no }
+	effect = {
+		remove_variable = secondary_legitimacy
+		remove_variable = secondary_power_base
+		remove_variable = secondary_legitimacy
+	}
+}
+inherit_non_federal_government_on_action = {
+	trigger = {
+		government_has_flag = government_is_federal
+		has_variable = secondary_legitimacy
+		scope:new_holder = { NOT = { has_variable = secondary_legitimacy } }
+	}
+	effect = {
+		save_temporary_scope_as = old_holder
+		scope:new_holder = {
+			set_variable = { name = secondary_legitimacy value = scope:old_holder.var:secondary_legitimacy }
+			set_variable = { name = secondary_power_base value = scope:old_holder.var:secondary_power_base }
+			set_variable = { name = secondary_authority value = scope:old_holder.var:secondary_authority }
+		}
+	}
+}
+no_longer_federation_ruler_on_action = {
+	trigger = {
+		government_has_flag = government_is_federal
+		NOT = { any_held_title = { has_title_law_flag = federal_succession_law } }
+	}
+	effect = {
+		# If we don't already have a secondary government type, pick a default one
+		if = {
+			limit = { NOT = { has_variable = secondary_legitimacy } }
+			rite = {
+				select_ideology_default_power_base = yes
+				select_ideology_default_legitimacy = yes
+				select_ideology_default_authority = yes
+			}
+			set_variable = { name = secondary_legitimacy value = scope:legitimacy }
+			set_variable = { name = secondary_power_base value = scope:power_base }
+			set_variable = { name = secondary_authority value = scope:authority }
+		}
+		# Actually switch to our new government
+		become_specified_state_government = { LEGITIMACY = var:secondary_legitimacy POWER_BASE = var:secondary_power_base AUTHORITY = var:secondary_authority }
+	}
 }
 
 ################

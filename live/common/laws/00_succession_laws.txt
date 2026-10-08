@@ -22,8 +22,7 @@ popular_elective_succession_law = {
 		can_change_popular_elective_succession_law_trigger = yes
 	}
 	should_start_with = {
-		government_has_mechanic = administrative
-		government_has_flag = government_is_democratic
+		can_have_popular_elective_succession_law_trigger = yes
 		highest_held_title_tier > tier_barony
 	}
 	succession = {
@@ -32,6 +31,7 @@ popular_elective_succession_law = {
 	}
 	flag = advanced_succession_law
 	flag = appointment_type_succession
+	flag = democratic_succession_law
 	modifier = {
 		glory_hound_opinion = -10
 		parochial_opinion = -5
@@ -59,8 +59,7 @@ popular_elective_succession_law = {
 	}
 
 	potential = {
-		government_has_mechanic = administrative
-		government_has_flag = government_is_democratic
+		can_have_popular_elective_succession_law_trigger = yes
 		highest_held_title_tier > tier_barony
 	}
 }
@@ -69,40 +68,16 @@ military_appointment_succession_law = {
 	law_group_type = succession_order_laws
 	index = 36
 	can_keep = {
-		OR = {
-			AND = {
-				government_has_flag = government_is_military
-				government_has_flag = government_is_meritocratic
-			}
-			vassal_contract_has_flag = military_subordinate
-		}
+		can_keep_military_appointment_succession_law_trigger = yes
 	}
 	can_have = {
-		OR = {
-			AND = {
-				government_has_flag = government_is_military
-				government_has_flag = government_is_meritocratic
-			}
-			vassal_contract_has_flag = military_subordinate
-		}
+		can_have_military_appointment_succession_law_trigger = yes
 	}
 	can_pass = {
-		OR = {
-			AND = {
-				government_has_flag = government_is_military
-				government_has_flag = government_is_meritocratic
-			}
-			vassal_contract_has_flag = military_subordinate
-		}
+		can_change_military_appointment_succession_law_trigger = yes
 	}
 	should_start_with = {
-		OR = {
-			AND = {
-				government_has_flag = government_is_military
-				government_has_flag = government_is_meritocratic
-			}
-			vassal_contract_has_flag = military_subordinate
-		}
+		can_have_military_appointment_succession_law_trigger = yes
 	}
 	succession = {
 		order_of_succession = appointment
@@ -110,6 +85,7 @@ military_appointment_succession_law = {
 	}
 	flag = advanced_succession_law
 	flag = appointment_type_succession
+	flag = meritocratic_succession_law
 	modifier = {
 		glory_hound_opinion = -10
 		parochial_opinion = -5
@@ -133,33 +109,23 @@ military_appointment_succession_law = {
 	}
 
 	potential = {
-		OR = {
-			AND = {
-				government_has_flag = government_is_military
-				government_has_flag = government_is_meritocratic
-			}
-			vassal_contract_has_flag = military_subordinate
-		}
+		can_have_military_appointment_succession_law_trigger = yes
 	}
 }
 commercial_appointment_succession_law = {
 	law_group_type = succession_order_laws
 	index = 37
 	can_keep = {
-		government_has_flag = government_is_commercial
-		government_has_flag = government_is_meritocratic
+		can_keep_commercial_appointment_succession_law_trigger = yes
 	}
 	can_have = {
-		government_has_flag = government_is_commercial
-		government_has_flag = government_is_meritocratic
+		can_have_commercial_appointment_succession_law_trigger = yes
 	}
 	can_pass = {
-		government_has_flag = government_is_commercial
-		government_has_flag = government_is_meritocratic
+		can_change_commercial_appointment_succession_law_trigger = yes
 	}
 	should_start_with = {
-		government_has_flag = government_is_commercial
-		government_has_flag = government_is_meritocratic
+		can_have_commercial_appointment_succession_law_trigger = yes
 	}
 	succession = {
 		order_of_succession = appointment
@@ -167,6 +133,7 @@ commercial_appointment_succession_law = {
 	}
 	flag = advanced_succession_law
 	flag = appointment_type_succession
+	flag = meritocratic_succession_law
 	modifier = {
 		glory_hound_opinion = -10
 		parochial_opinion = -5
@@ -190,28 +157,23 @@ commercial_appointment_succession_law = {
 	}
 
 	potential = {
-		government_has_flag = government_is_commercial
-		government_has_flag = government_is_meritocratic
+		can_have_commercial_appointment_succession_law_trigger = yes
 	}
 }
 technocratic_appointment_succession_law = {
 	law_group_type = succession_order_laws
 	index = 38
 	can_keep = {
-		government_has_flag = government_is_technocratic
-		government_has_flag = government_is_meritocratic
+		can_keep_technocratic_appointment_succession_law_trigger = yes
 	}
 	can_have = {
-		government_has_flag = government_is_technocratic
-		government_has_flag = government_is_meritocratic
+		can_have_technocratic_appointment_succession_law_trigger = yes
 	}
 	can_pass = {
-		government_has_flag = government_is_technocratic
-		government_has_flag = government_is_meritocratic
+		can_change_technocratic_appointment_succession_law_trigger = yes
 	}
 	should_start_with = {
-		government_has_flag = government_is_technocratic
-		government_has_flag = government_is_meritocratic
+		can_have_technocratic_appointment_succession_law_trigger = yes
 	}
 	succession = {
 		order_of_succession = appointment
@@ -219,6 +181,7 @@ technocratic_appointment_succession_law = {
 	}
 	flag = advanced_succession_law
 	flag = appointment_type_succession
+	flag = meritocratic_succession_law
 	modifier = {
 		glory_hound_opinion = -10
 		parochial_opinion = -5
@@ -242,28 +205,23 @@ technocratic_appointment_succession_law = {
 	}
 
 	potential = {
-		government_has_flag = government_is_technocratic
-		government_has_flag = government_is_meritocratic
+		can_have_technocratic_appointment_succession_law_trigger = yes
 	}
 }
 theocratic_appointment_succession_law = {
 	law_group_type = succession_order_laws
 	index = 39
 	can_keep = {
-		government_has_flag = government_is_theocratic
-		government_has_flag = government_is_meritocratic
+		can_keep_theocratic_appointment_succession_law_trigger = yes
 	}
 	can_have = {
-		government_has_flag = government_is_theocratic
-		government_has_flag = government_is_meritocratic
+		can_have_theocratic_appointment_succession_law_trigger = yes
 	}
 	can_pass = {
-		government_has_flag = government_is_theocratic
-		government_has_flag = government_is_meritocratic
+		can_change_theocratic_appointment_succession_law_trigger = yes
 	}
 	should_start_with = {
-		government_has_flag = government_is_theocratic
-		government_has_flag = government_is_meritocratic
+		can_have_theocratic_appointment_succession_law_trigger = yes
 	}
 	succession = {
 		order_of_succession = appointment
@@ -271,6 +229,7 @@ theocratic_appointment_succession_law = {
 	}
 	flag = advanced_succession_law
 	flag = appointment_type_succession
+	flag = meritocratic_succession_law
 	modifier = {
 		glory_hound_opinion = -10
 		parochial_opinion = -5
@@ -294,8 +253,7 @@ theocratic_appointment_succession_law = {
 	}
 
 	potential = {
-		government_has_flag = government_is_theocratic
-		government_has_flag = government_is_meritocratic
+		can_have_theocratic_appointment_succession_law_trigger = yes
 	}
 }
 
@@ -317,18 +275,14 @@ confederate_partition_succession_law = {
 	can_pass = {
 		can_change_partition_succession_law_trigger = yes
 		trigger_if = {
-			limit = {
-				exists = primary_title
-			}
+			limit = { exists = primary_title }
 			is_confederation_member = no
 		}
 	}
 	can_have = {
 		can_have_confederate_partition_succession_law_trigger = yes
 		trigger_if = {
-			limit = {
-				exists = primary_title
-			}
+			limit = { exists = primary_title }
 			is_confederation_member = no
 		}
 	}
@@ -340,7 +294,7 @@ confederate_partition_succession_law = {
 		}
 		OR = {
 			AND = {
-				government_has_flag = government_is_feudal
+				realm_government_is_aristocratic_trigger = yes
 				culture = {
 					NOR = {
 						has_innovation = innovation_hereditary_rule
@@ -359,6 +313,7 @@ confederate_partition_succession_law = {
 		create_primary_tier_titles = yes
 	}
 	flag = partition_succession_law
+	flag = aristocratic_succession_law
 	modifier = {
 		glory_hound_opinion = 10
 		parochial_opinion = 5
@@ -371,16 +326,7 @@ confederate_partition_succession_law = {
 	}
 
 	potential = {
-		government_has_flag = government_is_aristocratic
-		NOR = {
-			government_has_flag = government_is_nomadic
-			government_has_flag = government_is_clan
-			government_has_flag = government_is_administrative
-			government_has_flag = government_is_mandala
-			government_has_flag = government_is_celestial
-			government_has_flag = government_is_meritocratic
-			government_has_flag = government_is_steppe_admin
-		}
+		realm_government_is_aristocratic_trigger = yes
 	}
 }
 
@@ -391,9 +337,7 @@ partition_succession_law = {
 		OR = {
 			can_keep_partition_succession_law_trigger = yes
 			trigger_if = {
-				limit = {
-					exists = primary_title
-				}
+				limit = { exists = primary_title }
 				is_confederation_member = yes
 			}
 		}
@@ -407,9 +351,7 @@ partition_succession_law = {
 			}
 			is_confederation_member = yes
 		}
-		trigger_else = {
-			can_change_partition_succession_law_trigger = yes
-		}
+		trigger_else = { can_change_partition_succession_law_trigger = yes }
 	}
 	can_have = {
 		# it's failure only block, workaround for showing correct toolip.
@@ -420,9 +362,7 @@ partition_succession_law = {
 			}
 			is_confederation_member = yes
 		}
-		trigger_else = {
-			can_have_partition_succession_law_trigger = yes
-		}
+		trigger_else = { can_have_partition_succession_law_trigger = yes }
 	}
 	should_start_with = {
 		NOR = {
@@ -430,14 +370,11 @@ partition_succession_law = {
 			historical_succession_access_single_heir_succession_law_youngest_trigger = yes
 			historical_succession_access_single_heir_dynasty_house_trigger = yes
 		}
-		government_has_flag = government_is_feudal
+		realm_government_is_aristocratic_trigger = yes
 		culture = {
 			has_innovation = innovation_hereditary_rule
-			NOT = {
-				has_innovation = innovation_heraldry
-			}
+			NOT = { has_innovation = innovation_heraldry }
 		}
-		NOT = { government_has_mechanic = administrative }
 	}
 	succession = {
 		order_of_succession = inheritance
@@ -446,6 +383,7 @@ partition_succession_law = {
 		title_division = partition
 	}
 	flag = partition_succession_law
+	flag = aristocratic_succession_law
 	modifier = {
 		glory_hound_opinion = 10
 		parochial_opinion = 5
@@ -453,9 +391,7 @@ partition_succession_law = {
 		player_heir_opinion = 10
 		eligible_child_except_player_heir_opinion = 5
 	}
-	pass_cost = {
-		prestige = change_succession_law_prestige_cost
-	}
+	pass_cost = { prestige = change_succession_law_prestige_cost }
 	ai_will_do = {
 		if = {
 			limit = { has_realm_law = confederate_partition_succession_law }
@@ -464,16 +400,7 @@ partition_succession_law = {
 	}
 
 	potential = {
-		government_has_flag = government_is_aristocratic
-		NOR = {
-			government_has_flag = government_is_nomadic
-			government_has_flag = government_is_clan
-			government_has_flag = government_is_administrative
-			government_has_flag = government_is_mandala
-			government_has_flag = government_is_celestial
-			government_has_flag = government_is_meritocratic
-			government_has_flag = government_is_steppe_admin
-		}
+		realm_government_is_aristocratic_trigger = yes
 	}
 }
 
@@ -497,14 +424,11 @@ high_partition_succession_law = {
 			historical_succession_access_single_heir_succession_law_youngest_trigger = yes
 			historical_succession_access_single_heir_dynasty_house_trigger = yes
 		}
-		government_has_flag = government_is_feudal
+		realm_government_is_aristocratic_trigger = yes
 		culture = {
 			has_innovation = innovation_heraldry
-			NOT = {
-				has_innovation = innovation_primogeniture
-			}
+			NOT = { has_innovation = innovation_primogeniture }
 		}
-		NOT = { government_has_mechanic = administrative }
 	}
 	succession = {
 		order_of_succession = inheritance
@@ -514,6 +438,7 @@ high_partition_succession_law = {
 		primary_heir_minimum_share = 0.5
 	}
 	flag = partition_succession_law
+	flag = aristocratic_succession_law
 	modifier = {
 		glory_hound_opinion = 5
 		belligerent_opinion = -10
@@ -536,16 +461,7 @@ high_partition_succession_law = {
 	}
 
 	potential = {
-		government_has_flag = government_is_aristocratic
-		NOR = {
-			government_has_flag = government_is_nomadic
-			government_has_flag = government_is_clan
-			government_has_flag = government_is_administrative
-			government_has_flag = government_is_mandala
-			government_has_flag = government_is_celestial
-			government_has_flag = government_is_meritocratic
-			government_has_flag = government_is_steppe_admin
-		}
+		realm_government_is_aristocratic_trigger = yes
 	}
 }
 
@@ -590,11 +506,10 @@ single_heir_succession_law = {
 		}
 	}
 	should_start_with = {
+		realm_government_is_aristocratic_trigger = yes
 		OR = {
 			historical_succession_access_single_heir_succession_law_trigger = yes
-			culture = {
-				has_innovation = innovation_primogeniture
-			}
+			culture = { has_innovation = innovation_primogeniture }
 		}
 	}
 	succession = {
@@ -604,6 +519,7 @@ single_heir_succession_law = {
 		title_division = single_heir
 	}
 	flag = advanced_succession_law
+	flag = aristocratic_succession_law
 	modifier = {
 		glory_hound_opinion = -10
 		parochial_opinion = -5
@@ -634,7 +550,7 @@ single_heir_succession_law = {
 	}
 
 	potential = {
-		government_has_flag = government_is_aristocratic
+		realm_government_is_aristocratic_trigger = yes
 	}
 }
 
@@ -662,6 +578,7 @@ single_heir_succession_kurultai_law = {
 	}
 	flag = advanced_succession_law
 	flag = can_designate_heirs
+	flag = aristocratic_succession_law
 	modifier = {
 		belligerent_opinion = 10
 		glory_hound_opinion = 5
@@ -705,15 +622,11 @@ single_heir_succession_law_youngest = {
 	can_pass = {
 		can_change_succession_law_trigger = yes
 		trigger_if = {
-			limit = {
-				government_has_flag = government_is_clan
-			}
+			limit = { government_has_flag = government_is_clan }
 			piety_level >= 3
 		}
 		trigger_if = {
-			limit = {
-				government_has_mechanic = administrative
-			}
+			limit = { government_has_mechanic = administrative }
 			influence_level >= 4
 			has_active_diarchy = no
 			primary_title = { title_held_years >= 10 }
@@ -727,6 +640,7 @@ single_heir_succession_law_youngest = {
 	}
 
 	flag = advanced_succession_law
+	flag = aristocratic_succession_law
 	modifier = {
 		glory_hound_opinion = -10
 		parochial_opinion = -5
@@ -738,9 +652,7 @@ single_heir_succession_law_youngest = {
 		piety = {
 			value = 0
 			if = {
-				limit = {
-					government_has_flag = government_is_clan
-				}
+				limit = { government_has_flag = government_is_clan }
 				add = {
 					desc = "clan_government_cost_tooltip"
 					value = 1500
@@ -753,7 +665,7 @@ single_heir_succession_law_youngest = {
 	}
 
 	potential = {
-		government_has_flag = government_is_aristocratic
+		realm_government_is_aristocratic_trigger = yes
 	}
 }
 
@@ -797,6 +709,7 @@ single_heir_dynasty_house = { # LAST CALL
 	}
 
 	flag = advanced_succession_law
+	flag = aristocratic_succession_law
 	modifier = {
 		glory_hound_opinion = -5
 		eligible_child_except_player_heir_opinion = -15
@@ -807,9 +720,7 @@ single_heir_dynasty_house = { # LAST CALL
 		piety = {
 			value = 0
 			if = {
-				limit = {
-					government_has_flag = government_is_clan
-				}
+				limit = { government_has_flag = government_is_clan }
 				add = {
 					desc = "clan_government_cost_tooltip"
 					value = 1500
@@ -836,7 +747,7 @@ single_heir_dynasty_house = { # LAST CALL
 	}
 
 	potential = {
-		government_has_flag = government_is_aristocratic
+		realm_government_is_aristocratic_trigger = yes
 	}
 }
 

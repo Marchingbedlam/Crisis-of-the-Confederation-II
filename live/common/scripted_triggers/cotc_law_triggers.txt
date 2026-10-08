@@ -1,18 +1,98 @@
-﻿can_have_popular_elective_succession_law_trigger = {
-	government_has_mechanic = administrative
-	custom_description = {
+﻿realm_government_is_democratic_trigger = {
+	custom_tooltip = {
 		text = succession_laws_must_have_democratic_government
-		government_has_flag = government_is_democratic
+		OR = {
+			government_has_flag = government_is_democratic
+			var:secondary_legitimacy ?= { this = flag:democratic }
+		}
+	}
+}
+realm_government_is_aristocratic_trigger = {
+	custom_tooltip = {
+		text = succession_laws_must_have_aristocratic_government
+		OR = {
+			government_has_flag = government_is_aristocratic
+			var:secondary_legitimacy ?= { this = flag:aristocratic }
+		}
+	}
+}
+realm_government_is_meritocratic_trigger = {
+	custom_tooltip = {
+		text = succession_laws_must_have_meritocratic_government
+		OR = {
+			government_has_flag = government_is_meritocratic
+			var:secondary_legitimacy ?= { this = flag:meritocratic }
+		}
 	}
 }
 
+can_have_popular_elective_succession_law_trigger = {
+	government_has_mechanic = administrative
+	realm_government_is_democratic_trigger = yes
+}
 can_keep_popular_elective_succession_law_trigger = {
 	trigger_if = {
 		limit = { has_realm_law = popular_elective_succession_law }
 		can_have_popular_elective_succession_law_trigger = yes
 	}
 }
-
 can_change_popular_elective_succession_law_trigger = { always = yes }
+
+can_have_military_appointment_succession_law_trigger = {
+	government_has_mechanic = administrative
+	OR = {
+		AND = {
+			government_has_flag = government_is_military
+			realm_government_is_meritocratic_trigger = yes
+		}
+		vassal_contract_has_flag = military_subordinate
+	}
+}
+can_keep_military_appointment_succession_law_trigger = {
+	trigger_if = {
+		limit = { has_realm_law = military_appointment_succession_law }
+		can_have_military_appointment_succession_law_trigger = yes
+	}
+}
+can_change_military_appointment_succession_law_trigger = { always = yes }
+
+can_have_commercial_appointment_succession_law_trigger = {
+	government_has_mechanic = administrative
+	government_has_flag = government_is_commercial
+	realm_government_is_meritocratic_trigger = yes
+}
+can_keep_commercial_appointment_succession_law_trigger = {
+	trigger_if = {
+		limit = { has_realm_law = commercial_appointment_succession_law }
+		can_have_commercial_appointment_succession_law_trigger = yes
+	}
+}
+can_change_commercial_appointment_succession_law_trigger = { always = yes }
+
+can_have_technocratic_appointment_succession_law_trigger = {
+	government_has_mechanic = administrative
+	government_has_flag = government_is_technocratic
+	realm_government_is_meritocratic_trigger = yes
+}
+can_keep_technocratic_appointment_succession_law_trigger = {
+	trigger_if = {
+		limit = { has_realm_law = technocratic_appointment_succession_law }
+		can_have_technocratic_appointment_succession_law_trigger = yes
+	}
+}
+can_change_technocratic_appointment_succession_law_trigger = { always = yes }
+
+can_have_theocratic_appointment_succession_law_trigger = {
+	government_has_mechanic = administrative
+	government_has_flag = government_is_theocratic
+	realm_government_is_meritocratic_trigger = yes
+}
+can_keep_theocratic_appointment_succession_law_trigger = {
+	trigger_if = {
+		limit = { has_realm_law = theocratic_appointment_succession_law }
+		can_have_theocratic_appointment_succession_law_trigger = yes
+	}
+}
+can_change_theocratic_appointment_succession_law_trigger = { always = yes }
 
 realm_law_uses_state_capacity = { government_has_flag = government_uses_state_capacity }
