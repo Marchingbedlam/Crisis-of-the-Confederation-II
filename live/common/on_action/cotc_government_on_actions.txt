@@ -14,7 +14,12 @@ on_primary_title_change = { on_actions = { government_update_on_action } }
 on_government_change = { on_actions = { government_update_on_action } }
 on_faith_created = { on_actions = { party_change_on_action } }
 on_character_faith_change = { on_actions = { party_change_on_action } }
-on_death = { on_actions = { on_legislator_death_on_action } }
+on_death = {
+	on_actions = {
+		on_legislator_death_on_action
+		inherit_federal_government_on_action
+	}
+}
 on_vassal_changed = {
 	on_actions = {
 		verify_government_on_action
@@ -247,6 +252,105 @@ initialize_starting_federation_on_action = { # Run on game start
 	effect = {
 		trigger_event = { on_action = set_default_non_federal_government_on_action }
 		every_vassal = { sort_federation_province_effect = yes }
+	}
+}
+inherit_federal_government_on_action = { # This is the only way a federal election should happen
+	trigger = { any_held_title = { has_title_law_flag = federal_succession_law } }
+	effect = {
+		save_temporary_scope_as = old_holder
+		create_title_and_vassal_change = {
+			type = election
+			save_scope_as = federal_election
+		}
+		every_held_title = {
+			limit = {
+				has_title_law_flag = federal_succession_law
+				trigger_if = { # If we're restricting the election to a select title or titles, this should be one of them
+					limit = { list_size = { name = election_titles value > 0 } }
+					is_in_list = election_titles
+				}
+			}
+			save_temporary_scope_as = temp_title
+			current_heir = { save_temporary_scope_as = temp_heir }
+			
+			if = { # If this is the primary title, inherit the capital
+				limit = { this = holder.primary_title }
+				holder = {
+					capital_county = {
+						inherit_title_hierarchy_with_county_effect = {
+							HEIR = scope:temp_heir
+							CHANGE = scope:federal_election
+							ORIGINATING_TITLE = scope:temp_title
+						}
+					}
+				}
+				save_scope_value_as = { name = inheriting_capital value = flag:yes }
+			}
+			else_if = { # Otherwise, inherit the capital of just this title (if we can)
+				limit = { title_capital_county = { holder = scope:old_holder } }
+				title_capital_county = {
+					inherit_title_hierarchy_with_county_effect = {
+						HEIR = scope:temp_heir
+						CHANGE = scope:federal_election
+						ORIGINATING_TITLE = scope:temp_title
+					}
+				}
+				save_scope_value_as = { name = inheriting_capital value = flag:yes }
+			}
+			else = { save_scope_value_as = { name = inheriting_capital value = flag:no } }
+			
+			if = { # If we're inheriting the capital, give up our old landed titles
+				limit = { scope:inheriting_capital = flag:yes }
+				holder = { # Remember the existing government
+					switch = {
+						trigger = government_has_flag
+						government_is_military = { save_scope_value_as = { name = power_base value = flag:military } }
+						government_is_commercial = { save_scope_value_as = { name = power_base value = flag:commercial } }
+						government_is_technocratic = { save_scope_value_as = { name = power_base value = flag:technocratic } }
+						government_is_theocratic = { save_scope_value_as = { name = power_base value = flag:theocratic } }
+					}
+					switch = {
+						trigger = government_has_flag
+						government_is_despotic = { save_scope_value_as = { name = authority value = flag:despotic } }
+						government_is_dictatorial = { save_scope_value_as = { name = authority value = flag:dictatorial } }
+						government_is_presidential = { save_scope_value_as = { name = authority value = flag:presidential } }
+						government_is_parliamentary = { save_scope_value_as = { name = authority value = flag:parliamentary } }
+					}
+				}
+				current_heir = { # Abdicate all former titles
+					save_temporary_scope_as = temp_heir
+					create_title_and_vassal_change = {
+						type = stepped_down
+						save_scope_as = change
+					}
+					every_held_title = {
+						limit = {
+							is_landless_type_title = no
+							is_noble_family_title = no
+						}
+						current_heir = { save_temporary_scope_as = temp_heir_heir }
+						change_title_holder_include_vassals = { holder = scope:temp_heir_heir change = scope:change }
+					}
+					resolve_title_and_vassal_change = scope:change
+				}
+			}
+			
+			change_title_holder_include_vassals = { holder = scope:temp_heir change = scope:federal_election }
+			
+			if = { # Maintain the existing government if necessary
+				limit = {
+					scope:inheriting_capital = flag:yes
+					exists = scope:power_base
+					exists = scope:authority
+				}
+				scope:temp_heir = { add_to_temporary_list = temp_heirs }
+			}
+		}
+		resolve_title_and_vassal_change = scope:federal_election
+		every_in_list = {
+			list = temp_heirs
+			become_specified_state_government = { AUTHORITY = scope:authority POWER_BASE = scope:power_base LEGITIMACY = flag:federal }
+		}
 	}
 }
 set_default_non_federal_government_on_action = {

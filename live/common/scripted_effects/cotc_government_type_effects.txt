@@ -34,6 +34,17 @@
 		else = { vassal_contract_set_obligation_level = { type = federal_status level = federal_status_member_state } }
 	}
 }
+inherit_title_hierarchy_with_county_effect = {
+	holder = { save_temporary_scope_as = temp_holder }
+	every_this_title_or_de_jure_above = {
+		limit = {
+			holder = scope:temp_holder
+			tier < $ORIGINATING_TITLE$.tier
+			NOT = { has_title_law_flag = elective_succession_law }
+		}
+		change_title_holder_include_vassals = { holder = $HEIR$ change = $CHANGE$ }
+	}
+}
 pass_vassal_government_law_effect = {
 	save_scope_value_as = { name = power_base value = $POWER_BASE$ }
 	save_scope_value_as = { name = legitimacy value = $LEGITIMACY$ }
