@@ -14,6 +14,10 @@ restart_steal_technology_scheme_effect = {
 		limit = { scope:scheme = { scheme_type = steal_technology_character } }
 		show_as_tooltip = { start_scheme = { type = steal_technology_character target_character = scope:st_target_character } }
 	}
+	else_if = {
+		limit = { scope:scheme = { scheme_type = steal_technology_county } }
+		show_as_tooltip = { start_scheme = { type = steal_technology_county target_title = scope:st_target_county } }
+	}
 	hidden_effect = {
 		scope:scheme = {
 			# Track how many times we've restarted, so we can reset progress.

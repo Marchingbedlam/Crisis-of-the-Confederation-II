@@ -326,3 +326,21 @@ can_be_military_trigger = {
 		}
 	}
 }
+is_endangered_ruler_trigger = { # Check if a ruler is likely to lose power soon
+	save_temporary_scope_as = potentially_endangered_ruler
+	OR = {
+		# Likely to die soon
+		has_trait = infirm
+		has_any_debilitating_illness = yes
+		health <= dying_health
+		is_commanding_army = yes
+		# Could potentially be overthrown soon
+		target_of_powerful_faction_trigger = yes
+		# Getting badly mauled in a war
+		any_character_war = {
+			primary_defender = scope:potentially_endangered_ruler
+			defender_war_score <= -50
+			primary_attacker.current_military_strength > primary_defender.twice_current_military_strength
+		}
+	}
+}

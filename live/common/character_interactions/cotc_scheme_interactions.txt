@@ -225,6 +225,246 @@
 			}
 			NOT = { is_at_war_with = scope:recipient } # All's fair in love and war
 		}
+		# We'd prefer to do the county-based scheme
+		modifier = {
+			factor = 0
+			scope:recipient = { is_endangered_ruler_trigger = yes }
+		}
+		start_hostile_scheme_ai_base_modifiers = yes # At the end so Cowed can block it completely
+	}
+}
+start_steal_technology_county_interaction = {
+	icon = icon_scheme_steal_back_artifact # Placeholder
+	common_interaction = yes
+	interface_priority = 21
+	category = interaction_category_hostile
+
+	ignores_pending_interaction_block = yes
+
+	scheme = steal_technology_county
+
+	send_name = START_SCHEME
+
+	is_shown = {
+		exists = scope:puppet_or_actor
+		scope:recipient != scope:puppet_or_actor
+		
+		# Both schemer and target must be landed
+		scope:puppet_or_actor = { exists = capital_county }
+		scope:recipient = { exists = capital_county }
+	}
+
+	is_valid_showing_failures_only = {
+		scope:puppet_or_actor = {
+			can_start_scheme = {
+				type = steal_technology_county
+				target_title = scope:recipient.capital_county
+			}
+		}
+		scope:recipient = { NOT = { has_strong_hook = scope:puppet_or_actor } }
+		trigger_if = {
+			limit = { scope:puppet_or_actor = { has_variable = no_scheming_allowed_var } }
+			custom_tooltip = {
+				text = no_scheming_allowed_var_tt
+				scope:puppet_or_actor.var:no_scheming_allowed_var != scope:recipient
+			}
+		}
+	}
+
+	desc = {
+		triggered_desc = {
+			trigger = {
+				scope:puppet_or_actor = {
+					can_start_scheme = {
+						type = steal_technology_county
+						target_title = scope:recipient.capital_county
+					}
+				}
+			}
+			desc = scheme_interaction_tt_steal_technology_county_approved
+		}
+	}
+
+	# Scheme Starter Packages
+	options_heading = schemes.t.agent_packages
+	send_options_exclusive = yes
+	## Balanced agents.
+	send_option = {
+		flag = agent_focus_balance
+		current_description = start_steal_technology_interaction.tt.agent_focus_balance
+	}
+	## Focused on Success Chance.
+	send_option = {
+		flag = agent_focus_success
+		current_description = start_steal_technology_interaction.tt.agent_focus_success
+	}
+	## Focused on Speed.
+	send_option = {
+		flag = agent_focus_speed
+		current_description = start_steal_technology_interaction.tt.agent_focus_speed
+	}
+	## Focused on Secrecy.
+	send_option = {
+		flag = agent_focus_secrecy
+		current_description = start_steal_technology_interaction.tt.agent_focus_secrecy
+	}
+	
+	on_accept = {
+		scope:puppet_or_actor = {
+			send_interface_toast = {
+				type = event_toast_effect_neutral
+				title = start_steal_technology_county_interaction_notification
+
+				left_icon = scope:puppet_or_actor
+				right_icon = scope:recipient
+
+				# Success.
+				if = {
+					limit = { scope:agent_focus_success ?= yes }
+					begin_scheme_with_agents_effect = {
+						SCHEME_TYPE = steal_technology_county
+						TARGET_TYPE = target_title
+						TARGET_SCOPE = scope:recipient.capital_county
+						# Success.
+						AGENT_1 = agent_thief
+						AGENT_2 = agent_hacker
+						AGENT_3 = agent_diplomat
+						# Speed.
+						AGENT_4 = agent_infiltrator
+						# Secrecy.
+						AGENT_5 = agent_spy
+					}
+				}
+				# Speed.
+				else_if = {
+					limit = { scope:agent_focus_speed ?= yes }
+					begin_scheme_with_agents_effect = {
+						SCHEME_TYPE = steal_technology_county
+						TARGET_TYPE = target_title
+						TARGET_SCOPE = scope:recipient.capital_county
+						# Speed.
+						AGENT_1 = agent_infiltrator
+						AGENT_2 = agent_infiltrator
+						AGENT_3 = agent_planner
+						# Success.
+						AGENT_4 = agent_thief
+						# Secrecy.
+						AGENT_5 = agent_spy
+					}
+				}
+				# Secrecy.
+				else_if = {
+					limit = { scope:agent_focus_secrecy ?= yes }
+					begin_scheme_with_agents_effect = {
+						SCHEME_TYPE = steal_technology_county
+						TARGET_TYPE = target_title
+						TARGET_SCOPE = scope:recipient.capital_county
+						# Secrecy.
+						AGENT_1 = agent_spy
+						AGENT_2 = agent_spy
+						AGENT_3 = agent_lookout
+						# Success.
+						AGENT_4 = agent_thief
+						# Speed.
+						AGENT_5 = agent_infiltrator
+					}
+				}
+				# Balanced.
+				else = {
+					begin_scheme_with_agents_effect = {
+						SCHEME_TYPE = steal_technology_county
+						TARGET_TYPE = target_title
+						TARGET_SCOPE = scope:recipient.capital_county
+						# Success.
+						AGENT_1 = agent_thief
+						AGENT_2 = agent_hacker
+						# Speed.
+						AGENT_3 = agent_infiltrator
+						AGENT_4 = agent_planner
+						# Secrecy.
+						AGENT_5 = agent_spy
+					}
+				}
+			}
+		}
+		if = {
+			limit = {
+				scope:is_puppet_action ?= yes
+				scope:actor != scope:recipient
+			}
+			scope:actor = {
+				send_interface_toast = {
+					type = event_toast_effect_neutral
+					title = start_steal_technology_county_interaction_notification_puppeteer
+					left_icon = scope:puppet_or_actor
+					right_icon = scope:recipient
+				}
+			}
+		}
+	}
+
+	auto_accept = yes
+	
+	ai_targets = {
+		ai_recipients = scripted_relations
+		ai_recipients = war_enemies
+		ai_recipients = liege
+	}
+	ai_targets = {
+		ai_recipients = neighboring_rulers
+		ai_recipients = peer_vassals
+		max = 10
+	}
+
+	ai_frequency_by_tier = {
+		barony = 0
+		county = 48
+		duchy = 24
+		kingdom = 12
+		empire = 12
+		hegemony = 12
+	}
+	
+	ai_will_do = {
+		base = 0
+		modifier = { # How many techs could we get, anyway?
+			add = {
+				scope:puppet_or_actor = { capital_county = { save_temporary_scope_as = temp_home_county } }
+				scope:recipient = {
+					capital_county = {
+						every_in_list = {
+							variable = county_techs
+							limit = { scope:temp_home_county = { county_can_research_tech = { TECH = PREV } } }
+							add = 5
+						}
+					}
+				}
+			}
+		}
+		modifier = { # Positive opinion makes you not want to do this
+			add = {
+				subtract = "opinion(scope:recipient)"
+				max = 0
+			}
+		}
+		modifier = { # Wartime espionage
+			factor = 10
+			is_at_war_with = scope:recipient
+		}
+		modifier = { # Ethics modifier
+			factor = {
+				value = 100
+				subtract = ai_honor
+				min = 0
+				divide = 100
+			}
+			NOT = { is_at_war_with = scope:recipient } # All's fair in love and war
+		}
+		# We'd prefer to do the character-based scheme
+		modifier = {
+			factor = 0.2
+			scope:recipient = { is_endangered_ruler_trigger = no }
+		}
 		start_hostile_scheme_ai_base_modifiers = yes # At the end so Cowed can block it completely
 	}
 }

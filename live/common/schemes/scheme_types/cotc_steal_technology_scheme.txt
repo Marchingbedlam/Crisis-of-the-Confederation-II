@@ -54,7 +54,6 @@
 		add = odds_skill_contribution_intrigue_value
 		add = agent_groups_owner_perspective_value
 		add = agent_groups_target_character_perspective_value
-		add = odds_variables_contribution_murder
 		min = 0
 	}
 
@@ -70,31 +69,6 @@
 
 		# Family Feud
 		house_feud_hostile_scheme_success_modifier = yes
-		
-		# At War
-		first_valid = {
-			modifier = {
-				add = -50
-				desc = "SCHEME_AT_WAR"
-				scope:target = { is_at_war_with = scope:owner }
-			}
-			modifier = {
-				add = -25
-				scope:target = {
-					is_playable_character = no
-					liege ?= { is_at_war_with = scope:owner }
-				}
-				desc = "SCHEME_AT_WAR_WITH_LIEGE"
-			}
-			modifier = {
-				add = -25
-				scope:target = {
-					is_playable_character = yes
-					liege ?= { is_at_war_with = scope:owner }
-				}
-				desc = "SCHEME_AT_WAR_WITH_LIEGE"
-			}
-		}
 
 		# Diarchs are better at schemes within their liege's realm
 		diarch_scheming_within_realm_bonus_modifier = yes
@@ -143,16 +117,164 @@
 		if = {
 			limit = { NOT = { exists = scope:discovery_event_happening } }
 			scheme_target_character = {
-				save_scope_as = target_character
-				capital_county = { save_scope_as = target_county }
+				save_scope_as = st_target_character
+				capital_county = { save_scope_as = st_target_county }
 			}
-			scheme_owner = { trigger_event = { on_action = steal_technology_ongoing } }
+			scheme_owner = {
+				save_scope_as = owner
+				capital_county ?= { save_scope_as = st_home_county }
+				trigger_event = { on_action = steal_technology_ongoing }
+			}
 		}
 	}
 	on_invalidated = {
 		scheme_target_character = {
 			save_scope_as = st_target_character
 			capital_county ?= { save_scope_as = st_target_county }
+		}
+		scheme_owner = {
+			save_scope_as = owner
+			capital_county ?= { save_scope_as = st_home_county }
+		}
+		trigger_event = { on_action = steal_technology_invalidated_on_action }
+	}
+}
+steal_technology_county = { # Targets a county, which means we get to keep targeting the county even if the ruler changes
+	skill = intrigue
+	desc = "steal_technology_county_desc_general"
+	success_desc = "STEAL_TECHNOLOGY_COUNTY_SUCCESS_DESC"
+	discovery_desc = "STEAL_TECHNOLOGY_COUNTY_DISCOVERY_DESC"
+	category = hostile
+	target_type = title
+	is_secret = yes
+	maximum_breaches = 5
+	cooldown = { years = 10 }
+	
+	allow = {
+		exists = capital_county # We must have a capital system of our own
+		is_capable_adult = yes
+		is_imprisoned = no
+	}
+	valid = {
+		scope:target = {
+			is_noble_family_title = no
+			is_landless_type_title = no
+			tier = tier_county
+		}
+		scope:owner = {
+			exists = capital_county
+			capital_county ?= { save_temporary_scope_as = temp_home_county }
+		}
+		trigger_if = {
+			limit = { exists = scope:temp_home_county }
+			scope:target = { target_can_steal_any_tech_from_county = { TARGET = scope:temp_home_county } }
+		}
+	}
+
+	# Parameters
+	speed_per_skill_point = t2_spsp_owner_value
+	speed_per_target_skill_point = t2_spsp_target_value
+	base_progress_goal = t2_base_phase_length_value
+	maximum_secrecy = 95
+	base_maximum_success = t2_base_max_success_value
+	phases_per_agent_charge = 1
+	success_chance_growth_per_skill_point = t2_scgpsp_value
+
+	# Agents
+	agent_leave_threshold = -25
+	agent_join_chance = {
+		base = 0
+		
+		ai_agent_join_chance_basic_suite_modifier = yes
+		ai_agent_join_chance_hostile_general_suite_modifier = yes
+	}
+	agent_groups_owner_perspective = { courtiers guests councillors scripted_relations puppets }
+	valid_agent = { 
+		is_valid_agent_standard_trigger = yes
+		title_scheme_valid_agent_trigger = yes
+	}
+
+	odds_prediction = {
+		add = hostile_scheme_base_odds_prediction_target_is_title_value
+		add = odds_skill_contribution_diplomacy_value
+		add = agent_groups_owner_perspective_value
+		add = agent_groups_target_character_perspective_value
+		min = 0
+	}
+
+	# Base Chances
+	base_success_chance = {
+		base = 0
+		scheme_type_skill_success_chance_modifier = { SKILL = INTRIGUE }
+		
+		hostile_scheme_base_chance_modifier = yes
+
+		# Countermeasures.
+		apply_indirect_scheme_title_success_chance_adjustments_modifier = yes
+
+		# Family Feud
+		house_feud_hostile_scheme_title_success_modifier = yes
+
+		# Diarchs are better at schemes within their liege's realm
+		diarch_scheming_title_within_realm_bonus_modifier = yes
+	}
+	base_secrecy = {
+		add = secrecy_base_value
+		add = countermeasure_apply_secrecy_maluses_value
+	}
+	
+	# On Actions
+	on_start = {
+		set_variable = {
+			name = apply_countermeasures
+			value = flag:calculating
+		}
+		add_scheme_starting_opportunities_intrigue_effect = yes
+		# Fallback agents — a balanced config if you start the scheme from script.
+		if = {
+			limit = { scheme_owner = { NOT = { has_variable = agents_added } } }
+			add_agent_slot = agent_thief
+			add_agent_slot = agent_hacker
+			add_agent_slot = agent_diplomat
+			add_agent_slot = agent_infiltrator
+			add_agent_slot = agent_spy
+		}
+		else = { scheme_owner = { remove_variable = agents_added } }
+	}
+	on_phase_completed = {
+		suppress_scheme_follow_up_event_till_input_given_effect = yes
+		steal_technology_scheme_prep_effect = yes
+		cap_schemes_and_fire_reminders_effect = yes
+	}
+	on_hud_click = {
+		steal_technology_scheme_prep_effect = yes
+	}
+	on_semiyearly = {
+		if = {
+			limit = { scheme_owner = { is_ai = yes } }
+			steal_technology_scheme_prep_effect = yes
+			purge_ai_scheme_slots_effect = yes
+		}
+	}
+	on_monthly = {
+		hostile_scheme_monthly_discovery_chance_effect = yes
+		if = {
+			limit = { NOT = { exists = scope:discovery_event_happening } }
+			scheme_target_title = {
+				save_scope_as = st_target_county
+				holder = { save_scope_as = st_target_character }
+			}
+			scheme_owner = {
+				save_scope_as = owner
+				capital_county ?= { save_scope_as = st_home_county }
+				trigger_event = { on_action = steal_technology_ongoing }
+			}
+		}
+	}
+	on_invalidated = {
+		scheme_target_title = {
+			save_scope_as = st_target_county
+			holder = { save_scope_as = st_target_character }
 		}
 		scheme_owner = {
 			save_scope_as = owner

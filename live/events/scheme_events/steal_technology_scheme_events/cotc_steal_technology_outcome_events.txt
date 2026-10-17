@@ -12,6 +12,13 @@ cotc_steal_technology_outcome_events.1 = {
 					capital_county = { save_scope_as = st_target_county }
 				}
 			}
+			else_if = {
+				limit = { scheme_type = steal_technology_county }
+				scheme_target_title = {
+					save_scope_as = st_target_county
+					holder = { save_scope_as = st_target_character }
+				}
+			}
 			scheme_owner = {
 				save_scope_as = owner
 				capital_county ?= { save_scope_as = st_home_county }
