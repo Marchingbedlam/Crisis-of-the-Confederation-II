@@ -1,5 +1,230 @@
-﻿# RESEARCH PROJECT AGENTS
+﻿####################
+# ESPIONAGE AGENTS #
+####################
+# MAX SUCCESS CHANCE
+agent_hacker = {
+	contribution_type = success_chance_max
+	contribution = {
+		value = scheme_agent_general_bonuses_contribution_score_value
+		
+		# Skills
+		## Intrigue
+		add = {
+			value = intrigue
+			multiply = agent_3to1_3_skill_mult_value
+			ceiling = yes
+			max = agent_max_skill_value
+			desc = scheme_agent_aptitude.skill.intrigue
+		}
+		## Learning
+		add = {
+			value = learning
+			multiply = agent_3to1_1_skill_mult_value
+			ceiling = yes
+			max = agent_max_skill_value
+			desc = scheme_agent_aptitude.skill.learning
+		}
+		# Traits
+		## Bonuses
+		### +++ Eccentric
+		if = {
+			limit = { has_trait = eccentric }
+			add = {
+				value = agent_trait_bonus_t3_value
+				desc = scheme_agent_aptitude.trait.eccentric
+			}
+		}
+		### ++ Shrewd
+		if = {
+			limit = { has_trait = shrewd }
+			add = {
+				value = agent_trait_bonus_t2_value
+				desc = scheme_agent_aptitude.trait.shrewd
+			}
+		}
+		### ++ Schemer
+		if = {
+			limit = { has_trait = schemer }
+			add = {
+				value = agent_trait_bonus_t2_value
+				desc = scheme_agent_aptitude.trait.schemer
+			}
+		}
+		### ++ Erudite
+		if = {
+			limit = { has_trait = erudite }
+			add = {
+				value = agent_trait_bonus_t2_value
+				desc = scheme_agent_aptitude.trait.erudite
+			}
+		}
+		### + Calm
+		if = {
+			limit = { has_trait = calm }
+			add = {
+				value = agent_trait_bonus_t1_value
+				desc = scheme_agent_aptitude.trait.calm
+			}
+		}
+		### + Patient
+		if = {
+			limit = { has_trait = patient }
+			add = {
+				value = agent_trait_bonus_t1_value
+				desc = scheme_agent_aptitude.trait.patient
+			}
+		}
+		## Maluses
+		### --- Stubborn
+		if = {
+			limit = { has_trait = stubborn }
+			add = {
+				value = agent_trait_malus_t3_value
+				desc = scheme_agent_aptitude.trait.stubborn
+			}
+		}
+		### -- Just
+		if = {
+			limit = { has_trait = just }
+			add = {
+				value = agent_trait_malus_t2_value
+				desc = scheme_agent_aptitude.trait.just
+			}
+		}
+		### -- Fickle
+		if = {
+			limit = { has_trait = fickle }
+			add = {
+				value = agent_trait_malus_t2_value
+				desc = scheme_agent_aptitude.trait.fickle
+			}
+		}
+		### - Arrogant
+		if = {
+			limit = { has_trait = arrogant }
+			add = {
+				value = agent_trait_malus_t1_value
+				desc = scheme_agent_aptitude.trait.arrogant
+			}
+		}
+		### - Trusting
+		if = {
+			limit = { has_trait = trusting }
+			add = {
+				value = agent_trait_malus_t1_value
+				desc = scheme_agent_aptitude.trait.trusting
+			}
+		}
+		# Cap this off.
+		max = agent_scheme_contributor_max
+		min = agent_scheme_contributor_min
+	}
+}
+# SECRECY
+agent_spy = {
+	contribution_type = secrecy
+	contribution = {
+		# Base value.
+		value = scheme_agent_general_bonuses_contribution_score_value
+		# Skills
+		## Intrigue
+		add = {
+			value = intrigue
+			ceiling = yes
+			max = agent_max_skill_value
+			desc = scheme_agent_aptitude.skill.intrigue
+		}
+		# Traits
+		## Bonuses
+		### +++ Deceitful
+		if = {
+			limit = { has_trait = deceitful }
+			add = {
+				value = agent_trait_bonus_t3_value
+				desc = scheme_agent_aptitude.trait.deceitful
+			}
+		}
+		### +++ Paranoid
+		if = {
+			limit = { has_trait = paranoid }
+			add = {
+				value = agent_trait_bonus_t3_value
+				desc = scheme_agent_aptitude.trait.paranoid
+			}
+		}
+		### ++ Schemer
+		if = {
+			limit = { has_trait = schemer }
+			add = {
+				value = agent_trait_bonus_t2_value
+				desc = scheme_agent_aptitude.trait.schemer
+			}
+		}
+		### ++ Humble
+		if = {
+			limit = { has_trait = humble }
+			add = {
+				value = agent_trait_bonus_t2_value
+				desc = scheme_agent_aptitude.trait.humble
+			}
+		}
+		### + Patient
+		if = {
+			limit = { has_trait = patient }
+			add = {
+				value = agent_trait_bonus_t1_value
+				desc = scheme_agent_aptitude.trait.humble
+			}
+		}
+		### + Callous
+		if = {
+			limit = { has_trait = callous }
+			add = {
+				value = agent_trait_bonus_t1_value
+				desc = scheme_agent_aptitude.trait.callous
+			}
+		}
+		## Maluses
+		### --- Honest
+		if = {
+			limit = { has_trait = honest }
+			add = {
+				value = agent_trait_malus_t3_value
+				desc = scheme_agent_aptitude.trait.honest
+			}
+		}
+		### --- Trusting
+		if = {
+			limit = { has_trait = trusting }
+			add = {
+				value = agent_trait_malus_t3_value
+				desc = scheme_agent_aptitude.trait.trusting
+			}
+		}
+		## Striking Appearance
+		if = {
+			limit = { attraction < 0 }
+			add = {
+				value = attraction
+				ceiling = yes
+				desc = scheme_agent_aptitude.attraction
+			}
+		}
+		else_if = {
+			limit = { attraction > 0 }
+			add = {
+				value = attraction
+				multiply = -1
+				ceiling = yes
+				desc = scheme_agent_aptitude.attraction
+			}
+		}
+	}
+}
 
+###########################
+# RESEARCH PROJECT AGENTS #
+###########################
 # SPEED
 agent_research_doctor = {
 	contribution_type = speed

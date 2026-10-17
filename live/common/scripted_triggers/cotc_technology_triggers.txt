@@ -174,3 +174,14 @@ domicile_has_tech_by_string = {
 province_has_tech_by_string = {
 	county = { county_has_tech_by_string = { TECH = $TECH$ } }
 }
+target_can_steal_any_tech_from_county = {
+	save_temporary_scope_as = temp_county_name
+	$TARGET$ = { save_temporary_scope_as = temp_target_name }
+	custom_tooltip = {
+		text = can_steal_at_least_one_tech.tt
+		any_in_list = {
+			variable = county_techs
+			scope:temp_target_name = { county_can_research_tech = { TECH = PREV } }
+		}
+	}
+}

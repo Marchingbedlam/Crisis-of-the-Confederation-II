@@ -1,0 +1,28 @@
+﻿steal_technology_scheme_prep_effect = {
+	save_scope_as = scheme
+	save_scope_value_as = {
+		name = follow_up_event
+		value = event_id:cotc_steal_technology_outcome_events.1
+	}
+	if = {
+		limit = { NOT = { exists = scope:suppress_next_event } }
+		scheme_owner = { trigger_event = scheme_critical_moments.0002 }
+	}
+}
+restart_steal_technology_scheme_effect = {
+	if = {
+		limit = { scope:scheme = { scheme_type = steal_technology_character } }
+		show_as_tooltip = { start_scheme = { type = steal_technology_character target_character = scope:st_target_character } }
+	}
+	hidden_effect = {
+		scope:scheme = {
+			# Track how many times we've restarted, so we can reset progress.
+			increment_variable_effect = {
+				VAR = scheme_reset_to_zero_value
+				VAL = scheme_success_chance
+			}
+			# Reset our scheme.
+			reset_failed_scheme_effect = yes
+		}
+	}
+}

@@ -1,0 +1,96 @@
+﻿steal_technology_success_on_action = {
+	effect = {
+		# Pick a random innovation to steal
+		scope:st_target_county = {
+			random_in_list = {
+				variable = county_techs
+				limit = { scope:st_home_county = { county_can_research_tech = { TECH = PREV } } }
+				weight = {
+					base = 1
+					modifier = {
+						factor = 0
+						scope:scheme = { var:priority ?= flag:military }
+						OR = {
+							has_innovation_parameter = colonial_civic
+							has_innovation_parameter = confederate_civic
+							has_innovation_parameter = trimillennial_civic
+							has_innovation_parameter = neorenaissance_civic
+						}
+					}
+					modifier = {
+						factor = 0
+						scope:scheme = { var:priority ?= flag:civic }
+						OR = {
+							has_innovation_parameter = colonial_military
+							has_innovation_parameter = confederate_military
+							has_innovation_parameter = trimillennial_military
+							has_innovation_parameter = neorenaissance_military
+						}
+					}
+				}
+				save_scope_as = stolen_technology
+			}
+		}
+		if = { # If we've got agents, pick one of them to be the MVP
+			limit = { scope:scheme = { scheme_number_of_filled_agent_slots >= 1 } }
+			scope:scheme = {
+				random_scheme_agent_slot = {
+					limit = { is_filled = yes }
+					weight = {
+						base = 0
+						modifier = { add = agent_slot_contribution }
+						modifier = {
+							factor = 2
+							OR = {
+								is_agent_slot_type = agent_thief
+								is_agent_slot_type = agent_hacker
+								is_agent_slot_type = agent_spy
+								is_agent_slot_type = agent_diplomat
+							}
+						}
+					}
+					save_scope_as = mvp_slot
+					slot_character = { save_scope_as = mvp }
+				}
+			}
+			scope:owner = { trigger_event = cotc_steal_technology_outcome_events.110 }
+		}
+		else = { scope:owner = { trigger_event = cotc_steal_technology_outcome_events.100 } } # Otherwise fire the generic event
+	}
+}
+steal_technology_failure_on_action = {
+	effect = {
+		if = { # If we've got agents, pick one of them to be the MVP
+			limit = { scope:scheme = { scheme_number_of_filled_agent_slots >= 1 } }
+			scope:scheme = {
+				random_scheme_agent_slot = {
+					limit = { is_filled = yes }
+					weight = {
+						base = 0
+						modifier = { add = agent_slot_contribution }
+						modifier = {
+							factor = 2
+							OR = {
+								is_agent_slot_type = agent_thief
+								is_agent_slot_type = agent_hacker
+								is_agent_slot_type = agent_spy
+								is_agent_slot_type = agent_diplomat
+							}
+						}
+					}
+					save_scope_as = mvp_slot
+					slot_character = { save_scope_as = mvp }
+				}
+			}
+			scope:owner = { trigger_event = cotc_steal_technology_outcome_events.210 }
+		}
+		else = { scope:owner = { trigger_event = cotc_steal_technology_outcome_events.200 } } # Otherwise fire the generic event
+	}
+}
+steal_technology_invalidated_on_action = {
+	events = {
+		cotc_steal_technology_outcome_events.300 # Owner is no longer landed
+		cotc_steal_technology_outcome_events.310 # Target is no longer landed
+		cotc_steal_technology_outcome_events.320 # Target county no longer has a researchable innovation
+	}
+}

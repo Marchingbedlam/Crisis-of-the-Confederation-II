@@ -1,0 +1,641 @@
+﻿namespace = cotc_steal_technology_outcome_events
+
+cotc_steal_technology_outcome_events.1 = {
+	hidden = yes
+
+	immediate = {
+		scope:scheme = {
+			if = {
+				limit = { scheme_type = steal_technology_character }
+				scheme_target_character = {
+					save_scope_as = st_target_character
+					capital_county = { save_scope_as = st_target_county }
+				}
+			}
+			scheme_owner = {
+				save_scope_as = owner
+				capital_county ?= { save_scope_as = st_home_county }
+			}
+			generic_scheme_process_ending_effect = {
+				RESULTS_TOOLTIP = steal_technology_successful_roll_tt
+				SUCCESS_EVENT_TYPE = on_action
+				SUCCESS_EVENT_ID = steal_technology_success_on_action
+				FAILURE_EVENT_TYPE = on_action
+				FAILURE_EVENT_ID = steal_technology_failure_on_action
+			}
+		}
+	}
+}
+# SUCCESS
+cotc_steal_technology_outcome_events.100 = { # Scheme is successful without any particular agent being all that important
+	window = scheme_successful_event
+	title = cotc_steal_technology_outcome_events.100.title
+	desc = {
+		desc = cotc_steal_technology_outcome_events.100.desc.intro
+		first_valid = {
+			triggered_desc = {
+				trigger = { exists = scope:scheme_discovered }
+				desc = cotc_steal_technology_outcome_events.100.desc.discovered
+			}
+			desc = cotc_steal_technology_outcome_events.100.desc.undiscovered
+		}
+	}
+	theme = generic_intrigue_scheme
+	
+	right_portrait = {
+		character = ROOT
+		animation = happy
+	}
+	left_portrait = {
+		character = scope:st_target_character
+		triggered_animation = {
+			trigger = {
+				exists = scope:scheme_discovered
+				exists = scope:owner_to_reveal
+			}
+			animation = shock
+		}
+		animation = idle
+	}
+
+	widget = {
+		gui = "event_window_widget_scheme"
+		container = "custom_widgets_container"
+	}
+	
+	option = {
+		name = cotc_steal_technology_outcome_events.100.a
+		if = {
+			limit = {
+				exists = scope:scheme_discovered
+				exists = scope:owner_to_reveal
+			}
+			scope:st_target_character = { trigger_event = cotc_steal_technology_outcome_events.101 }
+		}
+		scope:st_home_county = { add_tech_to_county = { TECH = scope:stolen_technology } }
+		scope:scheme = { end_scheme = yes }
+	}
+}
+cotc_steal_technology_outcome_events.101 = { # Someone stole technology from you!
+	window = scheme_conclusion_event_no_header
+	title = cotc_steal_technology_outcome_events.100.title
+	desc = cotc_steal_technology_outcome_events.101.desc
+	theme = generic_intrigue_scheme
+	
+	right_portrait = {
+		character = scope:owner_to_reveal
+		animation = happy
+	}
+	left_portrait = {
+		character = ROOT
+		animation = shock
+	}
+	
+	option = {
+		name = cotc_steal_technology_outcome_events.101.a
+		show_as_tooltip = { scope:st_home_county = { add_tech_to_county = { TECH = scope:stolen_technology } } }
+	}
+}
+cotc_steal_technology_outcome_events.110 = { # One of our agents successfully stole the technology for us!
+	window = scheme_successful_event
+	title = cotc_steal_technology_outcome_events.100.title
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:mvp_slot = { is_agent_slot_type = agent_thief } }
+				desc = cotc_steal_technology_outcome_events.110.desc.thief
+			}
+			triggered_desc = {
+				trigger = { scope:mvp_slot = { is_agent_slot_type = agent_spy } }
+				desc = cotc_steal_technology_outcome_events.110.desc.spy
+			}
+			triggered_desc = {
+				trigger = { scope:mvp_slot = { is_agent_slot_type = agent_diplomat } }
+				desc = cotc_steal_technology_outcome_events.110.desc.diplomat
+			}
+			triggered_desc = {
+				trigger = { scope:mvp_slot = { is_agent_slot_type = agent_hacker } }
+				desc = cotc_steal_technology_outcome_events.110.desc.hacker
+			}
+			desc = cotc_steal_technology_outcome_events.110.desc.generic
+		}
+		first_valid = {
+			triggered_desc = {
+				trigger = { exists = scope:scheme_discovered }
+				desc = cotc_steal_technology_outcome_events.110.desc.discovered
+			}
+			desc = cotc_steal_technology_outcome_events.110.desc.undiscovered
+		}
+	}
+	theme = generic_intrigue_scheme
+	
+	right_portrait = {
+		character = scope:mvp
+		animation = war_over_win
+	}
+	left_portrait = {
+		character = scope:st_target_character
+		triggered_animation = {
+			trigger = {
+				exists = scope:scheme_discovered
+				exists = scope:owner_to_reveal
+			}
+			animation = shock
+		}
+		animation = idle
+	}
+	lower_right_portrait = { character = ROOT }
+
+	widget = {
+		gui = "event_window_widget_scheme"
+		container = "custom_widgets_container"
+	}
+	
+	option = {
+		name = cotc_steal_technology_outcome_events.100.a
+		scope:mvp = { trigger_event = cotc_steal_technology_outcome_events.111 }
+		scope:st_home_county = { add_tech_to_county = { TECH = scope:stolen_technology } }
+		scope:scheme = { end_scheme = yes }
+	}
+}
+cotc_steal_technology_outcome_events.111 = { # You stole technology for someone!
+	window = scheme_conclusion_event_no_header
+	title = cotc_steal_technology_outcome_events.100.title
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:mvp_slot = { is_agent_slot_type = agent_thief } }
+				desc = cotc_steal_technology_outcome_events.111.desc.thief
+			}
+			triggered_desc = {
+				trigger = { scope:mvp_slot = { is_agent_slot_type = agent_spy } }
+				desc = cotc_steal_technology_outcome_events.111.desc.spy
+			}
+			triggered_desc = {
+				trigger = { scope:mvp_slot = { is_agent_slot_type = agent_diplomat } }
+				desc = cotc_steal_technology_outcome_events.111.desc.diplomat
+			}
+			triggered_desc = {
+				trigger = { scope:mvp_slot = { is_agent_slot_type = agent_hacker } }
+				desc = cotc_steal_technology_outcome_events.111.desc.hacker
+			}
+			desc = cotc_steal_technology_outcome_events.111.desc.generic
+		}
+		first_valid = {
+			triggered_desc = {
+				trigger = { exists = scope:scheme_discovered }
+				desc = cotc_steal_technology_outcome_events.111.desc.discovered
+			}
+			desc = cotc_steal_technology_outcome_events.111.desc.undiscovered
+		}
+	}
+	theme = generic_intrigue_scheme
+	
+	right_portrait = {
+		character = scope:mvp
+		animation = war_over_win
+	}
+	left_portrait = {
+		character = scope:st_target_character
+		triggered_animation = {
+			trigger = {
+				exists = scope:scheme_discovered
+				exists = scope:owner_to_reveal
+			}
+			animation = shock
+		}
+		animation = idle
+	}
+	lower_right_portrait = { character = scope:owner }
+	
+	immediate = {
+		if = {
+			limit = {
+				exists = scope:scheme_discovered
+				liege_or_court_owner = scope:st_target_character
+			}
+			reverse_add_opinion = { target = scope:st_target_character modifier = cotc_spy_opinion }
+		}
+	}
+	
+	option = { # If our involvement in the scheme was known and we're in the target's court, it might be time to get out of here!
+		trigger = {
+			exists = scope:scheme_discovered
+			liege_or_court_owner = scope:st_target_character
+			is_landed = no
+			is_landless_ruler = no
+		}
+		name = cotc_steal_technology_outcome_events.111.a
+		reverse_add_opinion = { target = scope:st_target_character modifier = cotc_spy_opinion }
+		reverse_add_opinion = { target = scope:owner modifier = cotc_agent_opinion }
+		show_as_tooltip = { scope:st_home_county = { add_tech_to_county = { TECH = scope:stolen_technology } } }
+		move_to_pool_at = scope:st_home_county.title_province
+		save_scope_value_as = { name = skipped_town value = flag:yes }
+		scope:st_target_character = { trigger_event = cotc_steal_technology_outcome_events.112 }
+		ai_chance = {
+			base = 100
+			modifier = { add = ai_rationality }
+			modifier = {
+				add = {
+					subtract = ai_boldness
+					min = 0
+				}
+			}
+			opinion_modifier = {
+				who = scope:st_target_character
+				opinion_target = ROOT
+				multiplier = -1
+			}
+		}
+	}
+	
+	option = { # Otherwise we can stick around
+		name = cotc_steal_technology_outcome_events.111.b
+		if = {
+			limit = {
+				exists = scope:scheme_discovered
+				liege_or_court_owner = scope:st_target_character
+			}
+			reverse_add_opinion = { target = scope:st_target_character modifier = cotc_spy_opinion }
+			scope:st_target_character = { trigger_event = cotc_steal_technology_outcome_events.112 }
+		}
+		reverse_add_opinion = { target = scope:owner modifier = cotc_agent_opinion }
+		show_as_tooltip = { scope:st_home_county = { add_tech_to_county = { TECH = scope:stolen_technology } } }
+		ai_chance = {
+			base = 0
+			opinion_modifier = {
+				who = ROOT
+				opinion_target = scope:owner
+				multiplier = -1
+			}
+		}
+	}
+}
+cotc_steal_technology_outcome_events.112 = { # Someone stole technology from you!
+	window = scheme_conclusion_event_no_header
+	title = cotc_steal_technology_outcome_events.100.title
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:mvp_slot = { is_agent_slot_type = agent_thief } }
+				desc = cotc_steal_technology_outcome_events.112.desc.thief
+			}
+			triggered_desc = {
+				trigger = { scope:mvp_slot = { is_agent_slot_type = agent_spy } }
+				desc = cotc_steal_technology_outcome_events.112.desc.spy
+			}
+			triggered_desc = {
+				trigger = { scope:mvp_slot = { is_agent_slot_type = agent_diplomat } }
+				desc = cotc_steal_technology_outcome_events.112.desc.diplomat
+			}
+			triggered_desc = {
+				trigger = { scope:mvp_slot = { is_agent_slot_type = agent_hacker } }
+				desc = cotc_steal_technology_outcome_events.112.desc.hacker
+			}
+			desc = cotc_steal_technology_outcome_events.112.desc.generic
+		}
+		triggered_desc = {
+			trigger = { exists = scope:skipped_town }
+			desc = cotc_steal_technology_outcome_events.112.desc.skipped_town
+		}
+	}
+	theme = generic_intrigue_scheme
+	
+	right_portrait = {
+		character = scope:mvp
+		animation = war_over_win
+	}
+	left_portrait = {
+		character = ROOT
+		animation = shock
+	}
+	lower_right_portrait = { character = scope:owner_to_reveal }
+	
+	option = {
+		name = cotc_steal_technology_outcome_events.101.a
+		show_as_tooltip = { scope:st_home_county = { add_tech_to_county = { TECH = scope:stolen_technology } } }
+	}
+}
+# FAILURE
+cotc_steal_technology_outcome_events.200 = { # Scheme failed without any particular agent being important
+	window = scheme_failed_event
+	title = cotc_steal_technology_outcome_events.200.title
+	desc = {
+		desc = cotc_steal_technology_outcome_events.200.desc
+		first_valid = {
+			triggered_desc = {
+				trigger = { exists = scope:scheme_discovered }
+				desc = cotc_steal_technology_outcome_events.200.desc.discovered
+			}
+			desc = cotc_steal_technology_outcome_events.200.desc.undiscovered
+		}
+	}
+	theme = generic_intrigue_scheme
+	
+	right_portrait = {
+		character = ROOT
+		animation = war_over_lose
+	}
+	left_portrait = {
+		character = scope:st_target_character
+		triggered_animation = {
+			trigger = {
+				exists = scope:scheme_discovered
+				exists = scope:owner_to_reveal
+			}
+			animation = dismissal
+		}
+		animation = idle
+	}
+	widget = {
+		gui = "event_window_widget_scheme"
+		container = "custom_widgets_container"
+	}
+	
+	option = { # Well, now everything's ruined
+		trigger = { exists = scope:scheme_discovered }
+		name = cotc_steal_technology_outcome_events.200.a
+		scope:scheme = { end_scheme = yes }
+		scope:st_target_character = { trigger_event = cotc_steal_technology_outcome_events.201 }
+	}
+	
+	option = { # If at first you don't succeed...
+		trigger = { NOT = { exists = scope:scheme_discovered } }
+		name = cotc_steal_technology_outcome_events.200.b
+		restart_steal_technology_scheme_effect = yes
+	}
+}
+cotc_steal_technology_outcome_events.201 = { # Plot to steal technology thwarted!
+	window = scheme_conclusion_event_no_header
+	title = cotc_steal_technology_outcome_events.200.title
+	desc = cotc_steal_technology_outcome_events.201.desc
+	theme = generic_intrigue_scheme
+	
+	right_portrait = {
+		character = scope:owner
+		animation = war_over_lose
+	}
+	left_portrait = {
+		character = scope:st_target_character
+		animation = dismissal
+	}
+	
+	option = { name = cotc_steal_technology_outcome_events.201.a }
+}
+cotc_steal_technology_outcome_events.210 = { # A particular agent failed
+	window = scheme_failed_event
+	title = cotc_steal_technology_outcome_events.200.title
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:mvp_slot = { is_agent_slot_type = agent_thief } }
+				desc = cotc_steal_technology_outcome_events.210.desc.thief
+			}
+			triggered_desc = {
+				trigger = { scope:mvp_slot = { is_agent_slot_type = agent_spy } }
+				desc = cotc_steal_technology_outcome_events.210.desc.spy
+			}
+			triggered_desc = {
+				trigger = { scope:mvp_slot = { is_agent_slot_type = agent_diplomat } }
+				desc = cotc_steal_technology_outcome_events.210.desc.diplomat
+			}
+			triggered_desc = {
+				trigger = { scope:mvp_slot = { is_agent_slot_type = agent_hacker } }
+				desc = cotc_steal_technology_outcome_events.210.desc.hacker
+			}
+			desc = cotc_steal_technology_outcome_events.210.desc.generic
+		}
+		first_valid = {
+			triggered_desc = {
+				trigger = { exists = scope:scheme_discovered }
+				desc = cotc_steal_technology_outcome_events.210.desc.discovered
+			}
+			desc = cotc_steal_technology_outcome_events.210.desc.undiscovered
+		}
+	}
+	theme = generic_intrigue_scheme
+	
+	right_portrait = {
+		character = scope:mvp
+		animation = war_over_lose
+	}
+	left_portrait = {
+		character = scope:st_target_character
+		triggered_animation = {
+			trigger = {
+				exists = scope:scheme_discovered
+				exists = scope:owner_to_reveal
+			}
+			animation = dismissal
+		}
+		animation = idle
+	}
+	lower_right_portrait = { character = ROOT }
+	widget = {
+		gui = "event_window_widget_scheme"
+		container = "custom_widgets_container"
+	}
+	
+	option = { # Well, now everything's ruined
+		trigger = { exists = scope:scheme_discovered }
+		name = cotc_steal_technology_outcome_events.200.a
+		scope:scheme = { end_scheme = yes }
+		scope:mvp = { trigger_event = cotc_steal_technology_outcome_events.211 }
+	}
+	
+	option = { # If at first you don't succeed...
+		trigger = { NOT = { exists = scope:scheme_discovered } }
+		name = cotc_steal_technology_outcome_events.200.b
+		restart_steal_technology_scheme_effect = yes
+		scope:mvp = { trigger_event = cotc_steal_technology_outcome_events.211 }
+	}
+}
+cotc_steal_technology_outcome_events.211 = { # You messed up real bad and now everything's ruined
+	window = scheme_conclusion_event_no_header
+	title = cotc_steal_technology_outcome_events.200.title
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:mvp_slot = { is_agent_slot_type = agent_thief } }
+				desc = cotc_steal_technology_outcome_events.211.desc.thief
+			}
+			triggered_desc = {
+				trigger = { scope:mvp_slot = { is_agent_slot_type = agent_spy } }
+				desc = cotc_steal_technology_outcome_events.211.desc.spy
+			}
+			triggered_desc = {
+				trigger = { scope:mvp_slot = { is_agent_slot_type = agent_diplomat } }
+				desc = cotc_steal_technology_outcome_events.211.desc.diplomat
+			}
+			triggered_desc = {
+				trigger = { scope:mvp_slot = { is_agent_slot_type = agent_hacker } }
+				desc = cotc_steal_technology_outcome_events.211.desc.hacker
+			}
+			desc = cotc_steal_technology_outcome_events.211.desc.generic
+		}
+		first_valid = {
+			triggered_desc = {
+				trigger = { exists = scope:scheme_discovered }
+				desc = cotc_steal_technology_outcome_events.211.desc.discovered
+			}
+			desc = cotc_steal_technology_outcome_events.211.desc.undiscovered
+		}
+	}
+	theme = generic_intrigue_scheme
+	
+	right_portrait = {
+		character = scope:mvp
+		animation = war_over_lose
+	}
+	left_portrait = {
+		character = scope:st_target_character
+		triggered_animation = {
+			trigger = {
+				exists = scope:scheme_discovered
+				exists = scope:owner_to_reveal
+			}
+			animation = dismissal
+		}
+		animation = idle
+	}
+	lower_right_portrait = { character = scope:owner }
+	
+	option = { # # Perhaps we should run
+		trigger = {
+			exists = scope:scheme_discovered
+			exists = scope:owner_to_reveal
+			is_landed = no
+			is_landless_ruler = no
+		}
+		name = cotc_steal_technology_outcome_events.211.a
+		reverse_add_opinion = { target = scope:st_target_character modifier = cotc_spy_opinion }
+		move_to_pool_at = scope:st_home_county.title_province
+		save_scope_value_as = { name = skipped_town value = flag:yes }
+		scope:st_target_character = { trigger_event = cotc_steal_technology_outcome_events.212 }
+		ai_chance = {
+			base = 100
+			modifier = { add = ai_rationality }
+			modifier = {
+				add = {
+					subtract = ai_boldness
+					min = 0
+				}
+			}
+			opinion_modifier = {
+				who = scope:st_target_character
+				opinion_target = ROOT
+				multiplier = -1
+			}
+		}
+	}
+	
+	option = { # Or maybe we're stupid enough to stick around?
+		name = cotc_steal_technology_outcome_events.211.b
+		if = {
+			limit = {
+				exists = scope:scheme_discovered
+				exists = scope:owner_to_reveal
+			}
+			reverse_add_opinion = { target = scope:st_target_character modifier = cotc_spy_opinion }
+			scope:st_target_character = { trigger_event = cotc_steal_technology_outcome_events.212 }
+		}
+		ai_chance = {
+			base = 0
+			opinion_modifier = {
+				who = ROOT
+				opinion_target = scope:owner
+				multiplier = -1
+			}
+		}
+	}
+}
+cotc_steal_technology_outcome_events.212 = { # An agent's attempt to steal technology was thwarted!
+	window = scheme_conclusion_event_no_header
+	title = cotc_steal_technology_outcome_events.200.title
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:mvp_slot = { is_agent_slot_type = agent_thief } }
+				desc = cotc_steal_technology_outcome_events.212.desc.thief
+			}
+			triggered_desc = {
+				trigger = { scope:mvp_slot = { is_agent_slot_type = agent_spy } }
+				desc = cotc_steal_technology_outcome_events.212.desc.spy
+			}
+			triggered_desc = {
+				trigger = { scope:mvp_slot = { is_agent_slot_type = agent_diplomat } }
+				desc = cotc_steal_technology_outcome_events.212.desc.diplomat
+			}
+			triggered_desc = {
+				trigger = { scope:mvp_slot = { is_agent_slot_type = agent_hacker } }
+				desc = cotc_steal_technology_outcome_events.212.desc.hacker
+			}
+			desc = cotc_steal_technology_outcome_events.212.desc.generic
+		}
+		triggered_desc = {
+			trigger = { exists = scope:skipped_town }
+			desc = cotc_steal_technology_outcome_events.212.desc.skipped_town
+		}
+	}
+	theme = generic_intrigue_scheme
+	
+	right_portrait = {
+		character = scope:mvp
+		animation = war_over_lose
+	}
+	left_portrait = {
+		character = ROOT
+		animation = dismissal
+	}
+	lower_right_portrait = { character = scope:owner_to_reveal }
+	
+	option = { name = cotc_steal_technology_outcome_events.201.a }
+}
+# INVALIDATED
+cotc_steal_technology_outcome_events.300 = { # You are no longer landed
+	title = cotc_steal_technology_outcome_events.300.title
+	desc = cotc_steal_technology_outcome_events.300.desc
+	theme = generic_intrigue_scheme
+	
+	right_portrait = scope:owner
+	left_portrait = scope:st_target_character
+	
+	trigger = { NOT = { exists = scope:st_home_county } }
+	
+	option = { name = cotc_steal_technology_outcome_events.300.a }
+}
+cotc_steal_technology_outcome_events.310 = { # Your target character is no longer landed
+	title = cotc_steal_technology_outcome_events.300.title
+	desc = cotc_steal_technology_outcome_events.310.desc
+	theme = generic_intrigue_scheme
+	
+	right_portrait = scope:owner
+	left_portrait = scope:st_target_character
+	
+	trigger = { NOT = { exists = scope:st_target_county } }
+	
+	option = { name = cotc_steal_technology_outcome_events.300.a }
+}
+cotc_steal_technology_outcome_events.320 = { # Target county no longer has a stealable tech
+	title = cotc_steal_technology_outcome_events.300.title
+	desc = cotc_steal_technology_outcome_events.320.desc
+	theme = generic_intrigue_scheme
+	
+	right_portrait = scope:owner
+	left_portrait = scope:st_target_character
+	
+	trigger = {
+		exists = scope:st_target_county
+		exists = scope:st_home_county
+		scope:st_target_county = {
+			NOT = {
+				any_in_list = {
+					variable = county_techs
+					scope:st_home_county = { county_can_research_tech = { TECH = PREV } }
+				}
+			}
+		}
+	}
+	
+	option = { name = cotc_steal_technology_outcome_events.300.a }
+}
