@@ -1,4 +1,83 @@
-﻿cotc_politician_template = {
+﻿cotc_new_clone_template = {
+	age = {
+		value = 0
+		if = {
+			limit = { exists = scope:clone_age }
+			add = scope:clone_age
+		}
+	}
+	gender_female_chance = {
+		if = {
+			limit = { scope:artifact = { has_artifact_feature = clone_sex_male } }
+			value = 0
+		}
+		else_if = {
+			limit = { scope:artifact = { has_artifact_feature = clone_sex_female } }
+			value = 100
+		}
+		else = { value = 50 }
+	}
+	trait = clone # Obviously
+	random_traits = no
+	template_character = scope:artifact.var:first_donor
+	culture = scope:artifact.artifact_owner.culture
+	rite = scope:artifact.artifact_owner.rite
+	employer = scope:artifact.artifact_owner
+	dynasty = inherit
+	ethnicity = template_character
+	after_creation = {
+		save_scope_as = clone
+		# Set donor(s) as parents
+		scope:artifact = {
+			var:first_donor ?= {
+				save_scope_as = first_donor
+				if = {
+					limit = { is_female = yes }
+					scope:clone = { set_mother = PREV }
+				}
+				else = { scope:clone = { set_father = PREV } }
+				add_to_variable_list = { name = clones target = scope:clone }
+				scope:clone = { add_to_variable_list = { name = donors target = PREV } }
+			}
+			var:second_donor ?= {
+				save_scope_as = second_donor
+				if = {
+					limit = { is_female = yes }
+					scope:clone = { set_mother = PREV }
+				}
+				else = { scope:clone = { set_father = PREV } }
+				add_to_variable_list = { name = clones target = scope:clone }
+				scope:clone = { add_to_variable_list = { name = donors target = PREV } }
+			}
+		}
+		
+		# Copy donor DNA
+		random_list = {
+			10 = { copy_inheritable_appearance_from = scope:first_donor }
+			10 = {
+				trigger = { exists = scope:second_donor }
+				copy_inheritable_appearance_from = scope:second_donor
+			}
+		}
+		
+		# Copy donor clonable traits
+		scope:artifact = {
+			every_in_list = {
+				variable = cloned_traits
+				scope:clone = { add_trait = PREV }
+			}
+		}
+		
+		# Destroy the gestating clone
+		scope:artifact = {
+			artifact_owner = {
+				trigger_event = cotc_cloning_events.100
+				destroy_owned_artifact = scope:artifact
+			}
+		}
+	}
+}
+cotc_politician_template = {
 	age = { 20 60 }
 	gender_female_chance = { # root is the legislature situation here, so read the spawn province's rite
 		value = 50

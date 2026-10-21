@@ -1,0 +1,188 @@
+﻿commission_single_donor_clone_interaction = {
+	icon = icon_dynasty
+	category = interaction_category_friendly
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:actor = scope:recipient }
+				desc = commission_single_donor_clone_interaction.desc.self
+			}
+			triggered_desc = {
+				trigger = { scope:puppet_or_actor = scope:recipient }
+				desc = commission_single_donor_clone_interaction.desc.puppet
+			}
+			desc = commission_single_donor_clone_interaction.desc.other
+		}
+	}
+	notification_text = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:puppet_or_actor.rite = { rite_has_parameter = hates_cloning } }
+				desc = SINGLE_DONOR_CLONE_ACTOR_HATES_CLONING
+			}
+			triggered_desc = {
+				trigger = { scope:recipient.rite = { rite_has_parameter = hates_cloning } }
+				desc = SINGLE_DONOR_CLONE_RECIPIENT_HATES_CLONING
+			}
+			desc = SINGLE_DONOR_CLONING_CLONING_OKAY
+		}
+	}
+	popup_on_receive = yes
+	pause_on_receive = yes
+	
+	
+	is_available = {
+		trigger_if = {
+			limit = { is_ai = yes }
+			OR = {
+				NOT = { rite = { rite_has_parameter = hates_cloning } }
+				ai_zeal < 0
+			}
+		}
+	}
+	is_shown = { always = yes }
+	is_valid_showing_failures_only = { scope:puppet_or_actor = { single_donor_cloning_allowed_trigger = { DONOR = scope:recipient } } }
+	cooldown_against_recipient = { years = 2 }
+	cost = { gold = { value = clone_cost } }
+	
+	ai_targets = { ai_recipients = self }
+	ai_targets = {
+		ai_recipients = family
+		max = 10
+	}
+	ai_frequency = 24
+	ai_will_do = {
+		base = 0
+		# Needs a positive reason to do this
+		modifier = { # Passing on good genes conforms to our ideology
+			add = {
+				scope:recipient = {
+					add = num_of_good_genetic_traits
+					subtract = num_of_bad_genetic_traits
+					multiply = 10
+				}
+				scope:actor = {
+					multiply = {
+						add = 100
+						add = ai_zeal
+						min = 0
+						divide = 100
+					}
+				}
+			}
+			scope:actor = { rite = { rite_has_parameter = supports_cloning } }
+		}
+		modifier = { # Actor needs a clone heir
+			add = {
+				value = 100
+				scope:recipient = {
+					every_in_list = {
+						variable = clones
+						limit = { is_alive = yes }
+						subtract = 50 # Heir and spare
+					}
+				}
+			}
+			scope:recipient = scope:actor
+			scope:actor = { rite = { rite_has_parameter = clone_succession_enabled } }
+		}
+		modifier = { # We want to have children and can't
+			add = {
+				value = 100
+				subtract = {
+					value = scope:actor.fertility
+					multiply = 100
+				}
+			}
+			scope:recipient = scope:actor
+			scope:actor = {
+				is_adult = yes
+				any_child = { count < 1 }
+				is_married = no
+			}
+		}
+		modifier = { # Opinion of target (negative effects only)
+			add = { scope:puppet_or_actor = { add = "opinion(scope:recipient)" } }
+			scope:recipient != scope:puppet_or_actor
+			scope:puppet_or_actor = { opinion = { target = scope:recipient value < 0 } }
+		}
+		modifier = { # Target has enough kids already
+			add = {
+				scope:recipient = {
+					every_child = {
+						limit = {
+							is_alive = yes
+							reverse_opinion = { target = scope:actor value > 0 }
+						}
+						subtract = "reverse_opinion(scope:actor)"
+					}
+				}
+			}
+		}
+	}
+	
+	auto_accept = { scope:recipient = scope:puppet_or_actor }
+	ai_accept = {
+		base = 50
+		opinion_modifier = { # Opinion Factor
+			who = scope:recipient
+			opinion_target = scope:puppet_or_actor
+			multiplier = 1.0
+			desc = AI_OPINION_REASON
+		}
+		modifier = { # Ideological support
+			add = {
+				value = 100
+				add = scope:recipient.ai_zeal
+				min = 0
+				divide = 2
+			}
+			scope:recipient.rite = { rite_has_parameter = supports_cloning }
+			desc = AI_IDEOLOGY_SUPPORTS_CLONING
+		}
+		modifier = { # Ideological opposition
+			add = {
+				value = -100
+				subtract = scope:recipient.ai_zeal
+				max = 0
+				divide = 2
+			}
+			scope:recipient.rite = { rite_has_parameter = hates_cloning }
+			desc = AI_IDEOLOGY_HATES_CLONING
+		}
+		modifier = { # I have enough kids already
+			add = {
+				scope:recipient = {
+					every_child = {
+						limit = {
+							is_alive = yes
+							reverse_opinion = { target = scope:recipient value > 0 }
+						}
+						subtract = "reverse_opinion(scope:recipient)"
+					}
+				}
+			}
+			scope:recipient = {
+				any_child = {
+					is_alive = yes
+					reverse_opinion = { target = scope:recipient value > 0 }
+				}
+			}
+			desc = AI_ALREADY_HAS_CHILDREN
+		}
+		modifier = { # Who the hell are you?
+			factor = 0
+			scope:recipient = {
+				NOT = { this = scope:puppet_or_actor }
+				NOT = { liege = scope:puppet_or_actor }
+				NOT = { any_close_or_extended_family_member = { this = scope:puppet_or_actor } }
+				NOT = { any_spouse = { this = scope:puppet_or_actor } }
+				NOT = { has_any_scripted_relation = scope:puppet_or_actor }
+			}
+			desc = AI_NO_MEANINGFUL_CONNECTION
+		}
+		
+	}
+	on_accept = { scope:puppet_or_actor = { initiate_single_donor_clone_effect = { DONOR = scope:recipient } } }
+	on_decline = { scope:puppet_or_actor = { add_gold = clone_cost } } # Refund the cost of the clone
+}

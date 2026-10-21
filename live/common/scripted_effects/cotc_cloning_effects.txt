@@ -1,0 +1,73 @@
+﻿copy_genetic_traits_to_clone_effect = {
+	every_character_trait = {
+		limit = { has_trait_flag = clonable }
+		random = {
+			chance = $FIDELITY$
+			save_temporary_scope_as = temp_trait
+			custom_tooltip = {
+				text = clone_inherits_trait
+				if = {
+					limit = { any_opposite_trait = { $CLONE$ = { is_target_in_variable_list = { name = cloned_traits target = PREV } } } }
+					random = {
+						chance = 50
+						$CLONE$ = {
+							every_in_list = {
+								variable = cloned_traits
+								limit = { is_opposite_of_trait = scope:temp_trait }
+								$CLONE$ = { remove_list_variable = { name = cloned_traits target = PREV } }
+							}
+							add_to_variable_list = { name = cloned_traits target = PREV }
+						}
+					}
+				}
+				else = { $CLONE$ = { add_to_variable_list = { name = cloned_traits target = PREV } } }
+			}
+		}
+	}
+}
+create_clone_effect = {
+	save_scope_value_as = { name = clone_gestation_time_value value = clone_gestation_time }
+	save_scope_value_as = { name = clone_fidelity_value value = clone_fidelity }
+	create_artifact = {
+		name = single_donor_clone_name # Name will be chosen once donors are saved
+		description = placeholder # Description will be generated once donors are saved
+		rarity = masterwork # Clones aren't "common", exactly, but they aren't great works of art while gestating, either
+		type = gestating_clone
+		modifier = gestating_clone_modifier
+		template = gestating_clone_template
+		wealth = clone_cost
+		quality = clone_fidelity
+		visuals = rock # Placeholder
+		save_scope_as = newly_created_clone
+	}
+	scope:newly_created_clone = {
+		set_variable = { name = months_remaining value = scope:clone_gestation_time_value }
+		set_variable = { name = first_donor value = scope:first_donor }
+		add_to_variable_list = { name = donors target = scope:first_donor }
+		trigger_event = { on_action = clone_gestation_countdown_on_action months = 1 }
+	}
+	scope:first_donor = { copy_genetic_traits_to_clone_effect = { FIDELITY = scope:clone_fidelity_value CLONE = scope:newly_created_clone } }
+}
+initiate_single_donor_clone_effect = {
+	$DONOR$ = { save_scope_as = first_donor }
+	create_clone_effect = yes
+	scope:newly_created_clone = {
+		set_artifact_name = single_donor_clone_name
+		set_artifact_description = single_donor_clone_description
+	}
+}
+initiate_double_donor_clone = {
+	$FIRST_DONOR$ = { save_scope_as = first_donor }
+	$SECOND_DONOR$ = { save_scope_as = second_donor }
+	create_clone_effect = yes
+	scope:newly_created_clone = {
+		set_variable = { name = second_donor value = scope:second_donor }
+		add_to_variable_list = { name = donors target = scope:second_donor }
+		set_artifact_name = double_donor_clone_name
+		set_artifact_description = double_donor_clone_description
+	}
+	scope:second_donor = {
+		add_personal_artifact_claim = scope:newly_created_clone
+		copy_genetic_traits_to_clone_effect = { FIDELITY = scope:clone_fidelity_value CLONE = scope:newly_created_clone }
+	}
+}

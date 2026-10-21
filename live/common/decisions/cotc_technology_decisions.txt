@@ -268,6 +268,96 @@
 				}
 			}
 		}
+		item = {
+			value = reliable_cloning
+			is_shown = { NOT = { character_has_tech = { TECH = culture_innovation:innovation_reliable_cloning } } }
+			is_valid = { can_research_tech_by_string = { TECH = reliable_cloning } }
+			localization = start_research_project_reliable_cloning
+			icon = "gfx/interface/icons/culture_innovations/innovation_reliable_cloning_sq.dds"
+			ai_chance = {
+				add = {
+					integer_range = {
+						min = 0
+						max = {
+							add = cloning_research_project_score
+							min = 0
+						}
+					}
+				}
+			}
+		}
+		item = {
+			value = gene_synthesis
+			is_shown = { NOT = { character_has_tech = { TECH = culture_innovation:innovation_gene_synthesis } } }
+			is_valid = { can_research_tech_by_string = { TECH = gene_synthesis } }
+			localization = start_research_project_gene_synthesis
+			icon = "gfx/interface/icons/culture_innovations/innovation_gene_synthesis_sq.dds"
+			ai_chance = {
+				add = {
+					integer_range = {
+						min = 0
+						max = {
+							add = cloning_research_project_score
+							min = 0
+						}
+					}
+				}
+			}
+		}
+		item = {
+			value = supplemented_gestation
+			is_shown = { NOT = { character_has_tech = { TECH = culture_innovation:innovation_supplemented_gestation } } }
+			is_valid = { can_research_tech_by_string = { TECH = supplemented_gestation } }
+			localization = start_research_project_supplemented_gestation
+			icon = "gfx/interface/icons/culture_innovations/innovation_supplemented_gestation_sq.dds"
+			ai_chance = {
+				add = {
+					integer_range = {
+						min = 0
+						max = {
+							add = cloning_research_project_score
+							min = 0
+						}
+					}
+				}
+			}
+		}
+		item = {
+			value = perfect_clones
+			is_shown = { NOT = { character_has_tech = { TECH = culture_innovation:innovation_perfect_clones } } }
+			is_valid = { can_research_tech_by_string = { TECH = perfect_clones } }
+			localization = start_research_project_perfect_clones
+			icon = "gfx/interface/icons/culture_innovations/innovation_perfect_clones_sq.dds"
+			ai_chance = {
+				add = {
+					integer_range = {
+						min = 0
+						max = {
+							add = cloning_research_project_score
+							min = 0
+						}
+					}
+				}
+			}
+		}
+		item = {
+			value = in_vitro_development
+			is_shown = { NOT = { character_has_tech = { TECH = culture_innovation:innovation_in_vitro_development } } }
+			is_valid = { can_research_tech_by_string = { TECH = in_vitro_development } }
+			localization = start_research_project_in_vitro_development
+			icon = "gfx/interface/icons/culture_innovations/innovation_in_vitro_development_sq.dds"
+			ai_chance = {
+				add = {
+					integer_range = {
+						min = 0
+						max = {
+							add = cloning_research_project_score
+							min = 0
+						}
+					}
+				}
+			}
+		}
 	}
 	
 	effect = {
@@ -359,6 +449,48 @@
 					add_to_list = { name = research_project_flags value = flag:engineering }
 					save_scope_value_as = { name = max_engineer_slots value = 3 }
 					save_scope_value_as = { name = max_officer_slots value = 2 }
+				}
+				scope:reliable_cloning = {
+					culture_innovation:innovation_reliable_cloning = { save_scope_as = research_subject }
+					add_to_list = { name = research_project_flags value = flag:medical }
+					add_to_list = { name = research_project_flags value = flag:transhumanist }
+					add_to_list = { name = research_project_flags value = flag:praxis }
+					add_to_list = { name = research_project_flags value = flag:cloning }
+					save_scope_value_as = { name = max_doctor_slots value = 3 }
+					save_scope_value_as = { name = max_sociologist_slots value = 2 }
+				}
+				scope:gene_synthesis = {
+					culture_innovation:innovation_gene_synthesis = { save_scope_as = research_subject }
+					add_to_list = { name = research_project_flags value = flag:medical }
+					add_to_list = { name = research_project_flags value = flag:transhumanist }
+					add_to_list = { name = research_project_flags value = flag:engineering }
+					add_to_list = { name = research_project_flags value = flag:cloning }
+					save_scope_value_as = { name = max_doctor_slots value = 3 }
+					save_scope_value_as = { name = max_engineer_slots value = 2 }
+				}
+				scope:supplemented_gestation = {
+					culture_innovation:innovation_supplemented_gestation = { save_scope_as = research_subject }
+					add_to_list = { name = research_project_flags value = flag:medical }
+					add_to_list = { name = research_project_flags value = flag:transhumanist }
+					add_to_list = { name = research_project_flags value = flag:engineering }
+					add_to_list = { name = research_project_flags value = flag:cloning }
+					save_scope_value_as = { name = max_doctor_slots value = 5 }
+				}
+				scope:perfect_clones = {
+					culture_innovation:innovation_perfect_clones = { save_scope_as = research_subject }
+					add_to_list = { name = research_project_flags value = flag:medical }
+					add_to_list = { name = research_project_flags value = flag:transhumanist }
+					add_to_list = { name = research_project_flags value = flag:engineering }
+					add_to_list = { name = research_project_flags value = flag:cloning }
+					save_scope_value_as = { name = max_doctor_slots value = 5 }
+				}
+				scope:in_vitro_development = {
+					culture_innovation:innovation_in_vitro_development = { save_scope_as = research_subject }
+					add_to_list = { name = research_project_flags value = flag:medical }
+					add_to_list = { name = research_project_flags value = flag:transhumanist }
+					add_to_list = { name = research_project_flags value = flag:engineering }
+					add_to_list = { name = research_project_flags value = flag:cloning }
+					save_scope_value_as = { name = max_doctor_slots value = 5 }
 				}
 			}
 			add_character_flag = starting_research_project

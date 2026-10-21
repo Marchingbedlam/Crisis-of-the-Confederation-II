@@ -1,0 +1,164 @@
+﻿namespace = cotc_cloning_events
+
+cotc_cloning_events.100 = { # Clone decanted
+	title = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					OR = {
+						scope:first_donor = ROOT
+						scope:second_donor ?= { this = ROOT }
+					}
+				}
+				desc = cotc_cloning_events.100.title.my_clone
+			}
+			desc = cotc_cloning_events.100.title.other
+		}
+	}
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					exists = scope:second_donor
+					ROOT = scope:first_donor
+				}
+				desc = cotc_cloning_events.100.desc.double_donor.first_donor
+			}
+			triggered_desc = {
+				trigger = {
+					exists = scope:second_donor
+					ROOT = scope:second_donor
+				}
+				desc = cotc_cloning_events.100.desc.double_donor.second_donor
+			}
+			triggered_desc = {
+				trigger = { exists = scope:second_donor }
+				desc = cotc_cloning_events.100.desc.double_donor.third_party
+			}
+			triggered_desc = {
+				trigger = { ROOT = scope:first_donor }
+				desc = cotc_cloning_events.100.desc.single_donor.first_donor
+			}
+			desc = cotc_cloning_events.100.desc.single_donor.third_party
+		}
+		desc = {
+			first_valid = {
+				triggered_desc = {
+					trigger = { exists = scope:monarch_title }
+					desc = cotc_cloning_events.100.desc.monarch_heir
+				}
+				triggered_desc = {
+					trigger = { exists = scope:leader_title }
+					desc = cotc_cloning_events.100.desc.leader_heir
+				}
+				desc = birth.1001.end_fallback.desc
+			}
+		}
+	}
+	theme = pregnancy
+	right_portrait = {
+		character = ROOT
+		triggered_animation = {
+			trigger = { exists = cp:councillor_chief_scientist }
+			animation = interested
+		}
+		animation = newborn
+	}
+	left_portrait = {
+		trigger = { exists = cp:councillor_chief_scientist }
+		character = cp:councillor_chief_scientist
+		animation = newborn
+	}
+	lower_left_portrait = scope:clone
+	lower_center_portrait = scope:first_donor
+	lower_right_portrait = scope:second_donor
+	
+	immediate = {
+		play_music_cue_once = { TRACK = mx_cue_birth }
+		if = {
+			limit = {
+				government_has_flag = government_is_aristocratic
+				primary_title = { current_heir = scope:clone }
+			}
+			primary_title = { save_scope_as = monarch_title }
+		}
+		else_if = {
+			limit = { any_held_title = { current_heir = scope:clone } }
+			ordered_held_title = {
+				limit = { current_heir = scope:clone }
+				order_by = tier
+				save_scope_as = leader_title
+			}
+		}
+	}
+
+
+	#NAMING WIDGET
+	widgets = {
+		widget = {
+			gui = "event_window_widget_name_child"
+			container = "dynamic_birth_name"
+			controller = name_character
+			setup_scope = { scope:clone = { save_scope_as = name_character_target } }
+		}
+	}
+
+	option = {
+		name = cotc_cloning_events.100.a
+		add_prestige = minor_prestige_gain
+		save_scope_as = decanter
+		scope:clone = {
+			every_in_list = {
+				variable = donors
+				limit = { NOT = { this = scope:decanter } }
+				trigger_event = cotc_cloning_events.101 # Our clone has been decanted by the other donor
+				trigger_event = cotc_cloning_events.102 # Our clone has been decanted by someone else completely
+			}
+		}
+	}
+}
+cotc_cloning_events.101 = {
+	title = cotc_cloning_events.100
+	desc = cotc_cloning_events.101.desc
+	theme = pregnancy
+	right_portrait = {
+		character = scope:decanter
+		animation = newborn
+	}
+	left_portrait = {
+		character = ROOT
+		animation = interested
+	}
+	lower_left_portrait = scope:clone
+	trigger = { scope:clone = { is_target_in_variable_list = { name = donors target = scope:decanter } } }
+	
+	immediate = {
+		play_music_cue_once = { TRACK = mx_cue_birth }
+	}
+
+	option = {
+		name = cotc_cloning_events.101.a
+		add_prestige = minor_prestige_gain
+	}
+}
+cotc_cloning_events.102 = {
+	title = cotc_cloning_events.100
+	desc = cotc_cloning_events.102.desc
+	theme = pregnancy
+	right_portrait = {
+		character = scope:decanter
+		animation = newborn
+	}
+	left_portrait = {
+		character = ROOT
+		animation = angry
+	}
+	lower_left_portrait = scope:clone
+	trigger = { scope:clone = { NOT = { is_target_in_variable_list = { name = donors target = scope:decanter } } } }
+	
+	immediate = {
+		play_music_cue_once = { TRACK = mx_cue_birth }
+	}
+
+	option = { name = cotc_cloning_events.102.a }
+}

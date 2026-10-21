@@ -1,0 +1,29 @@
+﻿clone_cost = {
+	value = 100
+}
+clone_fidelity = {
+	value = 70
+	if = {
+		limit = { character_has_tech_by_string = { TECH = reliable_cloning } }
+		add = 5
+	}
+	if = {
+		limit = { character_has_tech_by_string = { TECH = gene_synthesis } }
+		add = 10
+	}
+	if = {
+		limit = { character_has_tech_by_string = { TECH = perfect_clones } }
+		add = 15
+	}
+	min = 0
+	max = 100
+}
+clone_gestation_time = {
+	value = 9
+	if = {
+		limit = { character_has_tech_by_string = { TECH = supplemented_gestation } }
+		subtract = 3
+	}
+	round = yes
+	min = 0
+}

@@ -1,0 +1,17 @@
+﻿@cloning = "gfx/interface/icons/culture_innovations/innovation_cloning.dds"
+
+innovation_reliable_cloning = {
+	culture_era = culture_era_early_medieval
+	group = culture_group_civic
+	skill = learning
+	icon = @cloning
+	
+	ai_weight_for_spread = { value = 100 }
+	ai_weight_for_fascination = { value = 100 }
+	can_progress = { has_innovation = innovation_cloning }
+	parameters = {
+		confederate_civic = yes
+		reliable_cloning_fidelity_buff = yes
+	}
+	flag = early_medieval_era_regular
+}

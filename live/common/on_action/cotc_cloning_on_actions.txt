@@ -1,0 +1,19 @@
+﻿clone_gestation_countdown_on_action = { # Track the months until the clone is ready for decanting
+	effect = {
+		if = { # Continue countdown
+			limit = { var:months_remaining > 0 }
+			change_variable = { name = months_remaining subtract = 1 }
+			set_artifact_description = single_donor_clone_description
+			trigger_event = { on_action = clone_gestation_countdown_on_action months = 1 }
+		}
+		else = { # Decant clone
+			save_scope_as = artifact
+			var:first_donor = { save_scope_as = first_donor }
+			var:second_donor ?= { save_scope_as = second_donor }
+			create_character = {
+				employer = scope:artifact.artifact_owner
+				template = cotc_new_clone_template
+			}
+		}
+	}
+}
