@@ -1109,9 +1109,9 @@ scripted_effect cotc_prime_minister_opposed_ideology_challenge = {
 				multiplier = 3.5
 				min = -49
 			}
-			ideology_compatibility_modifier = { FAITH = scope:actor.faith TARGET = scope:activity.var:title.state_faith SCALE = 5 }
-			ideology_compatibility_modifier = { FAITH = scope:actor.faith TARGET = scope:activity.var:ruler.faith SCALE = 3.5 }
-			average_sub_realm_ideology_compatibility_modifier = { FAITH = scope:actor.faith TARGET = scope:activity.var:title SCALE = 3.5 }
+			rite_compatibility_modifier = { RITE = scope:actor.rite TARGET = scope:activity.var:title.state_rite SCALE = 5 }
+			rite_compatibility_modifier = { RITE = scope:actor.rite TARGET = scope:activity.var:ruler.rite SCALE = 3.5 }
+			average_sub_realm_rite_compatibility_modifier = { RITE = scope:actor.rite TARGET = scope:activity.var:title SCALE = 3.5 }
 			modifier = {
 				add = {
 					value = scope:actor.faith.fervor
@@ -1173,9 +1173,9 @@ scripted_effect cotc_prime_minister_opposed_ideology_challenge = {
 				multiplier = -3.5
 				min = -49
 			}
-			ideology_compatibility_modifier = { FAITH = scope:opponent.faith TARGET = scope:activity.var:title.state_faith SCALE = 5 }
-			ideology_compatibility_modifier = { FAITH = scope:opponent.faith TARGET = scope:activity.var:ruler.faith SCALE = 3.5 }
-			average_sub_realm_ideology_compatibility_modifier = { FAITH = scope:opponent.faith TARGET = scope:activity.var:title SCALE = 3.5 }
+			rite_compatibility_modifier = { RITE = scope:actor.rite TARGET = scope:activity.var:title.state_rite SCALE = 5 }
+			rite_compatibility_modifier = { RITE = scope:actor.rite TARGET = scope:activity.var:ruler.rite SCALE = 3.5 }
+			average_sub_realm_rite_compatibility_modifier = { RITE = scope:actor.rite TARGET = scope:activity.var:title SCALE = 3.5 }
 			modifier = {
 				add = {
 					value = scope:opponent.faith.fervor
@@ -1244,9 +1244,9 @@ scripted_effect cotc_prime_minister_unopposed_ideology_challenge = {
 				multiplier = 3.5
 				min = -49
 			}
-			ideology_compatibility_modifier = { FAITH = scope:actor.faith TARGET = scope:activity.var:title.state_faith SCALE = 5 }
-			ideology_compatibility_modifier = { FAITH = scope:actor.faith TARGET = scope:activity.var:ruler.faith SCALE = 3.5 }
-			average_sub_realm_ideology_compatibility_modifier = { FAITH = scope:actor.faith TARGET = scope:activity.var:title SCALE = 3.5 }
+			rite_compatibility_modifier = { RITE = scope:actor.rite TARGET = scope:activity.var:title.state_rite SCALE = 5 }
+			rite_compatibility_modifier = { RITE = scope:actor.rite TARGET = scope:activity.var:ruler.rite SCALE = 3.5 }
+			average_sub_realm_rite_compatibility_modifier = { RITE = scope:actor.rite TARGET = scope:activity.var:title SCALE = 3.5 }
 			modifier = {
 				add = {
 					value = scope:actor.faith.fervor
@@ -1308,9 +1308,9 @@ scripted_effect cotc_prime_minister_unopposed_ideology_challenge = {
 				multiplier = -3.5
 				min = -49
 			}
-			ideology_compatibility_modifier = { FAITH = scope:opponent.faith TARGET = scope:activity.var:title.state_faith SCALE = 5 }
-			ideology_compatibility_modifier = { FAITH = scope:opponent.faith TARGET = scope:activity.var:ruler.faith SCALE = 3.5 }
-			average_sub_realm_ideology_compatibility_modifier = { FAITH = scope:opponent.faith TARGET = scope:activity.var:title SCALE = 3.5 }
+			rite_compatibility_modifier = { RITE = scope:actor.rite TARGET = scope:activity.var:title.state_rite SCALE = 5 }
+			rite_compatibility_modifier = { RITE = scope:actor.rite TARGET = scope:activity.var:ruler.rite SCALE = 3.5 }
+			average_sub_realm_rite_compatibility_modifier = { RITE = scope:actor.rite TARGET = scope:activity.var:title SCALE = 3.5 }
 			modifier = {
 				add = {
 					value = scope:opponent.faith.fervor
@@ -3159,12 +3159,12 @@ cotc_no_confidence_events.300 = {
 					}
 				}
 			}
-			ideology_compatibility_modifier = { FAITH = scope:actor.faith TARGET = scope:activity.var:title.state_faith SCALE = 1.5 }
-			ideology_compatibility_modifier = { FAITH = scope:actor.faith TARGET = scope:activity.var:ruler.faith SCALE = 1 }
-			average_sub_realm_ideology_compatibility_modifier = { FAITH = scope:actor.faith TARGET = scope:activity.var:title SCALE = 1 }
-			ideology_compatibility_modifier = { FAITH = scope:opponent.faith TARGET = scope:activity.var:title.state_faith SCALE = -1.5 }
-			ideology_compatibility_modifier = { FAITH = scope:opponent.faith TARGET = scope:activity.var:ruler.faith SCALE = -1 }
-			average_sub_realm_ideology_compatibility_modifier = { FAITH = scope:opponent.faith TARGET = scope:activity.var:title SCALE = -1 }
+			rite_compatibility_modifier = { RITE = scope:actor.rite TARGET = scope:activity.var:title.state_rite SCALE = 5 }
+			rite_compatibility_modifier = { RITE = scope:actor.rite TARGET = scope:activity.var:ruler.rite SCALE = 3.5 }
+			average_sub_realm_rite_compatibility_modifier = { RITE = scope:actor.rite TARGET = scope:activity.var:title SCALE = 3.5 }
+			rite_compatibility_modifier = { RITE = scope:opponent.rite TARGET = scope:activity.var:title.state_rite SCALE = 5 }
+			rite_compatibility_modifier = { RITE = scope:opponent.rite TARGET = scope:activity.var:ruler.rite SCALE = 3.5 }
+			average_sub_realm_rite_compatibility_modifier = { RITE = scope:opponent.rite TARGET = scope:activity.var:title SCALE = 3.5 }
 			modifier = {
 				add = {
 					value = scope:actor.faith.fervor

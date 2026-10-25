@@ -637,7 +637,7 @@ window = {
 									
 									max_height = 40
 									
-									visible = "[Character.GetGovernment.HasRule( 'state_faith' )]"
+									visible = "[Character.GetGovernment.HasRule( 'state_rite' )]"
 													
 									text_multi = {
 										layoutpolicy_horizontal = expanding
@@ -652,7 +652,7 @@ window = {
 									text_multi = {
 										layoutpolicy_horizontal = expanding
 										layoutpolicy_vertical = expanding
-										text = "[Title.GetStateFaith.GetName]"
+										text = "[Title.GetStateRite.GetName]"
 										autoresize = no
 										align = right|nobaseline
 										max_width = 400
@@ -666,7 +666,7 @@ window = {
 									
 									max_height = 40
 									
-									visible = "[Character.GetGovernment.HasRule( 'state_faith' )]"
+									visible = "[Character.GetGovernment.HasRule( 'state_rite' )]"
 													
 									text_multi = {
 										layoutpolicy_horizontal = expanding
@@ -836,20 +836,20 @@ window = {
 
 											item = {
 												hbox = {
-													datacontext = "[Scope.Faith]"
+													datacontext = "[Scope.Rite]"
 													layoutpolicy_vertical = expanding
 													layoutpolicy_horizontal = expanding
 													
 													icon = {
 														name = "faith_icon"
-														texture = "[Faith.GetIcon]"
+														texture = "[Rite.GetIcon]"
 														size = { 60 60 }
 													}
 													
 													text_multi = {
 														layoutpolicy_horizontal = expanding
 														layoutpolicy_vertical = expanding
-														text = "[Faith.GetAdjective]"
+														text = "[Rite.GetAdjective]"
 														autoresize = no
 														align = left|nobaseline
 														max_width = 400
@@ -859,7 +859,7 @@ window = {
 													text_multi = {
 														layoutpolicy_horizontal = expanding
 														layoutpolicy_vertical = expanding
-														text = "[GuiScope.SetRoot( Faith.MakeScope ).AddScope( 'party_legislature', SituationWindow.GetSituation.MakeScope ).ScriptValue('ideology_represented_in_legislature')]"
+														text = "[GuiScope.SetRoot( Rite.MakeScope ).AddScope( 'party_legislature', SituationWindow.GetSituation.MakeScope ).ScriptValue('rite_represented_in_legislature')]"
 														autoresize = no
 														align = right|nobaseline
 														max_width = 400
@@ -1206,8 +1206,8 @@ window = {
 														
 														hbox = {
 															icon = {
-																datacontext = "[Character.GetFaith]"
-																texture = "[Faith.GetIcon]"
+																datacontext = "[Character.GetRite]"
+																texture = "[Rite.GetIcon]"
 																size = { 45 45 }
 
 																tooltipwidget = {
@@ -1218,7 +1218,7 @@ window = {
 															text_single = {
 																min_width = 200
 																max_width = 200
-																text = "LEGISLATURE_FAITH_CHARACTER_NAME"
+																text = "LEGISLATURE_RITE_CHARACTER_NAME"
 																align = nobaseline
 																fontsize_min = 13
 															}
@@ -1334,15 +1334,15 @@ types LegislatureWindowTypes
 					layoutpolicy_horizontal = expanding
 					min_height = 35
 					max_height = 35
-					datacontext = "[Character.GetFaith]"
+					datacontext = "[Character.GetRite]"
 					text_label_left = {
 						min_width = 100
 						max_width = 100
-						text = "LEGISLATOR_FAITH_LABEL"
+						text = "LEGISLATOR_RITE_LABEL"
 						align = nobaseline
 					}
 					icon = {
-						texture = "[Faith.GetIcon]"
+						texture = "[Rite.GetIcon]"
 						size = { 35 35 }
 
 						tooltipwidget = {
@@ -1352,7 +1352,7 @@ types LegislatureWindowTypes
 					text_single = {
 						min_width = 200
 						max_width = 200
-						text = "[Faith.GetName]"
+						text = "[Rite.GetName]"
 						align = nobaseline
 					}
 					expand = { }

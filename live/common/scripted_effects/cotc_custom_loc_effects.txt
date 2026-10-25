@@ -16,7 +16,7 @@
 		random_list = {
 			1 = { # Business interest group
 				modifier = { add = stewardship }
-				modifier = { factor = { value = faith.ideology_interventionism multiply = -1 } }
+				modifier = { factor = { value = rite.rite_interventionism multiply = -1 } }
 				random_list = {
 					1 = {
 						set_variable = { name = interest_group_name_format value = flag:type_group }
@@ -34,7 +34,7 @@
 			}
 			1 = { # Labor interest group
 				modifier = { add = { value = piety_level multiply = 3.5 } }
-				modifier = { factor = { value = faith.ideology_interventionism } }
+				modifier = { factor = { value = rite.rite_interventionism } }
 				random_list = {
 					1 = {
 						set_variable = { name = interest_group_name_format value = flag:type_group }
@@ -52,7 +52,7 @@
 			}
 			1 = { # Military interest group
 				modifier = { add = martial }
-				modifier = { factor = { value = faith.ideology_hawkishness } }
+				modifier = { factor = { value = rite.rite_hawkishness } }
 				random_list = {
 					1 = {
 						set_variable = { name = interest_group_name_format value = flag:type_group }
@@ -66,7 +66,7 @@
 			}
 			1 = { # Pacifist interest group
 				modifier = { add = diplomacy }
-				modifier = { factor = { value = faith.ideology_hawkishness multiply = -1 } }
+				modifier = { factor = { value = rite.rite_hawkishness multiply = -1 } }
 				random_list = {
 					1 = {
 						set_variable = { name = interest_group_name_format value = flag:type_group }
@@ -80,7 +80,7 @@
 			}
 			1 = { # Academic interest group
 				modifier = { add = learning }
-				modifier = { factor = { value = faith.ideology_intellectualism } }
+				modifier = { factor = { value = rite.rite_intellectualism } }
 				random_list = {
 					1 = {
 						set_variable = { name = interest_group_name_format value = flag:type_group }
@@ -112,7 +112,7 @@
 			# }
 			1 = { # Conservative interest group
 				modifier = { add = { value = piety_level multiply = 3.5 } }
-				modifier = { factor = { value = faith.ideology_intellectualism multiply = -1 } }
+				modifier = { factor = { value = rite.rite_intellectualism multiply = -1 } }
 				random_list = {
 					1 = {
 						set_variable = { name = interest_group_name_format value = flag:type_group }
@@ -126,7 +126,7 @@
 			}
 			1 = { # Religious interest group
 				modifier = { add = { value = piety_level multiply = 3.5 } }
-				modifier = { factor = { value = faith.ideology_mysticism } }
+				modifier = { factor = { value = rite.rite_mysticism } }
 				random_list = {
 					1 = {
 						set_variable = { name = interest_group_name_format value = flag:type_group }
@@ -140,7 +140,7 @@
 			}
 			1 = { # Libertarian interest group
 				modifier = { add = { value = piety_level multiply = 3.5 } }
-				modifier = { factor = { value = faith.ideology_authoritarianism multiply = -1 } }
+				modifier = { factor = { value = rite.rite_authoritarianism multiply = -1 } }
 				random_list = {
 					1 = {
 						set_variable = { name = interest_group_name_format value = flag:type_group }
@@ -154,7 +154,7 @@
 			}
 			1 = { # Authoritarian interest group
 				modifier = { add = { value = piety_level multiply = 3.5 } }
-				modifier = { factor = { value = faith.ideology_authoritarianism } }
+				modifier = { factor = { value = rite.rite_authoritarianism } }
 				random_list = {
 					1 = {
 						set_variable = { name = interest_group_name_format value = flag:type_group }
@@ -293,15 +293,15 @@ set_military_interest_group = {
 		1 = { set_variable = { name = interest_group_type value = flag:veterans days = 5 } }
 		1 = { set_variable = { name = interest_group_type value = flag:victory days = 5 } }
 		1 = {
-			trigger = { faith = { has_tenet = tenet_chivalry } }
+			trigger = { rite = { rite_has_tenet = tenet_chivalry } }
 			set_variable = { name = interest_group_type value = flag:chivalric days = 5 }
 		}
 		1 = { set_variable = { name = interest_group_type value = flag:military days = 5 } }
 		1 = {
 			trigger = {
-				faith = {
-					NOT = { has_doctrine = doctrine_metroplanetism }
-					NOT = { has_doctrine = doctrine_anti_metroplanetism }
+				rite = {
+					NOT = { rite_has_doctrine = doctrine_metroplanetism }
+					NOT = { rite_has_doctrine = doctrine_anti_metroplanetism }
 				}
 			}
 			set_variable = { name = interest_group_type value = flag:patriots days = 5 }
@@ -319,7 +319,7 @@ set_pacifist_interest_group = {
 		1 = { set_variable = { name = interest_group_type value = flag:peace days = 5 } }
 		1 = { set_variable = { name = interest_group_type value = flag:coexistence days = 5 } }
 		1 = {
-			trigger = { NOT = { faith = { has_doctrine = doctrine_particularism } } }
+			trigger = { NOT = { rite = { rite_has_doctrine = doctrine_particularism } } }
 			set_variable = { name = interest_group_type value = flag:peace days = 5 }
 		}
 		1 = { set_variable = { name = interest_group_type value = flag:anti_war days = 5 } }
@@ -383,7 +383,7 @@ set_conservative_interest_group = {
 		1 = { set_variable = { name = interest_group_type value = flag:puritan days = 5 } }
 		1 = { set_variable = { name = interest_group_type value = flag:family days = 5 } }
 		1 = {
-			trigger = { faith = { has_doctrine = religious_hostility_doctrine } }
+			trigger = { rite = { rite_has_doctrine = religious_hostility_doctrine } }
 			set_variable = { name = interest_group_type value = flag:orthodox days = 5 }
 		}
 	}

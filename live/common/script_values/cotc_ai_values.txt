@@ -6,20 +6,42 @@
 		limit = { has_variable = ai_faith_in_democracy }
 		subtract = var:ai_faith_in_democracy
 	}
-	
-	if = {
-		limit = { exists = secret_faith }
-		secret_faith ?= { save_temporary_scope_as = real_ideology }
-	}
-	else = { faith = { save_temporary_scope_as = real_ideology } }
 	add = {
 		value = 10
 		add = ai_zeal
 		min = 0
-		scope:real_ideology ?= {
-			multiply = ideology_authoritarianism
-			multiply = fervor
-			divide = 100
+		if = {
+			limit = { has_variable = secret_rite }
+			var:secret_rite ?= {
+				multiply = rite_authoritarianism
+				multiply = faith.fervor
+				divide = 100
+			}
+		}
+		else_if = {
+			limit = { exists = secret_faith }
+			secret_faith ?= {
+				multiply = faith_authoritarianism
+				multiply = fervor
+				divide = 100
+			}
+		}
+		else = {
+			rite = {
+				multiply = rite_authoritarianism
+				multiply = faith.fervor
+				divide = 100
+			}
+		}
+	}
+	every_personal_tenet = {
+		switch = {
+			trigger = this
+			tenet_harmonious_society = { add = 15 }
+			tenet_federalism = { add = 15 }
+			tenet_pursuit_of_power = { add = 15 }
+			tenet_spacer_values = { add = 15 }
+			tenet_communal_possessions = { subtract = 15 }
 		}
 	}
 }
@@ -27,20 +49,43 @@
 ai_lawfulness = { # How much does this character value the rule of law?
 	value = 0
 	add = ai_honor
-	
-	if = {
-		limit = { exists = secret_faith }
-		secret_faith ?= { save_temporary_scope_as = real_ideology }
-	}
-	else = { faith = { save_temporary_scope_as = real_ideology } }
 	add = {
 		value = 10
 		add = ai_zeal
 		min = 0
-		scope:real_ideology ?= {
-			multiply = ideology_lawfulness
-			multiply = fervor
-			divide = 100
+		if = {
+			limit = { has_variable = secret_rite }
+			var:secret_rite ?= {
+				multiply = rite_lawfulness
+				multiply = faith.fervor
+				divide = 100
+			}
+		}
+		else_if = {
+			limit = { exists = secret_faith }
+			secret_faith ?= {
+				multiply = faith_lawfulness
+				multiply = fervor
+				divide = 100
+			}
+		}
+		else = {
+			rite = {
+				multiply = rite_lawfulness
+				multiply = faith.fervor
+				divide = 100
+			}
+		}
+	}
+	every_personal_tenet = {
+		switch = {
+			trigger = this
+			tenet_upstanding_citizens = { add = 15 }
+			tenet_legalism = { add = 30 }
+			tenet_religious_legal_pronouncements = { add = 30 }
+			tenet_benevolent_governance = { add = 15 }
+			tenet_harmonious_society = { add = 15 }
+			tenet_sacred_shadows = { subtract = 15 }
 		}
 	}
 }
@@ -50,20 +95,50 @@ ai_hawkishness = { # How does this character feel about war?
 	subtract = ai_compassion
 	add = martial
 	subtract = diplomacy
-	
-	if = {
-		limit = { exists = secret_faith }
-		secret_faith ?= { save_temporary_scope_as = real_ideology }
-	}
-	else = { faith = { save_temporary_scope_as = real_ideology } }
 	add = {
 		value = 10
 		add = ai_zeal
 		min = 0
-		scope:real_ideology ?= {
-			multiply = ideology_hawkishness
-			multiply = fervor
-			divide = 100
+		if = {
+			limit = { has_variable = secret_rite }
+			var:secret_rite ?= {
+				multiply = rite_hawkishness
+				multiply = faith.fervor
+				divide = 100
+			}
+		}
+		else_if = {
+			limit = { exists = secret_faith }
+			secret_faith ?= {
+				multiply = faith_hawkishness
+				multiply = fervor
+				divide = 100
+			}
+		}
+		else = {
+			rite = {
+				multiply = rite_hawkishness
+				multiply = faith.fervor
+				divide = 100
+			}
+		}
+	}
+	every_personal_tenet = {
+		switch = {
+			trigger = this
+			tenet_armed_pilgrimages = { add = 15 }
+			tenet_warmonger = { add = 30 }
+			tenet_pure_land = { add = 15 }
+			tenet_cranial_trophies = { add = 15 }
+			tenet_extinction_of_dharma = { add = 45 }
+			tenet_human_sacrifice = { add = 30 }
+			tenet_gruesome_festivals = { add = 30 }
+			tenet_sacrificial_ceremonies = { add = 30 }
+			tenet_harmonious_society = { subtract = 15 }
+			tenet_preservation = { subtract = 15 }
+			tenet_pastoral_isolation = { subtract = 15 }
+			tenet_pacifism = { subtract = 30 }
+			tenet_dharmic_pacifism = { subtract = 30 }
 		}
 	}
 }
@@ -74,20 +149,44 @@ ai_intellectualism = { # How does this character feel about science and educatio
 		multiply = 2
 	}
 	add = learning
-	
-	if = {
-		limit = { exists = secret_faith }
-		secret_faith ?= { save_temporary_scope_as = real_ideology }
-	}
-	else = { faith = { save_temporary_scope_as = real_ideology } }
 	add = {
 		value = 10
 		add = ai_zeal
 		min = 0
-		scope:real_ideology ?= {
-			multiply = ideology_intellectualism
-			multiply = fervor
-			divide = 100
+		if = {
+			limit = { has_variable = secret_rite }
+			var:secret_rite ?= {
+				multiply = rite_intellectualism
+				multiply = faith.fervor
+				divide = 100
+			}
+		}
+		else_if = {
+			limit = { exists = secret_faith }
+			secret_faith ?= {
+				multiply = faith_intellectualism
+				multiply = fervor
+				divide = 100
+			}
+		}
+		else = {
+			rite = {
+				multiply = rite_intellectualism
+				multiply = faith.fervor
+				divide = 100
+			}
+		}
+	}
+	every_personal_tenet = {
+		switch = {
+			trigger = this
+			tenet_alexandrian_catechism = { add = 30 }
+			tenet_pursuit_of_knowledge = { add = 30 }
+			tenet_cyberneticism = { add = 15 }
+			tenet_bio_directionism = { add = 15 }
+			tenet_genetic_dynasties = { add = 15 }
+			tenet_literalism = { subtract = 15 }
+			tenet_sacred_shadows = { subtract = 15 }
 		}
 	}
 }
@@ -121,59 +220,131 @@ ai_interventionism = { # How does this character feel about government intervent
 	add = ai_compassion
 	subtract = ai_vengefulness
 	subtract = stewardship
-	
-	if = {
-		limit = { exists = secret_faith }
-		secret_faith ?= { save_temporary_scope_as = real_ideology }
-	}
-	else = { faith = { save_temporary_scope_as = real_ideology } }
 	add = {
 		value = 10
 		add = ai_zeal
 		min = 0
-		scope:real_ideology ?= {
-			multiply = ideology_interventionism
-			multiply = fervor
-			divide = 100
+		if = {
+			limit = { has_variable = secret_rite }
+			var:secret_rite ?= {
+				multiply = rite_interventionism
+				multiply = faith.fervor
+				divide = 100
+			}
+		}
+		else_if = {
+			limit = { exists = secret_faith }
+			secret_faith ?= {
+				multiply = faith_interventionism
+				multiply = fervor
+				divide = 100
+			}
+		}
+		else = {
+			rite = {
+				multiply = rite_interventionism
+				multiply = faith.fervor
+				divide = 100
+			}
+		}
+	}
+	every_personal_tenet = {
+		switch = {
+			trigger = this
+			tenet_capitalism = { subtract = 45 }
+			tenet_planned_economy = { add = 45 }
+			tenet_communal_possessions = { add = 15 }
+			tenet_benevolent_governance = { add = 15 }
+			tenet_hedonistic = { subtract = 15 }
 		}
 	}
 }
 ai_parochialism = { # How strongly does this character value their own culture over others?
 	value = 0
 	subtract = ai_compassion
-	
-	if = {
-		limit = { exists = secret_faith }
-		secret_faith ?= { save_temporary_scope_as = real_ideology }
-	}
-	else = { faith = { save_temporary_scope_as = real_ideology } }
 	add = {
 		value = 10
 		add = ai_zeal
 		min = 0
-		scope:real_ideology ?= {
-			multiply = ideology_parochialism
-			multiply = fervor
-			divide = 100
+		if = {
+			limit = { has_variable = secret_rite }
+			var:secret_rite ?= {
+				multiply = rite_parochialism
+				multiply = faith.fervor
+				divide = 100
+			}
+		}
+		else_if = {
+			limit = { exists = secret_faith }
+			secret_faith ?= {
+				multiply = faith_parochialism
+				multiply = fervor
+				divide = 100
+			}
+		}
+		else = {
+			rite = {
+				multiply = rite_parochialism
+				multiply = faith.fervor
+				divide = 100
+			}
+		}
+	}
+	every_personal_tenet = {
+		switch = {
+			trigger = this
+			tenet_communal_identity = { add = 30 }
+			tenet_pastoral_isolation = { add = 15 }
+			tenet_federalism = { subtract = 15 }
+			tenet_adaptive = { subtract = 15 }
 		}
 	}
 }
 ai_mysticism = { # How inclined is this character to mystical and spiritual thinking, as opposed to naturalism/materialism?
 	value = 0
-	
-	if = {
-		limit = { exists = secret_faith }
-		secret_faith ?= { save_temporary_scope_as = real_ideology }
-	}
-	else = { faith = { save_temporary_scope_as = real_ideology } }
 	add = {
 		value = 10
 		add = ai_zeal
 		min = 0
-		scope:real_ideology ?= {
-			multiply = ideology_mysticism
-			multiply = fervor
-			divide = 100
+		if = {
+			limit = { has_variable = secret_rite }
+			var:secret_rite ?= {
+				multiply = rite_mysticism
+				multiply = faith.fervor
+				divide = 100
+			}
+		}
+		else_if = {
+			limit = { exists = secret_faith }
+			secret_faith ?= {
+				multiply = faith_mysticism
+				multiply = fervor
+				divide = 100
+			}
+		}
+		else = {
+			rite = {
+				multiply = rite_mysticism
+				multiply = faith.fervor
+				divide = 100
+			}
+		}
+	}
+	every_personal_tenet = {
+		switch = {
+			trigger = this
+			tenet_reincarnation = { add = 30 }
+			tenet_ritual_hallucinogens = { add = 15 }
+			tenet_esotericism = { add = 15 }
+			tenet_inner_journey = { add = 15 }
+			tenet_adorcism = { add = 45 }
+			tenet_mystical_birthright = { add = 30 }
+			tenet_sun_worship = { add = 30 }
+			tenet_astrology = { add = 15 }
+			tenet_alexandrian_catechism = { subtract = 15 }
+			tenet_cyberneticism = { subtract = 15 }
+			tenet_bio_directionism = { subtract = 15 }
+			tenet_genetic_dynasties = { subtract = 15 }
 		}
 	}
 }

@@ -3,379 +3,386 @@
 	add = num_virtuous_traits
 	subtract = num_sinful_traits
 }
-ideology_authoritarianism = {
+faith_authoritarianism = { add = main_rite.rite_authoritarianism }
+faith_hawkishness = { add = main_rite.rite_hawkishness }
+faith_interventionism = { add = main_rite.rite_interventionism }
+faith_intellectualism = { add = main_rite.rite_intellectualism }
+faith_lawfulness = { add = main_rite.rite_lawfulness }
+faith_parochialism = { add = main_rite.rite_parochialism }
+faith_mysticism = { add = main_rite.rite_mysticism }
+rite_authoritarianism = {
 	value = 0
 	if = {
-		limit = { has_doctrine = doctrine_democracy }
+		limit = { rite_has_doctrine = doctrine_democracy }
 		subtract = 1
 	}
 	else_if = {
-		limit = { has_doctrine = doctrine_aristocracy }
+		limit = { rite_has_doctrine = doctrine_aristocracy }
 		add = 1
 	}
 	else_if = {
-		limit = { has_doctrine = doctrine_no_legitimacy }
+		limit = { rite_has_doctrine = doctrine_no_legitimacy }
 		subtract = 2
 	}
 	if = {
-		limit = { has_doctrine = doctrine_despotism }
+		limit = { rite_has_doctrine = doctrine_despotism }
 		add = 3
 	}
 	else_if = {
-		limit = { has_doctrine = doctrine_dictatorship }
+		limit = { rite_has_doctrine = doctrine_dictatorship }
 		add = 2
 	}
 	else_if = {
-		limit = { has_doctrine = doctrine_parliamentarianism }
+		limit = { rite_has_doctrine = doctrine_parliamentarianism }
 		subtract = 1
 	}
 	else_if = {
-		limit = { has_doctrine = doctrine_anarchism }
+		limit = { rite_has_doctrine = doctrine_anarchism }
 		subtract = 3
 	}
 	if = {
-		limit = { has_tenet = tenet_harmonious_society }
+		limit = { rite_has_tenet = tenet_harmonious_society }
 		add = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_federalism }
+		limit = { rite_has_tenet = tenet_federalism }
 		subtract = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_pursuit_of_power }
+		limit = { rite_has_tenet = tenet_pursuit_of_power }
 		add = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_spacer_values }
+		limit = { rite_has_tenet = tenet_spacer_values }
 		add = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_communal_possessions }
+		limit = { rite_has_tenet = tenet_communal_possessions }
 		subtract = 1
 	}
 }
-ideology_hawkishness = {
+rite_hawkishness = {
 	value = 0
 	if = {
-		limit = { has_doctrine = doctrine_military_power }
+		limit = { rite_has_doctrine = doctrine_military_power }
 		add = 1
 	}
 	if = {
-		limit = { has_doctrine = doctrine_piracy_encouraged }
+		limit = { rite_has_doctrine = doctrine_piracy_encouraged }
 		add = 2
 	}
 	else_if = {
-		limit = { has_doctrine = doctrine_piracy_allowed }
+		limit = { rite_has_doctrine = doctrine_piracy_allowed }
 		add = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_armed_pilgrimages }
+		limit = { rite_has_tenet = tenet_armed_pilgrimages }
 		add = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_warmonger }
+		limit = { rite_has_tenet = tenet_warmonger }
 		add = 2
 	}
 	if = {
-		limit = { has_tenet = tenet_pure_land }
+		limit = { rite_has_tenet = tenet_pure_land }
 		add = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_cranial_trophies }
+		limit = { rite_has_tenet = tenet_cranial_trophies }
 		add = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_extinction_of_dharma }
+		limit = { rite_has_tenet = tenet_extinction_of_dharma }
 		add = 3
 	}
 	if = {
-		limit = { has_tenet = tenet_sacred_destruction }
+		limit = { rite_has_tenet = tenet_sacred_destruction }
 		add = 2
 	}
 	if = {
 		limit = {
 			OR = {
-				has_tenet = tenet_human_sacrifice
-				has_tenet = tenet_gruesome_festivals
-				has_tenet = tenet_sacrificial_ceremonies
+				rite_has_tenet = tenet_human_sacrifice
+				rite_has_tenet = tenet_gruesome_festivals
+				rite_has_tenet = tenet_sacrificial_ceremonies
 			}
 		}
 		add = 2
 	}
 	if = {
-		limit = { has_tenet = tenet_harmonious_society }
+		limit = { rite_has_tenet = tenet_harmonious_society }
 		subtract = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_preservation }
+		limit = { rite_has_tenet = tenet_preservation }
 		subtract = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_pastoral_isolation }
+		limit = { rite_has_tenet = tenet_pastoral_isolation }
 		subtract = 1
 	}
 	if = {
 		limit = {
 			OR = {
-				has_tenet = tenet_pacifism
-				has_tenet = tenet_dharmic_pacifism
+				rite_has_tenet = tenet_pacifism
+				rite_has_tenet = tenet_dharmic_pacifism
 			}
 		}
 		subtract = 2
 	}
 }
-ideology_interventionism = {
+rite_interventionism = {
 	value = 0
 	if = {
-		limit = { has_tenet = tenet_capitalism }
+		limit = { rite_has_tenet = tenet_capitalism }
 		subtract = 3
 	}
 	if = {
-		limit = { has_tenet = tenet_planned_economy }
+		limit = { rite_has_tenet = tenet_planned_economy }
 		add = 3
 	}
 	if = {
-		limit = { has_tenet = tenet_communal_possessions }
+		limit = { rite_has_tenet = tenet_communal_possessions }
 		add = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_benevolent_governance }
+		limit = { rite_has_tenet = tenet_benevolent_governance }
 		add = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_hedonistic }
+		limit = { rite_has_tenet = tenet_hedonistic }
 		subtract = 1
 	}
 }
-ideology_intellectualism = {
+rite_intellectualism = {
 	if = {
-		limit = { has_tenet = tenet_alexandrian_catechism }
+		limit = { rite_has_tenet = tenet_alexandrian_catechism }
 		add = 2
 	}
 	else_if = {
-		limit = { has_tenet = tenet_pursuit_of_knowledge }
+		limit = { rite_has_tenet = tenet_pursuit_of_knowledge }
 		add = 2
 	}
 	
 	if = {
-		limit = { has_tenet = tenet_cyberneticism }
+		limit = { rite_has_tenet = tenet_cyberneticism }
 		add = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_bio_directionism }
+		limit = { rite_has_tenet = tenet_bio_directionism }
 		add = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_genetic_dynasties }
+		limit = { rite_has_tenet = tenet_genetic_dynasties }
 		add = 1
 	}
 	
 	if = {
 		limit = {
 			OR = {
-				has_doctrine = doctrine_technocratic_power
-				has_doctrine = doctrine_theocratic_power
+				rite_has_doctrine = doctrine_technocratic_power
+				rite_has_doctrine = doctrine_theocratic_power
 			}
 		}
 		add = 1
 	}
 	
 	if = {
-		limit = { has_doctrine = doctrine_pluralism_fundamentalist }
+		limit = { rite_has_doctrine = doctrine_pluralism_fundamentalist }
 		subtract = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_literalism }
+		limit = { rite_has_tenet = tenet_literalism }
 		subtract = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_sacred_shadows }
+		limit = { rite_has_tenet = tenet_sacred_shadows }
 		subtract = 1
 	}
 }
-ideology_lawfulness = {
+rite_lawfulness = {
 	value = 1
 	if = {
-		limit = { has_doctrine = doctrine_despotism }
+		limit = { rite_has_doctrine = doctrine_despotism }
 		subtract = 3
 	}
 	if = {
-		limit = { has_doctrine = doctrine_piracy_encouraged }
+		limit = { rite_has_doctrine = doctrine_piracy_encouraged }
 		subtract = 2
 	}
 	else_if = {
-		limit = { has_doctrine = doctrine_piracy_allowed }
+		limit = { rite_has_doctrine = doctrine_piracy_allowed }
 		subtract = 1
 	}
 	if = {
-		limit = { has_doctrine = doctrine_extortion_allowed }
+		limit = { rite_has_doctrine = doctrine_extortion_allowed }
 		subtract = 1
 	}
 	if = {
-		limit = { has_doctrine = doctrine_smuggling_allowed }
+		limit = { rite_has_doctrine = doctrine_smuggling_allowed }
 		subtract = 2
 	}
 	else_if = {
-		limit = { has_doctrine = doctrine_smuggling_restricted }
+		limit = { rite_has_doctrine = doctrine_smuggling_restricted }
 		subtract = 1
 	}
 	if = {
-		limit = { has_doctrine = doctrine_illegal_technology_allowed }
+		limit = { rite_has_doctrine = doctrine_illegal_technology_allowed }
 		subtract = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_upstanding_citizens }
+		limit = { rite_has_tenet = tenet_upstanding_citizens }
 		add = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_legalism }
+		limit = { rite_has_tenet = tenet_legalism }
 		add = 2
 	}
 	if = {
-		limit = { has_tenet = tenet_religious_legal_pronouncements }
+		limit = { rite_has_tenet = tenet_religious_legal_pronouncements }
 		add = 2
 	}
 	if = {
-		limit = { has_tenet = tenet_sacred_shadows }
+		limit = { rite_has_tenet = tenet_sacred_shadows }
 		subtract = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_benevolent_governance }
+		limit = { rite_has_tenet = tenet_benevolent_governance }
 		add = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_harmonious_society }
+		limit = { rite_has_tenet = tenet_harmonious_society }
 		add = 1
 	}
 }
-ideology_parochialism = {
+rite_parochialism = {
 	value = 0
 	if = {
-		limit = { has_doctrine = doctrine_metroplanetism }
+		limit = { rite_has_doctrine = doctrine_metroplanetism }
 		subtract = 3
 	}
 	else_if = {
-		limit = { has_doctrine = doctrine_anti_metroplanetism }
+		limit = { rite_has_doctrine = doctrine_anti_metroplanetism }
 		subtract = 3
 	}
 	else_if = {
-		limit = { has_doctrine = doctrine_separatism }
+		limit = { rite_has_doctrine = doctrine_separatism }
 		add = 1
 	}
 	else_if = {
-		limit = { has_doctrine = doctrine_particularism }
+		limit = { rite_has_doctrine = doctrine_particularism }
 		add = 3
 	}
 	if = {
-		limit = { has_doctrine = doctrine_pluralism_fundamentalist }
+		limit = { rite_has_doctrine = doctrine_pluralism_fundamentalist }
 		add = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_communal_identity }
+		limit = { rite_has_tenet = tenet_communal_identity }
 		add = 2
 	}
 	if = {
-		limit = { has_tenet = tenet_pastoral_isolation }
+		limit = { rite_has_tenet = tenet_pastoral_isolation }
 		add = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_federalism }
+		limit = { rite_has_tenet = tenet_federalism }
 		subtract = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_adaptive }
+		limit = { rite_has_tenet = tenet_adaptive }
 		subtract = 1
 	}
 }
-ideology_mysticism = {
+rite_mysticism = {
 	value = 0
 	if = {
 		limit = {
 			OR = {
-				has_doctrine = doctrine_monotheist
-				has_doctrine = doctrine_polytheist
+				rite_has_doctrine = doctrine_monotheist
+				rite_has_doctrine = doctrine_polytheist
 			}
 		}
 		add = 3
 	}
 	else_if = {
-		limit = { has_doctrine = doctrine_atheist }
+		limit = { rite_has_doctrine = doctrine_atheist }
 		subtract = 3
 	}
 	if = {
-		limit = { has_tenet = tenet_alexandrian_catechism }
+		limit = { rite_has_tenet = tenet_alexandrian_catechism }
 		subtract = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_cyberneticism }
+		limit = { rite_has_tenet = tenet_cyberneticism }
 		subtract = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_bio_directionism }
+		limit = { rite_has_tenet = tenet_bio_directionism }
 		subtract = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_genetic_dynasties }
+		limit = { rite_has_tenet = tenet_genetic_dynasties }
 		subtract = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_ritual_hallucinogens }
+		limit = { rite_has_tenet = tenet_ritual_hallucinogens }
 		add = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_esotericism }
+		limit = { rite_has_tenet = tenet_esotericism }
 		add = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_reincarnation }
+		limit = { rite_has_tenet = tenet_reincarnation }
 		add = 2
 	}
 	if = {
-		limit = { has_tenet = tenet_inner_journey }
+		limit = { rite_has_tenet = tenet_inner_journey }
 		add = 1
 	}
 	if = {
-		limit = { has_tenet = tenet_adorcism }
+		limit = { rite_has_tenet = tenet_adorcism }
 		add = 3
 	}
 	if = {
-		limit = { has_tenet = tenet_mystical_birthright }
+		limit = { rite_has_tenet = tenet_mystical_birthright }
 		add = 2
 	}
 	if = {
-		limit = { has_tenet = tenet_sun_worship }
+		limit = { rite_has_tenet = tenet_sun_worship }
 		add = 2
 	}
 	if = {
-		limit = { has_tenet = tenet_astrology }
+		limit = { rite_has_tenet = tenet_astrology }
 		add = 1
 	}
 }
-opinion_of_ideology = {
-	value = scope:target_faith.fervor
-	# Current ideology's opinion of this one
-	faith = {
+opinion_of_rite = {
+	value = scope:target_rite.fervor
+	# Current rite's opinion of this one
+	rite = {
 		if = {
-			limit = { faith_hostility_level = { target = scope:target_faith value >= 3 } }
+			limit = { rite_hostility_level = { target = scope:target_rite value >= 3 } }
 			subtract = 200
 		}
 		else_if = {
-			limit = { faith_hostility_level = { target = scope:target_faith value >= 2 } }
+			limit = { rite_hostility_level = { target = scope:target_rite value >= 2 } }
 			subtract = 100
 		}
 		else_if = {
-			limit = { faith_hostility_level = { target = scope:target_faith value = 0 } }
+			limit = { rite_hostility_level = { target = scope:target_rite value = 0 } }
 			add = 100
 		}
 	}
 	if = {
-		limit = { faith = scope:target_faith }
+		limit = { rite = scope:target_rite }
 		add = ai_zeal
 	}
 	else = { subtract = ai_zeal }
 	# Practical considerations
 	if = { # Ideology is aristocratic
-		limit = { scope:target_faith = { has_doctrine = doctrine_aristocracy } }
+		limit = { scope:target_rite = { rite_has_doctrine = doctrine_aristocracy } }
 		if = {
 			limit = {
 				is_ruler = yes
@@ -413,7 +420,7 @@ opinion_of_ideology = {
 		}
 	}
 	else_if = { # Ideology is democratic
-		limit = { scope:target_faith = { has_doctrine = doctrine_democracy } }
+		limit = { scope:target_rite = { rite_has_doctrine = doctrine_democracy } }
 		if = {
 			limit = {
 				is_ruler = yes
@@ -451,7 +458,7 @@ opinion_of_ideology = {
 		}
 	}
 	else_if = { # Ideology is meritocratic
-		limit = { scope:target_faith = { has_doctrine = doctrine_meritocracy } }
+		limit = { scope:target_rite = { rite_has_doctrine = doctrine_meritocracy } }
 		if = {
 			limit = {
 				is_ruler = yes
@@ -489,7 +496,7 @@ opinion_of_ideology = {
 		}
 	}
 	else_if = { # Ideology considers all rulers illegitimate
-		limit = { scope:target_faith = { has_doctrine = doctrine_no_legitimacy } }
+		limit = { scope:target_rite = { rite_has_doctrine = doctrine_no_legitimacy } }
 		if = {
 			limit = { is_ruler = yes }
 			subtract = {
@@ -508,7 +515,7 @@ opinion_of_ideology = {
 		}
 	}
 	if = { # Ideology supports military rule
-		limit = { scope:target_faith = { has_doctrine = doctrine_military_power } }
+		limit = { scope:target_rite = { rite_has_doctrine = doctrine_military_power } }
 		if = {
 			limit = { character_is_military_trigger = yes }
 			add = {
@@ -531,7 +538,7 @@ opinion_of_ideology = {
 		}
 	}
 	else_if = { # Ideology supports commercial rule
-		limit = { scope:target_faith = { has_doctrine = doctrine_commercial_power } }
+		limit = { scope:target_rite = { rite_has_doctrine = doctrine_commercial_power } }
 		if = {
 			limit = { character_is_commercial_trigger = yes }
 			add = {
@@ -554,7 +561,7 @@ opinion_of_ideology = {
 		}
 	}
 	else_if = { # Ideology supports technocracy
-		limit = { scope:target_faith = { has_doctrine = doctrine_technocratic_power } }
+		limit = { scope:target_rite = { rite_has_doctrine = doctrine_technocratic_power } }
 		if = {
 			limit = { character_is_technocratic_trigger = yes }
 			add = {
@@ -577,7 +584,7 @@ opinion_of_ideology = {
 		}
 	}
 	else_if = { # Ideology supports theocracy
-		limit = { scope:target_faith = { has_doctrine = doctrine_theocratic_power } }
+		limit = { scope:target_rite = { rite_has_doctrine = doctrine_theocratic_power } }
 		if = {
 			limit = { character_is_theocratic_trigger = yes }
 			add = {
@@ -601,11 +608,11 @@ opinion_of_ideology = {
 	}
 	if = { # Ideology restricts ruler's authority
 		limit = {
-			scope:target_faith = {
+			scope:target_rite = {
 				OR = {
-					has_doctrine = doctrine_separation_of_powers
-					has_doctrine = doctrine_parliamentarianism
-					has_doctrine = doctrine_anarchism
+					rite_has_doctrine = doctrine_separation_of_powers
+					rite_has_doctrine = doctrine_parliamentarianism
+					rite_has_doctrine = doctrine_anarchism
 				}
 			}
 		}
@@ -626,10 +633,10 @@ opinion_of_ideology = {
 	}
 	else_if = { # Ideology does not restrict ruler's authority
 		limit = {
-			scope:target_faith = {
+			scope:target_rite = {
 				OR = {
-					has_doctrine = doctrine_despotism
-					has_doctrine = doctrine_dictatorship
+					rite_has_doctrine = doctrine_despotism
+					rite_has_doctrine = doctrine_dictatorship
 				}
 			}
 		}
@@ -649,69 +656,69 @@ opinion_of_ideology = {
 	}
 	# Personality Effects
 	if = {
-		limit = { scope:target_faith = { ideology_authoritarianism > 0 } }
+		limit = { scope:target_rite = { rite_authoritarianism > 0 } }
 		add = ai_authoritarianism
 	}
 	else_if = {
-		limit = { scope:target_faith = { ideology_authoritarianism < 0 } }
+		limit = { scope:target_rite = { rite_authoritarianism < 0 } }
 		subtract = ai_authoritarianism
 	}
 	if = {
-		limit = { scope:target_faith = { ideology_hawkishness > 0 } }
+		limit = { scope:target_rite = { rite_hawkishness > 0 } }
 		add = ai_hawkishness
 	}
 	else_if = {
-		limit = { scope:target_faith = { ideology_hawkishness < 0 } }
+		limit = { scope:target_rite = { rite_hawkishness < 0 } }
 		subtract = ai_hawkishness
 	}
 	if = {
-		limit = { scope:target_faith = { ideology_intellectualism > 0 } }
+		limit = { scope:target_rite = { rite_intellectualism > 0 } }
 		add = ai_intellectualism
 	}
 	else_if = {
-		limit = { scope:target_faith = { ideology_intellectualism < 0 } }
+		limit = { scope:target_rite = { rite_intellectualism < 0 } }
 		subtract = ai_intellectualism
 	}
 	if = {
-		limit = { scope:target_faith = { ideology_interventionism > 0 } }
+		limit = { scope:target_rite = { rite_interventionism > 0 } }
 		add = ai_interventionism
 	}
 	else_if = {
-		limit = { scope:target_faith = { ideology_interventionism < 0 } }
+		limit = { scope:target_rite = { rite_interventionism < 0 } }
 		subtract = ai_interventionism
 	}
 	if = {
-		limit = { scope:target_faith = { ideology_lawfulness > 0 } }
+		limit = { scope:target_rite = { rite_lawfulness > 0 } }
 		add = ai_lawfulness
 	}
 	else_if = {
-		limit = { scope:target_faith = { ideology_lawfulness < 0 } }
+		limit = { scope:target_rite = { rite_lawfulness < 0 } }
 		subtract = ai_lawfulness
 	}
 	if = {
-		limit = { scope:target_faith = { ideology_mysticism > 0 } }
+		limit = { scope:target_rite = { rite_mysticism > 0 } }
 		add = ai_mysticism
 	}
 	else_if = {
-		limit = { scope:target_faith = { ideology_mysticism < 0 } }
+		limit = { scope:target_rite = { rite_mysticism < 0 } }
 		subtract = ai_mysticism
 	}
 	if = {
-		limit = { scope:target_faith = { ideology_parochialism > 0 } }
+		limit = { scope:target_rite = { rite_parochialism > 0 } }
 		add = ai_parochialism
 	}
 	else_if = {
-		limit = { scope:target_faith = { ideology_parochialism < 0 } }
+		limit = { scope:target_rite = { rite_parochialism < 0 } }
 		subtract = ai_parochialism
 	}
 }
-reverse_opinion_of_ideology = {
+reverse_opinion_of_rite = {
 	value = 0
-	save_temporary_scope_as = target_faith
-	scope:target_character = { add = opinion_of_ideology }
+	save_temporary_scope_as = target_rite
+	scope:target_character = { add = opinion_of_rite }
 }
-hostility_from_temp_faith = {
+hostility_from_temp_rite = {
 	value = 0
-	save_temporary_scope_as = temp_target_faith
-	scope:temp_faith = { add = "faith_hostility_level(scope:temp_target_faith)" }
+	save_temporary_scope_as = temp_target_rite
+	scope:temp_rite = { add = "rite_hostility_level(scope:temp_target_rite)" }
 }

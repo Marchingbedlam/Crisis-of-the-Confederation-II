@@ -474,54 +474,57 @@ cotc_legislative_campaign_events.100 = { # Your party is banned!
 		# Make a list of every ideology that's legal in the realm
 		every_religion_global = {
 			every_faith = {
-				limit = { scope:legislature.var:legislature_title ?= { party_legal_for_realm_trigger = { FAITH = PREV } } }
-				add_to_temporary_list = temp_legal_faiths
+				every_faith_rite = {
+					limit = { scope:legislature.var:legislature_title ?= { party_legal_for_realm_trigger = { FAITH = PREV } } }
+					add_to_temporary_list = temp_legal_rites
+				}
 			}
 		}
 		# Find the legal ideology most-liked by ROOT
 		save_temporary_scope_as = target_character
 		ordered_in_list = {
-			list = temp_legal_faiths
-			order_by = reverse_opinion_of_ideology
-			save_scope_as = closest_legal_faith
+			list = temp_legal_rites
+			order_by = reverse_opinion_of_rite
+			save_scope_as = closest_legal_rite
 		}
 	}
 	
-	option = { # Convert to closest legal faith
+	option = { # Convert to closest legal rite
 		trigger = {
-			exists = scope:closest_legal_faith
+			exists = scope:closest_legal_rite
 			NOT = { exists = secret_faith }
 		}
 		name = cotc_legislative_campaign_events.100.a
-		set_character_faith = scope:closest_legal_faith
+		set_character_rite = scope:closest_legal_rite
 		ai_chance = {
 			base = 0
 			modifier = {
-				exists = scope:closest_legal_faith
+				exists = scope:closest_legal_rite
 				add = {
 					value = 0
-					scope:closest_legal_faith = { save_temporary_scope_as = target_faith }
-					add = opinion_of_ideology
+					scope:closest_legal_rite = { save_temporary_scope_as = target_rite }
+					add = opinion_of_rite
 				}
 			}
 			modifier = {
 				add = {
 					value = 0
-					faith = { save_temporary_scope_as = target_faith }
-					subtract = opinion_of_ideology
+					rite = { save_temporary_scope_as = target_rite }
+					subtract = opinion_of_rite
 				}
 			}
 			modifier = { add = ai_greed }
 		}
 	}
-	option = { # Publicly convert to closest legal faith, but remain a crypto-whatever
+	option = { # Publicly convert to closest legal rite, but remain a crypto-whatever
 		trigger = {
-			exists = scope:closest_legal_faith
+			exists = scope:closest_legal_rite
+			NOT = { faith = scope:closest_legal_rite.faith }
 			NOT = { exists = secret_faith }
 		}
 		name = cotc_legislative_campaign_events.100.b
 		faith = { save_temporary_scope_as = real_faith }
-		set_character_faith = scope:closest_legal_faith
+		set_character_rite = scope:closest_legal_rite
 		make_character_crypto_religionist_effect = { CRYPTO_RELIGION = scope:real_faith }
 		ai_chance = {
 			base = 0
@@ -535,11 +538,11 @@ cotc_legislative_campaign_events.100 = { # Your party is banned!
 	}
 	option = { # Change your publicly professed ideology to the closest legal faith
 		trigger = {
-			exists = scope:closest_legal_faith
+			exists = scope:closest_legal_rite
 			exists = secret_faith
 		}
 		name = cotc_legislative_campaign_events.100.c
-		set_character_faith = scope:closest_legal_faith
+		set_character_faith = scope:closest_legal_rite
 		custom_tooltip = will_remain_crypto_desc
 		ai_chance = {
 			base = 1000 # Sure, why not?

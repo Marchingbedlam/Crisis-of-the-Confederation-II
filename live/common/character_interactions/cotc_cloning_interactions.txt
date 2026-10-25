@@ -53,7 +53,15 @@ commission_single_donor_clone_interaction = {
 	is_shown = { always = yes }
 	is_valid_showing_failures_only = { scope:puppet_or_actor = { single_donor_cloning_allowed_trigger = { DONOR = scope:recipient } } }
 	cooldown_against_recipient = { years = 2 }
-	cost = { gold = { value = clone_cost } }
+	cost = {
+		gold = { value = clone_cost }
+		piety = {
+			if = {
+				limit = { scope:puppet_or_actor.rite = { rite_has_parameter = hates_cloning } }
+				add = clone_cost
+			}
+		}
+	}
 	
 	ai_targets = { ai_recipients = self }
 	ai_targets = {
@@ -237,17 +245,34 @@ commission_single_donor_clone_interaction = {
 	}
 	on_accept = {
 		scope:puppet_or_actor = {
+			if = {
+				limit = { rite = { rite_has_parameter = supports_cloning } }
+				add_piety = clone_cost
+			}
 			initiate_single_donor_clone_effect = { DONOR = scope:recipient }
 			trigger_event = cotc_cloning_events.10
 		}
 		if = {
+			limit = { scope:puppet_or_actor != scope:recipient }
+			scope:recipient = {
+				if = {
+					limit = { rite = { rite_has_parameter = supports_cloning } }
+					add_piety = clone_cost
+				}
+				else_if = {
+					limit = { rite = { rite_has_parameter = hates_cloning } }
+					add_piety = { value = clone_cost multiply = -1 }
+				}
+			}
+		}
+		if = {
 			limit = { scope:puppet_or_actor != scope:actor }
-			trigger_event = cotc_cloning_events.10
+			scope:actor = { trigger_event = cotc_cloning_events.10 }
 		}
 	}
 	on_decline = {
 		scope:puppet_or_actor = {
-			add_gold = clone_cost # Refund the cost of the clone
+			add_gold = clone_cost # Refund the gold cost (but not the piety cost!) of the clone
 			trigger_event = cotc_cloning_events.11
 		}
 		if = {

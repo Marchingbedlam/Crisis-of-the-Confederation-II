@@ -470,15 +470,15 @@ recalc_legislature_parties_effect = {
 	clear_variable_list = parties
 	every_in_list = {
 		variable = legislators
-		faith = { add_to_list = unsorted_parties }
+		rite = { add_to_list = unsorted_parties }
 	}
 	ordered_in_list = {
 		list = unsorted_parties
-		order_by = ideology_represented_in_legislature
+		order_by = rite_represented_in_legislature
 		min = 0
 		check_range_bounds = yes
 		if = {
-			limit = { ideology_represented_in_legislature > 0 }
+			limit = { rite_represented_in_legislature > 0 }
 			scope:party_legislature = { add_to_variable_list = { name = parties target = PREV } }
 		}
 	}

@@ -293,13 +293,13 @@ months_until_next_election = { # How long until the next election?
 		subtract = var:months_in_session
 	}
 }
-ideology_represented_in_legislature = { # How many legislators follow this ideology?
+rite_represented_in_legislature = { # How many legislators follow this ideology?
 	value = 0
-	save_temporary_scope_as = temp_faith
+	save_temporary_scope_as = temp_rite
 	scope:party_legislature = {
 		every_in_list = {
 			variable = legislators
-			limit = { faith = scope:temp_faith }
+			limit = { rite = scope:temp_rite }
 			add = 1
 		}
 	}
