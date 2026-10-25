@@ -1,5 +1,81 @@
 ﻿namespace = cotc_cloning_events
 
+cotc_cloning_events.10 = { # Someone agreed to let you clone them
+	type = letter_event
+	opening = { desc = cotc_cloning_events.10.opening }
+	desc = {
+		triggered_desc = {
+			trigger = { scope:recipient.rite = { rite_has_parameter = hates_cloning } }
+			desc = cotc_cloning_events.10.desc.hates_cloning
+		}
+		desc = cotc_cloning_events.10.desc
+	}
+	trigger = { ROOT != scope:recipient }
+	sender = scope:recipient
+	immediate = { show_as_tooltip = { scope:puppet_or_actor = { initiate_single_donor_clone_effect = { DONOR = scope:recipient } } } }
+	option = {
+		name = EXCELLENT
+	}
+}
+cotc_cloning_events.11 = { # Someone did not agree to let you clone them
+	type = letter_event
+	opening = { desc = cotc_cloning_events.10.opening }
+	desc = {
+		triggered_desc = {
+			trigger = { scope:recipient.rite = { rite_has_parameter = hates_cloning } }
+			desc = cotc_cloning_events.11.desc.hates_cloning
+		}
+		triggered_desc = {
+			trigger = { scope:recipient.rite = { rite_has_parameter = supports_cloning } }
+			desc = cotc_cloning_events.11.desc.supports_cloning
+		}
+		desc = cotc_cloning_events.11.desc
+	}
+	trigger = { ROOT != scope:recipient }
+	sender = {
+		character = scope:recipient
+		animation = dismissal
+	}
+	option = { name = cotc_cloning_events.11.a }
+}
+cotc_cloning_events.20 = { # Someone agreed to create a double-donor clone
+	type = letter_event
+	opening = { desc = cotc_cloning_events.10.opening }
+	desc = {
+		triggered_desc = {
+			trigger = { scope:recipient.rite = { rite_has_parameter = hates_cloning } }
+			desc = cotc_cloning_events.10.desc.hates_cloning
+		}
+		desc = cotc_cloning_events.10.desc
+	}
+	trigger = { ROOT != scope:recipient }
+	sender = scope:recipient
+	immediate = { show_as_tooltip = { initiate_double_donor_clone_effect = { FIRST_DONOR = scope:puppet_or_actor SECOND_DONOR = scope:recipient } } }
+	option = {
+		name = EXCELLENT
+	}
+}
+cotc_cloning_events.21 = { # Someone did not agree to let you clone them
+	type = letter_event
+	opening = { desc = cotc_cloning_events.10.opening }
+	desc = {
+		triggered_desc = {
+			trigger = { scope:recipient.rite = { rite_has_parameter = hates_cloning } }
+			desc = cotc_cloning_events.11.desc.hates_cloning
+		}
+		triggered_desc = {
+			trigger = { scope:recipient.rite = { rite_has_parameter = supports_cloning } }
+			desc = cotc_cloning_events.11.desc.supports_cloning
+		}
+		desc = cotc_cloning_events.11.desc
+	}
+	trigger = { ROOT != scope:recipient }
+	sender = {
+		character = scope:recipient
+		animation = dismissal
+	}
+	option = { name = cotc_cloning_events.11.a }
+}
 cotc_cloning_events.100 = { # Clone decanted
 	title = {
 		first_valid = {
@@ -118,7 +194,7 @@ cotc_cloning_events.100 = { # Clone decanted
 	}
 }
 cotc_cloning_events.101 = {
-	title = cotc_cloning_events.100
+	title = cotc_cloning_events.100.title.my_clone
 	desc = cotc_cloning_events.101.desc
 	theme = pregnancy
 	right_portrait = {
@@ -142,7 +218,7 @@ cotc_cloning_events.101 = {
 	}
 }
 cotc_cloning_events.102 = {
-	title = cotc_cloning_events.100
+	title = cotc_cloning_events.100.title.my_clone
 	desc = cotc_cloning_events.102.desc
 	theme = pregnancy
 	right_portrait = {

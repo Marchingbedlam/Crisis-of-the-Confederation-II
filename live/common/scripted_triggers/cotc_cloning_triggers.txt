@@ -4,12 +4,21 @@
 
 single_donor_cloning_allowed_trigger = {
 	cloning_possible_trigger = yes
-	$DONOR$ = { is_alive = yes }
+	$DONOR$ = {
+		is_alive = yes
+		is_adult = yes
+	}
 }
 double_donor_cloning_allowed_trigger = {
 	cloning_possible_trigger = yes
-	$FIRST_DONOR$ = { is_alive = yes }
-	$SECOND_DONOR$ = { is_alive = yes }
+	$FIRST_DONOR$ = {
+		is_alive = yes
+		is_adult = yes
+	}
+	$SECOND_DONOR$ = {
+		is_alive = yes
+		is_adult = yes
+	}
 }
 clone_can_be_male_trigger = {
 	OR = { # This is a matter of chromosomal sex, so we check the game-mechanical gender directly

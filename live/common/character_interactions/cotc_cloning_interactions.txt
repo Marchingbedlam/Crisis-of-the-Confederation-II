@@ -1,4 +1,6 @@
-﻿commission_single_donor_clone_interaction = {
+﻿# Double-donor cloning is disabled for now because the inability to have multiple mothers or fathers is hardcoded
+
+commission_single_donor_clone_interaction = {
 	icon = icon_dynasty
 	category = interaction_category_friendly
 	desc = {
@@ -14,17 +16,25 @@
 			desc = commission_single_donor_clone_interaction.desc.other
 		}
 	}
+	show_effect_in_notification_window = yes
 	notification_text = {
 		first_valid = {
 			triggered_desc = {
+				trigger = {
+					scope:puppet_or_actor.rite = { rite_has_parameter = hates_cloning }
+					scope:recipient.rite = { rite_has_parameter = hates_cloning }
+				}
+				desc = commission_single_donor_clone_interaction.notification.both_hate_cloning
+			}
+			triggered_desc = {
 				trigger = { scope:puppet_or_actor.rite = { rite_has_parameter = hates_cloning } }
-				desc = SINGLE_DONOR_CLONE_ACTOR_HATES_CLONING
+				desc = commission_single_donor_clone_interaction.notification.actor_hates_cloning
 			}
 			triggered_desc = {
 				trigger = { scope:recipient.rite = { rite_has_parameter = hates_cloning } }
-				desc = SINGLE_DONOR_CLONE_RECIPIENT_HATES_CLONING
+				desc = commission_single_donor_clone_interaction.notification.recipient_hates_cloning
 			}
-			desc = SINGLE_DONOR_CLONING_CLONING_OKAY
+			desc = commission_single_donor_clone_interaction.notification.cloning_okay
 		}
 	}
 	popup_on_receive = yes
@@ -89,17 +99,60 @@
 		modifier = { # We want to have children and can't
 			add = {
 				value = 100
-				subtract = {
-					value = scope:actor.fertility
-					multiply = 100
+				scope:recipient = {
+					if = {
+						limit = { is_visibly_fertile = yes }
+						every_spouse = {
+							limit = {
+								opposite_sex_of = PREV
+								is_visibly_fertile = yes
+							}
+							add_to_temporary_list = temp_partners
+						}
+						every_relation_lover = {
+							limit = {
+								opposite_sex_of = PREV
+								is_visibly_fertile = yes
+							}
+							add_to_temporary_list = temp_partners
+						}
+						every_relation_soulmate = {
+							limit = {
+								opposite_sex_of = PREV
+								is_visibly_fertile = yes
+							}
+							add_to_temporary_list = temp_partners
+						}
+						ordered_in_list = {
+							list = temp_partners
+							order_by = fertility
+							save_temporary_scope_as = most_fertile_partner
+						}
+						if = {
+							limit = { exists = scope:most_fertile_partner }
+							subtract = {
+								value = 0
+								min = fertility
+								min = scope:most_fertile_partner.fertility
+								multiply = 10
+							}
+						}
+						else_if = {
+							limit = {
+								OR = {
+									has_sexuality = heterosexual
+									has_sexuality = bisexual
+								}
+							}
+							value = 0
+							add = age
+							multiply = 5
+						}
+					}
 				}
 			}
 			scope:recipient = scope:actor
-			scope:actor = {
-				is_adult = yes
-				any_child = { count < 1 }
-				is_married = no
-			}
+			scope:recipient = { wants_children_trigger = yes }
 		}
 		modifier = { # Opinion of target (negative effects only)
 			add = { scope:puppet_or_actor = { add = "opinion(scope:recipient)" } }
@@ -181,8 +234,305 @@
 			}
 			desc = AI_NO_MEANINGFUL_CONNECTION
 		}
-		
 	}
-	on_accept = { scope:puppet_or_actor = { initiate_single_donor_clone_effect = { DONOR = scope:recipient } } }
-	on_decline = { scope:puppet_or_actor = { add_gold = clone_cost } } # Refund the cost of the clone
+	on_accept = {
+		scope:puppet_or_actor = {
+			initiate_single_donor_clone_effect = { DONOR = scope:recipient }
+			trigger_event = cotc_cloning_events.10
+		}
+		if = {
+			limit = { scope:puppet_or_actor != scope:actor }
+			trigger_event = cotc_cloning_events.10
+		}
+	}
+	on_decline = {
+		scope:puppet_or_actor = {
+			add_gold = clone_cost # Refund the cost of the clone
+			trigger_event = cotc_cloning_events.11
+		}
+		if = {
+			limit = { scope:puppet_or_actor != scope:actor }
+			trigger_event = cotc_cloning_events.11
+		}
+	}
 }
+# commission_double_donor_clone_interaction = {
+	# icon = icon_dynasty
+	# category = interaction_category_friendly
+	# desc = {
+		# first_valid = {
+			# triggered_desc = {
+				# trigger = {
+					# scope:actor != scope:puppet_or_actor
+					# scope:puppet_or_actor = { is_close_family_of = scope:recipient }
+				# }
+				# desc = commission_double_donor_clone_interaction.desc.puppet.close_family
+			# }
+			# triggered_desc = {
+				# trigger = {
+					# scope:actor != scope:puppet_or_actor
+					# scope:puppet_or_actor = { is_close_or_extended_family_of = scope:recipient }
+				# }
+				# desc = commission_double_donor_clone_interaction.desc.puppet.extended_family
+			# }
+			# triggered_desc = {
+				# trigger = { scope:actor != scope:puppet_or_actor }
+				# desc = commission_double_donor_clone_interaction.desc.puppet
+			# }
+			# triggered_desc = {
+				# trigger = { scope:puppet_or_actor = { is_close_family_of = scope:recipient } }
+				# desc = commission_double_donor_clone_interaction.desc.close_family
+			# }
+			# triggered_desc = {
+				# trigger = { scope:puppet_or_actor = { is_close_or_extended_family_of = scope:recipient } }
+				# desc = commission_double_donor_clone_interaction.desc.extended_family
+			# }
+			# desc = commission_double_donor_clone_interaction.desc
+		# }
+	# }
+	# show_effect_in_notification_window = yes
+	# notification_text = {
+		# first_valid = {
+			# triggered_desc = {
+				# trigger = {
+					# scope:puppet_or_actor = { is_close_or_extended_family_of = scope:recipient }
+					# scope:puppet_or_actor.rite = {rite_has_parameter = hates_cloning }
+					# scope:recipient.rite = { rite_has_parameter = hates_cloning }
+				# }
+				# desc = commission_double_donor_clone_interaction.notification.both_hate_cloning.inbreeding
+			# }
+			# triggered_desc = {
+				# trigger = {
+					# scope:puppet_or_actor.rite = {rite_has_parameter = hates_cloning }
+					# scope:recipient.rite = { rite_has_parameter = hates_cloning }
+				# }
+				# desc = commission_double_donor_clone_interaction.notification.both_hate_cloning
+			# }
+			# triggered_desc = {
+				# trigger = {
+					# scope:puppet_or_actor = { is_close_or_extended_family_of = scope:recipient }
+					# scope:puppet_or_actor.rite = {rite_has_parameter = hates_cloning }
+				# }
+				# desc = commission_double_donor_clone_interaction.notification.actor_hates_cloning.inbreeding
+			# }
+			# triggered_desc = {
+				# trigger = { scope:puppet_or_actor.rite = { rite_has_parameter = hates_cloning } }
+				# desc = commission_double_donor_clone_interaction.notification.actor_hates_cloning
+			# }
+			# triggered_desc = {
+				# trigger = {
+					# scope:puppet_or_actor = { is_close_or_extended_family_of = scope:recipient }
+					# scope:recipient.rite = { rite_has_parameter = hates_cloning }
+				# }
+				# desc = commission_double_donor_clone_interaction.notification.recipient_hates_cloning.inbreeding
+			# }
+			# triggered_desc = {
+				# trigger = { scope:recipient.rite = { rite_has_parameter = hates_cloning } }
+				# desc = commission_double_donor_clone_interaction.notification.recipient_hates_cloning
+			# }
+			# triggered_desc = {
+				# trigger = { scope:puppet_or_actor = { is_close_or_extended_family_of = scope:recipient } }
+				# desc = commission_double_donor_clone_interaction.notification.cloning_okay.inbreeding
+			# }
+			# desc = commission_double_donor_clone_interaction.notification.cloning_okay
+		# }
+	# }
+	# popup_on_receive = yes
+	# pause_on_receive = yes
+	
+	# is_available = {
+		# trigger_if = {
+			# limit = { is_ai = yes }
+			# OR = {
+				# NOT = { rite = { rite_has_parameter = hates_cloning } }
+				# ai_zeal < 0
+			# }
+		# }
+	# }
+	# is_shown = {
+		# scope:puppet_or_actor != scope:recipient
+	# }
+	# is_valid_showing_failures_only = { scope:puppet_or_actor = { double_donor_cloning_allowed_trigger = { FIRST_DONOR = scope:puppet_or_actor SECOND_DONOR = scope:recipient } } }
+	# cooldown_against_recipient = { years = 2 }
+	# cost = { gold = { value = clone_cost } }
+	
+	# ai_targets = { ai_recipients = spouses }
+	# ai_targets = {
+		# ai_recipients = scripted_relations
+		# max = 10
+	# }
+	# ai_frequency = 24
+	# ai_will_do = {
+		# base = 0
+		# # Needs a positive reason to do this
+		# modifier = { # Passing on good genes conforms to our ideology
+			# add = {
+				# scope:recipient = {
+					# add = num_of_good_genetic_traits
+					# subtract = num_of_bad_genetic_traits
+					# multiply = 10
+				# }
+				# scope:puppet_or_actor = {
+					# add = num_of_good_genetic_traits
+					# subtract = num_of_bad_genetic_traits
+					# multiply = 10
+				# }
+				# scope:actor = {
+					# multiply = {
+						# add = 100
+						# add = ai_zeal
+						# min = 0
+						# divide = 100
+					# }
+				# }
+			# }
+			# scope:actor = { rite = { rite_has_parameter = supports_cloning } }
+		# }
+		# modifier = { # We want to have children and can't
+			# add = {
+				# value = 100
+				# if = {
+					# limit = { # If we can produce children naturally...
+						# trigger_if = {
+							# limit = { scope:puppet_or_actor = { is_female = yes } }
+							# scope:recipient = { is_female = no }
+						# }
+						# trigger_else = {
+							# scope:recipient = { is_female = yes }
+						# }
+					# }
+					# subtract = { # ...reduce this by whoever's fertility is LOWER
+						# value = scope:puppet_or_actor.fertility
+						# max = scope:recipient.fertility
+						# multiply = 100
+					# }
+				# }
+			# }
+			# scope:puppet_or_actor = {
+				# is_adult = yes
+				# scope:recipient = { is_adult = yes }
+				# # We are in a romantic relationship...
+				# OR = {
+					# any_spouse = { this = scope:recipient }
+					# has_relation_soulmate = scope:recipient
+				# }
+				# # ...and we do not already have children
+				# any_child = {
+					# is_alive = yes
+					# is_child_of = scope:recipient
+					# count = 0
+				# }
+			# }
+		# }
+		# modifier = { # Opinion of target (negative effects only)
+			# add = { scope:puppet_or_actor = { add = "opinion(scope:recipient)" } }
+			# scope:puppet_or_actor = { opinion = { target = scope:recipient value < 0 } }
+		# }
+		# modifier = { # We have enough kids already
+			# add = {
+				# scope:puppet_or_actor = {
+					# every_child = {
+						# limit = {
+							# is_alive = yes
+							# reverse_opinion = { target = scope:actor value > 0 }
+						# }
+						# subtract = "reverse_opinion(scope:puppet_or_actor)"
+					# }
+				# }
+			# }
+		# }
+		# modifier = { # I am not comfortable with inbreeding
+			# factor = 0
+			# scope:puppet_or_actor = {
+				# is_close_or_extended_family_of = scope:recipient
+				# NOT = { likely_to_commit_incest_with_trigger = { CHARACTER_1 = scope:puppet_or_actor CHARACTER_2 = scope:recipient } }
+			# }
+			# desc = AI_CLONING_BLOCKED_INBREEDING
+		# }
+	# }
+	# ai_accept = {
+		# base = 100
+		# opinion_modifier = { # Opinion Factor
+			# who = scope:recipient
+			# opinion_target = scope:puppet_or_actor
+			# multiplier = 1.0
+			# desc = AI_OPINION_REASON
+		# }
+		# modifier = { # Ideological support
+			# add = {
+				# value = 100
+				# add = scope:recipient.ai_zeal
+				# min = 0
+				# divide = 2
+			# }
+			# scope:recipient.rite = { rite_has_parameter = supports_cloning }
+			# desc = AI_IDEOLOGY_SUPPORTS_CLONING
+		# }
+		# modifier = { # Ideological opposition
+			# add = {
+				# value = -100
+				# subtract = scope:recipient.ai_zeal
+				# max = 0
+				# divide = 2
+			# }
+			# scope:recipient.rite = { rite_has_parameter = hates_cloning }
+			# desc = AI_IDEOLOGY_HATES_CLONING
+		# }
+		# modifier = { # I have enough kids already
+			# add = {
+				# scope:recipient = {
+					# every_child = {
+						# limit = {
+							# is_alive = yes
+							# reverse_opinion = { target = scope:recipient value > 0 }
+						# }
+						# subtract = "reverse_opinion(scope:recipient)"
+					# }
+				# }
+			# }
+			# scope:recipient = {
+				# any_child = {
+					# is_alive = yes
+					# reverse_opinion = { target = scope:recipient value > 0 }
+				# }
+			# }
+			# desc = AI_ALREADY_HAS_CHILDREN
+		# }
+		# modifier = { # I am not comfortable with inbreeding
+			# factor = 0
+			# scope:recipient = {
+				# is_close_or_extended_family_of = scope:puppet_or_actor
+				# NOT = { likely_to_commit_incest_with_trigger = { CHARACTER_1 = scope:recipient CHARACTER_2 = scope:puppet_or_actor } }
+			# }
+			# desc = AI_CLONING_BLOCKED_INBREEDING
+		# }
+		# modifier = { # I am not comfortable with this level of intimacy
+			# factor = 0
+			# scope:recipient = {
+				# NOT = { any_spouse = { this = scope:puppet_or_actor } }
+				# NOT = { has_relation_soulmate = scope:puppet_or_actor }
+			# }
+			# desc = AI_NOT_SPOUSE_OR_SOULMATE
+		# }
+	# }
+	# on_accept = {
+		# scope:puppet_or_actor = {
+			# initiate_double_donor_clone_effect = { FIRST_DONOR = scope:puppet_or_actor SECOND_DONOR = scope:recipient }
+			# trigger_event = cotc_cloning_events.20
+		# }
+		# if = {
+			# limit = { scope:puppet_or_actor != scope:actor }
+			# trigger_event = cotc_cloning_events.20
+		# }
+	# }
+	# on_decline = {
+		# scope:puppet_or_actor = {
+			# add_gold = clone_cost # Refund the cost of the clone
+			# trigger_event = cotc_cloning_events.21
+		# }
+		# if = {
+			# limit = { scope:puppet_or_actor != scope:actor }
+			# trigger_event = cotc_cloning_events.21
+		# }
+	# }
+# }

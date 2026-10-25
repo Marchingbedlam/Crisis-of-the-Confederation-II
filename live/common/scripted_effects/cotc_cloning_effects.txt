@@ -55,8 +55,36 @@ initiate_single_donor_clone_effect = {
 		set_artifact_name = single_donor_clone_name
 		set_artifact_description = single_donor_clone_description
 	}
+	save_temporary_scope_as = temp_cloner
+	send_interface_message = {
+		type = msg_clone_created
+		title = clone_created.title
+		desc = {
+			first_valid = {
+				triggered_desc = {
+					trigger = { scope:temp_cloner = scope:first_donor }
+					desc = single_donor_clone_created.desc.self
+				}
+				desc = single_donor_clone_created.desc.other
+			}
+		}
+		left_icon = scope:first_donor
+		right_icon = scope:newly_created_clone
+	}
+	if = {
+		limit = { this != scope:first_donor }
+		scope:first_donor = {
+			send_interface_message = {
+				type = msg_clone_created
+				title = clone_created.title
+				desc = single_donor_clone_created.desc.other
+				left_icon = scope:first_donor
+				right_icon = scope:newly_created_clone
+			}
+		}
+	}
 }
-initiate_double_donor_clone = {
+initiate_double_donor_clone_effect = {
 	$FIRST_DONOR$ = { save_scope_as = first_donor }
 	$SECOND_DONOR$ = { save_scope_as = second_donor }
 	create_clone_effect = yes
@@ -69,5 +97,92 @@ initiate_double_donor_clone = {
 	scope:second_donor = {
 		add_personal_artifact_claim = scope:newly_created_clone
 		copy_genetic_traits_to_clone_effect = { FIDELITY = scope:clone_fidelity_value CLONE = scope:newly_created_clone }
+	}
+	if = {
+		limit = { scope:first_donor = { is_close_family_of = scope:second_donor } }
+		trait:inbred = { save_temporary_scope_as = temp_trait }
+		random = {
+			chance = clone_close_family_inbred_chance
+			custom_tooltip = {
+				text = clone_inherits_trait
+				scope:newly_created_clone = { add_to_variable_list = { name = cloned_traits target = trait:inbred } }
+			}
+		}
+	}
+	else_if = {
+		limit = { scope:first_donor = { is_close_or_extended_family_of = scope:second_donor } }
+		trait:inbred = { save_temporary_scope_as = temp_trait }
+		random = {
+			chance = clone_extended_family_inbred_chance
+			custom_tooltip = {
+				text = clone_inherits_trait
+				scope:newly_created_clone = { add_to_variable_list = { name = cloned_traits target = trait:inbred } }
+			}
+		}
+	}
+	if = {
+		limit = { this = scope:first_donor }
+		send_interface_message = {
+			type = msg_clone_created
+			title = clone_created.title
+			desc = double_donor_clone.desc.first_donor.cloner
+			left_icon = scope:second_donor
+			right_icon = scope:newly_created_clone
+		}
+		scope:second_donor = {
+			send_interface_message = {
+				type = msg_clone_created
+				title = clone_created.title
+				desc = double_donor_clone.desc.second_donor
+				left_icon = scope:first_donor
+				right_icon = scope:newly_created_clone
+			}
+		}
+	}
+	else_if = {
+		limit = { this = scope:second_donor }
+		send_interface_message = {
+			type = msg_clone_created
+			title = clone_created.title
+			desc = double_donor_clone.desc.second_donor.cloner
+			left_icon = scope:first_donor
+			right_icon = scope:newly_created_clone
+		}
+		scope:first_donor = {
+			send_interface_message = {
+				type = msg_clone_created
+				title = clone_created.title
+				desc = double_donor_clone.desc.first_donor
+				left_icon = scope:second_donor
+				right_icon = scope:newly_created_clone
+			}
+		}
+	}
+	else = {
+		save_temporary_scope_as = temp_cloner
+		send_interface_message = {
+			type = msg_clone_created
+			title = clone_created.title
+			desc = double_donor_clone.desc.third_party
+			right_icon = scope:newly_created_clone
+		}
+		scope:first_donor = {
+			send_interface_message = {
+				type = msg_clone_created
+				title = clone_created.title
+				desc = double_donor_clone.desc.third_party
+				left_icon = scope:temp_cloner
+				right_icon = scope:newly_created_clone
+			}
+		}
+		scope:second_donor = {
+			send_interface_message = {
+				type = msg_clone_created
+				title = clone_created.title
+				desc = double_donor_clone.desc.third_party
+				left_icon = scope:temp_cloner
+				right_icon = scope:newly_created_clone
+			}
+		}
 	}
 }

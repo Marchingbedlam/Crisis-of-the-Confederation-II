@@ -344,3 +344,31 @@ is_endangered_ruler_trigger = { # Check if a ruler is likely to lose power soon
 		}
 	}
 }
+needs_heir_trigger = {
+	is_ruler = yes
+	government_has_flag = government_is_aristocratic
+	NOT = {
+		any_child = {
+			is_alive = yes
+			is_valid_designated_heir = PREV
+			count >= 2 # Heir and spare
+		}
+	}
+}
+wants_children_trigger = {
+	is_capable_adult = yes
+	OR = {
+		AND = {
+			is_ruler = yes
+			OR = {
+				government_has_flag = government_is_aristocratic
+				rite = { rite_has_parameter = prefers_aristocracy }
+			}
+		}
+		has_focus = diplomacy_family_focus
+		rite = { rite_has_tenet = tenet_be_fruitful_and_multiply }
+		rite = { rite_has_tenet = tenet_sacred_childbirth }
+		has_personal_tenet = tenet_be_fruitful_and_multiply
+		has_personal_tenet = tenet_sacred_childbirth
+	}
+}

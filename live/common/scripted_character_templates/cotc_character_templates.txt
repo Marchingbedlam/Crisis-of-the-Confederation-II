@@ -31,23 +31,22 @@
 		scope:artifact = {
 			var:first_donor ?= {
 				save_scope_as = first_donor
+				set_relation_clone = scope:clone
 				if = {
 					limit = { is_female = yes }
 					scope:clone = { set_mother = PREV }
 				}
 				else = { scope:clone = { set_father = PREV } }
-				add_to_variable_list = { name = clones target = scope:clone }
-				scope:clone = { add_to_variable_list = { name = donors target = PREV } }
 			}
 			var:second_donor ?= {
 				save_scope_as = second_donor
+				set_relation_clone = scope:clone
+				adopt = scope:clone
 				if = {
 					limit = { is_female = yes }
 					scope:clone = { set_mother = PREV }
 				}
 				else = { scope:clone = { set_father = PREV } }
-				add_to_variable_list = { name = clones target = scope:clone }
-				scope:clone = { add_to_variable_list = { name = donors target = PREV } }
 			}
 		}
 		
