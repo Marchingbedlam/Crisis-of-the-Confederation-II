@@ -5887,7 +5887,6 @@ wounded_3 = {
 }
 
 maimed = {
-
 	diplomacy = -2
 	martial = -2
 	stewardship = -2
@@ -5923,11 +5922,14 @@ maimed = {
 				trigger = {
 					NOT = { exists = this }
 				}
-				desc = trait_maimed_desc
+				desc = trait_one_armed_desc
 			}
-			desc = trait_maimed_character_desc
+			desc = trait_one_armed_character_desc
 		}
 	}
+	
+	group = missing_arms
+	level = 1
 }
 
 one_eyed = {
@@ -5962,6 +5964,9 @@ one_eyed = {
 			desc = trait_one_eyed_character_desc
 		}
 	}
+	
+	group = missing_eyes
+	level = 1
 
 	ai_energy = -10
 }
@@ -5998,6 +6003,9 @@ one_legged = {
 			desc = trait_one_legged_character_desc
 		}
 	}
+	
+	group = missing_legs
+	level = 1
 
 	ai_energy = -10
 }
@@ -7065,6 +7073,9 @@ blind = {
 			desc = trait_blind_character_desc
 		}
 	}
+	
+	group = missing_eyes
+	level = 2
 }
 
 ############### Physical ##############

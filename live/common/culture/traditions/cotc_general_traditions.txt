@@ -5710,9 +5710,9 @@ tradition_cotc_reverence_for_veterans = {
 								primary_title.tier >= tier_county
 								OR = {
 									has_trait = scarred
-									has_trait = maimed
-									has_trait = one_eyed
-									has_trait = one_legged
+									has_trait_rank = { trait = missing_arms rank >= 1 }
+									has_trait_rank = { trait = missing_eyes rank >= 1 }
+									has_trait_rank = { trait = missing_legs rank >= 1 }
 									has_trait = disfigured
 								}
 							}

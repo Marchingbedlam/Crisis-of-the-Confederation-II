@@ -247,8 +247,7 @@ jester.300 = { # Masterful Juggling
 			aptitude:court_jester_court_position >= 3
 			NOR = {
 				has_trait = infirm
-				has_trait = maimed
-				has_trait = one_legged
+				num_of_limbs < 4
 				has_trait = gout_ridden
 				has_trait = blind
 				has_trait = physique_bad
@@ -366,9 +365,7 @@ jester.400 = { # A Flatulist and a Gentleman
 	trigger = {
 		any_court_position_holder = {
 			type = court_jester_court_position
-			NOT = {
-				has_trait = blind
-			}
+			cant_see = no
 		}
 	}
 
@@ -622,9 +619,7 @@ jester.600 = { # Food Fight
 		}
 		any_court_position_holder = {
 			type = court_jester_court_position
-			NOT = {
-				has_trait = blind
-			}
+			cant_see = no
 		}
 	}
 
@@ -1358,9 +1353,7 @@ jester.1000 = { # A Good Story
 	trigger = {
 		any_court_position_holder = {
 			type = court_jester_court_position
-			NOT = {
-				has_trait = blind
-			}
+			cant_see = no
 		}
 	}
 

@@ -1,0 +1,8 @@
+﻿death_implant_failure = {
+	natural_death_trigger = {
+		has_trait = implant_dependent
+		NOT = { any_equipped_character_artifact = { artifact_type = internal_implant } }
+	}
+	priority = 100 # This is almost always the thing that killed you
+	icon = "death_disease.dds"
+}

@@ -253,7 +253,7 @@ scripted_effect ep3_laamp_flavour_ewan_register_terrain_effect = {
 
 scripted_trigger ep3_laamp_flavour_ewan_0001_watch_partner_trigger = {
 	ep3_laamp_flavour_ewan_available_$CONFIG$_trigger = yes
-	NOT = { has_trait = blind }
+	cant_see = no
 	opinion = {
 		target = root
 		value >= 40
@@ -435,7 +435,7 @@ ep3_laamp_flavour_ewan.0001 = {
 			title_held_years >= 10
 		}
 		# And uhhh. Unfortunately.
-		NOT = { has_trait = blind }
+		cant_see = no
 	}
 
 	immediate = {
@@ -14662,7 +14662,7 @@ ep3_laamp_flavour_ewan.3051 = {
 		# Must have the correct camp purpose.
 		has_realm_law = camp_purpose_explorers
 		# For tonal reasons, you can't be blind.
-		NOT = { has_trait = blind }
+		cant_see = no
 		# Can't already have a map of this empire.
 		NOT = {
 			any_artifact = {
@@ -14802,7 +14802,7 @@ ep3_laamp_flavour_ewan.3061 = {
 		# Must have the correct camp purpose.
 		has_realm_law = camp_purpose_scholars
 		# For tonal reasons, you can't be blind.
-		NOT = { has_trait = blind }
+		cant_see = no
 	}
 
 	immediate = {
@@ -18492,7 +18492,7 @@ ep3_laamp_flavour_ewan.4061 = {
 		# Sight.
 		first_valid = {
 			triggered_desc = {
-				trigger = { has_trait = blind }
+				trigger = { cant_see = yes }
 				desc = ep3_laamp_flavour_ewan.4061.desc.sight.blind
 			}
 			desc = ep3_laamp_flavour_ewan.4061.desc.sight.sighted

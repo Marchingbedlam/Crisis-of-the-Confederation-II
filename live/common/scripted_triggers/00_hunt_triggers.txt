@@ -4,8 +4,8 @@ can_hunt_trigger = {
 		has_trait = wounded_2
 		has_trait = wounded_3
 		has_trait = infirm
-		has_trait = maimed
-		has_trait = blind
+		num_of_limbs < 4
+		cant_see = yes
 	}
 	has_contagious_deadly_disease_trigger = no
 	custom_tooltip = {
@@ -393,7 +393,7 @@ hunt_animal_small_available_trigger = {
 hunt_activity_attendee_trigger = {
 	is_available_for_activity_trigger = yes
 	liege = scope:activity.activity_host
-	NOT = { has_trait = blind }
+	cant_see = no
 }
 
 hunt_activity_large_game_trigger = {

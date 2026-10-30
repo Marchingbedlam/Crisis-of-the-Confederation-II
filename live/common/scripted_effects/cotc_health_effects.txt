@@ -2,25 +2,25 @@
 suffer_severe_injury_effect = {
 	random_list = {
 		4 = {
-			trigger = { NOT = { has_trait = one_legged } }
-			add_trait_force_tooltip = one_legged
+			trigger = { NOT = { has_trait_rank = { trait = missing_legs rank = 2 } } }
+			break_leg_effect = yes
 			increase_wounds_no_death_effect = { REASON = $REASON$ }
 		}
 		2 = {
 			trigger = { NOT = { has_trait = disfigured } }
-			add_trait_force_tooltip = disfigured
+			disfigure_face_effect = yes
 			increase_wounds_no_death_effect = { REASON = $REASON$ }
 			epilepsy_brain_trauma_risk_effect = { CHANCE = 5 }
 		}
 		4 = {
-			trigger = { NOT = { has_trait = one_eyed } }
-			add_trait_force_tooltip = one_eyed
+			trigger = { NOT = { has_trait_rank = { trait = missing_eyes rank = 2 } } }
+			lose_eye_effect = yes
 			increase_wounds_no_death_effect = { REASON = $REASON$ }
 			epilepsy_brain_trauma_risk_effect = { CHANCE = 5 }
 		}
 		4 = {
-			trigger = { NOT = { has_trait = maimed } }
-			apply_maimed_trait_and_modifier_effect = yes
+			trigger = { NOT = { has_trait_rank = { trait = missing_arms rank = 2 } } }
+			break_arm_effect = yes
 			epilepsy_brain_trauma_risk_effect = { CHANCE = 5 }
 		}
 	}
@@ -30,5 +30,168 @@ suffer_random_injury_effect = {
 		$MILD$ = { suffer_mild_injury_effect = { REASON = $REASON$ } }
 		$SEVERE$ = { suffer_severe_injury_effect = { REASON = $REASON$ } }
 		$DEATH$ = { death = { death_reason = death_$REASON$ } }
+	}
+}
+apply_one_legged_trait_and_modifier_effect = {
+	change_trait_rank = { trait = missing_legs rank = 1 max = 2 }
+	add_character_modifier = {
+		modifier = recently_maimed_modifier
+		years = 1
+	}
+}
+disfigure_face_effect = {
+	random_list = {
+		1 = {
+			trigger = { NOT = { has_trait = disfigured } }
+			add_trait_force_tooltip = disfigured
+		}
+		1 = {
+			trigger = { any_equipped_character_artifact = { artifact_type = dermal_implant } }
+			random_equipped_character_artifact = {
+				limit = { artifact_type = dermal_implant }
+				add_durability = -50
+			}
+		}
+	}
+}
+break_arm_effect = {
+	random_list = {
+		1 = {
+			trigger = { has_trait_rank = { trait = missing_arms rank < 2 } }
+			apply_maimed_trait_and_modifier_effect = yes
+		}
+		1 = {
+			trigger = { any_equipped_character_artifact = { artifact_type = artificial_arm } }
+			random_equipped_character_artifact = {
+				limit = { artifact_type = artificial_arm }
+				add_durability = -50
+			}
+		}
+	}
+}
+break_leg_effect = {
+	random_list = {
+		1 = {
+			trigger = { has_trait_rank = { trait = missing_legs rank < 2 } }
+			apply_one_legged_trait_and_modifier_effect = yes
+		}
+		1 = {
+			trigger = { any_equipped_character_artifact = { artifact_type = artificial_leg } }
+			random_equipped_character_artifact = {
+				limit = { artifact_type = artificial_leg }
+				add_durability = -50
+			}
+		}
+	}
+}
+lose_eye_effect = {
+	random_list = {
+		1 = {
+			trigger = { has_trait_rank = { trait = missing_eyes rank < 2 } }
+			change_trait_rank = { trait = missing_eyes rank = 1 max = 2 }
+		}
+		1 = {
+			trigger = { any_equipped_character_artifact = { artifact_type = artificial_eye } }
+			random_equipped_character_artifact = {
+				limit = { artifact_type = artificial_eye }
+				save_temporary_scope_as = temp_eye
+			}
+			destroy_owned_artifact = scope:temp_eye
+		}
+	}
+}
+deactivate_beauty_traits = {
+	switch = {
+		trigger = has_trait
+		beauty_good_1 = { make_trait_inactive = beauty_good_1 }
+		beauty_good_2 = { make_trait_inactive = beauty_good_2 }
+		beauty_good_3 = { make_trait_inactive = beauty_good_3 }
+		beauty_bad_1 = { make_trait_inactive = beauty_bad_1 }
+		beauty_bad_2 = { make_trait_inactive = beauty_bad_2 }
+		beauty_bad_3 = { make_trait_inactive = beauty_bad_3 }
+	}
+}
+activate_beauty_traits = {
+	switch = {
+		trigger = has_inactive_trait
+		beauty_good_1 = { make_trait_active = beauty_good_1 }
+		beauty_good_2 = { make_trait_active = beauty_good_2 }
+		beauty_good_3 = { make_trait_active = beauty_good_3 }
+		beauty_bad_1 = { make_trait_active = beauty_bad_1 }
+		beauty_bad_2 = { make_trait_active = beauty_bad_2 }
+		beauty_bad_3 = { make_trait_active = beauty_bad_3 }
+	}
+}
+deactivate_physique_traits = {
+	switch = {
+		trigger = has_trait
+		physique_good_1 = { make_trait_inactive = physique_good_1 }
+		physique_good_2 = { make_trait_inactive = physique_good_2 }
+		physique_good_3 = { make_trait_inactive = physique_good_3 }
+		physique_bad_1 = { make_trait_inactive = physique_bad_1 }
+		physique_bad_2 = { make_trait_inactive = physique_bad_2 }
+		physique_bad_3 = { make_trait_inactive = physique_bad_3 }
+	}
+}
+deactivate_limb_traits = {
+	if = {
+		limit = {
+			has_trait = clubfooted
+			has_trait_rank = { trait = missing_legs rank = 2 }
+		}
+		make_trait_inactive = clubfooted
+	}
+}
+activate_limb_traits = {
+	if = {
+		limit = {
+			has_inactive_trait = clubfooted
+			has_trait_rank = { trait = missing_legs rank < 2 }
+		}
+		make_trait_active = clubfooted
+	}
+}
+deactivate_structural_physical_traits = {
+	if = {
+		limit = { has_trait = hunchbacked }
+		make_trait_inactive = hunchbacked
+	}
+	if = {
+		limit = { has_trait = spindly }
+		make_trait_inactive = spindly
+	}
+	if = {
+		limit = { has_trait = wheezing }
+		make_trait_inactive = wheezing # Well, really it should just make it sound way cooler
+	}
+}
+deactivate_dermal_traits = {
+	if = {
+		limit = { has_trait = scaly }
+		make_trait_inactive = scaly
+	}
+	if = {
+		limit = { has_trait = albino }
+		make_trait_inactive = albino
+	}
+}
+activate_dermal_traits = {
+	if = {
+		limit = { has_inactive_trait = scaly }
+		make_trait_active = scaly
+	}
+	if = {
+		limit = { has_inactive_trait = albino }
+		make_trait_active = albino
+	}
+}
+remove_physical_traits = {
+	if = {
+		limit = { has_trait = strong }
+		remove_trait = strong
+	}
+	if = {
+		limit = { has_trait = weak }
+		remove_trait = weak
 	}
 }

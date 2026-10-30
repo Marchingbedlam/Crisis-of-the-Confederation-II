@@ -228,7 +228,7 @@ scripted_effect select_special_tier_move_effect = {
 				stewardship >= very_high_skill_rating
 				short_term_gold >= combat_move_pocket_silver_value
 				# Move essentially requires two arms, I'm afraid.
-				NOT = { has_trait = maimed }
+				num_of_arms = 2
 				# Block special moves twice in a row.
 				NOR = {
 					AND = {
@@ -597,7 +597,7 @@ scripted_effect select_special_tier_move_effect = {
 				NOT = { exists = local_var:combat_move_feint_and_stab_flag }
 				has_trait = lifestyle_hunter
 				# Move specifically requires two arms, I'm afraid.
-				NOT = { has_trait = maimed }
+				num_of_arms = 2
 				# Block special moves twice in a row.
 				NOR = {
 					AND = {
@@ -951,7 +951,7 @@ scripted_effect select_tier_1_move_effect = {
 							}
 						}
 						# Move essentially requires two arms, I'm afraid.
-						NOT = { has_trait = maimed }
+						num_of_arms = 2
 					}
 					set_local_variable = {
 						name = combat_move_pocket_sand_flag

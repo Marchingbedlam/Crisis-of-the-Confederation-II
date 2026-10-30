@@ -1,0 +1,49 @@
+﻿num_of_arms = {
+	if = {
+		limit = { has_trait = armless }
+		value = 0
+	}
+	else_if = {
+		limit = { has_trait = maimed }
+		value = 1
+	}
+	else = { value = 2 }
+	every_equipped_character_artifact = {
+		limit = { artifact_type = artificial_arm }
+		add = 1
+	}
+}
+num_of_legs = {
+	if = {
+		limit = { has_trait = legless }
+		value = 0
+	}
+	else_if = {
+		limit = { has_trait = one_legged }
+		value = 1
+	}
+	else = { value = 2 }
+	every_equipped_character_artifact = {
+		limit = { artifact_type = artificial_leg }
+		add = 1
+	}
+}
+num_of_limbs = {
+	add = num_of_arms
+	add = num_of_legs
+}
+num_of_eyes = {
+	if = {
+		limit = { has_trait = blind }
+		value = 0
+	}
+	else_if = {
+		limit = { has_trait = one_eyed }
+		value = 1
+	}
+	else = { value = 2 }
+	every_equipped_character_artifact = {
+		limit = { artifact_type = artificial_eye }
+		add = 1
+	}
+}

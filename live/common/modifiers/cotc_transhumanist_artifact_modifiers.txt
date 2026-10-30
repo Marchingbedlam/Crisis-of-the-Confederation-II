@@ -2,3 +2,40 @@
 	monthly_prestige = 0.05
 	monthly_piety = 0.05
 }
+
+# Basic cybernetics modifiers, countering the effects of the corresponding health trait
+artificial_arm_modifier = {
+	diplomacy = 2
+	martial = 2
+	stewardship = 2
+	intrigue = 2
+	learning = 2
+	prowess = 4
+
+	dread_baseline_add = 15
+	dread_loss_mult = -1
+
+	attraction_opinion = 10
+}
+artificial_leg_modifier = {
+	prowess = 4
+	dread_baseline_add = 10
+	attraction_opinion = 10
+}
+dermal_implant_modifier = {
+	diplomacy = -4
+	attraction_opinion = 10 # Doesn't counter the entire effect due to the uncanny valley
+	ai_sociability = low_positive_ai_value
+}
+internal_implant_modifier = {
+	health = 100
+}
+neural_implant_modifier = {
+	diplomacy = 2
+	martial = 2
+	stewardship = 2
+	intrigue = 2
+	learning = 2
+	prowess = 2
+	ai_rationality = 25
+}

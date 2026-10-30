@@ -1,0 +1,101 @@
+﻿missing_an_arm_trigger = {
+	trigger_if = {
+		limit = { has_trait = maimed }
+		any_equipped_character_artifact = {
+			artifact_type = artificial_arm
+			count < 1
+		}
+	}
+	trigger_else_if = {
+		limit = { has_trait = armless }
+		any_equipped_character_artifact = {
+			artifact_type = artificial_arm
+			count < 2
+		}
+	}
+	trigger_else = { always = no }
+}
+missing_a_leg_trigger = {
+	trigger_if = {
+		limit = { has_trait = one_legged }
+		any_equipped_character_artifact = {
+			artifact_type = artificial_leg
+			count < 1
+		}
+	}
+	trigger_else_if = {
+		limit = { has_trait = legless }
+		any_equipped_character_artifact = {
+			artifact_type = artificial_leg
+			count < 2
+		}
+	}
+	trigger_else = { always = no }
+}
+missing_a_limb_trigger = {
+	OR = {
+		missing_an_arm_trigger = yes
+		missing_a_leg_trigger = yes
+	}
+}
+missing_an_eye_trigger = {
+	trigger_if = {
+		limit = { has_trait = one_eyed }
+		any_equipped_character_artifact = {
+			artifact_type = artificial_eye
+			count < 1
+		}
+	}
+	trigger_else_if = {
+		limit = { has_trait = blind }
+		any_equipped_character_artifact = {
+			artifact_type = artificial_eye
+			count < 2
+		}
+	}
+	trigger_else = { always = no }
+}
+visibly_disfigured_trigger = {
+	has_trait = disfigured
+	NOT = { any_equipped_character_artifact = { artifact_type = dermal_implant } }
+}
+cant_see = {
+	has_trait = blind
+	NOT = { any_equipped_character_artifact = { artifact_type = artificial_eye } }
+}
+is_considered_mutilated_by_rite = {
+	trigger_if = {
+		limit = { $RITE$ = { rite_has_parameter = hates_cybernetics } }
+		OR = {
+			has_trait_rank = { trait = missing_eyes rank >= 1 }
+			has_trait_rank = { trait = missing_legs rank >= 1 }
+			has_trait_rank = { trait = missing_arms rank >= 1 }
+			has_trait = disfigured
+			has_trait = datajacked
+			has_trait = implant_dependent
+		}
+	}
+	trigger_else_if = {
+		limit = { $RITE$ = { rite_has_parameter = supports_cybernetics } }
+		OR = {
+			num_of_eyes < 2
+			num_of_limbs < 4
+			visibly_disfigured_trigger = yes
+		}
+	}
+	trigger_else = {
+		OR = {
+			num_of_eyes < 2
+			num_of_limbs < 4
+			has_trait = disfigured
+			has_trait = implant_dependent
+		}
+	}
+}
+is_considered_mutilated_for_title = {
+	trigger_if = {
+		limit = { exists = $TITLE$.state_rite }
+		is_considered_mutilated_by_rite = { RITE = $TITLE$.state_rite }
+	}
+	trigger_else = { is_considered_mutilated_by_rite = { RITE = $TITLE$.holder.rite } }
+}

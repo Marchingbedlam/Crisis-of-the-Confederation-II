@@ -1,0 +1,133 @@
+﻿armless = {
+	icon = maimed.dds
+	diplomacy = -4
+	martial = -4
+	stewardship = -4
+	intrigue = -4
+	learning = -4
+	prowess = -8
+
+	culture_modifier = {
+		parameter = wounds_and_scars_give_bonuses
+		monthly_prestige_gain_mult = 0.2
+		same_culture_opinion = 15
+	}
+
+	culture_modifier = {
+		parameter = palace_politics_trait_maluses
+		monthly_influence = -0.70
+	}
+
+	category = health
+
+	dread_baseline_add = -30
+	dread_loss_mult = 2
+
+	attraction_opinion = -20
+
+	same_opinion = 5
+
+	shown_in_ruler_designer = no
+
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					NOT = { exists = this }
+				}
+				desc = trait_armless_desc
+			}
+			desc = trait_armless_character_desc
+		}
+	}
+	
+	group = missing_arms
+	level = 2
+}
+
+legless = {
+	icon = one_legged.dds
+	category = health
+	prowess = -8
+
+	dread_baseline_add = -20
+
+	attraction_opinion = -20
+
+	culture_modifier = {
+		parameter = wounds_and_scars_give_bonuses
+		monthly_prestige_gain_mult = 0.15
+		same_culture_opinion = 10
+	}
+
+	culture_modifier = {
+		parameter = palace_politics_trait_maluses
+		monthly_influence = -0.70
+	}
+
+	ruler_designer_cost = -10
+
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					NOT = { exists = this }
+				}
+				desc = trait_legless_desc
+			}
+			desc = trait_legless_character_desc
+		}
+	}
+	
+	group = missing_legs
+	level = 2
+
+	ai_energy = -20
+}
+
+datajacked = {
+	icon = withering_mind.dds
+	category = health
+	diplomacy = -2
+	martial = -2
+	stewardship = -2
+	intrigue = -2
+	learning = -2
+	prowess = -2
+
+	shown_in_ruler_designer = no
+
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					NOT = { exists = this }
+				}
+				desc = trait_datajacked_desc
+			}
+			desc = trait_datajacked_character_desc
+		}
+	}
+	
+	ai_rationality = -25
+}
+
+implant_dependent = {
+	icon = wounded_3.dds # Placeholder
+	category = health
+	health = -100 # This should basically always be lethal unless an internal implant is equipped
+
+	shown_in_ruler_designer = no
+	
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					NOT = { exists = this }
+				}
+				desc = trait_implant_dependent_desc
+			}
+			desc = trait_implant_dependent_character_desc
+		}
+	}
+}

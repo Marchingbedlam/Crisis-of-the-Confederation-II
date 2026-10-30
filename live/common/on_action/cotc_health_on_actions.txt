@@ -1,0 +1,71 @@
+﻿# Hooks to code
+on_trait_gained = {
+	on_actions = {
+		on_disfigured
+		on_implant_dependence
+		on_lose_legs
+	}
+}
+on_trait_lost = {
+	on_actions = {
+		on_undisfigured
+		on_regain_legs
+	}
+}
+on_artifact_broken_through_effect = {
+	on_actions = { internal_implant_broken_on_action }
+}
+on_artifact_broken_through_decay = {
+	on_actions = { internal_implant_broken_on_action }
+}
+
+# Health traits that suppress the effects of congenital traits
+on_disfigured = { # Your natural appearance doesn't matter because your face is so messed up
+	trigger = { scope:trait = trait:disfigured }
+	effect = {
+		deactivate_beauty_traits = yes
+		deactivate_dermal_traits = yes
+	}
+}
+on_undisfigured = {
+	trigger = { scope:trait = trait:disfigured }
+	effect = {
+		activate_beauty_traits = yes
+		activate_dermal_traits = yes
+	}
+}
+on_implant_dependence = {
+	trigger = { scope:trait = trait:implant_dependent }
+	effect = {
+		deactivate_physique_traits = yes
+		deactivate_structural_physical_traits = yes
+	}
+}
+on_lose_legs = {
+	trigger = { scope:trait = trait:legless }
+	effect = {
+		deactivate_limb_traits = yes
+	}
+}
+on_regain_legs = {
+	trigger = { scope:trait = trait:legless }
+	effect = {
+		activate_limb_traits = yes
+	}
+}
+
+# Death from broken implants
+internal_implant_broken_on_action = {
+	trigger = {
+		artifact_type = internal_implant
+		is_equipped = yes
+	}
+	effect = { owner = { trigger_event = { on_action = internal_implant_dependence_on_action } } }
+}
+internal_implant_dependence_on_action = {
+	trigger = {
+		has_trait = implant_dependent
+		NOT = { any_equipped_character_artifact = { artifact_type = internal_implant } }
+	}
+	effect = { death = { death_reason = death_implant_failure } }
+}

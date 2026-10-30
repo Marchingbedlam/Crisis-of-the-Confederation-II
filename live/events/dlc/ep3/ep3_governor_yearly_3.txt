@@ -2309,10 +2309,7 @@ ep3_governor_yearly.3020 = {
 					}
 					OR = {
 						is_eunuch_trigger = yes
-						has_trait = blind
-						has_trait = maimed
-						has_trait = one_eyed
-						has_trait = one_legged
+						is_considered_mutilated_for_title = { TITLE = scope:emperor_temp.primary_title }
 						has_trait = hunchbacked
 						has_trait = dwarf
 						has_trait = incapable
@@ -2486,10 +2483,7 @@ ep3_governor_yearly.3020 = {
 						}
 						OR = {
 							has_trait = eunuch
-							has_trait = blind
-							has_trait = maimed
-							has_trait = one_eyed
-							has_trait = one_legged
+							is_considered_mutilated_for_title = { TITLE = scope:emperor.primary_title }
 							has_trait = hunchbacked
 							has_trait = dwarf
 							has_trait = incapable
@@ -2504,6 +2498,10 @@ ep3_governor_yearly.3020 = {
 								this = trait:beardless_eunuch
 								this = trait:blind
 								this = trait:maimed
+								this = trait:legless
+								this = trait:armless
+								this = trait:datajacked
+								this = trait:implant_dependent
 								this = trait:one_eyed
 								this = trait:one_legged
 								this = trait:hunchbacked
@@ -2651,10 +2649,7 @@ ep3_governor_yearly.3020 = {
 			limit = {
 				NOR = {
 					has_trait = eunuch
-					has_trait = blind
-					has_trait = maimed
-					has_trait = one_eyed
-					has_trait = one_legged
+					is_considered_mutilated_for_title = { TITLE = scope:emperor.primary_title }
 					has_trait = hunchbacked
 					has_trait = dwarf
 					has_trait = incapable
@@ -2828,10 +2823,7 @@ ep3_governor_yearly.3021 = {
 					limit = {
 						NOR = {
 							has_trait = eunuch
-							has_trait = blind
-							has_trait = maimed
-							has_trait = one_eyed
-							has_trait = one_legged
+							is_considered_mutilated_for_title = { TITLE = scope:emperor.primary_title }
 							has_trait = hunchbacked
 							has_trait = dwarf
 							has_trait = incapable
