@@ -351,8 +351,8 @@ PixelShader =
 	Code
 	[[
 		static const float COTC_STAR_EMISSIVE_BOOST			= 4.0f;
-		static const float COTC_BLACK_HOLE_EMISSIVE_BOOST	= 5.0f;
-		static const float COTC_NEUTRON_EMISSIVE_BOOST		= 3.0f;
+		static const float COTC_BLACK_HOLE_EMISSIVE_BOOST	= 8.0f;
+		static const float COTC_NEUTRON_EMISSIVE_BOOST		= 6.0f;
 
 		// power, edge fade, night alpha, terminator
 		static const float4 COTC_FRESNEL_STANDARD_OUTER   = float4( 1.5f, 2.0f, 0.1f, 0.4f );

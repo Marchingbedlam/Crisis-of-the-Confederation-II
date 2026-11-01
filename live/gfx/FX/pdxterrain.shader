@@ -448,7 +448,7 @@ PixelShader =
 			PDX_MAIN
 			{
 				// MOD(COTC)
-				discard;
+				return float4( 0, 0, 0, 0 );
 				// END MOD
 				float FullColorOverlayFactor = 0.0f;
 				bool IsFullyColorOverlay = false;
@@ -631,7 +631,7 @@ PixelShader =
 			PDX_MAIN
 			{
 				// MOD(COTC)
-				discard;
+				return float4( 0, 0, 0, 0 );
 				// END MOD
 				float FullColorOverlayFactor = 0.0f;
 				bool IsFullyColorOverlay = false;
@@ -743,7 +743,7 @@ PixelShader =
 			PDX_MAIN
 			{
 				// MOD(COTC)
-				discard;
+				return float4( 0, 0, 0, 0 );
 				// END MOD
 				#ifdef TERRAIN_SKIRT
 					return float4( 0, 0, 0, 0 );
@@ -796,9 +796,25 @@ PixelShader =
 }
 
 
+# MOD(COTC)
+BlendState BlendStateCotcInvisible
+{
+	BlendEnable = yes
+	SourceBlend = "SRC_ALPHA"
+	DestBlend = "INV_SRC_ALPHA"
+}
+
+DepthStencilState DepthStencilCotcInvisible
+{
+	DepthWriteEnable = no
+}
+# END MOD
+
 Effect PdxTerrain
 {
 	VertexShader = "VertexShader"
+	BlendState = BlendStateCotcInvisible
+	DepthStencilState = DepthStencilCotcInvisible
 	PixelShader = "PixelShader"
 
 	Defines = { "TERRAIN_FLAT_MAP_LERP" }
@@ -807,12 +823,16 @@ Effect PdxTerrain
 Effect PdxTerrainLowSpec
 {
 	VertexShader = "VertexShaderLowSpec"
+	BlendState = BlendStateCotcInvisible
+	DepthStencilState = DepthStencilCotcInvisible
 	PixelShader = "PixelShaderLowSpec"
 }
 
 Effect PdxTerrainSkirt
 {
 	VertexShader = "VertexShaderSkirt"
+	BlendState = BlendStateCotcInvisible
+	DepthStencilState = DepthStencilCotcInvisible
 	PixelShader = "PixelShader"
 	Defines = { "TERRAIN_SKIRT" }
 }
@@ -820,6 +840,8 @@ Effect PdxTerrainSkirt
 Effect PdxTerrainLowSpecSkirt
 {
 	VertexShader = "VertexShaderLowSpecSkirt"
+	BlendState = BlendStateCotcInvisible
+	DepthStencilState = DepthStencilCotcInvisible
 	PixelShader = "PixelShaderLowSpec"
 	Defines = { "TERRAIN_SKIRT" }
 }
@@ -836,8 +858,9 @@ BlendState BlendStateAlpha
 Effect PdxTerrainFlat
 {
 	VertexShader = "VertexShader"
+	BlendState = BlendStateCotcInvisible
+	DepthStencilState = DepthStencilCotcInvisible
 	PixelShader = "PixelShaderFlatMap"
-	BlendState = BlendStateAlpha
 
 	Defines = { "TERRAIN_FLAT_MAP" "TERRAIN_FLATMAP_LIGHTING" }
 }
@@ -845,8 +868,9 @@ Effect PdxTerrainFlat
 Effect PdxTerrainFlatSkirt
 {
 	VertexShader = "VertexShaderSkirt"
+	BlendState = BlendStateCotcInvisible
+	DepthStencilState = DepthStencilCotcInvisible
 	PixelShader = "PixelShaderFlatMap"
-	BlendState = BlendStateAlpha
 
 	Defines = { "TERRAIN_FLAT_MAP" "TERRAIN_SKIRT" }
 }
@@ -855,8 +879,9 @@ Effect PdxTerrainFlatSkirt
 Effect PdxTerrainFlatLowSpec
 {
 	VertexShader = "VertexShader"
+	BlendState = BlendStateCotcInvisible
+	DepthStencilState = DepthStencilCotcInvisible
 	PixelShader = "PixelShaderFlatMap"
-	BlendState = BlendStateAlpha
 
 	Defines = { "TERRAIN_FLAT_MAP" }
 }
@@ -864,8 +889,9 @@ Effect PdxTerrainFlatLowSpec
 Effect PdxTerrainFlatLowSpecSkirt
 {
 	VertexShader = "VertexShaderSkirt"
+	BlendState = BlendStateCotcInvisible
+	DepthStencilState = DepthStencilCotcInvisible
 	PixelShader = "PixelShaderFlatMap"
-	BlendState = BlendStateAlpha
 
 	Defines = { "TERRAIN_FLAT_MAP" "TERRAIN_SKIRT" }
 }
