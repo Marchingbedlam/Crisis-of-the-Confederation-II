@@ -567,57 +567,42 @@ types GovernmentAdministrationThemes
 				size = { 80 80 }
 			}
 
-			icon = {
-				name = "crown"
-				parentanchor = top|hcenter
-				widgetanchor = bottom|hcenter
-				position = { 0 2 }
-
-				size = { 64% 40% }
-
-				texture = "gfx/interface/coat_of_arms/crown_strip_115.dds"
-				frame = "[Title.GetTierFrame]"
-				framesize = { 128 80 }
-
-			}
-
-			icon = {
-				size = { 100% 100% }
-				texture = "gfx/interface/window_theme_administration/admin_theme_coa_title.dds"
-			}
-
-			icon = {
-				size = { 100% 100% }
-				parentanchor = top|hcenter
-				texture = "gfx/interface/window_theme_administration/admin_theme_coa_title.dds"
-			}
-
+			# COTC: the same round title frame as every other title CoA (proportions of coa_title_big)
 			coat_of_arms_icon = {
-				parentanchor = top|hcenter
-				size = { 100% 100% }
+				parentanchor = center
+				size = { 89.6% 89.6% }
 				coat_of_arms = "[Title.GetTitleCoA.GetTexture('(int32)256','(int32)256')]"
 				coat_of_arms_slot = "[Title.GetTitleCoA.GetSlot('(int32)256','(int32)256')]"
-				coat_of_arms_mask = "gfx/interface/window_theme_administration/admin_theme_mask.dds"
+				coat_of_arms_mask = "gfx/interface/coat_of_arms/title_mask.dds"
+				coat_of_arms_offset = "[DefaultCoATitleMaskOffset]"
+				coat_of_arms_scale = "[DefaultCoATitleMaskScale]"
 
-				modify_texture = {
-					texture = "gfx/interface/coat_of_arms/coa_overlay.dds"
-					blend_mode = overlay
-					spritetype = corneredTiled
+				coa_title_frame = {
+					texture = "gfx/interface/coat_of_arms/title_86.dds"
+					size = { 111.6% 111.6% }
 				}
 
-				modify_texture = {
-					texture = "gfx/interface/colors/black.dds"
-					blend_mode = normal
-					alpha = 1
-
-					visible = "[Not(Title.GetHolder.IsValid)]"
+				coa_title_frame_no_holder = {
+					texture = "gfx/interface/coat_of_arms/title_no_holder_86.dds"
+					size = { 120.9% 120.9% }
 				}
 			}
 
-			icon = {
-				parentanchor = top
-				size = { 100% 10 }
-				texture = "gfx/interface/window_theme_administration/admin_theme_coa_header.dds"
+			# COTC: the crest sits under the frame and is drawn over its bottom edge.
+			widget = {
+				parentanchor = top|hcenter
+				size = { 107.1% 111.4% }
+				allow_outside = yes
+
+				icon = {
+					name = "crown"
+					parentanchor = bottom|hcenter
+					size = { 100% 60.1% }
+
+					texture = "gfx/interface/coat_of_arms/crown_strip_115.dds"
+					frame = "[Title.GetTierFrame]"
+					framesize = { 128 80 }
+				}
 			}
 		}
 	}
@@ -694,62 +679,34 @@ types GovernmentAdministrationThemes
 				size = { 80 80 }
 			}
 
-			block "crown" {
-				icon = {
-					name = "crown"
-					parentanchor = top|hcenter
-					widgetanchor = bottom|hcenter
-					position = { 0 -2 }
-
-					allow_outside = yes
-
-					size = { 80% 56% }
-
-					texture = "gfx/interface/coat_of_arms/crown_strip_115.dds"
-					frame = "[Title.GetTierFrame]"
-					framesize = { 128 80 }
-				}
-			}
-
-			icon = {
-				size = { 100% 100% }
-				parentanchor = top|hcenter
-				texture = "gfx/interface/window_theme_administration/admin_theme_coa_title.dds"
-			}
-
-			coat_of_arms_icon = { #Dynasty
-				parentanchor = top|hcenter
-				size = { 100% 100% }
+			# COTC: the same round title frame as every other title CoA (proportions of coa_title_big)
+			coat_of_arms_icon = {
+				parentanchor = center
+				size = { 89.6% 89.6% }
 				coat_of_arms = "[Title.GetTitleCoA.GetTexture('(int32)256','(int32)256')]"
 				coat_of_arms_slot = "[Title.GetTitleCoA.GetSlot('(int32)256','(int32)256')]"
-				coat_of_arms_mask = "gfx/interface/window_theme_administration/admin_theme_mask.dds"
+				coat_of_arms_mask = "gfx/interface/coat_of_arms/title_mask.dds"
+				coat_of_arms_offset = "[DefaultCoATitleMaskOffset]"
+				coat_of_arms_scale = "[DefaultCoATitleMaskScale]"
 
-				modify_texture = {
-					texture = "gfx/interface/coat_of_arms/coa_overlay.dds"
-					blend_mode = overlay
-					spritetype = corneredTiled
+				coa_title_frame = {
+					texture = "gfx/interface/coat_of_arms/title_86.dds"
+					size = { 111.6% 111.6% }
 				}
 
-				modify_texture = {
-					texture = "gfx/interface/component_masks/mask_glow.dds"
-					blend_mode = alphaMultiply
-					alpha = 0.6
-				}
-
-				modify_texture = {
-					texture = "gfx/interface/colors/black.dds"
-					blend_mode = normal
-					alpha = 0.5
-
-					visible = "[Not(Title.GetHolder.IsValid)]"
+				coa_title_frame_no_holder = {
+					texture = "gfx/interface/coat_of_arms/title_no_holder_86.dds"
+					size = { 120.9% 120.9% }
 				}
 			}
 
+			# COTC: hover highlight is the round ring tinted gold, not the square admin glow
 			icon = {
 				name = "theme_glow"
-				parentanchor = top|hcenter
+				parentanchor = center
 				size = { 100% 100% }
-				texture = "gfx/interface/window_theme_administration/admin_theme_glow.dds"
+				texture = "gfx/interface/coat_of_arms/title_86.dds"
+				color = { 1.0 0.85 0.45 1.0 }
 				alpha = 0
 
 				state = {
@@ -771,11 +728,23 @@ types GovernmentAdministrationThemes
 				}
 			}
 
-			icon = {
-				parentanchor = top|hcenter
-				size = { 100% 10 }
-				position = { 0 -4}
-				texture = "gfx/interface/window_theme_administration/admin_theme_coa_header.dds"
+			# COTC: the crest sits under the frame and is drawn over its bottom edge.
+			block "crown" {
+				widget = {
+					parentanchor = top|hcenter
+					size = { 107.1% 111.4% }
+					allow_outside = yes
+
+					icon = {
+						name = "crown"
+						parentanchor = bottom|hcenter
+						size = { 100% 60.1% }
+
+						texture = "gfx/interface/coat_of_arms/crown_strip_115.dds"
+						frame = "[Title.GetTierFrame]"
+						framesize = { 128 80 }
+					}
+				}
 			}
 		}
 
@@ -938,20 +907,22 @@ types GovernmentAdministrationThemes
 			tooltip_when_disabled = "ADMIN_WINDOW_NON_ADMIN_THEME_FAIL_DEMAND_INTERACTION"
 			using = tooltip_ws
 
+			# COTC: the crest sits under the frame and is drawn over its bottom edge.
 			blockoverride "crown" {
-				icon = {
-					name = "crown"
+				widget = {
 					parentanchor = top|hcenter
-					widgetanchor = bottom|hcenter
-					position = { 0 -2 }
-
+					size = { 107.1% 111.4% }
 					allow_outside = yes
 
-					size = { 60% 42% }
+					icon = {
+						name = "crown"
+						parentanchor = bottom|hcenter
+						size = { 100% 60.1% }
 
-					texture = "gfx/interface/coat_of_arms/crown_strip_115.dds"
-					frame = "[Title.GetTierFrame]"
-					framesize = { 128 80 }
+						texture = "gfx/interface/coat_of_arms/crown_strip_115.dds"
+						frame = "[Title.GetTierFrame]"
+						framesize = { 128 80 }
+					}
 				}
 			}
 
