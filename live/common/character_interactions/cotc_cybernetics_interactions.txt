@@ -1,0 +1,29 @@
+﻿# install_implant_interaction_self = {
+	# category = interaction_category_friendly
+	# desc = install_implant_interaction_self.desc
+	
+	# is_available = {
+		# trigger_if = {
+			# limit = { is_ai = yes }
+			# OR = {
+				# NOT = { rite = { rite_has_parameter = hates_cybernetics } }
+				# ai_zeal < 0
+			# }
+		# }
+	# }
+	# is_shown = { scope:puppet_or_actor = scope:recipient }
+	# is_valid_showing_failures_only = {
+		# scope:recipient = { NOT = { has_character_modifier = recovering_from_surgery } }
+		# scope:puppet_or_actor = {
+			# custom_tooltip = {
+				# text = HAS_UNINSTALLED_IMPLANT
+				# any_character_artifact = {
+					# is_equipped = no
+					# is_cybernetic_implant = yes
+				# }
+			# }
+		# }
+	# }
+	# ai_targets = { ai_recipients = self }
+	# ai_frequency = 12
+# }

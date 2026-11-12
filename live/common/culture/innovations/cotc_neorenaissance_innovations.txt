@@ -33,3 +33,39 @@ innovation_in_vitro_development = {
 	}
 	flag = late_medieval_era_regular
 }
+innovation_civilian_dni_modules_mk_iv = {
+	culture_era = culture_era_late_medieval
+	group = culture_group_civic
+	skill = learning
+	icon = @direct_neural_interface
+	
+	ai_weight_for_spread = { value = 100 }
+	ai_weight_for_fascination = { value = 100 }
+	can_progress = { has_innovation = innovation_civilian_dni_modules_mk_iii }
+	parameters = {
+		neorenaissance_civic = yes
+		allow_iaei_mk_iv = yes
+		allow_pci_mk_iv = yes
+		allow_thoth_mk_iv = yes
+	}
+	flag = late_medieval_era_regular
+}
+
+innovation_military_dni_modules_mk_iv = {
+	culture_era = culture_era_late_medieval
+	group = culture_group_military
+	skill = martial
+	icon = @direct_neural_interface
+	
+	ai_weight_for_spread = { value = 100 }
+	ai_weight_for_fascination = { value = 100 }
+	can_progress = { has_innovation = innovation_military_dni_modules_mk_iii }
+	parameters = {
+		neorenaissance_military = yes
+		allow_taccomp_mk_iv = yes
+		allow_pluto_mk_iv = yes
+		allow_neurolink_mk_iv = yes
+		allow_amam_mk_iv = yes
+	}
+	flag = late_medieval_era_regular
+}

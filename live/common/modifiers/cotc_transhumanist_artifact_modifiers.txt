@@ -10,7 +10,7 @@ artificial_arm_modifier = {
 	stewardship = 2
 	intrigue = 2
 	learning = 2
-	prowess = 4
+	prowess = 6
 
 	dread_baseline_add = 15
 	dread_loss_mult = -1
@@ -18,7 +18,6 @@ artificial_arm_modifier = {
 	attraction_opinion = 10
 }
 artificial_leg_modifier = {
-	prowess = 4
 	dread_baseline_add = 10
 	attraction_opinion = 10
 }
@@ -38,4 +37,60 @@ neural_implant_modifier = {
 	learning = 2
 	prowess = 2
 	ai_rationality = 25
+}
+monocular_implant_modifier = {
+	prowess = 2
+	attraction_opinion = 5
+}
+binocular_implant_modifier = {
+	martial = 6
+	stewardship = 2
+	intrigue = 2
+	prowess = 10
+	health = 0.25
+	dread_baseline_add = 20 # Actually scarier than organic eyes!
+	attraction_opinion = 5 # Doesn't counter the entire effect due to the uncanny valley
+}
+
+# Advanced cybernetics modifiers - upgrades to implants
+# Datajack
+iaei_mk_i = { diplomacy = 2 }
+iaei_mk_ii = { diplomacy = 4 }
+iaei_mk_iii = { diplomacy = 6 }
+iaei_mk_iv = { diplomacy = 8 }
+pci_mk_i = { stewardship = 2 }
+pci_mk_ii = { stewardship = 4 }
+pci_mk_iii = { stewardship = 6 }
+pci_mk_iv = { stewardship = 8 }
+taccomp_mk_i = { martial = 2 }
+taccomp_mk_ii = { martial = 4 }
+taccomp_mk_iii = { martial = 6 }
+taccomp_mk_iv = { martial = 8 }
+pluto_mk_i = { intrigue = 2 }
+pluto_mk_ii = { intrigue = 4 }
+pluto_mk_iii = { intrigue = 6 }
+pluto_mk_iv = { intrigue = 8 }
+thoth_mk_i = { learning = 2 }
+thoth_mk_ii = { learning = 4 }
+thoth_mk_iii = { learning = 6 }
+thoth_mk_iv = { learning = 8 }
+neurolink_mk_i = { prowess_no_portrait = 2 }
+neurolink_mk_ii = { prowess_no_portrait = 4 }
+neurolink_mk_iii = { prowess_no_portrait = 6 }
+neurolink_mk_iv = { prowess_no_portrait = 8 }
+amam_mk_i = {
+	prowess = 2
+	prowess_no_portrait = -2
+}
+amam_mk_ii = {
+	prowess = 4
+	prowess_no_portrait = -4
+}
+amam_mk_iii = {
+	prowess = 6
+	prowess_no_portrait = -6
+}
+amam_mk_iv = {
+	prowess = 8
+	prowess_no_portrait = -8
 }

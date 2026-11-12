@@ -30,3 +30,39 @@ innovation_supplemented_gestation = {
 	}
 	flag = high_medieval_era_regular
 }
+innovation_civilian_dni_modules_mk_iii = {
+	culture_era = culture_era_high_medieval
+	group = culture_group_civic
+	skill = learning
+	icon = @direct_neural_interface
+	
+	ai_weight_for_spread = { value = 100 }
+	ai_weight_for_fascination = { value = 100 }
+	can_progress = { has_innovation = innovation_civilian_dni_modules_mk_ii }
+	parameters = {
+		trimillennial_civic = yes
+		allow_iaei_mk_iii = yes
+		allow_pci_mk_iii = yes
+		allow_thoth_mk_iii = yes
+	}
+	flag = high_medieval_era_regular
+}
+
+innovation_military_dni_modules_mk_iii = {
+	culture_era = culture_era_high_medieval
+	group = culture_group_military
+	skill = martial
+	icon = @direct_neural_interface
+	
+	ai_weight_for_spread = { value = 100 }
+	ai_weight_for_fascination = { value = 100 }
+	can_progress = { has_innovation = innovation_military_dni_modules_mk_ii }
+	parameters = {
+		trimillennial_military = yes
+		allow_taccomp_mk_iii = yes
+		allow_pluto_mk_iii = yes
+		allow_neurolink_mk_iii = yes
+		allow_amam_mk_iii = yes
+	}
+	flag = high_medieval_era_regular
+}

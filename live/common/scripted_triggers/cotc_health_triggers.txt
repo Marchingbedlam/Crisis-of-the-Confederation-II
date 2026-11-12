@@ -63,6 +63,13 @@ cant_see = {
 	has_trait = blind
 	NOT = { any_equipped_character_artifact = { artifact_type = artificial_eye } }
 }
+needs_prosthetics = {
+	OR = {
+		num_of_limbs < 4
+		num_of_eyes < 2
+		visibly_disfigured_trigger = yes
+	}
+}
 is_considered_mutilated_by_rite = {
 	trigger_if = {
 		limit = { $RITE$ = { rite_has_parameter = hates_cybernetics } }
@@ -76,7 +83,7 @@ is_considered_mutilated_by_rite = {
 		}
 	}
 	trigger_else_if = {
-		limit = { $RITE$ = { rite_has_parameter = supports_cybernetics } }
+		limit = { $RITE$ = { rite_has_parameter = full_cybernetic_conversion } }
 		OR = {
 			num_of_eyes < 2
 			num_of_limbs < 4

@@ -8,3 +8,197 @@ clone_sex_female = {
 	trigger = { clone_can_be_female_trigger = yes }
 	weight = 1
 }
+
+# Cybernetics Upgrades
+no_external_connection = {
+	group = network
+	trigger = {
+		NOT = { var:external_port ?= flag:yes }
+		NOT = { var:wifi ?= flag:yes }
+	}
+	weight = 1
+}
+external_port = {
+	group = network
+	trigger = {
+		var:external_port ?= flag:yes
+		NOT = { var:wifi ?= flag:yes }
+	}
+	weight = 1
+}
+wifi = {
+	group = network
+	trigger = {
+		NOT = { var:external_port ?= flag:yes }
+		var:wifi ?= flag:yes
+	}
+	weight = 1
+}
+both_external_connections = {
+	group = network
+	trigger = {
+		var:external_port ?= flag:yes
+		var:wifi ?= flag:yes
+	}
+	weight = 1
+}
+iaei_mk_i = {
+	group = iaei
+	trigger = { has_artifact_modifier = iaei_mk_i }
+	weight = 1
+}
+iaei_mk_ii = {
+	group = iaei
+	trigger = { has_artifact_modifier = iaei_mk_ii }
+	weight = 1
+}
+iaei_mk_iii = {
+	group = iaei
+	trigger = { has_artifact_modifier = iaei_mk_iii }
+	weight = 1
+}
+iaei_mk_iv = {
+	group = iaei
+	trigger = { has_artifact_modifier = iaei_mk_iv }
+	weight = 1
+}
+pci_mk_i = {
+	group = pci
+	trigger = { has_artifact_modifier = pci_mk_i }
+	weight = 1
+}
+pci_mk_ii = {
+	group = pci
+	trigger = { has_artifact_modifier = pci_mk_ii }
+	weight = 1
+}
+pci_mk_iii = {
+	group = pci
+	trigger = { has_artifact_modifier = pci_mk_iii }
+	weight = 1
+}
+pci_mk_iv = {
+	group = pci
+	trigger = { has_artifact_modifier = pci_mk_iv }
+	weight = 1
+}
+taccomp_mk_i = {
+	group = taccomp
+	trigger = { has_artifact_modifier = taccomp_mk_i }
+	weight = 1
+}
+taccomp_mk_ii = {
+	group = taccomp
+	trigger = { has_artifact_modifier = taccomp_mk_ii }
+	weight = 1
+}
+taccomp_mk_iii = {
+	group = taccomp
+	trigger = { has_artifact_modifier = taccomp_mk_iii }
+	weight = 1
+}
+taccomp_mk_iv = {
+	group = taccomp
+	trigger = { has_artifact_modifier = taccomp_mk_iv }
+	weight = 1
+}
+pluto_mk_i = {
+	group = pluto
+	trigger = { has_artifact_modifier = pluto_mk_i }
+	weight = 1
+}
+pluto_mk_ii = {
+	group = pluto
+	trigger = { has_artifact_modifier = pluto_mk_ii }
+	weight = 1
+}
+pluto_mk_iii = {
+	group = pluto
+	trigger = { has_artifact_modifier = pluto_mk_iii }
+	weight = 1
+}
+pluto_mk_iv = {
+	group = pluto
+	trigger = { has_artifact_modifier = pluto_mk_iv }
+	weight = 1
+}
+thoth_mk_i = {
+	group = thoth
+	trigger = { has_artifact_modifier = thoth_mk_i }
+	weight = 1
+}
+thoth_mk_ii = {
+	group = thoth
+	trigger = { has_artifact_modifier = thoth_mk_ii }
+	weight = 1
+}
+thoth_mk_iii = {
+	group = thoth
+	trigger = { has_artifact_modifier = thoth_mk_iii }
+	weight = 1
+}
+thoth_mk_iv = {
+	group = thoth
+	trigger = { has_artifact_modifier = thoth_mk_iv }
+	weight = 1
+}
+neurolink_mk_i = {
+	group = neurolink
+	trigger = { has_artifact_modifier = neurolink_mk_i }
+	weight = 1
+}
+neurolink_mk_ii = {
+	group = neurolink
+	trigger = { has_artifact_modifier = neurolink_mk_ii }
+	weight = 1
+}
+neurolink_mk_iii = {
+	group = neurolink
+	trigger = { has_artifact_modifier = neurolink_mk_iii }
+	weight = 1
+}
+neurolink_mk_iv = {
+	group = neurolink
+	trigger = { has_artifact_modifier = neurolink_mk_iv }
+	weight = 1
+}
+amam_mk_i = {
+	group = amam
+	trigger = { has_artifact_modifier = amam_mk_i }
+	weight = 1
+}
+amam_mk_ii = {
+	group = amam
+	trigger = { has_artifact_modifier = amam_mk_ii }
+	weight = 1
+}
+amam_mk_iii = {
+	group = amam
+	trigger = { has_artifact_modifier = amam_mk_iii }
+	weight = 1
+}
+amam_mk_iv = {
+	group = amam
+	trigger = { has_artifact_modifier = amam_mk_iv }
+	weight = 1
+}
+odin_mk_i = {
+	group = odin
+	trigger = { has_artifact_modifier = odin_mk_i }
+	weight = 1
+}
+odin_mk_ii = {
+	group = odin
+	trigger = { has_artifact_modifier = odin_mk_ii }
+	weight = 1
+}
+odin_mk_iii = {
+	group = odin
+	trigger = { has_artifact_modifier = odin_mk_iii }
+	weight = 1
+}
+odin_mk_iv = {
+	group = odin
+	trigger = { has_artifact_modifier = odin_mk_iv }
+	weight = 1
+}

@@ -1181,7 +1181,7 @@ lifestyle_blademaster = {
 
 	# Modifiers
 	negate_health_penalty_add = 0.25
-	prowess = 3
+	flag = personal_prowess_3
 	culture_modifier = {
 		parameter = trait_county_opinion_modifiers
 		county_opinion_add = 2
@@ -1199,7 +1199,7 @@ lifestyle_blademaster = {
 	track = {
 		50 = {
 			negate_health_penalty_add = 0.25
-			prowess = 3
+			flag = personal_prowess_3
 			culture_modifier = {
 				parameter = trait_county_opinion_modifiers
 				county_opinion_add = 3
@@ -1216,7 +1216,7 @@ lifestyle_blademaster = {
 		}
 		100 = {
 			negate_health_penalty_add = 0.5
-			prowess = 6
+			flag = personal_prowess_6
 
 			culture_modifier = {
 				parameter = trait_county_opinion_modifiers
@@ -1746,7 +1746,7 @@ torturer = {
 	category = lifestyle
 
 	dread_gain_mult = 0.5
-	prowess = 4
+	flag = powess_4
 	levy_size = 0.1
 	enemy_hostile_scheme_phase_duration_add = medium_scheme_phase_duration_malus_value
 
@@ -5024,7 +5024,7 @@ irritable = { # Prone to outbursts and tantrums.
 
 flagellant = { # Habitually self-harms; whipping is the 'primary' one but cutting, burning, etc. could also be options.
 	category = fame
-	prowess = -2
+	flag = personal_prowess_neg_2
 	health = -0.15
 	stress_loss_mult = 0.2
 
@@ -5209,7 +5209,7 @@ inappetetic = { # Avoids eating food when stressed
 	}
 
 	diplomacy = -1
-	prowess = -3
+	flag = personal_prowess_neg_3
 	stress_loss_mult = 0.2
 
 	rite_modifier = {
@@ -5301,7 +5301,7 @@ confider = { # Has a close friend to relieve stress (Healthy)
 
 athletic = { # Exercises to relieve stress (Healthy)
 	category = fame
-	prowess = 1
+	flag = personal_prowess_1
 	health = 0.25
 	stress_loss_mult = 0.2
 
@@ -5333,7 +5333,7 @@ athletic = { # Exercises to relieve stress (Healthy)
 ############### Health ##############
 pregnant = {
 	category = health
-	prowess = -2
+	flag = personal_prowess_neg_2
 
 	flag = no_message
 
@@ -5586,6 +5586,7 @@ ill = {
 	ruler_designer_cost = 0
 
 	flag = illness
+	flag = organic_disease
 	flag = debilitating_illness
 	flag = blocks_getting_non_epidemic_disease
 	flag = is_healthy_trigger_flag
@@ -5629,6 +5630,7 @@ pneumonic = {
 	ruler_designer_cost = 0
 
 	flag = illness
+	flag = organic_disease
 	flag = debilitating_illness
 	flag = blocks_getting_non_epidemic_disease
 
@@ -5669,6 +5671,7 @@ great_pox = { #Syphilis
 	ruler_designer_cost = -10
 
 	flag = illness
+	flag = skin_disease
 	flag = blocks_getting_non_epidemic_disease
 
 	desc = {
@@ -5697,6 +5700,7 @@ early_great_pox = { #Great pox, but looks like lover's pox
 	shown_in_encyclopedia = no
 
 	flag = illness
+	flag = skin_disease
 
 	desc = {
 		first_valid = {
@@ -5722,6 +5726,7 @@ lovers_pox = {
 	ruler_designer_cost = 0
 
 	flag = illness
+	flag = skin_disease
 
 	desc = {
 		first_valid = {
@@ -5752,6 +5757,7 @@ leper = {
 	ruler_designer_cost = -30
 
 	flag = illness
+	flag = skin_disease
 	flag = debilitating_illness
 	flag = blocks_getting_non_epidemic_disease
 
@@ -5892,7 +5898,7 @@ maimed = {
 	stewardship = -2
 	intrigue = -2
 	learning = -2
-	prowess = -4
+	prowess = -6 # This is bad for both piloting and personal combat
 
 	culture_modifier = {
 		parameter = wounds_and_scars_give_bonuses
@@ -5934,7 +5940,7 @@ maimed = {
 
 one_eyed = {
 	category = health
-	prowess = -2
+	prowess = -2 # Bad for both piloting and personal combat
 
 	dread_baseline_add = 10
 
@@ -5973,7 +5979,7 @@ one_eyed = {
 
 one_legged = {
 	category = health
-	prowess = -4
+	flag = personal_prowess_one_legged
 
 	dread_baseline_add = -10
 
@@ -6269,7 +6275,7 @@ clouded_eyes = {
 
 faltering_heart = {
 	health = -0.1
-	prowess = -1
+	flag = personal_prowess_neg_1
 	character_travel_safety = -2
 	stress_gain_mult = 0.2
 	stress_loss_mult = -0.2
@@ -6300,21 +6306,21 @@ faltering_heart = {
 		faltering_heart = {
 			25 = {
 				health = -0.1
-				prowess = -1
+				flag = personal_prowess_neg_1
 				character_travel_safety = -2
 				stress_gain_mult = 0.2
 				stress_loss_mult = -0.2
 			}
 			50 = {
 				health = -0.1
-				prowess = -1
+				flag = personal_prowess_neg_1
 				character_travel_safety = -2
 				stress_gain_mult = 0.2
 				stress_loss_mult = -0.2
 			}
 			75 = {
 				health = -0.1
-				prowess = -1
+				flag = personal_prowess_neg_1
 				character_travel_safety = -2
 				stress_gain_mult = 0.2
 				stress_loss_mult = -0.2
@@ -6442,6 +6448,7 @@ gout_ridden = {
 	ruler_designer_cost = -5
 
 	flag = illness
+	flag = joint_disease
 	flag = debilitating_illness
 	flag = blocks_getting_non_epidemic_disease
 
@@ -6479,6 +6486,7 @@ consumption = { # Tuberculosis
 	ruler_designer_cost = 0
 
 	flag = illness
+	flag = organic_disease
 	flag = debilitating_illness
 	flag = contagious_deadly_disease
 	flag = epidemic_disease
@@ -6512,6 +6520,7 @@ cancer = {
 	ruler_designer_cost = -10
 
 	flag = illness
+	flag = organic_disease
 	flag = debilitating_illness
 	flag = blocks_getting_non_epidemic_disease
 
@@ -6551,6 +6560,7 @@ typhus = {
 	ruler_designer_cost = 0
 
 	flag = illness
+	flag = organic_disease
 	flag = debilitating_illness
 	flag = contagious_deadly_disease
 	flag = epidemic_disease
@@ -6593,6 +6603,7 @@ bubonic_plague = {
 	shown_in_ruler_designer = no
 
 	flag = illness
+	flag = organic_disease
 	flag = debilitating_illness
 	flag = contagious_deadly_disease
 	flag = epidemic_disease
@@ -6614,6 +6625,8 @@ bubonic_plague = {
 }
 
 smallpox = {
+	shown_in_encyclopedia = no # HAHAHA get wrecked smallpox
+	shown_in_ruler_designer = no
 	diplomacy = -2
 	stewardship = -1
 	learning = -2
@@ -6672,6 +6685,7 @@ measles = {
 	ruler_designer_cost = 0
 
 	flag = illness
+	flag = organic_disease
 	flag = debilitating_illness
 	flag = contagious_deadly_disease
 	flag = epidemic_disease
@@ -6710,6 +6724,7 @@ dysentery = { # Bloody Flux
 	ruler_designer_cost = 0
 
 	flag = illness
+	flag = organic_disease
 	flag = debilitating_illness
 	flag = contagious_deadly_disease
 	flag = epidemic_disease
@@ -6747,6 +6762,7 @@ ergotism = { # Holy Fire
 	ruler_designer_cost = 0
 
 	flag = illness
+	flag = organic_disease
 	flag = debilitating_illness
 	flag = epidemic_disease
 	flag = blocks_getting_non_epidemic_disease
@@ -6989,7 +7005,7 @@ beardless_eunuch = {
 
 	shown_in_ruler_designer = yes
 
-	prowess = -4
+	flag = personal_prowess_neg_4
 
 	culture_modifier = {
 		parameter = eunuch_trait_bonuses
@@ -7053,7 +7069,7 @@ blind = {
 	martial = -6
 	stewardship = -2
 	intrigue = -2
-	prowess = -10
+	prowess = -12 # Bad for both piloting and personal combat
 	health = -0.25
 
 	dread_baseline_add = -10
@@ -7699,7 +7715,7 @@ physique_bad_1 = {
 		physique_bad_3
 	}
 
-	prowess = -2
+	flag = personal_prowess_neg_2
 	health = -0.25
 
 	birth = 0.5
@@ -7743,7 +7759,7 @@ physique_bad_2 = {
 		physique_bad_1
 	}
 
-	prowess = -4
+	flag = personal_prowess_neg_4
 	health = -0.5
 
 	birth = 0.25
@@ -7792,7 +7808,7 @@ physique_bad_3 = {
 	birth = 0.15
 	random_creation = 0.15
 
-	prowess = -6
+	flag = personal_prowess_neg_6
 	health = -1
 
 	attraction_opinion = -10
@@ -7836,7 +7852,7 @@ physique_good_1 = {
 		physique_good_3
 	}
 
-	prowess = 2
+	flag = personal_prowess_2
 	health = 0.25
 
 	birth = 0.5
@@ -7886,7 +7902,7 @@ physique_good_2 = {
 
 	physical = yes
 
-	prowess = 4
+	flag = personal_prowess_4
 	health = 0.5
 
 	birth = 0.25
@@ -7936,7 +7952,7 @@ physique_good_3 = {
 	birth = 0.15
 	random_creation = 0.15
 
-	prowess = 8
+	flag = personal_prowess_8
 	health = 1
 
 	attraction_opinion = 15
@@ -8050,7 +8066,7 @@ strong = {
 		weak
 		physique_bad
 	}
-	prowess = 4
+	flag = personal_prowess_4
 	health = 0.5
 	physical = yes
 
@@ -8131,7 +8147,7 @@ clubfooted = {
 		maa_toughness_mult = 0.05
 		legitimacy_gain_mult = 0.1
 	}
-	prowess = -2
+	flag = personal_prowess_neg_2
 
 	#inherit_chance = 15
 	genetic = yes
@@ -8168,7 +8184,7 @@ hunchbacked = {
 		dread_baseline_add = 20
 		clergy_opinion = 15
 	}
-	prowess = -2
+	flag = personal_prowess_neg_2
 
 	#inherit_chance = 15
 	genetic = yes
@@ -8277,7 +8293,7 @@ dwarf = {
 		legitimacy_gain_mult = 0.2
 		dread_baseline_add = 10
 	}
-	prowess = -4
+	flag = personal_prowess_neg_4
 	opposites = {
 		giant
 	}
@@ -8322,7 +8338,7 @@ giant = {
 		dwarf
 	}
 
-	prowess = 6
+	flag = personal_prowess_6
 	health = -0.25
 
 	#inherit_chance = 25
@@ -8402,7 +8418,7 @@ weak = {
 		strong
 		physique_good
 	}
-	prowess = -2
+	flag = personal_prowess_neg_2
 	health = -0.5
 
 	physical = yes
@@ -8506,7 +8522,7 @@ spindly = { #Marfan's Syndrome
 	opposites = {
 		physique_good
 	}
-	prowess = -1
+	flag = personal_prowess_neg_1
 	health = -0.25
 
 	#inherit_chance = 100 # dominant
@@ -11467,7 +11483,7 @@ berserker = {
 	category = fame
 	diplomacy = -2
 	martial = 2
-	prowess = 5
+	flag = personal_prowess_5
 	dread_baseline_add = 15
 
 	same_opinion = 10
@@ -12056,7 +12072,7 @@ deviant = {
 
 cannibal = {
 	category = fame
-	prowess = 2
+	flag = personal_prowess_2
 
 	same_opinion = 35
 

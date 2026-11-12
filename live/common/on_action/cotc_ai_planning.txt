@@ -1,0 +1,65 @@
+### Hooks to Code
+quarterly_playable_pulse = { on_actions = { plan_attribute_ambitions_on_action } }
+random_yearly_everyone_pulse = { on_actions = { plan_attribute_ambitions_on_action } }
+
+plan_attribute_ambitions_on_action = {
+	trigger = { is_capable_adult = yes } # Only capable adults should set these kinds of goals
+	effect = {
+		set_variable = {
+			name = target_diplomacy_gain
+			value = {
+				add = ai_target_diplomacy
+				subtract = diplomacy
+				min = 0
+			}
+		}
+		set_variable = {
+			name = target_martial_gain
+			value = {
+				add = ai_target_martial
+				subtract = martial
+				min = 0
+			}
+		}
+		set_variable = {
+			name = target_stewardship_gain
+			value = {
+				add = ai_target_stewardship
+				subtract = stewardship
+				min = 0
+			}
+		}
+		set_variable = {
+			name = target_intrigue_gain
+			value = {
+				add = ai_target_intrigue
+				subtract = intrigue
+				min = 0
+			}
+		}
+		set_variable = {
+			name = target_learning_gain
+			value = {
+				add = ai_target_learning
+				subtract = learning
+				min = 0
+			}
+		}
+		set_variable = {
+			name = target_personal_prowess_gain
+			value = {
+				add = ai_target_personal_prowess
+				subtract = personal_prowess
+				min = 0
+			}
+		}
+		set_variable = {
+			name = target_piloting_gain
+			value = {
+				add = ai_target_piloting
+				subtract = prowess
+				min = 0
+			}
+		}
+	}
+}

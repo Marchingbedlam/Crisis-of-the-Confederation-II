@@ -267,6 +267,27 @@ can_contract_disease_trigger = {
 
 can_contract_disease_trait_scope_trigger = {
 	save_temporary_scope_as = sick_character_check
+	
+	# Do we even have the body parts to get this disease?
+	trigger_if = {
+		limit = { $DISEASE$ = { has_trait_flag = digital_disease } }
+		has_trait = datajacked
+	}
+	trigger_if = {
+		limit = { $DISEASE$ = { has_trait_flag = joint_disease } }
+		OR = {
+			has_trait_rank = { trait = missing_arms rank < 2 }
+			has_trait_rank = { trait = missing_legs rank < 2 }
+		}
+	}
+	trigger_if = {
+		limit = { $DISEASE$ = { has_trait_flag = skin_disease } }
+		NOT = { any_equipped_character_artifact = { artifact_type = dermal_implant } }
+	}
+	trigger_if = {
+		limit = { $DISEASE$ = { has_trait_flag = organic_disease } }
+		NOT = { has_trait = implant_dependent }
+	}
 
 	# Is not immune to disease
 	NOT = { has_character_flag = immune_to_disease }

@@ -200,13 +200,18 @@ tenet_cyberneticism = {
 	traits = {
 		virtues = {
 			scholar = { weight = 15 scale = 1 }
-			cyborg = { weight = 50 scale = 2 }
+			datajacked = { weight = 50 scale = 2 }
+			implant_dependent = { weight = 50 scale = 3 }
 		}
 	}
 	
 	parameters = {
 		supports_cybernetics
 		full_cybernetic_conversion
+	}
+	
+	personal_tenet_parameters = {
+		wants_implants
 	}
 }
 
@@ -345,7 +350,8 @@ tenet_human_purity = {
 			whole_of_body = { weight = 20 scale = 1 }
 		}
 		sins = {
-			cyborg = { weight = 40 scale = 1 }
+			datajacked = { weight = 40 scale = 1 }
+			implant_dependent = { weight = 40 scale = 3 }
 			clone = { weight = 40 scale = 1 }
 			gene_modded = { weight = 40 scale = 1 }
 		}
@@ -355,6 +361,10 @@ tenet_human_purity = {
 		hates_cybernetics
 		hates_cloning
 		hates_gene_modding
+	}
+	
+	personal_tenet_parameters = {
+		abstains_from_cybernetics
 	}
 	
 	special_parameters = {

@@ -2,13 +2,13 @@
 	type = character
 
 	text = {
-		trigger = { has_trait = maimed }
+		trigger = { num_of_arms = 1 }
 		localization_key = articleblank_article
 	}
 
 	text = {
 		trigger = {
-			NOT = { has_trait = maimed }
+			NOT = { num_of_arms = 1 }
 		}
 		localization_key = articletwo_two
 		fallback = yes
@@ -19,16 +19,21 @@ HandHands = {
 	type = character
 
 	text = {
-		trigger = { has_trait = maimed }
+		trigger = { num_of_arms = 1 }
 		localization_key = handhands_hand
 	}
 
 	text = {
 		trigger = {
-			NOT = { has_trait = maimed }
+			num_of_arms = 2
 		}
 		localization_key = handhands_hands
 		fallback = yes
+	}
+	
+	text = {
+		trigger = { num_of_arms = 0 }
+		localization_key = stumps_custom_loc
 	}
 }
 
@@ -36,13 +41,13 @@ Fist_ArticleBlank = {
 	type = character
 
 	text = {
-		trigger = { has_trait = maimed }
+		trigger = { num_of_arms = 1 }
 		localization_key = articleblank_article
 	}
 
 	text = {
 		trigger = {
-			NOT = { has_trait = maimed }
+			NOT = { num_of_arms = 1 }
 		}
 		localization_key = articleblank_blank
 		fallback = yes
@@ -53,13 +58,13 @@ FistFists = {
 	type = character
 
 	text = {
-		trigger = { has_trait = maimed }
+		trigger = { num_of_arms = 1 }
 		localization_key = fistfists_fist
 	}
 
 	text = {
 		trigger = {
-			NOT = { has_trait = maimed }
+			NOT = { num_of_arms = 1 }
 		}
 		localization_key = fistfists_fists
 		fallback = yes
@@ -70,16 +75,21 @@ ArmArms = {
 	type = character
 
 	text = {
-		trigger = { has_trait = maimed }
+		trigger = { num_of_arms = 1 }
 		localization_key = armarms_arm
 	}
 
 	text = {
 		trigger = {
-			NOT = { has_trait = maimed }
+			num_of_arms = 2
 		}
 		localization_key = armarms_arms
 		fallback = yes
+	}
+	
+	text = {
+		trigger = { num_of_arms = 0 }
+		localization_key = stumps_custom_loc
 	}
 }
 
@@ -87,16 +97,19 @@ FootFeet = {
 	type = character
 
 	text = {
-		trigger = { has_trait = one_legged }
+		trigger = { num_of_legs = 1 }
 		localization_key = footfeet_foot
 	}
 
 	text = {
-		trigger = {
-			NOT = { has_trait = one_legged }
-		}
+		trigger = { num_of_legs = 2 }
 		localization_key = footfeet_feet
 		fallback = yes
+	}
+	
+	text = {
+		trigger = { num_of_arms = 0 }
+		localization_key = stumps_custom_loc
 	}
 }
 
@@ -104,13 +117,13 @@ Eye_ArticleBlank = {
 	type = character
 
 	text = {
-		trigger = { has_trait = one_eyed }
+		trigger = { num_of_eyes = 1 }
 		localization_key = articleblank_article
 	}
 
 	text = {
 		trigger = {
-			NOT = { has_trait = one_eyed }
+			NOT = { num_of_eyes = 1 }
 		}
 		localization_key = articleblank_blank
 		fallback = yes
@@ -121,33 +134,36 @@ EyeEyes = {
 	type = character
 
 	text = {
-		trigger = { has_trait = one_eyed }
+		trigger = { num_of_eyes = 1 }
 		localization_key = eyeeyes_eye
 	}
 
 	text = {
-		trigger = {
-			NOT = { has_trait = one_eyed }
-		}
+		trigger = { num_of_eyes = 2 }
 		localization_key = eyeeyes_eyes
 		fallback = yes
 	}
 
 	# A case could be made for eyeeyes_blind, but since we don't differentiate between natural & induced blindness, it's safest/least discriminatory to assume that being blind doesn't mean you don't have eyes.
+	
+	# ...except in COTC, where we do in fact need blind characters to have empty eye sockets because that's how the cybernetics work!
+	
+	text = {
+		trigger = { num_of_eyes = 0 }
+		localization_key = eyesockets_custom_loc
+	}
 }
 
 MaskFace = {
 	type = character
 
 	text = {
-		trigger = { has_trait = disfigured }
+		trigger = { visibly_disfigured_trigger = yes }
 		localization_key = maskface_mask
 	}
 
 	text = {
-		trigger = {
-			NOT = { has_trait = disfigured }
-		}
+		trigger = { visibly_disfigured_trigger = no }
 		localization_key = maskface_face
 		fallback = yes
 	}
@@ -158,14 +174,12 @@ MaskFace_BehindIn = {
 	type = character
 
 	text = {
-		trigger = { has_trait = disfigured }
+		trigger = { visibly_disfigured_trigger = yes }
 		localization_key = maskface_behind
 	}
 
 	text = {
-		trigger = {
-			NOT = { has_trait = disfigured }
-		}
+		trigger = { visibly_disfigured_trigger = no }
 		localization_key = maskface_in
 		fallback = yes
 	}
@@ -175,14 +189,12 @@ MaskFace_BehindAcross = {
 	type = character
 
 	text = {
-		trigger = { has_trait = disfigured }
+		trigger = { visibly_disfigured_trigger = yes }
 		localization_key = maskface_behind
 	}
 
 	text = {
-		trigger = {
-			NOT = { has_trait = disfigured }
-		}
+		trigger = { visibly_disfigured_trigger = no }
 		localization_key = maskface_across
 		fallback = yes
 	}
@@ -193,15 +205,13 @@ SenseObserve_EyeTaste = {
 	random_valid = yes
 
 	text = {
-		trigger = { has_trait = blind }
+		trigger = { cant_see = yes }
 		localization_key = senseobserve_taste
 		fallback = yes
 	}
 	
 	text = {
-		trigger = {
-			NOT = { has_trait = blind }
-		}
+		trigger = { cant_see = no }
 		localization_key = senseobserve_eye
 	}
 }
@@ -211,15 +221,13 @@ SenseObserve_SenseSee = {
 	random_valid = yes
 
 	text = {
-		trigger = { has_trait = blind }
+		trigger = { cant_see = yes }
 		localization_key = senseobserve_sense
 		fallback = yes
 	}
 	
 	text = {
-		trigger = {
-			NOT = { has_trait = blind }
-		}
+		trigger = { cant_see = no }
 		localization_key = senseobserve_see
 	}
 }
@@ -229,15 +237,13 @@ SenseObserve_SeemLook = {
 	random_valid = yes
 
 	text = {
-		trigger = { has_trait = blind }
+		trigger = { cant_see = yes }
 		localization_key = senseobserve_seem
 		fallback = yes
 	}
 	
 	text = {
-		trigger = {
-			NOT = { has_trait = blind }
-		}
+		trigger = { cant_see = no }
 		localization_key = senseobserve_look
 	}
 }
@@ -247,15 +253,13 @@ SenseObserve_SenseEye = {
 	random_valid = yes
 
 	text = {
-		trigger = { has_trait = blind }
+		trigger = { cant_see = yes }
 		localization_key = senseobserve_sense
 		fallback = yes
 	}
 	
 	text = {
-		trigger = {
-			NOT = { has_trait = blind }
-		}
+		trigger = { cant_see = no }
 		localization_key = senseobserve_eye
 	}
 }
@@ -265,15 +269,13 @@ ActionTaps_ForeheadNose = {
 	random_valid = yes
 
 	text = {
-		trigger = { has_trait = disfigured }
+		trigger = { visibly_disfigured_trigger = yes }
 		localization_key = actiontaps_forehead
 		fallback = yes
 	}
 	
 	text = {
-		trigger = {
-			NOT = { has_trait = disfigured }
-		}
+		trigger = { visibly_disfigured_trigger = no }
 		localization_key = actiontaps_nose
 	}
 }
@@ -283,27 +285,19 @@ PartAglow_EyesFaceBody = {
 	random_valid = yes
 
 	text = {
-		trigger = {
-			NOR = {
-				has_trait = blind
-				has_trait = one_eyed
-			}
-		}
+		trigger = { num_of_eyes = 2 }
 		localization_key = partaglow_eyes
 	}
 
 	text = {
-		trigger = {
-			NOT = { has_trait = blind }
-			has_trait = one_eyed
-		}
+		trigger = { num_of_eyes = 1 }
 		localization_key = partaglow_eye
 	}
 	
 	text = {
 		trigger = {
-			has_trait = blind
-			NOT = { has_trait = disfigured }
+			num_of_eyes = 0
+			visibly_disfigured_trigger = no
 		}
 		localization_key = partaglow_face
 		fallback = yes
@@ -311,8 +305,8 @@ PartAglow_EyesFaceBody = {
 	
 	text = {
 		trigger = {
-			has_trait = blind
-			has_trait = disfigured
+			num_of_eyes = 0
+			visibly_disfigured_trigger = yes
 		}
 		localization_key = partaglow_body
 	}
@@ -324,15 +318,13 @@ Saying_1p_SightAway = {
 	random_valid = yes
 
 	text = {
-		trigger = { has_trait = blind }
+		trigger = { cant_see = yes }
 		localization_key = saying_1p_away
 		fallback = yes
 	}
 	
 	text = {
-		trigger = {
-			NOT = { has_trait = blind }
-		}
+		trigger = { cant_see = no }
 		localization_key = saying_1p_sight
 	}
 }
@@ -343,15 +335,13 @@ Saying_3p_SmilesSeems = {
 	random_valid = yes
 
 	text = {
-		trigger = { has_trait = disfigured }
+		trigger = { visibly_disfigured_trigger = yes }
 		localization_key = saying_3p_seems
 		fallback = yes
 	}
 	
 	text = {
-		trigger = {
-			NOT = { has_trait = disfigured }
-		}
+		trigger = { visibly_disfigured_trigger = no }
 		localization_key = saying_3p_smiles
 	}
 }
@@ -362,15 +352,13 @@ Saying_3p_AwareSight = {
 	random_valid = yes
 
 	text = {
-		trigger = { has_trait = disfigured }
+		trigger = { cant_see = yes }
 		localization_key = saying_3p_aware
 		fallback = yes
 	}
 	
 	text = {
-		trigger = {
-			NOT = { has_trait = disfigured }
-		}
+		trigger = { cant_see = no }
 		localization_key = saying_3p_sight
 	}
 }

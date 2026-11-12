@@ -77,7 +77,6 @@ innovation_cloning = {
 	parameters = {
 		colonial_civic = yes
 		allow_single_donor_clone_character_interaction = yes
-		allow_double_donor_clone_character_interaction = yes
 	}
 	flag = tribal_era_regular
 }
@@ -101,7 +100,12 @@ innovation_cybernetics = {
 	
 	ai_weight_for_spread = { value = 100 }
 	ai_weight_for_fascination = { value = 100 }
-	parameters = { colonial_civic = yes }
+	parameters = {
+		colonial_civic = yes
+		allow_cybersurgery = yes
+		allow_artificial_arm = yes
+		allow_artificial_leg = yes
+	}
 	flag = tribal_era_regular
 }
 innovation_direct_neural_interface = {
@@ -113,7 +117,27 @@ innovation_direct_neural_interface = {
 	ai_weight_for_spread = { value = 100 }
 	ai_weight_for_fascination = { value = 100 }
 	can_progress = { has_innovation = innovation_cybernetics }
-	parameters = { colonial_civic = yes }
+	parameters = {
+		colonial_civic = yes
+		allow_neural_implant = yes
+	}
+	flag = tribal_era_regular
+}
+innovation_civilian_dni_modules_mk_i = {
+	culture_era = culture_era_tribal
+	group = culture_group_civic
+	skill = learning
+	icon = @direct_neural_interface
+	
+	ai_weight_for_spread = { value = 100 }
+	ai_weight_for_fascination = { value = 100 }
+	can_progress = { has_innovation = innovation_direct_neural_interface }
+	parameters = {
+		colonial_civic = yes
+		allow_iaei_mk_i = yes
+		allow_pci_mk_i = yes
+		allow_thoth_mk_i = yes
+	}
 	flag = tribal_era_regular
 }
 
@@ -148,5 +172,23 @@ innovation_lasers = {
 	ai_weight_for_spread = { value = 100 }
 	ai_weight_for_fascination = { value = 100 }
 	parameters = { colonial_military = yes }
+	flag = tribal_era_regular
+}
+innovation_military_dni_modules_mk_i = {
+	culture_era = culture_era_tribal
+	group = culture_group_military
+	skill = martial
+	icon = @direct_neural_interface
+	
+	ai_weight_for_spread = { value = 100 }
+	ai_weight_for_fascination = { value = 100 }
+	can_progress = { has_innovation = innovation_direct_neural_interface }
+	parameters = {
+		colonial_military = yes
+		allow_taccomp_mk_i = yes
+		allow_pluto_mk_i = yes
+		allow_neurolink_mk_i = yes
+		allow_amam_mk_i = yes
+	}
 	flag = tribal_era_regular
 }

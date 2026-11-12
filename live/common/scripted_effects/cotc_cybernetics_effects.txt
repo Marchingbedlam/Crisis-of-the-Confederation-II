@@ -1,0 +1,144 @@
+﻿create_standard_implant_effect = { # Creates a factory standard mass-produced implant with (at first) no special modifiers
+	create_artifact = {
+		name = standard_$TYPE$_name
+		description = standard_$TYPE$_desc
+		rarity = common
+		wealth = 100
+		quality = 100
+		type = $TYPE$
+		modifier = $TYPE$_modifier
+		decaying = yes
+		template = standard_$TYPE$_template
+		visuals = rock # Placeholder
+		save_scope_as = desc_implant
+	}
+	scope:desc_implant = { save_scope_as = new_implant }
+}
+upgrade_dni_numeric_mark_effect = {
+	switch = {
+		trigger = scope:$TYPE$_mark
+		1 = { upgrade_dni_effect = { TYPE = $TYPE$ MK = i } }
+		2 = { upgrade_dni_effect = { TYPE = $TYPE$ MK = ii } }
+		3 = { upgrade_dni_effect = { TYPE = $TYPE$ MK = iii } }
+		4 = { upgrade_dni_effect = { TYPE = $TYPE$ MK = iv } }
+	}
+}
+upgrade_dni_effect = {
+	if = {
+		limit = { # Make sure this is a neural implant and doesn't already have the upgrade
+			artifact_type = neural_implant
+			NOT = { has_artifact_modifier = $TYPE$_mk_$MK$ }
+		}
+		# Remove any existing upgrade of this type
+		switch = {
+			trigger = has_artifact_modifier
+			$TYPE$_mk_i = { remove_artifact_modifier = $TYPE$_mk_i }
+			$TYPE$_mk_ii = { remove_artifact_modifier = $TYPE$_mk_ii }
+			$TYPE$_mk_iii = { remove_artifact_modifier = $TYPE$_mk_iii }
+			$TYPE$_mk_iv = { remove_artifact_modifier = $TYPE$_mk_iv }
+		}
+		# Add the new modifier
+		add_artifact_modifier = $TYPE$_mk_$MK$
+		# Add the corresponding feature
+		set_artifact_feature = $TYPE$_mk_$MK$
+		# Update the description
+		save_temporary_scope_as = desc_implant
+		set_artifact_name = custom_neural_implant_name
+		set_artifact_description = custom_neural_implant_desc
+	}
+}
+install_implant_effect = {
+	save_temporary_scope_as = temp_patient
+	$IMPLANT$ = {
+		switch = {
+			trigger = artifact_type
+			neural_implant = {
+				scope:temp_patient = {
+					if = {
+						limit = { NOT = { has_trait = datajacked } }
+						add_trait_force_tooltip = datajacked
+					}
+				}
+			}
+			dermal_implant = {
+				scope:temp_patient = {
+					if = {
+						limit = { NOT = { has_trait = disfigured } }
+						add_trait_force_tooltip = disfigured
+					}
+				}
+			}
+			internal_implant = {
+				scope:temp_patient = {
+					if = {
+						limit = { NOT = { has_trait = implant_dependent } }
+						add_trait_force_tooltip = implant_dependent
+					}
+				}
+			}
+			monocular_implant = {
+				scope:temp_patient = {
+					if = {
+						limit = { has_trait_rank = { trait = missing_eyes rank < 1 } }
+						change_trait_rank = { trait = missing_eyes rank = 1 max = 1 }
+					}
+				}
+			}
+			binocular_implant = {
+				scope:temp_patient = {
+					if = {
+						limit = { has_trait_rank = { trait = missing_eyes rank < 2 } }
+						change_trait_rank = { trait = missing_eyes rank = 2 max = 2 }
+					}
+				}
+			}
+			artificial_arm = {
+				scope:temp_patient = {
+					if = {
+						limit = { num_of_arms >= 2 }
+						change_trait_rank = { trait = missing_arms rank = 1 max = 2 }
+					}
+				}
+			}
+			artificial_leg = {
+				scope:temp_patient = {
+					if = {
+						limit = { num_of_legs >= 2 }
+						change_trait_rank = { trait = missing_legs rank = 1 max = 2 }
+					}
+				}
+			}
+		}
+	}
+	equip_artifact_to_owner_replace = $IMPLANT$
+}
+select_random_implant_giftee = {
+	if = {
+		limit = { ai_sociability > ai_greed }
+		every_close_family_member = {
+			limit = { might_want_implant_gift_trigger = { TYPE = $TYPE$ } }
+			add_to_temporary_list = potential_giftees
+		}
+		every_relation = {
+			type = friend
+			limit = { might_want_implant_gift_trigger = { TYPE = $TYPE$ } }
+			add_to_temporary_list = potential_giftees
+		}
+	}
+	if = {
+		limit = { ai_rationality > ai_greed }
+		every_councillor = {
+			limit = { might_want_implant_gift_trigger = { TYPE = $TYPE$ } }
+			add_to_temporary_list = potential_giftees
+		}
+	}
+	random_in_list = {
+		list = potential_giftees
+		weight = {
+			base = 0
+			modifier = { add = "reverse_opinion(PREV)" }
+			modifier = { factor = $TYPE$_self_score }
+		}
+		save_scope_as = intended_recipient
+	}
+}

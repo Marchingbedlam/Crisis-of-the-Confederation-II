@@ -91,12 +91,19 @@ lose_eye_effect = {
 			change_trait_rank = { trait = missing_eyes rank = 1 max = 2 }
 		}
 		1 = {
-			trigger = { any_equipped_character_artifact = { artifact_type = artificial_eye } }
+			trigger = { any_equipped_character_artifact = { artifact_type = monocular_implant } }
 			random_equipped_character_artifact = {
-				limit = { artifact_type = artificial_eye }
+				limit = { artifact_type = monocular_implant }
 				save_temporary_scope_as = temp_eye
 			}
 			destroy_owned_artifact = scope:temp_eye
+		}
+		1 = {
+			trigger = { any_equipped_character_artifact = { artifact_type = binocular_implant } }
+			random_equipped_character_artifact = {
+				limit = { artifact_type = binocular_implant }
+				add_durability = -50
+			}
 		}
 	}
 }

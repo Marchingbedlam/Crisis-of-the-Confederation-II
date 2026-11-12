@@ -61,6 +61,64 @@
  game_concept_ideology: "Ideology"
  game_concept_ideologies: "Ideologies"
  
+ game_concept_religion: "Ideology"
+ game_concept_religions: "Ideologies"
+ game_concept_religion_desc: "An $game_concept_religion$ can consist of many different sub-ideologies, called [faiths|E]. Ideologies, in turn, belong to one of three larger [religious_families|E]; [GetReligionFamily('rf_political').GetName], [GetReligionFamily('rf_religious').GetName], or [GetReligionFamily('rf_criminal').GetName]."
+ 
+ game_concept_religious_family: "Ideological Family"
+ game_concept_religious_families: "Ideological Families"
+ game_concept_religious_family_desc:0 "An $game_concept_religious_family$ is a group of [religions|E]. The $game_concept_religious_family$ affects how the various Ideologies, and [faiths|E] therein, view each other.\n\nThe [GetReligionFamily('rf_political').GetName] Family represents mainstream political views.\n\nThe [GetReligionFamily('rf_religious').GetName] Family represents religious beliefs strong enough to govern one's politics.\n\nThe [GetReligionFamily('rf_criminal').GetName] Family represents organized crime traditions."
+ 
+ game_concept_piety: "Credibility"
+ game_concept_pious: "Credible"
+ game_concept_piety_i: "[GetLocalPlayerPietyTextIcon]"
+ game_concept_piety_desc: "$game_concept_piety$ represents a Character's perceived adherence to their stated values.\n\nActing piously (according to the [doctrines|E] of their [faith|E]) will increase a Character's Credibility, such as going on a [GetActivityType('activity_pilgrimage').GetName].\n\nCredibility can be spent on various political matters depending on [government_form|E], Doctrines, etc.\n\nEach time a Character gains $game_concept_piety$, they also progress towards the next [piety_level|E]."
+ 
+ game_concept_faith: "School"
+ game_concept_faiths: "Schools"
+ game_concept_faithpossessive: "School's"
+ game_concept_faith_desc: "A School is a specific interpretation of a larger [religion|E]. All characters and [counties|E] have a School just as they have a [culture|E], and follow one of its [rites|E].\n\nA School is defined by its [mainline_rite|E], whose [core_tenets|E] and [doctrines|E] represent the beliefs of the School as a whole. Other [rites|E] may champion different beliefs, and the further they drift from it the more [rite_divergent|E] they become.\n\nEach School also has a [fervor|E] value which controls how vulnerable it is to [heresy|E], as [rite_divergent|E] [rites|E] break away into Schools of their own."
+ 
+ game_concept_head_of_faith: "Political Leader"
+ game_concept_heads_of_faith: "Political Leaders"
+ game_concept_head_of_faith_possessive: "Political Leader's"
+ game_concept_head_of_faith_desc: "A $game_concept_head_of_faith$ is the formal leader of a [faith|E]. The powers and nature of the $game_concept_head_of_faith$ depends on the [doctrines|E] of the School.\n\nSome Schools have a [spiritual_head_of_faith|E] #weak (e.g. the Master of the Pilgrimage)#!, some a [temporal_head_of_faith|E] #weak (e.g. the President of the Confederation)#!, and some do not have a $game_concept_head_of_faith$ at all."
+ 
+ game_concept_spiritual_head_of_faith: "Independent Political Leader"
+ game_concept_head_of_faith_spiritual: "Independent"
+ game_concept_spiritual_head_of_faith_desc: "A [GetDoctrineType('doctrine_spiritual_head').GetBaseName] [head_of_faith|E] is either [technocratic_power_base_adj|E] or [theocratic_power_base_adj|E] and does not have to be [landed|E] #weak (although they can be)#!.\n\n$game_concept_head_of_faith_spiritual$ $game_concept_heads_of_faith$ usually have access to interactions such as being able to grant [claims|E] or [gold|E].\n\nShould the [doctrines|E] of the [faith|E] allow for [great_holy_wars|E] then they will be [great_holy_war_undirected|E] #weak (e.g. Crusades)#!."
+ 
+ game_concept_temporal_head_of_faith: "Formal Political Leader"
+ game_concept_head_of_faith_temporal: "Formal"
+ game_concept_temporal_head_of_faith_desc: "A [GetDoctrineType('doctrine_temporal_head').GetBaseName] [head_of_faith|E] acts much like a normal [ruler|E], with the $game_concept_head_of_faith$ [title|E] being destroyed should they lose all their land.\n\nShould the [doctrines|E] of the [faith|E] allow for [great_holy_wars|E] they will be [great_holy_war_directed|E] #weak (e.g. Jihads)#!."
+ 
+ game_concept_rite: "Party"
+ game_concept_rite_possessive: "Party's"
+ game_concept_rites_possessive: "Parties'"
+ game_concept_rite_desc: "A Party is a branch of a [faith|E]: a local variation of its vaues and practices, led by a [head_of_rite|E] and followed by its own [counties|E] and [characters|E]. Every School has a [mainline_rite|E], and may grow several more.\n\nA Party defines itself by the [core_tenets|E] and [doctrines|E] it champions. Whether a Tenet is [permitted_tenet_status|E] or [prohibited_tenet_status|E] is judged by the [faith|E] through its [mainline_rite|E], and the more a [rite_possessive|E] choices defy those judgements, the higher its [rite_divergence|E]: divergent Parties sap the [faithpossessive|E] [fervor|E], come to be seen as [heresy|E], and at #V 100#! [divergence|E] break away as a [faith|E] of their own.\n\nNew Parties may be founded by intellectual leaders, [rulers|E] can be swayed from one Party to another, only the [head_of_rite|E] may edit one."
+ game_concept_rites: "Parties"
+ 
+ game_concept_head_of_rite: "Party Leader"
+ game_concept_head_of_rite_desc: "The leading [character|E] of a [rite|E]: the [head_of_faith|E] if they follow it; otherwise the holder of the [clerical_region|E] where the rite has its strongest following, and failing that, the [ruler|E] who governs the most of the [rite_possessive|E] [counties|E].\n\nOnly the $game_concept_head_of_rite$ may edit their [rite_possessive|E] [core_tenets|E] and [doctrines|E], and it is they who speak for their followers when the movement drifts toward [schism|E].
+
+ game_concept_mainline_rite: "Leading Party"
+ game_concept_mainline_rite_desc: "The Leading [rite|E] represents the most prominent set of beliefs of a [faith|E]. A non-Leading $game_concept_rite$ is considered to be [rite_divergent|E] from this $game_concept_rite$.\n\nWhich $game_concept_rite$ is Leading depends on whether the $game_concept_faith$ has a [head_of_faith|E].\n\nIf the $game_concept_faith$ has a $game_concept_head_of_faith$, the Leading $game_concept_rite$ is whichever one they follow. This means it can change when a successor of a different $game_concept_rite$ takes their place, including a potential [challenger_hof|E].\n\nWithout a $game_concept_head_of_faith$, any $game_concept_rite$ followed by more [counties|E] than the Leading supplants it, provided it holds at least as many [holy_sites|E] as the $game_concept_rite$ it seeks to replace."
+ game_concept_mainline_rites: "Leading Rites"
+ game_concept_mainline_rite_short: "Leading"
+ 
+ game_concept_army: "Fleet"
+ game_concept_armies: "Fleets"
+ game_concept_army_desc: "Fleets are used to win [wars|E] by engaging in [battle|E] with other fleets, and to [besiege|E] and [occupy|E] enemy [fortified_holdings|E]. Fleets are raised in [rally_points|E] and primarily consist of [levies|E] and [men_at_arms|E], but can also be bolstered by [mercenaries|E] and [holy_orders|E].\n\nFleets can move across deep space by spending an amount of [gold|E] to secure transport. They can suffer losses from [attrition|E] if the local [barony|E] is unable to adequately [supply|E] them."
+ 
+ game_concept_fleet: "Tunneller Fleet"
+ game_concept_fleets: "Tunneller Fleets"
+ game_concept_fleet_desc: "[armies|E] that move into deep space will automatically [embark|E] as a $game_concept_fleet$. [embarking] costs a sum of [gold|E], symbolizing the procurement and construction of the tunneller ships necessary for hyperspace travel.\n\nWhile in a $game_concept_fleet$, [armies] will be able to traverse hyperspace at a rapid pace, though they will cost #V 25%#! more maintenance and will start losing [supplies|E] after #V [GetDefine('NFleet', 'ATTRITION_AFTER_DAYS')|0]#! days in hyperspace.\n\n$game_concept_fleets$ do not engage each other in [battles|E].\n\nWhen a $game_concept_army$ disembarks, the $game_concept_fleet$ will disappear and the $game_concept_army$ will become [recently_disembarked|E]."
+ 
+ game_concept_knight: "Captain"
+ game_concept_knights: "Captain
+ game_concept_knights_possessive: "Captain's"
+ game_concept_knight_desc: "A $game_concept_knight$ is a [vassal|E], [courtier|E], or [follower|E] that fights directly in your [army|E] from aboard their [flagship|E].\n\nDuring [battles|E], $game_concept_knights$ use their [piloting_skill|E] to fight more effectively. A high $game_concept_piloting$ means that they will be able to inflict more damage on the enemy, and are more likely to survive or even emerge from $game_concept_battle$ unscathed.\n\n[SelectLocalization( HasDlcFeature( 'tours_and_tournaments' ), 'game_concept_knight_desc_TOTO_DLC', 'game_concept_knight_desc_NO_TOTO_DLC' )][SelectLocalization( HasDlcFeature( 'accolades' ), 'game_concept_knight_desc_ACCOLADE_DLC', '' )]"
+ 
  game_concept_county_demand: "Demand"
  game_concept_demand: "Demand"
  game_concept_demand_i: "Demand"
@@ -282,14 +340,6 @@
  game_concept_missile_frigate: "Missile Frigate"
  game_concept_merchanteer: "Merchanteer"
 
- game_concept_cybernetics: "Cybernetics"
- game_concept_augments: "Augments"
- game_concept_augmentations: "Augmentations"
- game_concept_implant: "Implant"
- game_concept_implants: "Implants"
- game_concept_cyborg: "Cyborg"
- game_concept_cybernetics_desc: "Cybernetic implants replace or enhance parts of the body with machinery. They can restore what was lost or grant abilities no unaltered human possesses, though not every [ideology|E] approves of them."
-
  game_concept_gene_modding: "Gene-Modding"
  game_concept_gene_modification: "Gene Modification"
  game_concept_genetic_engineering: "Genetic Engineering"
@@ -300,3 +350,15 @@
  game_concept_supervise_civic_innovations_desc: "A [councillor_task|E] in which the councillor oversees the research of civic [innovations|E]."
  game_concept_supervise_military_innovations: "Supervise Military Innovations"
  game_concept_supervise_military_innovations_desc: "A [councillor_task|E] in which the councillor oversees the research of military [innovations|E]."
+ 
+ game_concept_prowess_skill_desc: "$game_concept_prowess$ is a [skill|E] representing a [character|E]'s general aptitude for combat of all forms. It increases both [combat|E] and [piloting|E]."
+ 
+ game_concept_combat: "Combat"
+ game_concept_combat_i: "@skill_prowess_icon!"
+ game_concept_combat_skill: "Combat Skill"
+ game_concept_combat_skill_desc: "$game_concept_combat$ is a derived [skill|E] representing the Character's abilities in personal combat.\n\nA high Combat Skill means they are more likely to survive and perform well in [single_combat_duel_plural|E].\n\n$PROWESS_MUSCLE_INFO$Increasing Combat will increase a Character's muscle mass."
+ 
+ game_concept_piloting: "Piloting"
+ game_concept_piloting_i: "@skill_prowess_icon!"
+ game_concept_piloting_skill: "Piloting Skill"
+ game_concept_piloting_skill_desc: "$game_concept_piloting$ is a derived [skill|E] representing the Character's abilities in piloting and commanding starships.\n\nA high Piloting Skill means they are more likely to survive and perform well as [knights|E] in [battles|E].\n\nEach point of Piloting gives a Captain:\n$BULLET_WITH_TAB$[damage|E]: #V [GetDefine('NCombat', 'KNIGHT_DAMAGE_PER_PROWESS')]#!\n$BULLET_WITH_TAB$[toughness|E]: #V [GetDefine('NCombat', 'KNIGHT_TOUGHNESS_PER_PROWESS')]#!"

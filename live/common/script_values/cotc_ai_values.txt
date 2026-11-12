@@ -497,3 +497,492 @@ ai_bill_cooldown = {
 		add = 180
 	}
 }
+ai_target_diplomacy = { # How much diplomacy would this character like to have?
+	save_temporary_scope_as = temp_evaluee
+	if = {
+		limit = { ai_sociability >= very_high_positive_ai_value }
+		add = 22
+	}
+	else_if = {
+		limit = { ai_sociability >= high_positive_ai_value }
+		add = 20
+	}
+	else_if = {
+		limit = { ai_sociability >= medium_positive_ai_value }
+		add = 18
+	}
+	else_if = {
+		limit = { ai_sociability >= low_positive_ai_value }
+		add = 16
+	}
+	else_if = {
+		limit = { ai_sociability >= very_low_positive_ai_value }
+		add = 14
+	}
+	else_if = {
+		limit = { ai_sociability <= very_high_negative_ai_value }
+		add = 10
+	}
+	else_if = {
+		limit = { ai_sociability <= high_negative_ai_value }
+		add = 8
+	}
+	else_if = {
+		limit = { ai_sociability <= medium_negative_ai_value }
+		add = 6
+	}
+	else_if = {
+		limit = { ai_sociability <= low_negative_ai_value }
+		add = 4
+	}
+	else_if = {
+		limit = { ai_sociability <= very_low_negative_ai_value }
+		value = 2
+	}
+	else = { value = 12 }
+	if = {
+		limit = { liege ?= { any_diplomacy_councillor = { this = scope:temp_evaluee } } }
+		add = 5
+	}
+	if = {
+		limit = { has_trait = ambitious }
+		add = 5
+	}
+	else_if = {
+		limit = { has_trait = content }
+		subtract = 5
+	}
+	if = {
+		limit = { has_trait = diligent }
+		add = 3
+	}
+	else_if = {
+		limit = { has_trait = lazy }
+		subtract = 3
+	}
+	add = {
+		value = character_iaei_tech
+		multiply = 2
+	}
+	min = 0
+}
+ai_target_martial = {
+	save_temporary_scope_as = temp_evaluee
+	save_temporary_scope_value_as = { name = temp_hawkishness value = ai_hawkishness }
+	if = {
+		limit = { scope:temp_hawkishness >= very_high_positive_ai_value }
+		add = 22
+	}
+	else_if = {
+		limit = { scope:temp_hawkishness >= high_positive_ai_value }
+		add = 20
+	}
+	else_if = {
+		limit = { scope:temp_hawkishness >= medium_positive_ai_value }
+		add = 18
+	}
+	else_if = {
+		limit = { scope:temp_hawkishness >= low_positive_ai_value }
+		add = 16
+	}
+	else_if = {
+		limit = { scope:temp_hawkishness >= very_low_positive_ai_value }
+		add = 14
+	}
+	else_if = {
+		limit = { scope:temp_hawkishness <= very_high_negative_ai_value }
+		add = 10
+	}
+	else_if = {
+		limit = { scope:temp_hawkishness <= high_negative_ai_value }
+		add = 8
+	}
+	else_if = {
+		limit = { scope:temp_hawkishness <= medium_negative_ai_value }
+		add = 6
+	}
+	else_if = {
+		limit = { scope:temp_hawkishness <= low_negative_ai_value }
+		add = 4
+	}
+	else_if = {
+		limit = { scope:temp_hawkishness <= very_low_negative_ai_value }
+		value = 2
+	}
+	else = { value = 10 }
+	
+	if = {
+		limit = { liege ?= { any_martial_councillor = { this = scope:temp_evaluee } } }
+		add = 5
+	}
+	if = {
+		limit = { has_trait = ambitious }
+		add = 5
+	}
+	else_if = {
+		limit = { has_trait = content }
+		subtract = 5
+	}
+	if = {
+		limit = { has_trait = diligent }
+		add = 3
+	}
+	else_if = {
+		limit = { has_trait = lazy }
+		subtract = 3
+	}
+	add = {
+		value = character_taccomp_tech
+		multiply = 2
+	}
+	min = 0
+}
+ai_target_stewardship = {
+	save_temporary_scope_as = temp_evaluee
+	if = {
+		limit = { ai_greed >= very_high_positive_ai_value }
+		add = 22
+	}
+	else_if = {
+		limit = { ai_greed >= high_positive_ai_value }
+		add = 20
+	}
+	else_if = {
+		limit = { ai_greed >= medium_positive_ai_value }
+		add = 18
+	}
+	else_if = {
+		limit = { ai_greed >= low_positive_ai_value }
+		add = 16
+	}
+	else_if = {
+		limit = { ai_greed >= very_low_positive_ai_value }
+		add = 14
+	}
+	else_if = {
+		limit = { ai_greed <= very_high_negative_ai_value }
+		add = 10
+	}
+	else_if = {
+		limit = { ai_greed <= high_negative_ai_value }
+		add = 8
+	}
+	else_if = {
+		limit = { ai_greed <= medium_negative_ai_value }
+		add = 6
+	}
+	else_if = {
+		limit = { ai_greed <= low_negative_ai_value }
+		add = 4
+	}
+	else_if = {
+		limit = { ai_greed <= very_low_negative_ai_value }
+		value = 2
+	}
+	else = { value = 12 }
+	
+	if = {
+		limit = { liege ?= { any_stewardship_councillor = { this = scope:temp_evaluee } } }
+		add = 5
+	}
+	if = {
+		limit = { has_trait = ambitious }
+		add = 5
+	}
+	else_if = {
+		limit = { has_trait = content }
+		subtract = 5
+	}
+	if = {
+		limit = { has_trait = diligent }
+		add = 3
+	}
+	else_if = {
+		limit = { has_trait = lazy }
+		subtract = 3
+	}
+	add = {
+		value = character_pci_tech
+		multiply = 2
+	}
+	min = 0
+}
+ai_target_intrigue = {
+	save_temporary_scope_as = temp_evaluee
+	save_temporary_scope_value_as = { name = temp_pragmatism value = { add = ai_rationality subtract = ai_honor } }
+	if = {
+		limit = { scope:temp_pragmatism >= very_high_positive_ai_value }
+		add = 22
+	}
+	else_if = {
+		limit = { scope:temp_pragmatism >= high_positive_ai_value }
+		add = 20
+	}
+	else_if = {
+		limit = { scope:temp_pragmatism >= medium_positive_ai_value }
+		add = 18
+	}
+	else_if = {
+		limit = { scope:temp_pragmatism >= low_positive_ai_value }
+		add = 16
+	}
+	else_if = {
+		limit = { scope:temp_pragmatism >= very_low_positive_ai_value }
+		add = 14
+	}
+	else_if = {
+		limit = { scope:temp_pragmatism <= very_high_negative_ai_value }
+		add = 10
+	}
+	else_if = {
+		limit = { scope:temp_pragmatism <= high_negative_ai_value }
+		add = 8
+	}
+	else_if = {
+		limit = { scope:temp_pragmatism <= medium_negative_ai_value }
+		add = 6
+	}
+	else_if = {
+		limit = { scope:temp_pragmatism <= low_negative_ai_value }
+		add = 4
+	}
+	else_if = {
+		limit = { scope:temp_pragmatism <= very_low_negative_ai_value }
+		value = 2
+	}
+	else = { value = 12 }
+	if = {
+		limit = { liege ?= { any_intrigue_councillor = { this = scope:temp_evaluee } } }
+		add = 5
+	}
+	if = {
+		limit = { has_trait = ambitious }
+		add = 5
+	}
+	else_if = {
+		limit = { has_trait = content }
+		subtract = 5
+	}
+	if = {
+		limit = { has_trait = diligent }
+		add = 3
+	}
+	else_if = {
+		limit = { has_trait = lazy }
+		subtract = 3
+	}
+	add = {
+		value = character_pluto_tech
+		multiply = 2
+	}
+	min = 0
+}
+ai_target_learning = {
+	save_temporary_scope_as = temp_evaluee
+	save_temporary_scope_value_as = { name = temp_intellectualism value = ai_intellectualism }
+	if = {
+		limit = { scope:temp_intellectualism >= very_high_positive_ai_value }
+		add = 22
+	}
+	else_if = {
+		limit = { scope:temp_intellectualism >= high_positive_ai_value }
+		add = 20
+	}
+	else_if = {
+		limit = { scope:temp_intellectualism >= medium_positive_ai_value }
+		add = 18
+	}
+	else_if = {
+		limit = { scope:temp_intellectualism >= low_positive_ai_value }
+		add = 16
+	}
+	else_if = {
+		limit = { scope:temp_intellectualism >= very_low_positive_ai_value }
+		add = 14
+	}
+	else_if = {
+		limit = { scope:temp_intellectualism <= very_high_negative_ai_value }
+		add = 10
+	}
+	else_if = {
+		limit = { scope:temp_intellectualism <= high_negative_ai_value }
+		add = 8
+	}
+	else_if = {
+		limit = { scope:temp_intellectualism <= medium_negative_ai_value }
+		add = 6
+	}
+	else_if = {
+		limit = { scope:temp_intellectualism <= low_negative_ai_value }
+		add = 4
+	}
+	else_if = {
+		limit = { scope:temp_intellectualism <= very_low_negative_ai_value }
+		value = 2
+	}
+	else = { value = 10 }
+	
+	if = {
+		limit = { liege ?= { any_learning_councillor = { this = scope:temp_evaluee } } }
+		add = 5
+	}
+	if = {
+		limit = { has_trait = ambitious }
+		add = 5
+	}
+	else_if = {
+		limit = { has_trait = content }
+		subtract = 5
+	}
+	if = {
+		limit = { has_trait = diligent }
+		add = 3
+	}
+	else_if = {
+		limit = { has_trait = lazy }
+		subtract = 3
+	}
+	add = {
+		value = character_thoth_tech
+		multiply = 2
+	}
+	min = 0
+}
+ai_target_personal_prowess = {
+	save_temporary_scope_as = temp_evaluee
+	save_temporary_scope_value_as = { name = temp_hawkishness value = ai_hawkishness }
+	if = {
+		limit = { scope:temp_hawkishness >= very_high_positive_ai_value }
+		add = 22
+	}
+	else_if = {
+		limit = { scope:temp_hawkishness >= high_positive_ai_value }
+		add = 20
+	}
+	else_if = {
+		limit = { scope:temp_hawkishness >= medium_positive_ai_value }
+		add = 18
+	}
+	else_if = {
+		limit = { scope:temp_hawkishness >= low_positive_ai_value }
+		add = 16
+	}
+	else_if = {
+		limit = { scope:temp_hawkishness >= very_low_positive_ai_value }
+		add = 14
+	}
+	else_if = {
+		limit = { scope:temp_hawkishness <= very_high_negative_ai_value }
+		add = 10
+	}
+	else_if = {
+		limit = { scope:temp_hawkishness <= high_negative_ai_value }
+		add = 8
+	}
+	else_if = {
+		limit = { scope:temp_hawkishness <= medium_negative_ai_value }
+		add = 6
+	}
+	else_if = {
+		limit = { scope:temp_hawkishness <= low_negative_ai_value }
+		add = 4
+	}
+	else_if = {
+		limit = { scope:temp_hawkishness <= very_low_negative_ai_value }
+		value = 2
+	}
+	else = { value = 10 }
+	
+	if = {
+		limit = { has_trait = ambitious }
+		add = 5
+	}
+	else_if = {
+		limit = { has_trait = content }
+		subtract = 5
+	}
+	if = {
+		limit = { has_trait = diligent }
+		add = 3
+	}
+	else_if = {
+		limit = { has_trait = lazy }
+		subtract = 3
+	}
+	add = {
+		value = character_taccomp_tech
+		multiply = 2
+	}
+	min = 0
+}
+ai_target_piloting = {
+	save_temporary_scope_as = temp_evaluee
+	save_temporary_scope_value_as = { name = temp_hawkishness value = ai_hawkishness }
+	if = {
+		limit = { scope:temp_hawkishness >= very_high_positive_ai_value }
+		add = 22
+	}
+	else_if = {
+		limit = { scope:temp_hawkishness >= high_positive_ai_value }
+		add = 20
+	}
+	else_if = {
+		limit = { scope:temp_hawkishness >= medium_positive_ai_value }
+		add = 18
+	}
+	else_if = {
+		limit = { scope:temp_hawkishness >= low_positive_ai_value }
+		add = 16
+	}
+	else_if = {
+		limit = { scope:temp_hawkishness >= very_low_positive_ai_value }
+		add = 14
+	}
+	else_if = {
+		limit = { scope:temp_hawkishness <= very_high_negative_ai_value }
+		add = 10
+	}
+	else_if = {
+		limit = { scope:temp_hawkishness <= high_negative_ai_value }
+		add = 8
+	}
+	else_if = {
+		limit = { scope:temp_hawkishness <= medium_negative_ai_value }
+		add = 6
+	}
+	else_if = {
+		limit = { scope:temp_hawkishness <= low_negative_ai_value }
+		add = 4
+	}
+	else_if = {
+		limit = { scope:temp_hawkishness <= very_low_negative_ai_value }
+		value = 2
+	}
+	else = { value = 10 }
+	
+	if = {
+		limit = { is_knight = yes }
+		add = 5
+	}
+	if = {
+		limit = { has_trait = ambitious }
+		add = 5
+	}
+	else_if = {
+		limit = { has_trait = content }
+		subtract = 5
+	}
+	if = {
+		limit = { has_trait = diligent }
+		add = 3
+	}
+	else_if = {
+		limit = { has_trait = lazy }
+		subtract = 3
+	}
+	add = {
+		value = character_taccomp_tech
+		multiply = 2
+	}
+	min = 0
+}

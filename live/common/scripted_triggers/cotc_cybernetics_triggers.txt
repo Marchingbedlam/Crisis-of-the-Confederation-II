@@ -1,0 +1,201 @@
+﻿is_cybernetic_implant = {
+	OR = {
+		artifact_type = neural_implant
+		artifact_type = dermal_implant
+		artifact_type = internal_implant
+		artifact_type = monocular_implant
+		artifact_type = binocular_implant
+		artifact_type = artificial_arm
+		artifact_type = artificial_leg
+	}
+}
+# Can buy basic implants
+can_buy_neural_implant_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_direct_neural_interface }
+}
+can_buy_dermal_implant_trigger = {
+	always = yes
+}
+can_buy_internal_implant_trigger = {
+	always = yes
+}
+can_buy_monocular_implant_trigger = {
+	always = yes
+}
+can_buy_binocular_implant_trigger = {
+	always = yes
+}
+can_buy_artificial_arm_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_cybernetics }
+}
+can_buy_artificial_leg_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_cybernetics }
+}
+already_has_neural_implant_trigger = {
+	any_equipped_character_artifact = { artifact_type = neural_implant }
+}
+already_has_dermal_implant_trigger = {
+	any_equipped_character_artifact = { artifact_type = dermal_implant }
+}
+already_has_internal_implant_trigger = {
+	any_equipped_character_artifact = { artifact_type = internal_implant }
+}
+already_has_monocular_implant_trigger = {
+	any_equipped_character_artifact = { artifact_type = monocular_implant }
+}
+already_has_binocular_implant_trigger = {
+	any_equipped_character_artifact = { artifact_type = binocular_implant }
+}
+already_has_artificial_arm_trigger = {
+	trigger_if = {
+		limit = {
+			OR = {
+				has_personal_tenet_flag = wants_implants
+				has_trait = armless
+			}
+		}
+		any_equipped_character_artifact = {
+			artifact_type = artificial_arm
+			count = 2
+		}
+	}
+	trigger_else = { any_equipped_character_artifact = { artifact_type = artificial_arm } }
+}
+already_has_artificial_leg_trigger = {
+	trigger_if = {
+		limit = {
+			OR = {
+				has_personal_tenet_flag = wants_implants
+				has_trait = legless
+			}
+		}
+		any_equipped_character_artifact = {
+			artifact_type = artificial_leg
+			count = 2
+		}
+	}
+	trigger_else = { any_equipped_character_artifact = { artifact_type = artificial_leg } }
+}
+might_want_implant_gift_trigger = {
+	$TYPE$_self_score >= 10
+	already_has_$TYPE$_trigger = no
+	opinion = { target = PREV value > 0 }
+	reverse_opinion = { target = PREV value > 0 }
+	NOT = { rite = { rite_has_parameter = hates_cybernetics } }
+	NOT = { has_personal_tenet_flag = abstains_from_cybernetics }
+	NOT = { any_character_artifact = { artifact_type = $TYPE$ } }
+}
+
+# Can buy specific DNI modules
+can_buy_iaei_mk_i_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_civilian_dni_modules_mk_i }
+	gold >= { value = iaei_mk_i_cost add = $MARGIN$ }
+}
+can_buy_iaei_mk_ii_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_civilian_dni_modules_mk_ii }
+	gold >= { value = iaei_mk_ii_cost add = $MARGIN$ }
+}
+can_buy_iaei_mk_iii_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_civilian_dni_modules_mk_iii }
+	gold >= { value = iaei_mk_iii_cost add = $MARGIN$ }
+}
+can_buy_iaei_mk_iv_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_civilian_dni_modules_mk_iv }
+	gold >= { value = iaei_mk_iv_cost add = $MARGIN$ }
+}
+can_buy_pci_mk_i_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_civilian_dni_modules_mk_i }
+	gold >= { value = pci_mk_i_cost add = $MARGIN$ }
+}
+can_buy_pci_mk_ii_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_civilian_dni_modules_mk_ii }
+	gold >= { value = pci_mk_ii_cost add = $MARGIN$ }
+}
+can_buy_pci_mk_iii_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_civilian_dni_modules_mk_iii }
+	gold >= { value = pci_mk_iii_cost add = $MARGIN$ }
+}
+can_buy_pci_mk_iv_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_civilian_dni_modules_mk_iv }
+	gold >= { value = pci_mk_iv_cost add = $MARGIN$ }
+}
+can_buy_thoth_mk_i_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_civilian_dni_modules_mk_i }
+	gold >= { value = thoth_mk_i_cost add = $MARGIN$ }
+}
+can_buy_thoth_mk_ii_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_civilian_dni_modules_mk_ii }
+	gold >= { value = thoth_mk_ii_cost add = $MARGIN$ }
+}
+can_buy_thoth_mk_iii_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_civilian_dni_modules_mk_iii }
+	gold >= { value = thoth_mk_iii_cost add = $MARGIN$ }
+}
+can_buy_thoth_mk_iv_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_civilian_dni_modules_mk_iv }
+	gold >= { value = thoth_mk_iv_cost add = $MARGIN$ }
+}
+can_buy_taccomp_mk_i_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_i }
+	gold >= { value = taccomp_mk_i_cost add = $MARGIN$ }
+}
+can_buy_taccomp_mk_ii_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_ii }
+	gold >= { value = taccomp_mk_ii_cost add = $MARGIN$ }
+}
+can_buy_taccomp_mk_iii_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_iii }
+	gold >= { value = taccomp_mk_iii_cost add = $MARGIN$ }
+}
+can_buy_taccomp_mk_iv_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_iv }
+	gold >= { value = taccomp_mk_iv_cost add = $MARGIN$ }
+}
+can_buy_pluto_mk_i_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_i }
+	gold >= { value = pluto_mk_i_cost add = $MARGIN$ }
+}
+can_buy_pluto_mk_ii_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_ii }
+	gold >= { value = pluto_mk_ii_cost add = $MARGIN$ }
+}
+can_buy_pluto_mk_iii_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_iii }
+	gold >= { value = pluto_mk_iii_cost add = $MARGIN$ }
+}
+can_buy_pluto_mk_iv_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_iv }
+	gold >= { value = pluto_mk_iv_cost add = $MARGIN$ }
+}
+can_buy_neurolink_mk_i_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_i }
+	gold >= { value = neurolink_mk_i_cost add = $MARGIN$ }
+}
+can_buy_neurolink_mk_ii_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_ii }
+	gold >= { value = neurolink_mk_ii_cost add = $MARGIN$ }
+}
+can_buy_neurolink_mk_iii_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_iii }
+	gold >= { value = neurolink_mk_iii_cost add = $MARGIN$ }
+}
+can_buy_neurolink_mk_iv_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_iv }
+	gold >= { value = neurolink_mk_iv_cost add = $MARGIN$ }
+}
+can_buy_amam_mk_i_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_i }
+	gold >= { value = amam_mk_i_cost add = $MARGIN$ }
+}
+can_buy_amam_mk_ii_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_ii }
+	gold >= { value = amam_mk_ii_cost add = $MARGIN$ }
+}
+can_buy_amam_mk_iii_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_iii }
+	gold >= { value = amam_mk_iii_cost add = $MARGIN$ }
+}
+can_buy_amam_mk_iv_trigger = {
+	character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_iv }
+	gold >= { value = amam_mk_iv_cost add = $MARGIN$ }
+}

@@ -1,0 +1,522 @@
+﻿purchase_implant_decision = {
+	picture = {
+		reference = "gfx/interface/illustrations/decisions/decision_smith.dds"
+	}
+	cooldown = { days = standard_purchase_implant_cooldown_time }
+	sort_order = 100
+	
+	is_shown = { always = yes }
+	
+	is_valid_showing_failures_only = {
+		character_has_tech = { TECH = culture_innovation:innovation_cybernetics }
+		NOT = { has_personal_tenet_flag = abstains_from_cybernetics }
+	}
+	minimum_cost = {
+		gold = {
+			if = {
+				limit = { scope:purchase_neural_implant_self ?= yes }
+				add = neural_implant_gold_cost
+			}
+			else_if = {
+				limit = { scope:purchase_neural_implant_other ?= yes }
+				add = neural_implant_gold_cost
+			}
+			else_if = {
+				limit = { scope:purchase_dermal_implant_self ?= yes }
+				add = dermal_implant_gold_cost
+			}
+			else_if = {
+				limit = { scope:purchase_dermal_implant_other ?= yes }
+				add = dermal_implant_gold_cost
+			}
+			else_if = {
+				limit = { scope:purchase_internal_implant_self ?= yes }
+				add = internal_implant_gold_cost
+			}
+			else_if = {
+				limit = { scope:purchase_internal_implant_other ?= yes }
+				add = internal_implant_gold_cost
+			}
+			else_if = {
+				limit = { scope:purchase_monocular_implant_self ?= yes }
+				add = monocular_implant_gold_cost
+			}
+			else_if = {
+				limit = { scope:purchase_monocular_implant_other ?= yes }
+				add = monocular_implant_gold_cost
+			}
+			else_if = {
+				limit = { scope:purchase_binocular_implant_self ?= yes }
+				add = binocular_implant_gold_cost
+			}
+			else_if = {
+				limit = { scope:purchase_binocular_implant_other ?= yes }
+				add = binocular_implant_gold_cost
+			}
+			else_if = {
+				limit = { scope:purchase_artificial_arm_self ?= yes }
+				add = artificial_arm_gold_cost
+			}
+			else_if = {
+				limit = { scope:purchase_artificial_arm_other ?= yes }
+				add = artificial_arm_gold_cost
+			}
+			else_if = {
+				limit = { scope:purchase_artificial_leg_self ?= yes }
+				add = artificial_leg_gold_cost
+			}
+		}
+		piety = implant_piety_cost
+	}
+
+    widget = {
+    	gui = "decision_view_widget_commission_artifact"
+		controller = decision_option_list_controller
+		decision_to_second_step_button = "COMMISSION_ARTIFACT_DECISION_NEXT_STEP_BUTTON" 
+		show_from_start = yes
+		item = {
+			value = purchase_neural_implant_self
+			current_description = purchase_implant_decision.option.neural_implant.desc
+			localization  = purchase_implant_decision.option.neural_implant
+			icon = "gfx/interface/icons/artifact/artifact_sword.dds"
+			is_valid = {
+				can_buy_neural_implant_trigger = yes
+				gold >= neural_implant_gold_cost
+			}
+			ai_chance = {
+				value = neural_implant_self_score
+				already_has_neural_implant_trigger = no
+			}
+		}
+		item = {
+			value = purchase_neural_implant_other
+			current_description = purchase_implant_decision.option.neural_implant.desc
+			localization  = purchase_implant_decision.option.neural_implant
+			icon = "gfx/interface/icons/artifact/artifact_sword.dds"
+			is_shown = { is_ai = yes } # The only difference is who the AI wants the implant for
+			is_valid = {
+				is_ruler = yes
+				can_buy_neural_implant_trigger = yes
+				gold >= neural_implant_gold_cost
+			}
+			ai_chance = {
+				value = neural_implant_other_score
+				if = {
+					limit = { short_term_gold < { value = neural_implant_gold_cost add = 100 } }
+					multiply = 0
+				}
+			}
+		}
+		item = {
+			value = purchase_dermal_implant_self
+			current_description = purchase_implant_decision.option.dermal_implant.desc
+			localization  = purchase_implant_decision.option.dermal_implant
+			icon = "gfx/interface/icons/artifact/artifact_sword.dds"
+			is_valid = {
+				can_buy_dermal_implant_trigger = yes
+				gold >= dermal_implant_gold_cost
+			}
+			ai_chance = {
+				value = dermal_implant_self_score
+				already_has_dermal_implant_trigger = no
+			}
+		}
+		item = {
+			value = purchase_dermal_implant_other
+			current_description = purchase_implant_decision.option.dermal_implant.desc
+			localization  = purchase_implant_decision.option.dermal_implant
+			icon = "gfx/interface/icons/artifact/artifact_sword.dds"
+			is_shown = { is_ai = yes } # The only difference is who the AI wants the implant for
+			is_valid = {
+				is_ruler = yes
+				can_buy_dermal_implant_trigger = yes
+				gold >= dermal_implant_gold_cost
+			}
+			ai_chance = {
+				value = dermal_implant_other_score
+				if = {
+					limit = { short_term_gold < value = dermal_implant_gold_cost }
+					multiply = 0
+				}
+			}
+		}
+		item = {
+			value = purchase_internal_implant_self
+			current_description = purchase_implant_decision.option.internal_implant.desc
+			localization  = purchase_implant_decision.option.internal_implant
+			icon = "gfx/interface/icons/artifact/artifact_sword.dds"
+			is_valid = {
+				can_buy_internal_implant_trigger = yes
+				gold >= internal_implant_gold_cost
+			}
+			ai_chance = {
+				value = internal_implant_self_score
+				already_has_internal_implant_trigger = no
+			}
+		}
+		item = {
+			value = purchase_internal_implant_other
+			current_description = purchase_implant_decision.option.internal_implant.desc
+			localization  = purchase_implant_decision.option.internal_implant
+			icon = "gfx/interface/icons/artifact/artifact_sword.dds"
+			is_shown = { is_ai = yes } # The only difference is who the AI wants the implant for
+			is_valid = {
+				is_ruler = yes
+				can_buy_internal_implant_trigger = yes
+				gold >= internal_implant_gold_cost
+			}
+			ai_chance = {
+				value = internal_implant_other_score
+				if = {
+					limit = { short_term_gold < value = internal_implant_gold_cost }
+					multiply = 0
+				}
+			}
+		}
+		item = {
+			value = purchase_monocular_implant_self
+			current_description = purchase_implant_decision.option.monocular_implant.desc
+			localization  = purchase_implant_decision.option.monocular_implant
+			icon = "gfx/interface/icons/artifact/artifact_sword.dds"
+			is_valid = {
+				can_buy_monocular_implant_trigger = yes
+				gold >= monocular_implant_gold_cost
+			}
+			ai_chance = {
+				value = monocular_implant_self_score
+				already_has_monocular_implant_trigger = no
+			}
+		}
+		item = {
+			value = purchase_monocular_implant_other
+			current_description = purchase_implant_decision.option.monocular_implant.desc
+			localization  = purchase_implant_decision.option.monocular_implant
+			icon = "gfx/interface/icons/artifact/artifact_sword.dds"
+			is_shown = { is_ai = yes } # The only difference is who the AI wants the implant for
+			is_valid = {
+				is_ruler = yes
+				can_buy_monocular_implant_trigger = yes
+				gold >= monocular_implant_gold_cost
+			}
+			ai_chance = {
+				value = monocular_implant_other_score
+				if = {
+					limit = { short_term_gold < value = monocular_implant_gold_cost }
+					multiply = 0
+				}
+			}
+		}
+		item = {
+			value = purchase_binocular_implant_self
+			current_description = purchase_implant_decision.option.binocular_implant.desc
+			localization  = purchase_implant_decision.option.binocular_implant
+			icon = "gfx/interface/icons/artifact/artifact_sword.dds"
+			is_valid = {
+				can_buy_binocular_implant_trigger = yes
+				gold >= binocular_implant_gold_cost
+			}
+			ai_chance = {
+				value = binocular_implant_self_score
+				already_has_binocular_implant_trigger = no
+			}
+		}
+		item = {
+			value = purchase_binocular_implant_other
+			current_description = purchase_implant_decision.option.binocular_implant.desc
+			localization  = purchase_implant_decision.option.binocular_implant
+			icon = "gfx/interface/icons/artifact/artifact_sword.dds"
+			is_shown = { is_ai = yes } # The only difference is who the AI wants the implant for
+			is_valid = {
+				is_ruler = yes
+				can_buy_binocular_implant_trigger = yes
+				gold >= binocular_implant_gold_cost
+			}
+			ai_chance = {
+				value = binocular_implant_other_score
+				if = {
+					limit = { short_term_gold < value = binocular_implant_gold_cost }
+					multiply = 0
+				}
+			}
+		}
+		item = {
+			value = purchase_artificial_arm_self
+			current_description = purchase_implant_decision.option.artificial_arm.desc
+			localization  = purchase_implant_decision.option.artificial_arm
+			icon = "gfx/interface/icons/artifact/artifact_sword.dds"
+			is_valid = {
+				can_buy_artificial_arm_trigger = yes
+				gold >= artificial_arm_gold_cost
+			}
+			ai_chance = {
+				value = artificial_arm_self_score
+				already_has_artificial_arm_trigger = no
+			}
+		}
+		item = {
+			value = purchase_artificial_arm_other
+			current_description = purchase_implant_decision.option.artificial_arm.desc
+			localization  = purchase_implant_decision.option.artificial_arm
+			icon = "gfx/interface/icons/artifact/artifact_sword.dds"
+			is_shown = { is_ai = yes } # The only difference is who the AI wants the implant for
+			is_valid = {
+				is_ruler = yes
+				can_buy_artificial_arm_trigger = yes
+				gold >= artificial_arm_gold_cost
+			}
+			ai_chance = {
+				value = artificial_arm_other_score
+				if = {
+					limit = { short_term_gold < value = artificial_arm_gold_cost }
+					multiply = 0
+				}
+			}
+		}
+		item = {
+			value = purchase_artificial_leg_self
+			current_description = purchase_implant_decision.option.artificial_leg.desc
+			localization  = purchase_implant_decision.option.artificial_leg
+			icon = "gfx/interface/icons/artifact/artifact_sword.dds"
+			is_valid = {
+				can_buy_artificial_leg_trigger = yes
+				gold >= artificial_leg_gold_cost
+			}
+			ai_chance = {
+				value = artificial_leg_self_score
+				already_has_artificial_leg_trigger = no
+			}
+		}
+		item = {
+			value = purchase_artificial_leg_other
+			current_description = purchase_implant_decision.option.artificial_leg.desc
+			localization  = purchase_implant_decision.option.artificial_leg
+			icon = "gfx/interface/icons/artifact/artifact_sword.dds"
+			is_shown = { is_ai = yes } # The only difference is who the AI wants the implant for
+			is_valid = {
+				is_ruler = yes
+				can_buy_artificial_leg_trigger = yes
+				gold >= artificial_leg_gold_cost
+			}
+			ai_chance = {
+				value = artificial_leg_other_score
+				if = {
+					limit = { short_term_gold < value = artificial_leg_gold_cost }
+					multiply = 0
+				}
+			}
+		}
+	}
+	effect = {
+		save_scope_as = intended_recipient # Default to ourself
+		switch = {
+			trigger = yes
+			scope:purchase_neural_implant_self = {
+				show_as_tooltip = {
+					create_standard_implant_effect = { TYPE = neural_implant }
+					remove_short_term_gold = neural_implant_gold_cost
+				}
+				save_scope_value_as = { name = final_cost value = neural_implant_gold_cost }
+				save_scope_value_as = { name = port value = flag:no }
+				save_scope_value_as = { name = wifi value = flag:no }
+				save_scope_value_as = { name = iaei_mark value = 0 }
+				save_scope_value_as = { name = taccomp_mark value = 0 }
+				save_scope_value_as = { name = pci_mark value = 0 }
+				save_scope_value_as = { name = pluto_mark value = 0 }
+				save_scope_value_as = { name = thoth_mark value = 0 }
+				save_scope_value_as = { name = neurolink_mark value = 0 }
+				save_scope_value_as = { name = amam_mark value = 0 }
+				trigger_event = cotc_cybernetics_events.100
+			}
+			scope:purchase_neural_implant_other = {
+				show_as_tooltip = {
+					create_standard_implant_effect = { TYPE = neural_implant }
+					remove_short_term_gold = neural_implant_gold_cost
+				}
+				select_random_implant_giftee = { TYPE = neural_implant }
+				save_scope_value_as = { name = final_cost value = neural_implant_gold_cost }
+				save_scope_value_as = { name = port value = flag:no }
+				save_scope_value_as = { name = wifi value = flag:no }
+				save_scope_value_as = { name = iaei_mark value = 0 }
+				save_scope_value_as = { name = taccomp_mark value = 0 }
+				save_scope_value_as = { name = pci_mark value = 0 }
+				save_scope_value_as = { name = pluto_mark value = 0 }
+				save_scope_value_as = { name = thoth_mark value = 0 }
+				save_scope_value_as = { name = neurolink_mark value = 0 }
+				save_scope_value_as = { name = amam_mark value = 0 }
+				trigger_event = cotc_cybernetics_events.100
+			}
+			scope:purchase_dermal_implant_self = {
+				create_standard_implant_effect = { TYPE = dermal_implant }
+				remove_short_term_gold = dermal_implant_gold_cost
+			}
+			scope:purchase_dermal_implant_other = {
+				show_as_tooltip = { create_standard_implant_effect = { TYPE = dermal_implant } }
+				remove_short_term_gold = dermal_implant_gold_cost
+				select_random_implant_giftee = { TYPE = dermal_implant }
+				scope:new_implant = { set_variable = { name = intended_for value = scope:intended_recipient } }
+			}
+			scope:purchase_internal_implant_self = {
+				create_standard_implant_effect = { TYPE = internal_implant }
+				remove_short_term_gold = internal_implant_gold_cost
+			}
+			scope:purchase_internal_implant_other = {
+				show_as_tooltip = { create_standard_implant_effect = { TYPE = internal_implant } }
+				remove_short_term_gold = internal_implant_gold_cost
+				select_random_implant_giftee = { TYPE = internal_implant }
+				scope:new_implant = { set_variable = { name = intended_for value = scope:intended_recipient } }
+			}
+			scope:purchase_artificial_arm_self = {
+				create_standard_implant_effect = { TYPE = artificial_arm }
+				remove_short_term_gold = artificial_arm_gold_cost
+			}
+			scope:purchase_artificial_arm_other = {
+				show_as_tooltip = { create_standard_implant_effect = { TYPE = artificial_arm } }
+				remove_short_term_gold = artificial_arm_gold_cost
+				select_random_implant_giftee = { TYPE = artificial_arm }
+				scope:new_implant = { set_variable = { name = intended_for value = scope:intended_recipient } }
+			}
+			scope:purchase_artificial_leg_self = {
+				create_standard_implant_effect = { TYPE = artificial_leg }
+				remove_short_term_gold = artificial_leg_gold_cost
+			}
+			scope:purchase_artificial_leg_other = {
+				show_as_tooltip = { create_standard_implant_effect = { TYPE = artificial_leg } }
+				remove_short_term_gold = artificial_leg_gold_cost
+				select_random_implant_giftee = { TYPE = artificial_leg }
+				scope:new_implant = { set_variable = { name = intended_for value = scope:intended_recipient } }
+			}
+		}
+		if = {
+			limit = { implant_piety_cost != 0 }
+			add_piety = { value = implant_piety_cost multiply = -1 }
+		}
+	}
+	ai_check_interval = 12
+	ai_potential = {
+		OR = {
+			is_ruler = yes
+			has_personal_tenet_flag = wants_implants
+			num_of_eyes < 2
+			num_of_limbs < 4
+			visibly_disfigured_trigger = yes
+		}
+		short_term_gold > ai_war_chest_desired_gold_value
+		war_chest_gold >= halved_ai_war_chest_gold_maximum
+		ai_should_focus_on_building_in_their_capital = no
+	}
+	ai_will_do = {
+		base = 0
+		modifier = {
+			add = neural_implant_self_score
+			already_has_neural_implant_trigger = no
+			can_buy_neural_implant_trigger = yes
+			gold >= { value = neural_implant_gold_cost add = 100 }
+		}
+		modifier = {
+			add = neural_implant_other_score
+			is_ruler = yes
+			OR = {
+				ai_rationality > ai_greed
+				ai_sociability > ai_greed
+			}
+			can_buy_neural_implant_trigger = yes
+			gold >= { value = neural_implant_gold_cost add = 100 }
+		}
+		modifier = {
+			add = dermal_implant_self_score
+			already_has_dermal_implant_trigger = no
+			can_buy_dermal_implant_trigger = yes
+			gold >= dermal_implant_gold_cost
+		}
+		modifier = {
+			add = dermal_implant_other_score
+			is_ruler = yes
+			OR = {
+				ai_rationality > ai_greed
+				ai_sociability > ai_greed
+			}
+			can_buy_dermal_implant_trigger = yes
+			gold >= dermal_implant_gold_cost
+		}
+		modifier = {
+			add = internal_implant_self_score
+			already_has_internal_implant_trigger = no
+			can_buy_internal_implant_trigger = yes
+			gold >= internal_implant_gold_cost
+		}
+		modifier = {
+			add = internal_implant_other_score
+			is_ruler = yes
+			OR = {
+				ai_rationality > ai_greed
+				ai_sociability > ai_greed
+			}
+			can_buy_internal_implant_trigger = yes
+			gold >= internal_implant_gold_cost
+		}
+		modifier = {
+			add = monocular_implant_self_score
+			already_has_monocular_implant_trigger = no
+			can_buy_monocular_implant_trigger = yes
+			gold >= monocular_implant_gold_cost
+		}
+		modifier = {
+			add = monocular_implant_other_score
+			is_ruler = yes
+			OR = {
+				ai_rationality > ai_greed
+				ai_sociability > ai_greed
+			}
+			can_buy_monocular_implant_trigger = yes
+			gold >= monocular_implant_gold_cost
+		}
+		modifier = {
+			add = binocular_implant_self_score
+			already_has_binocular_implant_trigger = no
+			can_buy_binocular_implant_trigger = yes
+			gold >= binocular_implant_gold_cost
+		}
+		modifier = {
+			add = binocular_implant_other_score
+			is_ruler = yes
+			OR = {
+				ai_rationality > ai_greed
+				ai_sociability > ai_greed
+			}
+			can_buy_binocular_implant_trigger = yes
+			gold >= binocular_implant_gold_cost
+		}
+		modifier = {
+			add = artificial_arm_self_score
+			already_has_artificial_arm_trigger = no
+			can_buy_artificial_arm_trigger = yes
+			gold >= artificial_arm_gold_cost
+		}
+		modifier = {
+			add = artificial_arm_other_score
+			is_ruler = yes
+			OR = {
+				ai_rationality > ai_greed
+				ai_sociability > ai_greed
+			}
+			can_buy_artificial_arm_trigger = yes
+			gold >= artificial_arm_gold_cost
+		}
+		modifier = {
+			add = artificial_leg_self_score
+			already_has_artificial_leg_trigger = no
+			can_buy_artificial_leg_trigger = yes
+			gold >= artificial_leg_gold_cost
+		}
+		modifier = {
+			add = artificial_leg_other_score
+			is_ruler = yes
+			OR = {
+				ai_rationality > ai_greed
+				ai_sociability > ai_greed
+			}
+			can_buy_artificial_leg_trigger = yes
+			gold >= artificial_leg_gold_cost
+		}
+	}
+}

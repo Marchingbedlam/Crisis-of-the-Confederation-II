@@ -15,3 +15,39 @@ innovation_reliable_cloning = {
 	}
 	flag = early_medieval_era_regular
 }
+innovation_civilian_dni_modules_mk_ii = {
+	culture_era = culture_era_early_medieval
+	group = culture_group_civic
+	skill = learning
+	icon = @direct_neural_interface
+	
+	ai_weight_for_spread = { value = 100 }
+	ai_weight_for_fascination = { value = 100 }
+	can_progress = { has_innovation = innovation_civilian_dni_modules_mk_i }
+	parameters = {
+		confederate_civic = yes
+		allow_iaei_mk_ii = yes
+		allow_pci_mk_ii = yes
+		allow_thoth_mk_ii = yes
+	}
+	flag = early_medieval_era_regular
+}
+
+innovation_military_dni_modules_mk_ii = {
+	culture_era = culture_era_early_medieval
+	group = culture_group_military
+	skill = martial
+	icon = @direct_neural_interface
+	
+	ai_weight_for_spread = { value = 100 }
+	ai_weight_for_fascination = { value = 100 }
+	can_progress = { has_innovation = innovation_military_dni_modules_mk_i }
+	parameters = {
+		confederate_military = yes
+		allow_taccomp_mk_ii = yes
+		allow_pluto_mk_ii = yes
+		allow_neurolink_mk_ii = yes
+		allow_amam_mk_ii = yes
+	}
+	flag = early_medieval_era_regular
+}

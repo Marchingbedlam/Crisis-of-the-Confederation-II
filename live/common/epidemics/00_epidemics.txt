@@ -174,27 +174,10 @@ smallpox = {
 	outbreak_intensities = {
 		minor = {
 			outbreak_chance = {
-				value = outbreak_chance_minor_default_value
-				multiply = outbreak_chance_minor_mult_value
-				multiply = recent_epidemics_outbreak_mult_value
-				
-				### NO DLC - We increase the chance to make up for the locked diseases ###
-				if = {
-					limit = {
-						NOT = { has_dlc_feature = legends_of_the_dead }
-					}
-					multiply = 2
-				}
-				if = {
-					limit = {
-						has_game_rule = epidemic_frequency_disabled
-					}
-					multiply = 0
-				}
+				value = 0 # HAHAHA GET WRECKED SMALLPOX
 			}
 			spread_chance = {
-				value = spread_chance_epidemics_default_value
-				multiply = spread_chance_epidemics_mult_value
+				value = 0
 			}
 			max_provinces = { 30 55 }
 
@@ -213,27 +196,10 @@ smallpox = {
 
 		major = {
 			outbreak_chance = {
-				value = outbreak_chance_major_default_value
-				multiply = outbreak_chance_major_mult_value
-				multiply = recent_epidemics_outbreak_mult_value
-				
-				### NO DLC - We increase the chance to make up for the locked diseases ###
-				if = {
-					limit = {
-						NOT = { has_dlc_feature = legends_of_the_dead }
-					}
-					multiply = 1.5
-				}
-				if = {
-					limit = {
-						has_game_rule = epidemic_frequency_disabled
-					}
-					multiply = 0
-				}
+				value = 0 # HAHAHA GET WRECKED SMALLPOX
 			}
 			spread_chance = {
-				value = spread_chance_epidemics_default_value
-				multiply = spread_chance_epidemics_mult_value
+				value = 0
 			}
 			max_provinces = { 85 130 }
 
@@ -252,27 +218,10 @@ smallpox = {
 
 		apocalyptic = {
 			outbreak_chance = {
-				value = outbreak_chance_apocalyptic_default_value
-				multiply = outbreak_chance_apocalyptic_mult_value
-				multiply = recent_epidemics_outbreak_mult_value
-				
-				### NO DLC - We increase the chance to make up for the locked diseases ###
-				if = {
-					limit = {
-						NOT = { has_dlc_feature = legends_of_the_dead }
-					}
-					multiply = 1.25
-				}
-				if = {
-					limit = {
-						has_game_rule = epidemic_frequency_disabled
-					}
-					multiply = 0
-				}
+				value = 0 # HAHAHA GET WRECKED SMALLPOX
 			}
 			spread_chance = {
-				value = spread_chance_epidemics_default_value
-				multiply = spread_chance_epidemics_mult_value
+				value = 0
 			}
 			max_provinces = { 220 325 }
 

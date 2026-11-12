@@ -1,0 +1,110 @@
+﻿personal_prowess = { # The actual displayed name is "Combat" or "Combat Skill", but we keep this internal name for clarity
+	save_temporary_scope_as = temp_prowess_character
+	add = {
+		value = prowess_no_portrait # Ignore naval combat-related modifiers
+		add = var:personal_prowess_increases # There might not be any of these, but if there are, we want them counted
+		desc = PERSONAL_PROWESS_BASE
+	}
+	
+	# Traits
+	every_character_trait = {
+		save_temporary_scope_as = temp_trait
+		switch = {
+			trigger = has_trait_flag
+			personal_prowess_neg_10 = {
+				add = {
+					value = -10
+					desc = TEMP_PROWESS_TRAIT_DESC
+				}
+			}
+			personal_prowess_neg_6 = {
+				add = {
+					value = -6
+					desc = TEMP_PROWESS_TRAIT_DESC
+				}
+			}
+			personal_prowess_neg_4 = {
+				add = {
+					value = -4
+					desc = TEMP_PROWESS_TRAIT_DESC
+				}
+			}
+			personal_prowess_neg_3 = {
+				add = {
+					value = -3
+					desc = TEMP_PROWESS_TRAIT_DESC
+				}
+			}
+			personal_prowess_neg_2 = {
+				add = {
+					value = -2
+					desc = TEMP_PROWESS_TRAIT_DESC
+				}
+			}
+			personal_prowess_neg_1 = {
+				add = {
+					value = -1
+					desc = TEMP_PROWESS_TRAIT_DESC
+				}
+			}
+			personal_prowess_1 = {
+				add = {
+					value = 1
+					desc = TEMP_PROWESS_TRAIT_DESC
+				}
+			}
+			personal_prowess_2 = {
+				add = {
+					value = 2
+					desc = TEMP_PROWESS_TRAIT_DESC
+				}
+			}
+			personal_prowess_3 = {
+				add = {
+					value = 3
+					desc = TEMP_PROWESS_TRAIT_DESC
+				}
+			}
+			personal_prowess_4 = {
+				add = {
+					value = 4
+					desc = TEMP_PROWESS_TRAIT_DESC
+				}
+			}
+			personal_prowess_5 = {
+				add = {
+					value = 5
+					desc = TEMP_PROWESS_TRAIT_DESC
+				}
+			}
+			personal_prowess_6 = {
+				add = {
+					value = 6
+					desc = TEMP_PROWESS_TRAIT_DESC
+				}
+			}
+			personal_prowess_8 = {
+				add = {
+					value = 8
+					desc = TEMP_PROWESS_TRAIT_DESC
+				}
+			}
+		}
+	}
+	
+	# Missing legs
+	if = {
+		limit = { num_of_legs = 1 }
+		add = {
+			value = -4
+			desc = PROWESS_MISSING_ONE_LEG
+		}
+	}
+	else_if = {
+		limit = { num_of_legs = 0 }
+		add = {
+			value = -10
+			desc = PROWESS_MISSING_BOTH_LEGS
+		}
+	}
+}

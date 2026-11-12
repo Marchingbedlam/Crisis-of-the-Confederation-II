@@ -1,4 +1,131 @@
-﻿gestating_clone_template = {
+﻿# Cybernetics
+standard_neural_implant_template = {
+	can_equip = {
+		has_trait = datajacked
+		custom_tooltip = {
+			text = NEEDS_CYBERSURGERY_DESC
+			has_character_flag = undergoing_cybersurgery
+		}
+	}
+	can_benefit = { always = yes }
+	can_repair = { always = yes }
+	fallback = { # Everyone gets the basic medical effect
+		diplomacy = 2
+		martial = 2
+		stewardship = 2
+		intrigue = 2
+		learning = 2
+		prowess = 2
+		ai_rationality = 25
+	}
+}
+standard_monocular_implant_template = {
+	can_equip = {
+		has_trait_rank = { trait = missing_eyes rank >= 1 }
+		custom_tooltip = {
+			text = NEEDS_CYBERSURGERY_DESC
+			has_character_flag = undergoing_cybersurgery
+		}
+	}
+	can_benefit = { always = yes }
+	can_repair = { always = yes }
+	fallback = { # Everyone gets the basic medical effect
+		prowess = 2
+		attraction_opinion = 5
+	}
+}
+standard_binocular_implant_template = {
+	can_equip = {
+		has_trait_rank = { trait = missing_eyes rank >= 2 }
+		custom_tooltip = {
+			text = NEEDS_CYBERSURGERY_DESC
+			has_character_flag = undergoing_cybersurgery
+		}
+	}
+	can_benefit = { always = yes }
+	can_repair = { always = yes }
+	fallback = { # Everyone gets the basic medical effect
+		martial = 6
+		stewardship = 2
+		intrigue = 2
+		prowess = 10
+		health = 0.25
+		dread_baseline_add = 20 # Actually scarier than organic eyes!
+		attraction_opinion = 5 # Doesn't counter the entire effect due to the uncanny valley
+	}
+}
+standard_dermal_implant_template = {
+	can_equip = {
+		has_trait = disfigured
+		custom_tooltip = {
+			text = NEEDS_CYBERSURGERY_DESC
+			has_character_flag = undergoing_cybersurgery
+		}
+	}
+	can_benefit = { always = yes }
+	can_repair = { always = yes }
+	fallback = { # Everyone gets the basic medical effect
+		diplomacy = -4
+		attraction_opinion = 10 # Doesn't counter the entire effect due to the uncanny valley
+		ai_sociability = low_positive_ai_value
+	}
+}
+standard_internal_implant_template = {
+	can_equip = {
+		has_trait = implant_dependent
+		custom_tooltip = {
+			text = NEEDS_CYBERSURGERY_DESC
+			has_character_flag = undergoing_cybersurgery
+		}
+	}
+	can_benefit = { always = yes }
+	can_repair = { always = yes }
+	fallback = { # Everyone gets the basic medical effect
+		health = 100
+	}
+}
+standard_artificial_arm_template = {
+	can_equip = {
+		has_trait_rank = { trait = missing_arms rank >= 1 }
+		custom_tooltip = {
+			text = NEEDS_CYBERSURGERY_DESC
+			has_character_flag = undergoing_cybersurgery
+		}
+	}
+	can_benefit = { always = yes }
+	can_repair = { always = yes }
+	fallback = { # Everyone gets the basic medical effect
+		diplomacy = 2
+		martial = 2
+		stewardship = 2
+		intrigue = 2
+		learning = 2
+		prowess = 4
+
+		dread_baseline_add = 15
+		dread_loss_mult = -1
+
+		attraction_opinion = 10
+	}
+}
+standard_artificial_leg_template = {
+	can_equip = {
+		has_trait_rank = { trait = missing_legs rank >= 1 }
+		custom_tooltip = {
+			text = NEEDS_CYBERSURGERY_DESC
+			has_character_flag = undergoing_cybersurgery
+		}
+	}
+	can_benefit = { always = yes }
+	can_repair = { always = yes }
+	fallback = { # Everyone gets the basic medical effect
+		prowess = 4
+		dread_baseline_add = 10
+		attraction_opinion = 10
+	}
+}
+# Cloning
+gestating_clone_template = {
 	can_equip = { rite = { rite_has_parameter = supports_cloning } }
 	can_benefit = { scope:artifact = { is_target_in_variable_list = { name = donors target = PREV } } }
 	fallback = { monthly_piety = 0.05 }

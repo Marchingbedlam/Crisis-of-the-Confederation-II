@@ -1,0 +1,654 @@
+﻿### IMPLANT COSTS
+minimum_implant_gold_cost = {
+	value = 1000
+	if = {
+		limit = { can_buy_neural_implant_trigger = yes }
+		max = neural_implant_gold_cost
+	}
+	if = {
+		limit = { can_buy_dermal_implant_trigger = yes }
+		max = dermal_implant_gold_cost
+	}
+	if = {
+		limit = { can_buy_internal_implant_trigger = yes }
+		max = internal_implant_gold_cost
+	}
+	if = {
+		limit = { can_buy_monocular_implant_trigger = yes }
+		max = monocular_implant_gold_cost
+	}
+	if = {
+		limit = { can_buy_binocular_implant_trigger = yes }
+		max = binocular_implant_gold_cost
+	}
+	if = {
+		limit = { can_buy_artificial_arm_trigger = yes }
+		max = artificial_arm_gold_cost
+	}
+	if = {
+		limit = { can_buy_artificial_leg_trigger = yes }
+		max = artificial_leg_gold_cost
+	}
+}
+neural_implant_gold_cost = { value = 100 }
+dermal_implant_gold_cost = { value = 200 }
+internal_implant_gold_cost = { value = 500 }
+monocular_implant_gold_cost = { value = 100 }
+binocular_implant_gold_cost = { value = 200 }
+artificial_arm_gold_cost = { value = 100 }
+artificial_leg_gold_cost = { value = 100 }
+implant_piety_cost = {
+	if = {
+		limit = { rite = { rite_has_parameter = hates_cybernetics } }
+		add = 150
+	}
+	if = {
+		limit = { has_personal_tenet_flag = abstains_from_cybernetics }
+		add = 150
+	}
+}
+
+### IMPLANT DESIRIBILITY
+neural_implant_self_score = {
+	if = {
+		limit = { has_variable = target_diplomacy_gain }
+		min = var:target_diplomacy_gain
+		min = var:target_martial_gain
+		min = var:target_stewardship_gain
+		min = var:target_intrigue_gain
+		min = var:target_learning_gain
+		min = var:target_personal_prowess_gain
+		min = var:target_piloting_gain
+	}
+	if = {
+		limit = { has_personal_tenet_flag = wants_implants }
+		multiply = 2
+	}
+	else_if = {
+		limit = { has_personal_tenet_flag = abstains_from_cybernetics }
+		divide = 2
+	}
+}
+neural_implant_other_score = {
+	value = 0
+	if = {
+		limit = { ai_rationality > ai_greed }
+		every_councillor = {
+			limit = { might_want_implant_gift = { TYPE = neural_implant } }
+			min = neural_implant_self_score
+		}
+	}
+	if = {
+		limit = { ai_sociability > ai_greed }
+		every_close_family_member = {
+			limit = { might_want_implant_gift = { TYPE = neural_implant } }
+			min = neural_implant_self_score
+		}
+		every_relation = {
+			type = friend
+			limit = { might_want_implant_gift = { TYPE = neural_implant } }
+			min = neural_implant_self_score
+		}
+	}
+}
+dermal_implant_self_score = {
+	if = {
+		limit = { has_trait = disfigured }
+		add = 5
+	}
+	if = {
+		limit = { any_character_trait = { has_trait_flag = skin_disease } }
+		add = {
+			value = 10
+			subtract = health
+			min = 0
+		}
+	}
+	if = {
+		limit = { has_personal_tenet_flag = wants_implants }
+		add = 5
+	}
+	if = {
+		limit = { ai_zeal >= 0 }
+		switch = {
+			trigger = rite.rite_has_parameter
+			supports_cybernetics = { multiply = 2 }
+			hates_cybernetics = { divide = 2 }
+		}
+	}
+	if = {
+		limit = { has_personal_tenet_flag = abstains_from_cybernetics }
+		multiply = 0
+	}
+}
+dermal_implant_other_score = {
+	value = 0
+	if = {
+		limit = { ai_rationality > ai_greed }
+		every_councillor = {
+			limit = { might_want_implant_gift = { TYPE = dermal_implant } }
+			min = dermal_implant_self_score
+		}
+	}
+	if = {
+		limit = { ai_sociability > ai_greed }
+		every_close_family_member = {
+			limit = { might_want_implant_gift = { TYPE = dermal_implant } }
+			min = dermal_implant_self_score
+		}
+		every_relation = {
+			type = friend
+			limit = { might_want_implant_gift = { TYPE = dermal_implant } }
+			min = dermal_implant_self_score
+		}
+	}
+}
+internal_implant_self_score = {
+	if = {
+		limit = { has_trait = implant_dependent }
+		add = 1000
+	}
+	if = {
+		limit = { any_character_trait = { has_trait_flag = organic_disease } }
+		add = {
+			value = 5
+			subtract = health
+			min = 0
+		}
+	}
+	if = {
+		limit = { has_personal_tenet_flag = wants_implants }
+		add = 5
+	}
+	if = {
+		limit = { ai_zeal >= 0 }
+		switch = {
+			trigger = rite.rite_has_parameter
+			supports_cybernetics = { multiply = 2 }
+			hates_cybernetics = { divide = 2 }
+		}
+	}
+	if = {
+		limit = { has_personal_tenet_flag = abstains_from_cybernetics }
+		multiply = 0
+	}
+}
+internal_implant_other_score = {
+	value = 0
+	if = {
+		limit = { ai_rationality > ai_greed }
+		every_councillor = {
+			limit = { might_want_implant_gift = { TYPE = internal_implant } }
+			min = internal_implant_self_score
+		}
+	}
+	if = {
+		limit = { ai_sociability > ai_greed }
+		every_close_family_member = {
+			limit = { might_want_implant_gift = { TYPE = internal_implant } }
+			min = internal_implant_self_score
+		}
+		every_relation = {
+			type = friend
+			limit = { might_want_implant_gift = { TYPE = internal_implant } }
+			min = internal_implant_self_score
+		}
+	}
+}
+monocular_implant_self_score = {
+	if = {
+		limit = { has_trait = one_eyed }
+		add = 10
+	}
+	if = {
+		limit = { has_personal_tenet_flag = wants_implants }
+		add = 5
+	}
+	if = {
+		limit = { ai_zeal >= 0 }
+		switch = {
+			trigger = rite.rite_has_parameter
+			supports_cybernetics = { multiply = 2 }
+			hates_cybernetics = { divide = 2 }
+		}
+	}
+	if = {
+		limit = { has_personal_tenet_flag = abstains_from_cybernetics }
+		multiply = 0
+	}
+	if = {
+		limit = { has_trait = blind }
+		multiply = 0
+	}
+}
+monocular_implant_other_score = {
+	value = 0
+	if = {
+		limit = { ai_rationality > ai_greed }
+		every_councillor = {
+			limit = { might_want_implant_gift = { TYPE = monocular_implant } }
+			min = monocular_implant_self_score
+		}
+	}
+	if = {
+		limit = { ai_sociability > ai_greed }
+		every_close_family_member = {
+			limit = { might_want_implant_gift = { TYPE = monocular_implant } }
+			min = monocular_implant_self_score
+		}
+		every_relation = {
+			type = friend
+			limit = { might_want_implant_gift = { TYPE = monocular_implant } }
+			min = monocular_implant_self_score
+		}
+	}
+}
+binocular_implant_self_score = {
+	if = {
+		limit = { has_trait = blind }
+		add = 10
+	}
+	if = {
+		limit = { has_personal_tenet_flag = wants_implants }
+		add = 10
+	}
+	if = {
+		limit = { ai_zeal >= 0 }
+		switch = {
+			trigger = rite.rite_has_parameter
+			supports_cybernetics = { multiply = 2 }
+			hates_cybernetics = { divide = 2 }
+		}
+	}
+	if = {
+		limit = { has_personal_tenet_flag = abstains_from_cybernetics }
+		multiply = 0
+	}
+}
+binocular_implant_other_score = {
+	value = 0
+	if = {
+		limit = { ai_rationality > ai_greed }
+		every_councillor = {
+			limit = { might_want_implant_gift = { TYPE = binocular_implant } }
+			min = binocular_implant_self_score
+		}
+	}
+	if = {
+		limit = { ai_sociability > ai_greed }
+		every_close_family_member = {
+			limit = { might_want_implant_gift = { TYPE = binocular_implant } }
+			min = binocular_implant_self_score
+		}
+		every_relation = {
+			type = friend
+			limit = { might_want_implant_gift = { TYPE = binocular_implant } }
+			min = binocular_implant_self_score
+		}
+	}
+}
+artificial_arm_self_score = {
+	if = {
+		limit = { num_of_arms = 1 }
+		add = 10
+	}
+	else_if = {
+		limit = { num_of_arms = 0 }
+		add = 20
+	}
+	if = {
+		limit = { has_personal_tenet_flag = wants_implants }
+		add = 10
+	}
+	if = {
+		limit = { ai_zeal >= 0 }
+		switch = {
+			trigger = rite.rite_has_parameter
+			supports_cybernetics = { multiply = 2 }
+			hates_cybernetics = { divide = 2 }
+		}
+	}
+	if = {
+		limit = { has_personal_tenet_flag = abstains_from_cybernetics }
+		multiply = 0
+	}
+}
+artificial_arm_other_score = {
+	value = 0
+	if = {
+		limit = { ai_rationality > ai_greed }
+		every_councillor = {
+			limit = { might_want_implant_gift = { TYPE = artificial_arm } }
+			min = artificial_arm_self_score
+		}
+	}
+	if = {
+		limit = { ai_sociability > ai_greed }
+		every_close_family_member = {
+			limit = { might_want_implant_gift = { TYPE = artificial_arm } }
+			min = artificial_arm_self_score
+		}
+		every_relation = {
+			type = friend
+			limit = { might_want_implant_gift = { TYPE = artificial_arm } }
+			min = artificial_arm_self_score
+		}
+	}
+}
+artificial_leg_self_score = {
+	if = {
+		limit = { num_of_legs = 1 }
+		add = 10
+	}
+	else_if = {
+		limit = { num_of_legs = 0 }
+		add = 20
+	}
+	if = {
+		limit = { has_personal_tenet_flag = wants_implants }
+		add = 10
+	}
+	if = {
+		limit = { ai_zeal >= 0 }
+		switch = {
+			trigger = rite.rite_has_parameter
+			supports_cybernetics = { multiply = 2 }
+			hates_cybernetics = { divide = 2 }
+		}
+	}
+	if = {
+		limit = { has_personal_tenet_flag = abstains_from_cybernetics }
+		multiply = 0
+	}
+}
+artificial_leg_other_score = {
+	value = 0
+	if = {
+		limit = { ai_rationality > ai_greed }
+		every_councillor = {
+			limit = { might_want_implant_gift = { TYPE = artificial_leg } }
+			min = artificial_leg_self_score
+		}
+	}
+	if = {
+		limit = { ai_sociability > ai_greed }
+		every_close_family_member = {
+			limit = { might_want_implant_gift = { TYPE = artificial_leg } }
+			min = artificial_leg_self_score
+		}
+		every_relation = {
+			type = friend
+			limit = { might_want_implant_gift = { TYPE = artificial_leg } }
+			min = artificial_leg_self_score
+		}
+	}
+}
+
+### DNI UPGRADES
+dni_port_cost = { value = 25 }
+dni_wifi_cost = { value = 50 }
+
+# Costs for each DNI upgrade
+iaei_mk_i_cost = {
+	value = 50
+	add = {
+		value = 25
+		multiply = {
+			value = 4
+			subtract = character_iaei_tech
+		}
+	}
+}
+iaei_mk_ii_cost = {
+	value = iaei_mk_i_cost
+	add = 50
+}
+iaei_mk_iii_cost = {
+	value = iaei_mk_ii_cost
+	add = 50
+}
+iaei_mk_iv_cost = {
+	value = iaei_mk_iii_cost
+	add = 50
+}
+taccomp_mk_i_cost = {
+	value = 50
+	add = {
+		value = 25
+		multiply = {
+			value = 4
+			subtract = character_taccomp_tech
+		}
+	}
+}
+taccomp_mk_ii_cost = {
+	value = taccomp_mk_i_cost
+	add = 50
+}
+taccomp_mk_iii_cost = {
+	value = taccomp_mk_ii_cost
+	add = 50
+}
+taccomp_mk_iv_cost = {
+	value = taccomp_mk_iii_cost
+	add = 50
+}
+pci_mk_i_cost = {
+	value = 50
+	add = {
+		value = 25
+		multiply = {
+			value = 4
+			subtract = character_pci_tech
+		}
+	}
+}
+pci_mk_ii_cost = {
+	value = pci_mk_i_cost
+	add = 50
+}
+pci_mk_iii_cost = {
+	value = pci_mk_ii_cost
+	add = 50
+}
+pci_mk_iv_cost = {
+	value = pci_mk_iii_cost
+	add = 50
+}
+pluto_mk_i_cost = {
+	value = 50
+	add = {
+		value = 25
+		multiply = {
+			value = 4
+			subtract = character_pluto_tech
+		}
+	}
+}
+pluto_mk_ii_cost = {
+	value = pluto_mk_i_cost
+	add = 50
+}
+pluto_mk_iii_cost = {
+	value = pluto_mk_ii_cost
+	add = 50
+}
+pluto_mk_iv_cost = {
+	value = pluto_mk_iii_cost
+	add = 50
+}
+thoth_mk_i_cost = {
+	value = 50
+	add = {
+		value = 25
+		multiply = {
+			value = 4
+			subtract = character_thoth_tech
+		}
+	}
+}
+thoth_mk_ii_cost = {
+	value = thoth_mk_i_cost
+	add = 50
+}
+thoth_mk_iii_cost = {
+	value = thoth_mk_ii_cost
+	add = 50
+}
+thoth_mk_iv_cost = {
+	value = thoth_mk_iii_cost
+	add = 50
+}
+amam_mk_i_cost = {
+	value = 50
+	add = {
+		value = 25
+		multiply = {
+			value = 4
+			subtract = character_amam_tech
+		}
+	}
+}
+amam_mk_ii_cost = {
+	value = amam_mk_i_cost
+	add = 50
+}
+amam_mk_iii_cost = {
+	value = amam_mk_ii_cost
+	add = 50
+}
+amam_mk_iv_cost = {
+	value = amam_mk_iii_cost
+	add = 50
+}
+
+# Tech levels
+character_iaei_tech = {
+	if = {
+		limit = { character_has_tech = { TECH = culture_innovation:innovation_civilian_dni_modules_mk_iv } }
+		add = 4
+	}
+	else_if = {
+		limit = { character_has_tech = { TECH = culture_innovation:innovation_civilian_dni_modules_mk_iii } }
+		add = 3
+	}
+	else_if = {
+		limit = { character_has_tech = { TECH = culture_innovation:innovation_civilian_dni_modules_mk_ii } }
+		add = 2
+	}
+	else_if = {
+		limit = { character_has_tech = { TECH = culture_innovation:innovation_civilian_dni_modules_mk_i } }
+		add = 1
+	}
+}
+character_taccomp_tech = {
+	if = {
+		limit = { character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_iv } }
+		add = 4
+	}
+	else_if = {
+		limit = { character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_iii } }
+		add = 3
+	}
+	else_if = {
+		limit = { character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_ii } }
+		add = 2
+	}
+	else_if = {
+		limit = { character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_i } }
+		add = 1
+	}
+}
+character_pci_tech = {
+	if = {
+		limit = { character_has_tech = { TECH = culture_innovation:innovation_civilian_dni_modules_mk_iv } }
+		add = 4
+	}
+	else_if = {
+		limit = { character_has_tech = { TECH = culture_innovation:innovation_civilian_dni_modules_mk_iii } }
+		add = 3
+	}
+	else_if = {
+		limit = { character_has_tech = { TECH = culture_innovation:innovation_civilian_dni_modules_mk_ii } }
+		add = 2
+	}
+	else_if = {
+		limit = { character_has_tech = { TECH = culture_innovation:innovation_civilian_dni_modules_mk_i } }
+		add = 1
+	}
+}
+character_pluto_tech = {
+	if = {
+		limit = { character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_iv } }
+		add = 4
+	}
+	else_if = {
+		limit = { character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_iii } }
+		add = 3
+	}
+	else_if = {
+		limit = { character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_ii } }
+		add = 2
+	}
+	else_if = {
+		limit = { character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_i } }
+		add = 1
+	}
+}
+character_thoth_tech = {
+	if = {
+		limit = { character_has_tech = { TECH = culture_innovation:innovation_civilian_dni_modules_mk_iv } }
+		add = 4
+	}
+	else_if = {
+		limit = { character_has_tech = { TECH = culture_innovation:innovation_civilian_dni_modules_mk_iii } }
+		add = 3
+	}
+	else_if = {
+		limit = { character_has_tech = { TECH = culture_innovation:innovation_civilian_dni_modules_mk_ii } }
+		add = 2
+	}
+	else_if = {
+		limit = { character_has_tech = { TECH = culture_innovation:innovation_civilian_dni_modules_mk_i } }
+		add = 1
+	}
+}
+character_neurolink_tech = {
+	if = {
+		limit = { character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_iv } }
+		add = 4
+	}
+	else_if = {
+		limit = { character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_iii } }
+		add = 3
+	}
+	else_if = {
+		limit = { character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_ii } }
+		add = 2
+	}
+	else_if = {
+		limit = { character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_i } }
+		add = 1
+	}
+}
+character_amam_tech = {
+	if = {
+		limit = { character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_iv } }
+		add = 4
+	}
+	else_if = {
+		limit = { character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_iii } }
+		add = 3
+	}
+	else_if = {
+		limit = { character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_ii } }
+		add = 2
+	}
+	else_if = {
+		limit = { character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_i } }
+		add = 1
+	}
+}
+
+# Other
+standard_purchase_implant_cooldown_time = { value = 365 }

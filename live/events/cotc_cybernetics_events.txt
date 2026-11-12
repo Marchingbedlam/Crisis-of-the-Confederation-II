@@ -1,0 +1,2048 @@
+﻿namespace = cotc_cybernetics_events
+
+### PURCHASING IMPLANTS EVENTS ###
+cotc_cybernetics_events.100 = { # DNI
+	window = big_event_window
+	title = cotc_cybernetics_events.100.title
+	desc = {
+		desc = cotc_cybernetics_events.100.desc.intro
+		triggered_desc = {
+			trigger = { scope:final_cost > 0 }
+			desc = cotc_cybernetics_events.100.desc.upgrades_intro
+		}
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					scope:port = flag:yes
+					scope:wifi = flag:yes
+				}
+				desc = cotc_cybernetics_events.100.desc.port_and_wifi
+			}
+			triggered_desc = {
+				trigger = { scope:port = flag:yes }
+				desc = cotc_cybernetics_events.100.desc.port
+			}
+			triggered_desc = {
+				trigger = { scope:wifi = flag:yes }
+				desc = cotc_cybernetics_events.100.desc.wifi
+			}
+		}
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:iaei_mark = 1 }
+				desc = cotc_cybernetics_events.100.desc.iaei.i
+			}
+			triggered_desc = {
+				trigger = { scope:iaei_mark = 2 }
+				desc = cotc_cybernetics_events.100.desc.iaei.ii
+			}
+			triggered_desc = {
+				trigger = { scope:iaei_mark = 3 }
+				desc = cotc_cybernetics_events.100.desc.iaei.iii
+			}
+			triggered_desc = {
+				trigger = { scope:iaei_mark = 4 }
+				desc = cotc_cybernetics_events.100.desc.iaei.iv
+			}
+		}
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:taccomp_mark = 1 }
+				desc = cotc_cybernetics_events.100.desc.taccomp.i
+			}
+			triggered_desc = {
+				trigger = { scope:taccomp_mark = 2 }
+				desc = cotc_cybernetics_events.100.desc.taccomp.ii
+			}
+			triggered_desc = {
+				trigger = { scope:taccomp_mark = 3 }
+				desc = cotc_cybernetics_events.100.desc.taccomp.iii
+			}
+			triggered_desc = {
+				trigger = { scope:taccomp_mark = 4 }
+				desc = cotc_cybernetics_events.100.desc.taccomp.iv
+			}
+		}
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:pci_mark = 1 }
+				desc = cotc_cybernetics_events.100.desc.pci.i
+			}
+			triggered_desc = {
+				trigger = { scope:pci_mark = 2 }
+				desc = cotc_cybernetics_events.100.desc.pci.ii
+			}
+			triggered_desc = {
+				trigger = { scope:pci_mark = 3 }
+				desc = cotc_cybernetics_events.100.desc.pci.iii
+			}
+			triggered_desc = {
+				trigger = { scope:pci_mark = 4 }
+				desc = cotc_cybernetics_events.100.desc.pci.iv
+			}
+		}
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:pluto_mark = 1 }
+				desc = cotc_cybernetics_events.100.desc.pluto.i
+			}
+			triggered_desc = {
+				trigger = { scope:pluto_mark = 2 }
+				desc = cotc_cybernetics_events.100.desc.pluto.ii
+			}
+			triggered_desc = {
+				trigger = { scope:pluto_mark = 3 }
+				desc = cotc_cybernetics_events.100.desc.pluto.iii
+			}
+			triggered_desc = {
+				trigger = { scope:pluto_mark = 4 }
+				desc = cotc_cybernetics_events.100.desc.pluto.iv
+			}
+		}
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:thoth_mark = 1 }
+				desc = cotc_cybernetics_events.100.desc.thoth.i
+			}
+			triggered_desc = {
+				trigger = { scope:thoth_mark = 2 }
+				desc = cotc_cybernetics_events.100.desc.thoth.ii
+			}
+			triggered_desc = {
+				trigger = { scope:thoth_mark = 3 }
+				desc = cotc_cybernetics_events.100.desc.thoth.iii
+			}
+			triggered_desc = {
+				trigger = { scope:thoth_mark = 4 }
+				desc = cotc_cybernetics_events.100.desc.thoth.iv
+			}
+		}
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:neurolink_mark = 1 }
+				desc = cotc_cybernetics_events.100.desc.neurolink.i
+			}
+			triggered_desc = {
+				trigger = { scope:neurolink_mark = 2 }
+				desc = cotc_cybernetics_events.100.desc.neurolink.ii
+			}
+			triggered_desc = {
+				trigger = { scope:neurolink_mark = 3 }
+				desc = cotc_cybernetics_events.100.desc.neurolink.iii
+			}
+			triggered_desc = {
+				trigger = { scope:neurolink_mark = 4 }
+				desc = cotc_cybernetics_events.100.desc.neurolink.iv
+			}
+		}
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:amam_mark = 1 }
+				desc = cotc_cybernetics_events.100.desc.amam.i
+			}
+			triggered_desc = {
+				trigger = { scope:amam_mark = 2 }
+				desc = cotc_cybernetics_events.100.desc.amam.ii
+			}
+			triggered_desc = {
+				trigger = { scope:amam_mark = 3 }
+				desc = cotc_cybernetics_events.100.desc.amam.iii
+			}
+			triggered_desc = {
+				trigger = { scope:amam_mark = 4 }
+				desc = cotc_cybernetics_events.100.desc.amam.iv
+			}
+		}
+		triggered_desc = {
+			trigger = { scope:final_cost > 0 }
+			desc = cotc_cybernetics_events.100.desc.cost
+		}
+	}
+	theme = stewardship_wealth_focus
+	
+	# Let's look at the options!
+	option = { # Add port
+		trigger = {
+			gold >= { add = scope:final_cost add = dni_port_cost }
+			scope:port = flag:no
+		}
+		show_as_unavailable = { scope:port = flag:no }
+		name = cotc_cybernetics_events.100.a
+		custom_tooltip = {
+			text = cotc_cybernetics_events.100.a.tooltip
+			save_scope_value_as = { name = port value = flag:yes }
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = dni_port_cost } }
+		}
+		trigger_event = cotc_cybernetics_events.100
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_piloting_gain
+				scope:intended_recipient ?= { has_variable = target_piloting_gain }
+			}
+			modifier = { factor = 50 }
+		}
+	}
+	option = { # Remove port
+		trigger = {
+			scope:port = flag:yes
+			is_ai = no # AI should not waffle
+			custom_tooltip = {
+				text = NOT_WHILE_NEUROLINK
+				scope:neurolink_mark = 0
+			}
+		}
+		show_as_unavailable = { scope:port = flag:yes }
+		name = cotc_cybernetics_events.100.b
+		custom_tooltip = {
+			text = cotc_cybernetics_events.100.b.tooltip
+			save_scope_value_as = { name = port value = flag:no }
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = dni_port_cost } }
+		}
+		trigger_event = cotc_cybernetics_events.100
+	}
+	option = { # Add wifi
+		trigger = {
+			gold >= { add = scope:final_cost add = dni_wifi_cost }
+			scope:wifi = flag:no
+		}
+		show_as_unavailable = { scope:wifi = flag:no }
+		name = cotc_cybernetics_events.100.c
+		custom_tooltip = {
+			text = cotc_cybernetics_events.100.c.tooltip
+			save_scope_value_as = { name = wifi value = flag:yes }
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = dni_wifi_cost } }
+		}
+		trigger_event = cotc_cybernetics_events.100
+		ai_chance = {
+			base = 50
+			modifier = { add = ai_sociability } # A wifi connection is helpful, but exposing
+			# Gregarious and Shy should not be totally dominating
+			modifier = {
+				add = { subtract = 180 }
+				has_trait = gregarious
+			}
+			modifier = {
+				add = 180
+				has_trait = shy
+			}
+		}
+	}
+	option = { # Remove wifi
+		trigger = {
+			scope:wifi = flag:yes
+			is_ai = no # AI should not waffle
+		}
+		name = cotc_cybernetics_events.100.d
+		custom_tooltip = {
+			text = cotc_cybernetics_events.100.d.tooltip
+			save_scope_value_as = { name = wifi value = flag:no }
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = dni_wifi_cost } }
+		}
+		trigger_event = cotc_cybernetics_events.100
+	}
+	option = { # Install IAEI
+		trigger = {
+			scope:iaei_mark = 0
+			can_buy_iaei_mk_i_trigger = { MARGIN = scope:final_cost }
+		}
+		show_as_unavailable = { scope:iaei_mark = 0 }
+		name = cotc_cybernetics_events.100.e
+		custom_tooltip = {
+			text = cotc_cybernetics_events.100.e.tooltip
+			trigger_event = cotc_cybernetics_events.101
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_diplomacy_gain
+				scope:intended_recipient ?= { has_variable = target_diplomacy_gain }
+			}
+			modifier = { factor = 50 }
+		}
+	}
+	option = { # Modify IAEI
+		trigger = {
+			scope:iaei_mark > 0
+			is_ai = no # AI should not waffle
+		}
+		name = cotc_cybernetics_events.100.f
+		custom_tooltip = {
+			text = cotc_cybernetics_events.100.e.tooltip
+			trigger_event = cotc_cybernetics_events.101
+		}
+	}
+	option = { # Install TacComp
+		trigger = {
+			scope:taccomp_mark = 0
+			can_buy_taccomp_mk_i_trigger = { MARGIN = scope:final_cost }
+		}
+		show_as_unavailable = { scope:taccomp_mark = 0 }
+		name = cotc_cybernetics_events.100.g
+		custom_tooltip = {
+			text = cotc_cybernetics_events.100.g.tooltip
+			trigger_event = cotc_cybernetics_events.102
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_martial_gain
+				scope:intended_recipient ?= { has_variable = target_martial_gain }
+			}
+			modifier = { factor = 50 }
+		}
+	}
+	option = { # Modify TacComp
+		trigger = {
+			scope:taccomp_mark > 0
+			is_ai = no # AI should not waffle
+		}
+		name = cotc_cybernetics_events.100.h
+		custom_tooltip = {
+			text = cotc_cybernetics_events.100.g.tooltip
+			trigger_event = cotc_cybernetics_events.102
+		}
+	}
+	option = { # Install PCI
+		trigger = {
+			scope:pci_mark = 0
+			can_buy_pci_mk_i_trigger = { MARGIN = scope:final_cost }
+		}
+		show_as_unavailable = { scope:pci_mark = 0 }
+		name = cotc_cybernetics_events.100.i
+		custom_tooltip = {
+			text = cotc_cybernetics_events.100.i.tooltip
+			trigger_event = cotc_cybernetics_events.103
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_stewardship_gain
+				scope:intended_recipient ?= { has_variable = target_stewardship_gain }
+			}
+			modifier = { factor = 50 }
+		}
+	}
+	option = { # Modify PCI
+		trigger = {
+			scope:pci_mark > 0
+			is_ai = no # AI should not waffle
+		}
+		name = cotc_cybernetics_events.100.j
+		custom_tooltip = {
+			text = cotc_cybernetics_events.100.i.tooltip
+			trigger_event = cotc_cybernetics_events.103
+		}
+	}
+	option = { # Install Pluto
+		trigger = {
+			scope:pluto_mark = 0
+			can_buy_pluto_mk_i_trigger = { MARGIN = scope:final_cost }
+		}
+		show_as_unavailable = { scope:pluto_mark = 0 }
+		name = cotc_cybernetics_events.100.k
+		custom_tooltip = {
+			text = cotc_cybernetics_events.100.k.tooltip
+			trigger_event = cotc_cybernetics_events.104
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_intrigue_gain
+				scope:intended_recipient ?= { has_variable = target_intrigue_gain }
+			}
+			modifier = { factor = 50 }
+		}
+	}
+	option = { # Modify Pluto
+		trigger = {
+			scope:pluto_mark > 0
+			is_ai = no # AI should not waffle
+		}
+		name = cotc_cybernetics_events.100.l
+		custom_tooltip = {
+			text = cotc_cybernetics_events.100.k.tooltip
+			trigger_event = cotc_cybernetics_events.104
+		}
+	}
+	option = { # Install Thoth
+		trigger = {
+			scope:thoth_mark = 0
+			can_buy_thoth_mk_i_trigger = { MARGIN = scope:final_cost }
+		}
+		show_as_unavailable = { scope:thoth_mark = 0 }
+		name = cotc_cybernetics_events.100.m
+		custom_tooltip = {
+			text = cotc_cybernetics_events.100.m.tooltip
+			trigger_event = cotc_cybernetics_events.105
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_learning_gain
+				scope:intended_recipient ?= { has_variable = target_learning_gain }
+			}
+			modifier = { factor = 50 }
+		}
+	}
+	option = { # Modify Thoth
+		trigger = {
+			scope:thoth_mark > 0
+			is_ai = no # AI should not waffle
+		}
+		name = cotc_cybernetics_events.100.n
+		custom_tooltip = {
+			text = cotc_cybernetics_events.100.m.tooltip
+			trigger_event = cotc_cybernetics_events.105
+		}
+	}
+	option = { # Install Neurolink
+		trigger = {
+			scope:neurolink_mark = 0
+			can_buy_neurolink_mk_i_trigger = { MARGIN = scope:final_cost }
+			custom_tooltip = {
+				text = MUST_HAVE_PORT
+				scope:port = flag:yes
+			}
+		}
+		show_as_unavailable = { scope:neurolink_mark = 0 }
+		name = cotc_cybernetics_events.100.o
+		custom_tooltip = {
+			text = cotc_cybernetics_events.100.o.tooltip
+			trigger_event = cotc_cybernetics_events.106
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_piloting_gain
+				scope:intended_recipient ?= { has_variable = target_piloting_gain }
+			}
+			modifier = { factor = 50 }
+		}
+	}
+	option = { # Modify Neurolink
+		trigger = {
+			scope:neurolink_mark > 0
+			is_ai = no # AI should not waffle
+		}
+		name = cotc_cybernetics_events.100.p
+		custom_tooltip = {
+			text = cotc_cybernetics_events.100.o.tooltip
+			trigger_event = cotc_cybernetics_events.106
+		}
+	}
+	option = { # Install AMAM
+		trigger = {
+			scope:amam_mark = 0
+			can_buy_amam_mk_i_trigger = { MARGIN = scope:final_cost }
+		}
+		show_as_unavailable = { scope:amam_mark = 0 }
+		name = cotc_cybernetics_events.100.q
+		custom_tooltip = {
+			text = cotc_cybernetics_events.100.q.tooltip
+			trigger_event = cotc_cybernetics_events.107
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_personal_prowess_gain
+				scope:intended_recipient ?= { has_variable = target_personal_prowess_gain }
+			}
+			modifier = { factor = 50 }
+		}
+	}
+	option = { # Modify Neurolink
+		trigger = {
+			scope:amam_mark > 0
+			is_ai = no # AI should not waffle
+		}
+		name = cotc_cybernetics_events.100.r
+		custom_tooltip = {
+			text = cotc_cybernetics_events.100.q.tooltip
+			trigger_event = cotc_cybernetics_events.107
+		}
+	}
+	
+	option = { # Finish the implant
+		name = cotc_cybernetics_events.100.z
+		remove_short_term_gold = scope:final_cost
+		create_standard_implant_effect = { TYPE = neural_implant }
+		hidden_effect_new_object = {
+			scope:new_implant = {
+				set_variable = { name = external_port value = scope:port }
+				set_variable = { name = wifi value = scope:wifi }
+				set_artifact_feature_group = network
+				upgrade_dni_numeric_mark_effect = { TYPE = iaei }
+				upgrade_dni_numeric_mark_effect = { TYPE = taccomp }
+				upgrade_dni_numeric_mark_effect = { TYPE = pci }
+				upgrade_dni_numeric_mark_effect = { TYPE = pluto }
+				upgrade_dni_numeric_mark_effect = { TYPE = thoth }
+				upgrade_dni_numeric_mark_effect = { TYPE = neurolink }
+				upgrade_dni_numeric_mark_effect = { TYPE = amam }
+				save_temporary_scope_as = desc_implant
+				set_artifact_name = standard_neural_implant_name
+				set_artifact_description = standard_neural_implant_desc
+			}
+		}
+		ai_chance = {
+			base = 0
+			modifier = { add = scope:final_cost }
+			modifier = {
+				factor = {
+					value = 100
+					add = ai_greed
+					max = 200
+					min = 50
+					divide = 100
+				}
+			}
+		}
+	}
+}
+cotc_cybernetics_events.101 = { # Upgrade with IAEI
+	window = big_event_window
+	title = cotc_cybernetics_events.100.title
+	desc = {
+		desc = cotc_cybernetics_events.101.desc.intro
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:iaei_mark = 1 }
+				desc = cotc_cybernetics_events.101.desc.mark_i
+			}
+			triggered_desc = {
+				trigger = { scope:iaei_mark = 2 }
+				desc = cotc_cybernetics_events.101.desc.mark_ii
+			}
+			triggered_desc = {
+				trigger = { scope:iaei_mark = 3 }
+				desc = cotc_cybernetics_events.101.desc.mark_iii
+			}
+			triggered_desc = {
+				trigger = { scope:iaei_mark = 4 }
+				desc = cotc_cybernetics_events.101.desc.mark_iv
+			}
+			desc = cotc_cybernetics_events.101.desc.no_upgrade
+		}
+	}
+	theme = stewardship_wealth_focus
+	immediate = { # Reset final cost to make calculations easier
+		switch = {
+			trigger = scope:iaei_mark
+			1 = { save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = iaei_mk_i_cost } } }
+			2 = { save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = iaei_mk_ii_cost } } }
+			3 = { save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = iaei_mk_iii_cost } } }
+			4 = { save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = iaei_mk_iv_cost } } }
+		}
+	}
+	option = { # Mark I
+		trigger = { can_buy_iaei_mk_i_trigger = { MARGIN = scope:final_cost } }
+		show_as_unavailable = { always = yes }
+		name = {
+			trigger = { scope:iaei_mark = 1 }
+			text = cotc_cybernetics_events.101.keep
+		}
+		name = {
+			trigger = { scope:iaei_mark != 1 }
+			text = cotc_cybernetics_events.101.a.install
+		}
+		custom_tooltip = {
+			text = IAEI_MK_I_BONUS
+			save_scope_value_as = { name = iaei_mark value = 1 }
+		}
+		custom_tooltip = {
+			text = IAEI_MK_I_COST
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = iaei_mk_i_cost } }
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_diplomacy_gain
+				scope:intended_recipient ?= { has_variable = target_diplomacy_gain }
+			}
+			modifier = { factor = 25 }
+			modifier = {
+				add = {
+					subtract = {
+						value = iaei_mk_i_cost
+						multiply = {
+							add = 100
+							add = ai_greed
+							min = 0
+							max = 200
+							divide = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { # Mark II
+		trigger = { can_buy_iaei_mk_ii_trigger = { MARGIN = scope:final_cost } }
+		show_as_unavailable = { always = yes }
+		name = {
+			trigger = { scope:iaei_mark = 2 }
+			text = cotc_cybernetics_events.101.keep
+		}
+		name = {
+			trigger = { scope:iaei_mark != 2 }
+			text = cotc_cybernetics_events.101.b.install
+		}
+		custom_tooltip = {
+			text = IAEI_MK_II_BONUS
+			save_scope_value_as = { name = iaei_mark value = 2 }
+		}
+		custom_tooltip = {
+			text = IAEI_MK_II_COST
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = iaei_mk_ii_cost } }
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_diplomacy_gain
+				scope:intended_recipient ?= { has_variable = target_diplomacy_gain }
+			}
+			modifier = { factor = 50 }
+			modifier = {
+				add = {
+					subtract = {
+						value = iaei_mk_ii_cost
+						multiply = {
+							add = 100
+							add = ai_greed
+							min = 0
+							max = 200
+							divide = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { # Mark III
+		trigger = { can_buy_iaei_mk_iii_trigger = { MARGIN = scope:final_cost } }
+		show_as_unavailable = { always = yes }
+		name = {
+			trigger = { scope:iaei_mark = 3 }
+			text = cotc_cybernetics_events.101.keep
+		}
+		name = {
+			trigger = { scope:iaei_mark != 3 }
+			text = cotc_cybernetics_events.101.c.install
+		}
+		custom_tooltip = {
+			text = IAEI_MK_III_BONUS
+			save_scope_value_as = { name = iaei_mark value = 3 }
+		}
+		custom_tooltip = {
+			text = IAEI_MK_III_COST
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = iaei_mk_iii_cost } }
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_diplomacy_gain
+				scope:intended_recipient ?= { has_variable = target_diplomacy_gain }
+			}
+			modifier = { factor = 75 }
+			modifier = {
+				add = {
+					subtract = {
+						value = iaei_mk_iii_cost
+						multiply = {
+							add = 100
+							add = ai_greed
+							min = 0
+							max = 200
+							divide = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { # Mark IV
+		trigger = { can_buy_iaei_mk_iv_trigger = { MARGIN = scope:final_cost } }
+		show_as_unavailable = { always = yes }
+		name = {
+			trigger = { scope:iaei_mark = 4 }
+			text = cotc_cybernetics_events.101.keep
+		}
+		name = {
+			trigger = { scope:iaei_mark != 4 }
+			text = cotc_cybernetics_events.101.d.install
+		}
+		custom_tooltip = {
+			text = IAEI_MK_IV_BONUS
+			save_scope_value_as = { name = iaei_mark value = 4 }
+		}
+		custom_tooltip = {
+			text = IAEI_MK_IV_COST
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = iaei_mk_iv_cost } }
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_diplomacy_gain
+				scope:intended_recipient ?= { has_variable = target_diplomacy_gain }
+			}
+			modifier = { factor = 100 }
+			modifier = {
+				add = {
+					subtract = {
+						value = iaei_mk_iv_cost
+						multiply = {
+							add = 100
+							add = ai_greed
+							min = 0
+							max = 200
+							divide = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { # None
+		trigger = { is_ai = no } # The AI shouldn't waffle
+		fallback = yes
+		name = {
+			trigger = { scope:iaei_mark = 0 }
+			text = cotc_cybernetics_events.101.e.no_install
+		}
+		name = {
+			trigger = { scope:iaei_mark != 0 }
+			text = cotc_cybernetics_events.101.e.remove
+		}
+		custom_tooltip = {
+			text = REMOVE_ANY_IAEI
+			save_scope_value_as = { name = iaei_mark value = 0 }
+		}
+	}
+	after = { trigger_event = cotc_cybernetics_events.100 }
+}
+cotc_cybernetics_events.102 = { # Upgrade with TacComp
+	window = big_event_window
+	title = cotc_cybernetics_events.100.title
+	desc = {
+		desc = cotc_cybernetics_events.102.desc.intro
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:taccomp_mark = 1 }
+				desc = cotc_cybernetics_events.102.desc.mark_i
+			}
+			triggered_desc = {
+				trigger = { scope:taccomp_mark = 2 }
+				desc = cotc_cybernetics_events.102.desc.mark_ii
+			}
+			triggered_desc = {
+				trigger = { scope:taccomp_mark = 3 }
+				desc = cotc_cybernetics_events.102.desc.mark_iii
+			}
+			triggered_desc = {
+				trigger = { scope:taccomp_mark = 4 }
+				desc = cotc_cybernetics_events.102.desc.mark_iv
+			}
+			desc = cotc_cybernetics_events.102.desc.no_upgrade
+		}
+	}
+	theme = stewardship_wealth_focus
+	immediate = { # Reset final cost to make calculations easier
+		switch = {
+			trigger = scope:taccomp_mark
+			1 = { save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = taccomp_mk_i_cost } } }
+			2 = { save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = taccomp_mk_ii_cost } } }
+			3 = { save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = taccomp_mk_iii_cost } } }
+			4 = { save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = taccomp_mk_iv_cost } } }
+		}
+	}
+	option = { # Mark I
+		trigger = { can_buy_taccomp_mk_i_trigger = { MARGIN = scope:final_cost } }
+		show_as_unavailable = { always = yes }
+		name = {
+			trigger = { scope:taccomp_mark = 1 }
+			text = cotc_cybernetics_events.102.keep
+		}
+		name = {
+			trigger = { scope:taccomp_mark != 1 }
+			text = cotc_cybernetics_events.102.a.install
+		}
+		custom_tooltip = {
+			text = TACCOMP_MK_I_BONUS
+			save_scope_value_as = { name = taccomp_mark value = 1 }
+		}
+		custom_tooltip = {
+			text = TACCOMP_MK_I_COST
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = taccomp_mk_i_cost } }
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_martial_gain
+				scope:intended_recipient ?= { has_variable = target_martial_gain }
+			}
+			modifier = { factor = 25 }
+			modifier = {
+				add = {
+					subtract = {
+						value = taccomp_mk_i_cost
+						multiply = {
+							add = 100
+							add = ai_greed
+							min = 0
+							max = 200
+							divide = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { # Mark II
+		trigger = { can_buy_taccomp_mk_ii_trigger = { MARGIN = scope:final_cost } }
+		show_as_unavailable = { always = yes }
+		name = {
+			trigger = { scope:taccomp_mark = 2 }
+			text = cotc_cybernetics_events.102.keep
+		}
+		name = {
+			trigger = { scope:taccomp_mark != 2 }
+			text = cotc_cybernetics_events.102.b.install
+		}
+		custom_tooltip = {
+			text = TACCOMP_MK_II_BONUS
+			save_scope_value_as = { name = taccomp_mark value = 2 }
+		}
+		custom_tooltip = {
+			text = TACCOMP_MK_II_COST
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = taccomp_mk_ii_cost } }
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_martial_gain
+				scope:intended_recipient ?= { has_variable = target_martial_gain }
+			}
+			modifier = { factor = 50 }
+			modifier = {
+				add = {
+					subtract = {
+						value = taccomp_mk_ii_cost
+						multiply = {
+							add = 100
+							add = ai_greed
+							min = 0
+							max = 200
+							divide = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { # Mark III
+		trigger = { can_buy_taccomp_mk_iii_trigger = { MARGIN = scope:final_cost } }
+		show_as_unavailable = { always = yes }
+		name = {
+			trigger = { scope:taccomp_mark = 3 }
+			text = cotc_cybernetics_events.102.keep
+		}
+		name = {
+			trigger = { scope:taccomp_mark != 3 }
+			text = cotc_cybernetics_events.102.c.install
+		}
+		custom_tooltip = {
+			text = TACCOMP_MK_III_BONUS
+			save_scope_value_as = { name = taccomp_mark value = 3 }
+		}
+		custom_tooltip = {
+			text = TACCOMP_MK_III_COST
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = taccomp_mk_iii_cost } }
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_martial_gain
+				scope:intended_recipient ?= { has_variable = target_martial_gain }
+			}
+			modifier = { factor = 75 }
+			modifier = {
+				add = {
+					subtract = {
+						value = taccomp_mk_iii_cost
+						multiply = {
+							add = 100
+							add = ai_greed
+							min = 0
+							max = 200
+							divide = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { # Mark IV
+		trigger = { can_buy_taccomp_mk_iv_trigger = { MARGIN = scope:final_cost } }
+		show_as_unavailable = { always = yes }
+		name = {
+			trigger = { scope:taccomp_mark = 4 }
+			text = cotc_cybernetics_events.102.keep
+		}
+		name = {
+			trigger = { scope:taccomp_mark != 4 }
+			text = cotc_cybernetics_events.102.d.install
+		}
+		custom_tooltip = {
+			text = TACCOMP_MK_IV_BONUS
+			save_scope_value_as = { name = taccomp_mark value = 4 }
+		}
+		custom_tooltip = {
+			text = TACCOMP_MK_IV_COST
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = taccomp_mk_iv_cost } }
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_martial_gain
+				scope:intended_recipient ?= { has_variable = target_martial_gain }
+			}
+			modifier = { factor = 100 }
+			modifier = {
+				add = {
+					subtract = {
+						value = taccomp_mk_iv_cost
+						multiply = {
+							add = 100
+							add = ai_greed
+							min = 0
+							max = 200
+							divide = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { # None
+		trigger = { is_ai = no } # The AI shouldn't waffle
+		fallback = yes
+		name = {
+			trigger = { scope:taccomp_mark = 0 }
+			text = cotc_cybernetics_events.102.e.no_install
+		}
+		name = {
+			trigger = { scope:taccomp_mark != 0 }
+			text = cotc_cybernetics_events.102.e.remove
+		}
+		custom_tooltip = {
+			text = REMOVE_ANY_TACCOMP
+			save_scope_value_as = { name = taccomp_mark value = 0 }
+		}
+	}
+	after = { trigger_event = cotc_cybernetics_events.100 }
+}
+cotc_cybernetics_events.103 = { # Upgrade with PCI
+	window = big_event_window
+	title = cotc_cybernetics_events.100.title
+	desc = {
+		desc = cotc_cybernetics_events.103.desc.intro
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:pci_mark = 1 }
+				desc = cotc_cybernetics_events.103.desc.mark_i
+			}
+			triggered_desc = {
+				trigger = { scope:pci_mark = 2 }
+				desc = cotc_cybernetics_events.103.desc.mark_ii
+			}
+			triggered_desc = {
+				trigger = { scope:pci_mark = 3 }
+				desc = cotc_cybernetics_events.103.desc.mark_iii
+			}
+			triggered_desc = {
+				trigger = { scope:pci_mark = 4 }
+				desc = cotc_cybernetics_events.103.desc.mark_iv
+			}
+			desc = cotc_cybernetics_events.103.desc.no_upgrade
+		}
+	}
+	theme = stewardship_wealth_focus
+	immediate = { # Reset final cost to make calculations easier
+		switch = {
+			trigger = scope:pci_mark
+			1 = { save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = pci_mk_i_cost } } }
+			2 = { save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = pci_mk_ii_cost } } }
+			3 = { save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = pci_mk_iii_cost } } }
+			4 = { save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = pci_mk_iv_cost } } }
+		}
+	}
+	option = { # Mark I
+		trigger = { can_buy_pci_mk_i_trigger = { MARGIN = scope:final_cost } }
+		show_as_unavailable = { always = yes }
+		name = {
+			trigger = { scope:pci_mark = 1 }
+			text = cotc_cybernetics_events.103.keep
+		}
+		name = {
+			trigger = { scope:pci_mark != 1 }
+			text = cotc_cybernetics_events.103.a.install
+		}
+		custom_tooltip = {
+			text = PCI_MK_I_BONUS
+			save_scope_value_as = { name = pci_mark value = 1 }
+		}
+		custom_tooltip = {
+			text = PCI_MK_I_COST
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = pci_mk_i_cost } }
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_stewardship_gain
+				scope:intended_recipient ?= { has_variable = target_stewardship_gain }
+			}
+			modifier = { factor = 25 }
+			modifier = {
+				add = {
+					subtract = {
+						value = pci_mk_i_cost
+						multiply = {
+							add = 100
+							add = ai_greed
+							min = 0
+							max = 200
+							divide = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { # Mark II
+		trigger = { can_buy_pci_mk_ii_trigger = { MARGIN = scope:final_cost } }
+		show_as_unavailable = { always = yes }
+		name = {
+			trigger = { scope:pci_mark = 2 }
+			text = cotc_cybernetics_events.103.keep
+		}
+		name = {
+			trigger = { scope:pci_mark != 2 }
+			text = cotc_cybernetics_events.103.b.install
+		}
+		custom_tooltip = {
+			text = PCI_MK_II_BONUS
+			save_scope_value_as = { name = pci_mark value = 2 }
+		}
+		custom_tooltip = {
+			text = PCI_MK_II_COST
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = pci_mk_ii_cost } }
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_stewardship_gain
+				scope:intended_recipient ?= { has_variable = target_stewardship_gain }
+			}
+			modifier = { factor = 50 }
+			modifier = {
+				add = {
+					subtract = {
+						value = pci_mk_ii_cost
+						multiply = {
+							add = 100
+							add = ai_greed
+							min = 0
+							max = 200
+							divide = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { # Mark III
+		trigger = { can_buy_pci_mk_iii_trigger = { MARGIN = scope:final_cost } }
+		show_as_unavailable = { always = yes }
+		name = {
+			trigger = { scope:pci_mark = 3 }
+			text = cotc_cybernetics_events.103.keep
+		}
+		name = {
+			trigger = { scope:pci_mark != 3 }
+			text = cotc_cybernetics_events.103.c.install
+		}
+		custom_tooltip = {
+			text = PCI_MK_III_BONUS
+			save_scope_value_as = { name = pci_mark value = 3 }
+		}
+		custom_tooltip = {
+			text = PCI_MK_III_COST
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = pci_mk_iii_cost } }
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_stewardship_gain
+				scope:intended_recipient ?= { has_variable = target_stewardship_gain }
+			}
+			modifier = { factor = 75 }
+			modifier = {
+				add = {
+					subtract = {
+						value = pci_mk_iii_cost
+						multiply = {
+							add = 100
+							add = ai_greed
+							min = 0
+							max = 200
+							divide = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { # Mark IV
+		trigger = { can_buy_pci_mk_iv_trigger = { MARGIN = scope:final_cost } }
+		show_as_unavailable = { always = yes }
+		name = {
+			trigger = { scope:pci_mark = 4 }
+			text = cotc_cybernetics_events.103.keep
+		}
+		name = {
+			trigger = { scope:pci_mark != 4 }
+			text = cotc_cybernetics_events.103.d.install
+		}
+		custom_tooltip = {
+			text = PCI_MK_IV_BONUS
+			save_scope_value_as = { name = pci_mark value = 4 }
+		}
+		custom_tooltip = {
+			text = PCI_MK_IV_COST
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = pci_mk_iv_cost } }
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_stewardship_gain
+				scope:intended_recipient ?= { has_variable = target_stewardship_gain }
+			}
+			modifier = { factor = 100 }
+			modifier = {
+				add = {
+					subtract = {
+						value = pci_mk_iv_cost
+						multiply = {
+							add = 100
+							add = ai_greed
+							min = 0
+							max = 200
+							divide = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { # None
+		trigger = { is_ai = no } # The AI shouldn't waffle
+		fallback = yes
+		name = {
+			trigger = { scope:pci_mark = 0 }
+			text = cotc_cybernetics_events.103.e.no_install
+		}
+		name = {
+			trigger = { scope:pci_mark != 0 }
+			text = cotc_cybernetics_events.103.e.remove
+		}
+		custom_tooltip = {
+			text = REMOVE_ANY_PCI
+			save_scope_value_as = { name = pci_mark value = 0 }
+		}
+	}
+	after = { trigger_event = cotc_cybernetics_events.100 }
+}
+cotc_cybernetics_events.104 = { # Upgrade with Pluto
+	window = big_event_window
+	title = cotc_cybernetics_events.100.title
+	desc = {
+		desc = cotc_cybernetics_events.104.desc.intro
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:pluto_mark = 1 }
+				desc = cotc_cybernetics_events.104.desc.mark_i
+			}
+			triggered_desc = {
+				trigger = { scope:pluto_mark = 2 }
+				desc = cotc_cybernetics_events.104.desc.mark_ii
+			}
+			triggered_desc = {
+				trigger = { scope:pluto_mark = 3 }
+				desc = cotc_cybernetics_events.104.desc.mark_iii
+			}
+			triggered_desc = {
+				trigger = { scope:pluto_mark = 4 }
+				desc = cotc_cybernetics_events.104.desc.mark_iv
+			}
+			desc = cotc_cybernetics_events.104.desc.no_upgrade
+		}
+	}
+	theme = stewardship_wealth_focus
+	immediate = { # Reset final cost to make calculations easier
+		switch = {
+			trigger = scope:pluto_mark
+			1 = { save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = pluto_mk_i_cost } } }
+			2 = { save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = pluto_mk_ii_cost } } }
+			3 = { save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = pluto_mk_iii_cost } } }
+			4 = { save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = pluto_mk_iv_cost } } }
+		}
+	}
+	option = { # Mark I
+		trigger = { can_buy_pluto_mk_i_trigger = { MARGIN = scope:final_cost } }
+		show_as_unavailable = { always = yes }
+		name = {
+			trigger = { scope:pluto_mark = 1 }
+			text = cotc_cybernetics_events.104.keep
+		}
+		name = {
+			trigger = { scope:pluto_mark != 1 }
+			text = cotc_cybernetics_events.104.a.install
+		}
+		custom_tooltip = {
+			text = PLUTO_MK_I_BONUS
+			save_scope_value_as = { name = pluto_mark value = 1 }
+		}
+		custom_tooltip = {
+			text = PLUTO_MK_I_COST
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = pluto_mk_i_cost } }
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_intrigue_gain
+				scope:intended_recipient ?= { has_variable = target_intrigue_gain }
+			}
+			modifier = { factor = 25 }
+			modifier = {
+				add = {
+					subtract = {
+						value = pluto_mk_i_cost
+						multiply = {
+							add = 100
+							add = ai_greed
+							min = 0
+							max = 200
+							divide = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { # Mark II
+		trigger = { can_buy_pluto_mk_ii_trigger = { MARGIN = scope:final_cost } }
+		show_as_unavailable = { always = yes }
+		name = {
+			trigger = { scope:pluto_mark = 2 }
+			text = cotc_cybernetics_events.104.keep
+		}
+		name = {
+			trigger = { scope:pluto_mark != 2 }
+			text = cotc_cybernetics_events.104.b.install
+		}
+		custom_tooltip = {
+			text = PLUTO_MK_II_BONUS
+			save_scope_value_as = { name = pluto_mark value = 2 }
+		}
+		custom_tooltip = {
+			text = PLUTO_MK_II_COST
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = pluto_mk_ii_cost } }
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_intrigue_gain
+				scope:intended_recipient ?= { has_variable = target_intrigue_gain }
+			}
+			modifier = { factor = 50 }
+			modifier = {
+				add = {
+					subtract = {
+						value = pluto_mk_ii_cost
+						multiply = {
+							add = 100
+							add = ai_greed
+							min = 0
+							max = 200
+							divide = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { # Mark III
+		trigger = { can_buy_pluto_mk_iii_trigger = { MARGIN = scope:final_cost } }
+		show_as_unavailable = { always = yes }
+		name = {
+			trigger = { scope:pluto_mark = 3 }
+			text = cotc_cybernetics_events.104.keep
+		}
+		name = {
+			trigger = { scope:pluto_mark != 3 }
+			text = cotc_cybernetics_events.104.c.install
+		}
+		custom_tooltip = {
+			text = PLUTO_MK_III_BONUS
+			save_scope_value_as = { name = pluto_mark value = 3 }
+		}
+		custom_tooltip = {
+			text = PLUTO_MK_III_COST
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = pluto_mk_iii_cost } }
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_intrigue_gain
+				scope:intended_recipient ?= { has_variable = target_intrigue_gain }
+			}
+			modifier = { factor = 75 }
+			modifier = {
+				add = {
+					subtract = {
+						value = pluto_mk_iii_cost
+						multiply = {
+							add = 100
+							add = ai_greed
+							min = 0
+							max = 200
+							divide = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { # Mark IV
+		trigger = { can_buy_pluto_mk_iv_trigger = { MARGIN = scope:final_cost } }
+		show_as_unavailable = { always = yes }
+		name = {
+			trigger = { scope:pluto_mark = 4 }
+			text = cotc_cybernetics_events.104.keep
+		}
+		name = {
+			trigger = { scope:pluto_mark != 4 }
+			text = cotc_cybernetics_events.104.d.install
+		}
+		custom_tooltip = {
+			text = PLUTO_MK_IV_BONUS
+			save_scope_value_as = { name = pluto_mark value = 4 }
+		}
+		custom_tooltip = {
+			text = PLUTO_MK_IV_COST
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = pluto_mk_iv_cost } }
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_intrigue_gain
+				scope:intended_recipient ?= { has_variable = target_intrigue_gain }
+			}
+			modifier = { factor = 100 }
+			modifier = {
+				add = {
+					subtract = {
+						value = pluto_mk_iv_cost
+						multiply = {
+							add = 100
+							add = ai_greed
+							min = 0
+							max = 200
+							divide = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { # None
+		trigger = { is_ai = no } # The AI shouldn't waffle
+		fallback = yes
+		name = {
+			trigger = { scope:pluto_mark = 0 }
+			text = cotc_cybernetics_events.104.e.no_install
+		}
+		name = {
+			trigger = { scope:pluto_mark != 0 }
+			text = cotc_cybernetics_events.104.e.remove
+		}
+		custom_tooltip = {
+			text = REMOVE_ANY_PLUTO
+			save_scope_value_as = { name = pluto_mark value = 0 }
+		}
+	}
+	after = { trigger_event = cotc_cybernetics_events.100 }
+}
+cotc_cybernetics_events.105 = { # Upgrade with Thoth
+	window = big_event_window
+	title = cotc_cybernetics_events.100.title
+	desc = {
+		desc = cotc_cybernetics_events.105.desc.intro
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:thoth_mark = 1 }
+				desc = cotc_cybernetics_events.105.desc.mark_i
+			}
+			triggered_desc = {
+				trigger = { scope:thoth_mark = 2 }
+				desc = cotc_cybernetics_events.105.desc.mark_ii
+			}
+			triggered_desc = {
+				trigger = { scope:thoth_mark = 3 }
+				desc = cotc_cybernetics_events.105.desc.mark_iii
+			}
+			triggered_desc = {
+				trigger = { scope:thoth_mark = 4 }
+				desc = cotc_cybernetics_events.105.desc.mark_iv
+			}
+			desc = cotc_cybernetics_events.105.desc.no_upgrade
+		}
+	}
+	theme = stewardship_wealth_focus
+	immediate = { # Reset final cost to make calculations easier
+		switch = {
+			trigger = scope:thoth_mark
+			1 = { save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = thoth_mk_i_cost } } }
+			2 = { save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = thoth_mk_ii_cost } } }
+			3 = { save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = thoth_mk_iii_cost } } }
+			4 = { save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = thoth_mk_iv_cost } } }
+		}
+	}
+	option = { # Mark I
+		trigger = { can_buy_thoth_mk_i_trigger = { MARGIN = scope:final_cost } }
+		show_as_unavailable = { always = yes }
+		name = {
+			trigger = { scope:thoth_mark = 1 }
+			text = cotc_cybernetics_events.105.keep
+		}
+		name = {
+			trigger = { scope:thoth_mark != 1 }
+			text = cotc_cybernetics_events.105.a.install
+		}
+		custom_tooltip = {
+			text = THOTH_MK_I_BONUS
+			save_scope_value_as = { name = thoth_mark value = 1 }
+		}
+		custom_tooltip = {
+			text = THOTH_MK_I_COST
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = thoth_mk_i_cost } }
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_learning_gain
+				scope:intended_recipient ?= { has_variable = target_learning_gain }
+			}
+			modifier = { factor = 25 }
+			modifier = {
+				add = {
+					subtract = {
+						value = thoth_mk_i_cost
+						multiply = {
+							add = 100
+							add = ai_greed
+							min = 0
+							max = 200
+							divide = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { # Mark II
+		trigger = { can_buy_thoth_mk_ii_trigger = { MARGIN = scope:final_cost } }
+		show_as_unavailable = { always = yes }
+		name = {
+			trigger = { scope:thoth_mark = 2 }
+			text = cotc_cybernetics_events.105.keep
+		}
+		name = {
+			trigger = { scope:thoth_mark != 2 }
+			text = cotc_cybernetics_events.105.b.install
+		}
+		custom_tooltip = {
+			text = THOTH_MK_II_BONUS
+			save_scope_value_as = { name = thoth_mark value = 2 }
+		}
+		custom_tooltip = {
+			text = THOTH_MK_II_COST
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = thoth_mk_ii_cost } }
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_learning_gain
+				scope:intended_recipient ?= { has_variable = target_learning_gain }
+			}
+			modifier = { factor = 50 }
+			modifier = {
+				add = {
+					subtract = {
+						value = thoth_mk_ii_cost
+						multiply = {
+							add = 100
+							add = ai_greed
+							min = 0
+							max = 200
+							divide = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { # Mark III
+		trigger = { can_buy_thoth_mk_iii_trigger = { MARGIN = scope:final_cost } }
+		show_as_unavailable = { always = yes }
+		name = {
+			trigger = { scope:thoth_mark = 3 }
+			text = cotc_cybernetics_events.105.keep
+		}
+		name = {
+			trigger = { scope:thoth_mark != 3 }
+			text = cotc_cybernetics_events.105.c.install
+		}
+		custom_tooltip = {
+			text = THOTH_MK_III_BONUS
+			save_scope_value_as = { name = thoth_mark value = 3 }
+		}
+		custom_tooltip = {
+			text = THOTH_MK_III_COST
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = thoth_mk_iii_cost } }
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_learning_gain
+				scope:intended_recipient ?= { has_variable = target_learning_gain }
+			}
+			modifier = { factor = 75 }
+			modifier = {
+				add = {
+					subtract = {
+						value = thoth_mk_iii_cost
+						multiply = {
+							add = 100
+							add = ai_greed
+							min = 0
+							max = 200
+							divide = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { # Mark IV
+		trigger = { can_buy_thoth_mk_iv_trigger = { MARGIN = scope:final_cost } }
+		show_as_unavailable = { always = yes }
+		name = {
+			trigger = { scope:thoth_mark = 4 }
+			text = cotc_cybernetics_events.105.keep
+		}
+		name = {
+			trigger = { scope:thoth_mark != 4 }
+			text = cotc_cybernetics_events.105.d.install
+		}
+		custom_tooltip = {
+			text = THOTH_MK_IV_BONUS
+			save_scope_value_as = { name = thoth_mark value = 4 }
+		}
+		custom_tooltip = {
+			text = THOTH_MK_IV_COST
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = thoth_mk_iv_cost } }
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_learning_gain
+				scope:intended_recipient ?= { has_variable = target_learning_gain }
+			}
+			modifier = { factor = 100 }
+			modifier = {
+				add = {
+					subtract = {
+						value = thoth_mk_iv_cost
+						multiply = {
+							add = 100
+							add = ai_greed
+							min = 0
+							max = 200
+							divide = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { # None
+		trigger = { is_ai = no } # The AI shouldn't waffle
+		fallback = yes
+		name = {
+			trigger = { scope:thoth_mark = 0 }
+			text = cotc_cybernetics_events.105.e.no_install
+		}
+		name = {
+			trigger = { scope:thoth_mark != 0 }
+			text = cotc_cybernetics_events.105.e.remove
+		}
+		custom_tooltip = {
+			text = REMOVE_ANY_THOTH
+			save_scope_value_as = { name = thoth_mark value = 0 }
+		}
+	}
+	after = { trigger_event = cotc_cybernetics_events.100 }
+}
+cotc_cybernetics_events.106 = { # Upgrade with Neurolink
+	window = big_event_window
+	title = cotc_cybernetics_events.100.title
+	desc = {
+		desc = cotc_cybernetics_events.106.desc.intro
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:neurolink_mark = 1 }
+				desc = cotc_cybernetics_events.106.desc.mark_i
+			}
+			triggered_desc = {
+				trigger = { scope:neurolink_mark = 2 }
+				desc = cotc_cybernetics_events.106.desc.mark_ii
+			}
+			triggered_desc = {
+				trigger = { scope:neurolink_mark = 3 }
+				desc = cotc_cybernetics_events.106.desc.mark_iii
+			}
+			triggered_desc = {
+				trigger = { scope:neurolink_mark = 4 }
+				desc = cotc_cybernetics_events.106.desc.mark_iv
+			}
+			desc = cotc_cybernetics_events.106.desc.no_upgrade
+		}
+	}
+	theme = stewardship_wealth_focus
+	immediate = { # Reset final cost to make calculations easier
+		switch = {
+			trigger = scope:neurolink_mark
+			1 = { save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = neurolink_mk_i_cost } } }
+			2 = { save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = neurolink_mk_ii_cost } } }
+			3 = { save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = neurolink_mk_iii_cost } } }
+			4 = { save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = neurolink_mk_iv_cost } } }
+		}
+	}
+	option = { # Mark I
+		trigger = { can_buy_neurolink_mk_i_trigger = { MARGIN = scope:final_cost } }
+		show_as_unavailable = { always = yes }
+		name = {
+			trigger = { scope:neurolink_mark = 1 }
+			text = cotc_cybernetics_events.106.keep
+		}
+		name = {
+			trigger = { scope:neurolink_mark != 1 }
+			text = cotc_cybernetics_events.106.a.install
+		}
+		custom_tooltip = {
+			text = NEUROLINK_MK_I_BONUS
+			save_scope_value_as = { name = neurolink_mark value = 1 }
+		}
+		custom_tooltip = {
+			text = NEUROLINK_MK_I_COST
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = neurolink_mk_i_cost } }
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_piloting_gain
+				scope:intended_recipient ?= { has_variable = target_piloting_gain }
+			}
+			modifier = { factor = 25 }
+			modifier = {
+				add = {
+					subtract = {
+						value = neurolink_mk_i_cost
+						multiply = {
+							add = 100
+							add = ai_greed
+							min = 0
+							max = 200
+							divide = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { # Mark II
+		trigger = { can_buy_neurolink_mk_ii_trigger = { MARGIN = scope:final_cost } }
+		show_as_unavailable = { always = yes }
+		name = {
+			trigger = { scope:neurolink_mark = 2 }
+			text = cotc_cybernetics_events.106.keep
+		}
+		name = {
+			trigger = { scope:neurolink_mark != 2 }
+			text = cotc_cybernetics_events.106.b.install
+		}
+		custom_tooltip = {
+			text = NEUROLINK_MK_II_BONUS
+			save_scope_value_as = { name = neurolink_mark value = 2 }
+		}
+		custom_tooltip = {
+			text = NEUROLINK_MK_II_COST
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = neurolink_mk_ii_cost } }
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_piloting_gain
+				scope:intended_recipient ?= { has_variable = target_piloting_gain }
+			}
+			modifier = { factor = 50 }
+			modifier = {
+				add = {
+					subtract = {
+						value = neurolink_mk_ii_cost
+						multiply = {
+							add = 100
+							add = ai_greed
+							min = 0
+							max = 200
+							divide = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { # Mark III
+		trigger = { can_buy_neurolink_mk_iii_trigger = { MARGIN = scope:final_cost } }
+		show_as_unavailable = { always = yes }
+		name = {
+			trigger = { scope:neurolink_mark = 3 }
+			text = cotc_cybernetics_events.106.keep
+		}
+		name = {
+			trigger = { scope:neurolink_mark != 3 }
+			text = cotc_cybernetics_events.106.c.install
+		}
+		custom_tooltip = {
+			text = NEUROLINK_MK_III_BONUS
+			save_scope_value_as = { name = neurolink_mark value = 3 }
+		}
+		custom_tooltip = {
+			text = NEUROLINK_MK_III_COST
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = neurolink_mk_iii_cost } }
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_piloting_gain
+				scope:intended_recipient ?= { has_variable = target_piloting_gain }
+			}
+			modifier = { factor = 75 }
+			modifier = {
+				add = {
+					subtract = {
+						value = neurolink_mk_iii_cost
+						multiply = {
+							add = 100
+							add = ai_greed
+							min = 0
+							max = 200
+							divide = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { # Mark IV
+		trigger = { can_buy_neurolink_mk_iv_trigger = { MARGIN = scope:final_cost } }
+		show_as_unavailable = { always = yes }
+		name = {
+			trigger = { scope:neurolink_mark = 4 }
+			text = cotc_cybernetics_events.106.keep
+		}
+		name = {
+			trigger = { scope:neurolink_mark != 4 }
+			text = cotc_cybernetics_events.106.d.install
+		}
+		custom_tooltip = {
+			text = NEUROLINK_MK_IV_BONUS
+			save_scope_value_as = { name = neurolink_mark value = 4 }
+		}
+		custom_tooltip = {
+			text = NEUROLINK_MK_IV_COST
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = neurolink_mk_iv_cost } }
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_piloting_gain
+				scope:intended_recipient ?= { has_variable = target_piloting_gain }
+			}
+			modifier = { factor = 100 }
+			modifier = {
+				add = {
+					subtract = {
+						value = neurolink_mk_iv_cost
+						multiply = {
+							add = 100
+							add = ai_greed
+							min = 0
+							max = 200
+							divide = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { # None
+		trigger = { is_ai = no } # The AI shouldn't waffle
+		fallback = yes
+		name = {
+			trigger = { scope:neurolink_mark = 0 }
+			text = cotc_cybernetics_events.106.e.no_install
+		}
+		name = {
+			trigger = { scope:neurolink_mark != 0 }
+			text = cotc_cybernetics_events.106.e.remove
+		}
+		custom_tooltip = {
+			text = REMOVE_ANY_NEUROLINK
+			save_scope_value_as = { name = neurolink_mark value = 0 }
+		}
+	}
+	after = { trigger_event = cotc_cybernetics_events.100 }
+}
+cotc_cybernetics_events.107 = { # Upgrade with AMAM
+	window = big_event_window
+	title = cotc_cybernetics_events.100.title
+	desc = {
+		desc = cotc_cybernetics_events.107.desc.intro
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:amam_mark = 1 }
+				desc = cotc_cybernetics_events.107.desc.mark_i
+			}
+			triggered_desc = {
+				trigger = { scope:amam_mark = 2 }
+				desc = cotc_cybernetics_events.107.desc.mark_ii
+			}
+			triggered_desc = {
+				trigger = { scope:amam_mark = 3 }
+				desc = cotc_cybernetics_events.107.desc.mark_iii
+			}
+			triggered_desc = {
+				trigger = { scope:amam_mark = 4 }
+				desc = cotc_cybernetics_events.107.desc.mark_iv
+			}
+			desc = cotc_cybernetics_events.107.desc.no_upgrade
+		}
+	}
+	theme = stewardship_wealth_focus
+	immediate = { # Reset final cost to make calculations easier
+		switch = {
+			trigger = scope:amam_mark
+			1 = { save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = amam_mk_i_cost } } }
+			2 = { save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = amam_mk_ii_cost } } }
+			3 = { save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = amam_mk_iii_cost } } }
+			4 = { save_scope_value_as = { name = final_cost value = { add = scope:final_cost subtract = amam_mk_iv_cost } } }
+		}
+	}
+	option = { # Mark I
+		trigger = { can_buy_amam_mk_i_trigger = { MARGIN = scope:final_cost } }
+		show_as_unavailable = { always = yes }
+		name = {
+			trigger = { scope:amam_mark = 1 }
+			text = cotc_cybernetics_events.107.keep
+		}
+		name = {
+			trigger = { scope:amam_mark != 1 }
+			text = cotc_cybernetics_events.107.a.install
+		}
+		custom_tooltip = {
+			text = AMAM_MK_I_BONUS
+			save_scope_value_as = { name = amam_mark value = 1 }
+		}
+		custom_tooltip = {
+			text = AMAM_MK_I_COST
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = amam_mk_i_cost } }
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_personal_prowess_gain
+				scope:intended_recipient ?= { has_variable = target_personal_prowess_gain }
+			}
+			modifier = { factor = 25 }
+			modifier = {
+				add = {
+					subtract = {
+						value = amam_mk_i_cost
+						multiply = {
+							add = 100
+							add = ai_greed
+							min = 0
+							max = 200
+							divide = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { # Mark II
+		trigger = { can_buy_amam_mk_ii_trigger = { MARGIN = scope:final_cost } }
+		show_as_unavailable = { always = yes }
+		name = {
+			trigger = { scope:amam_mark = 2 }
+			text = cotc_cybernetics_events.107.keep
+		}
+		name = {
+			trigger = { scope:amam_mark != 2 }
+			text = cotc_cybernetics_events.107.b.install
+		}
+		custom_tooltip = {
+			text = AMAM_MK_II_BONUS
+			save_scope_value_as = { name = amam_mark value = 2 }
+		}
+		custom_tooltip = {
+			text = AMAM_MK_II_COST
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = amam_mk_ii_cost } }
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_personal_prowess_gain
+				scope:intended_recipient ?= { has_variable = target_personal_prowess_gain }
+			}
+			modifier = { factor = 50 }
+			modifier = {
+				add = {
+					subtract = {
+						value = amam_mk_ii_cost
+						multiply = {
+							add = 100
+							add = ai_greed
+							min = 0
+							max = 200
+							divide = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { # Mark III
+		trigger = { can_buy_amam_mk_iii_trigger = { MARGIN = scope:final_cost } }
+		show_as_unavailable = { always = yes }
+		name = {
+			trigger = { scope:amam_mark = 3 }
+			text = cotc_cybernetics_events.107.keep
+		}
+		name = {
+			trigger = { scope:amam_mark != 3 }
+			text = cotc_cybernetics_events.107.c.install
+		}
+		custom_tooltip = {
+			text = AMAM_MK_III_BONUS
+			save_scope_value_as = { name = amam_mark value = 3 }
+		}
+		custom_tooltip = {
+			text = AMAM_MK_III_COST
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = amam_mk_iii_cost } }
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_personal_prowess_gain
+				scope:intended_recipient ?= { has_variable = target_personal_prowess_gain }
+			}
+			modifier = { factor = 75 }
+			modifier = {
+				add = {
+					subtract = {
+						value = amam_mk_iii_cost
+						multiply = {
+							add = 100
+							add = ai_greed
+							min = 0
+							max = 200
+							divide = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { # Mark IV
+		trigger = { can_buy_amam_mk_iv_trigger = { MARGIN = scope:final_cost } }
+		show_as_unavailable = { always = yes }
+		name = {
+			trigger = { scope:amam_mark = 4 }
+			text = cotc_cybernetics_events.107.keep
+		}
+		name = {
+			trigger = { scope:amam_mark != 4 }
+			text = cotc_cybernetics_events.107.d.install
+		}
+		custom_tooltip = {
+			text = AMAM_MK_IV_BONUS
+			save_scope_value_as = { name = amam_mark value = 4 }
+		}
+		custom_tooltip = {
+			text = AMAM_MK_IV_COST
+			save_scope_value_as = { name = final_cost value = { add = scope:final_cost add = amam_mk_iv_cost } }
+		}
+		ai_chance = {
+			base = 0
+			modifier = {
+				add = scope:intended_recipient.var:target_personal_prowess_gain
+				scope:intended_recipient ?= { has_variable = target_personal_prowess_gain }
+			}
+			modifier = { factor = 100 }
+			modifier = {
+				add = {
+					subtract = {
+						value = amam_mk_iv_cost
+						multiply = {
+							add = 100
+							add = ai_greed
+							min = 0
+							max = 200
+							divide = 100
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { # None
+		trigger = { is_ai = no } # The AI shouldn't waffle
+		fallback = yes
+		name = {
+			trigger = { scope:amam_mark = 0 }
+			text = cotc_cybernetics_events.107.e.no_install
+		}
+		name = {
+			trigger = { scope:amam_mark != 0 }
+			text = cotc_cybernetics_events.107.e.remove
+		}
+		custom_tooltip = {
+			text = REMOVE_ANY_AMAM
+			save_scope_value_as = { name = amam_mark value = 0 }
+		}
+	}
+	after = { trigger_event = cotc_cybernetics_events.100 }
+}
