@@ -142,6 +142,8 @@ cybersurgery_effect = {
 				$PATIENT$ = { trigger_event = cotc_cybernetics_events.1040 }
 			}
 		}
+		# Also make a secret if this was illegal cybersurgery
+		give_performed_cybersurgery_secret_effect = { TARGET = $PATIENT$ IMPLANT = $IMPLANT$ }
 	}
 }
 install_implant_effect = {

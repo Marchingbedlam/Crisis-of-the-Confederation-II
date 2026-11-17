@@ -1,4 +1,5 @@
-﻿is_cybernetic_implant = {
+﻿# General checks
+is_cybernetic_implant = {
 	OR = {
 		artifact_type = neural_implant
 		artifact_type = dermal_implant
@@ -198,4 +199,26 @@ can_buy_amam_mk_iii_trigger = {
 can_buy_amam_mk_iv_trigger = {
 	character_has_tech = { TECH = culture_innovation:innovation_military_dni_modules_mk_iv }
 	gold >= { value = amam_mk_iv_cost add = $MARGIN$ }
+}
+
+# Legality
+is_implant_illegal_in_realm_trigger = {
+	# Later this will be a law but for now we'll tie it directly to the ruler's ideology
+	OR = {
+		rite = { rite_has_parameter = hates_cybernetics }
+		primary_title = { state_rite ?= { rite_has_parameter = hates_cybernetics } }
+	}
+	trigger_if = { # This is a placeholder for later making different implants differently legal
+		limit = { exists = $IMPLANT$ }
+		always = yes
+	}
+}
+is_implant_illegal_for_character = {
+	OR = {
+		AND = {
+			is_ruler = yes
+			is_implant_illegal_in_realm_trigger = { IMPLANT = $IMPLANT$ }
+		}
+		any_liege_or_above = { is_implant_illegal_in_realm_trigger = { IMPLANT = $IMPLANT$ } }
+	}
 }
