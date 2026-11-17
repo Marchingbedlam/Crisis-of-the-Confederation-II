@@ -62,3 +62,70 @@ research_subject_approval_suite_modifier = {
 		scope:scheme = { is_target_in_variable_list = { name = flags target = flag:cybernetics } }
 	}
 }
+
+cybersurgery_suite_modifier = {
+	modifier = {
+		add = {
+			$IMPLANT$ = { save_temporary_scope_as = target_implant }
+			add = $PATIENT$.install_target_implant_score
+		}
+		desc = PATIENT_VALUES_IMPLANT
+	}
+	modifier = {
+		add = 1000
+		$SELECTOR$ != $PATIENT$
+		$IMPLANT$ = { var:intended_for ?= { this = $PATIENT$ } }
+	}
+	modifier = { # How do we feel about undergoing cybersurgery?
+		add = {
+			add = $PATIENT$.health # Being in good health makes us uneasy about cybersurgery
+			subtract = 2 # But being in low health makes it attractive
+			multiply = { # The bolder we are, the less we care
+				add = 100
+				subtract = $SELECTOR$.ai_boldness
+				min = 0
+				divide = 100
+			}
+			multiply = -3
+		}
+		scope:first_surgery = yes
+		OR = {
+			$PATIENT$ = $SELECTOR$
+			$SELECTOR$ = { opinion = { target = $PATIENT$ value >= 50 } }
+		}
+		desc = SELECTOR_HEALTH_RISK
+	}
+	modifier = { # We're generally pro-cybernetics
+		factor = {
+			add = 120
+			add = ai_zeal
+			min = 100
+			divide = 100
+		}
+		$SELECTOR$ = { rite = { rite_has_parameter = supports_cybernetics } }
+		desc = SELECTOR_SUPPORTS_CYBERNETICS
+	}
+	modifier = { # We're generally anti-cybernetics
+		factor = {
+			add = 80
+			subtract = ai_zeal
+			min = 0
+			max = 100
+			divide = 100
+		}
+		$SELECTOR$ = { rite = { rite_has_parameter = hates_cybernetics } }
+		desc = SELECTOR_HATES_CYBERNETICS
+	}
+	modifier = {
+		factor = 10
+		$SELECTOR$ = $PATIENT$
+		$SELECTOR$ = { has_personal_tenet_flag = wants_implants }
+		desc = SELECTOR_WANTS_IMPLANTS
+	}
+	modifier  = {
+		factor = 0
+		$SELECTOR$ = $PATIENT$
+		$SELECTOR$ = { has_personal_tenet_flag = abstains_from_cybernetics }
+		desc = SELECTOR_DOES_NOT_WANT_IMPLANTS
+	}
+}

@@ -2046,3 +2046,1030 @@ cotc_cybernetics_events.107 = { # Upgrade with AMAM
 	}
 	after = { trigger_event = cotc_cybernetics_events.100 }
 }
+
+### INSTALLING IMPLANTS EVENTS ###
+cotc_cybernetics_events.1000 = { # You have been asked by scope:sponsor to perform cybersurgery on scope:patient
+	title = cotc_cybernetics_events.1000.title
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:patient = scope:sponsor }
+				desc = cotc_cybernetics_events.1000.desc.self
+			}
+			desc = cotc_cybernetics_events.1000.desc.other
+		}
+		first_valid = {
+			triggered_desc = {
+				trigger = { exists = scope:replaced_implant }
+				desc = cotc_cybernetics_events.1000.desc.replace
+			}
+			desc = cotc_cybernetics_events.1000.desc.new
+		}
+		triggered_desc = {
+			trigger = {
+				scope:target = {
+					OR = {
+						artifact_slot_type = neural_implant
+						artifact_slot_type = internal_implant
+					}
+				}
+			}
+			desc = cotc_cybernetics_events.1000.desc.potential_risk
+		}
+	}
+	theme = healthcare
+	right_portrait = {
+		character = scope:physician
+		animation = physician
+	}
+	left_portrait = {
+		character = scope:patient
+		triggered_animation = {
+			trigger = { ai_boldness < 0 }
+			animation = worry
+		}
+		animation = interested_left
+	}
+	lower_left_portrait = {
+		trigger = { scope:patient != scope:sponsor }
+		character = scope:sponsor
+	}
+	artifact = {
+		target = scope:target
+		position = lower_center_portrait
+	}
+	artifact = {
+		trigger = { exists = scope:replaced_implant }
+		target = scope:replaced_implant
+		position = lower_right_portrait
+	}
+	
+	immediate = { save_scope_as = physician }
+	
+	option = { # Perform the cybersurgery
+		name = cotc_cybernetics_events.1000.a
+		show_as_tooltip = { cybersurgery_effect = { PATIENT = scope:patient SURGEON = scope:physician IMPLANT = scope:target } }
+		scope:sponsor = { trigger_event = cotc_cybernetics_events.1010 }
+		ai_will_select = { value = 50 }
+	}
+	
+	option = { # Player deliberately kills the patient!
+		trigger = {
+			is_ai = no
+			is_scheming_against = { type = murder target = scope:patient }
+			# The accident must be plausible
+			scope:target = {
+				OR = {
+					artifact_slot_type = neural_implant
+					artifact_slot_type = internal_implant
+				}
+			}
+		}
+		show_as_unavailable = { is_scheming_against = { type = murder target = scope:patient } }
+		name = cotc_cybernetics_events.1000.b
+		save_scope_value_as = { name = murder value = flag:yes }
+		show_as_tooltip = { unknown_murder_effect = { VICTIM = scope:patient MURDERER = scope:physician REASON = death_complications_from_surgery } }
+		scope:sponsor = { trigger_event = cotc_cybernetics_events.1010 }
+	}
+	
+	option = { # AI deliberately kills the patient
+		trigger = {
+			is_ai = yes
+			is_scheming_against = { type = murder target = scope:patient }
+			# The accident must be plausible
+			scope:target = {
+				OR = {
+					artifact_slot_type = neural_implant
+					artifact_slot_type = internal_implant
+				}
+			}
+		}
+		exclusive = yes
+		name = cotc_cybernetics_events.1000.b
+		save_scope_value_as = { name = murder value = flag:yes }
+		show_as_tooltip = { unknown_murder_effect = { VICTIM = scope:patient MURDERER = scope:physician REASON = death_complications_from_surgery } }
+		scope:sponsor = { trigger_event = cotc_cybernetics_events.1010 }
+		ai_will_select = { value = 1000 }
+	}
+	
+	option = { # Refuse to perform the cybersurgery on ideological grounds
+		trigger = {
+			OR = {
+				has_personal_tenet_flag = abstains_from_cybernetics
+				rite = { rite_has_parameter = hates_cybernetics }
+			}
+		}
+		name = cotc_cybernetics_events.1000.c
+		save_scope_value_as = { name = reason_for_refusal value = flag:ideological }
+		scope:patient = { add_opinion = { modifier = refused_to_perform_cybersurgery target = scope:physician } }
+		if = {
+			limit = { scope:sponsor != scope:patient }
+			scope:sponsor = { add_opinion = { modifier = refused_to_perform_cybersurgery target = scope:physician } }
+		}
+		scope:sponsor = { trigger_event = cotc_cybernetics_events.1001 }
+		ai_will_select = {
+			value = 50
+			add = ai_zeal
+			subtract = {
+				add = "opinion(scope:sponsor)"
+				min = 0
+				max = ai_sociability
+			}
+			subtract = {
+				add = "opinion(scope:patient)"
+				min = 0
+				max = ai_sociability
+			}
+		}
+	}
+	
+	option = { # Refuse to perform the cybersurgery because you don't think you're qualified
+		name = cotc_cybernetics_events.1000.d
+		save_scope_value_as = { name = reason_for_refusal value = flag:not_qualified }
+		scope:patient = { add_opinion = { modifier = refused_to_perform_cybersurgery target = scope:physician } }
+		if = {
+			limit = { scope:sponsor != scope:patient }
+			scope:sponsor = { add_opinion = { modifier = refused_to_perform_cybersurgery target = scope:physician } }
+		}
+		scope:sponsor = { trigger_event = cotc_cybernetics_events.1001 }
+		ai_will_select = {
+			value = 0
+			if = {
+				limit = { scope:target = { artifact_slot_type = neural_implant } }
+				add = decent_skill_rating
+			}
+			else_if = {
+				limit = {
+					scope:target = {
+						OR = {
+							artifact_slot_type = artificial_arm
+							artifact_slot_type = artificial_leg
+						}
+					}
+				}
+				add = mediocre_skill_rating
+			}
+			else = { add = medium_skill_rating }
+			subtract = learning
+			subtract = {
+				value = ai_boldness
+				max = 20
+				min = -20
+			}
+			if = {
+				limit = {
+					scope:target = {
+						OR = {
+							artifact_slot_type = neural_implant
+							artifact_slot_type = internal_implant
+						}
+					}
+				}
+				multiply = 2
+			}
+			multiply = {
+				add = 100
+				add = ai_honor
+				min = 0
+				max = 2
+				divide = 100
+			}
+			multiply = 10
+		}
+	}
+}
+cotc_cybernetics_events.1001 = { # Your chosen surgeon refused to perform the surgery
+	title = cotc_cybernetics_events.1000.title
+	desc = {
+		desc = cotc_cybernetics_events.1001.desc
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:reason_for_refusal != flag:ideological }
+				desc = cotc_cybernetics_events.1001.desc.ideological
+			}
+			desc = cotc_cybernetics_events.1001.desc.not_qualified
+		}
+	}
+	theme = healthcare
+	right_portrait = {
+		character = scope:physician
+		animation = dismissal
+	}
+	left_portrait = {
+		character = scope:sponsor
+		animation = anger
+	}
+	option = { # Well, shoot
+		name = cotc_cybernetics_events.1001.a
+		ai_will_select = {
+			value = 40
+			add = "opinion(scope:physician)"
+		}
+	}
+	option = { # You're fired.
+		trigger = { court_position:court_physician_court_position ?= { this = scope:physician } }
+		name = cotc_cybernetics_events.1001.b
+		fire_specific_court_position_effect = { LIEGE = scope:sponsor CHARACTER = scope:physician }
+		ai_will_select = {
+			value = 100
+		}
+	}
+}
+cotc_cybernetics_events.1010 = { # Performing the operation
+	title = cotc_cybernetics_events.1000.title
+	desc = {
+		desc = cotc_cybernetics_events.1010.desc
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					scope:patient = scope:sponsor
+					exists = scope:replaced_implant
+				}
+				desc = cotc_cybernetics_events.1010.desc.replace.self
+			}
+			triggered_desc = {
+				trigger = { exists = scope:replaced_implant }
+				desc = cotc_cybernetics_events.1010.desc.replace.other
+			}
+			triggered_desc = {
+				trigger = {
+					scope:patient = scope:sponsor
+					scope:first_surgery = yes
+				}
+				desc = cotc_cybernetics_events.1010.desc.first_surgery.self
+			}
+			triggered_desc = {
+				trigger = { scope:first_surgery = yes }
+				desc = cotc_cybernetics_events.1010.desc.replace.other
+			}
+			desc = cotc_cybernetics_events.1010.desc.new
+		}
+		triggered_desc = {
+			trigger = {
+				scope:target = {
+					OR = {
+						artifact_slot_type = neural_implant
+						artifact_slot_type = internal_implant
+					}
+				}
+			}
+			desc = cotc_cybernetics_events.1000.desc.potential_risk
+		}
+	}
+	theme = healthcare
+	right_portrait = {
+		character = scope:patient
+		triggered_animation = {
+			trigger = { ai_boldness < 0 }
+			animation = worry
+		}
+		animation = interested_left
+	}
+	left_portrait = {
+		character = scope:physician
+		animation = physician
+	}
+	lower_left_portrait = {
+		trigger = { scope:patient != scope:sponsor }
+		character = scope:sponsor
+	}
+	artifact = {
+		target = scope:target
+		position = lower_center_portrait
+	}
+	artifact = {
+		trigger = { exists = scope:replaced_implant }
+		target = scope:replaced_implant
+		position = lower_right_portrait
+	}
+	
+	option = { # Go ahead with it
+		trigger = { NOT = { exists = scope:murder } }
+		name = cotc_cybernetics_events.1010.a
+		scope:target = {
+			if = {
+				limit = { owner != scope:patient }
+				set_owner = { target = scope:patient }
+			}
+		}
+		cybersurgery_effect = { PATIENT = scope:patient SURGEON = scope:physician IMPLANT = scope:target }
+	}
+	
+	option = { # Go ahead with it (surgeon plans to kill the patient)
+		trigger = { exists = scope:murder }
+		name = cotc_cybernetics_events.1010.a
+		show_as_tooltip = { cybersurgery_effect = { PATIENT = scope:patient SURGEON = scope:physician IMPLANT = scope:target } }
+		hidden_effect = { scope:patient = { trigger_event = cotc_cybernetics_events.1040 } }
+	}
+	
+	option = { # Last chance to back out!
+		trigger = { scope:sponsor = { is_ai = no } }
+		name = cotc_cybernetics_events.1010.b
+	}
+}
+cotc_cybernetics_events.1020 = { # A successful cybersurgery with no complications!
+	title = cotc_cybernetics_events.1000.title
+	desc = {
+		desc = cotc_cybernetics_events.1020.desc
+		first_valid = {
+			triggered_desc = {
+				trigger = { exists = scope:replaced_implant }
+				desc = cotc_cybernetics_events.1020.desc.replace
+			}
+			desc = cotc_cybernetics_events.1020.desc.new
+		}
+	}
+	theme = healthcare
+	right_portrait = {
+		character = scope:patient
+		animation = hero_flex
+	}
+	left_portrait = {
+		character = scope:physician
+		animation = physician
+	}
+	lower_left_portrait = {
+		trigger = { scope:patient != scope:sponsor }
+		character = scope:sponsor
+	}
+	artifact = {
+		target = scope:target
+		position = lower_center_portrait
+	}
+	
+	immediate = {
+		physician_rank_up_tooltip_effect = yes
+		show_as_tooltip = { scope:target = { equip_artifact_to_owner_replace = yes } }
+		add_character_modifier = { modifier = recovering_from_surgery months = 6 }
+		# Send interface messages to other involved characters
+		hidden_effect = {
+			scope:physician = {
+				send_interface_message = {
+					type = msg_cybersurgery_good
+					title = cotc_cybernetics_events.1020.msg.title
+					left_icon = scope:patient
+					right_icon = scope:target
+					desc = cotc_cybernetics_events.1020.msg.desc
+				}
+			}
+			if = {
+				limit = { scope:sponsor != scope:patient }
+				scope:sponsor = {
+					send_interface_message = {
+						type = msg_cybersurgery_good
+						title = cotc_cybernetics_events.1020.msg.title
+						left_icon = scope:patient
+						right_icon = scope:target
+						desc = cotc_cybernetics_events.1020.msg.desc
+					}
+				}
+			}
+		}
+	}
+	option = { # Acknowledged
+		name = cotc_cybernetics_events.1020.a
+	}
+}
+cotc_cybernetics_events.1030 = { # There were complications
+	title = cotc_cybernetics_events.1000.title
+	desc = {
+		desc = cotc_cybernetics_events.1030.desc
+		first_valid = {
+			triggered_desc = {
+				trigger = { exists = scope:replaced_implant }
+				desc = cotc_cybernetics_events.1020.desc.replace
+			}
+			desc = cotc_cybernetics_events.1020.desc.new
+		}
+		first_valid = {
+			triggered_desc = {
+				trigger = { has_trait_rank = { trait = wounded rank = 3 } }
+				desc = cotc_cybernetics_events.1030.desc.wounded_3
+			}
+			triggered_desc = {
+				trigger = { has_trait_rank = { trait = wounded rank = 2 } }
+				desc = cotc_cybernetics_events.1030.desc.wounded_2
+			}
+			triggered_desc = {
+				trigger = { has_trait_rank = { trait = wounded rank = 1 } }
+				desc = cotc_cybernetics_events.1030.desc.wounded_1
+			}
+		}
+		triggered_desc = {
+			trigger = { can_punish_court_physician = { PHYSICIAN = scope:physician } }
+			desc = cotc_cybernetics_events.1030.desc.apologize
+		}
+	}
+	theme = healthcare
+	right_portrait = {
+		character = scope:patient
+		animation = severelywounded
+	}
+	left_portrait = {
+		character = scope:physician
+		animation = shame
+	}
+	lower_left_portrait = {
+		trigger = { scope:patient != scope:sponsor }
+		character = scope:sponsor
+	}
+	artifact = {
+		target = scope:target
+		position = lower_center_portrait
+	}
+	
+	immediate = {
+		physician_rank_up_tooltip_effect = yes
+		show_as_tooltip = { scope:target = { equip_artifact_to_owner_replace = yes } }
+		increase_wounds_no_death_effect = { REASON = treatment }
+		# Send interface messages to other involved characters
+		hidden_effect = {
+			scope:physician = {
+				send_interface_message = {
+					type = msg_cybersurgery_bad
+					title = cotc_cybernetics_events.1030.msg.title
+					left_icon = scope:patient
+					right_icon = scope:target
+					desc = cotc_cybernetics_events.1030.msg.desc
+				}
+			}
+			if = {
+				limit = { scope:sponsor != scope:patient }
+				scope:sponsor = {
+					send_interface_message = {
+						type = msg_cybersurgery_bad
+						title = cotc_cybernetics_events.1030.msg.title
+						left_icon = scope:patient
+						right_icon = scope:target
+						desc = cotc_cybernetics_events.1030.msg.desc
+					}
+				}
+			}
+		}
+	}
+	
+	option = { # Oof ouch owie
+		name = cotc_cybernetics_events.1030.a
+		if = {
+			limit = { can_punish_court_physician = { PHYSICIAN = scope:physician } }
+			positive_vengefulness_stress_gain_effect = { SCALE = 0.5 }
+		}
+		else_if = {
+			limit = { scope:sponsor = { can_punish_court_physician = { PHYSICIAN = scope:physician } } }
+			scope:sponsor = { trigger_event = cotc_cybernetics_events.1031 }
+		}
+		ai_will_select = {
+			value = 100
+			subtract = ai_vengefulness # Don't forgive people if we're vengeful
+			add = "opinion(scope:physician)" # Easily forgive people we like (and easily punish people we don't)
+			if = { # If we're smart, be more forgiving of honest mistakes
+				limit = { ai_rationality >= 0 }
+				add = {
+					value = scope:physician.learning
+					if = {
+						limit = { ai_rationality >= medium_positive_ai_value }
+						multiply = 4
+					}
+					else_if = {
+						limit = { ai_rationality >= low_positive_ai_value }
+						multiply = 3
+					}
+					else_if = {
+						limit = { ai_rationality >= very_low_positive_ai_value }
+						multiply = 2
+					}
+				}
+			}
+		}
+	}
+	
+	option = { # You're fired.
+		trigger = { court_position:court_physician_court_position ?= { this = scope:physician } }
+		name = cotc_cybernetics_events.1030.b
+		fire_specific_court_position_effect = { LIEGE = ROOT CHARACTER = scope:physician }
+		ai_will_select = { value = 100 }
+	}
+	
+	option = { # Imprison them!
+		trigger = { can_punish_court_physician = { PHYSICIAN = scope:physician } }
+		name = cotc_cybernetics_events.1030.c
+		imprison_physician_effect = yes
+		ai_will_select = {
+			value = 50
+			subtract = ai_compassion
+			subtract = {
+				value = ai_lawfulness
+				min = 0
+			}
+		}
+	}
+	
+	option = { # Execute them!
+		trigger = { can_punish_court_physician = { PHYSICIAN = scope:physician } }
+		name = cotc_cybernetics_events.1030.d
+		execute_physician_effect = yes
+		ai_will_select = {
+			value = 0
+			subtract = ai_compassion
+			subtract = {
+				value = ai_lawfulness
+				min = 0
+			}
+		}
+	}
+}
+cotc_cybernetics_events.1031 = { # There were complications in someone else's surgery
+	title = cotc_cybernetics_events.1000.title
+	desc = {
+		desc = cotc_cybernetics_events.1031.desc
+		first_valid = {
+			triggered_desc = {
+				trigger = { exists = scope:replaced_implant }
+				desc = cotc_cybernetics_events.1031.desc.replace
+			}
+			desc = cotc_cybernetics_events.1031.desc.new
+		}
+		first_valid = {
+			triggered_desc = {
+				trigger = { has_trait_rank = { trait = wounded rank = 3 } }
+				desc = cotc_cybernetics_events.1031.desc.wounded_3
+			}
+			triggered_desc = {
+				trigger = { has_trait_rank = { trait = wounded rank = 2 } }
+				desc = cotc_cybernetics_events.1031.desc.wounded_2
+			}
+			triggered_desc = {
+				trigger = { has_trait_rank = { trait = wounded rank = 1 } }
+				desc = cotc_cybernetics_events.1031.desc.wounded_1
+			}
+		}
+		triggered_desc = {
+			trigger = { can_punish_court_physician = { PHYSICIAN = scope:physician } }
+			desc = cotc_cybernetics_events.1030.desc.apologize
+		}
+	}
+	theme = healthcare
+	right_portrait = {
+		character = scope:patient
+		animation = severelywounded
+	}
+	left_portrait = {
+		character = scope:physician
+		animation = shame
+	}
+	lower_left_portrait = { character = scope:sponsor }
+	artifact = {
+		target = scope:target
+		position = lower_center_portrait
+	}
+	
+	immediate = {
+		physician_rank_up_tooltip_effect = yes
+		scope:patient = {
+			show_as_tooltip = {
+				scope:target = { equip_artifact_to_owner_replace = yes }
+				increase_wounds_no_death_effect = { REASON = treatment }
+			}
+		}
+	}
+	
+	option = { # Just let it go
+		name = cotc_cybernetics_events.1031.a
+		if = {
+			limit = {
+				opinion = { target = scope:patient value > 0 }
+				can_punish_court_physician = { PHYSICIAN = scope:physician }
+			}
+			positive_vengefulness_stress_gain_effect = { SCALE = 0.5 }
+		}
+		ai_will_select = {
+			value = 100
+			if = {
+				limit = { opinion = { target = scope:patient value > 0 } }
+				subtract = ai_vengefulness # Don't forgive people if we're vengeful
+			}
+			add = "opinion(scope:physician)" # Easily forgive people we like (and easily punish people we don't)
+			subtract = "opinion(scope:patient)"
+			if = { # If we're smart, be more forgiving of honest mistakes
+				limit = { ai_rationality >= 0 }
+				add = {
+					value = scope:physician.learning
+					if = {
+						limit = { ai_rationality >= medium_positive_ai_value }
+						multiply = 4
+					}
+					else_if = {
+						limit = { ai_rationality >= low_positive_ai_value }
+						multiply = 3
+					}
+					else_if = {
+						limit = { ai_rationality >= very_low_positive_ai_value }
+						multiply = 2
+					}
+				}
+			}
+		}
+	}
+	
+	option = { # You're fired.
+		trigger = { court_position:court_physician_court_position ?= { this = scope:physician } }
+		name = cotc_cybernetics_events.1030.b
+		fire_specific_court_position_effect = { LIEGE = ROOT CHARACTER = scope:physician }
+		ai_will_select = { value = 100 }
+	}
+	
+	option = { # Imprison them!
+		trigger = { can_punish_court_physician = { PHYSICIAN = scope:physician } }
+		name = cotc_cybernetics_events.1030.c
+		imprison_physician_effect = yes
+		ai_will_select = {
+			value = 50
+			subtract = ai_compassion
+			subtract = {
+				value = ai_lawfulness
+				min = 0
+			}
+		}
+	}
+	
+	option = { # Execute them!
+		trigger = { can_punish_court_physician = { PHYSICIAN = scope:physician } }
+		name = cotc_cybernetics_events.1030.d
+		execute_physician_effect = yes
+		ai_will_select = {
+			value = 0
+			subtract = ai_compassion
+			subtract = {
+				value = ai_lawfulness
+				min = 0
+			}
+		}
+	}
+}
+cotc_cybernetics_events.1040 = { # ded
+	title = cotc_cybernetics_events.1000.title
+	desc = {
+		desc = cotc_cybernetics_events.1040.desc
+		first_valid = {
+			triggered_desc = {
+				trigger = {
+					scope:target = { artifact_slot_type = neural_implant }
+					exists = scope:replaced_implant
+				}
+				desc = cotc_cybernetics_events.1040.desc.replace.brain_damage
+			}
+			triggered_desc = {
+				trigger = { exists = scope:replaced_implant }
+				desc = cotc_cybernetics_events.1040.desc.replace.organ_failure
+			}
+			triggered_desc = {
+				trigger = { scope:target = { artifact_slot_type = neural_implant } }
+				desc = cotc_cybernetics_events.1040.desc.new.brain_damage
+			}
+			desc = cotc_cybernetics_events.1040.desc.new.organ_failure
+		}
+	}
+	theme = healthcare
+	right_portrait = {
+		character = scope:patient
+		animation = dead
+	}
+	left_portrait = {
+		character = scope:physician
+		animation = shame
+	}
+	lower_left_portrait = {
+		trigger = { scope:patient != scope:sponsor }
+		character = scope:sponsor
+	}
+	artifact = {
+		target = scope:target
+		position = lower_center_portrait
+	}
+	
+	immediate = {
+		physician_rank_up_tooltip_effect = yes
+		if = { # Remember how much the sponsor liked the deceased
+			limit = { scope:patient != scope:sponsor }
+			scope:sponsor = { save_opinion_value_as = { name = opinion_of_deceased target = scope:patient } }
+		}
+		if = {
+			limit = { exists = scope:murder }
+			unknown_murder_effect = { VICTIM = scope:patient MURDERER = scope:physician REASON = death_complications_from_surgery }
+		}
+		else = { death = { killer = scope:physician death_reason = death_complications_from_surgery } }
+		# Send interface messages to other involved characters
+		hidden_effect = {
+			scope:physician = {
+				send_interface_message = {
+					type = msg_cybersurgery_bad
+					title = cotc_cybernetics_events.1040.msg.title
+					left_icon = scope:patient
+					right_icon = scope:physician
+					desc = cotc_cybernetics_events.1040.msg.desc
+				}
+			}
+			if = {
+				limit = { scope:sponsor != scope:patient }
+				scope:sponsor = { trigger_event = cotc_cybernetics_events.1041 }
+			}
+		}
+	}
+	
+	option = { name = cotc_cybernetics_events.1040.a }
+}
+cotc_cybernetics_events.1041 = { # Someone else died in a surgery you sponsored
+	title = cotc_cybernetics_events.1000.title
+	desc = {
+		desc = cotc_cybernetics_events.1041.desc
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:target = { artifact_slot_type = neural_implant } }
+				desc = cotc_cybernetics_events.1041.desc.brain_damage
+			}
+			desc = cotc_cybernetics_events.1041.desc.organ_failure
+		}
+		triggered_desc = {
+			trigger = { can_punish_court_physician = { PHYSICIAN = scope:physician } }
+			desc = cotc_cybernetics_events.1030.desc.apologize
+		}
+	}
+	theme = healthcare
+	right_portrait = {
+		character = scope:patient
+		animation = dead
+	}
+	left_portrait = {
+		character = scope:physician
+		animation = shame
+	}
+	lower_left_portrait = { character = scope:sponsor }
+	artifact = {
+		target = scope:target
+		position = lower_center_portrait
+	}
+	
+	immediate = {
+		physician_rank_up_tooltip_effect = yes
+		if = { # Remember how much the sponsor liked the deceased
+			limit = { scope:patient != scope:sponsor }
+			scope:sponsor = { save_opinion_value_as = { name = opinion_of_deceased target = scope:patient } }
+		}
+		scope:patient = { show_as_tooltip = { death = { killer = scope:physician death_reason = death_complications_from_surgery } } }
+	}
+	
+	option = { # Just let it go
+		name = cotc_cybernetics_events.1041.a
+		if = {
+			limit = {
+				scope:opinion_of_deceased > 0
+				can_punish_court_physician = { PHYSICIAN = scope:physician }
+			}
+			positive_vengefulness_stress_gain_effect = { SCALE = 0.5 }
+		}
+		ai_will_select = {
+			value = 100
+			if = {
+				limit = { scope:opinion_of_deceased > 0 }
+				subtract = ai_vengefulness # Don't forgive people if we're vengeful
+			}
+			add = {
+				value = "opinion(scope:physician)"
+				divide = 2
+			}
+			subtract = {
+				value = scope:opinion_of_deceased
+				multiply = 2
+			}
+			if = { # If we're smart, be more forgiving of honest mistakes
+				limit = { ai_rationality >= 0 }
+				add = {
+					value = scope:physician.learning
+					if = {
+						limit = { ai_rationality >= medium_positive_ai_value }
+						multiply = 4
+					}
+					else_if = {
+						limit = { ai_rationality >= low_positive_ai_value }
+						multiply = 3
+					}
+					else_if = {
+						limit = { ai_rationality >= very_low_positive_ai_value }
+						multiply = 2
+					}
+				}
+			}
+		}
+	}
+	
+	option = { # You're fired.
+		trigger = { court_position:court_physician_court_position ?= { this = scope:physician } }
+		name = cotc_cybernetics_events.1030.b
+		fire_specific_court_position_effect = { LIEGE = ROOT CHARACTER = scope:physician }
+		ai_will_select = { value = 100 }
+	}
+	
+	option = { # Imprison them!
+		trigger = { can_punish_court_physician = { PHYSICIAN = scope:physician } }
+		name = cotc_cybernetics_events.1030.c
+		imprison_physician_effect = yes
+		ai_will_select = {
+			value = 50
+			subtract = ai_compassion
+			subtract = {
+				value = ai_lawfulness
+				min = 0
+			}
+		}
+	}
+	
+	option = { # Execute them!
+		trigger = { can_punish_court_physician = { PHYSICIAN = scope:physician } }
+		name = cotc_cybernetics_events.1030.d
+		execute_physician_effect = yes
+		ai_will_select = {
+			value = 0
+			subtract = ai_compassion
+			subtract = {
+				value = ai_lawfulness
+				min = 0
+			}
+		}
+	}
+}
+cotc_cybernetics_events.1050 = { # Preliminary event - selecting an arm to replace
+	title = cotc_cybernetics_events.1000.title
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:patient = ROOT }
+				desc = cotc_cybernetics_events.1050.desc.self
+			}
+			desc = cotc_cybernetics_events.1050.desc.other
+		}
+	}
+	theme = healthcare
+	right_portrait = {
+		character = scope:patient
+		triggered_animation = {
+			trigger = { scope:patient = ROOT }
+			animation = thinking
+		}
+		animation = interested
+	}
+	left_portrait = {
+		trigger = { scope:patient != scope:sponsor }
+		character = scope:sponsor
+		triggered_animation = {
+			trigger = { scope:sponsor = ROOT }
+			animation = thinking
+		}
+		animation = interested_left
+	}
+	artifact = {
+		target = scope:arm_1
+		position = lower_left_portrait
+	}
+	artifact = {
+		target = scope:arm_2
+		position = lower_right_portrait
+	}
+	artifact = {
+		target = scope:target
+		position = lower_center_portrait
+	}
+	immediate = {
+		random_equipped_character_artifact = {
+			limit = { artifact_slot_type = artificial_arm }
+			save_scope_as = arm_1
+		}
+		random_equipped_character_artifact = {
+			limit = {
+				artifact_slot_type = artificial_arm
+				NOT = { this = scope:arm_1 }
+			}
+			save_scope_as = arm_2
+		}
+	}
+	option = { # Replace arm_1
+		name = cotc_cybernetics_events.1050.a
+		highlight_portrait = scope:arm_1
+		scope:arm_1 = {
+			custom_tooltip = {
+				text = WILL_BE_UNINSTALLED
+				save_scope_as = replaced_implant
+			}
+		}
+		ai_will_select = {
+			value = 0
+			scope:arm_1 = { save_temporary_scope_as = existing_implant }
+			scope:target = { save_temporary_scope_as = target_implant }
+			add = install_artificial_arm_score
+		}
+	}
+	option = { # Replace arm_2
+		name = cotc_cybernetics_events.1050.b
+		highlight_portrait = scope:arm_2
+		scope:arm_2 = {
+			custom_tooltip = {
+				text = WILL_BE_UNINSTALLED
+				save_scope_as = replaced_implant
+			}
+		}
+		ai_will_select = {
+			value = 0
+			scope:arm_2 = { save_temporary_scope_as = existing_implant }
+			scope:target = { save_temporary_scope_as = target_implant }
+			add = install_artificial_arm_score
+		}
+	}
+	after = { scope:physician = { trigger_event = cotc_cybernetics_events.1000 } }
+}
+cotc_cybernetics_events.1051 = { # Preliminary event - selecting a leg to replace
+	title = cotc_cybernetics_events.1000.title
+	desc = {
+		first_valid = {
+			triggered_desc = {
+				trigger = { scope:patient = ROOT }
+				desc = cotc_cybernetics_events.1051.desc.self
+			}
+			desc = cotc_cybernetics_events.1051.desc.other
+		}
+	}
+	theme = healthcare
+	right_portrait = {
+		character = scope:patient
+		triggered_animation = {
+			trigger = { scope:patient = ROOT }
+			animation = thinking
+		}
+		animation = interested
+	}
+	left_portrait = {
+		trigger = { scope:patient != scope:sponsor }
+		character = scope:sponsor
+		triggered_animation = {
+			trigger = { scope:sponsor = ROOT }
+			animation = thinking
+		}
+		animation = interested_left
+	}
+	artifact = {
+		target = scope:leg_1
+		position = lower_left_portrait
+	}
+	artifact = {
+		target = scope:leg_2
+		position = lower_right_portrait
+	}
+	artifact = {
+		target = scope:target
+		position = lower_center_portrait
+	}
+	immediate = {
+		random_equipped_character_artifact = {
+			limit = { artifact_slot_type = artificial_leg }
+			save_scope_as = leg_1
+		}
+		random_equipped_character_artifact = {
+			limit = {
+				artifact_slot_type = artificial_leg
+				NOT = { this = scope:leg_1 }
+			}
+			save_scope_as = leg_2
+		}
+	}
+	option = { # Replace leg_1
+		nlege = cotc_cybernetics_events.1051.a
+		highlight_portrait = scope:leg_1
+		scope:leg_1 = {
+			custom_tooltip = {
+				text = WILL_BE_UNINSTALLED
+				save_scope_as = replaced_implant
+			}
+		}
+		ai_will_select = {
+			value = 0
+			scope:leg_1 = { save_temporary_scope_as = existing_implant }
+			scope:target = { save_temporary_scope_as = target_implant }
+			add = install_artificial_leg_score
+		}
+	}
+	option = { # Replace leg_2
+		nlege = cotc_cybernetics_events.1051.b
+		highlight_portrait = scope:leg_2
+		scope:leg_2 = {
+			custom_tooltip = {
+				text = WILL_BE_UNINSTALLED
+				save_scope_as = replaced_implant
+			}
+		}
+		ai_will_select = {
+			value = 0
+			scope:leg_2 = { save_temporary_scope_as = existing_implant }
+			scope:target = { save_temporary_scope_as = target_implant }
+			add = install_artificial_leg_score
+		}
+	}
+	after = { scope:physician = { trigger_event = cotc_cybernetics_events.1000 } }
+}

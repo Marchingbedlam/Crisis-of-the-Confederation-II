@@ -1,4 +1,181 @@
-﻿### IMPLANT COSTS
+﻿### IMPLANT INSTALLATION DESIRABILITY
+install_target_implant_score = {
+	# Do we have an existing implant to compare it to?
+	if = {
+		limit = { scope:replace = yes }
+		every_equipped_character_artifact = {
+			limit = { artifact_slot_type = scope:target_implant.artifact_slot_type }
+			save_temporary_scope_as = existing_implant
+			min = install_target_implant_by_type_score
+		}
+	}
+	else = { add = install_target_implant_by_type_score }
+}
+install_target_implant_by_type_score = {
+	# Type-specific scores
+	if = {
+		limit = { scope:target_implant.artifact_type = neural_implant }
+		add = install_neural_implant_score
+	}
+	else_if = {
+		limit = { scope:target_implant.artifact_type = dermal_implant }
+		add = install_dermal_implant_score
+	}
+	else_if = {
+		limit = { scope:target_implant.artifact_type = internal_implant }
+		add = install_internal_implant_score
+	}
+	else_if = {
+		limit = { scope:target_implant.artifact_type = monocular_implant }
+		add = install_monocular_implant_score
+	}
+	else_if = {
+		limit = { scope:target_implant.artifact_type = binocular_implant }
+		add = install_binocular_implant_score
+	}
+	else_if = {
+		limit = { scope:target_implant.artifact_type = artificial_arm }
+		add = install_artificial_arm_score
+	}
+	else_if = {
+		limit = { scope:target_implant.artifact_type = artificial_leg }
+		add = install_artificial_leg_score
+	}
+}
+install_neural_implant_score = {
+	add = {
+		scope:target_implant = { add = dni_diplomacy_bonus }
+		scope:existing_implant ?= { subtract = dni_diplomacy_bonus }
+		if = {
+			limit = { has_variable = target_diplomacy }
+			multiply = {
+				add = var:target_diplomacy
+				subtract = 12
+				min = 0
+			}
+		}
+	}
+	add = {
+		scope:target_implant = { add = dni_martial_bonus }
+		scope:existing_implant ?= { subtract = dni_martial_bonus }
+		if = {
+			limit = { has_variable = target_martial }
+			multiply = {
+				add = var:target_martial
+				subtract = 12
+				min = 0
+			}
+		}
+	}
+	add = {
+		scope:target_implant = { add = dni_stewardship_bonus }
+		scope:existing_implant ?= { subtract = dni_stewardship_bonus }
+		if = {
+			limit = { has_variable = target_stewardship }
+			multiply = {
+				add = var:target_stewardship
+				subtract = 12
+				min = 0
+			}
+		}
+	}
+	add = {
+		scope:target_implant = { add = dni_intrigue_bonus }
+		scope:existing_implant ?= { subtract = dni_intrigue_bonus }
+		if = {
+			limit = { has_variable = target_intrigue }
+			multiply = {
+				add = var:target_intrigue
+				subtract = 12
+				min = 0
+			}
+		}
+	}
+	add = {
+		scope:target_implant = { add = dni_learning_bonus }
+		scope:existing_implant ?= { subtract = dni_learning_bonus }
+		if = {
+			limit = { has_variable = target_learning }
+			multiply = {
+				add = var:target_learning
+				subtract = 12
+				min = 0
+			}
+		}
+	}
+	add = {
+		scope:target_implant = { add = dni_piloting_bonus }
+		scope:existing_implant ?= { subtract = dni_piloting_bonus }
+		if = {
+			limit = { has_variable = target_piloting }
+			multiply = {
+				add = var:target_piloting
+				subtract = 12
+				min = 0
+			}
+		}
+	}
+	add = {
+		scope:target_implant = { add = dni_personal_prowess_bonus }
+		scope:existing_implant ?= { subtract = dni_personal_prowess_bonus }
+		if = {
+			limit = { has_variable = target_personal_prowess }
+			multiply = {
+				add = var:target_personal_prowess
+				subtract = 12
+				min = 0
+			}
+		}
+	}
+	if = {
+		limit = { has_trait = datajacked }
+		multiply = 2
+	}
+}
+install_dermal_implant_score = {
+	if = { # We just want any dermal implant at all
+		limit  = { NOT = { exists = scope:existing_implant } }
+		add = dermal_implant_self_score
+		multiply = 10
+	}
+}
+install_internal_implant_score = {
+	if = { # We just want any internal implant at all
+		limit  = { NOT = { exists = scope:existing_implant } }
+		add = internal_implant_self_score
+		multiply = 10
+	}
+}
+install_monocular_implant_score = {
+	if = { # We just want any monocular implant at all
+		limit  = { NOT = { exists = scope:existing_implant } }
+		add = monocular_implant_self_score
+		multiply = 10
+	}
+}
+install_binocular_implant_score = {
+	if = { # We just want any binocular implant at all
+		limit  = { NOT = { exists = scope:existing_implant } }
+		add = binocular_implant_self_score
+		multiply = 10
+	}
+}
+install_artificial_arm_score = {
+	if = { # We just want any artificial arm at all
+		limit  = { NOT = { exists = scope:existing_implant } }
+		add = artificial_arm_self_score
+		multiply = 10
+	}
+}
+install_artificial_leg_score = {
+	if = { # We just want any artificial leg at all
+		limit  = { NOT = { exists = scope:existing_implant } }
+		add = artificial_leg_self_score
+		multiply = 10
+	}
+}
+
+### IMPLANT COSTS
 minimum_implant_gold_cost = {
 	value = 1000
 	if = {
@@ -92,11 +269,12 @@ neural_implant_other_score = {
 	}
 }
 dermal_implant_self_score = {
-	if = {
+	# Reasons to want a dermal implant
+	if = { # Our face is pretty screwed up
 		limit = { has_trait = disfigured }
 		add = 5
 	}
-	if = {
+	if = { # We have a skin disease and the implant would help
 		limit = { any_character_trait = { has_trait_flag = skin_disease } }
 		add = {
 			value = 10
@@ -104,10 +282,11 @@ dermal_implant_self_score = {
 			min = 0
 		}
 	}
-	if = {
+	if = { # We just think implants are cool
 		limit = { has_personal_tenet_flag = wants_implants }
 		add = 5
 	}
+	# Ideological factors
 	if = {
 		limit = { ai_zeal >= 0 }
 		switch = {
@@ -144,22 +323,25 @@ dermal_implant_other_score = {
 	}
 }
 internal_implant_self_score = {
-	if = {
+	# Reasons to want an internal implant
+	if = { # We will literally die without one
 		limit = { has_trait = implant_dependent }
 		add = 1000
 	}
-	if = {
+	if = { # We will PROBABLY die without one
 		limit = { any_character_trait = { has_trait_flag = organic_disease } }
 		add = {
-			value = 5
+			value = 3
 			subtract = health
 			min = 0
+			multiply = 5
 		}
 	}
-	if = {
+	if = { # We crave the strength and certainty of steel
 		limit = { has_personal_tenet_flag = wants_implants }
 		add = 5
 	}
+	# Ideological factors
 	if = {
 		limit = { ai_zeal >= 0 }
 		switch = {
@@ -196,14 +378,16 @@ internal_implant_other_score = {
 	}
 }
 monocular_implant_self_score = {
-	if = {
+	# Reasons to want a monocular implant
+	if = { # We are missing an eye
 		limit = { has_trait = one_eyed }
 		add = 10
 	}
-	if = {
+	if = { # Robot eyes are cool
 		limit = { has_personal_tenet_flag = wants_implants }
 		add = 5
 	}
+	# Ideological factors
 	if = {
 		limit = { ai_zeal >= 0 }
 		switch = {
@@ -216,6 +400,7 @@ monocular_implant_self_score = {
 		limit = { has_personal_tenet_flag = abstains_from_cybernetics }
 		multiply = 0
 	}
+	# We would prefer a binocular implant
 	if = {
 		limit = { has_trait = blind }
 		multiply = 0
@@ -244,14 +429,16 @@ monocular_implant_other_score = {
 	}
 }
 binocular_implant_self_score = {
-	if = {
+	# Reasons to want a binocular implant
+	if = { # So we can see
 		limit = { has_trait = blind }
 		add = 10
 	}
-	if = {
+	if = { # Robot eyes are cool
 		limit = { has_personal_tenet_flag = wants_implants }
 		add = 10
 	}
+	# Ideological factors
 	if = {
 		limit = { ai_zeal >= 0 }
 		switch = {
@@ -288,18 +475,20 @@ binocular_implant_other_score = {
 	}
 }
 artificial_arm_self_score = {
-	if = {
+	# Reasons to want an artificial arm
+	if = { # We only have one arm
 		limit = { num_of_arms = 1 }
 		add = 10
 	}
-	else_if = {
+	else_if = { # We have no arms at all
 		limit = { num_of_arms = 0 }
 		add = 20
 	}
-	if = {
+	if = { # We crave the strength and certainty of steel
 		limit = { has_personal_tenet_flag = wants_implants }
 		add = 10
 	}
+	# Ideological factors
 	if = {
 		limit = { ai_zeal >= 0 }
 		switch = {
@@ -336,18 +525,20 @@ artificial_arm_other_score = {
 	}
 }
 artificial_leg_self_score = {
-	if = {
+	# Reasons to want an artificial leg
+	if = { # We only have one leg
 		limit = { num_of_legs = 1 }
 		add = 10
 	}
-	else_if = {
+	else_if = { # We have no legs at all
 		limit = { num_of_legs = 0 }
 		add = 20
 	}
-	if = {
+	if = { # We crave the strength and certainty of steel
 		limit = { has_personal_tenet_flag = wants_implants }
 		add = 10
 	}
+	# Ideological factors
 	if = {
 		limit = { ai_zeal >= 0 }
 		switch = {
@@ -387,7 +578,6 @@ artificial_leg_other_score = {
 ### DNI UPGRADES
 dni_port_cost = { value = 25 }
 dni_wifi_cost = { value = 50 }
-
 # Costs for each DNI upgrade
 iaei_mk_i_cost = {
 	value = 50
@@ -499,6 +689,28 @@ thoth_mk_iv_cost = {
 	value = thoth_mk_iii_cost
 	add = 50
 }
+neurolink_mk_i_cost = {
+	value = 50
+	add = {
+		value = 25
+		multiply = {
+			value = 4
+			subtract = character_neurolink_tech
+		}
+	}
+}
+neurolink_mk_ii_cost = {
+	value = neurolink_mk_i_cost
+	add = 50
+}
+neurolink_mk_iii_cost = {
+	value = neurolink_mk_ii_cost
+	add = 50
+}
+neurolink_mk_iv_cost = {
+	value = neurolink_mk_iii_cost
+	add = 50
+}
 amam_mk_i_cost = {
 	value = 50
 	add = {
@@ -520,6 +732,133 @@ amam_mk_iii_cost = {
 amam_mk_iv_cost = {
 	value = amam_mk_iii_cost
 	add = 50
+}
+# Level of upgrades on a particular DNI
+dni_diplomacy_bonus = {
+	if = {
+		limit = { has_artifact_modifier = iaei_mk_i }
+		add = 2
+	}
+	else_if = {
+		limit = { has_artifact_modifier = iaei_mk_ii }
+		add = 4
+	}
+	else_if = {
+		limit = { has_artifact_modifier = iaei_mk_iii }
+		add = 6
+	}
+	else_if = {
+		limit = { has_artifact_modifier = iaei_mk_iv }
+		add = 8
+	}
+}
+dni_martial_bonus = {
+	if = {
+		limit = { has_artifact_modifier = taccomp_mk_i }
+		add = 2
+	}
+	else_if = {
+		limit = { has_artifact_modifier = taccomp_mk_ii }
+		add = 4
+	}
+	else_if = {
+		limit = { has_artifact_modifier = taccomp_mk_iii }
+		add = 6
+	}
+	else_if = {
+		limit = { has_artifact_modifier = taccomp_mk_iv }
+		add = 8
+	}
+}
+dni_stewardship_bonus = {
+	if = {
+		limit = { has_artifact_modifier = pci_mk_i }
+		add = 2
+	}
+	else_if = {
+		limit = { has_artifact_modifier = pci_mk_ii }
+		add = 4
+	}
+	else_if = {
+		limit = { has_artifact_modifier = pci_mk_iii }
+		add = 6
+	}
+	else_if = {
+		limit = { has_artifact_modifier = pci_mk_iv }
+		add = 8
+	}
+}
+dni_intrigue_bonus = {
+	if = {
+		limit = { has_artifact_modifier = pluto_mk_i }
+		add = 2
+	}
+	else_if = {
+		limit = { has_artifact_modifier = pluto_mk_ii }
+		add = 4
+	}
+	else_if = {
+		limit = { has_artifact_modifier = pluto_mk_iii }
+		add = 6
+	}
+	else_if = {
+		limit = { has_artifact_modifier = pluto_mk_iv }
+		add = 8
+	}
+}
+dni_learning_bonus = {
+	if = {
+		limit = { has_artifact_modifier = thoth_mk_i }
+		add = 2
+	}
+	else_if = {
+		limit = { has_artifact_modifier = thoth_mk_ii }
+		add = 4
+	}
+	else_if = {
+		limit = { has_artifact_modifier = thoth_mk_iii }
+		add = 6
+	}
+	else_if = {
+		limit = { has_artifact_modifier = thoth_mk_iv }
+		add = 8
+	}
+}
+dni_piloting_bonus = {
+	if = {
+		limit = { has_artifact_modifier = neurolink_mk_i }
+		add = 2
+	}
+	else_if = {
+		limit = { has_artifact_modifier = neurolink_mk_ii }
+		add = 4
+	}
+	else_if = {
+		limit = { has_artifact_modifier = neurolink_mk_iii }
+		add = 6
+	}
+	else_if = {
+		limit = { has_artifact_modifier = neurolink_mk_iv }
+		add = 8
+	}
+}
+dni_personal_prowess_bonus = {
+	if = {
+		limit = { has_artifact_modifier = amam_mk_i }
+		add = 2
+	}
+	else_if = {
+		limit = { has_artifact_modifier = amam_mk_ii }
+		add = 4
+	}
+	else_if = {
+		limit = { has_artifact_modifier = amam_mk_iii }
+		add = 6
+	}
+	else_if = {
+		limit = { has_artifact_modifier = amam_mk_iv }
+		add = 8
+	}
 }
 
 # Tech levels

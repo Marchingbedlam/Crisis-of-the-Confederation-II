@@ -1,4 +1,5 @@
-﻿create_standard_implant_effect = { # Creates a factory standard mass-produced implant with (at first) no special modifiers
+﻿### CREATING AND MODIFYING IMPLANTS ###
+create_standard_implant_effect = { # Creates a factory standard mass-produced implant with (at first) no special modifiers
 	create_artifact = {
 		name = standard_$TYPE$_name
 		description = standard_$TYPE$_desc
@@ -47,8 +48,105 @@ upgrade_dni_effect = {
 		set_artifact_description = custom_neural_implant_desc
 	}
 }
+
+### INSTALLING IMPLANTS ###
+cybersurgery_effect = {
+	# Physician skill up
+	$SURGEON$ = {
+		if = {
+			limit = {
+				NAND = {
+					has_trait = lifestyle_physician
+					has_trait_xp = { trait = lifestyle_physician value >= 100 }
+				}
+			}
+			physician_level_up_chance_effect = { CHANCE = 10 }
+		}
+	}
+	if = { # Remove the existing implant, if necessary
+		limit = { exists = scope:replaced_implant }
+		scope:replaced_implant = { unequip_artifact_from_owner = yes }
+	}
+	$PATIENT$ = { install_implant_effect = { IMPLANT = $IMPLANT$ } } # The installation itself always succeeds...
+	$SURGEON$ = { # ...but there may be complications
+		duel = {
+			skill = learning
+			value = {
+				$IMPLANT$ = {
+					if = { # DNIs are literally brain surgery
+						limit = { artifact_slot_type = neural_implant }
+						add = decent_skill_rating
+					}
+					else_if = { # Limbs are relatively simple
+						limit = {
+							OR = {
+								artifact_slot_type = artificial_arm
+								artifact_slot_type = artificial_leg
+							}
+						}
+						add = mediocre_skill_rating
+					}
+					else = { add = medium_skill_rating } # Everything else is in-between
+				}
+			}
+			20 = { # No complications!
+				compare_modifier = {
+					value = scope:duel_value
+					multiplier = 3.5
+					min = 5
+				}
+				modifier = {
+					has_trait = lifestyle_physician
+					factor = 2
+				}
+				modifier = {
+					has_trait = lifestyle_physician
+					has_trait_xp = { trait = lifestyle_physician value >= 50 }
+					factor = 2
+				}
+				modifier = {
+					has_trait = lifestyle_physician
+					has_trait_xp = { trait = lifestyle_physician value >= 100 }
+					factor = 4
+				}
+				desc = cybersurgery_no_complications
+				$PATIENT$ = { trigger_event = cotc_cybernetics_events.1020 }
+			}
+			10 = { # Wounded
+				compare_modifier = {
+					value = scope:duel_value
+					multiply = -3.5
+					min = 5
+				}
+				modifier = { # We're already maximally wounded
+					$PATIENT$ = { has_trait_rank = { trait = wounded rank >= 3 } }
+					factor = 0
+				}
+				desc = cybersurgery_wounded
+				$PATIENT$ = { trigger_event = cotc_cybernetics_events.1030 }
+			}
+			5 = { # Killed
+				compare_modifier = {
+					value = scope:duel_value
+					multiply = -3.5
+					min = 1
+				}
+				modifier = { # We are not at risk of dying from this operation
+					$IMPLANT$ = {
+						NOT = { artifact_slot_type = neural_implant }
+						NOT = { artifact_slot_type = internal_implant }
+					}
+					factor = 0
+				}
+				desc = cybersurgery_killed
+				$PATIENT$ = { trigger_event = cotc_cybernetics_events.1040 }
+			}
+		}
+	}
+}
 install_implant_effect = {
 	save_temporary_scope_as = temp_patient
+	add_character_flag = undergoing_cybersurgery
 	$IMPLANT$ = {
 		switch = {
 			trigger = artifact_type
@@ -109,8 +207,9 @@ install_implant_effect = {
 				}
 			}
 		}
+		equip_artifact_to_owner_replace = yes
 	}
-	equip_artifact_to_owner_replace = $IMPLANT$
+	remove_character_flag = undergoing_cybersurgery
 }
 select_random_implant_giftee = {
 	if = {
