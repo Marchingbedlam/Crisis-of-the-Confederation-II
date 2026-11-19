@@ -2,38 +2,41 @@
 	can_get_government = {
 		highest_held_title_tier >= tier_duchy # Federations need to be a higher tier than their member-states!
 	}
-	government_rules = {
-		state_faith = yes
-		create_cadet_branches = yes
-		noble_families = yes
-		house_aspirations = yes
-		use_as_base_on_rank_up = yes
-		disable_regnal_numbers = yes
-	}
-	
 	mechanic_type = administrative
+	
+	government_rules = {
+		rulers_should_have_dynasty = yes
+		legitimacy = yes
+		use_as_base_on_rank_up = yes
+		state_faith = yes
+		disable_regnal_numbers = yes
+		allow_accolades = yes
+	}
 	
 	primary_holding = church_holding
 	valid_holdings = { city_holding temple_citadel_holding }
 	required_county_holdings = { castle_holding city_holding church_holding }
-	
-	royal_court = any
+	build_queue_reserve_categories = { gold }
 	
 	vassal_contract_group = feudal_vassal
 	
-	domicile_type = estate
+	royal_court = any
+	
+	main_administrative_tier = county
+	min_appointment_tier = county
+	minimum_provincial_maa_tier = county
+	title_maa_setup = vassals_and_top_liege
 	
 	character_modifier = {
+		# This is not a real administrative government type
+		men_at_arms_title_cap = -10000
+		
 		# City Penalties
 		city_holding_build_speed = -0.5
 		city_holding_build_gold_cost = 0.5
 		city_holding_build_piety_cost = 0.5
 		city_holding_build_prestige_cost = 0.5
 	}
-	
-	color = hsv{ 0.5 0.5 0.4 }
-	realm_mask_offset = { 0.0 0.09 }
-	realm_mask_scale = { 0.95 0.95 }
 	
 	flags = {
 		# COTC Government Mechanics
@@ -43,45 +46,59 @@
 		government_is_despotic
 		
 		# Vanilla Government Mechanics
-		government_is_republic
+		government_is_feudal
 		government_is_settled
-		government_has_powerful_families
-		government_has_county_tier_noble_families
-		government_uses_domicile_but_not_adventurer
+		government_is_settled_non_tribal
+		may_elevate_co_monarch
+		government_uses_crown_authority
 		government_uses_domain_limit
+		government_uses_legitimacy
+		government_uses_royal_court
+		distribution_trade_routes = yes
 	}
+	
+	color = hsv{ 0.85 0.5 0.4 }
+	realm_mask_offset = { 0.0 0.09 }
+	realm_mask_scale = { 0.95 0.95 }
 }
 dictatorial_federal_technocratic_government = {
 	can_get_government = {
 		highest_held_title_tier >= tier_duchy # Federations need to be a higher tier than their member-states!
 	}
+	mechanic_type = administrative
+	
 	government_rules = {
+		rulers_should_have_dynasty = yes
+		legitimacy = yes
+		use_as_base_on_rank_up = yes
 		state_faith = yes
-		create_cadet_branches = yes
 		landless_playable = yes
 		treasury = yes
+		treasury_vassal_development = yes
 		sticky_government = yes
 		noble_families = yes
 		house_aspirations = yes
 		replace_gold_cost_by_treasury = yes
-		use_as_base_on_rank_up = yes
 		disable_regnal_numbers = yes
+		allow_accolades = yes
 	}
 	
-	mechanic_type = administrative
+	house_power = { value = administrative_house_power_score }
+	domicile_type = estate
 	
 	primary_holding = church_holding
 	valid_holdings = { city_holding temple_citadel_holding }
 	required_county_holdings = { castle_holding city_holding church_holding }
-	
-	royal_court = any
+	build_queue_reserve_categories = { gold treasury }
 	
 	vassal_contract_group = technocratic_province
 	
-	domicile_type = estate
+	royal_court = any
+	
 	main_administrative_tier = county
 	min_appointment_tier = county
 	minimum_provincial_maa_tier = county
+	title_maa_setup = vassals_and_top_liege
 	
 	character_modifier = {
 		levy_size = -0.5
@@ -112,65 +129,79 @@ dictatorial_federal_technocratic_government = {
 		men_at_arms_recruitment_cost = 1
 	}
 	
-	color = hsv{ 0.5 0.5 0.6 }
-	realm_mask_offset = { 0.0 0.09 }
-	realm_mask_scale = { 0.95 0.95 }
-	
 	flags = {
 		# COTC Government Mechanics
 		government_is_state
 		government_is_technocratic
 		government_is_federal
 		government_is_dictatorial
+		government_uses_state_capacity
 		
 		# Vanilla Government Mechanics
-		government_is_republic
-		government_is_settled
+		government_is_administrative
 		government_has_influence
 		government_has_treasury
-		government_has_title_men_at_arms
 		government_has_powerful_families
 		government_has_county_tier_noble_families
+		government_uses_administrative_house_aspirations
+		government_has_provincial_law
+		government_has_estate
+		government_has_title_men_at_arms
 		government_is_settled
+		government_is_settled_non_tribal
+		may_elevate_co_monarch
 		government_uses_domicile_but_not_adventurer
 		government_uses_domain_limit
-		government_uses_admin_province_obligations
+		government_uses_legitimacy
+		government_uses_royal_court
 		government_uses_salary_budget
 		government_uses_military_budget
 		government_uses_ministry_budget
 	}
+	
+	color = hsv{ 0.85 0.5 0.6 }
+	realm_mask_offset = { 0.0 0.09 }
+	realm_mask_scale = { 0.95 0.95 }
 }
 presidential_federal_technocratic_government = {
 	can_get_government = {
 		highest_held_title_tier >= tier_duchy # Federations need to be a higher tier than their member-states!
 	}
+	mechanic_type = republic
+	
 	government_rules = {
+		rulers_should_have_dynasty = yes
+		legitimacy = yes
+		use_as_base_on_rank_up = yes
 		state_faith = yes
-		create_cadet_branches = yes
 		landless_playable = yes
 		treasury = yes
+		treasury_vassal_development = yes
 		sticky_government = yes
 		noble_families = yes
 		house_aspirations = yes
 		replace_gold_cost_by_treasury = yes
-		use_as_base_on_rank_up = yes
 		disable_regnal_numbers = yes
+		uses_assembly = yes
+		allow_accolades = yes
 	}
 	
-	mechanic_type = administrative
+	house_power = { value = administrative_house_power_score }
+	domicile_type = estate
 	
 	primary_holding = church_holding
 	valid_holdings = { city_holding temple_citadel_holding }
 	required_county_holdings = { castle_holding city_holding church_holding }
-	
-	royal_court = none
+	build_queue_reserve_categories = { gold treasury }
 	
 	vassal_contract_group = technocratic_province
 	
-	domicile_type = estate
+	royal_court = none
+	
 	main_administrative_tier = county
 	min_appointment_tier = county
 	minimum_provincial_maa_tier = county
+	title_maa_setup = vassals_and_top_liege
 	
 	character_modifier = {
 		levy_size = -0.5
@@ -193,8 +224,8 @@ presidential_federal_technocratic_government = {
 		city_holding_build_piety_cost = 0.5
 		city_holding_build_prestige_cost = 0.5
 		
-		# Member-states like autonomy!
-		tributary_opinion = 25
+		# People like democracy!
+		county_opinion_add = 10
 	}
 
 	top_liege_character_modifier = {
@@ -204,66 +235,82 @@ presidential_federal_technocratic_government = {
 		men_at_arms_recruitment_cost = 1
 	}
 	
-	color = hsv{ 0.5 0.5 0.8 }
-	realm_mask_offset = { 0.0 0.09 }
-	realm_mask_scale = { 0.95 0.95 }
-	
 	flags = {
 		# COTC Government Mechanics
 		government_is_state
 		government_is_technocratic
 		government_is_federal
 		government_is_presidential
-		government_has_legislature
+		government_uses_state_capacity
+		#government_has_legislature
 		
 		# Vanilla Government Mechanics
 		government_is_republic
-		government_is_settled
+		government_is_administrative
 		government_has_influence
 		government_has_treasury
-		government_has_title_men_at_arms
 		government_has_powerful_families
 		government_has_county_tier_noble_families
+		government_uses_administrative_house_aspirations
+		government_has_provincial_law
+		government_has_estate
+		government_has_title_men_at_arms
 		government_is_settled
+		government_is_settled_non_tribal
+		may_elevate_co_monarch
 		government_uses_domicile_but_not_adventurer
 		government_uses_domain_limit
-		government_uses_admin_province_obligations
+		government_uses_legitimacy
+		government_uses_royal_court
 		government_uses_salary_budget
 		government_uses_military_budget
 		government_uses_ministry_budget
+		government_has_assembly
 	}
+	
+	color = hsv{ 0.85 0.5 0.8 }
+	realm_mask_offset = { 0.0 0.09 }
+	realm_mask_scale = { 0.95 0.95 }
 }
 parliamentary_federal_technocratic_government = {
 	can_get_government = {
 		highest_held_title_tier >= tier_duchy # Federations need to be a higher tier than their member-states!
 	}
+	mechanic_type = republic
+	
 	government_rules = {
+		rulers_should_have_dynasty = yes
+		legitimacy = yes
+		use_as_base_on_rank_up = yes
 		state_faith = yes
-		create_cadet_branches = yes
 		landless_playable = yes
 		treasury = yes
+		treasury_vassal_development = yes
 		sticky_government = yes
 		noble_families = yes
 		house_aspirations = yes
 		replace_gold_cost_by_treasury = yes
-		use_as_base_on_rank_up = yes
 		disable_regnal_numbers = yes
+		uses_assembly = yes
+		allow_accolades = yes
 	}
 	
-	mechanic_type = administrative
+	house_power = { value = administrative_house_power_score }
+	domicile_type = estate
 	
 	primary_holding = church_holding
 	valid_holdings = { city_holding temple_citadel_holding }
 	required_county_holdings = { castle_holding city_holding church_holding }
-	
-	royal_court = none
+	build_queue_reserve_categories = { gold treasury }
 	
 	vassal_contract_group = technocratic_province
 	
-	domicile_type = estate
+	royal_court = none
+	
 	main_administrative_tier = county
 	min_appointment_tier = county
 	minimum_provincial_maa_tier = county
+	title_maa_setup = vassals_and_top_liege
 	
 	character_modifier = {
 		levy_size = -0.5
@@ -285,6 +332,9 @@ parliamentary_federal_technocratic_government = {
 		city_holding_build_gold_cost = 0.5
 		city_holding_build_piety_cost = 0.5
 		city_holding_build_prestige_cost = 0.5
+		
+		# People like democracy!
+		county_opinion_add = 25
 	}
 
 	top_liege_character_modifier = {
@@ -293,10 +343,6 @@ parliamentary_federal_technocratic_government = {
 		men_at_arms_maintenance = 1.5
 		men_at_arms_recruitment_cost = 1
 	}
-	
-	color = hsv{ 0.5 0.5 1 }
-	realm_mask_offset = { 0.0 0.09 }
-	realm_mask_scale = { 0.95 0.95 }
 	
 	flags = {
 		# COTC Government Mechanics
@@ -304,59 +350,72 @@ parliamentary_federal_technocratic_government = {
 		government_is_technocratic
 		government_is_federal
 		government_is_parliamentary
-		government_has_legislature
+		government_uses_state_capacity
+		#government_has_legislature
 		
 		# Vanilla Government Mechanics
 		government_is_republic
-		government_is_settled
+		government_is_administrative
 		government_has_influence
 		government_has_treasury
-		government_has_title_men_at_arms
 		government_has_powerful_families
 		government_has_county_tier_noble_families
+		government_uses_administrative_house_aspirations
+		government_has_provincial_law
+		government_has_estate
+		government_has_title_men_at_arms
 		government_is_settled
+		government_is_settled_non_tribal
+		may_elevate_co_monarch
 		government_uses_domicile_but_not_adventurer
 		government_uses_domain_limit
-		government_uses_admin_province_obligations
+		government_uses_legitimacy
+		government_uses_royal_court
 		government_uses_salary_budget
 		government_uses_military_budget
 		government_uses_ministry_budget
+		government_has_assembly
 	}
+	
+	color = hsv{ 0.85 0.5 1 }
+	realm_mask_offset = { 0.0 0.09 }
+	realm_mask_scale = { 0.95 0.95 }
 }
 despotic_democratic_technocratic_government = {
-	government_rules = {
-		state_faith = yes
-		create_cadet_branches = yes
-		noble_families = yes
-		house_aspirations = yes
-		disable_regnal_numbers = yes
-	}
 	mechanic_type = administrative
+	
+	government_rules = {
+		rulers_should_have_dynasty = yes
+		legitimacy = yes
+		state_faith = yes
+		disable_regnal_numbers = yes
+		allow_accolades = yes
+	}
 	
 	primary_holding = church_holding
 	valid_holdings = { city_holding temple_citadel_holding }
 	required_county_holdings = { castle_holding city_holding church_holding }
-	
-	royal_court = any
+	build_queue_reserve_categories = { gold }
 	
 	vassal_contract_group = feudal_vassal
 	
-	domicile_type = estate
+	royal_court = any
+	
+	main_administrative_tier = county
+	min_appointment_tier = county
+	minimum_provincial_maa_tier = county
+	title_maa_setup = vassals_and_top_liege
 	
 	character_modifier = {
+		# This is not a real administrative government type
+		men_at_arms_title_cap = -10000
+		
 		# City Penalties
 		city_holding_build_speed = -0.5
 		city_holding_build_gold_cost = 0.5
 		city_holding_build_piety_cost = 0.5
 		city_holding_build_prestige_cost = 0.5
-		
-		# People like democracy!
-		county_opinion_add = 10
 	}
-	
-	color = hsv{ 0.5 1 0.4 }
-	realm_mask_offset = { 0.0 0.09 }
-	realm_mask_scale = { 0.95 0.95 }
 	
 	flags = {
 		# COTC Government Mechanics
@@ -366,41 +425,55 @@ despotic_democratic_technocratic_government = {
 		government_is_despotic
 		
 		# Vanilla Government Mechanics
-		government_is_republic
+		government_is_feudal
 		government_is_settled
+		government_is_settled_non_tribal
+		may_elevate_co_monarch
 		government_uses_crown_authority
-		government_has_powerful_families
-		government_has_county_tier_noble_families
-		government_uses_domicile_but_not_adventurer
 		government_uses_domain_limit
+		government_uses_legitimacy
+		government_uses_royal_court
+		distribution_trade_routes = yes
 	}
+	
+	color = hsv{ 0.85 1 0.4 }
+	realm_mask_offset = { 0.0 0.09 }
+	realm_mask_scale = { 0.95 0.95 }
 }
 dictatorial_democratic_technocratic_government = {
+	mechanic_type = administrative
+	
 	government_rules = {
+		rulers_should_have_dynasty = yes
+		legitimacy = yes
 		state_faith = yes
-		create_cadet_branches = yes
 		landless_playable = yes
 		treasury = yes
+		treasury_vassal_development = yes
 		sticky_government = yes
 		noble_families = yes
 		house_aspirations = yes
 		replace_gold_cost_by_treasury = yes
 		disable_regnal_numbers = yes
+		allow_accolades = yes
 	}
-	mechanic_type = administrative
+	
+	house_power = { value = administrative_house_power_score }
+	domicile_type = estate
 	
 	primary_holding = church_holding
 	valid_holdings = { city_holding temple_citadel_holding }
 	required_county_holdings = { castle_holding city_holding church_holding }
-	
-	royal_court = any
+	build_queue_reserve_categories = { gold treasury }
 	
 	vassal_contract_group = technocratic_province
 	
-	domicile_type = estate
+	royal_court = any
+	
 	main_administrative_tier = county
 	min_appointment_tier = county
 	minimum_provincial_maa_tier = county
+	title_maa_setup = vassals_and_top_liege
 	
 	character_modifier = {
 		levy_size = -0.5
@@ -422,9 +495,6 @@ dictatorial_democratic_technocratic_government = {
 		city_holding_build_gold_cost = 0.5
 		city_holding_build_piety_cost = 0.5
 		city_holding_build_prestige_cost = 0.5
-		
-		# People like democracy!
-		county_opinion_add = 10
 	}
 
 	top_liege_character_modifier = {
@@ -433,10 +503,6 @@ dictatorial_democratic_technocratic_government = {
 		men_at_arms_maintenance = 1.5
 		men_at_arms_recruitment_cost = 1
 	}
-	
-	color = hsv{ 0.5 1 0.6 }
-	realm_mask_offset = { 0.0 0.09 }
-	realm_mask_scale = { 0.95 0.95 }
 	
 	flags = {
 		# COTC Government Mechanics
@@ -447,48 +513,66 @@ dictatorial_democratic_technocratic_government = {
 		government_uses_state_capacity
 		
 		# Vanilla Government Mechanics
-		government_is_republic
-		government_is_settled
+		government_is_administrative
 		government_has_influence
 		government_has_treasury
-		government_has_title_men_at_arms
 		government_has_powerful_families
 		government_has_county_tier_noble_families
+		government_uses_administrative_house_aspirations
+		government_has_provincial_law
+		government_has_estate
+		government_has_title_men_at_arms
 		government_is_settled
+		government_is_settled_non_tribal
+		may_elevate_co_monarch
 		government_uses_domicile_but_not_adventurer
 		government_uses_domain_limit
-		government_uses_admin_province_obligations
+		government_uses_legitimacy
+		government_uses_royal_court
 		government_uses_salary_budget
 		government_uses_military_budget
 		government_uses_ministry_budget
 	}
+	
+	color = hsv{ 0.85 1 0.6 }
+	realm_mask_offset = { 0.0 0.09 }
+	realm_mask_scale = { 0.95 0.95 }
 }
 presidential_democratic_technocratic_government = {
+	mechanic_type = republic
+	
 	government_rules = {
+		rulers_should_have_dynasty = yes
+		legitimacy = yes
 		state_faith = yes
-		create_cadet_branches = yes
 		landless_playable = yes
 		treasury = yes
+		treasury_vassal_development = yes
 		sticky_government = yes
 		noble_families = yes
 		house_aspirations = yes
 		replace_gold_cost_by_treasury = yes
 		disable_regnal_numbers = yes
+		uses_assembly = yes
+		allow_accolades = yes
 	}
-	mechanic_type = administrative
+	
+	house_power = { value = administrative_house_power_score }
+	domicile_type = estate
 	
 	primary_holding = church_holding
 	valid_holdings = { city_holding temple_citadel_holding }
 	required_county_holdings = { castle_holding city_holding church_holding }
-	
-	royal_court = none
+	build_queue_reserve_categories = { gold treasury }
 	
 	vassal_contract_group = technocratic_province
 	
-	domicile_type = estate
+	royal_court = none
+	
 	main_administrative_tier = county
 	min_appointment_tier = county
 	minimum_provincial_maa_tier = county
+	title_maa_setup = vassals_and_top_liege
 	
 	character_modifier = {
 		levy_size = -0.5
@@ -512,7 +596,7 @@ presidential_democratic_technocratic_government = {
 		city_holding_build_prestige_cost = 0.5
 		
 		# People like democracy!
-		county_opinion_add = 25
+		county_opinion_add = 10
 	}
 
 	top_liege_character_modifier = {
@@ -522,10 +606,6 @@ presidential_democratic_technocratic_government = {
 		men_at_arms_recruitment_cost = 1
 	}
 	
-	color = hsv{ 0.5 1 0.8 }
-	realm_mask_offset = { 0.0 0.09 }
-	realm_mask_scale = { 0.95 0.95 }
-	
 	flags = {
 		# COTC Government Mechanics
 		government_is_state
@@ -533,51 +613,71 @@ presidential_democratic_technocratic_government = {
 		government_is_democratic
 		government_is_presidential
 		government_uses_state_capacity
-		government_has_legislature
+		#government_has_legislature
 		
 		# Vanilla Government Mechanics
 		government_is_republic
-		government_is_settled
+		government_is_administrative
 		government_has_influence
 		government_has_treasury
-		government_has_title_men_at_arms
 		government_has_powerful_families
 		government_has_county_tier_noble_families
+		government_uses_administrative_house_aspirations
+		government_has_provincial_law
+		government_has_estate
+		government_has_title_men_at_arms
 		government_is_settled
+		government_is_settled_non_tribal
+		may_elevate_co_monarch
 		government_uses_domicile_but_not_adventurer
 		government_uses_domain_limit
-		government_uses_admin_province_obligations
+		government_uses_legitimacy
+		government_uses_royal_court
 		government_uses_salary_budget
 		government_uses_military_budget
 		government_uses_ministry_budget
+		government_has_assembly
 	}
+	
+	color = hsv{ 0.85 1 0.8 }
+	realm_mask_offset = { 0.0 0.09 }
+	realm_mask_scale = { 0.95 0.95 }
 }
 parliamentary_democratic_technocratic_government = {
+	mechanic_type = republic
+	
 	government_rules = {
+		rulers_should_have_dynasty = yes
+		legitimacy = yes
 		state_faith = yes
-		create_cadet_branches = yes
 		landless_playable = yes
 		treasury = yes
+		treasury_vassal_development = yes
 		sticky_government = yes
 		noble_families = yes
 		house_aspirations = yes
 		replace_gold_cost_by_treasury = yes
 		disable_regnal_numbers = yes
+		uses_assembly = yes
+		allow_accolades = yes
 	}
-	mechanic_type = administrative
+	
+	house_power = { value = administrative_house_power_score }
+	domicile_type = estate
 	
 	primary_holding = church_holding
 	valid_holdings = { city_holding temple_citadel_holding }
 	required_county_holdings = { castle_holding city_holding church_holding }
-	
-	royal_court = none
+	build_queue_reserve_categories = { gold treasury }
 	
 	vassal_contract_group = technocratic_province
 	
-	domicile_type = estate
+	royal_court = none
+	
 	main_administrative_tier = county
 	min_appointment_tier = county
 	minimum_provincial_maa_tier = county
+	title_maa_setup = vassals_and_top_liege
 	
 	character_modifier = {
 		levy_size = -0.5
@@ -610,10 +710,6 @@ parliamentary_democratic_technocratic_government = {
 		men_at_arms_maintenance = 1.5
 		men_at_arms_recruitment_cost = 1
 	}
-	
-	color = hsv{ 0.5 1 1 }
-	realm_mask_offset = { 0.0 0.09 }
-	realm_mask_scale = { 0.95 0.95 }
 	
 	flags = {
 		# COTC Government Mechanics
@@ -622,46 +718,64 @@ parliamentary_democratic_technocratic_government = {
 		government_is_democratic
 		government_is_parliamentary
 		government_uses_state_capacity
-		government_has_legislature
+		#government_has_legislature
 		
 		# Vanilla Government Mechanics
 		government_is_republic
-		government_is_settled
+		government_is_administrative
 		government_has_influence
 		government_has_treasury
-		government_has_title_men_at_arms
 		government_has_powerful_families
 		government_has_county_tier_noble_families
+		government_uses_administrative_house_aspirations
+		government_has_provincial_law
+		government_has_estate
+		government_has_title_men_at_arms
 		government_is_settled
+		government_is_settled_non_tribal
+		may_elevate_co_monarch
 		government_uses_domicile_but_not_adventurer
 		government_uses_domain_limit
-		government_uses_admin_province_obligations
+		government_uses_legitimacy
+		government_uses_royal_court
 		government_uses_salary_budget
 		government_uses_military_budget
 		government_uses_ministry_budget
+		government_has_assembly
 	}
+	
+	color = hsv{ 0.85 1 1 }
+	realm_mask_offset = { 0.0 0.09 }
+	realm_mask_scale = { 0.95 0.95 }
 }
 despotic_meritocratic_technocratic_government = {
+	mechanic_type = administrative
+	
 	government_rules = {
-		state_faith = yes
-		create_cadet_branches = yes
 		rulers_should_have_dynasty = yes
-		noble_families = yes
-		house_aspirations = yes
+		state_faith = yes
+		legitimacy = yes
+		disable_regnal_numbers = yes
+		allow_accolades = yes
 	}
-	mechanic_type = feudal
 	
 	primary_holding = church_holding
 	valid_holdings = { city_holding temple_citadel_holding }
 	required_county_holdings = { castle_holding city_holding church_holding }
-	
-	royal_court = any
+	build_queue_reserve_categories = { gold }
 	
 	vassal_contract_group = feudal_vassal
 	
-	domicile_type = estate
+	royal_court = any
+	
+	main_administrative_tier = county
+	min_appointment_tier = county
+	minimum_provincial_maa_tier = county
+	title_maa_setup = vassals_and_top_liege
 	
 	character_modifier = {
+		# This is not a real administrative government type
+		men_at_arms_title_cap = -10000
 		# City Penalties
 		city_holding_build_speed = -0.5
 		city_holding_build_gold_cost = 0.5
@@ -669,58 +783,63 @@ despotic_meritocratic_technocratic_government = {
 		city_holding_build_prestige_cost = 0.5
 	}
 	
-	color = hsv{ 0.6 0.5 0.4 }
-	realm_mask_offset = { 0.0 0.09 }
-	realm_mask_scale = { 0.95 0.95 }
-	
 	flags = {
 		# COTC Government Mechanics
 		government_is_state
 		government_is_technocratic
 		government_is_meritocratic
 		government_is_despotic
-		vassals_have_technocratic_staff
 		
 		# Vanilla Government Mechanics
 		government_is_feudal
 		government_is_settled
+		government_is_settled_non_tribal
 		may_elevate_co_monarch
 		government_uses_crown_authority
-		government_has_powerful_families
-		government_has_county_tier_noble_families
-		government_uses_domicile_but_not_adventurer
 		government_uses_domain_limit
+		government_uses_legitimacy
+		government_uses_royal_court
+		distribution_trade_routes = yes
 	}
+	
+	color = hsv{ 0.78 0.5 0.4 }
+	realm_mask_offset = { 0.0 0.09 }
+	realm_mask_scale = { 0.95 0.95 }
 }
 dictatorial_meritocratic_technocratic_government = {
+	mechanic_type = administrative
+	
 	government_rules = {
-		state_faith = yes
-		create_cadet_branches = yes
 		rulers_should_have_dynasty = yes
+		state_faith = yes
+		legitimacy = yes
 		landless_playable = yes
 		treasury = yes
+		treasury_vassal_development = yes
 		sticky_government = yes
-		legitimacy = yes
 		noble_families = yes
 		house_aspirations = yes
 		replace_gold_cost_by_treasury = yes
+		disable_regnal_numbers = yes
+		allow_accolades = yes
 	}
-	mechanic_type = administrative
-	fallback = 2
+	
+	house_power = { value = administrative_house_power_score }
+	domicile_type = estate
 	
 	primary_holding = church_holding
 	valid_holdings = { city_holding temple_citadel_holding }
 	required_county_holdings = { castle_holding city_holding church_holding }
+	build_queue_reserve_categories = { gold treasury }
+	
+	vassal_contract_group = technocratic_province
 	
 	royal_court = any
 	
-	vassal_contract_group = technocratic_province
-	min_appointment_tier = county
-	
-	domicile_type = estate
 	main_administrative_tier = county
 	min_appointment_tier = county
 	minimum_provincial_maa_tier = county
+	title_maa_setup = vassals_and_top_liege
 	
 	character_modifier = {
 		levy_size = -0.5
@@ -751,10 +870,6 @@ dictatorial_meritocratic_technocratic_government = {
 		men_at_arms_recruitment_cost = 1
 	}
 	
-	color = hsv{ 0.6 1 0.6 }
-	realm_mask_offset = { 0.0 0.09 }
-	realm_mask_scale = { 0.95 0.95 }
-	
 	flags = {
 		# COTC Government Mechanics
 		government_is_state
@@ -762,53 +877,68 @@ dictatorial_meritocratic_technocratic_government = {
 		government_is_meritocratic
 		government_is_dictatorial
 		government_uses_state_capacity
-		vassals_have_technocratic_staff
 		
 		# Vanilla Government Mechanics
 		government_is_administrative
-		government_is_settled
-		may_elevate_co_monarch
 		government_has_influence
 		government_has_treasury
-		government_has_title_men_at_arms
 		government_has_powerful_families
 		government_has_county_tier_noble_families
+		government_uses_administrative_house_aspirations
+		government_has_provincial_law
+		government_has_estate
+		government_has_title_men_at_arms
 		government_is_settled
+		government_is_settled_non_tribal
+		may_elevate_co_monarch
 		government_uses_domicile_but_not_adventurer
 		government_uses_domain_limit
-		government_uses_admin_province_obligations
+		government_uses_legitimacy
+		government_uses_royal_court
 		government_uses_salary_budget
 		government_uses_military_budget
 		government_uses_ministry_budget
 	}
+	
+	color = hsv{ 0.78 1 0.6 }
+	realm_mask_offset = { 0.0 0.09 }
+	realm_mask_scale = { 0.95 0.95 }
 }
 presidential_meritocratic_technocratic_government = {
+	mechanic_type = republic
+	
 	government_rules = {
-		state_faith = yes
-		create_cadet_branches = yes
 		rulers_should_have_dynasty = yes
+		state_faith = yes
+		legitimacy = yes
 		landless_playable = yes
 		treasury = yes
+		treasury_vassal_development = yes
 		sticky_government = yes
-		legitimacy = yes
 		noble_families = yes
 		house_aspirations = yes
 		replace_gold_cost_by_treasury = yes
+		disable_regnal_numbers = yes
+		uses_assembly = yes
+		allow_accolades = yes
 	}
-	mechanic_type = administrative
+	
+	house_power = { value = administrative_house_power_score }
+	domicile_type = estate
 	
 	primary_holding = church_holding
 	valid_holdings = { city_holding temple_citadel_holding }
 	required_county_holdings = { castle_holding city_holding church_holding }
-	
-	royal_court = none
+	build_queue_reserve_categories = { gold treasury }
 	
 	vassal_contract_group = technocratic_province
 	
-	domicile_type = estate
+	royal_court = none
+	
 	main_administrative_tier = county
 	min_appointment_tier = county
 	minimum_provincial_maa_tier = county
+	title_maa_setup = vassals_and_top_liege
 	
 	character_modifier = {
 		levy_size = -0.5
@@ -842,10 +972,6 @@ presidential_meritocratic_technocratic_government = {
 		men_at_arms_recruitment_cost = 1
 	}
 	
-	color = hsv{ 0.6 0.5 0.8 }
-	realm_mask_offset = { 0.0 0.09 }
-	realm_mask_scale = { 0.95 0.95 }
-	
 	flags = {
 		# COTC Government Mechanics
 		government_is_state
@@ -853,54 +979,71 @@ presidential_meritocratic_technocratic_government = {
 		government_is_meritocratic
 		government_is_presidential
 		government_uses_state_capacity
-		government_has_legislature
-		vassals_have_technocratic_staff
+		#government_has_legislature
 		
 		# Vanilla Government Mechanics
+		government_is_republic
 		government_is_administrative
-		government_is_settled
-		may_elevate_co_monarch
 		government_has_influence
 		government_has_treasury
-		government_has_title_men_at_arms
 		government_has_powerful_families
 		government_has_county_tier_noble_families
+		government_uses_administrative_house_aspirations
+		government_has_provincial_law
+		government_has_estate
+		government_has_title_men_at_arms
 		government_is_settled
+		government_is_settled_non_tribal
+		may_elevate_co_monarch
 		government_uses_domicile_but_not_adventurer
 		government_uses_domain_limit
-		government_uses_admin_province_obligations
+		government_uses_legitimacy
+		government_uses_royal_court
 		government_uses_salary_budget
 		government_uses_military_budget
 		government_uses_ministry_budget
+		government_has_assembly
 	}
+	
+	color = hsv{ 0.78 0.5 0.8 }
+	realm_mask_offset = { 0.0 0.09 }
+	realm_mask_scale = { 0.95 0.95 }
 }
 parliamentary_meritocratic_technocratic_government = {
+	mechanic_type = republic
+	
 	government_rules = {
-		state_faith = yes
-		create_cadet_branches = yes
 		rulers_should_have_dynasty = yes
+		state_faith = yes
+		legitimacy = yes
 		landless_playable = yes
 		treasury = yes
+		treasury_vassal_development = yes
 		sticky_government = yes
-		legitimacy = yes
 		noble_families = yes
 		house_aspirations = yes
 		replace_gold_cost_by_treasury = yes
+		disable_regnal_numbers = yes
+		uses_assembly = yes
+		allow_accolades = yes
 	}
-	mechanic_type = administrative
+	
+	house_power = { value = administrative_house_power_score }
+	domicile_type = estate
 	
 	primary_holding = church_holding
 	valid_holdings = { city_holding temple_citadel_holding }
 	required_county_holdings = { castle_holding city_holding church_holding }
-	
-	royal_court = none
+	build_queue_reserve_categories = { gold treasury }
 	
 	vassal_contract_group = technocratic_province
 	
-	domicile_type = estate
+	royal_court = none
+	
 	main_administrative_tier = county
 	min_appointment_tier = county
 	minimum_provincial_maa_tier = county
+	title_maa_setup = vassals_and_top_liege
 	
 	character_modifier = {
 		levy_size = -0.5
@@ -934,10 +1077,6 @@ parliamentary_meritocratic_technocratic_government = {
 		men_at_arms_recruitment_cost = 1
 	}
 	
-	color = hsv{ 0.6 0.5 1 }
-	realm_mask_offset = { 0.0 0.09 }
-	realm_mask_scale = { 0.95 0.95 }
-	
 	flags = {
 		# COTC Government Mechanics
 		government_is_state
@@ -945,47 +1084,55 @@ parliamentary_meritocratic_technocratic_government = {
 		government_is_meritocratic
 		government_is_parliamentary
 		government_uses_state_capacity
-		government_has_legislature
-		vassals_have_technocratic_staff
+		#government_has_legislature
 		
 		# Vanilla Government Mechanics
+		government_is_republic
 		government_is_administrative
-		government_is_settled
-		may_elevate_co_monarch
 		government_has_influence
 		government_has_treasury
-		government_has_title_men_at_arms
 		government_has_powerful_families
 		government_has_county_tier_noble_families
+		government_uses_administrative_house_aspirations
+		government_has_provincial_law
+		government_has_estate
+		government_has_title_men_at_arms
 		government_is_settled
+		government_is_settled_non_tribal
+		may_elevate_co_monarch
 		government_uses_domicile_but_not_adventurer
 		government_uses_domain_limit
-		government_uses_admin_province_obligations
+		government_uses_legitimacy
+		government_uses_royal_court
 		government_uses_salary_budget
 		government_uses_military_budget
 		government_uses_ministry_budget
+		government_has_assembly
 	}
+	
+	color = hsv{ 0.78 0.5 1 }
+	realm_mask_offset = { 0.0 0.09 }
+	realm_mask_scale = { 0.95 0.95 }
 }
 despotic_aristocratic_technocratic_government = {
+	mechanic_type = feudal
+	
 	government_rules = {
-		state_faith = yes
 		create_cadet_branches = yes
 		rulers_should_have_dynasty = yes
 		legitimacy = yes
-		noble_families = yes
-		house_aspirations = yes
+		state_faith = yes
+		allow_accolades = yes
 	}
-	mechanic_type = feudal
 	
 	primary_holding = church_holding
 	valid_holdings = { city_holding temple_citadel_holding }
 	required_county_holdings = { castle_holding city_holding church_holding }
-	
-	royal_court = any
+	build_queue_reserve_categories = { gold }
 	
 	vassal_contract_group = feudal_vassal
 	
-	domicile_type = estate
+	royal_court = any
 	
 	character_modifier = {
 		# City Penalties
@@ -994,10 +1141,6 @@ despotic_aristocratic_technocratic_government = {
 		city_holding_build_piety_cost = 0.5
 		city_holding_build_prestige_cost = 0.5
 	}
-	
-	color = hsv{ 0.6 1 0.4 }
-	realm_mask_offset = { 0.0 0.09 }
-	realm_mask_scale = { 0.95 0.95 }
 	
 	flags = {
 		# COTC Government Mechanics
@@ -1009,41 +1152,53 @@ despotic_aristocratic_technocratic_government = {
 		# Vanilla Government Mechanics
 		government_is_feudal
 		government_is_settled
+		government_is_settled_non_tribal
 		may_elevate_co_monarch
 		government_uses_crown_authority
-		government_has_powerful_families
-		government_has_county_tier_noble_families
-		government_uses_domicile_but_not_adventurer
 		government_uses_domain_limit
+		government_uses_legitimacy
+		government_uses_royal_court
+		distribution_trade_routes = yes
 	}
+	
+	color = hsv{ 0.78 1 0.4 }
+	realm_mask_offset = { 0.0 0.09 }
+	realm_mask_scale = { 0.95 0.95 }
 }
 dictatorial_aristocratic_technocratic_government = {
+	mechanic_type = administrative
+	
 	government_rules = {
-		state_faith = yes
 		create_cadet_branches = yes
 		rulers_should_have_dynasty = yes
+		legitimacy = yes
+		state_faith = yes
 		landless_playable = yes
 		treasury = yes
+		treasury_vassal_development = yes
 		sticky_government = yes
-		legitimacy = yes
 		noble_families = yes
 		house_aspirations = yes
 		replace_gold_cost_by_treasury = yes
+		allow_accolades = yes
 	}
-	mechanic_type = administrative
+	
+	house_power = { value = administrative_house_power_score }
+	domicile_type = estate
 	
 	primary_holding = church_holding
 	valid_holdings = { city_holding temple_citadel_holding }
 	required_county_holdings = { castle_holding city_holding church_holding }
-	
-	royal_court = any
+	build_queue_reserve_categories = { gold treasury }
 	
 	vassal_contract_group = technocratic_province
 	
-	domicile_type = estate
+	royal_court = any
+	
 	main_administrative_tier = county
 	min_appointment_tier = county
 	minimum_provincial_maa_tier = county
+	title_maa_setup = vassals_and_top_liege
 	
 	character_modifier = {
 		levy_size = -0.5
@@ -1074,10 +1229,6 @@ dictatorial_aristocratic_technocratic_government = {
 		men_at_arms_recruitment_cost = 1
 	}
 	
-	color = hsv{ 0.6 1 0.6 }
-	realm_mask_offset = { 0.0 0.09 }
-	realm_mask_scale = { 0.95 0.95 }
-	
 	flags = {
 		# COTC Government Mechanics
 		government_is_state
@@ -1088,49 +1239,65 @@ dictatorial_aristocratic_technocratic_government = {
 		
 		# Vanilla Government Mechanics
 		government_is_administrative
-		government_is_settled
-		may_elevate_co_monarch
 		government_has_influence
 		government_has_treasury
-		government_has_title_men_at_arms
 		government_has_powerful_families
 		government_has_county_tier_noble_families
+		government_uses_administrative_house_aspirations
+		government_has_provincial_law
+		government_has_estate
+		government_has_title_men_at_arms
 		government_is_settled
+		government_is_settled_non_tribal
+		may_elevate_co_monarch
 		government_uses_domicile_but_not_adventurer
 		government_uses_domain_limit
-		government_uses_admin_province_obligations
+		government_uses_legitimacy
+		government_uses_royal_court
 		government_uses_salary_budget
 		government_uses_military_budget
 		government_uses_ministry_budget
 	}
+	
+	color = hsv{ 0.78 1 0.6 }
+	realm_mask_offset = { 0.0 0.09 }
+	realm_mask_scale = { 0.95 0.95 }
 }
 presidential_aristocratic_technocratic_government = {
+	mechanic_type = republic
+	
 	government_rules = {
-		state_faith = yes
 		create_cadet_branches = yes
 		rulers_should_have_dynasty = yes
+		legitimacy = yes
+		state_faith = yes
 		landless_playable = yes
 		treasury = yes
+		treasury_vassal_development = yes
 		sticky_government = yes
-		legitimacy = yes
 		noble_families = yes
 		house_aspirations = yes
 		replace_gold_cost_by_treasury = yes
+		uses_assembly = yes
+		allow_accolades = yes
 	}
-	mechanic_type = administrative
+	
+	house_power = { value = administrative_house_power_score }
+	domicile_type = estate
 	
 	primary_holding = church_holding
 	valid_holdings = { city_holding temple_citadel_holding }
 	required_county_holdings = { castle_holding city_holding church_holding }
-	
-	royal_court = none
+	build_queue_reserve_categories = { gold treasury }
 	
 	vassal_contract_group = technocratic_province
 	
-	domicile_type = estate
+	royal_court = none
+	
 	main_administrative_tier = county
 	min_appointment_tier = county
 	minimum_provincial_maa_tier = county
+	title_maa_setup = vassals_and_top_liege
 	
 	character_modifier = {
 		levy_size = -0.5
@@ -1164,10 +1331,6 @@ presidential_aristocratic_technocratic_government = {
 		men_at_arms_recruitment_cost = 1
 	}
 	
-	color = hsv{ 0.6 1 0.8 }
-	realm_mask_offset = { 0.0 0.09 }
-	realm_mask_scale = { 0.95 0.95 }
-	
 	flags = {
 		# COTC Government Mechanics
 		government_is_state
@@ -1175,53 +1338,71 @@ presidential_aristocratic_technocratic_government = {
 		government_is_aristocratic
 		government_is_presidential
 		government_uses_state_capacity
-		government_has_legislature
+		#government_has_legislature
 		
 		# Vanilla Government Mechanics
+		government_is_republic
 		government_is_administrative
-		government_is_settled
-		may_elevate_co_monarch
 		government_has_influence
 		government_has_treasury
-		government_has_title_men_at_arms
 		government_has_powerful_families
 		government_has_county_tier_noble_families
+		government_uses_administrative_house_aspirations
+		government_has_provincial_law
+		government_has_estate
+		government_has_title_men_at_arms
 		government_is_settled
+		government_is_settled_non_tribal
+		may_elevate_co_monarch
 		government_uses_domicile_but_not_adventurer
 		government_uses_domain_limit
-		government_uses_admin_province_obligations
+		government_uses_legitimacy
+		government_uses_royal_court
 		government_uses_salary_budget
 		government_uses_military_budget
 		government_uses_ministry_budget
+		government_has_assembly
 	}
+	
+	color = hsv{ 0.78 1 0.8 }
+	realm_mask_offset = { 0.0 0.09 }
+	realm_mask_scale = { 0.95 0.95 }
 }
 parliamentary_aristocratic_technocratic_government = {
+	mechanic_type = republic
+	
 	government_rules = {
-		state_faith = yes
 		create_cadet_branches = yes
 		rulers_should_have_dynasty = yes
+		legitimacy = yes
+		state_faith = yes
 		landless_playable = yes
 		treasury = yes
+		treasury_vassal_development = yes
 		sticky_government = yes
-		legitimacy = yes
 		noble_families = yes
 		house_aspirations = yes
 		replace_gold_cost_by_treasury = yes
+		uses_assembly = yes
+		allow_accolades = yes
 	}
-	mechanic_type = administrative
+	
+	house_power = { value = administrative_house_power_score }
+	domicile_type = estate
 	
 	primary_holding = church_holding
 	valid_holdings = { city_holding temple_citadel_holding }
 	required_county_holdings = { castle_holding city_holding church_holding }
-	
-	royal_court = none
+	build_queue_reserve_categories = { gold treasury }
 	
 	vassal_contract_group = technocratic_province
 	
-	domicile_type = estate
+	royal_court = none
+	
 	main_administrative_tier = county
 	min_appointment_tier = county
 	minimum_provincial_maa_tier = county
+	title_maa_setup = vassals_and_top_liege
 	
 	character_modifier = {
 		levy_size = -0.5
@@ -1255,10 +1436,6 @@ parliamentary_aristocratic_technocratic_government = {
 		men_at_arms_recruitment_cost = 1
 	}
 	
-	color = hsv{ 0.6 1 1 }
-	realm_mask_offset = { 0.0 0.09 }
-	realm_mask_scale = { 0.95 0.95 }
-	
 	flags = {
 		# COTC Government Mechanics
 		government_is_state
@@ -1266,23 +1443,33 @@ parliamentary_aristocratic_technocratic_government = {
 		government_is_aristocratic
 		government_is_parliamentary
 		government_uses_state_capacity
-		government_has_legislature
+		#government_has_legislature
 		
 		# Vanilla Government Mechanics
+		government_is_republic
 		government_is_administrative
-		government_is_settled
-		may_elevate_co_monarch
 		government_has_influence
 		government_has_treasury
-		government_has_title_men_at_arms
 		government_has_powerful_families
 		government_has_county_tier_noble_families
+		government_uses_administrative_house_aspirations
+		government_has_provincial_law
+		government_has_estate
+		government_has_title_men_at_arms
 		government_is_settled
+		government_is_settled_non_tribal
+		may_elevate_co_monarch
 		government_uses_domicile_but_not_adventurer
 		government_uses_domain_limit
-		government_uses_admin_province_obligations
+		government_uses_legitimacy
+		government_uses_royal_court
 		government_uses_salary_budget
 		government_uses_military_budget
 		government_uses_ministry_budget
+		government_has_assembly
 	}
+	
+	color = hsv{ 0.78 1 1 }
+	realm_mask_offset = { 0.0 0.09 }
+	realm_mask_scale = { 0.95 0.95 }
 }
